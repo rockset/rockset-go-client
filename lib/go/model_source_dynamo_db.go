@@ -15,13 +15,11 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+type SourceDynamoDb struct {
+	// name of DynamoDB table containing data
+	TableName string `json:"table_name"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m SourceDynamoDb) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

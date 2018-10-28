@@ -15,13 +15,17 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+type InputField struct {
+	// The name of a field, parsed as a SQL qualified name
+	FieldName string `json:"field_name,omitempty"`
+	// Define the behaviour if fieldName is missing or is null
+	IfMissing string `json:"if_missing,omitempty"`
+	// If true, then drop fieldName from the document
+	IsDrop bool `json:"is_drop,omitempty"`
+	// Sql parameter name
+	Param string `json:"param,omitempty"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m InputField) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

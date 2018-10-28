@@ -23,6 +23,10 @@ type Source struct {
 	IntegrationName string `json:"integration_name"`
 	// configuration for ingestion from S3
 	S3 *SourceS3 `json:"s3,omitempty"`
+	// configuration for ingestion from kinesis stream
+	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
+	// configuration for ingestion from  a dynamodb table
+	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	// can be one of: CSV
 	Format string `json:"format,omitempty"`
 	// a json doc that describes the params for the specified format

@@ -32,6 +32,8 @@ type Resource struct {
 	Stats *ResourceStats `json:"stats,omitempty"`
 	// number of seconds after which data is purged based on event time
 	RetentionSecs int64 `json:"retention_secs,omitempty"`
+	// list of mappings applied on all documents in a collection
+	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 }
 func (m Resource) PrintResponse() {
     r, err := json.Marshal(m)

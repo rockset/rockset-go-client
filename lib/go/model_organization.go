@@ -15,13 +15,14 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+// An organization in Rockset is a container for users and collections.
+type Organization struct {
+	// name of the organization
+	Name string `json:"name"`
+	InputRateLimitMbs int64 `json:"inputRateLimitMbs,omitempty"`
+	SizeLimitGb int64 `json:"sizeLimitGb,omitempty"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m Organization) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

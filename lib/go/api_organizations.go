@@ -18,184 +18,28 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"fmt"
+	"github.com/antihax/optional"
 )
 
-type IntegrationsApiService Service
+type OrganizationsApiService Service
 
 /* 
-IntegrationsApiService Create Integration
-Create a new integration with Rockset.
- * @param body integration credentials
+OrganizationsApiService Get Current Organization
+Get information about current organization.
 
-@return CreateIntegrationResponse
+@return Organization
 */
-func (a *IntegrationsApiService) Create(body CreateIntegrationRequest) (CreateIntegrationResponse, *http.Response, error) {
+func (a *OrganizationsApiService) Get() (Organization, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
+		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue CreateIntegrationResponse
+		localVarReturnValue Organization
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
-	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
-	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-
-	// body params
-	localVarPostBody = &body
-	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
-	localVarHttpResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHttpResponse, err
-	}
-
-	if localVarHttpResponse.StatusCode < 300 {
-		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
-			return localVarReturnValue, localVarHttpResponse, err
-		}
-	}
-
-	if localVarHttpResponse.StatusCode >= 300 {
-		newErr := GenericSwaggerError{
-			body: localVarBody,
-			error: localVarHttpResponse.Status,
-		}
-		
-		if localVarHttpResponse.StatusCode == 200 {
-			var v CreateIntegrationResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
-				return localVarReturnValue, localVarHttpResponse, newErr
-		}
-		
-		return localVarReturnValue, localVarHttpResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHttpResponse, nil
-}
-
-func (a *IntegrationsApiService) CreateStream(body CreateIntegrationRequest) (string, *http.Response, error) {
-	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-        localVarBody []byte
-	)
-
-	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHttpContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
-	if localVarHttpContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHttpContentType
-	}
-
-	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
-	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
-	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
-
-	// body params
-	localVarPostBody = &body
-	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return "", nil, err
-	}
-
-	localVarHttpResponse, err := a.Client.callAPI(r)
-	if err != nil || localVarHttpResponse == nil {
-		return "", localVarHttpResponse, err
-	}
-
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
-
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
-
-    if localVarHttpResponse.StatusCode >= 300 {
-		return out.String(), localVarHttpResponse, nil
-	}
-
-	return out.String(), localVarHttpResponse, nil
-}
-
-/* 
-IntegrationsApiService Delete Integration
-Remove an integration.
- * @param integration name of the integration
-
-@return DeleteIntegrationResponse
-*/
-func (a *IntegrationsApiService) Delete(integration string) (DeleteIntegrationResponse, *http.Response, error) {
-	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
-		localVarReturnValue DeleteIntegrationResponse
-	)
-
-	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations/{integration}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", fmt.Sprintf("%v", integration), -1)
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -249,7 +93,7 @@ func (a *IntegrationsApiService) Delete(integration string) (DeleteIntegrationRe
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v DeleteIntegrationResponse
+			var v Organization
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -265,9 +109,9 @@ func (a *IntegrationsApiService) Delete(integration string) (DeleteIntegrationRe
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *IntegrationsApiService) DeleteStream(integration string) (string, *http.Response, error) {
+func (a *OrganizationsApiService) GetStream() (string, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
+		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
@@ -275,8 +119,7 @@ func (a *IntegrationsApiService) DeleteStream(integration string) (string, *http
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations/{integration}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", fmt.Sprintf("%v", integration), -1)
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -330,24 +173,22 @@ func (a *IntegrationsApiService) DeleteStream(integration string) (string, *http
 }
 
 /* 
-IntegrationsApiService Get Integration
-Get information about a single integration.
- * @param integration name of the integration
+OrganizationsApiService Retrieve billing information
+Get stored billing information for your organization.
 
-@return GetIntegrationResponse
+@return Response
 */
-func (a *IntegrationsApiService) Get(integration string) (GetIntegrationResponse, *http.Response, error) {
+func (a *OrganizationsApiService) Get_1() (Response, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue GetIntegrationResponse
+		localVarReturnValue Response
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations/{integration}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", fmt.Sprintf("%v", integration), -1)
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/billing"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -401,7 +242,7 @@ func (a *IntegrationsApiService) Get(integration string) (GetIntegrationResponse
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v GetIntegrationResponse
+			var v Response
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -417,7 +258,7 @@ func (a *IntegrationsApiService) Get(integration string) (GetIntegrationResponse
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *IntegrationsApiService) GetStream(integration string) (string, *http.Response, error) {
+func (a *OrganizationsApiService) Get_1Stream() (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -427,8 +268,7 @@ func (a *IntegrationsApiService) GetStream(integration string) (string, *http.Re
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations/{integration}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", fmt.Sprintf("%v", integration), -1)
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/billing"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -482,22 +322,22 @@ func (a *IntegrationsApiService) GetStream(integration string) (string, *http.Re
 }
 
 /* 
-IntegrationsApiService List Integrations
-List all integrations for organization.
+OrganizationsApiService Retrieve Data Limits
+Get the current data limits for your organization.
 
-@return ListIntegrationsResponse
+@return Response
 */
-func (a *IntegrationsApiService) List() (ListIntegrationsResponse, *http.Response, error) {
+func (a *OrganizationsApiService) Get_2() (Response, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue ListIntegrationsResponse
+		localVarReturnValue Response
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/limits"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -551,7 +391,7 @@ func (a *IntegrationsApiService) List() (ListIntegrationsResponse, *http.Respons
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v ListIntegrationsResponse
+			var v Response
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -567,7 +407,7 @@ func (a *IntegrationsApiService) List() (ListIntegrationsResponse, *http.Respons
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *IntegrationsApiService) ListStream() (string, *http.Response, error) {
+func (a *OrganizationsApiService) Get_2Stream() (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -577,12 +417,182 @@ func (a *IntegrationsApiService) ListStream() (string, *http.Response, error) {
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/integrations"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/limits"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+    reader := bufio.NewReader(localVarHttpResponse.Body)
+    localVarBody, err= reader.ReadBytes('\n')
+
+    var out bytes.Buffer
+    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+    if err != nil {
+        return "", localVarHttpResponse, err
+    }
+
+    if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/* 
+OrganizationsApiService Retrieve Usage Information
+Get ingestion metrics for your collections over time.
+ * @param optional nil or *Get_3Opts - Optional Parameters:
+     * @param "Start" (optional.String) -  usage window start (ISO format)
+     * @param "End" (optional.String) -  usage window end (ISO format)
+
+@return Response
+*/
+
+type Get_3Opts struct { 
+	Start optional.String
+	End optional.String
+}
+
+func (a *OrganizationsApiService) Get_3(localVarOptionals *Get_3Opts) (Response, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue Response
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/stats"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.Start.IsSet() {
+		localVarQueryParams.Add("start", parameterToString(localVarOptionals.Start.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.End.IsSet() {
+		localVarQueryParams.Add("end", parameterToString(localVarOptionals.End.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v Response
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *OrganizationsApiService) Get_3Stream(localVarOptionals *Get_3Opts) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+        localVarBody []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/stats"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.Start.IsSet() {
+		localVarQueryParams.Add("start", parameterToString(localVarOptionals.Start.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.End.IsSet() {
+		localVarQueryParams.Add("end", parameterToString(localVarOptionals.End.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 

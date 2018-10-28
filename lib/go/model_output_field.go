@@ -15,13 +15,15 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+type OutputField struct {
+	// The name of a field, parsed as a SQL qualified name 
+	FieldName string `json:"field_name,omitempty"`
+	// The name of a sql function
+	Value *SqlExpression `json:"value,omitempty"`
+	// Error in Mapping execution: 'skip' or 'fail' 
+	OnError string `json:"on_error,omitempty"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m OutputField) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

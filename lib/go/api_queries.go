@@ -157,6 +157,10 @@ func (a *QueriesApiService) QueryStream(body QueryRequest, localVarOptionals *Qu
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	// body params
 	localVarPostBody = &body

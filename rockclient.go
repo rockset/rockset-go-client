@@ -8,6 +8,8 @@ import (
 	api "github.com/rockset/rockset-go-client/lib/go"
 )
 
+var Version="0.4.7"
+
 type RockClient struct {
 	apiServer string
 	common    api.Service
@@ -42,7 +44,7 @@ func Client(apiKey string, apiServer string) *RockClient {
 	c := &RockClient{}
 	cfg := api.NewConfiguration()
 	cfg.BasePath = apiServer
-	c.common.Client = api.ApiClient(cfg, apiKey)
+	c.common.Client = api.ApiClient(cfg, apiKey, Version)
 
 	// API Services
 	c.ApiKeys = (*api.ApiKeysApiService)(&c.common)

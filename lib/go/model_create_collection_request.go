@@ -26,6 +26,8 @@ type CreateCollectionRequest struct {
 	RetentionSecs int64 `json:"retention_secs,omitempty"`
 	// configuration for event data
 	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
+	// list of mappings
+	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 }
 func (m CreateCollectionRequest) PrintResponse() {
     r, err := json.Marshal(m)

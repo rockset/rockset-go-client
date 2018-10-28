@@ -39,6 +39,7 @@ var (
 type APIClient struct {
 	cfg    *Configuration
     apiKey string
+    version string
 }
 
 type Service struct {
@@ -47,7 +48,7 @@ type Service struct {
 
 // Client creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
-func ApiClient(cfg *Configuration, apiKey string) *APIClient {
+func ApiClient(cfg *Configuration, apiKey string, Version string) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
@@ -55,7 +56,7 @@ func ApiClient(cfg *Configuration, apiKey string) *APIClient {
     c := &APIClient{}
     c.cfg = cfg
     c.apiKey = apiKey
-
+    c.version = Version
 	return c
 }
 
@@ -77,6 +78,11 @@ func selectHeaderContentType(contentTypes []string) string {
 // selectHeaderAccept join all accept types and return
 func (c *APIClient) selectHeaderAuthorization(authorization string) string {
 	return c.apiKey
+}
+
+// selectVersion return version 
+func (c *APIClient) selectVersion() string {
+	return c.version
 }
 
 // contains is a case insenstive match, finding needle in a haystack

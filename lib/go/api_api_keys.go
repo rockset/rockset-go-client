@@ -25,7 +25,7 @@ type ApiKeysApiService Service
 
 /* 
 ApiKeysApiService Create API Key
-Create a new API key for a user.
+Create a new API key for the authenticated user.
  * @param body JSON object
 
 @return CreateApiKeyResponse
@@ -144,6 +144,167 @@ func (a *ApiKeysApiService) CreateStream(body CreateApiKeyRequest) (string, *htt
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
+
+	// body params
+	localVarPostBody = &body
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+    reader := bufio.NewReader(localVarHttpResponse.Body)
+    localVarBody, err= reader.ReadBytes('\n')
+
+    var out bytes.Buffer
+    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+    if err != nil {
+        return "", localVarHttpResponse, err
+    }
+
+    if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/* 
+ApiKeysApiService Create API Key for any user (admin only)
+Create a new API key for any user (admin only).
+ * @param body JSON object
+ * @param user
+
+@return CreateApiKeyResponse
+*/
+func (a *ApiKeysApiService) Create_1(body CreateApiKeyRequest, user string) (CreateApiKeyResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue CreateApiKeyResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}/apikeys"
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	// body params
+	localVarPostBody = &body
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v CreateApiKeyResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *ApiKeysApiService) Create_1Stream(body CreateApiKeyRequest, user string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+        localVarBody []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}/apikeys"
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	// body params
 	localVarPostBody = &body
@@ -175,7 +336,7 @@ func (a *ApiKeysApiService) CreateStream(body CreateApiKeyRequest) (string, *htt
 
 /* 
 ApiKeysApiService Delete API Key
-Delete an API key for a user.
+Delete an API key for the authenticated user.
  * @param name name of the API key
 
 @return DeleteApiKeyResponse
@@ -294,6 +455,165 @@ func (a *ApiKeysApiService) DeleteStream(name string) (string, *http.Response, e
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+    reader := bufio.NewReader(localVarHttpResponse.Body)
+    localVarBody, err= reader.ReadBytes('\n')
+
+    var out bytes.Buffer
+    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+    if err != nil {
+        return "", localVarHttpResponse, err
+    }
+
+    if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/* 
+ApiKeysApiService Delete API Key for any user (admin only)
+Delete an API key for any user (admin only).
+ * @param name name of the API key
+ * @param user
+
+@return DeleteApiKeyResponse
+*/
+func (a *ApiKeysApiService) Delete_2(name string, user string) (DeleteApiKeyResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Delete")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue DeleteApiKeyResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v DeleteApiKeyResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *ApiKeysApiService) Delete_2Stream(name string, user string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Delete")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+        localVarBody []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", fmt.Sprintf("%v", name), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -323,7 +643,7 @@ func (a *ApiKeysApiService) DeleteStream(name string) (string, *http.Response, e
 
 /* 
 ApiKeysApiService List API Keys
-List all API keys for a user.
+List all API keys for the authenticated user.
 
 @return ListApiKeysResponse
 */
@@ -439,6 +759,162 @@ func (a *ApiKeysApiService) ListStream() (string, *http.Response, error) {
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+    reader := bufio.NewReader(localVarHttpResponse.Body)
+    localVarBody, err= reader.ReadBytes('\n')
+
+    var out bytes.Buffer
+    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+    if err != nil {
+        return "", localVarHttpResponse, err
+    }
+
+    if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/* 
+ApiKeysApiService List API Keys for any user (admin only)
+List all API keys for any user (admin only).
+ * @param user
+
+@return ListApiKeysResponse
+*/
+func (a *ApiKeysApiService) List_3(user string) (ListApiKeysResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue ListApiKeysResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}/apikeys"
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v ListApiKeysResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *ApiKeysApiService) List_3Stream(user string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+        localVarBody []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}/apikeys"
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+    
+    // version
+    localVarVersion := a.Client.selectVersion()
+	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {

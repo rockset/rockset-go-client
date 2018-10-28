@@ -18,6 +18,8 @@ import (
 type CreateUserRequest struct {
 	// user email, must be unique
 	Email string `json:"email"`
+	// List of roles for a given user
+	Roles []string `json:"roles,omitempty"`
 }
 func (m CreateUserRequest) PrintResponse() {
     r, err := json.Marshal(m)

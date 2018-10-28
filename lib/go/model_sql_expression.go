@@ -15,13 +15,11 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+type SqlExpression struct {
+	// The name of a sql function
+	Sql string `json:"sql,omitempty"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m SqlExpression) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

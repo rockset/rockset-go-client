@@ -15,13 +15,15 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+type FieldMappingV2 struct {
+	// A user specified string that is a name for this mapping
+	Name string `json:"name,omitempty"`
+	// A List of InputField for this mapping
+	InputFields []InputField `json:"input_fields,omitempty"`
+	// An OutputField for this mapping
+	OutputField *OutputField `json:"output_field,omitempty"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m FieldMappingV2) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

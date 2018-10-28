@@ -15,13 +15,11 @@ import (
     
 )
 
-type QueryResponseStats struct {
-	// query time in milliseconds
-	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
+type SourceKinesis struct {
+	// name of kinesis stream
+	StreamName string `json:"stream_name"`
 }
-func (m QueryResponseStats) PrintResponse() {
+func (m SourceKinesis) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")
