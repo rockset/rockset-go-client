@@ -1,6 +1,8 @@
 package main
 
 import (
+	"math/rand"
+	"strconv"
 	"os"
 	"testing"
 	
@@ -15,25 +17,27 @@ func TestCollection(t *testing.T) {
 
 	client := apiclient.Client(apiKey, apiServer)
 	
+	name := "go-test-collection" + strconv.Itoa(rand.Intn(1000))
+
 	{
 		// create collection
 		cinfo := models.CreateCollectionRequest{
-			Name:        "go-test-collection",
+			Name: name,
 		}
 
 		res, _, err := client.Collection.Create(cinfo)
 
 		assert.Equal(t, err, nil, "error creating collection")
-		assert.Equal(t, res.Data.Name, "go-test-collection", "collection should be created")
+		assert.Equal(t, res.Data.Name, name, "collection should be created")
 		assert.Equal(t, res.Data.Status, "CREATED", "collection status should be created")
 	}
 
 	{
 		// delete collection
-		res, _, err := client.Collection.Delete("go-test-collection")
+		res, _, err := client.Collection.Delete(name)
 
 		assert.Equal(t, err, nil, "error deleting collection")
-		assert.Equal(t, res.Data.Name, "go-test-collection", "collection should be deleted")
+		assert.Equal(t, res.Data.Name, name, "collection should be deleted")
 		assert.Equal(t, res.Data.Status, "DELETED", "collection status should be deleted")
 	}	
 }
@@ -44,10 +48,12 @@ func TestIntegration(t *testing.T) {
 
 	client := apiclient.Client(apiKey, apiServer)
 	
+	name := "go-test-integration" + strconv.Itoa(rand.Intn(1000))
+
 	{
 		// create integration
 		iinfo := models.CreateIntegrationRequest{
-			Name:        "go-test-integration",
+			Name: name,
 			Aws: &models.AwsKeyIntegration{
 				AwsAccessKeyId: ".....",
 				AwsSecretAccessKey: ".....",
@@ -56,15 +62,15 @@ func TestIntegration(t *testing.T) {
 
 		res, _, err := client.Integration.Create(iinfo)
 		assert.Equal(t, err, nil, "error creating integration")
-		assert.Equal(t, res.Data.Name, "go-test-integration", "integration should be created")
+		assert.Equal(t, res.Data.Name, name, "integration should be created")
 	}
 
 	{
 		// delete collection
-		res, _, err := client.Integration.Delete("go-test-integration")
+		res, _, err := client.Integration.Delete(name)
 
 		assert.Equal(t, err, nil, "error deleting integration")
-		assert.Equal(t, res.Data.Name, "go-test-integration", "integration should be deleted")
+		assert.Equal(t, res.Data.Name, name, "integration should be deleted")
 	}	
 }
 
@@ -84,6 +90,6 @@ func TestQuery(t *testing.T) {
 
 		// query
 		_, _, err := client.Query(q)
-		assert.Equal(t, err, nil, "err querying")
+		assert.Equal(t, err, nil, "error querying")
 	}
 }
