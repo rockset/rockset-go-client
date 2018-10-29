@@ -19,12 +19,11 @@ git clone git@github.com:rockset/rockset-go-client.git
 go install rockset-go-client/rockclient.go
 ```
 
-Usage
-=====
+## Usage
+
 You can see a few [sample examples](https://github.com/rockset/rockset-go-client/tree/master/examples) of how to create a collection, how to put documents in a collection and how to use SQL to query your collections.
 
-Testing
-=======
+## Testing
 
 Tests are available in the [Test](https://github.com/rockset/rockset-go-client/tree/master/test) folder.
 
