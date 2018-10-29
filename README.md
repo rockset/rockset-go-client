@@ -26,9 +26,9 @@ You can see a few [sample examples](https://github.com/rockset/rockset-go-client
 Testing
 =======
 
-Unit tests are available in the [Test](https://github.com/rockset/rockset-go-client/tree/master/test) folder.
+Tests are available in the [Test](https://github.com/rockset/rockset-go-client/tree/master/test) folder.
 
-Run unit tests:
+Set ROCKSET_APIKEY and ROCKSET_APISERVER endpoint in the environment variables. To run tests:
 ```
 go test ./test
 ```
@@ -36,8 +36,6 @@ go test ./test
 ## Support
 
 Feel free to log issues against this client through GitHub.
-
-## License
 
 ## License
 
