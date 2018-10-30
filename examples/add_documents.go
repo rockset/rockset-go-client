@@ -18,7 +18,7 @@ func main() {
 	{
 		// create collection
 		cinfo := models.CreateCollectionRequest{
-			Name:        "my-first-go-collection",
+			Name:        "my-first-collection",
 			Description: "my first go collection",
 		}
 
@@ -45,7 +45,7 @@ func main() {
 		}
 
 		res, _, err := client.Documents.Add(
-			"my-first-go-collection", dinfo)
+			"my-first-collection", dinfo)
 
 		if err != nil {
 			fmt.Printf("error: %s\n", err)
