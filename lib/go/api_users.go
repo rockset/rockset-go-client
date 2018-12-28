@@ -330,7 +330,7 @@ func (a *UsersApiService) DeleteStream(user string) (string, *http.Response, err
 }
 
 /* 
-UsersApiService Retrieve current user
+UsersApiService Get Current User
 Retrieve currently active user.
 
 @return ListUsersResponse

@@ -18,7 +18,6 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
-	"github.com/antihax/optional"
 )
 
 type QueriesApiService Service
@@ -27,17 +26,10 @@ type QueriesApiService Service
 QueriesApiService Query
 Make a SQL query to Rockset.
  * @param body JSON object
- * @param optional nil or *QueryOpts - Optional Parameters:
-     * @param "Workspace" (optional.String) -  name of the workspace
 
 @return QueryResponse
 */
-
-type QueryOpts struct { 
-	Workspace optional.String
-}
-
-func (a *QueriesApiService) Query(body QueryRequest, localVarOptionals *QueryOpts) (QueryResponse, *http.Response, error) {
+func (a *QueriesApiService) Query(body QueryRequest) (QueryResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -53,9 +45,6 @@ func (a *QueriesApiService) Query(body QueryRequest, localVarOptionals *QueryOpt
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Workspace.IsSet() {
-		localVarQueryParams.Add("workspace", parameterToString(localVarOptionals.Workspace.Value(), ""))
-	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 
@@ -122,7 +111,7 @@ func (a *QueriesApiService) Query(body QueryRequest, localVarOptionals *QueryOpt
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *QueriesApiService) QueryStream(body QueryRequest, localVarOptionals *QueryOpts) (string, *http.Response, error) {
+func (a *QueriesApiService) QueryStream(body QueryRequest) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -138,9 +127,6 @@ func (a *QueriesApiService) QueryStream(body QueryRequest, localVarOptionals *Qu
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Workspace.IsSet() {
-		localVarQueryParams.Add("workspace", parameterToString(localVarOptionals.Workspace.Value(), ""))
-	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 

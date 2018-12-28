@@ -17,10 +17,14 @@ import (
 
 // An organization in Rockset is a container for users and collections.
 type Organization struct {
+	// unique identifier for the organization
+	Id string `json:"id,omitempty"`
 	// name of the organization
-	Name string `json:"name"`
-	InputRateLimitMbs int64 `json:"inputRateLimitMbs,omitempty"`
-	SizeLimitGb int64 `json:"sizeLimitGb,omitempty"`
+	DisplayName string `json:"display_name,omitempty"`
+	// pricing tier
+	Tier string `json:"tier,omitempty"`
+	// org state
+	State string `json:"state,omitempty"`
 }
 func (m Organization) PrintResponse() {
     r, err := json.Marshal(m)

@@ -8,7 +8,7 @@ import (
 	api "github.com/rockset/rockset-go-client/lib/go"
 )
 
-var Version="0.4.7"
+var Version="0.5.8"
 
 type RockClient struct {
 	apiServer string
@@ -59,5 +59,5 @@ func Client(apiKey string, apiServer string) *RockClient {
 
 // Execute a query against Rockset
 func (c *RockClient) Query(body api.QueryRequest) (api.QueryResponse, *http.Response, error) {
-	return c.QueryApi.Query(body, nil)
+	return c.QueryApi.Query(body)
 }

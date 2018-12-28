@@ -15,15 +15,19 @@ import (
     
 )
 
-type SourceS3 struct {
-	// Prefix that selects keys to ingest.
-	Prefix string `json:"prefix,omitempty"`
-	// Pattern that selects keys to ingest.
-	Pattern string `json:"pattern,omitempty"`
-	// address of S3 bucket containing data
-	Bucket string `json:"bucket"`
+type XmlParams struct {
+	// tag until which xml is ignored
+	RootTag string `json:"root_tag,omitempty"`
+	// encoding in which data source is encoded
+	Encoding string `json:"encoding,omitempty"`
+	// tags with which documents are identified
+	DocTag string `json:"doc_tag,omitempty"`
+	// tag used for the value when there are attributes in the element having no child
+	ValueTag string `json:"value_tag,omitempty"`
+	// tag to differentiate between attributes and elements
+	AttributePrefix string `json:"attribute_prefix,omitempty"`
 }
-func (m SourceS3) PrintResponse() {
+func (m XmlParams) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

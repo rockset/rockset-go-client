@@ -27,10 +27,8 @@ type Source struct {
 	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
 	// configuration for ingestion from  a dynamodb table
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
-	// can be one of: CSV
-	Format string `json:"format,omitempty"`
-	// a json doc that describes the params for the specified format
-	FormatParamsCsv *CsvParams `json:"format_params_csv,omitempty"`
+	// format parameters for data from this source
+	FormatParams *FormatParams `json:"format_params,omitempty"`
 }
 func (m Source) PrintResponse() {
     r, err := json.Marshal(m)

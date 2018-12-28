@@ -15,15 +15,13 @@ import (
     
 )
 
-type SourceS3 struct {
-	// Prefix that selects keys to ingest.
-	Prefix string `json:"prefix,omitempty"`
-	// Pattern that selects keys to ingest.
-	Pattern string `json:"pattern,omitempty"`
-	// address of S3 bucket containing data
-	Bucket string `json:"bucket"`
+type FormatParams struct {
+	// source data is in json format
+	Json bool `json:"json,omitempty"`
+	Csv *CsvParams `json:"csv,omitempty"`
+	Xml *XmlParams `json:"xml,omitempty"`
 }
-func (m SourceS3) PrintResponse() {
+func (m FormatParams) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

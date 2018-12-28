@@ -26,7 +26,7 @@ type DocumentsApiService Service
 /* 
 DocumentsApiService Add Documents
 Add documents to a collection in Rockset.
- * @param collection name of the workspace
+ * @param collection name of the collection
  * @param body JSON object
 
 @return AddDocumentsResponse
