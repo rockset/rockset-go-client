@@ -144,10 +144,6 @@ func (a *UsersApiService) CreateStream(body CreateUserRequest) (string, *http.Re
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	// body params
 	localVarPostBody = &body
@@ -298,10 +294,6 @@ func (a *UsersApiService) DeleteStream(user string) (string, *http.Response, err
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -447,10 +439,6 @@ func (a *UsersApiService) GetStream() (string, *http.Response, error) {
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -596,10 +584,6 @@ func (a *UsersApiService) ListStream() (string, *http.Response, error) {
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {

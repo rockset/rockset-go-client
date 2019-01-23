@@ -147,10 +147,6 @@ func (a *DocumentsApiService) AddStream(collection string, body AddDocumentsRequ
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	// body params
 	localVarPostBody = &body
@@ -304,10 +300,6 @@ func (a *DocumentsApiService) DeleteStream(collection string, body DeleteDocumen
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	// body params
 	localVarPostBody = &body

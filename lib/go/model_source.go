@@ -27,6 +27,10 @@ type Source struct {
 	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
 	// configuration for ingestion from  a dynamodb table
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
+	// configuration for ingestion from GCS
+	Gcs *SourceGcs `json:"gcs,omitempty"`
+	// file upload details
+	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
 	// format parameters for data from this source
 	FormatParams *FormatParams `json:"format_params,omitempty"`
 }

@@ -56,13 +56,14 @@ type Configuration struct {
 	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
 	UserAgent     string            `json:"userAgent,omitempty"`
 	HTTPClient    *http.Client
+    Version       string
 }
 
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		BasePath:      "https://api.rs2.usw2.rockset.com",
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "Swagger-Codegen/1.0.0/go",
+		UserAgent:     "go",
 	}
 	return cfg
 }

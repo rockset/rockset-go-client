@@ -15,24 +15,11 @@ import (
     
 )
 
-// Integrations that can be associated with data sources to create collections. Only one type of integration may be specified.
-type Integration struct {
-	// ISO-8601 date
-	CreatedAt string `json:"created_at,omitempty"`
-	// email of user who created the integration
-	CreatedBy string `json:"created_by"`
-	// descriptive label and unique identifier
-	Name string `json:"name"`
-	// longer explanation for the integration
-	Description string `json:"description,omitempty"`
-	// credentials for an AWS key integration
-	Aws *AwsKeyIntegration `json:"aws,omitempty"`
-	// details of an AWS External Id integration
-	AwsExternalId *AwsExternalIdIntegration `json:"aws_external_id,omitempty"`
-	// details of a GCP Service Account integration
-	GcpServiceAccount *GcpServiceAccount `json:"gcp_service_account,omitempty"`
+type GcpServiceAccount struct {
+	// Contents of JSON Service Account key file
+	ServiceAccountKeyFileJson string `json:"service_account_key_file_json"`
 }
-func (m Integration) PrintResponse() {
+func (m GcpServiceAccount) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

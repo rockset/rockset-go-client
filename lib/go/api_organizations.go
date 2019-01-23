@@ -140,10 +140,6 @@ func (a *OrganizationsApiService) GetStream() (string, *http.Response, error) {
         log.Fatal("missing required argument ApiKey")
     }
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
-    
-    // version
-    localVarVersion := a.Client.selectVersion()
-	localVarHeaderParams["x-rockset-version"] = localVarVersion 
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
 	if err != nil {

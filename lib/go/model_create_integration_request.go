@@ -22,6 +22,10 @@ type CreateIntegrationRequest struct {
 	Description string `json:"description,omitempty"`
 	// credentials for an AWS key integration
 	Aws *AwsKeyIntegration `json:"aws,omitempty"`
+	// details for an AWS External Id integration
+	AwsExternalId *AwsExternalIdIntegration `json:"aws_external_id,omitempty"`
+	// details of a GCP Service Account integration
+	GcpServiceAccount *GcpServiceAccount `json:"gcp_service_account,omitempty"`
 }
 func (m CreateIntegrationRequest) PrintResponse() {
     r, err := json.Marshal(m)
