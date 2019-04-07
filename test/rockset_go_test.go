@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"os"
 	"testing"
+	"time"
 	
 	apiclient "github.com/rockset/rockset-go-client"
 	assert "github.com/stretchr/testify/require"
@@ -33,6 +34,8 @@ func TestCollection(t *testing.T) {
 	}
 
 	{
+		time.Sleep(5 * time.Second)
+
 		// delete collection
 		res, _, err := client.Collection.Delete(name)
 
