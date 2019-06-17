@@ -21,26 +21,174 @@ import (
 	"fmt"
 )
 
-type UsersApiService Service
+type WorkspacesApiService Service
 
 /* 
-UsersApiService Create User
-Create a new user for an organization.
- * @param body JSON object
+WorkspacesApiService List Workspaces
+List workspaces under given workspace.
+ * @param workspace name of the workspace
 
-@return CreateUserResponse
+@return ListWorkspacesResponse
 */
-func (a *UsersApiService) Create(body CreateUserRequest) (CreateUserResponse, *http.Response, error) {
+func (a *WorkspacesApiService) Child(workspace string) (ListWorkspacesResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarReturnValue ListWorkspacesResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/ws"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+		if err == nil { 
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body: localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+		
+		if localVarHttpResponse.StatusCode == 200 {
+			var v ListWorkspacesResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
+				if err != nil {
+					newErr.error = err.Error()
+					return localVarReturnValue, localVarHttpResponse, newErr
+				}
+				newErr.model = v
+				return localVarReturnValue, localVarHttpResponse, newErr
+		}
+		
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *WorkspacesApiService) ChildStream(workspace string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+        localVarBody []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/ws"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+    if localVarHttpHeaderApiKey == "" {
+        log.Fatal("missing required argument ApiKey")
+    }
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+    reader := bufio.NewReader(localVarHttpResponse.Body)
+    localVarBody, err= reader.ReadBytes('\n')
+
+    var out bytes.Buffer
+    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+    if err != nil {
+        return "", localVarHttpResponse, err
+    }
+
+    if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/* 
+WorkspacesApiService Create Workspace
+Create a new workspace in your org.
+ * @param body workspace details
+
+@return CreateWorkspaceResponse
+*/
+func (a *WorkspacesApiService) Create(body CreateWorkspaceRequest) (CreateWorkspaceResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue CreateUserResponse
+		localVarReturnValue CreateWorkspaceResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -96,7 +244,7 @@ func (a *UsersApiService) Create(body CreateUserRequest) (CreateUserResponse, *h
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v CreateUserResponse
+			var v CreateWorkspaceResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -112,7 +260,7 @@ func (a *UsersApiService) Create(body CreateUserRequest) (CreateUserResponse, *h
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *UsersApiService) CreateStream(body CreateUserRequest) (string, *http.Response, error) {
+func (a *WorkspacesApiService) CreateStream(body CreateWorkspaceRequest) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -122,7 +270,7 @@ func (a *UsersApiService) CreateStream(body CreateUserRequest) (string, *http.Re
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -174,24 +322,24 @@ func (a *UsersApiService) CreateStream(body CreateUserRequest) (string, *http.Re
 }
 
 /* 
-UsersApiService Delete User
-Delete a user from an organization.
- * @param user user email
+WorkspacesApiService Delete Workspace
+Remove a workspace.
+ * @param workspace name of the workspace
 
-@return DeleteUserResponse
+@return DeleteWorkspaceResponse
 */
-func (a *UsersApiService) Delete(user string) (DeleteUserResponse, *http.Response, error) {
+func (a *WorkspacesApiService) Delete(workspace string) (DeleteWorkspaceResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue DeleteUserResponse
+		localVarReturnValue DeleteWorkspaceResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -245,7 +393,7 @@ func (a *UsersApiService) Delete(user string) (DeleteUserResponse, *http.Respons
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v DeleteUserResponse
+			var v DeleteWorkspaceResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -261,7 +409,7 @@ func (a *UsersApiService) Delete(user string) (DeleteUserResponse, *http.Respons
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *UsersApiService) DeleteStream(user string) (string, *http.Response, error) {
+func (a *WorkspacesApiService) DeleteStream(workspace string) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -271,8 +419,8 @@ func (a *UsersApiService) DeleteStream(user string) (string, *http.Response, err
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/{user}"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", fmt.Sprintf("%v", user), -1)
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -322,22 +470,24 @@ func (a *UsersApiService) DeleteStream(user string) (string, *http.Response, err
 }
 
 /* 
-UsersApiService Get Current User
-Retrieve currently active user.
+WorkspacesApiService Get Workspace
+Get information about a single workspace.
+ * @param workspace name of the workspace
 
-@return User
+@return GetWorkspaceResponse
 */
-func (a *UsersApiService) Get() (User, *http.Response, error) {
+func (a *WorkspacesApiService) Get(workspace string) (GetWorkspaceResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue User
+		localVarReturnValue GetWorkspaceResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/self"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -391,7 +541,7 @@ func (a *UsersApiService) Get() (User, *http.Response, error) {
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v User
+			var v GetWorkspaceResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -407,7 +557,7 @@ func (a *UsersApiService) Get() (User, *http.Response, error) {
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *UsersApiService) GetStream() (string, *http.Response, error) {
+func (a *WorkspacesApiService) GetStream(workspace string) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -417,7 +567,8 @@ func (a *UsersApiService) GetStream() (string, *http.Response, error) {
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users/self"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -467,22 +618,22 @@ func (a *UsersApiService) GetStream() (string, *http.Response, error) {
 }
 
 /* 
-UsersApiService List Users
-Retrieve all users for an organization.
+WorkspacesApiService List Workspaces
+List all workspaces.
 
-@return ListUsersResponse
+@return ListWorkspacesResponse
 */
-func (a *UsersApiService) List() (ListUsersResponse, *http.Response, error) {
+func (a *WorkspacesApiService) List() (ListWorkspacesResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-		localVarReturnValue ListUsersResponse
+		localVarReturnValue ListWorkspacesResponse
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -536,7 +687,7 @@ func (a *UsersApiService) List() (ListUsersResponse, *http.Response, error) {
 		}
 		
 		if localVarHttpResponse.StatusCode == 200 {
-			var v ListUsersResponse
+			var v ListWorkspacesResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
 				if err != nil {
 					newErr.error = err.Error()
@@ -552,7 +703,7 @@ func (a *UsersApiService) List() (ListUsersResponse, *http.Response, error) {
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *UsersApiService) ListStream() (string, *http.Response, error) {
+func (a *WorkspacesApiService) ListStream() (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -562,7 +713,7 @@ func (a *UsersApiService) ListStream() (string, *http.Response, error) {
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/users"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

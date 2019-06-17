@@ -20,12 +20,16 @@ type CreateIntegrationRequest struct {
 	Name string `json:"name"`
 	// longer explanation for the integration
 	Description string `json:"description,omitempty"`
-	// credentials for an AWS key integration
-	Aws *AwsKeyIntegration `json:"aws,omitempty"`
-	// details for an AWS External Id integration
-	AwsExternalId *AwsExternalIdIntegration `json:"aws_external_id,omitempty"`
-	// details of a GCP Service Account integration
-	GcpServiceAccount *GcpServiceAccount `json:"gcp_service_account,omitempty"`
+	// Amazon S3 details, must have one of aws_access_key or aws_role
+	S3 *S3Integration `json:"s3,omitempty"`
+	// Amazon Kinesis details, must have one of aws_access_key or aws_role
+	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
+	// Amazon DynamoDB details, must have one of aws_access_key or aws_role
+	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
+	// Amazon Redshift details
+	Redshift *RedshiftIntegration `json:"redshift,omitempty"`
+	// GCS details
+	Gcs *GcsIntegration `json:"gcs,omitempty"`
 }
 func (m CreateIntegrationRequest) PrintResponse() {
     r, err := json.Marshal(m)

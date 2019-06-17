@@ -15,13 +15,23 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type CollectionStats struct {
+	// number of documents in the collection
+	DocCount int64 `json:"doc_count,omitempty"`
+	// total collection size in bytes
+	TotalSize int64 `json:"total_size,omitempty"`
+	// number between 0 and 1 that indicates progress of collection creation
+	FillProgress float64 `json:"fill_progress,omitempty"`
+	// number of documents purged from the collection
+	PurgedDocCount int64 `json:"purged_doc_count,omitempty"`
+	// total collection size in bytes purged
+	PurgedDocSize int64 `json:"purged_doc_size,omitempty"`
+	// milliseconds since Unix epoch Jan 1, 1970
+	LastUpdatedMs int64 `json:"last_updated_ms,omitempty"`
+	// milliseconds since Unix epoch Jan 1, 1970
+	LastQueriedMs int64 `json:"last_queried_ms,omitempty"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m CollectionStats) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

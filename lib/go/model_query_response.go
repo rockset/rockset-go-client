@@ -22,6 +22,8 @@ type QueryResponse struct {
 	Fields []QueryFieldType `json:"fields,omitempty"`
 	// meta information about the query
 	Stats *QueryResponseStats `json:"stats,omitempty"`
+	// meta information about each column in the result set
+	ColumnFields []QueryFieldType `json:"column_fields,omitempty"`
 }
 func (m QueryResponse) PrintResponse() {
     r, err := json.Marshal(m)

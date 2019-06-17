@@ -15,13 +15,11 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type DynamodbIntegration struct {
+	// credentials for an AWS access key integration
+	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m DynamodbIntegration) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

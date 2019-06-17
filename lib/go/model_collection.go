@@ -15,24 +15,29 @@ import (
     
 )
 
-// An organization in Rockset is a container for users and collections.
-type Organization struct {
-	// unique identifier for the organization
-	Id string `json:"id,omitempty"`
+type Collection struct {
 	// ISO-8601 date
 	CreatedAt string `json:"created_at,omitempty"`
-	// name of the organization
-	DisplayName string `json:"display_name,omitempty"`
-	// name of the company
-	CompanyName string `json:"company_name,omitempty"`
-	// pricing tier
-	Tier string `json:"tier,omitempty"`
-	// number of QCUs
-	Qcu int32 `json:"qcu,omitempty"`
-	// org state
-	State string `json:"state,omitempty"`
+	// email of user who created the collection
+	CreatedBy string `json:"created_by,omitempty"`
+	// unique identifer for collection, can contain alphanumeric or dash characters
+	Name string `json:"name,omitempty"`
+	// text describing the collection
+	Description string `json:"description,omitempty"`
+	// name of the workspace that the collection is in
+	Workspace string `json:"workspace,omitempty"`
+	// current status of collection, one of: CREATED, READY, DELETED
+	Status string `json:"status,omitempty"`
+	// list of sources from which collection ingests
+	Sources []Source `json:"sources,omitempty"`
+	// metrics about the collection
+	Stats *CollectionStats `json:"stats,omitempty"`
+	// number of seconds after which data is purged based on event time
+	RetentionSecs int64 `json:"retention_secs,omitempty"`
+	// list of mappings applied on all documents in a collection
+	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 }
-func (m Organization) PrintResponse() {
+func (m Collection) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

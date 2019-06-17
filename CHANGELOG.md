@@ -1,5 +1,8 @@
 # Rockset Go Client Changelog
 
+## v0.6.0 2019-06-17
+- move from cloud-level integrations to service-level integrations: DynamoDB, GCS, Kinesis, Redshift, S3
+
 ## v0.5.9 2019-01-23
 - Add support for AWS External ID as a new type of integration
 - Add support for Google Cloud Storage

@@ -22,8 +22,14 @@ type User struct {
 	CreatedAt string `json:"created_at,omitempty"`
 	// user email
 	Email string `json:"email"`
+	// user first name
+	FirstName string `json:"first_name,omitempty"`
+	// user last name
+	LastName string `json:"last_name,omitempty"`
 	// List of roles for a given user
 	Roles []string `json:"roles,omitempty"`
+	// state of user - NEW / ACTIVE
+	State string `json:"state,omitempty"`
 }
 func (m User) PrintResponse() {
     r, err := json.Marshal(m)

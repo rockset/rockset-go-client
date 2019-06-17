@@ -17,7 +17,7 @@ import (
 
 type ListCollectionsResponse struct {
 	// list of all collections
-	Data []Resource `json:"data,omitempty"`
+	Data []Collection `json:"data,omitempty"`
 }
 func (m ListCollectionsResponse) PrintResponse() {
     r, err := json.Marshal(m)

@@ -15,13 +15,21 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type RedshiftIntegration struct {
+	// AWS access key credentials
+	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
+	// Username associated with Redshift cluster
+	Username string `json:"username"`
+	// Password associated with Redshift cluster
+	Password string `json:"password"`
+	// Redshift Cluster host
+	Host string `json:"host"`
+	// Redshift Cluster port
+	Port int32 `json:"port"`
+	// unload S3 bucket path
+	S3BucketPath string `json:"s3_bucket_path"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m RedshiftIntegration) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

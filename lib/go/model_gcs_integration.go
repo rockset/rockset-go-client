@@ -15,13 +15,11 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type GcsIntegration struct {
+	// credentials for an AWS key integration
+	GcpServiceAccount *GcpServiceAccount `json:"gcp_service_account,omitempty"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m GcsIntegration) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

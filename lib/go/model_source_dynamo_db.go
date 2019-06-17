@@ -18,6 +18,8 @@ import (
 type SourceDynamoDb struct {
 	// name of DynamoDB table containing data
 	TableName string `json:"table_name"`
+	// AWS region name of DynamoDB table, by default us-west-2 is used
+	AwsRegion string `json:"aws_region,omitempty"`
 }
 func (m SourceDynamoDb) PrintResponse() {
     r, err := json.Marshal(m)

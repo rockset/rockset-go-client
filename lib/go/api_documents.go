@@ -26,12 +26,13 @@ type DocumentsApiService Service
 /* 
 DocumentsApiService Add Documents
 Add documents to a collection in Rockset.
+ * @param workspace name of the workspace
  * @param collection name of the collection
  * @param body JSON object
 
 @return AddDocumentsResponse
 */
-func (a *DocumentsApiService) Add(collection string, body AddDocumentsRequest) (AddDocumentsResponse, *http.Response, error) {
+func (a *DocumentsApiService) Add(workspace string, collection string, body AddDocumentsRequest) (AddDocumentsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -41,7 +42,8 @@ func (a *DocumentsApiService) Add(collection string, body AddDocumentsRequest) (
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/commons/collections/{collection}/docs"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", fmt.Sprintf("%v", collection), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -114,7 +116,7 @@ func (a *DocumentsApiService) Add(collection string, body AddDocumentsRequest) (
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *DocumentsApiService) AddStream(collection string, body AddDocumentsRequest) (string, *http.Response, error) {
+func (a *DocumentsApiService) AddStream(workspace string, collection string, body AddDocumentsRequest) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -124,7 +126,8 @@ func (a *DocumentsApiService) AddStream(collection string, body AddDocumentsRequ
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/commons/collections/{collection}/docs"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", fmt.Sprintf("%v", collection), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -179,12 +182,13 @@ func (a *DocumentsApiService) AddStream(collection string, body AddDocumentsRequ
 /* 
 DocumentsApiService Delete Documents
 Delete documents from a collection in Rockset.
+ * @param workspace name of the workspace
  * @param collection name of the collection
  * @param body JSON object
 
 @return DeleteDocumentsResponse
 */
-func (a *DocumentsApiService) Delete(collection string, body DeleteDocumentsRequest) (DeleteDocumentsResponse, *http.Response, error) {
+func (a *DocumentsApiService) Delete(workspace string, collection string, body DeleteDocumentsRequest) (DeleteDocumentsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -194,7 +198,8 @@ func (a *DocumentsApiService) Delete(collection string, body DeleteDocumentsRequ
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/commons/collections/{collection}/docs"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", fmt.Sprintf("%v", collection), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -267,7 +272,7 @@ func (a *DocumentsApiService) Delete(collection string, body DeleteDocumentsRequ
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *DocumentsApiService) DeleteStream(collection string, body DeleteDocumentsRequest) (string, *http.Response, error) {
+func (a *DocumentsApiService) DeleteStream(workspace string, collection string, body DeleteDocumentsRequest) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Delete")
 		localVarPostBody   interface{}
@@ -277,7 +282,8 @@ func (a *DocumentsApiService) DeleteStream(collection string, body DeleteDocumen
 	)
 
 	// create path and map variables
-	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/commons/collections/{collection}/docs"
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", fmt.Sprintf("%v", collection), -1)
 
 	localVarHeaderParams := make(map[string]string)

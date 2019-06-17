@@ -17,14 +17,16 @@ import (
 
 // Describes details about an error
 type ErrorModel struct {
-	// HTTP status code
-	Code int32 `json:"code,omitempty"`
 	// descriptive message about the error
 	Message string `json:"message,omitempty"`
 	// category of the error
 	Type_ string `json:"type,omitempty"`
-	// additional error information
-	Context *ErrorModelContext `json:"context,omitempty"`
+	// Line where the error happened (if applicable)
+	Line int32 `json:"line,omitempty"`
+	// Column where the error happened (if applicable)
+	Column int32 `json:"column,omitempty"`
+	// Internal trace ID to help with debugging
+	TraceId string `json:"trace_id,omitempty"`
 }
 func (m ErrorModel) PrintResponse() {
     r, err := json.Marshal(m)

@@ -15,13 +15,20 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+// Workspaces are organizational containers for collections.
+type Workspace struct {
+	// ISO-8601 date of when workspace was created
+	CreatedAt string `json:"created_at,omitempty"`
+	// email of user who created the workspace
+	CreatedBy string `json:"created_by,omitempty"`
+	// descriptive label and unique identifier
+	Name string `json:"name,omitempty"`
+	// longer explanation for the workspace
+	Description string `json:"description,omitempty"`
+	// number of collections that are immediate children of workspace
+	CollectionCount int64 `json:"collection_count,omitempty"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m Workspace) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

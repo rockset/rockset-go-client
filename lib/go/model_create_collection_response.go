@@ -17,7 +17,7 @@ import (
 
 type CreateCollectionResponse struct {
 	// collection that was created
-	Data *Resource `json:"data,omitempty"`
+	Data *Collection `json:"data,omitempty"`
 }
 func (m CreateCollectionResponse) PrintResponse() {
     r, err := json.Marshal(m)

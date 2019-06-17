@@ -15,13 +15,11 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type AwsRole struct {
+	// ARN of rockset-role created in your account
+	AwsRoleArn string `json:"aws_role_arn"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m AwsRole) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

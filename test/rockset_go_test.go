@@ -2,14 +2,14 @@ package main
 
 import (
 	"math/rand"
-	"strconv"
 	"os"
+	"strconv"
 	"testing"
 	"time"
-	
+
 	apiclient "github.com/rockset/rockset-go-client"
-	assert "github.com/stretchr/testify/require"
 	models "github.com/rockset/rockset-go-client/lib/go"
+	assert "github.com/stretchr/testify/require"
 )
 
 func TestCollection(t *testing.T) {
@@ -17,7 +17,8 @@ func TestCollection(t *testing.T) {
 	apiServer := os.Getenv("ROCKSET_APISERVER")
 
 	client := apiclient.Client(apiKey, apiServer)
-	
+
+	workspace := "commons"
 	name := "go-test-collection" + strconv.Itoa(rand.Intn(1000))
 
 	{
@@ -26,7 +27,7 @@ func TestCollection(t *testing.T) {
 			Name: name,
 		}
 
-		res, _, err := client.Collection.Create(cinfo)
+		res, _, err := client.Collection.Create(workspace, cinfo)
 
 		assert.Equal(t, err, nil, "error creating collection")
 		assert.Equal(t, res.Data.Name, name, "collection should be created")
@@ -37,12 +38,12 @@ func TestCollection(t *testing.T) {
 		time.Sleep(5 * time.Second)
 
 		// delete collection
-		res, _, err := client.Collection.Delete(name)
+		res, _, err := client.Collection.Delete(workspace, name)
 
 		assert.Equal(t, err, nil, "error deleting collection")
 		assert.Equal(t, res.Data.Name, name, "collection should be deleted")
 		assert.Equal(t, res.Data.Status, "DELETED", "collection status should be deleted")
-	}	
+	}
 }
 
 func TestIntegration(t *testing.T) {
@@ -50,16 +51,18 @@ func TestIntegration(t *testing.T) {
 	apiServer := os.Getenv("ROCKSET_APISERVER")
 
 	client := apiclient.Client(apiKey, apiServer)
-	
+
 	name := "go-test-integration" + strconv.Itoa(rand.Intn(1000))
 
 	{
 		// create integration
 		iinfo := models.CreateIntegrationRequest{
 			Name: name,
-			Aws: &models.AwsKeyIntegration{
-				AwsAccessKeyId: ".....",
-				AwsSecretAccessKey: ".....",
+			Dynamodb: &models.DynamodbIntegration{
+				AwsAccessKey: &models.AwsAccessKey{
+					AwsAccessKeyId:     ".....",
+					AwsSecretAccessKey: ".....",
+				},
 			},
 		}
 
@@ -74,7 +77,7 @@ func TestIntegration(t *testing.T) {
 
 		assert.Equal(t, err, nil, "error deleting integration")
 		assert.Equal(t, res.Data.Name, name, "integration should be deleted")
-	}	
+	}
 }
 
 func TestQuery(t *testing.T) {
@@ -82,7 +85,7 @@ func TestQuery(t *testing.T) {
 	apiServer := os.Getenv("ROCKSET_APISERVER")
 
 	client := apiclient.Client(apiKey, apiServer)
-	
+
 	{
 		// construct query
 		q := models.QueryRequest{

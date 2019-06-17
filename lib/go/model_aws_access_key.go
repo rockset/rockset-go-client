@@ -15,13 +15,13 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type AwsAccessKey struct {
+	// AWS access key ID
+	AwsAccessKeyId string `json:"aws_access_key_id"`
+	// AWS secret access key
+	AwsSecretAccessKey string `json:"aws_secret_access_key"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m AwsAccessKey) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

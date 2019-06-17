@@ -15,13 +15,17 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type SourceRedshift struct {
+	// name of the database in Redshift Cluster
+	Database string `json:"database"`
+	// schema which contains the Redshift table
+	Schema string `json:"schema"`
+	// name of Redshift table containing data
+	TableName string `json:"table_name"`
+	// field in Redshift source table to monitor for updates
+	IncrementalField string `json:"incremental_field,omitempty"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m SourceRedshift) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

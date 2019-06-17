@@ -18,6 +18,8 @@ import (
 type SourceKinesis struct {
 	// name of kinesis stream
 	StreamName string `json:"stream_name"`
+	// AWS region name of Kinesis stream, by default us-west-2 is used
+	AwsRegion string `json:"aws_region,omitempty"`
 }
 func (m SourceKinesis) PrintResponse() {
     r, err := json.Marshal(m)

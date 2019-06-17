@@ -17,7 +17,7 @@ import (
 
 type DeleteCollectionResponse struct {
 	// collection that was deleted
-	Data *Resource `json:"data,omitempty"`
+	Data *Collection `json:"data,omitempty"`
 }
 func (m DeleteCollectionResponse) PrintResponse() {
     r, err := json.Marshal(m)

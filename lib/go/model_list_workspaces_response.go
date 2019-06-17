@@ -15,13 +15,11 @@ import (
     
 )
 
-type GetIntegrationResponse struct {
-	// integration object
-	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
+type ListWorkspacesResponse struct {
+	// list of workspaces
+	Data []Workspace `json:"data,omitempty"`
 }
-func (m GetIntegrationResponse) PrintResponse() {
+func (m ListWorkspacesResponse) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

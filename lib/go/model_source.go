@@ -29,6 +29,8 @@ type Source struct {
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	// configuration for ingestion from GCS
 	Gcs *SourceGcs `json:"gcs,omitempty"`
+	// configuration for ingestion from Redshift
+	Redshift *SourceRedshift `json:"redshift,omitempty"`
 	// file upload details
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
 	// format parameters for data from this source
