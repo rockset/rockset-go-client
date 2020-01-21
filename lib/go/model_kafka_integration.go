@@ -15,13 +15,17 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type KafkaIntegration struct {
+	// Kafka topics to tail
+	KafkaTopicNames []string `json:"kafka_topic_names"`
+	// The status of the Kafka source by topic
+	SourceStatusByTopic map[string]StatusKafka `json:"source_status_by_topic,omitempty"`
+	// The format of the Kafka topics being tailed
+	KafkaDataFormat string `json:"kafka_data_format"`
+	// segment connection string
+	ConnectionString string `json:"connection_string,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m KafkaIntegration) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

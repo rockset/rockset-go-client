@@ -15,13 +15,17 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type PatchOperation struct {
+	// Operation to be performed in this patch
+	Op string `json:"op"`
+	// JSON-Pointer referencing a location in the target document where theoperation is performed
+	Path string `json:"path"`
+	// Value used in the patch operation. Required for add, replace and test operations
+	Value *interface{} `json:"value,omitempty"`
+	// JSON-Pointer referencing a location in the target document.Required for copy and move operations
+	From string `json:"from,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m PatchOperation) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

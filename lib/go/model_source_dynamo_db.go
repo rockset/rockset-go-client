@@ -16,10 +16,14 @@ import (
 )
 
 type SourceDynamoDb struct {
-	// name of DynamoDB table containing data
-	TableName string `json:"table_name"`
 	// AWS region name of DynamoDB table, by default us-west-2 is used
 	AwsRegion string `json:"aws_region,omitempty"`
+	// name of DynamoDB table containing data
+	TableName string `json:"table_name"`
+	// DynamoDB source status
+	Status *StatusDynamoDb `json:"status,omitempty"`
+	// Max RCU usage for scan
+	Rcu int64 `json:"rcu,omitempty"`
 }
 func (m SourceDynamoDb) PrintResponse() {
     r, err := json.Marshal(m)

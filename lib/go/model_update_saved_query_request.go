@@ -15,13 +15,15 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type UpdateSavedQueryRequest struct {
+	// optional version tag
+	VersionTag string `json:"version_tag,omitempty"`
+	// SQL text of this query
+	QuerySql string `json:"query_sql"`
+	// parameters associated with this query
+	Parameters []SavedQueryParameter `json:"parameters,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m UpdateSavedQueryRequest) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

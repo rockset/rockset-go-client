@@ -12,16 +12,34 @@ import (
     "bytes"
     "encoding/json"
     "fmt"
-    
+    "time"
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type SavedQuery struct {
+	// workspace of this saved query
+	Workspace string `json:"workspace,omitempty"`
+	// user that created this query
+	CreatedBy string `json:"created_by,omitempty"`
+	// ISO-8601 date of when saved query was created
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	// query name
+	Name string `json:"name,omitempty"`
+	// query version
+	Version int32 `json:"version,omitempty"`
+	// optional version tag
+	VersionTag string `json:"version_tag,omitempty"`
+	// SQL text of this query
+	QuerySql string `json:"query_sql,omitempty"`
+	// collections queried by this query
+	Collections []string `json:"collections,omitempty"`
+	// parameters associated with this query
+	Parameters []SavedQueryParameter `json:"parameters,omitempty"`
+	// status of this query
+	State string `json:"state,omitempty"`
+	// stats related to this query
+	Stats *SavedQueryStats `json:"stats,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m SavedQuery) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

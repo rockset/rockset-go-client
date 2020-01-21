@@ -17,8 +17,6 @@ import (
 
 // API keys are used to authenticate requests to Rockset's API. An API key is tied to the user who creates it. A new API key can be created for each use case, with a maximum of 10 API keys per user.
 type ApiKey struct {
-	// has value `api_key` for an API key object
-	Type_ string `json:"type,omitempty"`
 	// ISO-8601 date
 	CreatedAt string `json:"created_at,omitempty"`
 	// descriptive label

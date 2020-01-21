@@ -30,6 +30,10 @@ type CollectionStats struct {
 	LastUpdatedMs int64 `json:"last_updated_ms,omitempty"`
 	// milliseconds since Unix epoch Jan 1, 1970
 	LastQueriedMs int64 `json:"last_queried_ms,omitempty"`
+	// total number of bytes inserted into the collection
+	BytesInserted int64 `json:"bytes_inserted,omitempty"`
+	// total number of bytes overwritten in writing into the collection
+	BytesOverwritten int64 `json:"bytes_overwritten,omitempty"`
 }
 func (m CollectionStats) PrintResponse() {
     r, err := json.Marshal(m)

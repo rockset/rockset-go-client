@@ -15,13 +15,10 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type PatchDocumentsResponse struct {
+	Data []DocumentStatus `json:"data"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m PatchDocumentsResponse) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

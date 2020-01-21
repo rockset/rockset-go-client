@@ -15,13 +15,21 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type ExecuteSavedQueryRequest struct {
+	// workspace of this saved query
+	Workspace string `json:"workspace,omitempty"`
+	// query name
+	Name string `json:"name"`
+	// query version
+	Version string `json:"version"`
+	// list of named parameters
+	Parameters []ExecuteSavedQueryParameter `json:"parameters,omitempty"`
+	// Row limit to use if no limit specified in the query
+	DefaultRowLimit int32 `json:"default_row_limit,omitempty"`
+	// Whether to generate warnings
+	GenerateWarnings bool `json:"generate_warnings,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m ExecuteSavedQueryRequest) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

@@ -17,14 +17,14 @@ import (
 
 // Integrations that can be associated with data sources to create collections. Only one type of integration may be specified.
 type Integration struct {
-	// ISO-8601 date
-	CreatedAt string `json:"created_at,omitempty"`
-	// email of user who created the integration
-	CreatedBy string `json:"created_by"`
 	// descriptive label and unique identifier
 	Name string `json:"name"`
 	// longer explanation for the integration
 	Description string `json:"description,omitempty"`
+	// email of user who created the integration
+	CreatedBy string `json:"created_by"`
+	// ISO-8601 date
+	CreatedAt string `json:"created_at,omitempty"`
 	// Amazon S3 details, must have one of aws_access_key or aws_role
 	S3 *S3Integration `json:"s3,omitempty"`
 	// Amazon Kinesis details, must have one of aws_access_key or aws_role
@@ -35,12 +35,10 @@ type Integration struct {
 	Redshift *RedshiftIntegration `json:"redshift,omitempty"`
 	// GCS details
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
-	// credentials for an AWS key integration
-	Aws *AwsKeyIntegration `json:"aws,omitempty"`
-	// details of an AWS External Id integration
-	AwsExternalId *AwsExternalIdIntegration `json:"aws_external_id,omitempty"`
-	// details of a GCP Service Account integration
-	GcpServiceAccount *GcpServiceAccount `json:"gcp_service_account,omitempty"`
+	// Segment details
+	Segment *SegmentIntegration `json:"segment,omitempty"`
+	// Kafka details
+	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 }
 func (m Integration) PrintResponse() {
     r, err := json.Marshal(m)

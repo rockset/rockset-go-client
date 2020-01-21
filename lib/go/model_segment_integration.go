@@ -15,13 +15,11 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type SegmentIntegration struct {
+	// segment connection string
+	ConnectionString string `json:"connection_string,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m SegmentIntegration) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

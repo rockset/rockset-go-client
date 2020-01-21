@@ -30,6 +30,8 @@ type CreateIntegrationRequest struct {
 	Redshift *RedshiftIntegration `json:"redshift,omitempty"`
 	// GCS details
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
+	Segment *SegmentIntegration `json:"segment,omitempty"`
+	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 }
 func (m CreateIntegrationRequest) PrintResponse() {
     r, err := json.Marshal(m)

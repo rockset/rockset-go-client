@@ -15,22 +15,29 @@ import (
     
 )
 
-// An organization in Rockset is a container for users and collections.
-type Organization struct {
-	// unique identifier for the organization
-	Id string `json:"id,omitempty"`
-	// ISO-8601 date
-	CreatedAt string `json:"created_at,omitempty"`
-	// name of the organization
-	DisplayName string `json:"display_name,omitempty"`
-	// name of the company
-	CompanyName string `json:"company_name,omitempty"`
-	ExternalId string `json:"external_id,omitempty"`
-	RocksetUser string `json:"rockset_user,omitempty"`
-	// org state
+type Status struct {
+	// Status of the Source's ingestion, one of: INITIALIZING, WATCHING, PROCESSING, COMPLETED, ERROR
 	State string `json:"state,omitempty"`
+	// ISO-8601 date when state was triggered
+	Since string `json:"since,omitempty"`
+	// state message
+	Message string `json:"message,omitempty"`
+	// ISO-8601 date when source was last processed
+	LastProcessedAt string `json:"last_processed_at,omitempty"`
+	// last source item processed by ingester
+	LastProcessedItem string `json:"last_processed_item,omitempty"`
+	// Total items processed of source
+	TotalProcessedItems int64 `json:"total_processed_items,omitempty"`
+	// ISO-8601 date when last error occurred
+	LastErrorAt string `json:"last_error_at,omitempty"`
+	// last source item that errored
+	LastErrorItem string `json:"last_error_item,omitempty"`
+	// reason for the last error
+	LastErrorReason string `json:"last_error_reason,omitempty"`
+	// Total items that errored
+	TotalErrorItems int64 `json:"total_error_items,omitempty"`
 }
-func (m Organization) PrintResponse() {
+func (m Status) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

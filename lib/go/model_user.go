@@ -16,8 +16,6 @@ import (
 )
 
 type User struct {
-	// has value `user` for a user object
-	Type_ string `json:"type,omitempty"`
 	// ISO-8601 date
 	CreatedAt string `json:"created_at,omitempty"`
 	// user email

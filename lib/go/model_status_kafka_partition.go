@@ -15,13 +15,13 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type StatusKafkaPartition struct {
+	// The number of this partition
+	PartitionNumber int32 `json:"partition_number,omitempty"`
+	// Number of documents consumed by this partition
+	NumDocumentsProcessed int64 `json:"num_documents_processed,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m StatusKafkaPartition) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

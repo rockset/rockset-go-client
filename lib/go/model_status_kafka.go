@@ -15,13 +15,15 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type StatusKafka struct {
+	// State of the Kafka source
+	State string `json:"state,omitempty"`
+	// Time at which the last document was consumed from Kafka
+	LastConsumedTime string `json:"last_consumed_time,omitempty"`
+	// Number of documents consumed by this Kafka topic
+	NumDocumentsProcessed int64 `json:"num_documents_processed,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m StatusKafka) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

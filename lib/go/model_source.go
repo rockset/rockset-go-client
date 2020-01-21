@@ -17,22 +17,23 @@ import (
 
 // Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
 type Source struct {
-	// has value `source` for a source object
-	Type_ string `json:"type,omitempty"`
 	// name of integration to use
 	IntegrationName string `json:"integration_name"`
 	// configuration for ingestion from S3
 	S3 *SourceS3 `json:"s3,omitempty"`
 	// configuration for ingestion from kinesis stream
 	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
-	// configuration for ingestion from  a dynamodb table
-	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	// configuration for ingestion from GCS
 	Gcs *SourceGcs `json:"gcs,omitempty"`
 	// configuration for ingestion from Redshift
 	Redshift *SourceRedshift `json:"redshift,omitempty"`
+	// configuration for ingestion from  a dynamodb table
+	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	// file upload details
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
+	Kafka *SourceKafka `json:"kafka,omitempty"`
+	// the ingest status of this source
+	Status *Status `json:"status,omitempty"`
 	// format parameters for data from this source
 	FormatParams *FormatParams `json:"format_params,omitempty"`
 }

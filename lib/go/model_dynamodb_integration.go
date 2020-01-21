@@ -18,6 +18,8 @@ import (
 type DynamodbIntegration struct {
 	// credentials for an AWS access key integration
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
+	// role used for external id type authentication
+	AwsRole *AwsRole `json:"aws_role,omitempty"`
 }
 func (m DynamodbIntegration) PrintResponse() {
     r, err := json.Marshal(m)

@@ -16,10 +16,10 @@ import (
 )
 
 type S3Integration struct {
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
 	// credentials for an AWS access key integration
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
+	// details of an AWS cross-account role integration
+	AwsRole *AwsRole `json:"aws_role,omitempty"`
 }
 func (m S3Integration) PrintResponse() {
     r, err := json.Marshal(m)

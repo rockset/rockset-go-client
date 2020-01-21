@@ -8,7 +8,7 @@ import (
 	api "github.com/rockset/rockset-go-client/lib/go"
 )
 
-var Version="0.6.0"
+var Version="0.7.0"
 
 type RockClient struct {
 	apiServer string

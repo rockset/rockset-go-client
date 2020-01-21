@@ -15,13 +15,21 @@ import (
     
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type StatusDynamoDb struct {
+	// DynamoDB scan start time
+	ScanStartTime string `json:"scan_start_time,omitempty"`
+	// DynamoDb scan end time
+	ScanEndTime string `json:"scan_end_time,omitempty"`
+	// Number of records inserted using scan
+	ScanRecordsProcessed int64 `json:"scan_records_processed,omitempty"`
+	// Number of records in DynamoDB table at time of scan
+	ScanTotalRecords int64 `json:"scan_total_records,omitempty"`
+	// state of current ingest for this table
+	State string `json:"state,omitempty"`
+	// ISO-8601 date when source was last processed
+	StreamLastProcessedAt string `json:"stream_last_processed_at,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m StatusDynamoDb) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

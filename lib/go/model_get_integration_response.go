@@ -18,7 +18,6 @@ import (
 type GetIntegrationResponse struct {
 	// integration object
 	Data *Integration `json:"data,omitempty"`
-	// list of collections that use the integration
 	Collections []Collection `json:"collections,omitempty"`
 }
 func (m GetIntegrationResponse) PrintResponse() {

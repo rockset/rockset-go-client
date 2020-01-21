@@ -12,16 +12,20 @@ import (
     "bytes"
     "encoding/json"
     "fmt"
-    
+    "time"
 )
 
-type KinesisIntegration struct {
-	// credentials for an AWS access key integration
-	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
-	// details of an AWS cross-account role integration
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
+type SavedQueryStats struct {
+	// ISO-8601 date
+	LastExecuted time.Time `json:"last_executed,omitempty"`
+	// user who last executed saved query
+	LastExecutedBy string `json:"last_executed_by,omitempty"`
+	// ISO-8601 date of last execution failure
+	LastExecutionError time.Time `json:"last_execution_error,omitempty"`
+	// error message associated with last failed query execution
+	LastExecutionErrorMessage string `json:"last_execution_error_message,omitempty"`
 }
-func (m KinesisIntegration) PrintResponse() {
+func (m SavedQueryStats) PrintResponse() {
     r, err := json.Marshal(m)
     var out bytes.Buffer
     err = json.Indent(&out, []byte(string(r)), "", "    ")

@@ -24,6 +24,8 @@ type DocumentStatus struct {
 	Id string `json:"_id,omitempty"`
 	// status, one of ADDED, REPLACED, DELETED, ERROR
 	Status string `json:"status,omitempty"`
+	// unique id used to represent each patch request
+	PatchId string `json:"patch_id,omitempty"`
 }
 func (m DocumentStatus) PrintResponse() {
     r, err := json.Marshal(m)

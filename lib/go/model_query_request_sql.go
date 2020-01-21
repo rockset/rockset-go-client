@@ -20,6 +20,10 @@ type QueryRequestSql struct {
 	Query string `json:"query"`
 	// list of named parameters
 	Parameters []QueryParameter `json:"parameters,omitempty"`
+	// Row limit to use if no limit specified in the query
+	DefaultRowLimit int32 `json:"default_row_limit,omitempty"`
+	// Whether to generate warnings
+	GenerateWarnings bool `json:"generate_warnings,omitempty"`
 }
 func (m QueryRequestSql) PrintResponse() {
     r, err := json.Marshal(m)
