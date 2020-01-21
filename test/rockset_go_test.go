@@ -7,6 +7,8 @@ import (
 	"testing"
 	"time"
 
+	"github.com/antihax/optional"
+
 	apiclient "github.com/rockset/rockset-go-client"
 	models "github.com/rockset/rockset-go-client/lib/go"
 	assert "github.com/stretchr/testify/require"
@@ -97,5 +99,71 @@ func TestQuery(t *testing.T) {
 		// query
 		_, _, err := client.Query(q)
 		assert.Equal(t, err, nil, "error querying")
+	}
+}
+
+func TestSavedQuery(t *testing.T) {
+	apiKey := os.Getenv("ROCKSET_APIKEY")
+	apiServer := os.Getenv("ROCKSET_APISERVER")
+
+	client := apiclient.Client(apiKey, apiServer)
+	var defaultValue interface{} = "Hello, world!"
+
+	{
+		// construct request
+		q := models.CreateSavedQueryRequest{
+			Name:     "MySavedQuery",
+			QuerySql: "SELECT :param as echo",
+			Parameters: []models.SavedQueryParameter{
+				{
+					Name:         "param",
+					Type_:        "string",
+					DefaultValue: &defaultValue,
+				},
+			},
+		}
+
+		// create saved query
+		_, _, err := client.QueryApi.Create("commons", q)
+		assert.Equal(t, err, nil, "error creating saved query")
+	}
+
+	{
+		// execute saved query with default paramaters
+		res, _, err := client.QueryApi.Run("commons", "MySavedQuery", 1, nil)
+		assert.Equal(t, err, nil, "error executing saved query")
+
+		results := res.Results[0].(map[string]interface{})
+
+		assert.Equal(t, results["echo"].(string), defaultValue)
+	}
+
+	{
+		// execute saved query with explicit paramaters
+		var customValue interface{} = "All work and no play makes Jack a dull boy"
+		q := models.RunOpts{
+			Body: optional.NewInterface(models.ExecuteSavedQueryRequest{
+				Parameters: []models.ExecuteSavedQueryParameter{
+					{
+						Name:  "param",
+						Value: &customValue,
+					},
+				},
+			}),
+		}
+
+		res, _, err := client.QueryApi.Run("commons", "MySavedQuery", 1, &q)
+		assert.Equal(t, err, nil, "error executing saved query")
+
+		results := res.Results[0].(map[string]interface{})
+
+		assert.Equal(t, results["echo"].(string), customValue)
+	}
+
+	{
+		// delete saved query
+		_, _, err := client.QueryApi.Delete("commons", "MySavedQuery")
+
+		assert.Equal(t, err, nil, "error deleting saved query")
 	}
 }

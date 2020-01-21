@@ -8,20 +8,20 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type ExecuteSavedQueryRequest struct {
 	// workspace of this saved query
 	Workspace string `json:"workspace,omitempty"`
 	// query name
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// query version
-	Version string `json:"version"`
+	Version string `json:"version,omitempty"`
 	// list of named parameters
 	Parameters []ExecuteSavedQueryParameter `json:"parameters,omitempty"`
 	// Row limit to use if no limit specified in the query
@@ -29,15 +29,15 @@ type ExecuteSavedQueryRequest struct {
 	// Whether to generate warnings
 	GenerateWarnings bool `json:"generate_warnings,omitempty"`
 }
+
 func (m ExecuteSavedQueryRequest) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-
