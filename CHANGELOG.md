@@ -1,5 +1,9 @@
 # Rockset Go Client Changelog
 
+## v0.8.0 2020-01-20
+- Switch to go module
+- Add new way of creating a client
+
 ## v0.7.0 2020-01-20
 - Support for new data integrations: Kafka
 - Support for Saved Queries
