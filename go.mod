@@ -1,6 +1,6 @@
 module github.com/rockset/rockset-go-client
 
-go 1.11
+go 1.13
 
 require (
 	github.com/antihax/optional v1.0.0

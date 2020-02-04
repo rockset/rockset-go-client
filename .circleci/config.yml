@@ -1,0 +1,12 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.13
+    working_directory: /go/src/github.com/rockset/rockset-go-client
+    environment:
+      GO111MODULE: "on"
+    steps:
+      - checkout
+      - run: go mod download
+      - run: go vet ./...

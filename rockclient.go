@@ -120,7 +120,7 @@ func WithAPIKey(key string) RockOption {
 // WithAPIServer sets the API server
 func WithAPIServer(s string) RockOption {
 	return func(rc *RockClient) {
-		rc.apiServer = server
+		rc.apiServer = s
 	}
 }
 
@@ -128,7 +128,7 @@ func WithAPIServer(s string) RockOption {
 // which does not have a timeout.
 func WithHTTPClient(c *http.Client) RockOption {
 	return func(rc *RockClient) {
-		rc.httpClient = client
+		rc.httpClient = c
 	}
 }
 
