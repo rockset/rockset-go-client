@@ -103,7 +103,10 @@ type RockOption func(rc *RockClient)
 func FromEnv() RockOption {
 	return func(rc *RockClient) {
 		rc.apiKey = os.Getenv("ROCKSET_APIKEY")
-		rc.apiServer = os.Getenv("ROCKSET_APISERVER")
+
+		if server := os.Getenv("ROCKSET_APISERVER"); server != "" {
+			rc.apiServer = server
+		}
 	}
 }
 
