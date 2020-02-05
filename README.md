@@ -1,4 +1,10 @@
-# rockset-go-client
+# Rockset Go Client
+[![CircleCI](https://circleci.com/gh/rockset/rockset-go-client/tree/go-client-v0.8.svg?style=shield)](https://circleci.com/gh/rockset/rockset-go-client/tree/go-client-v0.8)
+[![Documentation](https://godoc.org/github.com/rockset/rockset-go-client?status.svg)](http://godoc.org/github.com/rockset/rockset-go-client)
+[![License](https://img.shields.io/github/license/rockset/rockset-go-client.svg?maxAge=2592000)](https://github.com/rockset/rockset-go-client/LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/rockset/rockset-go-client.svg)](https://github.com/rockset/rockset-go-client/issues)
+[![Release](https://img.shields.io/github/release/rockset/rockset-go-client.svg?label=Release)](https://github.com/rockset/rockset-go-client/releases)
+
 Official Go client library for Rockset
 
 ## Installation
