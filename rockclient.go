@@ -35,7 +35,13 @@ type RockClient struct {
 	Users       *api.UsersApiService
 }
 
-// NewClient creates a new Rockset client. Either the FromEnv() or WithAPIKey() option has to be supplied.
+// NewClient creates a new Rockset client.
+//
+// Accessing the online database requires an API key, which you either have to supply through
+// the ROCKSET_APIKEY environment variable and pass the FromEnv() option
+//	c, err := rockset.NewClient(rockset.FromEnv())
+// or explicitly using the WithAPIKey() option
+//	c, err := rockset.NewClient(rockset.WithAPIKey("..."))
 func NewClient(options ...RockOption) (*RockClient, error) {
 	rc := &RockClient{
 		apiServer:  DefaultAPIServer,
