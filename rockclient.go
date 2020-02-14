@@ -1,18 +1,30 @@
 package rockset
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"net/url"
+	"os"
 	"strings"
+	"time"
 
 	api "github.com/rockset/rockset-go-client/lib/go"
 )
 
-var Version="0.7.0"
+// Version is the Rockset client version
+const Version = "0.8.0"
+
+// DefaultAPIServer is the default Rockset API server to use
+const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
 
 type RockClient struct {
-	apiServer string
-	common    api.Service
+	apiServer  string
+	apiKey     string
+	timeout    time.Duration
+	httpClient *http.Client
+
+	common api.Service
 
 	// API Services
 	ApiKeys     *api.ApiKeysApiService
@@ -23,10 +35,120 @@ type RockClient struct {
 	Users       *api.UsersApiService
 }
 
-/*
-Create a Client object to securely connect to Rockset using an API key
-Optionally, an alternate API server host can also be provided.
-*/
+// NewClient creates a new Rockset client.
+//
+// Accessing the online database requires an API key, which you either have to supply through
+// the ROCKSET_APIKEY environment variable and pass the FromEnv() option
+//	c, err := rockset.NewClient(rockset.FromEnv())
+// or explicitly using the WithAPIKey() option
+//	c, err := rockset.NewClient(rockset.WithAPIKey("..."))
+func NewClient(options ...RockOption) (*RockClient, error) {
+	rc := &RockClient{
+		apiServer:  DefaultAPIServer,
+		httpClient: http.DefaultClient,
+	}
+
+	for _, o := range options {
+		o(rc)
+	}
+
+	if err := rc.Validate(); err != nil {
+		return nil, err
+	}
+
+	cfg := api.NewConfiguration()
+	cfg.BasePath = rc.apiServer
+	cfg.Version = Version
+	cfg.HTTPClient = rc.httpClient
+	rc.common.Client = api.ApiClient(cfg, rc.apiKey)
+
+	rc.ApiKeys = (*api.ApiKeysApiService)(&rc.common)
+	rc.Collection = (*api.CollectionsApiService)(&rc.common)
+	rc.Integration = (*api.IntegrationsApiService)(&rc.common)
+	rc.Documents = (*api.DocumentsApiService)(&rc.common)
+	rc.QueryApi = (*api.QueriesApiService)(&rc.common)
+	rc.Users = (*api.UsersApiService)(&rc.common)
+
+	return rc, nil
+}
+
+// Query executes a query request against Rockset
+func (rc *RockClient) Query(request api.QueryRequest) (api.QueryResponse, *http.Response, error) {
+	return rc.QueryApi.Query(request)
+}
+
+// Validate validates and sets the Rockset client configuration options
+func (rc *RockClient) Validate() error {
+	if rc.apiKey == "" {
+		return fmt.Errorf("an API key must be specified")
+	}
+	if rc.apiServer == "" {
+		return fmt.Errorf("an API server must be specified")
+	}
+
+	u, err := url.Parse(rc.apiServer)
+	if err != nil {
+		return fmt.Errorf("failed to parse API server %s: %w", rc.apiServer, err)
+	}
+	if u.Scheme == "" {
+		u.Scheme = "https"
+	}
+	rc.apiServer = u.String()
+
+	if rc.timeout != 0 {
+		rc.httpClient.Timeout = rc.timeout
+	}
+
+	return nil
+}
+
+// RockOption is the type for RockClient options
+type RockOption func(rc *RockClient)
+
+// FromEnv sets API key and API server from the environment variables ROCKSET_APIKEY and ROCKSET_APISERVER
+func FromEnv() RockOption {
+	return func(rc *RockClient) {
+		rc.apiKey = os.Getenv("ROCKSET_APIKEY")
+
+		if server := os.Getenv("ROCKSET_APISERVER"); server != "" {
+			rc.apiServer = server
+		}
+	}
+}
+
+// WithAPIKey sets the API key to key
+func WithAPIKey(key string) RockOption {
+	return func(rc *RockClient) {
+		rc.apiKey = key
+	}
+}
+
+// WithAPIServer sets the API server
+func WithAPIServer(s string) RockOption {
+	return func(rc *RockClient) {
+		rc.apiServer = s
+	}
+}
+
+// WithHTTPClient sets the HTTP client. Without this option RockClient uses the http.DefaultClient,
+// which does not have a timeout.
+func WithHTTPClient(c *http.Client) RockOption {
+	return func(rc *RockClient) {
+		rc.httpClient = c
+	}
+}
+
+// WithTimeout sets the HTTP client timeout, and will override any value set using using the WithHTTPClient() option
+func WithTimeout(t time.Duration) RockOption {
+	return func(rc *RockClient) {
+		rc.timeout = t
+	}
+}
+
+// Create a Client object to securely connect to Rockset using an API key
+// Optionally, an alternate API server host can also be provided.
+//
+// Deprecated: this function has been superseded by NewClient()
 func Client(apiKey string, apiServer string) *RockClient {
 	// TODO read from credentials file if it exists
 	if apiKey == "" {
@@ -56,9 +178,4 @@ func Client(apiKey string, apiServer string) *RockClient {
 	c.Users = (*api.UsersApiService)(&c.common)
 
 	return c
-}
-
-// Execute a query against Rockset
-func (c *RockClient) Query(body api.QueryRequest) (api.QueryResponse, *http.Response, error) {
-	return c.QueryApi.Query(body)
 }
