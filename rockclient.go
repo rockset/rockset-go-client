@@ -27,12 +27,14 @@ type RockClient struct {
 	common api.Service
 
 	// API Services
-	ApiKeys     *api.ApiKeysApiService
-	Collection  *api.CollectionsApiService
-	Integration *api.IntegrationsApiService
-	Documents   *api.DocumentsApiService
-	QueryApi    *api.QueriesApiService
-	Users       *api.UsersApiService
+	ApiKeys       *api.ApiKeysApiService
+	Collection    *api.CollectionsApiService
+	Integration   *api.IntegrationsApiService
+	Documents     *api.DocumentsApiService
+	QueryApi      *api.QueriesApiService
+	Users         *api.UsersApiService
+	Organizations *api.OrganizationsApiService
+	Workspaces    *api.WorkspacesApiService
 }
 
 // NewClient creates a new Rockset client.
@@ -64,10 +66,12 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 
 	rc.ApiKeys = (*api.ApiKeysApiService)(&rc.common)
 	rc.Collection = (*api.CollectionsApiService)(&rc.common)
-	rc.Integration = (*api.IntegrationsApiService)(&rc.common)
 	rc.Documents = (*api.DocumentsApiService)(&rc.common)
+	rc.Integration = (*api.IntegrationsApiService)(&rc.common)
 	rc.QueryApi = (*api.QueriesApiService)(&rc.common)
 	rc.Users = (*api.UsersApiService)(&rc.common)
+	rc.Organizations = (*api.OrganizationsApiService)(&rc.common)
+	rc.Workspaces = (*api.WorkspacesApiService)(&rc.common)
 
 	return rc, nil
 }
@@ -75,6 +79,51 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 // Query executes a query request against Rockset
 func (rc *RockClient) Query(request api.QueryRequest) (api.QueryResponse, *http.Response, error) {
 	return rc.QueryApi.Query(request)
+}
+
+// Organization returns the organization the RockClient belongs to
+func (rc *RockClient) Organization() (api.Organization, *http.Response, error) {
+	org, resp, err := rc.Organizations.Get()
+	if err != nil {
+		return api.Organization{}, resp, err
+	}
+	return *org.Data, resp, err
+}
+
+// GetWorkspace gets the workspace with name
+func (rc *RockClient) GetWorkspace(name string) (api.Workspace, *http.Response, error) {
+	w, resp, err := rc.Workspaces.Get(name)
+	if err != nil {
+		return api.Workspace{}, resp, err
+	}
+	return *w.Data, resp, err
+}
+
+// ListWorkspaces list all workspaces
+func (rc *RockClient) ListWorkspaces() ([]api.Workspace, *http.Response, error) {
+	w, resp, err := rc.Workspaces.List()
+	if err != nil {
+		return nil, resp, err
+	}
+	return w.Data, resp, err
+}
+
+// CreateWorkspace creates a new workspace
+func (rc *RockClient) CreateWorkspace(name, description string) (api.Workspace, *http.Response, error) {
+	w, resp, err := rc.Workspaces.Create(api.CreateWorkspaceRequest{Name: name, Description: description})
+	if err != nil {
+		return api.Workspace{}, resp, err
+	}
+	return *w.Data, resp, err
+}
+
+// DeleteWorkspace deletes the workspace with name
+func (rc *RockClient) DeleteWorkspace(name string) (api.Workspace, *http.Response, error) {
+	w, resp, err := rc.Workspaces.Delete(name)
+	if err != nil {
+		return api.Workspace{}, resp, err
+	}
+	return *w.Data, resp, err
 }
 
 // Validate validates and sets the Rockset client configuration options
