@@ -28,6 +28,7 @@ type User struct {
 	Roles []string `json:"roles,omitempty"`
 	// state of user - NEW / ACTIVE
 	State string `json:"state,omitempty"`
+	Org string `json:"org,omitempty"`
 }
 func (m User) PrintResponse() {
     r, err := json.Marshal(m)

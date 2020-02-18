@@ -12,16 +12,16 @@ import (
     "bytes"
     "encoding/json"
     "fmt"
-    "time"
+    
 )
 
 type SavedQueryStats struct {
 	// ISO-8601 date
-	LastExecuted time.Time `json:"last_executed,omitempty"`
+	LastExecuted string `json:"last_executed,omitempty"`
 	// user who last executed saved query
 	LastExecutedBy string `json:"last_executed_by,omitempty"`
 	// ISO-8601 date of last execution failure
-	LastExecutionError time.Time `json:"last_execution_error,omitempty"`
+	LastExecutionError string `json:"last_execution_error,omitempty"`
 	// error message associated with last failed query execution
 	LastExecutionErrorMessage string `json:"last_execution_error_message,omitempty"`
 }
