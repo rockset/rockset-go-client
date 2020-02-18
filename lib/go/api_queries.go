@@ -19,7 +19,7 @@ import (
 	"net/url"
 	"strings"
 	"fmt"
-  "github.com/antihax/optional"
+	"github.com/antihax/optional"
 )
 
 type QueriesApiService Service

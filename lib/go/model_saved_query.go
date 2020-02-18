@@ -12,7 +12,7 @@ import (
     "bytes"
     "encoding/json"
     "fmt"
-    "time"
+    
 )
 
 type SavedQuery struct {
@@ -21,7 +21,7 @@ type SavedQuery struct {
 	// user that created this query
 	CreatedBy string `json:"created_by,omitempty"`
 	// ISO-8601 date of when saved query was created
-	CreatedAt time.Time `json:"created_at,omitempty"`
+	CreatedAt string `json:"created_at,omitempty"`
 	// query name
 	Name string `json:"name,omitempty"`
 	// query version
