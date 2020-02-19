@@ -8,11 +8,11 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type SourceS3 struct {
@@ -23,15 +23,15 @@ type SourceS3 struct {
 	// address of S3 bucket containing data
 	Bucket string `json:"bucket"`
 }
+
 func (m SourceS3) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

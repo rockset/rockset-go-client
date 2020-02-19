@@ -8,11 +8,11 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type AwsAccessKey struct {
@@ -21,15 +21,15 @@ type AwsAccessKey struct {
 	// AWS secret access key
 	AwsSecretAccessKey string `json:"aws_secret_access_key"`
 }
+
 func (m AwsAccessKey) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

@@ -8,11 +8,11 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type CollectionStats struct {
@@ -35,15 +35,15 @@ type CollectionStats struct {
 	// total number of bytes overwritten in writing into the collection
 	BytesOverwritten int64 `json:"bytes_overwritten,omitempty"`
 }
+
 func (m CollectionStats) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

@@ -8,11 +8,11 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 // Workspaces are organizational containers for collections.
@@ -28,15 +28,15 @@ type Workspace struct {
 	// number of collections that are immediate children of workspace
 	CollectionCount int64 `json:"collection_count,omitempty"`
 }
+
 func (m Workspace) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

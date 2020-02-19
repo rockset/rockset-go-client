@@ -8,30 +8,30 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type OutputField struct {
-	// The name of a field, parsed as a SQL qualified name 
+	// The name of a field, parsed as a SQL qualified name
 	FieldName string `json:"field_name,omitempty"`
 	// The name of a sql function
 	Value *SqlExpression `json:"value,omitempty"`
-	// Error in Mapping execution: 'skip' or 'fail' 
+	// Error in Mapping execution: 'skip' or 'fail'
 	OnError string `json:"on_error,omitempty"`
 }
+
 func (m OutputField) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

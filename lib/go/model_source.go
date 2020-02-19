@@ -8,14 +8,14 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
-// Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
+// Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views.
 type Source struct {
 	// name of integration to use
 	IntegrationName string `json:"integration_name"`
@@ -31,21 +31,21 @@ type Source struct {
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	// file upload details
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
-	Kafka *SourceKafka `json:"kafka,omitempty"`
+	Kafka      *SourceKafka      `json:"kafka,omitempty"`
 	// the ingest status of this source
 	Status *Status `json:"status,omitempty"`
 	// format parameters for data from this source
 	FormatParams *FormatParams `json:"format_params,omitempty"`
 }
+
 func (m Source) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

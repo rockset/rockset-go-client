@@ -56,7 +56,7 @@ type Configuration struct {
 	DefaultHeader map[string]string `json:"defaultHeader,omitempty"`
 	UserAgent     string            `json:"userAgent,omitempty"`
 	HTTPClient    *http.Client
-    Version       string
+	Version       string
 }
 
 func NewConfiguration() *Configuration {

@@ -10,20 +10,20 @@
 package rockset
 
 import (
-    "bufio"
-    "bytes"
-    "encoding/json"
+	"bufio"
+	"bytes"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
-    "log"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
-	"fmt"
 )
 
 type ApiKeysApiService Service
 
-/* 
+/*
 ApiKeysApiService Create API Key
 Create a new API key for the authenticated user.
  * @param body JSON object
@@ -32,10 +32,10 @@ Create a new API key for the authenticated user.
 */
 func (a *ApiKeysApiService) Create(body CreateApiKeyRequest) (CreateApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue CreateApiKeyResponse
 	)
 
@@ -56,11 +56,11 @@ func (a *ApiKeysApiService) Create(body CreateApiKeyRequest) (CreateApiKeyRespon
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	// body params
@@ -83,29 +83,29 @@ func (a *ApiKeysApiService) Create(body CreateApiKeyRequest) (CreateApiKeyRespon
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v CreateApiKeyResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -118,7 +118,7 @@ func (a *ApiKeysApiService) CreateStream(body CreateApiKeyRequest) (string, *htt
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -138,11 +138,11 @@ func (a *ApiKeysApiService) CreateStream(body CreateApiKeyRequest) (string, *htt
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	// body params
@@ -157,23 +157,23 @@ func (a *ApiKeysApiService) CreateStream(body CreateApiKeyRequest) (string, *htt
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 ApiKeysApiService Create API Key for any user (admin only)
 Create a new API key for any user (admin only).
  * @param body JSON object
@@ -183,10 +183,10 @@ Create a new API key for any user (admin only).
 */
 func (a *ApiKeysApiService) Create_1(body CreateApiKeyRequest, user string) (CreateApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue CreateApiKeyResponse
 	)
 
@@ -208,11 +208,11 @@ func (a *ApiKeysApiService) Create_1(body CreateApiKeyRequest, user string) (Cre
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	// body params
@@ -235,29 +235,29 @@ func (a *ApiKeysApiService) Create_1(body CreateApiKeyRequest, user string) (Cre
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v CreateApiKeyResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -270,7 +270,7 @@ func (a *ApiKeysApiService) Create_1Stream(body CreateApiKeyRequest, user string
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -291,11 +291,11 @@ func (a *ApiKeysApiService) Create_1Stream(body CreateApiKeyRequest, user string
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	// body params
@@ -310,23 +310,23 @@ func (a *ApiKeysApiService) Create_1Stream(body CreateApiKeyRequest, user string
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 ApiKeysApiService Delete API Key
 Delete an API key for the authenticated user.
  * @param name name of the API key
@@ -335,10 +335,10 @@ Delete an API key for the authenticated user.
 */
 func (a *ApiKeysApiService) Delete(name string) (DeleteApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Delete")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue DeleteApiKeyResponse
 	)
 
@@ -360,11 +360,11 @@ func (a *ApiKeysApiService) Delete(name string) (DeleteApiKeyResponse, *http.Res
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -385,29 +385,29 @@ func (a *ApiKeysApiService) Delete(name string) (DeleteApiKeyResponse, *http.Res
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v DeleteApiKeyResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -420,7 +420,7 @@ func (a *ApiKeysApiService) DeleteStream(name string) (string, *http.Response, e
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -441,11 +441,11 @@ func (a *ApiKeysApiService) DeleteStream(name string) (string, *http.Response, e
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -458,23 +458,23 @@ func (a *ApiKeysApiService) DeleteStream(name string) (string, *http.Response, e
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 ApiKeysApiService Delete API Key for any user (admin only)
 Delete an API key for any user (admin only).
  * @param name name of the API key
@@ -484,10 +484,10 @@ Delete an API key for any user (admin only).
 */
 func (a *ApiKeysApiService) Delete_2(name string, user string) (DeleteApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Delete")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue DeleteApiKeyResponse
 	)
 
@@ -510,11 +510,11 @@ func (a *ApiKeysApiService) Delete_2(name string, user string) (DeleteApiKeyResp
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -535,29 +535,29 @@ func (a *ApiKeysApiService) Delete_2(name string, user string) (DeleteApiKeyResp
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v DeleteApiKeyResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -570,7 +570,7 @@ func (a *ApiKeysApiService) Delete_2Stream(name string, user string) (string, *h
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -592,11 +592,11 @@ func (a *ApiKeysApiService) Delete_2Stream(name string, user string) (string, *h
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -609,23 +609,23 @@ func (a *ApiKeysApiService) Delete_2Stream(name string, user string) (string, *h
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 ApiKeysApiService List API Keys
 List all API keys for the authenticated user.
 
@@ -633,10 +633,10 @@ List all API keys for the authenticated user.
 */
 func (a *ApiKeysApiService) List() (ListApiKeysResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ListApiKeysResponse
 	)
 
@@ -657,11 +657,11 @@ func (a *ApiKeysApiService) List() (ListApiKeysResponse, *http.Response, error) 
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -682,29 +682,29 @@ func (a *ApiKeysApiService) List() (ListApiKeysResponse, *http.Response, error) 
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ListApiKeysResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -717,7 +717,7 @@ func (a *ApiKeysApiService) ListStream() (string, *http.Response, error) {
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -737,11 +737,11 @@ func (a *ApiKeysApiService) ListStream() (string, *http.Response, error) {
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -754,23 +754,23 @@ func (a *ApiKeysApiService) ListStream() (string, *http.Response, error) {
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 ApiKeysApiService List API Keys for any user (admin only)
 List all API keys for any user (admin only).
  * @param user
@@ -779,10 +779,10 @@ List all API keys for any user (admin only).
 */
 func (a *ApiKeysApiService) List_3(user string) (ListApiKeysResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ListApiKeysResponse
 	)
 
@@ -804,11 +804,11 @@ func (a *ApiKeysApiService) List_3(user string) (ListApiKeysResponse, *http.Resp
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -829,29 +829,29 @@ func (a *ApiKeysApiService) List_3(user string) (ListApiKeysResponse, *http.Resp
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ListApiKeysResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -864,7 +864,7 @@ func (a *ApiKeysApiService) List_3Stream(user string) (string, *http.Response, e
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -885,11 +885,11 @@ func (a *ApiKeysApiService) List_3Stream(user string) (string, *http.Response, e
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -902,19 +902,18 @@ func (a *ApiKeysApiService) List_3Stream(user string) (string, *http.Response, e
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
-

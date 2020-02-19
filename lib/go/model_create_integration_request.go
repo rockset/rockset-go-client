@@ -8,11 +8,11 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type CreateIntegrationRequest struct {
@@ -29,19 +29,19 @@ type CreateIntegrationRequest struct {
 	// Amazon Redshift details
 	Redshift *RedshiftIntegration `json:"redshift,omitempty"`
 	// GCS details
-	Gcs *GcsIntegration `json:"gcs,omitempty"`
+	Gcs     *GcsIntegration     `json:"gcs,omitempty"`
 	Segment *SegmentIntegration `json:"segment,omitempty"`
-	Kafka *KafkaIntegration `json:"kafka,omitempty"`
+	Kafka   *KafkaIntegration   `json:"kafka,omitempty"`
 }
+
 func (m CreateIntegrationRequest) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-
