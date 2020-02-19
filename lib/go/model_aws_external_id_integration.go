@@ -8,28 +8,28 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type AwsExternalIdIntegration struct {
 	// ARN of rockset-role created in your account
-	AwsRoleArn string `json:"aws_role_arn"`
-	AwsExternalId string `json:"aws_external_id,omitempty"`
+	AwsRoleArn     string `json:"aws_role_arn"`
+	AwsExternalId  string `json:"aws_external_id,omitempty"`
 	RocksetIamUser string `json:"rockset_iam_user,omitempty"`
 }
+
 func (m AwsExternalIdIntegration) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

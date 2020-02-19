@@ -10,20 +10,20 @@
 package rockset
 
 import (
-    "bufio"
-    "bytes"
-    "encoding/json"
+	"bufio"
+	"bytes"
+	"encoding/json"
+	"fmt"
 	"io/ioutil"
-    "log"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
-	"fmt"
 )
 
 type WorkspacesApiService Service
 
-/* 
+/*
 WorkspacesApiService List Workspaces
 List workspaces under given workspace.
  * @param workspace name of the workspace
@@ -32,10 +32,10 @@ List workspaces under given workspace.
 */
 func (a *WorkspacesApiService) Child(workspace string) (ListWorkspacesResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ListWorkspacesResponse
 	)
 
@@ -57,11 +57,11 @@ func (a *WorkspacesApiService) Child(workspace string) (ListWorkspacesResponse, 
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -82,29 +82,29 @@ func (a *WorkspacesApiService) Child(workspace string) (ListWorkspacesResponse, 
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ListWorkspacesResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -117,7 +117,7 @@ func (a *WorkspacesApiService) ChildStream(workspace string) (string, *http.Resp
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -138,11 +138,11 @@ func (a *WorkspacesApiService) ChildStream(workspace string) (string, *http.Resp
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -155,23 +155,23 @@ func (a *WorkspacesApiService) ChildStream(workspace string) (string, *http.Resp
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 WorkspacesApiService Create Workspace
 Create a new workspace in your org.
  * @param body workspace details
@@ -180,10 +180,10 @@ Create a new workspace in your org.
 */
 func (a *WorkspacesApiService) Create(body CreateWorkspaceRequest) (CreateWorkspaceResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Post")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue CreateWorkspaceResponse
 	)
 
@@ -204,11 +204,11 @@ func (a *WorkspacesApiService) Create(body CreateWorkspaceRequest) (CreateWorksp
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	// body params
@@ -231,29 +231,29 @@ func (a *WorkspacesApiService) Create(body CreateWorkspaceRequest) (CreateWorksp
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v CreateWorkspaceResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -266,7 +266,7 @@ func (a *WorkspacesApiService) CreateStream(body CreateWorkspaceRequest) (string
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -286,11 +286,11 @@ func (a *WorkspacesApiService) CreateStream(body CreateWorkspaceRequest) (string
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	// body params
@@ -305,23 +305,23 @@ func (a *WorkspacesApiService) CreateStream(body CreateWorkspaceRequest) (string
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 WorkspacesApiService Delete Workspace
 Remove a workspace.
  * @param workspace name of the workspace
@@ -330,10 +330,10 @@ Remove a workspace.
 */
 func (a *WorkspacesApiService) Delete(workspace string) (DeleteWorkspaceResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Delete")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Delete")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue DeleteWorkspaceResponse
 	)
 
@@ -355,11 +355,11 @@ func (a *WorkspacesApiService) Delete(workspace string) (DeleteWorkspaceResponse
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -380,29 +380,29 @@ func (a *WorkspacesApiService) Delete(workspace string) (DeleteWorkspaceResponse
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v DeleteWorkspaceResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -415,7 +415,7 @@ func (a *WorkspacesApiService) DeleteStream(workspace string) (string, *http.Res
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -436,11 +436,11 @@ func (a *WorkspacesApiService) DeleteStream(workspace string) (string, *http.Res
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -453,23 +453,23 @@ func (a *WorkspacesApiService) DeleteStream(workspace string) (string, *http.Res
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 WorkspacesApiService Get Workspace
 Get information about a single workspace.
  * @param workspace name of the workspace
@@ -478,10 +478,10 @@ Get information about a single workspace.
 */
 func (a *WorkspacesApiService) Get(workspace string) (GetWorkspaceResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue GetWorkspaceResponse
 	)
 
@@ -503,11 +503,11 @@ func (a *WorkspacesApiService) Get(workspace string) (GetWorkspaceResponse, *htt
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -528,29 +528,29 @@ func (a *WorkspacesApiService) Get(workspace string) (GetWorkspaceResponse, *htt
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v GetWorkspaceResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -563,7 +563,7 @@ func (a *WorkspacesApiService) GetStream(workspace string) (string, *http.Respon
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -584,11 +584,11 @@ func (a *WorkspacesApiService) GetStream(workspace string) (string, *http.Respon
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -601,23 +601,23 @@ func (a *WorkspacesApiService) GetStream(workspace string) (string, *http.Respon
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
 
-/* 
+/*
 WorkspacesApiService List Workspaces
 List all workspaces.
 
@@ -625,10 +625,10 @@ List all workspaces.
 */
 func (a *WorkspacesApiService) List() (ListWorkspacesResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod = strings.ToUpper("Get")
-		localVarPostBody   interface{}
-		localVarFileName   string
-		localVarFileBytes  []byte
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
 		localVarReturnValue ListWorkspacesResponse
 	)
 
@@ -649,11 +649,11 @@ func (a *WorkspacesApiService) List() (ListWorkspacesResponse, *http.Response, e
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -674,29 +674,29 @@ func (a *WorkspacesApiService) List() (ListWorkspacesResponse, *http.Response, e
 
 	if localVarHttpResponse.StatusCode < 300 {
 		// If we succeed, return the data, otherwise pass on to decode error.
-		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-		if err == nil { 
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
 			return localVarReturnValue, localVarHttpResponse, err
 		}
 	}
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericSwaggerError{
-			body: localVarBody,
+			body:  localVarBody,
 			error: localVarHttpResponse.Status,
 		}
-		
+
 		if localVarHttpResponse.StatusCode == 200 {
 			var v ListWorkspacesResponse
-			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"));
-				if err != nil {
-					newErr.error = err.Error()
-					return localVarReturnValue, localVarHttpResponse, newErr
-				}
-				newErr.model = v
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
 				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
 		}
-		
+
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
 
@@ -709,7 +709,7 @@ func (a *WorkspacesApiService) ListStream() (string, *http.Response, error) {
 		localVarPostBody   interface{}
 		localVarFileName   string
 		localVarFileBytes  []byte
-        localVarBody []byte
+		localVarBody       []byte
 	)
 
 	// create path and map variables
@@ -729,11 +729,11 @@ func (a *WorkspacesApiService) ListStream() (string, *http.Response, error) {
 	}
 
 	// to determine the Api Key header
-    localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderAuthorization := ""
 	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
-    if localVarHttpHeaderApiKey == "" {
-        log.Fatal("missing required argument ApiKey")
-    }
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
 	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
 
 	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
@@ -746,19 +746,18 @@ func (a *WorkspacesApiService) ListStream() (string, *http.Response, error) {
 		return "", localVarHttpResponse, err
 	}
 
-    reader := bufio.NewReader(localVarHttpResponse.Body)
-    localVarBody, err= reader.ReadBytes('\n')
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
 
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
-    if err != nil {
-        return "", localVarHttpResponse, err
-    }
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
 
-    if localVarHttpResponse.StatusCode >= 300 {
+	if localVarHttpResponse.StatusCode >= 300 {
 		return out.String(), localVarHttpResponse, nil
 	}
 
 	return out.String(), localVarHttpResponse, nil
 }
-

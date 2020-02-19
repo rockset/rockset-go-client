@@ -38,11 +38,11 @@ var (
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
-    apiKey string
+	apiKey string
 }
 
 type Service struct {
-    Client *APIClient
+	Client *APIClient
 }
 
 // Client creates a new API client. Requires a userAgent string describing your application.
@@ -51,10 +51,10 @@ func ApiClient(cfg *Configuration, apiKey string) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
 	}
-    
-    c := &APIClient{}
-    c.cfg = cfg
-    c.apiKey = apiKey
+
+	c := &APIClient{}
+	c.cfg = cfg
+	c.apiKey = apiKey
 	return c
 }
 
@@ -243,9 +243,9 @@ func (c *APIClient) prepareRequest(
 
 	// Add the user agent to the request.
 	localVarRequest.Header.Add("User-Agent", c.cfg.UserAgent)
-    
-    // Add the version to the request header
-    localVarRequest.Header.Add("x-rockset-version", c.cfg.Version)
+
+	// Add the version to the request header
+	localVarRequest.Header.Add("x-rockset-version", c.cfg.Version)
 
 	for header, value := range c.cfg.DefaultHeader {
 		localVarRequest.Header.Add(header, value)
@@ -255,17 +255,17 @@ func (c *APIClient) prepareRequest(
 }
 
 func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err error) {
-		if strings.Contains(contentType, "application/xml") {
-			if err = xml.Unmarshal(b, v); err != nil {
-				return err
-			}
-			return nil
-		} else if strings.Contains(contentType, "application/json") {
-			if err = json.Unmarshal(b, v); err != nil {
-				return err
-			}
-			return nil
+	if strings.Contains(contentType, "application/xml") {
+		if err = xml.Unmarshal(b, v); err != nil {
+			return err
 		}
+		return nil
+	} else if strings.Contains(contentType, "application/json") {
+		if err = json.Unmarshal(b, v); err != nil {
+			return err
+		}
+		return nil
+	}
 	return errors.New("undefined response type")
 }
 

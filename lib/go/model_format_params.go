@@ -8,28 +8,28 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 type FormatParams struct {
 	// source data is in json format
-	Json bool `json:"json,omitempty"`
-	Csv *CsvParams `json:"csv,omitempty"`
-	Xml *XmlParams `json:"xml,omitempty"`
+	Json bool       `json:"json,omitempty"`
+	Csv  *CsvParams `json:"csv,omitempty"`
+	Xml  *XmlParams `json:"xml,omitempty"`
 }
+
 func (m FormatParams) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-

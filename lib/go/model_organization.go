@@ -8,11 +8,11 @@
  */
 
 package rockset
+
 import (
-    "bytes"
-    "encoding/json"
-    "fmt"
-    
+	"bytes"
+	"encoding/json"
+	"fmt"
 )
 
 // An organization in Rockset is a container for users and collections.
@@ -25,20 +25,21 @@ type Organization struct {
 	DisplayName string `json:"display_name,omitempty"`
 	// name of the company
 	CompanyName string `json:"company_name,omitempty"`
-	ExternalId string `json:"external_id,omitempty"`
+	// organization's unique external ID within Rockset
+	ExternalId  string `json:"external_id,omitempty"`
 	RocksetUser string `json:"rockset_user,omitempty"`
 	// org state
 	State string `json:"state,omitempty"`
 }
+
 func (m Organization) PrintResponse() {
-    r, err := json.Marshal(m)
-    var out bytes.Buffer
-    err = json.Indent(&out, []byte(string(r)), "", "    ")
-    if err != nil {
-        fmt.Println("error parsing string")
-        return
-    }
+	r, err := json.Marshal(m)
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(r)), "", "    ")
+	if err != nil {
+		fmt.Println("error parsing string")
+		return
+	}
 
-    fmt.Println(out.String())
+	fmt.Println(out.String())
 }
-
