@@ -40,6 +40,8 @@ type OperatorStats struct {
 	OutputBytes int64 `json:"output_bytes,omitempty"`
 	// Total rows sent across all outputs
 	OutputRows int64 `json:"output_rows,omitempty"`
+	// Total time in microseconds spent doing useful work
+	ProcessingTimeUs int64 `json:"processing_time_us,omitempty"`
 }
 
 func (m OperatorStats) PrintResponse() {

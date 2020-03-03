@@ -102,68 +102,69 @@ func TestQuery(t *testing.T) {
 	}
 }
 
-func TestSavedQuery(t *testing.T) {
+func TestQueryLambda(t *testing.T) {
 	apiKey := os.Getenv("ROCKSET_APIKEY")
 	apiServer := os.Getenv("ROCKSET_APISERVER")
 
 	client := apiclient.Client(apiKey, apiServer)
-	var defaultValue interface{} = "Hello, world!"
 
 	{
 		// construct request
-		q := models.CreateSavedQueryRequest{
-			Name:     "MySavedQuery",
-			QuerySql: "SELECT :param as echo",
-			Parameters: []models.SavedQueryParameter{
-				{
-					Name:         "param",
-					Type_:        "string",
-					DefaultValue: &defaultValue,
+		q := models.CreateQueryLambdaRequest{
+			Name:     "MyQueryLambda",
+			Sql: &models.QueryLambdaSql{
+				Query: "SELECT :param as echo",
+				DefaultParameters: []models.QueryParameter{
+					{
+						Name:  "param",
+						Type_: "string",
+						Value: "Hello, world!",
+					},
 				},
 			},
 		}
 
-		// create saved query
-		_, _, err := client.QueryApi.Create("commons", q)
-		assert.Equal(t, err, nil, "error creating saved query")
+		// create Query Lambda
+		_, _, err := client.QueryLambdas.Create("commons", q)
+		assert.Equal(t, err, nil, "error creating Query Lambda")
 	}
 
 	{
-		// execute saved query with default paramaters
-		res, _, err := client.QueryApi.Run("commons", "MySavedQuery", 1, nil)
-		assert.Equal(t, err, nil, "error executing saved query")
+		// execute Query Lambda with default paramaters
+		res, _, err := client.QueryLambdas.Execute("commons", "MyQueryLambda", 1, nil)
+		assert.Equal(t, err, nil, "error executing Query Lambda")
 
 		results := res.Results[0].(map[string]interface{})
 
-		assert.Equal(t, results["echo"].(string), defaultValue)
+		assert.Equal(t, results["echo"].(string), "Hello, world!")
 	}
 
 	{
-		// execute saved query with explicit paramaters
-		var customValue interface{} = "All work and no play makes Jack a dull boy"
-		q := models.RunOpts{
-			Body: optional.NewInterface(models.ExecuteSavedQueryRequest{
-				Parameters: []models.ExecuteSavedQueryParameter{
+		// execute Query Lambda with explicit paramaters
+		q := models.ExecuteOpts{
+			Body: optional.NewInterface(models.ExecuteQueryLambdaRequest{
+				Parameters: []models.QueryParameter{
 					{
 						Name:  "param",
-						Value: &customValue,
+						Type_: "string",
+						Value: "All work and no play makes Jack a dull boy",
 					},
 				},
 			}),
 		}
 
-		res, _, err := client.QueryApi.Run("commons", "MySavedQuery", 1, &q)
-		assert.Equal(t, err, nil, "error executing saved query")
+		res, _, err := client.QueryLambdas.Execute("commons", "MyQueryLambda", 1, &q)
+		assert.Equal(t, err, nil, "error executing Query Lambda")
 
 		results := res.Results[0].(map[string]interface{})
 
-		assert.Equal(t, results["echo"].(string), customValue)
+		assert.Equal(t, results["echo"].(string), "All work and no play makes Jack a dull boy")
 	}
 
 	{
-		// delete saved query
-		_, _, err := client.QueryApi.Delete("commons", "MySavedQuery")
+		// delete Query Lambda
+		_, _, err := client.QueryLambdas.Delete("commons", "MyQueryLambda")
 
-		assert.Equal(t, err, nil, "error deleting saved query")
+		assert.Equal(t, err, nil, "error deleting Query Lambda")
 	}
 }
