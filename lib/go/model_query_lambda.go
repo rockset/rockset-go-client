@@ -15,24 +15,30 @@ import (
 	"fmt"
 )
 
-type CsvParams struct {
-	// If the first line in every object specifies the column names
-	FirstLineAsColumnNames bool `json:"firstLineAsColumnNames,omitempty"`
-	// a single character that is the column separator
-	Separator string `json:"separator,omitempty"`
-	// can be one of: UTF-8, ISO_8859_1, UTF-16
-	Encoding string `json:"encoding,omitempty"`
-	// names of columns
-	ColumnNames []string `json:"columnNames,omitempty"`
-	// names of columns
-	ColumnTypes []string `json:"columnTypes,omitempty"`
-	// character within which a cell value is enclosed,null character if no such character, default is '\"'
-	QuoteChar string `json:"quoteChar,omitempty"`
-	// escape character removes any special meaning from the following character,default is '\\'
-	EscapeChar string `json:"escapeChar,omitempty"`
+type QueryLambda struct {
+	// workspace of this Query Lambda
+	Workspace string `json:"workspace,omitempty"`
+	// user that created this Query Lambda
+	CreatedBy string `json:"created_by,omitempty"`
+	// ISO-8601 date of when Query Lambda was created
+	CreatedAt string `json:"created_at,omitempty"`
+	// Query Lambda name
+	Name string `json:"name,omitempty"`
+	// Query Lambda version
+	Version int32 `json:"version,omitempty"`
+	// optional description
+	Description string `json:"description,omitempty"`
+	// Query Lambda SQL query
+	Sql *QueryLambdaSql `json:"sql,omitempty"`
+	// collections queried by underlying SQL query
+	Collections []string `json:"collections,omitempty"`
+	// status of this Query Lambda
+	State string `json:"state,omitempty"`
+	// stats related to this Query Lambda
+	Stats *QueryLambdaStats `json:"stats,omitempty"`
 }
 
-func (m CsvParams) PrintResponse() {
+func (m QueryLambda) PrintResponse() {
 	r, err := json.Marshal(m)
 	var out bytes.Buffer
 	err = json.Indent(&out, []byte(string(r)), "", "    ")

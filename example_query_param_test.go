@@ -16,9 +16,9 @@ func ExampleRockClient_queryParam() {
 	// construct query
 	q := models.QueryRequest{
 		Sql: &models.QueryRequestSql{
-			Query: `SELECT * FROM _events WHERE kind = :k LIMIT 1`,
+			Query: `SELECT :k`,
 			Parameters: []models.QueryParameter{
-				{Name: "k", Type_: "string", Value: "QUERY"},
+				{Name: "k", Type_: "string", Value: "foo"},
 			},
 		},
 	}

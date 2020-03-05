@@ -1,12 +1,14 @@
 # Rockset Go Client Changelog
 
+## v0.9.0 2020-03-03
+- Support for Query Lambdas
+
 ## v0.8.0 2020-01-20
 - Switch to go module
 - Add new way of creating a client
 
 ## v0.7.0 2020-01-20
 - Support for new data integrations: Kafka
-- Support for Saved Queries
 
 ## v0.6.0 2019-06-17
 - move from cloud-level integrations to service-level integrations: DynamoDB, GCS, Kinesis, Redshift, S3

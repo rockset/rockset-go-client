@@ -13,7 +13,7 @@ import (
 )
 
 // Version is the Rockset client version
-const Version = "0.8.0"
+const Version = "0.9.0"
 
 // DefaultAPIServer is the default Rockset API server to use
 const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
@@ -34,6 +34,7 @@ type RockClient struct {
 	QueryApi      *api.QueriesApiService
 	Users         *api.UsersApiService
 	Organizations *api.OrganizationsApiService
+	QueryLambdas  *api.QueryLambdasApiService
 	Workspaces    *api.WorkspacesApiService
 }
 
@@ -71,6 +72,7 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	rc.QueryApi = (*api.QueriesApiService)(&rc.common)
 	rc.Users = (*api.UsersApiService)(&rc.common)
 	rc.Organizations = (*api.OrganizationsApiService)(&rc.common)
+	rc.QueryLambdas = (*api.QueryLambdasApiService)(&rc.common)
 	rc.Workspaces = (*api.WorkspacesApiService)(&rc.common)
 
 	return rc, nil
