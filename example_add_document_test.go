@@ -27,18 +27,16 @@ func Example_addDocument() {
 	time.Sleep(5 * time.Second)
 
 	// document to be inserted
-	m := map[string]interface{}{"name": "foo"}
+	doc := map[string]interface{}{"name": "foo"}
 
 	// array of documents
-	docs := []interface{}{
-		m,
-	}
+	docs := []interface{}{doc}
 
-	dinfo := models.AddDocumentsRequest{
+	docReq := models.AddDocumentsRequest{
 		Data: docs,
 	}
 
-	res, _, err := client.Documents.Add("commons", "go-test-add-docs-collection", dinfo)
+	res, _, err := client.Documents.Add("commons", "go-test-add-docs-collection", docReq)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,5 +53,4 @@ func Example_addDocument() {
 	}
 
 	fmt.Printf("deleted collection %s\n", deleteResp.Data.Name)
-
 }

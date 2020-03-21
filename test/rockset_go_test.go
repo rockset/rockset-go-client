@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -9,16 +10,16 @@ import (
 
 	"github.com/antihax/optional"
 
-	apiclient "github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client"
 	models "github.com/rockset/rockset-go-client/lib/go"
 	assert "github.com/stretchr/testify/require"
 )
 
 func TestCollection(t *testing.T) {
-	apiKey := os.Getenv("ROCKSET_APIKEY")
-	apiServer := os.Getenv("ROCKSET_APISERVER")
-
-	client := apiclient.Client(apiKey, apiServer)
+	client, err := rockset.NewClient(rockset.FromEnv())
+	if err != nil {
+		t.Fatalf("failed to create client: %v", err)
+	}
 
 	workspace := "commons"
 	name := "go-test-collection" + strconv.Itoa(rand.Intn(1000))
@@ -49,10 +50,10 @@ func TestCollection(t *testing.T) {
 }
 
 func TestIntegration(t *testing.T) {
-	apiKey := os.Getenv("ROCKSET_APIKEY")
-	apiServer := os.Getenv("ROCKSET_APISERVER")
-
-	client := apiclient.Client(apiKey, apiServer)
+	client, err := rockset.NewClient(rockset.FromEnv())
+	if err != nil {
+		t.Fatalf("failed to create client: %v", err)
+	}
 
 	name := "go-test-integration" + strconv.Itoa(rand.Intn(1000))
 
@@ -83,16 +84,16 @@ func TestIntegration(t *testing.T) {
 }
 
 func TestQuery(t *testing.T) {
-	apiKey := os.Getenv("ROCKSET_APIKEY")
-	apiServer := os.Getenv("ROCKSET_APISERVER")
-
-	client := apiclient.Client(apiKey, apiServer)
+	client, err := rockset.NewClient(rockset.FromEnv())
+	if err != nil {
+		t.Fatalf("failed to create client: %v", err)
+	}
 
 	{
 		// construct query
 		q := models.QueryRequest{
 			Sql: &models.QueryRequestSql{
-				Query: "select * from \"_events\" limit 1",
+				Query: `select * from "_events" limit 1`,
 			},
 		}
 
@@ -103,10 +104,10 @@ func TestQuery(t *testing.T) {
 }
 
 func TestQueryLambda(t *testing.T) {
-	apiKey := os.Getenv("ROCKSET_APIKEY")
-	apiServer := os.Getenv("ROCKSET_APISERVER")
-
-	client := apiclient.Client(apiKey, apiServer)
+	client, err := rockset.NewClient(rockset.FromEnv())
+	if err != nil {
+		t.Fatalf("failed to create client: %v", err)
+	}
 
 	{
 		// construct request
