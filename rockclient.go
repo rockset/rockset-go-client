@@ -1,6 +1,7 @@
 package rockset
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -13,10 +14,13 @@ import (
 )
 
 // Version is the Rockset client version
-const Version = "0.9.0"
+const Version = "0.9.1"
 
 // DefaultAPIServer is the default Rockset API server to use
 const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
+
+const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY"
+const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
 
 type RockClient struct {
 	apiServer  string
@@ -156,12 +160,13 @@ func (rc *RockClient) Validate() error {
 // RockOption is the type for RockClient options
 type RockOption func(rc *RockClient)
 
-// FromEnv sets API key and API server from the environment variables ROCKSET_APIKEY and ROCKSET_APISERVER
+// FromEnv sets API key and API server from the environment variables ROCKSET_APIKEY and ROCKSET_APISERVER,
+// and if ROCKSET_APISERVER is not set, it will use the default API server.
 func FromEnv() RockOption {
 	return func(rc *RockClient) {
-		rc.apiKey = os.Getenv("ROCKSET_APIKEY")
+		rc.apiKey = os.Getenv(APIKeyEnvironmentVariableName)
 
-		if server := os.Getenv("ROCKSET_APISERVER"); server != "" {
+		if server := os.Getenv(APIServerEnvironmentVariableName); server != "" {
 			rc.apiServer = server
 		}
 	}
@@ -194,6 +199,17 @@ func WithTimeout(t time.Duration) RockOption {
 	return func(rc *RockClient) {
 		rc.timeout = t
 	}
+}
+
+// AsRocksetError takes an error returned from an API call and returns the underlying error message
+func AsRocksetError(err error) (api.ErrorModel, bool) {
+	var em api.ErrorModel
+	if e, ok := err.(api.GenericSwaggerError); ok {
+		if err = json.Unmarshal(e.Body(), &em); err == nil {
+			return em, true
+		}
+	}
+	return em, false
 }
 
 // Create a Client object to securely connect to Rockset using an API key

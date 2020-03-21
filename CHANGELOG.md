@@ -1,5 +1,9 @@
 # Rockset Go Client Changelog
 
+## v0.9.1 2020-03-03
+- Remove all usage of the deprecated `rockset.Client()`
+- Improved documentation
+
 ## v0.9.0 2020-03-03
 - Support for Query Lambdas
 
