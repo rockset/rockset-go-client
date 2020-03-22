@@ -17,10 +17,10 @@ type WriterConfig struct {
 }
 
 type Writer struct {
-	wg      sync.WaitGroup
-	ch      chan WriteRequest
-	stop    chan bool
-	buffers map[string]map[string][]interface{}
+	wg       sync.WaitGroup
+	ch       chan WriteRequest
+	stop     chan bool
+	buffers  map[string]map[string][]interface{}
 	counter  uint64
 	timeout  *time.Timer
 	timedout bool
@@ -46,13 +46,13 @@ func NewWriter(conf WriterConfig) *Writer {
 		logger = log.New(os.Stderr, "", log.LstdFlags|log.Lmicroseconds)
 	}
 	return &Writer{
-		wg:   sync.WaitGroup{},
-		ch:   make(chan WriteRequest, conf.BufferSize),
-		stop: make(chan bool, 1),
+		wg:      sync.WaitGroup{},
+		ch:      make(chan WriteRequest, conf.BufferSize),
+		stop:    make(chan bool, 1),
 		buffers: make(map[string]map[string][]interface{}),
-		config: conf,
-		stats:  WriteStats{},
-		log:    logger,
+		config:  conf,
+		stats:   WriteStats{},
+		log:     logger,
 	}
 }
 
