@@ -19,7 +19,7 @@ func Example_addDocument() {
 		Description: "go test add docs collection",
 	})
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed to create collection: %v", err)
 	}
 
 	fmt.Printf("created collection %s\n", createResp.Data.Name)
@@ -38,7 +38,7 @@ func Example_addDocument() {
 
 	res, _, err := client.Documents.Add("commons", "go-test-add-docs-collection", docReq)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed add document: %v", err)
 	}
 
 	fmt.Printf("document status: %s\n", res.Data[0].Status)
@@ -49,7 +49,7 @@ func Example_addDocument() {
 
 	deleteResp, _, err := client.Collection.Delete("commons", "go-test-add-docs-collection")
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed to delete collection: %v", err)
 	}
 
 	fmt.Printf("deleted collection %s\n", deleteResp.Data.Name)
