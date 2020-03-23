@@ -21,10 +21,12 @@ type Writer struct {
 	ch      chan WriteRequest
 	stop    chan bool
 	buffers map[string]map[string][]interface{}
-	counter uint64
-	config  WriterConfig
-	stats   WriteStats
-	log     *log.Logger
+	counter  uint64
+	timeout  *time.Timer
+	timedout bool
+	config   WriterConfig
+	stats    WriteStats
+	log      *log.Logger
 }
 
 type WriteRequest struct {
@@ -41,7 +43,7 @@ type WriteStats struct {
 func NewWriter(conf WriterConfig) *Writer {
 	logger := conf.Logger
 	if logger == nil {
-		logger = log.New(os.Stderr, "", log.LstdFlags)
+		logger = log.New(os.Stderr, "", log.LstdFlags|log.Lmicroseconds)
 	}
 	return &Writer{
 		wg:   sync.WaitGroup{},
@@ -70,8 +72,16 @@ func (w *Writer) Run(da DocAdder) {
 	w.wg.Add(1)
 	defer w.wg.Done()
 
-	ticker := time.NewTicker(w.config.FlushInterval)
-	defer ticker.Stop()
+	// this is done so have a timer available for the select
+	w.timeout = time.NewTimer(0)
+	<-w.timeout.C
+	w.timedout = true
+
+	defer func() {
+		if !w.timedout {
+			w.timeout.Stop()
+		}
+	}()
 
 	for {
 		select {
@@ -80,19 +90,24 @@ func (w *Writer) Run(da DocAdder) {
 			close(w.ch)
 			if flush {
 				w.log.Printf("flushing %d items", len(w.ch))
+				// this might add more then BatchSize to the payload
 				for r := range w.ch {
 					w.buffer(r)
 				}
 				w.flush(da)
 			}
 			return
-		case <-ticker.C:
-			// TODO: if we're writing at full speed, the ticker based flush slows it down
-			// it should only write documents when they have been sitting in the buffer too long
+		case <-w.timeout.C:
+			w.log.Printf("flushing %d documents due to timeout", w.counter)
 			w.flush(da)
 		case r := <-w.C():
+			// only start the timer once we have data in the buffer
+			if w.timedout {
+				w.timedout = false
+				w.timeout = time.NewTimer(w.config.FlushInterval)
+			}
 			w.buffer(r)
-			if w.counter >= w.config.BufferSize {
+			if w.counter >= w.config.BatchSize {
 				w.flush(da)
 			}
 		}
@@ -110,6 +125,8 @@ func (w *Writer) buffer(r WriteRequest) {
 }
 
 func (w *Writer) flush(da DocAdder) {
+	w.timeout.Stop()
+	w.timedout = true
 	for ws, colls := range w.buffers {
 		for coll, data := range colls {
 			req := api.AddDocumentsRequest{Data: data}

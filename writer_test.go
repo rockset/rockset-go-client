@@ -18,14 +18,14 @@ type fakeAdder struct {
 
 func (f *fakeAdder) Add(ws, coll string, request api.AddDocumentsRequest) (api.AddDocumentsResponse, *http.Response, error) {
 	f.count++
-	time.Sleep(50 * time.Millisecond)
+	time.Sleep(10 * time.Millisecond)
 	return api.AddDocumentsResponse{}, nil, nil
 }
 
 func TestWriter(t *testing.T) {
 	c := rockset.WriterConfig{
 		BufferSize:    30,
-		BatchSize:     5,
+		BatchSize:     7,
 		FlushInterval: time.Millisecond * 50,
 	}
 	w := rockset.NewWriter(c)
@@ -47,6 +47,31 @@ func TestWriter(t *testing.T) {
 
 	assert.Equal(t, uint64(0), w.Stats().ErrorCount)
 	assert.Equal(t, writeCount, w.Stats().DocumentCount)
+}
+
+func TestWriterTimeout(t *testing.T) {
+	c := rockset.WriterConfig{
+		BufferSize:    30,
+		BatchSize:     7,
+		FlushInterval: time.Millisecond * 10,
+	}
+	w := rockset.NewWriter(c)
+
+	go w.Run(&fakeAdder{})
+
+	w.C() <- rockset.WriteRequest{
+		Workspace:  "workspace",
+		Collection: "collection",
+		Data:       "",
+	}
+	time.Sleep(20 * time.Millisecond)
+
+	w.Stop(true)
+	w.Wait()
+
+	assert.Equal(t, uint64(0), w.Stats().ErrorCount)
+	assert.Equal(t, uint64(1), w.Stats().DocumentCount)
+
 }
 
 var discardLogger = log.New(ioutil.Discard, "", log.LstdFlags)
