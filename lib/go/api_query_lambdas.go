@@ -30,15 +30,15 @@ Create a Query Lambda in given workspace.
  * @param workspace name of the workspace
  * @param body JSON object
 
-@return CreateQueryLambdaResponse
+@return QueryLambdaVersionResponse
 */
-func (a *QueryLambdasApiService) Create(workspace string, body CreateQueryLambdaRequest) (CreateQueryLambdaResponse, *http.Response, error) {
+func (a *QueryLambdasApiService) Create(workspace string, body CreateQueryLambdaRequest) (QueryLambdaVersionResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue CreateQueryLambdaResponse
+		localVarReturnValue QueryLambdaVersionResponse
 	)
 
 	// create path and map variables
@@ -99,7 +99,7 @@ func (a *QueryLambdasApiService) Create(workspace string, body CreateQueryLambda
 		}
 
 		if localVarHttpResponse.StatusCode == 200 {
-			var v CreateQueryLambdaResponse
+			var v QueryLambdaVersionResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -127,6 +127,162 @@ func (a *QueryLambdasApiService) CreateStream(workspace string, body CreateQuery
 	// create path and map variables
 	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas"
 	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	// body params
+	localVarPostBody = &body
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
+QueryLambdasApiService Create Query Lambda Tag
+Create a tag for a specific Query Lambda version, or update if it exists
+ * @param workspace name of the workspace
+ * @param queryLambda name of the Query Lambda
+ * @param body JSON object
+
+@return QueryLambdaTagResponse
+*/
+func (a *QueryLambdasApiService) Create_1(workspace string, queryLambda string, body CreateQueryLambdaTagRequest) (QueryLambdaTagResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue QueryLambdaTagResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	// body params
+	localVarPostBody = &body
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v QueryLambdaTagResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) Create_1Stream(workspace string, queryLambda string, body CreateQueryLambdaTagRequest) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -329,11 +485,319 @@ func (a *QueryLambdasApiService) DeleteStream(workspace string, queryLambda stri
 }
 
 /*
-QueryLambdasApiService Run Query Lambda
-Run a particular version of a Query Lambda.
+QueryLambdasApiService Delete Query Lambda Tag Version
+Delete a tag for a specific Query Lambda
+ * @param workspace name of the workspace
+ * @param queryLambda name of the Query Lambda
+ * @param tag name of the tag
+
+@return QueryLambdaTagResponse
+*/
+func (a *QueryLambdasApiService) Delete_2(workspace string, queryLambda string, tag string) (QueryLambdaTagResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Delete")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue QueryLambdaTagResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v QueryLambdaTagResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) Delete_2Stream(workspace string, queryLambda string, tag string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Delete")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
+QueryLambdasApiService Delete Query Lambda Version
+Delete a Query Lambda version.
  * @param workspace name of the workspace
  * @param queryLambda name of the Query Lambda
  * @param version version
+
+@return QueryLambdaVersionResponse
+*/
+func (a *QueryLambdasApiService) Delete_3(workspace string, queryLambda string, version string) (QueryLambdaVersionResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Delete")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue QueryLambdaVersionResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/version/{version}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", fmt.Sprintf("%v", version), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v QueryLambdaVersionResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) Delete_3Stream(workspace string, queryLambda string, version string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Delete")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/version/{version}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", fmt.Sprintf("%v", version), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
+QueryLambdasApiService Run Query Lambda By Tag
+Run the Query Lambda version associated with a given tag.
+ * @param workspace name of the workspace
+ * @param queryLambda name of the Query Lambda
+ * @param tag tag
  * @param optional nil or *ExecuteOpts - Optional Parameters:
      * @param "Body" (optional.Interface of ExecuteQueryLambdaRequest) -  JSON object
 
@@ -344,7 +808,186 @@ type ExecuteOpts struct {
 	Body optional.Interface
 }
 
-func (a *QueryLambdasApiService) Execute(workspace string, queryLambda string, version int32, localVarOptionals *ExecuteOpts) (QueryResponse, *http.Response, error) {
+func (a *QueryLambdasApiService) Execute(workspace string, queryLambda string, tag string, localVarOptionals *ExecuteOpts) (QueryResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Post")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue QueryResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	// body params
+	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
+
+		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(ExecuteQueryLambdaRequest)
+		if !localVarOptionalBodyok {
+			return localVarReturnValue, nil, reportError("body should be ExecuteQueryLambdaRequest")
+		}
+		localVarPostBody = &localVarOptionalBody
+	}
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v QueryResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) ExecuteStream(workspace string, queryLambda string, tag string, localVarOptionals *ExecuteOpts) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Post")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	// body params
+	if localVarOptionals != nil && localVarOptionals.Body.IsSet() {
+
+		localVarOptionalBody, localVarOptionalBodyok := localVarOptionals.Body.Value().(ExecuteQueryLambdaRequest)
+		if !localVarOptionalBodyok {
+			return "", nil, reportError("body should be ExecuteQueryLambdaRequest")
+		}
+		localVarPostBody = &localVarOptionalBody
+	}
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
+QueryLambdasApiService Run Query Lambda
+Run a particular version of a Query Lambda.
+ * @param workspace name of the workspace
+ * @param queryLambda name of the Query Lambda
+ * @param version version
+ * @param optional nil or *Execute_4Opts - Optional Parameters:
+     * @param "Body" (optional.Interface of ExecuteQueryLambdaRequest) -  JSON object
+
+@return QueryResponse
+*/
+
+type Execute_4Opts struct {
+	Body optional.Interface
+}
+
+func (a *QueryLambdasApiService) Execute_4(workspace string, queryLambda string, version string, localVarOptionals *Execute_4Opts) (QueryResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
@@ -436,7 +1079,7 @@ func (a *QueryLambdasApiService) Execute(workspace string, queryLambda string, v
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *QueryLambdasApiService) ExecuteStream(workspace string, queryLambda string, version int32, localVarOptionals *ExecuteOpts) (string, *http.Response, error) {
+func (a *QueryLambdasApiService) Execute_4Stream(workspace string, queryLambda string, version string, localVarOptionals *Execute_4Opts) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -508,21 +1151,175 @@ func (a *QueryLambdasApiService) ExecuteStream(workspace string, queryLambda str
 }
 
 /*
+QueryLambdasApiService Get Query Lambda Tag
+Get the specific Query Lambda version associated with a given tag
+ * @param workspace name of the workspace
+ * @param queryLambda name of the Query Lambda
+ * @param tag name of the tag
+
+@return QueryLambdaTagResponse
+*/
+func (a *QueryLambdasApiService) Get(workspace string, queryLambda string, tag string) (QueryLambdaTagResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue QueryLambdaTagResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v QueryLambdaTagResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) GetStream(workspace string, queryLambda string, tag string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
 QueryLambdasApiService Get Query Lambda Version
 Get a specific version of a Query Lambda
  * @param workspace name of the workspace
  * @param queryLambda name of the Query Lambda
  * @param version version
 
-@return GetQueryLambdaResponse
+@return QueryLambdaVersionResponse
 */
-func (a *QueryLambdasApiService) Get(workspace string, queryLambda string, version int32) (GetQueryLambdaResponse, *http.Response, error) {
+func (a *QueryLambdasApiService) Get_5(workspace string, queryLambda string, version string) (QueryLambdaVersionResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue GetQueryLambdaResponse
+		localVarReturnValue QueryLambdaVersionResponse
 	)
 
 	// create path and map variables
@@ -583,7 +1380,7 @@ func (a *QueryLambdasApiService) Get(workspace string, queryLambda string, versi
 		}
 
 		if localVarHttpResponse.StatusCode == 200 {
-			var v GetQueryLambdaResponse
+			var v QueryLambdaVersionResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -599,7 +1396,7 @@ func (a *QueryLambdasApiService) Get(workspace string, queryLambda string, versi
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *QueryLambdasApiService) GetStream(workspace string, queryLambda string, version int32) (string, *http.Response, error) {
+func (a *QueryLambdasApiService) Get_5Stream(workspace string, queryLambda string, version string) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -807,13 +1604,306 @@ func (a *QueryLambdasApiService) ListStream() (string, *http.Response, error) {
 }
 
 /*
+QueryLambdasApiService List Query Lambda Tags
+List all tags in an organization
+
+@return ListQueryLambdaTagsResponse
+*/
+func (a *QueryLambdasApiService) List_6() (ListQueryLambdaTagsResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue ListQueryLambdaTagsResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/lambdas/tags"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v ListQueryLambdaTagsResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) List_6Stream() (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/lambdas/tags"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
+QueryLambdasApiService List Query Lambda Tag Versions
+List all Query Lambda versions associated with a tag
+ * @param tag name of the tag
+
+@return ListQueryLambdaVersionsResponse
+*/
+func (a *QueryLambdasApiService) List_7(tag string) (ListQueryLambdaVersionsResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue ListQueryLambdaVersionsResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/lambdas/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v ListQueryLambdaVersionsResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) List_7Stream(tag string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/lambdas/tags/{tag}"
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", fmt.Sprintf("%v", tag), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
 QueryLambdasApiService List Query Lambdas
 List all Query Lambdas under given workspace.
  * @param workspace name of the workspace
 
 @return ListQueryLambdasResponse
 */
-func (a *QueryLambdasApiService) List_1(workspace string) (ListQueryLambdasResponse, *http.Response, error) {
+func (a *QueryLambdasApiService) List_8(workspace string) (ListQueryLambdasResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
@@ -894,7 +1984,7 @@ func (a *QueryLambdasApiService) List_1(workspace string) (ListQueryLambdasRespo
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *QueryLambdasApiService) List_1Stream(workspace string) (string, *http.Response, error) {
+func (a *QueryLambdasApiService) List_8Stream(workspace string) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -955,20 +2045,171 @@ func (a *QueryLambdasApiService) List_1Stream(workspace string) (string, *http.R
 }
 
 /*
-QueryLambdasApiService List Query Lambda Versions
-List all versions of a Query Lambda.
+QueryLambdasApiService List Query Lambda Tags
+List all tags associated with a Query Lambda
  * @param workspace name of the workspace
  * @param queryLambda name of the Query Lambda
 
-@return ListQueryLambdasResponse
+@return ListQueryLambdaTagsResponse
 */
-func (a *QueryLambdasApiService) List_2(workspace string, queryLambda string) (ListQueryLambdasResponse, *http.Response, error) {
+func (a *QueryLambdasApiService) List_9(workspace string, queryLambda string) (ListQueryLambdaTagsResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Get")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue ListQueryLambdasResponse
+		localVarReturnValue ListQueryLambdaTagsResponse
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHttpResponse.Body)
+	localVarHttpResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode < 300 {
+		// If we succeed, return the data, otherwise pass on to decode error.
+		err = a.Client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+		if err == nil {
+			return localVarReturnValue, localVarHttpResponse, err
+		}
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		newErr := GenericSwaggerError{
+			body:  localVarBody,
+			error: localVarHttpResponse.Status,
+		}
+
+		if localVarHttpResponse.StatusCode == 200 {
+			var v ListQueryLambdaTagsResponse
+			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHttpResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHttpResponse, newErr
+		}
+
+		return localVarReturnValue, localVarHttpResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHttpResponse, nil
+}
+
+func (a *QueryLambdasApiService) List_9Stream(workspace string, queryLambda string) (string, *http.Response, error) {
+	var (
+		localVarHttpMethod = strings.ToUpper("Get")
+		localVarPostBody   interface{}
+		localVarFileName   string
+		localVarFileBytes  []byte
+		localVarBody       []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.Client.cfg.BasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", fmt.Sprintf("%v", workspace), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", fmt.Sprintf("%v", queryLambda), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHttpContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHttpContentType := selectHeaderContentType(localVarHttpContentTypes)
+	if localVarHttpContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHttpContentType
+	}
+
+	// to determine the Api Key header
+	localVarHttpHeaderAuthorization := ""
+	localVarHttpHeaderApiKey := a.Client.selectHeaderAuthorization(localVarHttpHeaderAuthorization)
+	if localVarHttpHeaderApiKey == "" {
+		log.Fatal("missing required argument ApiKey")
+	}
+	localVarHeaderParams["authorization"] = "ApiKey " + localVarHttpHeaderApiKey
+
+	r, err := a.Client.prepareRequest(localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return "", nil, err
+	}
+
+	localVarHttpResponse, err := a.Client.callAPI(r)
+	if err != nil || localVarHttpResponse == nil {
+		return "", localVarHttpResponse, err
+	}
+
+	reader := bufio.NewReader(localVarHttpResponse.Body)
+	localVarBody, err = reader.ReadBytes('\n')
+
+	var out bytes.Buffer
+	err = json.Indent(&out, []byte(string(localVarBody)), "", "    ")
+	if err != nil {
+		return "", localVarHttpResponse, err
+	}
+
+	if localVarHttpResponse.StatusCode >= 300 {
+		return out.String(), localVarHttpResponse, nil
+	}
+
+	return out.String(), localVarHttpResponse, nil
+}
+
+/*
+QueryLambdasApiService List Query Lambda Versions
+List all versions of a Query Lambda.
+ * @param workspace name of the workspace
+ * @param queryLambda name of the Query Lambda
+
+@return ListQueryLambdaVersionsResponse
+*/
+func (a *QueryLambdasApiService) List_10(workspace string, queryLambda string) (ListQueryLambdaVersionsResponse, *http.Response, error) {
+	var (
+		localVarHttpMethod  = strings.ToUpper("Get")
+		localVarPostBody    interface{}
+		localVarFileName    string
+		localVarFileBytes   []byte
+		localVarReturnValue ListQueryLambdaVersionsResponse
 	)
 
 	// create path and map variables
@@ -1028,7 +2269,7 @@ func (a *QueryLambdasApiService) List_2(workspace string, queryLambda string) (L
 		}
 
 		if localVarHttpResponse.StatusCode == 200 {
-			var v ListQueryLambdasResponse
+			var v ListQueryLambdaVersionsResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1044,7 +2285,7 @@ func (a *QueryLambdasApiService) List_2(workspace string, queryLambda string) (L
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *QueryLambdasApiService) List_2Stream(workspace string, queryLambda string) (string, *http.Response, error) {
+func (a *QueryLambdasApiService) List_10Stream(workspace string, queryLambda string) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Get")
 		localVarPostBody   interface{}
@@ -1111,16 +2352,23 @@ Create a new version of a Query Lambda in given workspace.
  * @param workspace name of the workspace
  * @param queryLambda name of the Query Lambda
  * @param body JSON object
+ * @param optional nil or *UpdateOpts - Optional Parameters:
+     * @param "Create" (optional.Bool) -
 
-@return UpdateQueryLambdaResponse
+@return QueryLambdaVersionResponse
 */
-func (a *QueryLambdasApiService) Update(workspace string, queryLambda string, body UpdateQueryLambdaRequest) (UpdateQueryLambdaResponse, *http.Response, error) {
+
+type UpdateOpts struct {
+	Create optional.Bool
+}
+
+func (a *QueryLambdasApiService) Update(workspace string, queryLambda string, body UpdateQueryLambdaRequest, localVarOptionals *UpdateOpts) (QueryLambdaVersionResponse, *http.Response, error) {
 	var (
 		localVarHttpMethod  = strings.ToUpper("Post")
 		localVarPostBody    interface{}
 		localVarFileName    string
 		localVarFileBytes   []byte
-		localVarReturnValue UpdateQueryLambdaResponse
+		localVarReturnValue QueryLambdaVersionResponse
 	)
 
 	// create path and map variables
@@ -1132,6 +2380,9 @@ func (a *QueryLambdasApiService) Update(workspace string, queryLambda string, bo
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.Create.IsSet() {
+		localVarQueryParams.Add("create", parameterToString(localVarOptionals.Create.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 
@@ -1182,7 +2433,7 @@ func (a *QueryLambdasApiService) Update(workspace string, queryLambda string, bo
 		}
 
 		if localVarHttpResponse.StatusCode == 200 {
-			var v UpdateQueryLambdaResponse
+			var v QueryLambdaVersionResponse
 			err = a.Client.decode(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1198,7 +2449,7 @@ func (a *QueryLambdasApiService) Update(workspace string, queryLambda string, bo
 	return localVarReturnValue, localVarHttpResponse, nil
 }
 
-func (a *QueryLambdasApiService) UpdateStream(workspace string, queryLambda string, body UpdateQueryLambdaRequest) (string, *http.Response, error) {
+func (a *QueryLambdasApiService) UpdateStream(workspace string, queryLambda string, body UpdateQueryLambdaRequest, localVarOptionals *UpdateOpts) (string, *http.Response, error) {
 	var (
 		localVarHttpMethod = strings.ToUpper("Post")
 		localVarPostBody   interface{}
@@ -1216,6 +2467,9 @@ func (a *QueryLambdasApiService) UpdateStream(workspace string, queryLambda stri
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.Create.IsSet() {
+		localVarQueryParams.Add("create", parameterToString(localVarOptionals.Create.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHttpContentTypes := []string{"application/json"}
 

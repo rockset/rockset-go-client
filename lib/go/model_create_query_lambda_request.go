@@ -21,7 +21,7 @@ type CreateQueryLambdaRequest struct {
 	// optional description
 	Description string `json:"description,omitempty"`
 	// Query Lambda SQL query
-	Sql *QueryLambdaSql `json:"sql,omitempty"`
+	Sql *QueryLambdaSql `json:"sql"`
 }
 
 func (m CreateQueryLambdaRequest) PrintResponse() {

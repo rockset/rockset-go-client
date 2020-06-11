@@ -15,26 +15,18 @@ import (
 	"fmt"
 )
 
-type User struct {
+type OrgMembership struct {
+	Organization *Organization `json:"organization"`
+	Roles        []string      `json:"roles"`
+	InviteState  string        `json:"invite_state"`
+	InvitedBy    string        `json:"invited_by"`
 	// ISO-8601 date
-	CreatedAt string `json:"created_at,omitempty"`
-	// user email
-	Email string `json:"email"`
-	// user first name
-	FirstName string `json:"first_name,omitempty"`
-	// user last name
-	LastName string `json:"last_name,omitempty"`
-	// List of roles for a given user
-	Roles []string `json:"roles,omitempty"`
-	// state of user - NEW / ACTIVE
-	State          string          `json:"state,omitempty"`
-	Org            string          `json:"org,omitempty"`
-	InviteState    string          `json:"invite_state,omitempty"`
-	Orgs           []Organization  `json:"orgs,omitempty"`
-	OrgMemberships []OrgMembership `json:"org_memberships,omitempty"`
+	ExpiresAt string `json:"expires_at"`
+	// ISO-8601 date
+	CreatedAt string `json:"created_at"`
 }
 
-func (m User) PrintResponse() {
+func (m OrgMembership) PrintResponse() {
 	r, err := json.Marshal(m)
 	var out bytes.Buffer
 	err = json.Indent(&out, []byte(string(r)), "", "    ")

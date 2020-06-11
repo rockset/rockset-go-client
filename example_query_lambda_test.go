@@ -12,12 +12,22 @@ import (
 func Example_queryLambda() {
 	client, err := rockset.NewClient(rockset.FromEnv())
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("failed to create Rockset client: %v", err)
 	}
+
+	fatal := func(msg string, err error) {
+		if e, ok := rockset.AsRocksetError(err); ok {
+			log.Fatalf("%s (%s): %v", msg, e.Message, err)
+		}
+		log.Fatalf("%s: %v", msg, err)
+	}
+
+	workspace := "commons"
+	lambdaName := "MyQueryLambda"
 
 	// construct request
 	createLambda := models.CreateQueryLambdaRequest{
-		Name:     "MyQueryLambda",
+		Name: lambdaName,
 		Sql: &models.QueryLambdaSql{
 			Query: "SELECT :param as echo",
 			DefaultParameters: []models.QueryParameter{
@@ -31,23 +41,23 @@ func Example_queryLambda() {
 	}
 
 	// create Query Lambda
-	createResp, _, err := client.QueryLambdas.Create("commons", createLambda)
+	createResp, _, err := client.QueryLambdas.Create(workspace, createLambda)
 	if err != nil {
-		log.Fatal(err)
+		fatal("failed to create query lambda", err)
 	}
 
 	fmt.Printf("created Query Lambda %s\n", createResp.Data.Name)
 
 	// execute Query Lambda with default parameters
-	runResp, _, err := client.QueryLambdas.Execute("commons", "MyQueryLambda", 1, nil)
+	runResp, _, err := client.QueryLambdas.Execute_4(workspace, lambdaName, createResp.Data.Version, nil)
 	if err != nil {
-		log.Fatal(err)
+		fatal("failed to execute query lambda", err)
 	}
 
 	fmt.Printf("query result: %v\n", runResp.Results[0])
 
-	// execute Query Lambda with explicit paramaters
-	q := models.ExecuteOpts{
+	// execute Query Lambda with explicit parameters
+	q := models.Execute_4Opts{
 		Body: optional.NewInterface(models.ExecuteQueryLambdaRequest{
 			Parameters: []models.QueryParameter{
 				{
@@ -59,16 +69,16 @@ func Example_queryLambda() {
 		}),
 	}
 
-	runResp, _, err = client.QueryLambdas.Execute("commons", "MyQueryLambda", 1, &q)
+	runResp, _, err = client.QueryLambdas.Execute_4(workspace, lambdaName, createResp.Data.Version, &q)
 	if err != nil {
-		log.Fatal(err)
+		fatal("failed to execute query lambda with explicit params", err)
 	}
 
 	fmt.Printf("query result: %v\n", runResp.Results[0])
 
-	deleteResp, _, err := client.QueryLambdas.Delete("commons", "MyQueryLambda")
+	deleteResp, _, err := client.QueryLambdas.Delete(workspace, lambdaName)
 	if err != nil {
-		log.Fatal(err)
+		fatal("failed to delete query lambda", err)
 	}
 
 	fmt.Printf("deleted Query Lambda %s\n", deleteResp.Data.Name)

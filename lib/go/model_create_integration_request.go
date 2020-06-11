@@ -32,6 +32,8 @@ type CreateIntegrationRequest struct {
 	Gcs     *GcsIntegration     `json:"gcs,omitempty"`
 	Segment *SegmentIntegration `json:"segment,omitempty"`
 	Kafka   *KafkaIntegration   `json:"kafka,omitempty"`
+	// MongoDb details
+	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
 }
 
 func (m CreateIntegrationRequest) PrintResponse() {

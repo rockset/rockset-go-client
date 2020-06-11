@@ -15,26 +15,12 @@ import (
 	"fmt"
 )
 
-type User struct {
-	// ISO-8601 date
-	CreatedAt string `json:"created_at,omitempty"`
-	// user email
-	Email string `json:"email"`
-	// user first name
-	FirstName string `json:"first_name,omitempty"`
-	// user last name
-	LastName string `json:"last_name,omitempty"`
-	// List of roles for a given user
-	Roles []string `json:"roles,omitempty"`
-	// state of user - NEW / ACTIVE
-	State          string          `json:"state,omitempty"`
-	Org            string          `json:"org,omitempty"`
-	InviteState    string          `json:"invite_state,omitempty"`
-	Orgs           []Organization  `json:"orgs,omitempty"`
-	OrgMemberships []OrgMembership `json:"org_memberships,omitempty"`
+type ListQueryLambdaVersionsResponse struct {
+	// list of all versions for a particular Query Lambda
+	Data []QueryLambdaVersion `json:"data,omitempty"`
 }
 
-func (m User) PrintResponse() {
+func (m ListQueryLambdaVersionsResponse) PrintResponse() {
 	r, err := json.Marshal(m)
 	var out bytes.Buffer
 	err = json.Indent(&out, []byte(string(r)), "", "    ")

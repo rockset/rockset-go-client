@@ -18,14 +18,6 @@ import (
 type QueryResponseStats struct {
 	// query time in milliseconds
 	ElapsedTimeMs int64 `json:"elapsed_time_ms,omitempty"`
-	// rows scanned as part of query execution
-	RowsScanned int64 `json:"rows_scanned,omitempty"`
-	// number of rows returned from the query
-	RowsReturned int64 `json:"rows_returned,omitempty"`
-	// Statistics for each operator from query execution
-	Operators []OperatorStats `json:"operators,omitempty"`
-	// DOT graph representing the execution steps of this query
-	ExecutionGraph string `json:"execution_graph,omitempty"`
 }
 
 func (m QueryResponseStats) PrintResponse() {

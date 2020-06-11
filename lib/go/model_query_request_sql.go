@@ -16,14 +16,16 @@ import (
 )
 
 type QueryRequestSql struct {
-	// SQL query as a string
-	Query string `json:"query"`
 	// list of named parameters
 	Parameters []QueryParameter `json:"parameters,omitempty"`
+	// SQL query as a string
+	Query string `json:"query"`
 	// Row limit to use if no limit specified in the query
 	DefaultRowLimit int32 `json:"default_row_limit,omitempty"`
 	// Whether to generate warnings
 	GenerateWarnings bool `json:"generate_warnings,omitempty"`
+	// Whether to generate a performance profile for this query
+	ProfilingEnabled bool `json:"profiling_enabled,omitempty"`
 }
 
 func (m QueryRequestSql) PrintResponse() {
