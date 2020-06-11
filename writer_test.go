@@ -30,7 +30,9 @@ func TestWriter(t *testing.T) {
 	}
 	w := rockset.NewWriter(c)
 
-	go w.Run(&fakeAdder{})
+	fa := &fakeAdder{}
+	go w.Run(fa)
+	go w.Worker(fa)
 
 	const writeCount uint64 = 100
 
@@ -57,7 +59,9 @@ func TestWriterTimeout(t *testing.T) {
 	}
 	w := rockset.NewWriter(c)
 
-	go w.Run(&fakeAdder{})
+	fa := &fakeAdder{}
+	go w.Run(fa)
+	go w.Worker(fa)
 
 	w.C() <- rockset.WriteRequest{
 		Workspace:  "workspace",
@@ -112,7 +116,9 @@ func BenchmarkWriter100(b *testing.B) {
 func benchmarkWriter(b *testing.B, c rockset.WriterConfig) {
 	w := rockset.NewWriter(c)
 
-	go w.Run(&fakeAdder{})
+	fa := &fakeAdder{}
+	go w.Run(fa)
+	go w.Worker(fa)
 
 	doc := rockset.WriteRequest{
 		Workspace:  "workspace",

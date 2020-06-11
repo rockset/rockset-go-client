@@ -28,6 +28,8 @@ func TestWriterIntegration(t *testing.T) {
 	w := rockset.NewWriter(c)
 
 	go w.Run(rc.Documents)
+	go w.Worker(rc.Documents)
+	go w.Worker(rc.Documents)
 
 	const writeCount uint64 = 10_000
 
