@@ -23,6 +23,8 @@ type ApiKey struct {
 	Name string `json:"name"`
 	// string of 64 alphanumeric characters
 	Key string `json:"key"`
+	// ISO-8601 date
+	LastAccessTime string `json:"last_access_time,omitempty"`
 }
 
 func (m ApiKey) PrintResponse() {

@@ -31,7 +31,10 @@ type Source struct {
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	// file upload details
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
-	Kafka      *SourceKafka      `json:"kafka,omitempty"`
+	// kafka collection identifier
+	Kafka *SourceKafka `json:"kafka,omitempty"`
+	// MongoDB collection details
+	Mongodb *SourceMongoDb `json:"mongodb,omitempty"`
 	// the ingest status of this source
 	Status *Status `json:"status,omitempty"`
 	// format parameters for data from this source

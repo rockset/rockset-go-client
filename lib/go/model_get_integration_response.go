@@ -17,8 +17,7 @@ import (
 
 type GetIntegrationResponse struct {
 	// integration object
-	Data        *Integration `json:"data,omitempty"`
-	Collections []Collection `json:"collections,omitempty"`
+	Data *Integration `json:"data,omitempty"`
 }
 
 func (m GetIntegrationResponse) PrintResponse() {

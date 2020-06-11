@@ -1,5 +1,9 @@
 # Rockset Go Client Changelog
 
+## v0.10.0 2020-06-11
+- Support new Query Lambdas features: tags and versions hashes 
+- Support for new data integration: MongoDB
+
 ## v0.9.1 2020-03-03
 - Remove all usage of the deprecated `rockset.Client()`
 - Improved documentation

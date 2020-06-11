@@ -12,14 +12,12 @@ func Example_errorHandling() {
 		log.Fatal(err)
 	}
 
-	ws, _, err := client.DeleteWorkspace("non-existing-workspace")
+	_, _, err = client.DeleteWorkspace("non-existing-workspace")
 	if err != nil {
 		if e, ok := rockset.AsRocksetError(err); ok {
 			fmt.Printf("%s: %s", e.Type_, e.Message)
 		}
-		log.Println(err)
 	}
-	log.Printf("deleted workspace %s", ws.Name)
 	// Output:
 	// NotFound: Could not find workspace with name 'non-existing-workspace'
 }

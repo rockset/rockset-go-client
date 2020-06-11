@@ -19,23 +19,17 @@ type QueryLambda struct {
 	// workspace of this Query Lambda
 	Workspace string `json:"workspace,omitempty"`
 	// user that created this Query Lambda
-	CreatedBy string `json:"created_by,omitempty"`
-	// ISO-8601 date of when Query Lambda was created
-	CreatedAt string `json:"created_at,omitempty"`
+	LastUpdatedBy string `json:"last_updated_by,omitempty"`
+	// ISO-8601 date of when Query Lambda was last updated
+	LastUpdated string `json:"last_updated,omitempty"`
 	// Query Lambda name
 	Name string `json:"name,omitempty"`
-	// Query Lambda version
-	Version int32 `json:"version,omitempty"`
-	// optional description
-	Description string `json:"description,omitempty"`
-	// Query Lambda SQL query
-	Sql *QueryLambdaSql `json:"sql,omitempty"`
+	// number of Query Lambda versions
+	VersionCount int32 `json:"version_count,omitempty"`
 	// collections queried by underlying SQL query
 	Collections []string `json:"collections,omitempty"`
-	// status of this Query Lambda
-	State string `json:"state,omitempty"`
-	// stats related to this Query Lambda
-	Stats *QueryLambdaStats `json:"stats,omitempty"`
+	// Query Lambda version details for most recently created version
+	LatestVersion *QueryLambdaVersion `json:"latest_version,omitempty"`
 }
 
 func (m QueryLambda) PrintResponse() {

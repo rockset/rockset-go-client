@@ -21,6 +21,8 @@ type Integration struct {
 	Name string `json:"name"`
 	// longer explanation for the integration
 	Description string `json:"description,omitempty"`
+	// list of collections that use the integration
+	Collections []Collection `json:"collections,omitempty"`
 	// email of user who created the integration
 	CreatedBy string `json:"created_by"`
 	// ISO-8601 date
@@ -39,6 +41,8 @@ type Integration struct {
 	Segment *SegmentIntegration `json:"segment,omitempty"`
 	// Kafka details
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
+	// MongoDb details
+	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
 }
 
 func (m Integration) PrintResponse() {

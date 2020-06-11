@@ -15,26 +15,30 @@ import (
 	"fmt"
 )
 
-type User struct {
-	// ISO-8601 date
+type QueryLambdaVersion struct {
+	// workspace of this Query Lambda
+	Workspace string `json:"workspace,omitempty"`
+	// user that created this Query Lambda
+	CreatedBy string `json:"created_by,omitempty"`
+	// ISO-8601 date of when Query Lambda was created
 	CreatedAt string `json:"created_at,omitempty"`
-	// user email
-	Email string `json:"email"`
-	// user first name
-	FirstName string `json:"first_name,omitempty"`
-	// user last name
-	LastName string `json:"last_name,omitempty"`
-	// List of roles for a given user
-	Roles []string `json:"roles,omitempty"`
-	// state of user - NEW / ACTIVE
-	State          string          `json:"state,omitempty"`
-	Org            string          `json:"org,omitempty"`
-	InviteState    string          `json:"invite_state,omitempty"`
-	Orgs           []Organization  `json:"orgs,omitempty"`
-	OrgMemberships []OrgMembership `json:"org_memberships,omitempty"`
+	// Query Lambda name
+	Name string `json:"name,omitempty"`
+	// Query Lambda version
+	Version string `json:"version,omitempty"`
+	// optional description
+	Description string `json:"description,omitempty"`
+	// Query Lambda SQL query
+	Sql *QueryLambdaSql `json:"sql,omitempty"`
+	// collections queried by underlying SQL query
+	Collections []string `json:"collections,omitempty"`
+	// status of this Query Lambda
+	State string `json:"state,omitempty"`
+	// stats related to this Query Lambda
+	Stats *QueryLambdaStats `json:"stats,omitempty"`
 }
 
-func (m User) PrintResponse() {
+func (m QueryLambdaVersion) PrintResponse() {
 	r, err := json.Marshal(m)
 	var out bytes.Buffer
 	err = json.Indent(&out, []byte(string(r)), "", "    ")
