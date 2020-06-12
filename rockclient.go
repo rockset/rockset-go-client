@@ -14,7 +14,7 @@ import (
 )
 
 // Version is the Rockset client version
-const Version = "0.10.0"
+const Version = "0.9.2"
 
 // DefaultAPIServer is the default Rockset API server to use
 const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
