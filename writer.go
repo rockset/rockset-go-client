@@ -9,6 +9,7 @@ import (
 	"time"
 )
 
+// WriterConfig is a struct containing the configurable parameters for the Writer
 type WriterConfig struct {
 	BufferSize    uint64
 	BatchSize     uint64
@@ -17,6 +18,7 @@ type WriterConfig struct {
 	Logger        *log.Logger
 }
 
+// Writer is
 type Writer struct {
 	config         WriterConfig
 	stats          WriteStats
@@ -33,17 +35,20 @@ type Writer struct {
 	writeRequests  chan WriteRequest
 }
 
+// WriteRequest contains the data to be written to a Rockset collection
 type WriteRequest struct {
 	Workspace  string
 	Collection string
 	Data       interface{}
 }
 
+// WriteStats holds counters for the documents written to Rockset
 type WriteStats struct {
 	DocumentCount uint64
 	ErrorCount    uint64
 }
 
+// NewWriter creates a new Writer
 func NewWriter(conf WriterConfig) *Writer {
 	logger := conf.Logger
 	if logger == nil {
@@ -61,21 +66,22 @@ func NewWriter(conf WriterConfig) *Writer {
 	}
 }
 
-func (w *Writer) Write(wr WriteRequest) {
-	w.writeRequests <- wr
-}
-
+// C returns the WriteRequest channel
 func (w *Writer) C() chan WriteRequest {
 	return w.writeRequests
 }
 
-// Adder is the interface used
+// Adder is the interface used to write documents to Rockset.
 type Adder interface {
 	Add(string, string, api.AddDocumentsRequest) (api.AddDocumentsResponse, *http.Response, error)
 }
 
 // Run starts the reader loop that gets write requests from the channel and batches them
-// so the workers can add them to the collection.
+// so the workers can add them to the collection. At least one Worker is needs to be started.
+//
+// rs, err := rockset.NewClient()
+// w := NewWriter(WriterConfig{})
+// w.Run(rs.Documents)
 func (w *Writer) Run(da Adder) {
 	w.wg.Add(1)
 	defer w.wg.Done()
@@ -121,39 +127,6 @@ func (w *Writer) Run(da Adder) {
 			}
 		}
 	}
-}
-
-func (w *Writer) buffer(r WriteRequest) {
-	ws, found := w.buffers[r.Workspace]
-	if !found {
-		ws = make(map[string][]interface{})
-		w.buffers[r.Workspace] = ws
-	}
-	ws[r.Collection] = append(w.buffers[r.Workspace][r.Collection], r.Data)
-	w.counter++
-}
-
-func (w *Writer) flush(da Adder) {
-	w.timeout.Stop()
-	w.timedout = true
-	for ws, colls := range w.buffers {
-		for coll, data := range colls {
-			w.addDocRequests <- addDocRequest{
-				workspace:  ws,
-				collection: coll,
-				data:       data,
-			}
-		}
-	}
-	// TODO: benchmark to see if it is faster to delete keys as they are flushed instead of creating a new map
-	w.buffers = make(map[string]map[string][]interface{})
-	w.counter = 0
-}
-
-type addDocRequest struct {
-	workspace  string
-	collection string
-	data       []interface{}
 }
 
 // Worker runs a worker that writes batches of documents to the Rockset API.
@@ -222,4 +195,37 @@ func (w *Writer) Workers() int {
 	w.m.Lock()
 	defer w.m.Unlock()
 	return w.workers
+}
+
+func (w *Writer) buffer(r WriteRequest) {
+	ws, found := w.buffers[r.Workspace]
+	if !found {
+		ws = make(map[string][]interface{})
+		w.buffers[r.Workspace] = ws
+	}
+	ws[r.Collection] = append(w.buffers[r.Workspace][r.Collection], r.Data)
+	w.counter++
+}
+
+func (w *Writer) flush(da Adder) {
+	w.timeout.Stop()
+	w.timedout = true
+	for ws, colls := range w.buffers {
+		for coll, data := range colls {
+			w.addDocRequests <- addDocRequest{
+				workspace:  ws,
+				collection: coll,
+				data:       data,
+			}
+		}
+	}
+	// TODO: benchmark to see if it is faster to delete keys as they are flushed instead of creating a new map
+	w.buffers = make(map[string]map[string][]interface{})
+	w.counter = 0
+}
+
+type addDocRequest struct {
+	workspace  string
+	collection string
+	data       []interface{}
 }
