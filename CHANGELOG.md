@@ -1,6 +1,9 @@
 # Rockset Go Client Changelog
 
-## v0.10.0 2020-06-11
+## v0.9.3 2020-06-11
+- Support for query response validation
+
+## v0.9.2 2020-06-11
 - Support new Query Lambdas features: tags and versions hashes 
 - Support for new data integration: MongoDB
 

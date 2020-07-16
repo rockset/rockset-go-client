@@ -15,23 +15,16 @@ import (
 	"fmt"
 )
 
-// Describes details about an error
-type ErrorModel struct {
-	// descriptive message about the error
-	Message string `json:"message,omitempty"`
-	// category of the error
-	Type_ string `json:"type,omitempty"`
-	// Line where the error happened (if applicable)
-	Line int32 `json:"line,omitempty"`
-	// Column where the error happened (if applicable)
-	Column int32 `json:"column,omitempty"`
-	// Internal trace ID to help with debugging
-	TraceId string `json:"trace_id,omitempty"`
-	// ID of the error
-	ErrorId string `json:"error_id,omitempty"`
+type ValidateQueryResponse struct {
+	// list of collection specified in query
+	Name []string `json:"name"`
+	// list of collection specified in query
+	Collections []string `json:"collections"`
+	// list of parameters specified in query
+	Parameters []string `json:"parameters"`
 }
 
-func (m ErrorModel) PrintResponse() {
+func (m ValidateQueryResponse) PrintResponse() {
 	r, err := json.Marshal(m)
 	var out bytes.Buffer
 	err = json.Indent(&out, []byte(string(r)), "", "    ")

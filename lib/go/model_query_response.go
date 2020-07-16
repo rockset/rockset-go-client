@@ -26,6 +26,8 @@ type QueryResponse struct {
 	Stats *QueryResponseStats `json:"stats,omitempty"`
 	// warnings received from the query
 	Warnings []string `json:"warnings,omitempty"`
+	// errors encountered while streaming the query
+	QueryErrors []QueryError `json:"query_errors,omitempty"`
 	// meta information about each column in the result set
 	ColumnFields []QueryFieldType `json:"column_fields,omitempty"`
 }
