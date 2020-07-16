@@ -30,6 +30,8 @@ type Organization struct {
 	RocksetUser string `json:"rockset_user,omitempty"`
 	// org state
 	State string `json:"state,omitempty"`
+	// number of dedicated pods
+	NumDedicatedPods int32 `json:"num_dedicated_pods,omitempty"`
 }
 
 func (m Organization) PrintResponse() {
