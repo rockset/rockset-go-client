@@ -3,9 +3,10 @@ package rockset_test
 import (
 	"context"
 	"fmt"
+	"log"
+
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-	"log"
 )
 
 func ExampleRockClient_queryLambda() {

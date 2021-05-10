@@ -2,10 +2,11 @@ package rockset
 
 import (
 	"context"
-	"github.com/rockset/rockset-go-client/openapi"
-	"github.com/rockset/rockset-go-client/option"
 	"log"
 	"time"
+
+	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string) (openapi.Collection, error) {
@@ -46,7 +47,6 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context, workspace, name, i
 			FormatParams: &f,
 		},
 	}
-	createParams.FieldMappings = &[]openapi.FieldMappingV2{}
 
 	for _, o := range options {
 		o(createParams)
@@ -120,8 +120,7 @@ func isGone() waitFunc {
 	return func(c openapi.Collection, err error) (bool, error) {
 		if err != nil {
 			// the state "GONE" is a special case, which is when the collection is deleted and returns a 404
-			switch t := err.(type) {
-			case openapi.GenericOpenAPIError:
+			if t, ok := err.(openapi.GenericOpenAPIError); ok {
 				if t.Error() == "404 Not Found" {
 					log.Printf("GetCollection() returned %s which means it is gone", t.Error())
 
@@ -162,7 +161,7 @@ func (d *docWaiter) hasNewDocs(count int64) waitFunc {
 			d.prevCount = current
 		}
 
-		//log.Printf("%d - %d > %d", *current, *d.prevCount, count)
+		// log.Printf("%d - %d > %d", *current, *d.prevCount, count)
 		if *current-*d.prevCount >= count {
 			return true, nil
 		}

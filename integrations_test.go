@@ -2,10 +2,11 @@ package rockset_test
 
 import (
 	"context"
+	"testing"
+
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/require"
-	"testing"
 )
 
 func TestRockClient_S3Integration(t *testing.T) {

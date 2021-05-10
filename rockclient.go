@@ -2,8 +2,9 @@ package rockset
 
 import (
 	"errors"
-	"github.com/rockset/rockset-go-client/openapi"
 	"os"
+
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 // Version is the Rockset client version
@@ -16,8 +17,6 @@ const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY"
 const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
 
 type RockClient struct {
-	apiKey    string
-	apiServer string
 	*openapi.APIClient
 }
 
@@ -38,9 +37,6 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}
 
 	// TODO should we pick up ROCKSET_APIKEY by default?
-	//apikey := os.Getenv(APIKeyEnvironmentVariableName)
-	//cfg.AddDefaultHeader("Authorization", "apikey "+apikey)
-
 	c := openapi.NewAPIClient(cfg)
 	return &RockClient{APIClient: c}, nil
 }
@@ -52,7 +48,6 @@ type RockOption func(rc *openapi.Configuration)
 // and if ROCKSET_APISERVER is not set, it will use the default API server.
 func FromEnv() RockOption {
 	return func(cfg *openapi.Configuration) {
-
 		if apikey, found := os.LookupEnv(APIKeyEnvironmentVariableName); found {
 			cfg.AddDefaultHeader("Authorization", "apikey "+apikey)
 		}

@@ -3,6 +3,7 @@ package rockset
 import (
 	"context"
 	"fmt"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -13,7 +14,6 @@ const LatestTag = "latest"
 // ExecuteQueryLambda executes a query lambda with optional query options.
 func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name string,
 	options ...option.QueryLambdaOption) (openapi.QueryResponse, error) {
-
 	req := option.ExecuteQueryLambdaRequest{
 		ExecuteQueryLambdaRequest: openapi.ExecuteQueryLambdaRequest{},
 	}

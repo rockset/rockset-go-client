@@ -1,8 +1,9 @@
 package option
 
 import (
-	"github.com/rockset/rockset-go-client/openapi"
 	"time"
+
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 type S3CollectionOption func(o *openapi.CreateCollectionRequest)
@@ -47,11 +48,101 @@ func WithS3CollectionEventTimeInfo(fieldName, tz string, format EventTimeInfoFor
 // WithS3CollectionClusteringKey adds a clustering key. Can be specified multiple times.
 func WithS3CollectionClusteringKey(fieldName, fieldType string, keys []string) S3CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
+		if o.ClusteringKey == nil {
+			o.ClusteringKey = &[]openapi.FieldPartition{}
+		}
+
 		*o.ClusteringKey = append(*o.ClusteringKey, openapi.FieldPartition{
 			FieldName: &fieldName,
 			Type:      &fieldType,
 			Keys:      &keys,
 		})
+	}
+}
+
+type FieldOption func(*openapi.FieldOptions)
+
+type IndexMode string
+
+func (i IndexMode) String() string { return string(i) }
+
+const (
+	IndexModeIndex   IndexMode = "index"
+	IndexModeNoIndex IndexMode = "no_index"
+)
+
+func WithIndexMode(mode IndexMode) FieldOption {
+	m := mode.String()
+	return func(o *openapi.FieldOptions) {
+		o.IndexMode = &m
+	}
+}
+
+type RangeIndexMode string
+
+func (r RangeIndexMode) String() string { return string(r) }
+
+const (
+	RangeIndexModeV1Index RangeIndexMode = "v1_index"
+	RangeIndexModeNoIndex RangeIndexMode = "no_index"
+)
+
+func WithRangeIndexMode(mode RangeIndexMode) FieldOption {
+	m := mode.String()
+	return func(o *openapi.FieldOptions) {
+		o.RangeIndexMode = &m
+	}
+}
+
+type TypeIndexMode string
+
+func (t TypeIndexMode) String() string { return string(t) }
+
+const (
+	TypeIndexModeIndex   TypeIndexMode = "index"
+	TypeIndexModeNoIndex TypeIndexMode = "no_index"
+)
+
+func WithTypeIndexMode(mode TypeIndexMode) FieldOption {
+	m := mode.String()
+	return func(o *openapi.FieldOptions) {
+		o.TypeIndexMode = &m
+	}
+}
+
+type ColumnIndexMode string
+
+func (c ColumnIndexMode) String() string { return string(c) }
+
+const (
+	ColumnIndexModeStore   ColumnIndexMode = "store"
+	ColumnIndexModeNoStore ColumnIndexMode = "no_store"
+)
+
+func WithColumnIndexMode(mode ColumnIndexMode) FieldOption {
+	// store or no_store
+	m := mode.String()
+	return func(o *openapi.FieldOptions) {
+		o.ColumnIndexMode = &m
+	}
+}
+
+func WithS3CollectionFieldSchema(fieldName string, options ...FieldOption) S3CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		opts := openapi.FieldOptions{}
+		for _, o := range options {
+			o(&opts)
+		}
+
+		s := openapi.FieldSchema{
+			FieldName:    &fieldName,
+			FieldOptions: &opts,
+		}
+
+		if o.FieldSchemas == nil {
+			o.FieldSchemas = &[]openapi.FieldSchema{}
+		}
+		*o.FieldSchemas = append(*o.FieldSchemas, s)
 	}
 }
 
@@ -100,7 +191,6 @@ func OutputField(fieldName string, sql string, onError OnError) OutputFieldFn {
 // If dropAll is true, the input and output fields are not set.
 func WithS3CollectionFieldMapping(name string, dropAll bool, outputField OutputFieldFn,
 	inputFields ...InputFieldFn) S3CollectionOption {
-
 	return func(o *openapi.CreateCollectionRequest) {
 		mapping := openapi.FieldMappingV2{
 			Name: &name,
@@ -122,6 +212,9 @@ func WithS3CollectionFieldMapping(name string, dropAll bool, outputField OutputF
 			mapping.InputFields = &inputs
 		}
 
+		if o.FieldMappings == nil {
+			o.FieldMappings = &[]openapi.FieldMappingV2{}
+		}
 		*o.FieldMappings = append(*o.FieldMappings, mapping)
 	}
 }

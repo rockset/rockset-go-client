@@ -2,11 +2,13 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
-func (rc *RockClient) Query(ctx context.Context, sql string, options ...option.QueryOption) (openapi.QueryResponse, error) {
+func (rc *RockClient) Query(ctx context.Context, sql string,
+	options ...option.QueryOption) (openapi.QueryResponse, error) {
 	q := rc.QueriesApi.Query(ctx)
 	rq := openapi.NewQueryRequestWithDefaults()
 	rq.Sql = openapi.NewQueryRequestSql(sql)
@@ -24,7 +26,8 @@ func (rc *RockClient) Query(ctx context.Context, sql string, options ...option.Q
 	return r, nil
 }
 
-func (rc *RockClient) ValidateQuery(ctx context.Context, sql string, options ...option.QueryOption) (openapi.ValidateQueryResponse, error) {
+func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
+	options ...option.QueryOption) (openapi.ValidateQueryResponse, error) {
 	q := rc.QueriesApi.Validate(ctx)
 
 	rq := openapi.NewQueryRequestWithDefaults()

@@ -3,10 +3,11 @@ package rockset_test
 import (
 	"context"
 	"fmt"
+	"log"
+
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
-	"log"
 )
 
 // Raw usage of the openapi client

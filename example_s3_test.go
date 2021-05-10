@@ -4,12 +4,16 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
+
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
-	"log"
 )
 
+// Example code to first create an S3 integration, then create a collection from the integration,
+// and finally clean up.
+//nolint:funlen
 func Example_s3() {
 	ctx := context.TODO()
 
@@ -41,6 +45,7 @@ func Example_s3() {
 			option.WithSeparator(","),
 		),
 		option.WithS3CollectionDescription("created by go example code"),
+		option.WithS3CollectionFieldSchema("city", option.WithColumnIndexMode(option.ColumnIndexModeNoStore)),
 		option.WithS3CollectionFieldMapping("test", false,
 			option.OutputField("out", "CAST(:country AS string)", option.OnErrorSkip),
 			option.InputField("country", option.FieldMissingSkip, false, "country")),
