@@ -2,9 +2,6 @@ package rockset
 
 import (
 	"context"
-	"log"
-	"time"
-
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -27,10 +24,12 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 
 // CreateS3Collection creates an S3 collection from an existing S3 integration.
 // Not specifying a format will default to JSON.
-func (rc *RockClient) CreateS3Collection(ctx context.Context, workspace, name, integration, bucket, pattern string,
-	format Format, options ...option.S3CollectionOption) (openapi.Collection, error) {
+func (rc *RockClient) CreateS3Collection(ctx context.Context,
+	workspace, name, description, integration, bucket, pattern string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
 
 	f := openapi.FormatParams{}
 	format(&f)
@@ -60,112 +59,239 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context, workspace, name, i
 	return *createResp.Data, nil
 }
 
-const (
-	collectionStatusREADY = "READY"
-)
+func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
+	workspace, name, description, integration, region, stream string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
 
-// WaitForCollectionReady waits until the collection is ready.
-func (rc *RockClient) WaitForCollectionReady(ctx context.Context, workspace, name string) error {
-	return rc.waitForCollection(ctx, workspace, name, hasState(collectionStatusREADY))
-}
+	f := openapi.FormatParams{}
+	format(&f)
 
-// WaitForCollectionGone waits until the a collection marked for deletion is gone, i.e. GetCollection()
-// returns "not found".
-func (rc *RockClient) WaitForCollectionGone(ctx context.Context, workspace, name string) error {
-	return rc.waitForCollection(ctx, workspace, name, isGone())
-}
-
-// WaitForCollectionDocuments waits until the collection has at least count new documents
-func (rc *RockClient) WaitForCollectionDocuments(ctx context.Context, workspace, name string, count int64) error {
-	waiter := docWaiter{}
-	return rc.waitForCollection(ctx, workspace, name, waiter.hasNewDocs(count))
-}
-
-type waitFunc func(c openapi.Collection, err error) (bool, error)
-
-// WaitForCollection waits until the collection reaches the desired state, determined by the waitFunc.
-// Uses exponential backoff.
-func (rc *RockClient) waitForCollection(ctx context.Context, workspace, name string, waitFn waitFunc) error {
-	const maxBackoff = 8 * time.Second
-	waitInterval := time.Second
-	t0 := time.Now()
-	defer func() {
-		log.Printf("wait time: %s", time.Since(t0).String())
-	}()
-
-	for {
-		if done, err := waitFn(rc.GetCollection(ctx, workspace, name)); err != nil {
-			return err
-		} else if done {
-			return nil
-		}
-
-		t := time.NewTimer(waitInterval)
-		select {
-		case <-ctx.Done():
-			log.Printf("wait cancelled")
-			t.Stop()
-
-			return ctx.Err()
-		case t := <-t.C:
-			log.Printf("wait time %s", t)
-			if waitInterval < maxBackoff {
-				waitInterval *= 2
-			}
-		}
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			Kinesis: &openapi.SourceKinesis{
+				StreamName: stream,
+				AwsRegion:  &region,
+			},
+			FormatParams: &f,
+		},
 	}
-}
 
-func isGone() waitFunc {
-	return func(c openapi.Collection, err error) (bool, error) {
-		if err != nil {
-			// the state "GONE" is a special case, which is when the collection is deleted and returns a 404
-			if t, ok := err.(openapi.GenericOpenAPIError); ok {
-				if t.Error() == "404 Not Found" {
-					log.Printf("GetCollection() returned %s which means it is gone", t.Error())
-
-					return true, nil
-				}
-			}
-
-			return false, err
-		}
-
-		return false, nil
+	for _, o := range options {
+		o(createParams)
 	}
-}
 
-func hasState(state string) waitFunc {
-	return func(c openapi.Collection, err error) (bool, error) {
-		if err != nil {
-			return false, err
-		}
-		if c.GetStatus() == state {
-			return true, nil
-		}
-		return false, nil
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
 	}
+
+	return *createResp.Data, nil
 }
 
-type docWaiter struct {
-	prevCount *int64
-}
+func (rc *RockClient) CreateGCSCollection(ctx context.Context,
+	workspace, name, description, integration, bucket, prefix string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
 
-func (d *docWaiter) hasNewDocs(count int64) waitFunc {
-	return func(c openapi.Collection, err error) (bool, error) {
-		if err != nil {
-			return false, err
-		}
-		current := c.Stats.DocCount
-		if d.prevCount == nil {
-			d.prevCount = current
-		}
+	f := openapi.FormatParams{}
+	format(&f)
 
-		// log.Printf("%d - %d > %d", *current, *d.prevCount, count)
-		if *current-*d.prevCount >= count {
-			return true, nil
-		}
-
-		return false, nil
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			Gcs: &openapi.SourceGcs{
+				Bucket: &bucket,
+				Prefix: &prefix,
+			},
+			FormatParams: &f,
+		},
 	}
+
+	for _, o := range options {
+		o(createParams)
+	}
+
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
+}
+
+func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
+	workspace, name, description, integration, database, schema, tableName string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
+
+	f := openapi.FormatParams{}
+	format(&f)
+
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			Redshift: &openapi.SourceRedshift{
+				Database:         database,
+				Schema:           schema,
+				TableName:        tableName,
+				IncrementalField: nil, // TODO
+			},
+			FormatParams: &f,
+		},
+	}
+
+	for _, o := range options {
+		o(createParams)
+	}
+
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
+}
+
+func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
+	workspace, name, description, integration, region, tableName string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
+
+	f := openapi.FormatParams{}
+	format(&f)
+
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			Dynamodb: &openapi.SourceDynamoDb{
+				AwsRegion: &region,
+				TableName: tableName,
+				Status:    nil, // TODO
+				Rcu:       nil, // TODO
+			},
+			FormatParams: &f,
+		},
+	}
+
+	for _, o := range options {
+		o(createParams)
+	}
+
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
+}
+
+func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
+	workspace, name, description, integration, fileName string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
+
+	f := openapi.FormatParams{}
+	format(&f)
+
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			FileUpload: &openapi.SourceFileUpload{
+				FileName:       fileName,
+				FileSize:       0,  // TODO
+				FileUploadTime: "", // TODO
+			},
+			FormatParams: &f,
+		},
+	}
+
+	for _, o := range options {
+		o(createParams)
+	}
+
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
+}
+
+func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
+	workspace, name, description, integration, topic string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
+
+	f := openapi.FormatParams{}
+	format(&f)
+
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			Kafka: &openapi.SourceKafka{
+				KafkaTopicName: topic,
+				Status:         nil, // TODO
+			},
+			FormatParams: &f,
+		},
+	}
+
+	for _, o := range options {
+		o(createParams)
+	}
+
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
+}
+
+func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
+	workspace, name, description, integration, database, collection string,
+	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams.Description = &description
+
+	f := openapi.FormatParams{}
+	format(&f)
+
+	createParams.Sources = &[]openapi.Source{
+		{
+			IntegrationName: integration,
+			Mongodb: &openapi.SourceMongoDb{
+				DatabaseName:   database,
+				CollectionName: collection,
+				Status:         nil, // TODO
+			},
+			FormatParams: &f,
+		},
+	}
+
+	for _, o := range options {
+		o(createParams)
+	}
+
+	createResp, _, err := createReq.Body(*createParams).Execute()
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
 }

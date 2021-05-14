@@ -58,6 +58,18 @@ func FromEnv() RockOption {
 	}
 }
 
+func WithAPIKey(apiKey string) RockOption {
+	return func(cfg *openapi.Configuration) {
+		cfg.AddDefaultHeader("Authorization", "apikey "+apiKey)
+	}
+}
+
+func WithAPIServer(server string) RockOption {
+	return func(cfg *openapi.Configuration) {
+		cfg.Host = server
+	}
+}
+
 func Debug() RockOption {
 	return func(cfg *openapi.Configuration) {
 		cfg.Debug = true

@@ -32,7 +32,7 @@ func Example_s3() {
 	fmt.Printf("integration created: %s\n", r.Data.GetName())
 
 	// create collection
-	c, err := rc.CreateS3Collection(ctx, "commons", "s3example",
+	c, err := rc.CreateS3Collection(ctx, "commons", "s3example", "created by go example code",
 		"s3exampleIntegration", "rockset-terraform-provider", "cities.csv",
 		rockset.WithCSVFormat(
 			[]string{"city", "country", "population", "visited"},
@@ -44,9 +44,8 @@ func Example_s3() {
 			option.WithQuoteChar(`"`),
 			option.WithSeparator(","),
 		),
-		option.WithS3CollectionDescription("created by go example code"),
-		option.WithS3CollectionFieldSchema("city", option.WithColumnIndexMode(option.ColumnIndexModeNoStore)),
-		option.WithS3CollectionFieldMapping("test", false,
+		option.WithCollectionFieldSchema("city", option.WithColumnIndexMode(option.ColumnIndexModeNoStore)),
+		option.WithCollectionFieldMapping("test", false,
 			option.OutputField("out", "CAST(:country AS string)", option.OnErrorSkip),
 			option.InputField("country", option.FieldMissingSkip, false, "country")),
 	)

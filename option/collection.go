@@ -6,16 +6,10 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
-type S3CollectionOption func(o *openapi.CreateCollectionRequest)
+type CollectionOption func(o *openapi.CreateCollectionRequest)
 
-func WithS3CollectionDescription(desc string) S3CollectionOption {
-	return func(o *openapi.CreateCollectionRequest) {
-		o.Description = &desc
-	}
-}
-
-// WithS3CollectionRetention sets the retention in seconds for documents.
-func WithS3CollectionRetention(d time.Duration) S3CollectionOption {
+// WithCollectionRetention sets the retention in seconds for documents.
+func WithCollectionRetention(d time.Duration) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		s := int64(d.Seconds())
 		o.RetentionSecs = &s
@@ -29,11 +23,11 @@ const (
 	SecondsSinceEpoch      EventTimeInfoFormat = "seconds_since_epoch"
 )
 
-// WithS3CollectionEventTimeInfo configures event data.
+// WithCollectionEventTimeInfo configures event data.
 // fieldName is name of the field containing event time.
 // format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch
 // ts is the default time zone, in standard IANA format
-func WithS3CollectionEventTimeInfo(fieldName, tz string, format EventTimeInfoFormat) S3CollectionOption {
+func WithCollectionEventTimeInfo(fieldName, tz string, format EventTimeInfoFormat) CollectionOption {
 	// TODO: should tz be validated?
 	f := string(format)
 	return func(o *openapi.CreateCollectionRequest) {
@@ -45,8 +39,8 @@ func WithS3CollectionEventTimeInfo(fieldName, tz string, format EventTimeInfoFor
 	}
 }
 
-// WithS3CollectionClusteringKey adds a clustering key. Can be specified multiple times.
-func WithS3CollectionClusteringKey(fieldName, fieldType string, keys []string) S3CollectionOption {
+// WithCollectionClusteringKey adds a clustering key. Can be specified multiple times.
+func WithCollectionClusteringKey(fieldName, fieldType string, keys []string) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		if o.ClusteringKey == nil {
 			o.ClusteringKey = &[]openapi.FieldPartition{}
@@ -127,7 +121,7 @@ func WithColumnIndexMode(mode ColumnIndexMode) FieldOption {
 	}
 }
 
-func WithS3CollectionFieldSchema(fieldName string, options ...FieldOption) S3CollectionOption {
+func WithCollectionFieldSchema(fieldName string, options ...FieldOption) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		opts := openapi.FieldOptions{}
 		for _, o := range options {
@@ -187,10 +181,10 @@ func OutputField(fieldName string, sql string, onError OnError) OutputFieldFn {
 	}
 }
 
-// WithS3CollectionFieldMapping adds a field mapping to the collection.
+// WithCollectionFieldMapping adds a field mapping to the collection.
 // If dropAll is true, the input and output fields are not set.
-func WithS3CollectionFieldMapping(name string, dropAll bool, outputField OutputFieldFn,
-	inputFields ...InputFieldFn) S3CollectionOption {
+func WithCollectionFieldMapping(name string, dropAll bool, outputField OutputFieldFn,
+	inputFields ...InputFieldFn) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		mapping := openapi.FieldMappingV2{
 			Name: &name,

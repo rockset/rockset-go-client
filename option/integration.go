@@ -2,6 +2,29 @@ package option
 
 import "github.com/rockset/rockset-go-client/openapi"
 
+type AWSCredentials struct {
+	*openapi.AwsAccessKey
+	*openapi.AwsRole
+}
+type AWSCredentialsFn func(o *AWSCredentials)
+
+func AWSKeys(accessKey, secretKey string) AWSCredentialsFn {
+	return func(o *AWSCredentials) {
+		o.AwsAccessKey = &openapi.AwsAccessKey{
+			AwsAccessKeyId:     accessKey,
+			AwsSecretAccessKey: secretKey,
+		}
+	}
+}
+
+func AWSRole(roleARN string) AWSCredentialsFn {
+	return func(o *AWSCredentials) {
+		o.AwsRole = &openapi.AwsRole{
+			AwsRoleArn: roleARN,
+		}
+	}
+}
+
 type S3Integration struct {
 	openapi.S3Integration
 	Description *string
@@ -14,21 +37,46 @@ func WithS3IntegrationDescription(desc string) S3IntegrationOption {
 	}
 }
 
-type AWSCredentials func(o *S3Integration)
+type KinesisIntegration struct {
+	openapi.KinesisIntegration
+	Description *string
+}
+type KinesisIntegrationOption func(request *KinesisIntegration)
 
-func AWSKeys(accessKey, secretKey string) AWSCredentials {
-	return func(o *S3Integration) {
-		o.AwsAccessKey = &openapi.AwsAccessKey{
-			AwsAccessKeyId:     accessKey,
-			AwsSecretAccessKey: secretKey,
-		}
+func WithKinesisIntegrationDescription(desc string) KinesisIntegrationOption {
+	return func(o *KinesisIntegration) {
+		o.Description = &desc
 	}
 }
 
-func AWSRole(roleARN string) AWSCredentials {
-	return func(o *S3Integration) {
-		o.AwsRole = &openapi.AwsRole{
-			AwsRoleArn: roleARN,
-		}
+type DynamoDBIntegration struct {
+	openapi.DynamodbIntegration
+	Description *string
+}
+type DynamoDBIntegrationOption func(request *DynamoDBIntegration)
+
+func WithDynamoDBIntegrationDescription(desc string) DynamoDBIntegrationOption {
+	return func(o *DynamoDBIntegration) {
+		o.Description = &desc
+	}
+}
+
+type GCSIntegration struct {
+	openapi.GcsIntegration
+	Description *string
+}
+type GCSIntegrationOption func(request *GCSIntegration)
+
+func WithGCSIntegrationDescription(desc string) GCSIntegrationOption {
+	return func(o *GCSIntegration) {
+		o.Description = &desc
+	}
+}
+
+type GCSCredentialsFn func(*openapi.GcpServiceAccount)
+
+func GCSServiceAccount(json string) GCSCredentialsFn {
+	return func(o *openapi.GcpServiceAccount) {
+		o = &openapi.GcpServiceAccount{ServiceAccountKeyFileJson: json}
 	}
 }
