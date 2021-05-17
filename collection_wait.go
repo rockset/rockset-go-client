@@ -12,28 +12,27 @@ const (
 	collectionStatusREADY = "READY"
 )
 
-// WaitForCollectionReady waits until the collection is ready.
-func (rc *RockClient) WaitForCollectionReady(ctx context.Context, workspace, name string) error {
-	return rc.waitForCollection(ctx, workspace, name, hasState(collectionStatusREADY))
+// WaitUntilCollectionReady waits until the collection is ready.
+func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, name string) error {
+	return rc.WaitUntil(ctx, rc.collectionHasState(ctx, workspace, name, collectionStatusREADY))
 }
 
-// WaitForCollectionGone waits until the a collection marked for deletion is gone, i.e. GetCollection()
+// WaitUntilCollectionGone waits until the a collection marked for deletion is gone, i.e. GetCollection()
 // returns "not found".
-func (rc *RockClient) WaitForCollectionGone(ctx context.Context, workspace, name string) error {
-	return rc.waitForCollection(ctx, workspace, name, isGone())
+func (rc *RockClient) WaitUntilCollectionGone(ctx context.Context, workspace, name string) error {
+	return rc.WaitUntil(ctx, rc.collectionIsGone(ctx, workspace, name))
 }
 
-// WaitForCollectionDocuments waits until the collection has at least count new documents
-func (rc *RockClient) WaitForCollectionDocuments(ctx context.Context, workspace, name string, count int64) error {
-	waiter := docWaiter{}
-	return rc.waitForCollection(ctx, workspace, name, waiter.hasNewDocs(count))
+// WaitUntilCollectionDocuments waits until the collection has at least count new documents
+func (rc *RockClient) WaitUntilCollectionDocuments(ctx context.Context, workspace, name string, count int64) error {
+	waiter := docWaiter{rc: rc}
+	return rc.WaitUntil(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
 }
 
-type waitFunc func(c openapi.Collection, err error) (bool, error)
+type WaitFunc func() (bool, error)
 
-// WaitForCollection waits until the collection reaches the desired state, determined by the waitFunc.
-// Uses exponential backoff.
-func (rc *RockClient) waitForCollection(ctx context.Context, workspace, name string, waitFn waitFunc) error {
+// WaitUntil waits until the waitFn returns true, or an error. Uses exponential backoff.
+func (rc *RockClient) WaitUntil(ctx context.Context, wait WaitFunc) error {
 	const maxBackoff = 8 * time.Second
 	waitInterval := time.Second
 	t0 := time.Now()
@@ -42,9 +41,11 @@ func (rc *RockClient) waitForCollection(ctx context.Context, workspace, name str
 	}()
 
 	for {
-		if done, err := waitFn(rc.GetCollection(ctx, workspace, name)); err != nil {
+		done, err := wait()
+		if err != nil {
 			return err
-		} else if done {
+		}
+		if done {
 			return nil
 		}
 
@@ -64,8 +65,9 @@ func (rc *RockClient) waitForCollection(ctx context.Context, workspace, name str
 	}
 }
 
-func isGone() waitFunc {
-	return func(c openapi.Collection, err error) (bool, error) {
+func (rc *RockClient) collectionIsGone(ctx context.Context, workspace, name string) WaitFunc {
+	return func() (bool, error) {
+		_, err := rc.GetCollection(ctx, workspace, name)
 		if err != nil {
 			// the state "GONE" is a special case, which is when the collection is deleted and returns a 404
 			if t, ok := err.(openapi.GenericOpenAPIError); ok {
@@ -83,8 +85,9 @@ func isGone() waitFunc {
 	}
 }
 
-func hasState(state string) waitFunc {
-	return func(c openapi.Collection, err error) (bool, error) {
+func (rc *RockClient) collectionHasState(ctx context.Context, workspace, name, state string) WaitFunc {
+	return func() (bool, error) {
+		c, err := rc.GetCollection(ctx, workspace, name)
 		if err != nil {
 			return false, err
 		}
@@ -96,11 +99,13 @@ func hasState(state string) waitFunc {
 }
 
 type docWaiter struct {
+	rc        *RockClient
 	prevCount *int64
 }
 
-func (d *docWaiter) hasNewDocs(count int64) waitFunc {
-	return func(c openapi.Collection, err error) (bool, error) {
+func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name string, count int64) WaitFunc {
+	return func() (bool, error) {
+		c, err := d.rc.GetCollection(ctx, workspace, name)
 		if err != nil {
 			return false, err
 		}

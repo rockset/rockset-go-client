@@ -2,7 +2,6 @@ package rockset
 
 import (
 	"context"
-
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -26,18 +25,16 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 		o(&opts)
 	}
 
-	req.S3 = &openapi.S3Integration{
-		AwsAccessKey: nil,
-		AwsRole:      nil,
-	}
+	req.S3 = &openapi.S3Integration{}
+
 	if opts.Description != nil {
 		req.Description = opts.Description
 	}
-	if opts.AwsRole != nil {
-		req.S3.AwsRole = opts.AwsRole
+	if c.AwsRole != nil {
+		req.S3.AwsRole = c.AwsRole
 	}
-	if opts.AwsAccessKey != nil {
-		req.S3.AwsAccessKey = opts.AwsAccessKey
+	if c.AwsAccessKey != nil {
+		req.S3.AwsAccessKey = c.AwsAccessKey
 	}
 
 	resp, _, err := q.Body(*req).Execute()

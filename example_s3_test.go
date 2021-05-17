@@ -24,7 +24,7 @@ func Example_s3() {
 
 	// create integration
 	r, err := rc.CreateS3Integration(ctx, "s3exampleIntegration",
-		option.AWSRole("arn:aws:iam::216690786812:role/rockset-integration-role"),
+		option.AWSRole("arn:aws:iam::469279130686:role/rockset-s3-integration"),
 		option.WithS3IntegrationDescription("created by go example code"))
 	if err != nil {
 		log.Fatalf("failed to create integration: %v", err)
@@ -33,7 +33,7 @@ func Example_s3() {
 
 	// create collection
 	c, err := rc.CreateS3Collection(ctx, "commons", "s3example", "created by go example code",
-		"s3exampleIntegration", "rockset-terraform-provider", "cities.csv",
+		"s3exampleIntegration", "rockset-go-tests", "cities.csv",
 		rockset.WithCSVFormat(
 			[]string{"city", "country", "population", "visited"},
 			[]rockset.ColumnType{
@@ -59,14 +59,14 @@ func Example_s3() {
 	fmt.Printf("collection created: %s\n", c.GetName())
 
 	// wait until collection is ready
-	err = rc.WaitForCollectionReady(ctx, "commons", "s3example")
+	err = rc.WaitUntilCollectionReady(ctx, "commons", "s3example")
 	if err != nil {
 		log.Fatalf("failed to wait for collection to be ready: %v", err)
 	}
 	fmt.Printf("collection ready: %s\n", c.GetName())
 
 	// wait until there are at least 3 new documents in the collection
-	err = rc.WaitForCollectionDocuments(ctx, "commons", "s3example", 3)
+	err = rc.WaitUntilCollectionDocuments(ctx, "commons", "s3example", 3)
 	if err != nil {
 		log.Fatalf("failed to wait for new documents: %v", err)
 	}
@@ -86,7 +86,7 @@ func Example_s3() {
 	fmt.Printf("collection deleted: %s\n", c.GetName())
 
 	// wait until the collection is gone
-	err = rc.WaitForCollectionGone(ctx, "commons", "s3example")
+	err = rc.WaitUntilCollectionGone(ctx, "commons", "s3example")
 	if err != nil {
 		log.Fatalf("failed to wait for collection to be gone: %v", err)
 	}
