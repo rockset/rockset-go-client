@@ -86,3 +86,15 @@ func IsNotFoundError(err error) (openapi.GenericOpenAPIError, bool) {
 	}
 	return e, false
 }
+
+// AsErrorModel returns true and the openapi.ErrorModel for the err if the error contains an openapi.ErrorModel
+func AsErrorModel(err error) (openapi.ErrorModel, bool) {
+	var e openapi.GenericOpenAPIError
+	if errors.As(err, &e) {
+		if m, ok := e.Model().(openapi.ErrorModel); ok {
+			return m, true
+		}
+	}
+
+	return openapi.ErrorModel{}, false
+}
