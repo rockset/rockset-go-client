@@ -4,13 +4,27 @@ import (
 	"context"
 	"log"
 	"time"
-
-	"github.com/rockset/rockset-go-client/openapi"
 )
 
 const (
 	collectionStatusREADY = "READY"
 )
+
+// WaitUntilAliasAvailable waits until the alias is available.
+func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, alias string) error {
+	return rc.WaitUntil(ctx, func() (bool, error) {
+		_, _, err := rc.AliasesApi.GetAlias(ctx, workspace, alias).Execute()
+		if err == nil {
+			return true, nil
+		}
+
+		if _, ok := IsNotFoundError(err); ok {
+			return false, nil
+		}
+
+		return false, err
+	})
+}
 
 // WaitUntilCollectionReady waits until the collection is ready.
 func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, name string) error {
@@ -29,6 +43,7 @@ func (rc *RockClient) WaitUntilCollectionDocuments(ctx context.Context, workspac
 	return rc.WaitUntil(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
 }
 
+// WaitFunc is the function WaitUntil will continually call until it either returns true or an error.
 type WaitFunc func() (bool, error)
 
 // WaitUntil waits until the waitFn returns true, or an error. Uses exponential backoff.
@@ -68,20 +83,19 @@ func (rc *RockClient) WaitUntil(ctx context.Context, wait WaitFunc) error {
 func (rc *RockClient) collectionIsGone(ctx context.Context, workspace, name string) WaitFunc {
 	return func() (bool, error) {
 		_, err := rc.GetCollection(ctx, workspace, name)
-		if err != nil {
-			// the state "GONE" is a special case, which is when the collection is deleted and returns a 404
-			if t, ok := err.(openapi.GenericOpenAPIError); ok {
-				if t.Error() == "404 Not Found" {
-					log.Printf("GetCollection() returned %s which means it is gone", t.Error())
+		if err == nil {
+			return false, nil
+		}
+		// the state "GONE" is a special case, which is when the collection is deleted and returns a 404
+		if t, ok := IsNotFoundError(err); ok {
+			if t.Error() == "404 Not Found" {
+				log.Printf("GetCollection() returned %s which means it is gone", t.Error())
 
-					return true, nil
-				}
+				return true, nil
 			}
-
-			return false, err
 		}
 
-		return false, nil
+		return false, err
 	}
 }
 

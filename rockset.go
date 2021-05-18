@@ -76,10 +76,13 @@ func Debug() RockOption {
 	}
 }
 
-func IsNotFoundError(err error) bool {
+// IsNotFoundError return true when err is from an underlying 404 response from the Rockset REST API.
+func IsNotFoundError(err error) (openapi.GenericOpenAPIError, bool) {
 	var e openapi.GenericOpenAPIError
 	if errors.As(err, &e) {
-		return e.Error() == "404 Not Found"
+		if e.Error() == "404 Not Found" {
+			return e, true
+		}
 	}
-	return false
+	return e, false
 }

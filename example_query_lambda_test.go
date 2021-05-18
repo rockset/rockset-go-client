@@ -17,7 +17,7 @@ func ExampleRockClient_queryLambda() {
 		log.Fatal(err)
 	}
 
-	r, err := rc.ExecuteQueryLambda(ctx, "commons", "test")
+	r, err := rc.ExecuteQueryLambda(ctx, "commons", "eventType")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,7 +38,7 @@ func ExampleRockClient_queryLambdaByTag() {
 		log.Fatal(err)
 	}
 
-	r, err := rc.ExecuteQueryLambda(ctx, "commons", "test", option.WithTag("latest"))
+	r, err := rc.ExecuteQueryLambda(ctx, "commons", "eventType", option.WithTag("test"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -59,7 +59,8 @@ func ExampleRockClient_queryLambdaByVersion() {
 		log.Fatal(err)
 	}
 
-	r, err := rc.ExecuteQueryLambda(ctx, "commons", "test", option.WithVersion("foobar"))
+	r, err := rc.ExecuteQueryLambda(ctx, "commons", "eventType",
+		option.WithVersion("e4e67e8835063d03"))
 	if err != nil {
 		log.Fatal(err)
 	}

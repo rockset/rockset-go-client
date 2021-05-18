@@ -21,7 +21,8 @@ func TestRockClient_S3Integration(t *testing.T) {
 	getReq := rc.IntegrationsApi.GetIntegration(ctx, name)
 	_, _, err = getReq.Execute()
 	if err != nil {
-		if !rockset.IsNotFoundError(err) {
+		// check if it is missing
+		if _, ok := rockset.IsNotFoundError(err); !ok {
 			require.NoError(t, err)
 		}
 	} else {
@@ -33,7 +34,7 @@ func TestRockClient_S3Integration(t *testing.T) {
 
 	// create a new integration
 	_, err = rc.CreateS3Integration(ctx, name,
-		option.AWSRole("arn:aws:iam::216690786812:role/rockset-integration-role"),
+		option.AWSRole("arn:aws:iam::469279130686:role/rockset-s3-integration"),
 		option.WithS3IntegrationDescription("test"))
 	require.NoError(t, err)
 
