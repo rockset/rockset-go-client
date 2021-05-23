@@ -23,22 +23,6 @@ const (
 	SecondsSinceEpoch      EventTimeInfoFormat = "seconds_since_epoch"
 )
 
-// WithCollectionEventTimeInfo configures event data.
-// fieldName is name of the field containing event time.
-// format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch
-// ts is the default time zone, in standard IANA format
-func WithCollectionEventTimeInfo(fieldName, tz string, format EventTimeInfoFormat) CollectionOption {
-	// TODO: should tz be validated?
-	f := string(format)
-	return func(o *openapi.CreateCollectionRequest) {
-		o.EventTimeInfo = &openapi.EventTimeInfo{
-			Field:    fieldName,
-			Format:   &f,
-			TimeZone: &tz,
-		}
-	}
-}
-
 // WithCollectionClusteringKey adds a clustering key. Can be specified multiple times.
 func WithCollectionClusteringKey(fieldName, fieldType string, keys []string) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {

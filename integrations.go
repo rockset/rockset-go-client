@@ -116,7 +116,7 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, cre
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
-	sa := openapi.GcpServiceAccount{}
+	sa := openapi.GcsIntegration{}
 	creds(&sa)
 
 	opts := option.GCSIntegration{}
@@ -124,9 +124,7 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, cre
 		o(&opts)
 	}
 
-	req.Gcs = &openapi.GcsIntegration{
-		GcpServiceAccount: &sa,
-	}
+	req.Gcs = &sa
 	if opts.Description != nil {
 		req.Description = opts.Description
 	}

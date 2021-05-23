@@ -73,10 +73,10 @@ func WithGCSIntegrationDescription(desc string) GCSIntegrationOption {
 	}
 }
 
-type GCSCredentialsFn func(*openapi.GcpServiceAccount)
+type GCSCredentialsFn func(*openapi.GcsIntegration)
 
 func GCSServiceAccount(json string) GCSCredentialsFn {
-	return func(o *openapi.GcpServiceAccount) {
-		o = &openapi.GcpServiceAccount{ServiceAccountKeyFileJson: json}
+	return func(o *openapi.GcsIntegration) {
+		o.GcpServiceAccount = &openapi.GcpServiceAccount{ServiceAccountKeyFileJson: json}
 	}
 }

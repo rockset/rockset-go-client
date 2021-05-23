@@ -2,13 +2,30 @@ package rockset
 
 import (
 	"context"
+	"time"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rs/zerolog"
 )
 
 func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string) (openapi.Collection, error) {
+	var err error
+	var resp openapi.GetCollectionResponse
 	getReq := rc.CollectionsApi.GetCollection(ctx, workspace, name)
-	resp, _, err := getReq.Execute()
+
+	err = rc.Retry(ctx, func() (bool, error) {
+		resp, _, err = getReq.Execute()
+		var re Error
+		if AsError(err, &re) {
+			if re.Retryable() {
+				return true, nil
+			}
+		}
+
+		return false, err
+	})
+
 	if err != nil {
 		return openapi.Collection{}, err
 	}
@@ -18,8 +35,57 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 
 func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name string) error {
 	deleteReq := rc.CollectionsApi.DeleteCollection(ctx, workspace, name)
-	_, _, err := deleteReq.Execute()
+
+	err := rc.Retry(ctx, func() (bool, error) {
+		_, _, err := deleteReq.Execute()
+		var re Error
+		if AsError(err, &re) {
+			if re.Retryable() {
+				return true, nil
+			}
+		}
+
+		return false, err
+	})
+
 	return err
+}
+
+// CreateCollection is a convenience method to create a collection, which uses exponential backoff in case
+// the API call is ratelimted. It will overwite the request.Name field with the argument name.
+func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
+	request *openapi.CreateCollectionRequest) (openapi.Collection, error) {
+	log := zerolog.Ctx(ctx)
+
+	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
+	if request.Name != name {
+		log.Warn().Str("request.Name", request.Name).Str("name", name).
+			Msg("name differs from request, using argument")
+	}
+
+	request.Name = name
+
+	var err error
+	var createResp openapi.CreateCollectionResponse
+	err = rc.Retry(ctx, func() (bool, error) {
+		createResp, _, err = createReq.Body(*request).Execute()
+		var re Error
+		if AsError(err, &re) {
+			if re.Retryable() {
+				return true, nil
+			}
+		}
+		if err != nil {
+			return false, err
+		}
+
+		return false, nil
+	})
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return *createResp.Data, nil
 }
 
 // CreateS3Collection creates an S3 collection from an existing S3 integration.
@@ -51,7 +117,22 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 		o(createParams)
 	}
 
-	createResp, _, err := createReq.Body(*createParams).Execute()
+	var err error
+	var createResp openapi.CreateCollectionResponse
+	err = rc.Retry(ctx, func() (bool, error) {
+		createResp, _, err = createReq.Body(*createParams).Execute()
+		var re Error
+		if AsError(err, &re) {
+			if re.Retryable() {
+				return true, nil
+			}
+		}
+		if err != nil {
+			return false, err
+		}
+
+		return false, nil
+	})
 	if err != nil {
 		return openapi.Collection{}, err
 	}
@@ -142,7 +223,7 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 				Database:         database,
 				Schema:           schema,
 				TableName:        tableName,
-				IncrementalField: nil, // TODO
+				IncrementalField: nil, // TODO this is an optional string field
 			},
 			FormatParams: &f,
 		},
@@ -161,7 +242,7 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 }
 
 func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
-	workspace, name, description, integration, region, tableName string,
+	workspace, name, description, integration, region, tableName string, maxRCU int64,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -176,8 +257,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 			Dynamodb: &openapi.SourceDynamoDb{
 				AwsRegion: &region,
 				TableName: tableName,
-				Status:    nil, // TODO
-				Rcu:       nil, // TODO
+				Rcu:       &maxRCU, // TODO optional long int field "Max RCU usage for scan"
 			},
 			FormatParams: &f,
 		},
@@ -196,7 +276,8 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 }
 
 func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
-	workspace, name, description, integration, fileName string,
+	workspace, name, description, fileName string, fileSize int64,
+	fileUploadTime time.Time,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -207,11 +288,11 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 
 	createParams.Sources = &[]openapi.Source{
 		{
-			IntegrationName: integration,
 			FileUpload: &openapi.SourceFileUpload{
+				// TODO how do you send the actual file contents?!?!
 				FileName:       fileName,
-				FileSize:       0,  // TODO
-				FileUploadTime: "", // TODO
+				FileSize:       fileSize,
+				FileUploadTime: fileUploadTime.Format(time.RFC3339),
 			},
 			FormatParams: &f,
 		},

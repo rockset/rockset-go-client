@@ -37,7 +37,7 @@ func Example_s3() {
 		rockset.WithCSVFormat(
 			[]string{"city", "country", "population", "visited"},
 			[]rockset.ColumnType{
-				rockset.ColumnTypeSTRING, rockset.ColumnTypeSTRING, rockset.ColumnTypeInteger, rockset.ColumnTypeBool,
+				rockset.ColumnTypeString, rockset.ColumnTypeString, rockset.ColumnTypeInteger, rockset.ColumnTypeBool,
 			},
 			option.WithEncoding("UTF-8"),
 			option.WithEscapeChar("\\"),

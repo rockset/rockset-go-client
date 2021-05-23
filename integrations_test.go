@@ -1,7 +1,6 @@
 package rockset_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/rockset/rockset-go-client"
@@ -11,7 +10,7 @@ import (
 )
 
 func TestRockClient_S3Integration(t *testing.T) {
-	ctx := context.TODO()
+	ctx := testCtx()
 	name := "s3test"
 
 	rc, err := rockset.NewClient(rockset.FromEnv())
@@ -22,8 +21,11 @@ func TestRockClient_S3Integration(t *testing.T) {
 	_, _, err = getReq.Execute()
 	if err != nil {
 		// check if it is missing
-		if _, ok := rockset.IsNotFoundError(err); !ok {
-			require.NoError(t, err)
+		var re rockset.Error
+		if rockset.AsError(err, &re) {
+			if !re.IsNotFoundError() {
+				require.NoError(t, err)
+			}
 		}
 	} else {
 		// the integration exists, delete it

@@ -22,7 +22,7 @@ const (
 	ColumnTypeBoolean
 	ColumnTypeInteger
 	ColumnTypeFloat
-	ColumnTypeSTRING
+	ColumnTypeString
 	ColumnTypeTime
 	ColumnTypeDate
 	ColumnTypeDatetime
@@ -31,6 +31,14 @@ const (
 	ColumnTypeInt
 )
 
+// WithCSVFormat is used by the create collection calls, to set the format to CSV.
+// The columnNames and columnTypes must be of equal length, and it takes a list of optional option.CSV options.
+//
+//   WithCSVFormat(
+//     []string{"foo", "bar"},
+//     []ColumnType{ColumnTypeBoolean, ColumnTypeString},
+//     option.WithSeparator(";")
+//   )
 func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...option.CSV) Format {
 	types := make([]string, len(columnTypes))
 	for i, t := range columnTypes {
@@ -50,13 +58,15 @@ func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...op
 	}
 }
 
+// WithJSONFormat sets the format to JSON.
 func WithJSONFormat() Format {
 	return func(f *openapi.FormatParams) {
 		f.Json = openapi.PtrBool(true)
 	}
 }
-
+// WithXMLFormat sets the format XML.
 func WithXMLFormat(xml openapi.XmlParams) Format {
+	// TODO it looks lie all xml fields are optional. Add options for each of them.
 	return func(f *openapi.FormatParams) {
 		f.Xml = &xml
 	}

@@ -1,7 +1,9 @@
 package rockset
 
 import (
-	"errors"
+	"github.com/rs/zerolog"
+	"net/http"
+	"net/http/httputil"
 	"os"
 
 	"github.com/rockset/rockset-go-client/openapi"
@@ -16,8 +18,14 @@ const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
 const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY"
 const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
 
+type RockConfig struct {
+	cfg *openapi.Configuration
+	Retrier
+}
+
 type RockClient struct {
 	*openapi.APIClient
+	RockConfig
 }
 
 // NewClient creates a new Rockset client.
@@ -31,70 +39,94 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg := openapi.NewConfiguration()
 	cfg.UserAgent = "rockset-go-client"
 	cfg.AddDefaultHeader("x-rockset-version", Version)
-
-	for _, o := range options {
-		o(cfg)
-	}
+	cfg.HTTPClient = http.DefaultClient
 
 	// TODO should we pick up ROCKSET_APIKEY by default?
-	c := openapi.NewAPIClient(cfg)
-	return &RockClient{APIClient: c}, nil
+	rc := RockConfig{
+		cfg:     cfg,
+		Retrier: ExponentialRetry{},
+	}
+
+	for _, o := range options {
+		o(&rc)
+	}
+
+	return &RockClient{
+		RockConfig: rc,
+		APIClient:  openapi.NewAPIClient(rc.cfg),
+	}, nil
 }
 
 // RockOption is the type for RockClient options
-type RockOption func(rc *openapi.Configuration)
+type RockOption func(rc *RockConfig)
 
 // FromEnv sets API key and API server from the environment variables ROCKSET_APIKEY and ROCKSET_APISERVER,
 // and if ROCKSET_APISERVER is not set, it will use the default API server.
 func FromEnv() RockOption {
-	return func(cfg *openapi.Configuration) {
+	return func(rc *RockConfig) {
 		if apikey, found := os.LookupEnv(APIKeyEnvironmentVariableName); found {
-			cfg.AddDefaultHeader("Authorization", "apikey "+apikey)
+			rc.cfg.AddDefaultHeader("Authorization", "apikey "+apikey)
 		}
 
 		if server, found := os.LookupEnv(APIServerEnvironmentVariableName); found {
-			cfg.Host = server
+			rc.cfg.Host = server
 		}
 	}
 }
 
 func WithAPIKey(apiKey string) RockOption {
-	return func(cfg *openapi.Configuration) {
-		cfg.AddDefaultHeader("Authorization", "apikey "+apiKey)
+	return func(rc *RockConfig) {
+		rc.cfg.AddDefaultHeader("Authorization", "apikey "+apiKey)
 	}
 }
 
 func WithAPIServer(server string) RockOption {
-	return func(cfg *openapi.Configuration) {
-		cfg.Host = server
+	return func(rc *RockConfig) {
+		rc.cfg.Host = server
 	}
 }
 
 func Debug() RockOption {
-	return func(cfg *openapi.Configuration) {
-		cfg.Debug = true
+	return func(rc *RockConfig) {
+		rc.cfg.Debug = true
 	}
 }
 
-// IsNotFoundError return true when err is from an underlying 404 response from the Rockset REST API.
-func IsNotFoundError(err error) (openapi.GenericOpenAPIError, bool) {
-	var e openapi.GenericOpenAPIError
-	if errors.As(err, &e) {
-		if e.Error() == "404 Not Found" {
-			return e, true
-		}
+// WithHTTPClient sets the HTTP client. Without this option RockClient uses the http.DefaultClient.
+func WithHTTPClient(c *http.Client) RockOption {
+	return func(rc *RockConfig) {
+		rc.cfg.HTTPClient = c
 	}
-	return e, false
 }
 
-// AsErrorModel returns true and the openapi.ErrorModel for the err if the error contains an openapi.ErrorModel
-func AsErrorModel(err error) (openapi.ErrorModel, bool) {
-	var e openapi.GenericOpenAPIError
-	if errors.As(err, &e) {
-		if m, ok := e.Model().(openapi.ErrorModel); ok {
-			return m, true
-		}
+// WithRetry sets the Retrier the RockClient uses to retry requests which return a Error that can be retried.
+func WithRetry(r Retrier) RockOption {
+	return func(rc *RockConfig) {
+		rc.Retrier = r
 	}
+}
 
-	return openapi.ErrorModel{}, false
+// WithHTTPDebug adds a http.RoundTripper that logs the request and response
+func WithHTTPDebug() RockOption {
+	return func(rc *RockConfig) {
+		rc.cfg.HTTPClient.Transport = &debugRoundTripper{http.DefaultTransport}
+	}
+}
+
+type debugRoundTripper struct {
+	transport http.RoundTripper
+}
+
+func (r *debugRoundTripper) RoundTrip(req *http.Request) (*http.Response, error) {
+	ctx := req.Context()
+	log := zerolog.Ctx(ctx)
+
+	reqb, _ := httputil.DumpRequest(req, true)
+	res, err := r.transport.RoundTrip(req)
+	resb, _ := httputil.DumpResponse(res, true)
+
+	log.Debug().Str("data", string(reqb)).Msg("request")
+	log.Debug().Str("data", string(resb)).Msg("response")
+
+	return res, err
 }
