@@ -2,12 +2,10 @@ package rockset_test
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log"
 
 	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -17,7 +15,7 @@ import (
 func Example_s3() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient(rockset.FromEnv(), rockset.WithHTTPDebug())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,10 +48,6 @@ func Example_s3() {
 			option.InputField("country", option.FieldMissingSkip, false, "country")),
 	)
 	if err != nil {
-		var e openapi.GenericOpenAPIError
-		if errors.As(err, &e) {
-			log.Printf("err: %s", string(e.Body()))
-		}
 		log.Fatalf("failed to create collection: %v", err)
 	}
 	fmt.Printf("collection created: %s\n", c.GetName())

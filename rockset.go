@@ -1,10 +1,11 @@
 package rockset
 
 import (
-	"github.com/rs/zerolog"
 	"net/http"
 	"net/http/httputil"
 	"os"
+
+	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
 )
@@ -39,7 +40,8 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg := openapi.NewConfiguration()
 	cfg.UserAgent = "rockset-go-client"
 	cfg.AddDefaultHeader("x-rockset-version", Version)
-	cfg.HTTPClient = http.DefaultClient
+	// TODO should the default http client be tuned?
+	cfg.HTTPClient = &http.Client{}
 
 	// TODO should we pick up ROCKSET_APIKEY by default?
 	rc := RockConfig{
@@ -125,6 +127,7 @@ func (r *debugRoundTripper) RoundTrip(req *http.Request) (*http.Response, error)
 	res, err := r.transport.RoundTrip(req)
 	resb, _ := httputil.DumpResponse(res, true)
 
+	// TODO create a custom dump as this contains the api key
 	log.Debug().Str("data", string(reqb)).Msg("request")
 	log.Debug().Str("data", string(resb)).Msg("response")
 

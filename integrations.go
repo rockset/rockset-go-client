@@ -2,18 +2,36 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
 func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error {
+	var err error
 	req := rc.IntegrationsApi.DeleteIntegration(ctx, name)
-	_, _, err := req.Execute()
+
+	err = rc.Retry(ctx, func() (bool, error) {
+		_, _, err = req.Execute()
+		if err != nil {
+			re := NewError(err)
+			if re.Retryable() {
+				return true, nil
+			}
+			return false, re
+		}
+
+		return false, nil
+	})
+
 	return err
 }
 
 func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.S3IntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
@@ -37,7 +55,19 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 		req.S3.AwsAccessKey = c.AwsAccessKey
 	}
 
-	resp, _, err := q.Body(*req).Execute()
+	err = rc.Retry(ctx, func() (bool, error) {
+		resp, _, err = q.Body(*req).Execute()
+		if err != nil {
+			re := NewError(err)
+			if re.Retryable() {
+				return true, nil
+			}
+			return false, re
+		}
+
+		return false, nil
+	})
+
 	if err != nil {
 		return openapi.CreateIntegrationResponse{}, err
 	}
@@ -47,6 +77,8 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 
 func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.KinesisIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
@@ -69,7 +101,19 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 		req.S3.AwsAccessKey = c.AwsAccessKey
 	}
 
-	resp, _, err := q.Body(*req).Execute()
+	err = rc.Retry(ctx, func() (bool, error) {
+		resp, _, err = q.Body(*req).Execute()
+		if err != nil {
+			re := NewError(err)
+			if re.Retryable() {
+				return true, nil
+			}
+			return false, re
+		}
+
+		return false, nil
+	})
+
 	if err != nil {
 		return openapi.CreateIntegrationResponse{}, err
 	}
@@ -79,6 +123,9 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 
 func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.DynamoDBIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
@@ -101,7 +148,19 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 		req.Dynamodb.AwsAccessKey = c.AwsAccessKey
 	}
 
-	resp, _, err := q.Body(*req).Execute()
+	err = rc.Retry(ctx, func() (bool, error) {
+		resp, _, err = q.Body(*req).Execute()
+		if err != nil {
+			re := NewError(err)
+			if re.Retryable() {
+				return true, nil
+			}
+			return false, re
+		}
+
+		return false, nil
+	})
+
 	if err != nil {
 		return openapi.CreateIntegrationResponse{}, err
 	}
@@ -109,10 +168,13 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 	return resp, nil
 }
 
-// redshift
+// TODO redshift
 
 func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, creds option.GCSCredentialsFn,
 	options ...option.GCSIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
@@ -129,7 +191,19 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, cre
 		req.Description = opts.Description
 	}
 
-	resp, _, err := q.Body(*req).Execute()
+	err = rc.Retry(ctx, func() (bool, error) {
+		resp, _, err = q.Body(*req).Execute()
+		if err != nil {
+			re := NewError(err)
+			if re.Retryable() {
+				return true, nil
+			}
+			return false, re
+		}
+
+		return false, nil
+	})
+
 	if err != nil {
 		return openapi.CreateIntegrationResponse{}, err
 	}
@@ -137,6 +211,6 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, cre
 	return resp, nil
 }
 
-// segment
-// kafka
-// mongodb
+// TODO segment
+// TODO kafka
+// TODO mongodb

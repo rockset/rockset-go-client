@@ -6,8 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rockset/rockset-go-client"
 	"github.com/rs/zerolog"
+
+	"github.com/rockset/rockset-go-client"
 )
 
 // helper function to skip unless ROCKSET_APIKEY is set

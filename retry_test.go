@@ -4,8 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/rockset/rockset-go-client"
 	"github.com/stretchr/testify/assert"
+
+	"github.com/rockset/rockset-go-client"
 )
 
 func TestExponentialRetry_Retry(t *testing.T) {

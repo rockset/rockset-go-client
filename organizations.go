@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
@@ -15,15 +16,16 @@ func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization
 
 	err = rc.Retry(ctx, func() (bool, error) {
 		resp, _, err = getReq.Execute()
-		var re Error
-		if AsError(err, &re) {
+		if err != nil {
+			re := NewError(err)
 			if re.Retryable() {
 				log.Debug().Str("error", re.GetMessage()).Msg("got retryable error")
 				return true, nil
 			}
+			return false, re
 		}
 
-		return false, err
+		return false, nil
 	})
 
 	if err != nil {

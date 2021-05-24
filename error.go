@@ -9,35 +9,51 @@ import (
 )
 
 type Error struct {
-	openapi.ErrorModel
+	*openapi.ErrorModel
+	cause error
 }
 
-// AsError tries to convert err to a rockset.Error, and returns true if it was possible
-func AsError(err error, re *Error) bool {
+// NewError wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError
+func NewError(err error) Error {
+	var re = Error{cause: err}
+
 	var ge openapi.GenericOpenAPIError
-	if !errors.As(err, &ge) {
-		return false
+	if errors.As(err, &ge) {
+		if m, ok := ge.Model().(openapi.ErrorModel); ok {
+			re.ErrorModel = &m
+		}
 	}
 
-	if m, ok := ge.Model().(openapi.ErrorModel); ok {
-		re.ErrorModel = m
-		return true
-	}
+	return re
+}
 
-	return false
+func (e Error) Unwrap() error {
+	return e.cause
 }
 
 func (e Error) Error() string {
+	if e.ErrorModel == nil {
+		return e.Error()
+	}
+
 	return e.GetMessage()
 }
 
 // RateLimited checks if the error came from a http.StatusTooManyRequests, which is used for rate limiting.
 func (e Error) RateLimited() bool {
+	if e.ErrorModel == nil {
+		return false
+	}
+
 	return e.GetType() == statusWithoutSpace(http.StatusTooManyRequests)
 }
 
 // IsNotFoundError returns true when the error is from an underlying 404 response from the Rockset REST API.
 func (e Error) IsNotFoundError() bool {
+	if e.ErrorModel == nil {
+		return false
+	}
+
 	return e.GetType() == statusWithoutSpace(http.StatusNotFound)
 }
 
@@ -50,6 +66,10 @@ var RetryableErrors = []int{
 
 // Retryable returns true if the error is in RetryableErrors
 func (e Error) Retryable() bool {
+	if e.ErrorModel == nil {
+		return false
+	}
+
 	for _, t := range RetryableErrors {
 		if statusWithoutSpace(t) == e.GetType() {
 			return true

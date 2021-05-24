@@ -1,15 +1,18 @@
 package rockset_test
 
 import (
+	"errors"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-
-	"github.com/stretchr/testify/require"
 )
 
 func TestRockClient_S3Integration(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
 	ctx := testCtx()
 	name := "s3test"
 
@@ -22,7 +25,7 @@ func TestRockClient_S3Integration(t *testing.T) {
 	if err != nil {
 		// check if it is missing
 		var re rockset.Error
-		if rockset.AsError(err, &re) {
+		if errors.As(err, &re) {
 			if !re.IsNotFoundError() {
 				require.NoError(t, err)
 			}

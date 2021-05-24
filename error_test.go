@@ -4,21 +4,14 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/rockset/rockset-go-client"
 	"github.com/stretchr/testify/require"
+
+	"github.com/rockset/rockset-go-client"
 )
 
-func TestError_Nil(t *testing.T) {
-	var re rockset.Error
-	require.False(t, rockset.AsError(nil, &re))
-}
-
-func TestError_Plain(t *testing.T) {
-	var re rockset.Error
-	require.False(t, rockset.AsError(errors.New("dummy"), &re))
-}
-
 func TestError_IsNotFoundError(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
 	ctx := testCtx()
 
 	rc, err := rockset.NewClient(rockset.FromEnv())
@@ -28,7 +21,7 @@ func TestError_IsNotFoundError(t *testing.T) {
 	require.Error(t, err)
 
 	var re rockset.Error
-	if rockset.AsError(err, &re) {
+	if errors.As(err, &re) {
 		require.True(t, re.IsNotFoundError())
 	}
 }

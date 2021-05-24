@@ -4,9 +4,10 @@ import (
 	"context"
 	"time"
 
+	"github.com/rs/zerolog"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/rs/zerolog"
 )
 
 func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string) (openapi.Collection, error) {
@@ -16,14 +17,16 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 
 	err = rc.Retry(ctx, func() (bool, error) {
 		resp, _, err = getReq.Execute()
-		var re Error
-		if AsError(err, &re) {
+
+		if err != nil {
+			re := NewError(err)
 			if re.Retryable() {
 				return true, nil
 			}
+			return false, re
 		}
 
-		return false, err
+		return false, nil
 	})
 
 	if err != nil {
@@ -38,14 +41,16 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 
 	err := rc.Retry(ctx, func() (bool, error) {
 		_, _, err := deleteReq.Execute()
-		var re Error
-		if AsError(err, &re) {
+
+		if err != nil {
+			re := NewError(err)
 			if re.Retryable() {
 				return true, nil
 			}
+			return false, re
 		}
 
-		return false, err
+		return false, nil
 	})
 
 	return err
@@ -69,14 +74,12 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 	var createResp openapi.CreateCollectionResponse
 	err = rc.Retry(ctx, func() (bool, error) {
 		createResp, _, err = createReq.Body(*request).Execute()
-		var re Error
-		if AsError(err, &re) {
+		if err != nil {
+			re := NewError(err)
 			if re.Retryable() {
 				return true, nil
 			}
-		}
-		if err != nil {
-			return false, err
+			return false, re
 		}
 
 		return false, nil
@@ -121,14 +124,12 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 	var createResp openapi.CreateCollectionResponse
 	err = rc.Retry(ctx, func() (bool, error) {
 		createResp, _, err = createReq.Body(*createParams).Execute()
-		var re Error
-		if AsError(err, &re) {
+		if err != nil {
+			re := NewError(err)
 			if re.Retryable() {
 				return true, nil
 			}
-		}
-		if err != nil {
-			return false, err
+			return false, re
 		}
 
 		return false, nil
@@ -165,6 +166,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 		o(createParams)
 	}
 
+	// TODO retry
 	createResp, _, err := createReq.Body(*createParams).Execute()
 	if err != nil {
 		return openapi.Collection{}, err
@@ -198,6 +200,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 		o(createParams)
 	}
 
+	// TODO retry
 	createResp, _, err := createReq.Body(*createParams).Execute()
 	if err != nil {
 		return openapi.Collection{}, err
@@ -233,6 +236,7 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 		o(createParams)
 	}
 
+	// TODO retry
 	createResp, _, err := createReq.Body(*createParams).Execute()
 	if err != nil {
 		return openapi.Collection{}, err
@@ -267,6 +271,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 		o(createParams)
 	}
 
+	// TODO retry
 	createResp, _, err := createReq.Body(*createParams).Execute()
 	if err != nil {
 		return openapi.Collection{}, err
@@ -335,6 +340,7 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 		o(createParams)
 	}
 
+	// TODO retry
 	createResp, _, err := createReq.Body(*createParams).Execute()
 	if err != nil {
 		return openapi.Collection{}, err
@@ -369,6 +375,7 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 		o(createParams)
 	}
 
+	// TODO retry
 	createResp, _, err := createReq.Body(*createParams).Execute()
 	if err != nil {
 		return openapi.Collection{}, err
