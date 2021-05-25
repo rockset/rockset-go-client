@@ -11,17 +11,9 @@ func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error 
 	var err error
 	req := rc.IntegrationsApi.DeleteIntegration(ctx, name)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		_, _, err = req.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	return err
@@ -55,17 +47,9 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 		req.S3.AwsAccessKey = c.AwsAccessKey
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -101,17 +85,9 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 		req.S3.AwsAccessKey = c.AwsAccessKey
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -148,17 +124,9 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 		req.Dynamodb.AwsAccessKey = c.AwsAccessKey
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -191,17 +159,9 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, cre
 		req.Description = opts.Description
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {

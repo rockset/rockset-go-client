@@ -30,17 +30,9 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 		req.Description = opts.Description
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error{
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -56,17 +48,9 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 func (rc *RockClient) DeleteAlias(ctx context.Context, workspace, alias string) error {
 	q := rc.AliasesApi.DeleteAlias(ctx, workspace, alias)
 
-	err := rc.Retry(ctx, func() (bool, error) {
+	err := rc.Retry(ctx, func() error {
 		_, _, err := q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	return err
@@ -80,17 +64,9 @@ func (rc *RockClient) GetAlias(ctx context.Context, workspace, alias string) (op
 	var resp openapi.GetAliasResponse
 	q := rc.AliasesApi.GetAlias(ctx, workspace, alias)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -115,31 +91,15 @@ func (rc *RockClient) ListAliases(ctx context.Context, options ...option.ListAli
 
 	if opts.Workspace == "" {
 		q := rc.AliasesApi.ListAliases(ctx)
-		err = rc.Retry(ctx, func() (bool, error) {
+		err = rc.Retry(ctx, func() error {
 			resp, _, err = q.Execute()
-			if err != nil {
-				re := NewError(err)
-				if re.Retryable() {
-					return true, nil
-				}
-				return false, re
-			}
-
-			return false, nil
+			return err
 		})
 	} else {
 		q := rc.AliasesApi.WorkspaceAliases(ctx, opts.Workspace)
-		err = rc.Retry(ctx, func() (bool, error) {
+		err = rc.Retry(ctx, func() error {
 			resp, _, err = q.Execute()
-			if err != nil {
-				re := NewError(err)
-				if re.Retryable() {
-					return true, nil
-				}
-				return false, re
-			}
-
-			return false, nil
+			return err
 		})
 	}
 
@@ -168,18 +128,10 @@ func (rc *RockClient) UpdateAlias(ctx context.Context, workspace, alias string, 
 		req.Description = opts.Description
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		_, _, err = q.Body(*req).Execute()
 
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	return nil

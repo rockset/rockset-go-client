@@ -18,17 +18,9 @@ func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (opena
 
 	q := rc.VirtualInstancesApi.GetVirtualInstance(ctx, vID)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -47,17 +39,9 @@ func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.Virtu
 
 	q := rc.VirtualInstancesApi.ListVirtualInstances(ctx)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, err
+		return err
 	})
 
 	if err != nil {
@@ -92,17 +76,9 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string, opt
 		req.MonitoringEnabled = opts.MonitoringEnabled
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, err
+		return err
 	})
 
 	if err != nil {

@@ -10,12 +10,12 @@ import (
 
 type Error struct {
 	*openapi.ErrorModel
-	cause error
+	Cause error
 }
 
 // NewError wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError
 func NewError(err error) Error {
-	var re = Error{cause: err}
+	var re = Error{Cause: err}
 
 	var ge openapi.GenericOpenAPIError
 	if errors.As(err, &ge) {
@@ -27,13 +27,14 @@ func NewError(err error) Error {
 	return re
 }
 
+// Unwrap returns the cause of the Error
 func (e Error) Unwrap() error {
-	return e.cause
+	return e.Cause
 }
 
 func (e Error) Error() string {
 	if e.ErrorModel == nil {
-		return e.Error()
+		return e.Cause.Error()
 	}
 
 	return e.GetMessage()
@@ -57,7 +58,7 @@ func (e Error) IsNotFoundError() bool {
 	return e.GetType() == statusWithoutSpace(http.StatusNotFound)
 }
 
-// RetryableErrors is the errors which will cause the operation to be retried
+// RetryableErrors are the errors which will cause the operation to be retried
 var RetryableErrors = []int{
 	http.StatusTooManyRequests,    // 429
 	http.StatusServiceUnavailable, // 503

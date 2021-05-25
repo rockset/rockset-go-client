@@ -30,17 +30,9 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 
 	req := openapi.NewAddDocumentsRequest(payload)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -66,17 +58,9 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 
 	req := openapi.NewPatchDocumentsRequest(docs)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -107,17 +91,9 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 
 	req := openapi.NewDeleteDocumentsRequest(ids)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {

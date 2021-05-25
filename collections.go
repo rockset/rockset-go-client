@@ -15,18 +15,10 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 	var resp openapi.GetCollectionResponse
 	getReq := rc.CollectionsApi.GetCollection(ctx, workspace, name)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = getReq.Execute()
 
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -39,18 +31,10 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name string) error {
 	deleteReq := rc.CollectionsApi.DeleteCollection(ctx, workspace, name)
 
-	err := rc.Retry(ctx, func() (bool, error) {
+	err := rc.Retry(ctx, func() error {
 		_, _, err := deleteReq.Execute()
 
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	return err
@@ -72,17 +56,9 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 
 	var err error
 	var createResp openapi.CreateCollectionResponse
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		createResp, _, err = createReq.Body(*request).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 	if err != nil {
 		return openapi.Collection{}, err
@@ -122,17 +98,9 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 
 	var err error
 	var createResp openapi.CreateCollectionResponse
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		createResp, _, err = createReq.Body(*createParams).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 	if err != nil {
 		return openapi.Collection{}, err

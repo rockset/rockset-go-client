@@ -23,21 +23,13 @@ func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 		o(&opts)
 	}
 
-	if opts.Description == nil {
+	if opts.Description != nil {
 		req.Description = opts.Description
 	}
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -56,17 +48,9 @@ func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (opena
 
 	q := rc.WorkspacesApi.GetWorkspace(ctx, workspace)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -85,17 +69,9 @@ func (rc *RockClient) ListWorkspaces(ctx context.Context) ([]openapi.Workspace, 
 
 	q := rc.WorkspacesApi.ListWorkspaces(ctx)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -113,17 +89,9 @@ func (rc *RockClient) DeleteWorkspace(ctx context.Context, name string) error {
 
 	q := rc.WorkspacesApi.DeleteWorkspace(ctx, name)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		_, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {

@@ -18,17 +18,9 @@ func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []stri
 	q := rc.UsersApi.CreateUser(ctx)
 	req := openapi.NewCreateUserRequest(email, roles)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -46,17 +38,9 @@ func (rc *RockClient) DeleteUser(ctx context.Context, email string) error {
 
 	q := rc.UsersApi.DeleteUser(ctx, email)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		_, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -75,17 +59,9 @@ func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) 
 
 	q := rc.UsersApi.GetCurrentUser(ctx)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		user, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
@@ -104,17 +80,9 @@ func (rc *RockClient) ListUsers(ctx context.Context) ([]openapi.User, error) {
 
 	q := rc.UsersApi.ListUsers(ctx)
 
-	err = rc.Retry(ctx, func() (bool, error) {
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Execute()
-		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-			return false, re
-		}
-
-		return false, nil
+		return err
 	})
 
 	if err != nil {
