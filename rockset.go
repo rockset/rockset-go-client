@@ -16,14 +16,20 @@ const Version = "0.11.0"
 // DefaultAPIServer is the default Rockset API server to use
 const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
 
+// APIKeyEnvironmentVariableName is the environment variable name for the API key
 const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY"
+
+// APIServerEnvironmentVariableName is the environment variable name for the API server
 const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
 
+// RockConfig contains the configurable options for the RockClient.
 type RockConfig struct {
-	cfg *openapi.Configuration
+	// Retrier is the retry function used to retry API calls.
 	Retrier
+	cfg *openapi.Configuration
 }
 
+// RockClient is the client struct for making APi calls to Rockset.
 type RockClient struct {
 	*openapi.APIClient
 	RockConfig
@@ -76,21 +82,17 @@ func FromEnv() RockOption {
 	}
 }
 
+// WithAPIKey sets the API key to use
 func WithAPIKey(apiKey string) RockOption {
 	return func(rc *RockConfig) {
 		rc.cfg.AddDefaultHeader("Authorization", "apikey "+apiKey)
 	}
 }
 
+// WithAPIServer sets the API server to connect to
 func WithAPIServer(server string) RockOption {
 	return func(rc *RockConfig) {
 		rc.cfg.Host = server
-	}
-}
-
-func Debug() RockOption {
-	return func(rc *RockConfig) {
-		rc.cfg.Debug = true
 	}
 }
 

@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -15,6 +16,7 @@ import (
 // REST API documentation https://docs.rockset.com/rest-api/#createalias
 func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, collections []string,
 	options ...option.AliasOption) (openapi.Alias, error) {
+	log := zerolog.Ctx(ctx)
 	var err error
 	var resp openapi.CreateAliasResponse
 
@@ -39,6 +41,8 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 		return openapi.Alias{}, err
 	}
 
+	log.Debug().Str("alias", alias).Strs("target", collections).Msg("alias created")
+
 	return *resp.Data, nil
 }
 
@@ -46,12 +50,15 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 //
 // REST API documentation https://docs.rockset.com/rest-api/#deletealias
 func (rc *RockClient) DeleteAlias(ctx context.Context, workspace, alias string) error {
+	log := zerolog.Ctx(ctx)
 	q := rc.AliasesApi.DeleteAlias(ctx, workspace, alias)
 
 	err := rc.Retry(ctx, func() error {
 		_, _, err := q.Execute()
 		return err
 	})
+
+	log.Debug().Str("alias", alias).Msg("alias deleted")
 
 	return err
 }
@@ -62,6 +69,7 @@ func (rc *RockClient) DeleteAlias(ctx context.Context, workspace, alias string) 
 func (rc *RockClient) GetAlias(ctx context.Context, workspace, alias string) (openapi.Alias, error) {
 	var err error
 	var resp openapi.GetAliasResponse
+	log := zerolog.Ctx(ctx)
 	q := rc.AliasesApi.GetAlias(ctx, workspace, alias)
 
 	err = rc.Retry(ctx, func() error {
@@ -73,6 +81,8 @@ func (rc *RockClient) GetAlias(ctx context.Context, workspace, alias string) (op
 		return openapi.Alias{}, err
 	}
 
+	log.Debug().Str("alias", alias).Msg("get alias")
+
 	return resp.GetData(), nil
 }
 
@@ -83,6 +93,7 @@ func (rc *RockClient) GetAlias(ctx context.Context, workspace, alias string) (op
 func (rc *RockClient) ListAliases(ctx context.Context, options ...option.ListAliasesOption) ([]openapi.Alias, error) {
 	var err error
 	var resp openapi.ListAliasesResponse
+	log := zerolog.Ctx(ctx)
 
 	opts := option.ListAliasesOptions{}
 	for _, o := range options {
@@ -107,6 +118,8 @@ func (rc *RockClient) ListAliases(ctx context.Context, options ...option.ListAli
 		return nil, err
 	}
 
+	log.Debug().Int("aliases", len(resp.GetData())).Msg("list alias")
+
 	return resp.GetData(), nil
 }
 
@@ -116,6 +129,7 @@ func (rc *RockClient) ListAliases(ctx context.Context, options ...option.ListAli
 func (rc *RockClient) UpdateAlias(ctx context.Context, workspace, alias string, collections []string,
 	options ...option.AliasOption) error {
 	var err error
+	log := zerolog.Ctx(ctx)
 
 	q := rc.AliasesApi.UpdateAlias(ctx, workspace, alias)
 	req := openapi.NewUpdateAliasRequest(collections)
@@ -133,6 +147,12 @@ func (rc *RockClient) UpdateAlias(ctx context.Context, workspace, alias string, 
 
 		return err
 	})
+
+	if err != nil {
+		return err
+	}
+
+	log.Debug().Str("alias", alias).Msg("alias updated successfully")
 
 	return nil
 }

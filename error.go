@@ -8,8 +8,11 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
+// Error is an error returned by the Rockset REST API.
 type Error struct {
+	// ErrorModel is the ErrorModel of the underlying error
 	*openapi.ErrorModel
+	// Cause is the underlying cause of the error
 	Cause error
 }
 
@@ -32,6 +35,7 @@ func (e Error) Unwrap() error {
 	return e.Cause
 }
 
+// Error returns a string representation of the error
 func (e Error) Error() string {
 	if e.ErrorModel == nil {
 		return e.Cause.Error()

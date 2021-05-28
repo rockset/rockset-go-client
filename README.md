@@ -59,6 +59,14 @@ Set ROCKSET_APIKEY and ROCKSET_APISERVER endpoint in the environment variables. 
 go test ./...
 ```
 
+### Code Coverage
+
+```
+go test ./... -coverprofile cover.out
+go tool cover -func=cover.out
+go tool cover -html=cover.out -o coverage.html
+```
+
 ## Support
 
 Feel free to log issues against this client through GitHub.

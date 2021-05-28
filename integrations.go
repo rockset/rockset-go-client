@@ -173,7 +173,7 @@ func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string
 	return resp, nil
 }
 
-func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAccountKeyFileJson string,
+func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAccountKeyFileJSON string,
 	options ...option.GCSIntegrationOption) (openapi.CreateIntegrationResponse, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
@@ -183,7 +183,7 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAcc
 
 	req.Gcs = &openapi.GcsIntegration{
 		GcpServiceAccount: &openapi.GcpServiceAccount{
-			ServiceAccountKeyFileJson: serviceAccountKeyFileJson,
+			ServiceAccountKeyFileJson: serviceAccountKeyFileJSON,
 		},
 	}
 
@@ -301,4 +301,3 @@ func (rc *RockClient) CreateMongoDBIntegration(ctx context.Context, name, connec
 
 	return resp, nil
 }
-

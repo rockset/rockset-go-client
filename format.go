@@ -73,13 +73,17 @@ func WithXMLFormat(xml openapi.XmlParams) Format {
 	}
 }
 
+// KafkaFormat is the definition of the Kafka format
 type KafkaFormat string
 
+// String returns the string representation of the Kafka format
 func (f KafkaFormat) String() string {
 	return string(f)
 }
 
 const (
+	// KafkaFormatJSON is the JSON format for Kafka
 	KafkaFormatJSON KafkaFormat = "JSON"
+	// KafkaFormatAVRO is the AVRO format for Kafka
 	KafkaFormatAVRO KafkaFormat = "AVRO"
 )

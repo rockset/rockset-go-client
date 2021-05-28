@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -45,6 +46,7 @@ func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (openapi.Workspace, error) {
 	var err error
 	var resp openapi.GetWorkspaceResponse
+	log := zerolog.Ctx(ctx)
 
 	q := rc.WorkspacesApi.GetWorkspace(ctx, workspace)
 
@@ -56,6 +58,8 @@ func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (opena
 	if err != nil {
 		return openapi.Workspace{}, err
 	}
+
+	log.Debug().Str("name", resp.Data.GetName()).Msg("get workspace successful")
 
 	return *resp.Data, nil
 }

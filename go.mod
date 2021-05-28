@@ -7,4 +7,5 @@ require (
 	github.com/rs/zerolog v1.22.0
 	github.com/seborama/govcr v4.5.0+incompatible
 	github.com/stretchr/testify v1.4.0
+	golang.org/x/tools v0.1.2 // indirect
 )

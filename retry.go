@@ -8,20 +8,22 @@ import (
 	"github.com/rs/zerolog"
 )
 
-// RetryFunc is the function Retrier will continually call.
+// RetryFunc is the function Retrier will call as long as it returns an error which is retryable.
 type RetryFunc func() (err error)
 
-// RetryCheck is the function Retrier will call to determine if the RetryFunc should be retried.
+// RetryCheck is the function Retrier will call until the RetryFunc returns false or and error.
 type RetryCheck func() (retry bool, err error)
 
 // Retrier is the interface used by the RockClient convenience methods to retry an operation
-// which returned a rockset.Error which is Retryable()
+// which returned a rockset.Error which is Retryable().
 type Retrier interface {
+	// Retry will retry retryFn if it returns an error which is retryable
 	Retry(ctx context.Context, retryFn RetryFunc) error
+	// RetryWithCheck will retry checkFn until it returns false or an error
 	RetryWithCheck(ctx context.Context, checkFunc RetryCheck) error
 }
 
-// RetryableError returns true if err is a retryable error
+// RetryableError returns true if err is a Rockset error that is retryable
 func RetryableError(err error) bool {
 	var re Error
 	if errors.As(err, &re) {
@@ -33,7 +35,7 @@ func RetryableError(err error) bool {
 	return false
 }
 
-// ExponentialRetry is used to perform retries with exponential backoff
+// ExponentialRetry is used to perform API cal retries with exponential backoff
 type ExponentialRetry struct {
 	// MaxBackoff is the max time the exponential backoff can wait
 	MaxBackoff time.Duration
@@ -56,13 +58,13 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 	}
 
 	defer func() {
-		log.Debug().Str("d", time.Since(t0).String()).Msg("retry duration")
+		log.Debug().Str("d", time.Since(t0).String()).Msg("total duration")
 	}()
 
 	for {
 		t1 := time.Now()
 		err := retryFn()
-		log.Debug().Str("d", time.Since(t1).String()).Msg("call curation")
+		log.Trace().Str("d", time.Since(t1).String()).Msg("api call curation")
 
 		// no error, so no need to retry
 		if err == nil {
@@ -90,6 +92,7 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 		}
 	}
 }
+
 // RetryWithCheck will retry checkFn until it returns false or an error
 func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck) error {
 	t0 := time.Now()
