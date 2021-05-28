@@ -9,6 +9,9 @@ import (
 
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
+	var err error
+	var r openapi.QueryResponse
+
 	q := rc.QueriesApi.Query(ctx)
 	rq := openapi.NewQueryRequestWithDefaults()
 	rq.Sql = openapi.NewQueryRequestSql(sql)
@@ -18,7 +21,11 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 		o(rq.Sql)
 	}
 
-	r, _, err := q.Body(*rq).Execute()
+	err = rc.Retry(ctx, func() error {
+		r, _, err = q.Body(*rq).Execute()
+		return err
+	})
+
 	if err != nil {
 		return openapi.QueryResponse{}, err
 	}
@@ -28,6 +35,9 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 
 func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.ValidateQueryResponse, error) {
+	var err error
+	var r openapi.ValidateQueryResponse
+
 	q := rc.QueriesApi.Validate(ctx)
 
 	rq := openapi.NewQueryRequestWithDefaults()
@@ -38,7 +48,11 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 		o(rq.Sql)
 	}
 
-	r, _, err := q.Body(*rq).Execute()
+	err = rc.Retry(ctx, func() error {
+		r, _, err = q.Body(*rq).Execute()
+		return err
+	})
+
 	if err != nil {
 		return openapi.ValidateQueryResponse{}, err
 	}

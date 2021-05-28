@@ -62,7 +62,6 @@ func WithDynamoDBIntegrationDescription(desc string) DynamoDBIntegrationOption {
 }
 
 type GCSIntegration struct {
-	openapi.GcsIntegration
 	Description *string
 }
 type GCSIntegrationOption func(request *GCSIntegration)
@@ -73,10 +72,58 @@ func WithGCSIntegrationDescription(desc string) GCSIntegrationOption {
 	}
 }
 
-type GCSCredentialsFn func(*openapi.GcsIntegration)
+type RedshiftIntegration struct {
+	openapi.RedshiftIntegration
+	Description *string
+}
+type RedshiftIntegrationOption func(request *RedshiftIntegration)
 
-func GCSServiceAccount(json string) GCSCredentialsFn {
-	return func(o *openapi.GcsIntegration) {
-		o.GcpServiceAccount = &openapi.GcpServiceAccount{ServiceAccountKeyFileJson: json}
+func WithRedshiftIntegrationDescription(desc string) RedshiftIntegrationOption {
+	return func(o *RedshiftIntegration) {
+		o.Description = &desc
+	}
+}
+
+func WithRedshiftIntegrationConfig(s3BucketPath, username, password, host string,
+	port int32) RedshiftIntegrationOption {
+	return func(o *RedshiftIntegration) {
+		o.RedshiftIntegration.Username = username
+		o.RedshiftIntegration.Password = password
+		o.RedshiftIntegration.Host = host
+		o.RedshiftIntegration.Port = port
+		o.RedshiftIntegration.S3BucketPath = s3BucketPath
+	}
+}
+
+type SegmentIntegration struct {
+	Description *string
+}
+type SegmentIntegrationOption func(request *SegmentIntegration)
+
+func WithSegmentIntegrationDescription(desc string) SegmentIntegrationOption {
+	return func(o *SegmentIntegration) {
+		o.Description = &desc
+	}
+}
+
+type KafkaIntegration struct {
+	Description *string
+}
+type KafkaIntegrationOption func(request *KafkaIntegration)
+
+func WithKafkaIntegrationDescription(desc string) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Description = &desc
+	}
+}
+
+type MongoDBIntegration struct {
+	Description *string
+}
+type MongoDBIntegrationOption func(request *MongoDBIntegration)
+
+func WithMongoDBIntegrationDescription(desc string) MongoDBIntegrationOption {
+	return func(o *MongoDBIntegration) {
+		o.Description = &desc
 	}
 }

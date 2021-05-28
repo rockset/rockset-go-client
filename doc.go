@@ -9,25 +9,14 @@
 // optional arguments. They return the payload data from the models package, to reduce the
 // indirection.
 //
-// For example
-//
-//   c, err := client.GetCollection(ctx, "commons", "_events")
-//
-// as opposed to the "raw" way of using the generated client code
-//
-//   // both workspace and collection are required arguments
-//   p := collections.NewGetCollectionParams()
-//   p.Workspace = "commons"
-//   p.Collection = "_events"
-//   p.Context = ctx
-//   r, err := client.Collections.GetCollection(p)
+// The convenience methods also automatically retries any retryable error returned by Rockset,
+// using exponential back-off. The retryable errors are defined in rockset.RetryableErrors.
 //
 // If you set a zerolog logger in the context, many of the methods will log to it. E.g.
 //
-//   ctx := context.Background()
 //   console := zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339}
 //   log := zerolog.New(console).Level(zerolog.TraceLevel).With().Timestamp().Logger()
-//   ctx = log.WithContext(ctx)
+//   ctx := log.WithContext(context.Background())
 //
 // Example log output
 //

@@ -54,7 +54,8 @@ func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.Virtu
 // UpdateVirtualInstance updates the properties of a virtual instance.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#setvirtualinstance
-func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string, options ...option.VirtualInstanceOption) (openapi.VirtualInstance, error) {
+func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
+	options ...option.VirtualInstanceOption) (openapi.VirtualInstance, error) {
 	var err error
 	var resp openapi.UpdateVirtualInstanceResponse
 

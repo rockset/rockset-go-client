@@ -64,6 +64,7 @@ func WithJSONFormat() Format {
 		f.Json = openapi.PtrBool(true)
 	}
 }
+
 // WithXMLFormat sets the format XML.
 func WithXMLFormat(xml openapi.XmlParams) Format {
 	// TODO it looks lie all xml fields are optional. Add options for each of them.
@@ -71,3 +72,14 @@ func WithXMLFormat(xml openapi.XmlParams) Format {
 		f.Xml = &xml
 	}
 }
+
+type KafkaFormat string
+
+func (f KafkaFormat) String() string {
+	return string(f)
+}
+
+const (
+	KafkaFormatJSON KafkaFormat = "JSON"
+	KafkaFormatAVRO KafkaFormat = "AVRO"
+)

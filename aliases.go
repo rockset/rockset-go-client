@@ -30,7 +30,7 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 		req.Description = opts.Description
 	}
 
-	err = rc.Retry(ctx, func() error{
+	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
 		return err
 	})

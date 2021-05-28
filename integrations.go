@@ -136,25 +136,27 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 	return resp, nil
 }
 
-// TODO redshift
-
-func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, creds option.GCSCredentialsFn,
-	options ...option.GCSIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string, awsKeys option.AWSCredentialsFn,
+	options ...option.RedshiftIntegrationOption) (openapi.CreateIntegrationResponse, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
-	sa := openapi.GcsIntegration{}
-	creds(&sa)
+	c := option.AWSCredentials{}
+	awsKeys(&c)
 
-	opts := option.GCSIntegration{}
+	opts := option.RedshiftIntegration{}
 	for _, o := range options {
 		o(&opts)
 	}
 
-	req.Gcs = &sa
+	// TODO: move option arguments into required args
+	//       WithRedshiftIntegrationConfig()
+	req.Redshift = &opts.RedshiftIntegration
+	// TODO: AWSRole isn't applicable, how do we prevent someone from using it at compile-time?
+	req.Redshift.AwsAccessKey = c.AwsAccessKey
 	if opts.Description != nil {
 		req.Description = opts.Description
 	}
@@ -171,6 +173,132 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name string, cre
 	return resp, nil
 }
 
-// TODO segment
-// TODO kafka
-// TODO mongodb
+func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAccountKeyFileJson string,
+	options ...option.GCSIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
+	q := rc.IntegrationsApi.CreateIntegration(ctx)
+	req := openapi.NewCreateIntegrationRequest(name)
+
+	req.Gcs = &openapi.GcsIntegration{
+		GcpServiceAccount: &openapi.GcpServiceAccount{
+			ServiceAccountKeyFileJson: serviceAccountKeyFileJson,
+		},
+	}
+
+	opts := option.GCSIntegration{}
+	for _, o := range options {
+		o(&opts)
+	}
+	if opts.Description != nil {
+		req.Description = opts.Description
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.CreateIntegrationResponse{}, err
+	}
+
+	return resp, nil
+}
+
+func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connectionString string,
+	options ...option.SegmentIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
+	q := rc.IntegrationsApi.CreateIntegration(ctx)
+	req := openapi.NewCreateIntegrationRequest(name)
+
+	opts := option.SegmentIntegration{}
+	for _, o := range options {
+		o(&opts)
+	}
+
+	req.Segment.ConnectionString = &connectionString
+	if opts.Description != nil {
+		req.Description = opts.Description
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.CreateIntegrationResponse{}, err
+	}
+
+	return resp, nil
+}
+
+func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, topics []string, format KafkaFormat,
+	options ...option.KafkaIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
+	q := rc.IntegrationsApi.CreateIntegration(ctx)
+	req := openapi.NewCreateIntegrationRequest(name)
+
+	opts := option.KafkaIntegration{}
+	for _, o := range options {
+		o(&opts)
+	}
+
+	req.Kafka = &openapi.KafkaIntegration{
+		KafkaTopicNames: topics,
+		KafkaDataFormat: format.String(),
+	}
+	if opts.Description != nil {
+		req.Description = opts.Description
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.CreateIntegrationResponse{}, err
+	}
+
+	return resp, nil
+}
+
+func (rc *RockClient) CreateMongoDBIntegration(ctx context.Context, name, connectionURI string,
+	options ...option.MongoDBIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	var err error
+	var resp openapi.CreateIntegrationResponse
+
+	q := rc.IntegrationsApi.CreateIntegration(ctx)
+	req := openapi.NewCreateIntegrationRequest(name)
+
+	opts := option.MongoDBIntegration{}
+	for _, o := range options {
+		o(&opts)
+	}
+
+	req.Mongodb = &openapi.MongoDbIntegration{
+		ConnectionUri: connectionURI,
+	}
+	if opts.Description != nil {
+		req.Description = opts.Description
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.CreateIntegrationResponse{}, err
+	}
+
+	return resp, nil
+}
+

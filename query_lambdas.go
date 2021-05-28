@@ -30,13 +30,22 @@ func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name st
 	var resp openapi.QueryResponse
 	if req.Version != "" {
 		q := rc.QueryLambdasApi.ExecuteQueryLambda(ctx, workspace, name, req.Version)
-		resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+		err = rc.Retry(ctx, func() error {
+			resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+			return err
+		})
 	} else if req.Tag != "" {
 		q := rc.QueryLambdasApi.ExecuteQueryLambdaByTag(ctx, workspace, name, req.Tag)
-		resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+		err = rc.Retry(ctx, func() error {
+			resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+			return err
+		})
 	} else {
 		q := rc.QueryLambdasApi.ExecuteQueryLambdaByTag(ctx, workspace, name, LatestTag)
-		resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+		err = rc.Retry(ctx, func() error {
+			resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+			return err
+		})
 	}
 
 	if err != nil {
