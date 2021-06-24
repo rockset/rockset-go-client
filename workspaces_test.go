@@ -12,7 +12,7 @@ func TestRockClient_GetWorkspace(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	_, err = rc.GetWorkspace(ctx, "commons")
@@ -23,7 +23,7 @@ func TestRockClient_ListWorkspaces(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	workspaces, err := rc.ListWorkspaces(ctx)

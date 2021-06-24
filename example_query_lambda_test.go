@@ -12,7 +12,7 @@ import (
 func ExampleRockClient_queryLambda() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,7 +33,7 @@ func ExampleRockClient_queryLambda() {
 func ExampleRockClient_queryLambdaByTag() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,7 +54,7 @@ func ExampleRockClient_queryLambdaByTag() {
 func ExampleRockClient_queryLambdaByVersion() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	if err != nil {
 		log.Fatal(err)
 	}

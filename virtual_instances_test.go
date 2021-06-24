@@ -16,7 +16,7 @@ func TestRockClient_ListVirtualInstances(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	vis, err := rc.ListVirtualInstances(ctx)

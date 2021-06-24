@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"

@@ -2,11 +2,13 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
+// GetOrganization gets the current organization.
 func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization, error) {
 	var err error
 	var resp openapi.OrganizationResponse

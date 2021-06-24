@@ -14,7 +14,7 @@ func TestRockClient_GetOrganization(t *testing.T) {
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	org, err := rc.GetOrganization(ctx)

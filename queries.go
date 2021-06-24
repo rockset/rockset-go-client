@@ -7,6 +7,7 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+// Query executes a sql query with optional option.QueryOption
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
 	var err error
@@ -33,6 +34,7 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 	return r, nil
 }
 
+// ValidateQuery validates a sql query with optional option.QueryOption
 func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.ValidateQueryResponse, error) {
 	var err error

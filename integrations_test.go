@@ -16,7 +16,7 @@ func TestRockClient_S3Integration(t *testing.T) {
 	ctx := testCtx()
 	name := "s3test"
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	// get the integration

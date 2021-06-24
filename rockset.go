@@ -1,6 +1,7 @@
 package rockset
 
 import (
+	"errors"
 	"net/http"
 	"net/http/httputil"
 	"os"
@@ -9,9 +10,6 @@ import (
 
 	"github.com/rockset/rockset-go-client/openapi"
 )
-
-// Version is the Rockset client version
-const Version = "0.11.0"
 
 // DefaultAPIServer is the default Rockset API server to use
 const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
@@ -26,7 +24,11 @@ const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
 type RockConfig struct {
 	// Retrier is the retry function used to retry API calls.
 	Retrier
-	cfg *openapi.Configuration
+	// APIKey is the API key to use for authentication
+	APIKey string
+	// APIServer is the API server to connect to
+	APIServer string
+	cfg       *openapi.Configuration
 }
 
 // RockClient is the client struct for making APi calls to Rockset.
@@ -37,11 +39,12 @@ type RockClient struct {
 
 // NewClient creates a new Rockset client.
 //
-// Accessing the online database requires an API key, which you either have to supply through
-// the ROCKSET_APIKEY environment variable and pass the FromEnv() option
-//	c, err := rockset.NewClient(rockset.FromEnv())
-// or explicitly using the WithAPIKey() option
-//	c, err := rockset.NewClient(rockset.WithAPIKey("..."))
+// Accessing the online database requires an API key and an API server to connect to,
+// which are provided by through the ROCKSET_APIKEY and ROCKSET_APISERVER environment variables.
+// If an API server isn't provided the DefaultAPIServer, is used.
+//	c, err := rockset.NewClient()
+// They can or explicitly using the WithAPIKey() and WithAPIServer() options.
+//	c, err := rockset.NewClient(rockset.WithAPIKey("..."), rockset.WithAPIServer("..."))
 func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg := openapi.NewConfiguration()
 	cfg.UserAgent = "rockset-go-client"
@@ -49,18 +52,25 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	// TODO should the default http client be tuned?
 	cfg.HTTPClient = &http.Client{}
 
-	// set defaults
-	cfg.Host = os.Getenv(APIServerEnvironmentVariableName)
-	cfg.AddDefaultHeader("Authorization", "apikey "+os.Getenv(APIKeyEnvironmentVariableName))
-
 	rc := RockConfig{
-		cfg:     cfg,
-		Retrier: ExponentialRetry{},
+		cfg:       cfg,
+		Retrier:   ExponentialRetry{},
+		APIKey:    os.Getenv(APIKeyEnvironmentVariableName),
+		APIServer: os.Getenv(APIServerEnvironmentVariableName),
 	}
 
 	for _, o := range options {
 		o(&rc)
 	}
+
+	if rc.APIServer == "" {
+		rc.APIServer = DefaultAPIServer
+	}
+
+	if rc.APIKey == "" {
+		return nil, errors.New("no API key provided")
+	}
+	cfg.AddDefaultHeader("Authorization", "apikey "+rc.APIKey)
 
 	return &RockClient{
 		RockConfig: rc,
@@ -68,22 +78,8 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}, nil
 }
 
-// RockOption is the type for RockClient options
+// RockOption is the type for RockClient options.
 type RockOption func(rc *RockConfig)
-
-// FromEnv sets API key and API server from the environment variables ROCKSET_APIKEY and ROCKSET_APISERVER,
-// and if ROCKSET_APISERVER is not set, it will use the default API server.
-func FromEnv() RockOption {
-	return func(rc *RockConfig) {
-		if apikey, found := os.LookupEnv(APIKeyEnvironmentVariableName); found {
-			rc.cfg.AddDefaultHeader("Authorization", "apikey "+apikey)
-		}
-
-		if server, found := os.LookupEnv(APIServerEnvironmentVariableName); found {
-			rc.cfg.Host = server
-		}
-	}
-}
 
 // WithAPIKey sets the API key to use
 func WithAPIKey(apiKey string) RockOption {
@@ -92,7 +88,7 @@ func WithAPIKey(apiKey string) RockOption {
 	}
 }
 
-// WithAPIServer sets the API server to connect to
+// WithAPIServer sets the API server to connect to, and override the ROCKSET_APISERVER.
 func WithAPIServer(server string) RockOption {
 	return func(rc *RockConfig) {
 		rc.cfg.Host = server
@@ -113,7 +109,7 @@ func WithRetry(r Retrier) RockOption {
 	}
 }
 
-// WithHTTPDebug adds a http.RoundTripper that logs the request and response
+// WithHTTPDebug adds a http.RoundTripper that logs the request and response.
 func WithHTTPDebug() RockOption {
 	return func(rc *RockConfig) {
 		rc.cfg.HTTPClient.Transport = &debugRoundTripper{http.DefaultTransport}

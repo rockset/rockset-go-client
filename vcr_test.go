@@ -19,7 +19,7 @@ func Example_vCR() {
 	cfg := govcr.VCRConfig{Logging: true, CassettePath: "vcr"}
 	rt := govcr.NewVCR("example", &cfg).Client
 
-	rc, err := rockset.NewClient(rockset.FromEnv(), rockset.WithHTTPClient(rt))
+	rc, err := rockset.NewClient(rockset.WithHTTPClient(rt))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -34,7 +34,7 @@ func Example_vCR() {
 	// get a new client with recordings disabled
 	cfg.DisableRecording = true
 	rt = govcr.NewVCR("example", &cfg).Client
-	rc, err = rockset.NewClient(rockset.FromEnv(), rockset.WithHTTPClient(rt))
+	rc, err = rockset.NewClient(rockset.WithHTTPClient(rt))
 	if err != nil {
 		log.Fatal(err)
 	}

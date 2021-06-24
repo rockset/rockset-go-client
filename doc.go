@@ -18,7 +18,7 @@
 //   log := zerolog.New(console).Level(zerolog.TraceLevel).With().Timestamp().Logger()
 //   ctx := log.WithContext(context.Background())
 //
-//   rc, err := rockset.NewClient(rockset.FromEnv())
+//   rc, err := rockset.NewClient()
 //   if err != nil {
 //     log.Fatalf("failed to create RockClient: %v," err)
 //   }

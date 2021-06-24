@@ -16,7 +16,7 @@ func TestRockClient_GetAlias(t *testing.T) {
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	alias, err := rc.GetAlias(ctx, "commons", "getalias")
@@ -30,7 +30,7 @@ func TestRockClient_ListAliases(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	aliases, err := rc.ListAliases(ctx)
@@ -46,7 +46,7 @@ func TestRockClient_ListAliasesForWorkspace(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	aliases, err := rc.ListAliases(ctx, option.WithAliasWorkspace("common"))
@@ -61,7 +61,7 @@ func TestRockClient_Aliases(t *testing.T) {
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	ws := "commons"

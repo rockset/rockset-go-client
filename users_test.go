@@ -16,7 +16,7 @@ func TestRockClient_ListUsers(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	users, err := rc.ListUsers(ctx)
@@ -34,7 +34,7 @@ func TestRockClient_GetCurrentUser(t *testing.T) {
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	user, err := rc.GetCurrentUser(ctx)

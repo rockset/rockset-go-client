@@ -14,7 +14,7 @@ import (
 func Example_queryRaw() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,7 +52,7 @@ func Example_queryRaw() {
 func ExampleRockClient_query() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	if err != nil {
 		log.Fatal(err)
 	}

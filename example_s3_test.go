@@ -15,7 +15,7 @@ import (
 func Example_s3() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv(), rockset.WithHTTPDebug())
+	rc, err := rockset.NewClient(rockset.WithHTTPDebug())
 	if err != nil {
 		log.Fatal(err)
 	}

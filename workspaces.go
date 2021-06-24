@@ -2,13 +2,14 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// CreateWorkspace creates a new workspace.
+// CreateWorkspace creates a new workspace, with an optional description.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#createworkspace
 func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
@@ -40,7 +41,7 @@ func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 	return *resp.Data, nil
 }
 
-// GetWorkspace gets a workspace
+// GetWorkspace gets a workspace.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#getworkspace
 func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (openapi.Workspace, error) {
@@ -64,7 +65,7 @@ func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (opena
 	return *resp.Data, nil
 }
 
-// ListWorkspaces list all workspaces
+// ListWorkspaces list all workspaces.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#listworkspaces
 func (rc *RockClient) ListWorkspaces(ctx context.Context) ([]openapi.Workspace, error) {
@@ -85,7 +86,7 @@ func (rc *RockClient) ListWorkspaces(ctx context.Context) ([]openapi.Workspace, 
 	return *resp.Data, nil
 }
 
-// DeleteWorkspace deletes a workspace
+// DeleteWorkspace deletes a workspace.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#deleteworkspace
 func (rc *RockClient) DeleteWorkspace(ctx context.Context, name string) error {

@@ -86,14 +86,15 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 			return ctx.Err()
 		case t := <-t.C:
 			log.Trace().Str("t", t.String()).Msg("wait time")
-			if waitInterval < maxBackoff {
+			if waitInterval*2 > maxBackoff {
 				waitInterval *= 2
 			}
 		}
 	}
 }
 
-// RetryWithCheck will retry checkFn until it returns false or an error
+// RetryWithCheck will retry checkFn until it returns false or an error. If checkFn returns false, RetryWithCheck will
+// return nil, otherwise it'll return the error.
 func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck) error {
 	t0 := time.Now()
 	log := zerolog.Ctx(ctx)

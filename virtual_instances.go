@@ -9,7 +9,7 @@ import (
 
 // https://docs.rockset.com/rest-api/#virtual-instances
 
-// GetVirtualInstance gets a virtual instance by the uuid.
+// GetVirtualInstance gets a virtual instance by the virtual instance uuid.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#getvirtualinstance
 func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (openapi.VirtualInstance, error) {
@@ -30,7 +30,7 @@ func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (opena
 	return *resp.Data, nil
 }
 
-// ListVirtualInstances gets a virtual instance by the uuid.
+// ListVirtualInstances lists all virtual instances.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#listvirtualinstances
 func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.VirtualInstance, error) {

@@ -12,7 +12,7 @@ import (
 func ExampleRockClient_validateQuery() {
 	ctx := context.TODO()
 
-	rc, err := rockset.NewClient(rockset.FromEnv())
+	rc, err := rockset.NewClient()
 	if err != nil {
 		log.Fatal(err)
 	}

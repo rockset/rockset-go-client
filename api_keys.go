@@ -7,13 +7,35 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// CreateAPIKey creates a new API key.
-// An admin can create an api key for another user with option.ForUser().
+// CreateAPIKey creates a new API key for the current user.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#createapikey
-func (rc *RockClient) CreateAPIKey(ctx context.Context, options ...option.APIKeyOption) (openapi.ApiKey, error) {
+func (rc *RockClient) CreateAPIKey(ctx context.Context) (openapi.ApiKey, error) {
 	var err error
 	var resp openapi.CreateApiKeyResponse
+
+	getReq := rc.APIKeysApi.CreateApiKey(ctx)
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = getReq.Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.ApiKey{}, err
+	}
+
+	return *resp.Data, nil
+}
+
+// GetAPIKey gets the named API key.
+// An admin can get an api key for another user with option.ForUser().
+//
+// REST API documentation https://docs.rockset.com/rest-api/#getapikey
+func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
+	options ...option.APIKeyOption) (openapi.ApiKey, error) {
+	var err error
+	var resp openapi.GetApiKeyResponse
 
 	opts := option.APIKeyOptions{}
 	for _, o := range options {
@@ -22,7 +44,7 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, options ...option.APIKey
 
 	// create for current user
 	if opts.User == nil {
-		getReq := rc.APIKeysApi.CreateApiKey(ctx)
+		getReq := rc.APIKeysApi.GetApiKey(ctx, name)
 
 		err = rc.Retry(ctx, func() error {
 			resp, _, err = getReq.Execute()
@@ -37,7 +59,7 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, options ...option.APIKey
 	}
 
 	// an admin can create for another user
-	getReq := rc.APIKeysApi.CreateApiKeyAdmin(ctx, *opts.User)
+	getReq := rc.APIKeysApi.GetApiKeyAdmin(ctx, *opts.User, name)
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = getReq.Execute()
