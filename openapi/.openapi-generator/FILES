@@ -73,6 +73,7 @@ docs/FormatParams.md
 docs/GcpServiceAccount.md
 docs/GcsIntegration.md
 docs/GetAliasResponse.md
+docs/GetApiKeyResponse.md
 docs/GetCollectionResponse.md
 docs/GetIntegrationResponse.md
 docs/GetIpAllowlistResponse.md
@@ -208,6 +209,7 @@ model_format_params.go
 model_gcp_service_account.go
 model_gcs_integration.go
 model_get_alias_response.go
+model_get_api_key_response.go
 model_get_collection_response.go
 model_get_integration_response.go
 model_get_ip_allowlist_response.go

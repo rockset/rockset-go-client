@@ -18,6 +18,7 @@ import (
 type CreateApiKeyRequest struct {
 	// descriptive label
 	Name string `json:"name"`
+	Role *string `json:"role,omitempty"`
 }
 
 // NewCreateApiKeyRequest instantiates a new CreateApiKeyRequest object
@@ -62,10 +63,45 @@ func (o *CreateApiKeyRequest) SetName(v string) {
 	o.Name = v
 }
 
+// GetRole returns the Role field value if set, zero value otherwise.
+func (o *CreateApiKeyRequest) GetRole() string {
+	if o == nil || o.Role == nil {
+		var ret string
+		return ret
+	}
+	return *o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateApiKeyRequest) GetRoleOk() (*string, bool) {
+	if o == nil || o.Role == nil {
+		return nil, false
+	}
+	return o.Role, true
+}
+
+// HasRole returns a boolean if a field has been set.
+func (o *CreateApiKeyRequest) HasRole() bool {
+	if o != nil && o.Role != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRole gets a reference to the given string and assigns it to the Role field.
+func (o *CreateApiKeyRequest) SetRole(v string) {
+	o.Role = &v
+}
+
 func (o CreateApiKeyRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["name"] = o.Name
+	}
+	if o.Role != nil {
+		toSerialize["role"] = o.Role
 	}
 	return json.Marshal(toSerialize)
 }

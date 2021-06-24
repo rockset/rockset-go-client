@@ -18,6 +18,7 @@ import (
 type DynamodbIntegration struct {
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
 	AwsRole *AwsRole `json:"aws_role,omitempty"`
+	S3ExportBucketName *string `json:"s3_export_bucket_name,omitempty"`
 }
 
 // NewDynamodbIntegration instantiates a new DynamodbIntegration object
@@ -101,6 +102,38 @@ func (o *DynamodbIntegration) SetAwsRole(v AwsRole) {
 	o.AwsRole = &v
 }
 
+// GetS3ExportBucketName returns the S3ExportBucketName field value if set, zero value otherwise.
+func (o *DynamodbIntegration) GetS3ExportBucketName() string {
+	if o == nil || o.S3ExportBucketName == nil {
+		var ret string
+		return ret
+	}
+	return *o.S3ExportBucketName
+}
+
+// GetS3ExportBucketNameOk returns a tuple with the S3ExportBucketName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DynamodbIntegration) GetS3ExportBucketNameOk() (*string, bool) {
+	if o == nil || o.S3ExportBucketName == nil {
+		return nil, false
+	}
+	return o.S3ExportBucketName, true
+}
+
+// HasS3ExportBucketName returns a boolean if a field has been set.
+func (o *DynamodbIntegration) HasS3ExportBucketName() bool {
+	if o != nil && o.S3ExportBucketName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetS3ExportBucketName gets a reference to the given string and assigns it to the S3ExportBucketName field.
+func (o *DynamodbIntegration) SetS3ExportBucketName(v string) {
+	o.S3ExportBucketName = &v
+}
+
 func (o DynamodbIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AwsAccessKey != nil {
@@ -108,6 +141,9 @@ func (o DynamodbIntegration) MarshalJSON() ([]byte, error) {
 	}
 	if o.AwsRole != nil {
 		toSerialize["aws_role"] = o.AwsRole
+	}
+	if o.S3ExportBucketName != nil {
+		toSerialize["s3_export_bucket_name"] = o.S3ExportBucketName
 	}
 	return json.Marshal(toSerialize)
 }

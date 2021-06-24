@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | text describing the collection | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | list of sources from which to ingest data | [optional] 
 **RetentionSecs** | Pointer to **int64** | number of seconds after which data is purged, based on event time | [optional] 
+**TimePartitionResolutionSecs** | Pointer to **int64** | If non-null, the collection will be time partition and each partition will be time_partition_resolution_secs wide. | [optional] 
 **EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
 **FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | list of mappings | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields | [optional] 
@@ -127,6 +128,31 @@ SetRetentionSecs sets RetentionSecs field to given value.
 `func (o *CreateCollectionRequest) HasRetentionSecs() bool`
 
 HasRetentionSecs returns a boolean if a field has been set.
+
+### GetTimePartitionResolutionSecs
+
+`func (o *CreateCollectionRequest) GetTimePartitionResolutionSecs() int64`
+
+GetTimePartitionResolutionSecs returns the TimePartitionResolutionSecs field if non-nil, zero value otherwise.
+
+### GetTimePartitionResolutionSecsOk
+
+`func (o *CreateCollectionRequest) GetTimePartitionResolutionSecsOk() (*int64, bool)`
+
+GetTimePartitionResolutionSecsOk returns a tuple with the TimePartitionResolutionSecs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTimePartitionResolutionSecs
+
+`func (o *CreateCollectionRequest) SetTimePartitionResolutionSecs(v int64)`
+
+SetTimePartitionResolutionSecs sets TimePartitionResolutionSecs field to given value.
+
+### HasTimePartitionResolutionSecs
+
+`func (o *CreateCollectionRequest) HasTimePartitionResolutionSecs() bool`
+
+HasTimePartitionResolutionSecs returns a boolean if a field has been set.
 
 ### GetEventTimeInfo
 

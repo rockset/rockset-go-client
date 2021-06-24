@@ -16,10 +16,12 @@ import (
 
 // SourceKinesis struct for SourceKinesis
 type SourceKinesis struct {
-	// name of kinesis stream
-	StreamName string `json:"stream_name"`
 	// AWS region name of Kinesis stream, by default us-west-2 is used
 	AwsRegion *string `json:"aws_region,omitempty"`
+	// name of kinesis stream
+	StreamName string `json:"stream_name"`
+	// set of fields that correspond to a DMS primary key
+	DmsPrimaryKey *[]string `json:"dms_primary_key,omitempty"`
 }
 
 // NewSourceKinesis instantiates a new SourceKinesis object
@@ -38,30 +40,6 @@ func NewSourceKinesis(streamName string) *SourceKinesis {
 func NewSourceKinesisWithDefaults() *SourceKinesis {
 	this := SourceKinesis{}
 	return &this
-}
-
-// GetStreamName returns the StreamName field value
-func (o *SourceKinesis) GetStreamName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.StreamName
-}
-
-// GetStreamNameOk returns a tuple with the StreamName field value
-// and a boolean to check if the value has been set.
-func (o *SourceKinesis) GetStreamNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.StreamName, true
-}
-
-// SetStreamName sets field value
-func (o *SourceKinesis) SetStreamName(v string) {
-	o.StreamName = v
 }
 
 // GetAwsRegion returns the AwsRegion field value if set, zero value otherwise.
@@ -96,13 +74,72 @@ func (o *SourceKinesis) SetAwsRegion(v string) {
 	o.AwsRegion = &v
 }
 
+// GetStreamName returns the StreamName field value
+func (o *SourceKinesis) GetStreamName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.StreamName
+}
+
+// GetStreamNameOk returns a tuple with the StreamName field value
+// and a boolean to check if the value has been set.
+func (o *SourceKinesis) GetStreamNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.StreamName, true
+}
+
+// SetStreamName sets field value
+func (o *SourceKinesis) SetStreamName(v string) {
+	o.StreamName = v
+}
+
+// GetDmsPrimaryKey returns the DmsPrimaryKey field value if set, zero value otherwise.
+func (o *SourceKinesis) GetDmsPrimaryKey() []string {
+	if o == nil || o.DmsPrimaryKey == nil {
+		var ret []string
+		return ret
+	}
+	return *o.DmsPrimaryKey
+}
+
+// GetDmsPrimaryKeyOk returns a tuple with the DmsPrimaryKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceKinesis) GetDmsPrimaryKeyOk() (*[]string, bool) {
+	if o == nil || o.DmsPrimaryKey == nil {
+		return nil, false
+	}
+	return o.DmsPrimaryKey, true
+}
+
+// HasDmsPrimaryKey returns a boolean if a field has been set.
+func (o *SourceKinesis) HasDmsPrimaryKey() bool {
+	if o != nil && o.DmsPrimaryKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDmsPrimaryKey gets a reference to the given []string and assigns it to the DmsPrimaryKey field.
+func (o *SourceKinesis) SetDmsPrimaryKey(v []string) {
+	o.DmsPrimaryKey = &v
+}
+
 func (o SourceKinesis) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.AwsRegion != nil {
+		toSerialize["aws_region"] = o.AwsRegion
+	}
 	if true {
 		toSerialize["stream_name"] = o.StreamName
 	}
-	if o.AwsRegion != nil {
-		toSerialize["aws_region"] = o.AwsRegion
+	if o.DmsPrimaryKey != nil {
+		toSerialize["dms_primary_key"] = o.DmsPrimaryKey
 	}
 	return json.Marshal(toSerialize)
 }

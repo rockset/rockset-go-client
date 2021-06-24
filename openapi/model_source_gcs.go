@@ -20,6 +20,9 @@ type SourceGcs struct {
 	Bucket *string `json:"bucket,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
+	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
+	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
+	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
 }
 
 // NewSourceGcs instantiates a new SourceGcs object
@@ -103,6 +106,102 @@ func (o *SourceGcs) SetPrefix(v string) {
 	o.Prefix = &v
 }
 
+// GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
+func (o *SourceGcs) GetObjectCountDownloaded() int64 {
+	if o == nil || o.ObjectCountDownloaded == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectCountDownloaded
+}
+
+// GetObjectCountDownloadedOk returns a tuple with the ObjectCountDownloaded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceGcs) GetObjectCountDownloadedOk() (*int64, bool) {
+	if o == nil || o.ObjectCountDownloaded == nil {
+		return nil, false
+	}
+	return o.ObjectCountDownloaded, true
+}
+
+// HasObjectCountDownloaded returns a boolean if a field has been set.
+func (o *SourceGcs) HasObjectCountDownloaded() bool {
+	if o != nil && o.ObjectCountDownloaded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectCountDownloaded gets a reference to the given int64 and assigns it to the ObjectCountDownloaded field.
+func (o *SourceGcs) SetObjectCountDownloaded(v int64) {
+	o.ObjectCountDownloaded = &v
+}
+
+// GetObjectCountTotal returns the ObjectCountTotal field value if set, zero value otherwise.
+func (o *SourceGcs) GetObjectCountTotal() int64 {
+	if o == nil || o.ObjectCountTotal == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectCountTotal
+}
+
+// GetObjectCountTotalOk returns a tuple with the ObjectCountTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceGcs) GetObjectCountTotalOk() (*int64, bool) {
+	if o == nil || o.ObjectCountTotal == nil {
+		return nil, false
+	}
+	return o.ObjectCountTotal, true
+}
+
+// HasObjectCountTotal returns a boolean if a field has been set.
+func (o *SourceGcs) HasObjectCountTotal() bool {
+	if o != nil && o.ObjectCountTotal != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectCountTotal gets a reference to the given int64 and assigns it to the ObjectCountTotal field.
+func (o *SourceGcs) SetObjectCountTotal(v int64) {
+	o.ObjectCountTotal = &v
+}
+
+// GetObjectBytesTotal returns the ObjectBytesTotal field value if set, zero value otherwise.
+func (o *SourceGcs) GetObjectBytesTotal() int64 {
+	if o == nil || o.ObjectBytesTotal == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectBytesTotal
+}
+
+// GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool) {
+	if o == nil || o.ObjectBytesTotal == nil {
+		return nil, false
+	}
+	return o.ObjectBytesTotal, true
+}
+
+// HasObjectBytesTotal returns a boolean if a field has been set.
+func (o *SourceGcs) HasObjectBytesTotal() bool {
+	if o != nil && o.ObjectBytesTotal != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectBytesTotal gets a reference to the given int64 and assigns it to the ObjectBytesTotal field.
+func (o *SourceGcs) SetObjectBytesTotal(v int64) {
+	o.ObjectBytesTotal = &v
+}
+
 func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Bucket != nil {
@@ -110,6 +209,15 @@ func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	}
 	if o.Prefix != nil {
 		toSerialize["prefix"] = o.Prefix
+	}
+	if o.ObjectCountDownloaded != nil {
+		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded
+	}
+	if o.ObjectCountTotal != nil {
+		toSerialize["object_count_total"] = o.ObjectCountTotal
+	}
+	if o.ObjectBytesTotal != nil {
+		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
 	}
 	return json.Marshal(toSerialize)
 }

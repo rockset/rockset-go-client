@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **Prefixes** | **[]string** | list of prefixes to paths from which data should be ingested | [readonly] 
 **Format** | Pointer to **string** | do not use | [optional] 
 **Mappings** | Pointer to [**[]FieldMask**](FieldMask.md) | custom transformation on data field | [optional] 
+**ObjectCountDownloaded** | Pointer to **int64** |  | [optional] 
+**ObjectCountTotal** | Pointer to **int64** |  | [optional] 
+**ObjectBytesTotal** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -247,6 +250,81 @@ SetMappings sets Mappings field to given value.
 `func (o *SourceS3) HasMappings() bool`
 
 HasMappings returns a boolean if a field has been set.
+
+### GetObjectCountDownloaded
+
+`func (o *SourceS3) GetObjectCountDownloaded() int64`
+
+GetObjectCountDownloaded returns the ObjectCountDownloaded field if non-nil, zero value otherwise.
+
+### GetObjectCountDownloadedOk
+
+`func (o *SourceS3) GetObjectCountDownloadedOk() (*int64, bool)`
+
+GetObjectCountDownloadedOk returns a tuple with the ObjectCountDownloaded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectCountDownloaded
+
+`func (o *SourceS3) SetObjectCountDownloaded(v int64)`
+
+SetObjectCountDownloaded sets ObjectCountDownloaded field to given value.
+
+### HasObjectCountDownloaded
+
+`func (o *SourceS3) HasObjectCountDownloaded() bool`
+
+HasObjectCountDownloaded returns a boolean if a field has been set.
+
+### GetObjectCountTotal
+
+`func (o *SourceS3) GetObjectCountTotal() int64`
+
+GetObjectCountTotal returns the ObjectCountTotal field if non-nil, zero value otherwise.
+
+### GetObjectCountTotalOk
+
+`func (o *SourceS3) GetObjectCountTotalOk() (*int64, bool)`
+
+GetObjectCountTotalOk returns a tuple with the ObjectCountTotal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectCountTotal
+
+`func (o *SourceS3) SetObjectCountTotal(v int64)`
+
+SetObjectCountTotal sets ObjectCountTotal field to given value.
+
+### HasObjectCountTotal
+
+`func (o *SourceS3) HasObjectCountTotal() bool`
+
+HasObjectCountTotal returns a boolean if a field has been set.
+
+### GetObjectBytesTotal
+
+`func (o *SourceS3) GetObjectBytesTotal() int64`
+
+GetObjectBytesTotal returns the ObjectBytesTotal field if non-nil, zero value otherwise.
+
+### GetObjectBytesTotalOk
+
+`func (o *SourceS3) GetObjectBytesTotalOk() (*int64, bool)`
+
+GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectBytesTotal
+
+`func (o *SourceS3) SetObjectBytesTotal(v int64)`
+
+SetObjectBytesTotal sets ObjectBytesTotal field to given value.
+
+### HasObjectBytesTotal
+
+`func (o *SourceS3) HasObjectBytesTotal() bool`
+
+HasObjectBytesTotal returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

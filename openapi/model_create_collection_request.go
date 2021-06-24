@@ -24,6 +24,8 @@ type CreateCollectionRequest struct {
 	Sources *[]Source `json:"sources,omitempty"`
 	// number of seconds after which data is purged, based on event time
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
+	// If non-null, the collection will be time partition and each partition will be time_partition_resolution_secs wide.
+	TimePartitionResolutionSecs *int64 `json:"time_partition_resolution_secs,omitempty"`
 	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
 	// list of mappings
 	FieldMappings *[]FieldMappingV2 `json:"field_mappings,omitempty"`
@@ -170,6 +172,38 @@ func (o *CreateCollectionRequest) HasRetentionSecs() bool {
 // SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
 func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
 	o.RetentionSecs = &v
+}
+
+// GetTimePartitionResolutionSecs returns the TimePartitionResolutionSecs field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetTimePartitionResolutionSecs() int64 {
+	if o == nil || o.TimePartitionResolutionSecs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TimePartitionResolutionSecs
+}
+
+// GetTimePartitionResolutionSecsOk returns a tuple with the TimePartitionResolutionSecs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCollectionRequest) GetTimePartitionResolutionSecsOk() (*int64, bool) {
+	if o == nil || o.TimePartitionResolutionSecs == nil {
+		return nil, false
+	}
+	return o.TimePartitionResolutionSecs, true
+}
+
+// HasTimePartitionResolutionSecs returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasTimePartitionResolutionSecs() bool {
+	if o != nil && o.TimePartitionResolutionSecs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimePartitionResolutionSecs gets a reference to the given int64 and assigns it to the TimePartitionResolutionSecs field.
+func (o *CreateCollectionRequest) SetTimePartitionResolutionSecs(v int64) {
+	o.TimePartitionResolutionSecs = &v
 }
 
 // GetEventTimeInfo returns the EventTimeInfo field value if set, zero value otherwise.
@@ -345,6 +379,9 @@ func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RetentionSecs != nil {
 		toSerialize["retention_secs"] = o.RetentionSecs
+	}
+	if o.TimePartitionResolutionSecs != nil {
+		toSerialize["time_partition_resolution_secs"] = o.TimePartitionResolutionSecs
 	}
 	if o.EventTimeInfo != nil {
 		toSerialize["event_time_info"] = o.EventTimeInfo

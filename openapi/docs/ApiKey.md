@@ -6,8 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
 **Name** | **string** | descriptive label | 
-**Key** | **string** | string of 64 alphanumeric characters | 
+**Key** | **string** | string of 64 alphanumeric characters. | 
 **LastAccessTime** | Pointer to **string** | ISO-8601 date | [optional] 
+**Role** | Pointer to **string** |  | [optional] 
 **CreatedBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -118,6 +119,31 @@ SetLastAccessTime sets LastAccessTime field to given value.
 `func (o *ApiKey) HasLastAccessTime() bool`
 
 HasLastAccessTime returns a boolean if a field has been set.
+
+### GetRole
+
+`func (o *ApiKey) GetRole() string`
+
+GetRole returns the Role field if non-nil, zero value otherwise.
+
+### GetRoleOk
+
+`func (o *ApiKey) GetRoleOk() (*string, bool)`
+
+GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRole
+
+`func (o *ApiKey) SetRole(v string)`
+
+SetRole sets Role field to given value.
+
+### HasRole
+
+`func (o *ApiKey) HasRole() bool`
+
+HasRole returns a boolean if a field has been set.
 
 ### GetCreatedBy
 

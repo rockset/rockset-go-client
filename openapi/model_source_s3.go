@@ -34,6 +34,9 @@ type SourceS3 struct {
 	Format *string `json:"format,omitempty"`
 	// custom transformation on data field
 	Mappings *[]FieldMask `json:"mappings,omitempty"`
+	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
+	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
+	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
 }
 
 // NewSourceS3 instantiates a new SourceS3 object
@@ -327,6 +330,102 @@ func (o *SourceS3) SetMappings(v []FieldMask) {
 	o.Mappings = &v
 }
 
+// GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
+func (o *SourceS3) GetObjectCountDownloaded() int64 {
+	if o == nil || o.ObjectCountDownloaded == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectCountDownloaded
+}
+
+// GetObjectCountDownloadedOk returns a tuple with the ObjectCountDownloaded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceS3) GetObjectCountDownloadedOk() (*int64, bool) {
+	if o == nil || o.ObjectCountDownloaded == nil {
+		return nil, false
+	}
+	return o.ObjectCountDownloaded, true
+}
+
+// HasObjectCountDownloaded returns a boolean if a field has been set.
+func (o *SourceS3) HasObjectCountDownloaded() bool {
+	if o != nil && o.ObjectCountDownloaded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectCountDownloaded gets a reference to the given int64 and assigns it to the ObjectCountDownloaded field.
+func (o *SourceS3) SetObjectCountDownloaded(v int64) {
+	o.ObjectCountDownloaded = &v
+}
+
+// GetObjectCountTotal returns the ObjectCountTotal field value if set, zero value otherwise.
+func (o *SourceS3) GetObjectCountTotal() int64 {
+	if o == nil || o.ObjectCountTotal == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectCountTotal
+}
+
+// GetObjectCountTotalOk returns a tuple with the ObjectCountTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceS3) GetObjectCountTotalOk() (*int64, bool) {
+	if o == nil || o.ObjectCountTotal == nil {
+		return nil, false
+	}
+	return o.ObjectCountTotal, true
+}
+
+// HasObjectCountTotal returns a boolean if a field has been set.
+func (o *SourceS3) HasObjectCountTotal() bool {
+	if o != nil && o.ObjectCountTotal != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectCountTotal gets a reference to the given int64 and assigns it to the ObjectCountTotal field.
+func (o *SourceS3) SetObjectCountTotal(v int64) {
+	o.ObjectCountTotal = &v
+}
+
+// GetObjectBytesTotal returns the ObjectBytesTotal field value if set, zero value otherwise.
+func (o *SourceS3) GetObjectBytesTotal() int64 {
+	if o == nil || o.ObjectBytesTotal == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectBytesTotal
+}
+
+// GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceS3) GetObjectBytesTotalOk() (*int64, bool) {
+	if o == nil || o.ObjectBytesTotal == nil {
+		return nil, false
+	}
+	return o.ObjectBytesTotal, true
+}
+
+// HasObjectBytesTotal returns a boolean if a field has been set.
+func (o *SourceS3) HasObjectBytesTotal() bool {
+	if o != nil && o.ObjectBytesTotal != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectBytesTotal gets a reference to the given int64 and assigns it to the ObjectBytesTotal field.
+func (o *SourceS3) SetObjectBytesTotal(v int64) {
+	o.ObjectBytesTotal = &v
+}
+
 func (o SourceS3) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AccessKey != nil {
@@ -355,6 +454,15 @@ func (o SourceS3) MarshalJSON() ([]byte, error) {
 	}
 	if o.Mappings != nil {
 		toSerialize["mappings"] = o.Mappings
+	}
+	if o.ObjectCountDownloaded != nil {
+		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded
+	}
+	if o.ObjectCountTotal != nil {
+		toSerialize["object_count_total"] = o.ObjectCountTotal
+	}
+	if o.ObjectBytesTotal != nil {
+		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
 	}
 	return json.Marshal(toSerialize)
 }

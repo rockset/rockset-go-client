@@ -88,9 +88,10 @@ All URIs are relative to *https://api.rs2.usw2.rockset.com*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *APIKeysApi* | [**CreateApiKey**](docs/APIKeysApi.md#createapikey) | **Post** /v1/orgs/self/users/self/apikeys | Create API Key
-*APIKeysApi* | [**CreateApiKeyAdmin**](docs/APIKeysApi.md#createapikeyadmin) | **Post** /v1/orgs/self/users/{user}/apikeys | Create API Key (any user)
 *APIKeysApi* | [**DeleteApiKey**](docs/APIKeysApi.md#deleteapikey) | **Delete** /v1/orgs/self/users/self/apikeys/{name} | Delete API Key
 *APIKeysApi* | [**DeleteApiKeyAdmin**](docs/APIKeysApi.md#deleteapikeyadmin) | **Delete** /v1/orgs/self/users/{user}/apikeys/{name} | Delete API Key (any user)
+*APIKeysApi* | [**GetApiKey**](docs/APIKeysApi.md#getapikey) | **Get** /v1/orgs/self/users/self/apikeys/{name} | Get API Key
+*APIKeysApi* | [**GetApiKeyAdmin**](docs/APIKeysApi.md#getapikeyadmin) | **Get** /v1/orgs/self/users/{user}/apikeys/{name} | Get any API Key
 *APIKeysApi* | [**ListApiKeys**](docs/APIKeysApi.md#listapikeys) | **Get** /v1/orgs/self/users/self/apikeys | List API Keys
 *APIKeysApi* | [**ListApiKeysAdmin**](docs/APIKeysApi.md#listapikeysadmin) | **Get** /v1/orgs/self/users/{user}/apikeys | List API Keys (any user)
 *AliasesApi* | [**CreateAlias**](docs/AliasesApi.md#createalias) | **Post** /v1/orgs/self/ws/{workspace}/aliases | Create Alias
@@ -205,6 +206,7 @@ Class | Method | HTTP request | Description
  - [GcpServiceAccount](docs/GcpServiceAccount.md)
  - [GcsIntegration](docs/GcsIntegration.md)
  - [GetAliasResponse](docs/GetAliasResponse.md)
+ - [GetApiKeyResponse](docs/GetApiKeyResponse.md)
  - [GetCollectionResponse](docs/GetCollectionResponse.md)
  - [GetIntegrationResponse](docs/GetIntegrationResponse.md)
  - [GetIpAllowlistResponse](docs/GetIpAllowlistResponse.md)
