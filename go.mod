@@ -1,10 +1,6 @@
 module github.com/rockset/rockset-go-client
 
-go 1.13
-
-replace (
-	github.com/rockset/rockset-go-client/openapi => ./openapi
-)
+go 1.16
 
 require (
 	github.com/coreos/go-systemd v0.0.0-20190321100706-95778dfbb74e // indirect
