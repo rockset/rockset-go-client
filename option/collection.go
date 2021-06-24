@@ -16,6 +16,19 @@ func WithCollectionRetention(d time.Duration) CollectionOption {
 	}
 }
 
+// WithDynamoDBMaxRCU sets the max RCU for a DynamoDB collection.
+func WithDynamoDBMaxRCU(maxRCU int64) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		if o.Sources == nil || len(*o.Sources) != 1 {
+			return
+		}
+		if (*o.Sources)[0].Dynamodb == nil {
+			return
+		}
+		(*o.Sources)[0].Dynamodb.Rcu = &maxRCU
+	}
+}
+
 type EventTimeInfoFormat string
 
 const (
@@ -198,6 +211,7 @@ func WithCollectionFieldMapping(name string, dropAll bool, outputField OutputFie
 }
 
 /*
+	TODO: what about these two
 	createParams.FieldSchemas
 	createParams.InvertedIndexGroupEncodingOptions
 */

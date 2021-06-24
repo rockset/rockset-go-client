@@ -39,8 +39,7 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 		return nil, err
 	}
 
-	// TODO add based on status: ADDED, REPLACED, DELETED, ERROR
-	log.Trace().Int("count", len(*resp.Data)).Msg("added documents")
+	logResult(log.Trace(), *resp.Data).Msg("added documents")
 
 	return *resp.Data, nil
 }
@@ -67,8 +66,7 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 		return resp.Data, err
 	}
 
-	// TODO add based on status: ADDED, REPLACED, DELETED, ERROR
-	log.Trace().Int("count", len(resp.Data)).Msg("patched documents")
+	logResult(log.Trace(), resp.Data).Msg("patched documents")
 
 	return resp.Data, nil
 }
@@ -100,8 +98,20 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 		return nil, err
 	}
 
-	// TODO add based on status: ADDED, REPLACED, DELETED, ERROR
-	log.Trace().Int("count", len(*resp.Data)).Msg("deleted documents")
+	logResult(log.Trace(), *resp.Data).Msg("deleted documents")
 
 	return *resp.Data, nil
+}
+
+func logResult(e *zerolog.Event, statuses []openapi.DocumentStatus) *zerolog.Event {
+	result := map[string]int{}
+	for _, s := range statuses {
+		i := result[s.GetStatus()]
+		result[s.GetStatus()] = i + 1
+	}
+	for k, v := range result {
+		e.Int(k, v)
+	}
+
+	return e
 }

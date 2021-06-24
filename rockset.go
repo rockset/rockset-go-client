@@ -49,7 +49,10 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	// TODO should the default http client be tuned?
 	cfg.HTTPClient = &http.Client{}
 
-	// TODO should we pick up ROCKSET_APIKEY by default?
+	// set defaults
+	cfg.Host = os.Getenv(APIServerEnvironmentVariableName)
+	cfg.AddDefaultHeader("Authorization", "apikey "+os.Getenv(APIKeyEnvironmentVariableName))
+
 	rc := RockConfig{
 		cfg:     cfg,
 		Retrier: ExponentialRetry{},

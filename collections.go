@@ -251,7 +251,6 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 			Dynamodb: &openapi.SourceDynamoDb{
 				AwsRegion: &region,
 				TableName: tableName,
-				Rcu:       &maxRCU, // TODO optional long int field "Max RCU usage for scan"
 			},
 			FormatParams: &f,
 		},
@@ -331,7 +330,6 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 			IntegrationName: integration,
 			Kafka: &openapi.SourceKafka{
 				KafkaTopicName: topic,
-				Status:         nil, // TODO
 			},
 			FormatParams: &f,
 		},
@@ -372,7 +370,6 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 			Mongodb: &openapi.SourceMongoDb{
 				DatabaseName:   database,
 				CollectionName: collection,
-				Status:         nil, // TODO
 			},
 			FormatParams: &f,
 		},

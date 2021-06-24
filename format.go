@@ -67,7 +67,7 @@ func WithJSONFormat() Format {
 
 // WithXMLFormat sets the format XML.
 func WithXMLFormat(xml openapi.XmlParams) Format {
-	// TODO it looks lie all xml fields are optional. Add options for each of them.
+	// TODO it looks like all xml fields are optional. Add options for each of them?
 	return func(f *openapi.FormatParams) {
 		f.Xml = &xml
 	}
