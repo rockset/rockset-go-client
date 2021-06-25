@@ -1,3 +1,7 @@
-.idea
 .env
 .envrc
+.idea
+.terraform
+cover.out
+coverage.html
+vcr

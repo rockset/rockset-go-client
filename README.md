@@ -31,18 +31,15 @@ You can see a few [examples](https://godoc.org/github.com/rockset/rockset-go-cli
 of how to create a collection, how to put documents in a collection and how to use SQL to query your collections.
 
 ```
-client, err := rockset.NewClient(rockset.WithAPIKey("..."))
+client, err := rockset.NewClient()
 if err != nil {
     log.Fatal(err)
 }
 
-q := models.QueryRequest{
-    Sql: &models.QueryRequestSql{
-        Query: `SELECT * FROM "_events" LIMIT 1`,
-    },
-}
+ctx := context.TODO()
+q := `SELECT * FROM "_events" LIMIT 1`
 
-res, _, err := client.Query(q)
+res, _, err := client.Query(ctx, q)
 if err != nil {
     log.Fatal(err)
 }
@@ -52,11 +49,29 @@ fmt.Printf("%+v\n", res)
 
 ## Testing
 
-Tests are available in the [test](https://github.com/rockset/rockset-go-client/tree/master/test) folder.
+For local development, add a `replace` directive in `go.mod`
 
-Set ROCKSET_APIKEY and ROCKSET_APISERVER endpoint in the environment variables. To run tests:
+```
+replace (
+       github.com/rockset/rockset-go-client/option => ./option
+       github.com/rockset/rockset-go-client/openapi => ./openapi
+)
+```
+
+There are a number of testable examples which require an API key, i.e. set the `ROCKSET_APIKEY` 
+environment variable. 
+
+To run tests:
 ```
 go test ./...
+```
+
+### Code Coverage
+
+```
+go test ./... -coverprofile cover.out
+go tool cover -func=cover.out
+go tool cover -html=cover.out -o coverage.html
 ```
 
 ## Support
