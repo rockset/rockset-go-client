@@ -7,17 +7,18 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// CreateAPIKey creates a new API key for the current user.
+// CreateAPIKey creates a new API key for the current user with the specified.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#createapikey
-func (rc *RockClient) CreateAPIKey(ctx context.Context) (openapi.ApiKey, error) {
+func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string) (openapi.ApiKey, error) {
 	var err error
 	var resp openapi.CreateApiKeyResponse
 
-	getReq := rc.APIKeysApi.CreateApiKey(ctx)
+	createReq := rc.APIKeysApi.CreateApiKey(ctx)
+	b := openapi.NewCreateApiKeyRequest(keyName)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = getReq.Execute()
+		resp, _, err = createReq.Body(*b).Execute()
 		return err
 	})
 
@@ -87,10 +88,10 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 
 	// delete for current user
 	if opts.User == nil {
-		getReq := rc.APIKeysApi.DeleteApiKey(ctx, keyName)
+		delReq := rc.APIKeysApi.DeleteApiKey(ctx, keyName)
 
 		err = rc.Retry(ctx, func() error {
-			_, _, err = getReq.Execute()
+			_, _, err = delReq.Execute()
 			return err
 		})
 
