@@ -28,6 +28,41 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 	return *resp.Data, nil
 }
 
+func (rc *RockClient) ListCollections(ctx context.Context, options ...option.ListCollectionOption) ([]openapi.Collection, error) {
+	var err error
+
+	opts := option.ListCollectionOptions{}
+
+	for _, o := range options {
+		o(&opts)
+	}
+
+	var resp openapi.ListCollectionsResponse
+
+	if opts.Workspace == nil {
+		listReq := rc.CollectionsApi.ListCollections(ctx)
+		err = rc.Retry(ctx, func() error {
+			resp, _, err = listReq.Execute()
+
+			return err
+		})
+	} else {
+		listWsReq := rc.CollectionsApi.WorkspaceCollections(ctx, *opts.Workspace)
+
+		err = rc.Retry(ctx, func() error {
+			resp, _, err = listWsReq.Execute()
+
+			return err
+		})
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return *resp.Data, nil
+}
+
 func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name string) error {
 	deleteReq := rc.CollectionsApi.DeleteCollection(ctx, workspace, name)
 

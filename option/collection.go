@@ -6,6 +6,18 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
+type ListCollectionOptions struct {
+	Workspace *string
+}
+
+type ListCollectionOption func(o *ListCollectionOptions)
+
+func WithWorkspace(name string) func(o *ListCollectionOptions) {
+	return func(o *ListCollectionOptions) {
+		o.Workspace = &name
+	}
+}
+
 type CollectionOption func(o *openapi.CreateCollectionRequest)
 
 // WithCollectionRetention sets the retention in seconds for documents.
