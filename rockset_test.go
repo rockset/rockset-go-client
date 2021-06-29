@@ -2,6 +2,7 @@ package rockset_test
 
 import (
 	"context"
+	"github.com/stretchr/testify/require"
 	"os"
 	"testing"
 	"time"
@@ -25,4 +26,20 @@ func testCtx() context.Context {
 	log := zerolog.New(console).Level(zerolog.TraceLevel).With().Timestamp().Logger()
 
 	return log.WithContext(ctx)
+}
+
+// TestTemplate is used as a copypasta for new tests
+func TestTemplate(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	ctx := testCtx()
+	log := zerolog.Ctx(ctx)
+
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	org, err := rc.GetOrganization(ctx)
+	require.NoError(t, err)
+
+	log.Debug().Str("org", org.GetDisplayName())
 }

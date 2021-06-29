@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"github.com/rockset/rockset-go-client/option"
 	"testing"
 
 	"github.com/rs/zerolog"
@@ -9,8 +10,7 @@ import (
 	"github.com/rockset/rockset-go-client"
 )
 
-// TestTemplate is used as a copypasta for new tests
-func TestTemplate(t *testing.T) {
+func TestRockClient_ListCollections_all(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
@@ -19,8 +19,23 @@ func TestTemplate(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	org, err := rc.GetOrganization(ctx)
+	collections, err := rc.ListCollections(ctx)
 	require.NoError(t, err)
 
-	log.Debug().Str("org", org.GetDisplayName())
+	log.Debug().Int("count", len(collections)).Msg("collections")
+}
+
+func TestRockClient_ListCollections_ws(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	ctx := testCtx()
+	log := zerolog.Ctx(ctx)
+
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	collections, err := rc.ListCollections(ctx, option.WithWorkspace("commons"))
+	require.NoError(t, err)
+
+	log.Debug().Int("count", len(collections)).Msg("collections")
 }
