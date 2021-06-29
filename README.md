@@ -1,5 +1,5 @@
 # Rockset Go Client
-[![CircleCI](https://circleci.com/gh/rockset/rockset-go-client/tree/go-client-v0.8.svg?style=shield)](https://circleci.com/gh/rockset/rockset-go-client/tree/go-client-v0.8)
+[![CircleCI](https://circleci.com/gh/rockset/rockset-go-client/tree/go-client.svg?style=shield)](https://circleci.com/gh/rockset/rockset-go-client/)
 [![Documentation](https://godoc.org/github.com/rockset/rockset-go-client?status.svg)](http://godoc.org/github.com/rockset/rockset-go-client)
 [![License](https://img.shields.io/github/license/rockset/rockset-go-client.svg?maxAge=2592000)](https://github.com/rockset/rockset-go-client/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/rockset/rockset-go-client.svg)](https://github.com/rockset/rockset-go-client/issues)

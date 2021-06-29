@@ -3,9 +3,8 @@ module github.com/rockset/rockset-go-client
 go 1.16
 
 require (
-	github.com/coreos/go-systemd v0.0.0-20190321100706-95778dfbb74e // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
-	github.com/rockset/rockset-go-client/openapi v0.11.0
+	github.com/rockset/rockset-go-client/openapi v0.12.0
 	github.com/rs/zerolog v1.23.0
 	github.com/seborama/govcr v4.5.0+incompatible
 	github.com/stretchr/testify v1.7.0

@@ -6,7 +6,6 @@ jobs:
     working_directory: /go/src/github.com/rockset/rockset-go-client
     steps:
       - checkout
-      - run: echo "replace github.com/rockset/rockset-go-client/option => ./option" >> go.mod
       - run: echo "replace github.com/rockset/rockset-go-client/openapi => ./openapi" >> go.mod
       - run: go mod download
       - run: go vet ./...
