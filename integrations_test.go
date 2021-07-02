@@ -70,7 +70,9 @@ func TestRockClient_CreateGCSIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	saKeyFile := os.Getenv("GCP_SA_KEY_JSON")
-	require.NotEmpty(t, saKeyFile)
+	if saKeyFile == "" {
+		t.Skip("environment variable GCP_SA_KEY_JSON set")
+	}
 
 	ctx := testCtx()
 	rc, err := rockset.NewClient()
