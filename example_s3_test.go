@@ -27,7 +27,7 @@ func Example_s3() {
 	if err != nil {
 		log.Fatalf("failed to create integration: %v", err)
 	}
-	fmt.Printf("integration created: %s\n", r.Data.GetName())
+	fmt.Printf("integration created: %s\n", r.GetName())
 
 	// create collection
 	c, err := rc.CreateS3Collection(ctx, "commons", "s3example", "created by go example code",
@@ -91,7 +91,7 @@ func Example_s3() {
 	if err != nil {
 		log.Fatalf("failed to delete integration: %v", err)
 	}
-	fmt.Printf("integration deleted: %s\n", r.Data.GetName())
+	fmt.Printf("integration deleted: %s\n", r.GetName())
 
 	// Output:
 	// integration created: s3exampleIntegration
