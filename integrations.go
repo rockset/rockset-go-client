@@ -16,6 +16,25 @@ func (rc *RockClient) GetIntegration(ctx context.Context, name string) (openapi.
 		resp, _, err = req.Execute()
 		return err
 	})
+	if err != nil {
+		return openapi.Integration{}, err
+	}
+
+	return resp.GetData(), nil
+}
+
+func (rc *RockClient) ListIntegrations(ctx context.Context) ([]openapi.Integration, error) {
+	var err error
+	req := rc.IntegrationsApi.ListIntegrations(ctx)
+
+	var resp openapi.ListIntegrationsResponse
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = req.Execute()
+		return err
+	})
+	if err != nil {
+		return nil, err
+	}
 
 	return resp.GetData(), nil
 }
