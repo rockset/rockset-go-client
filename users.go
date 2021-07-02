@@ -27,7 +27,7 @@ func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []stri
 		return openapi.User{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // DeleteUser deletes a user.
@@ -89,5 +89,5 @@ func (rc *RockClient) ListUsers(ctx context.Context) ([]openapi.User, error) {
 		return nil, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }

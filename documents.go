@@ -39,9 +39,9 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 		return nil, err
 	}
 
-	logResult(log.Trace(), *resp.Data).Msg("added documents")
+	logResult(log.Trace(), resp.GetData()).Msg("added documents")
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // PatchDocuments updates (patches) existing documents in a collection
@@ -63,12 +63,12 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 	})
 
 	if err != nil {
-		return resp.Data, err
+		return nil, err
 	}
 
-	logResult(log.Trace(), resp.Data).Msg("patched documents")
+	logResult(log.Trace(), resp.GetData()).Msg("patched documents")
 
-	return resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // DeleteDocuments deletes documents from a collection
@@ -98,9 +98,9 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 		return nil, err
 	}
 
-	logResult(log.Trace(), *resp.Data).Msg("deleted documents")
+	logResult(log.Trace(), resp.GetData()).Msg("deleted documents")
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 func logResult(e *zerolog.Event, statuses []openapi.DocumentStatus) *zerolog.Event {

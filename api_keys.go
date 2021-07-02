@@ -26,7 +26,7 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string) (openapi
 		return openapi.ApiKey{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // GetAPIKey gets the named API key.
@@ -56,7 +56,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 			return openapi.ApiKey{}, err
 		}
 
-		return *resp.Data, nil
+		return resp.GetData(), nil
 	}
 
 	// an admin can create for another user
@@ -71,7 +71,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 		return openapi.ApiKey{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // DeleteAPIKey deletes an API key.
@@ -143,7 +143,7 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 			return nil, err
 		}
 
-		return *resp.Data, nil
+		return resp.GetData(), nil
 	}
 
 	// an admin can list for another user
@@ -158,5 +158,5 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 		return nil, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }

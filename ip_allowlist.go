@@ -39,7 +39,7 @@ func (rc *RockClient) CreateIPAllowlistNetworkPolicy(ctx context.Context, name, 
 		return openapi.IpAllowlist{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // DeleteIPAllowlistNetworkPolicy deletes an IP allow list policy by name.
@@ -80,7 +80,7 @@ func (rc *RockClient) GetIPAllowlistNetworkPolicy(ctx context.Context, name stri
 		return openapi.IpAllowlist{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // ListIPAllowlistEntries lists all IP allowlists policies.
@@ -101,5 +101,5 @@ func (rc *RockClient) ListIPAllowlistEntries(ctx context.Context) ([]openapi.IpA
 		return nil, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
