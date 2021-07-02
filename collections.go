@@ -25,7 +25,7 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 		return openapi.Collection{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) ListCollections(ctx context.Context, options ...option.ListCollectionOption) ([]openapi.Collection, error) {
@@ -60,7 +60,7 @@ func (rc *RockClient) ListCollections(ctx context.Context, options ...option.Lis
 		return nil, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name string) error {
@@ -80,7 +80,7 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
 	request *openapi.CreateCollectionRequest) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 	log := zerolog.Ctx(ctx)
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
@@ -92,14 +92,14 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 	request.Name = name
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*request).Execute()
+		resp, _, err = createReq.Body(*request).Execute()
 		return err
 	})
 	if err != nil {
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 // CreateS3Collection creates an S3 collection from an existing S3 integration.
@@ -108,7 +108,7 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 	workspace, name, description, integration, bucket, pattern string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -135,21 +135,21 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 	if err != nil {
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	workspace, name, description, integration, region, stream string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -174,7 +174,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 
@@ -182,14 +182,14 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	workspace, name, description, integration, bucket, prefix string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -214,7 +214,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 
@@ -222,14 +222,14 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 	workspace, name, description, integration, database, schema, tableName string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -256,7 +256,7 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 
@@ -264,14 +264,14 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	workspace, name, description, integration, region, tableName string, maxRCU int64,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -296,7 +296,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 
@@ -304,7 +304,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
@@ -312,7 +312,7 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	fileUploadTime time.Time,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -337,21 +337,21 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 		o(createParams)
 	}
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 	if err != nil {
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 	workspace, name, description, integration, topic string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -375,7 +375,7 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 
@@ -383,14 +383,14 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	workspace, name, description, integration, database, collection string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var createResp openapi.CreateCollectionResponse
+	var resp openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -415,12 +415,12 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		createResp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(*createParams).Execute()
 		return err
 	})
 	if err != nil {
 		return openapi.Collection{}, err
 	}
 
-	return *createResp.Data, nil
+	return resp.GetData(), nil
 }

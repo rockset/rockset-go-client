@@ -27,7 +27,7 @@ func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (opena
 		return openapi.VirtualInstance{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // ListVirtualInstances lists all virtual instances.
@@ -48,7 +48,7 @@ func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.Virtu
 		return nil, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // UpdateVirtualInstance updates the properties of a virtual instance.
@@ -86,5 +86,5 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 		return openapi.VirtualInstance{}, err
 	}
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }

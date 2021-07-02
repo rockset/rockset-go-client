@@ -44,7 +44,7 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 
 	log.Debug().Str("alias", alias).Strs("target", collections).Msg("alias created")
 
-	return *resp.Data, nil
+	return resp.GetData(), nil
 }
 
 // DeleteAlias deletes an alias.

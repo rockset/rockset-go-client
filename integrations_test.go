@@ -51,7 +51,7 @@ func TestRockClient_S3Integration(t *testing.T) {
 	require.NoError(t, err)
 
 	var found bool
-	for _, i := range *listResp.Data {
+	for _, i := range listResp.GetData() {
 		if i.Name == name {
 			found = true
 		}

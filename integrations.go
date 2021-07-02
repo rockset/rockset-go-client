@@ -17,7 +17,7 @@ func (rc *RockClient) GetIntegration(ctx context.Context, name string) (openapi.
 		return err
 	})
 
-	return resp.GetData(), err
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error {
