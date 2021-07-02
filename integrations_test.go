@@ -2,6 +2,8 @@ package rockset_test
 
 import (
 	"errors"
+	"log"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -62,4 +64,39 @@ func TestRockClient_S3Integration(t *testing.T) {
 	deleteReq := rc.IntegrationsApi.DeleteIntegration(ctx, name)
 	_, _, err = deleteReq.Execute()
 	require.NoError(t, err)
+}
+
+func TestRockClient_CreateGCSIntegration(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	saKeyFile := os.Getenv("GCP_SA_KEY_JSON")
+	if saKeyFile == "" {
+		t.Skip("environment variable GCP_SA_KEY_JSON set")
+	}
+
+	ctx := testCtx()
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	iName := "testGCSIntegration"
+	gcs, err := rc.GetIntegration(ctx, iName)
+	if err == nil {
+		err = rc.DeleteIntegration(ctx, iName)
+		require.NoError(t, err)
+		log.Printf("collection deleted: %s", iName)
+	} else {
+		var re rockset.Error
+		if !errors.As(err, &re) {
+			t.Fatalf("GetIntegration failed for %s: %v", iName, err)
+		}
+		if !re.IsNotFoundError() {
+			t.Fatalf("GetIntegration failed for %s: %v", iName, re)
+		}
+	}
+
+	gcs, err = rc.CreateGCSIntegration(ctx, iName, saKeyFile,
+		option.WithGCSIntegrationDescription("created by rockset integration tests"))
+	require.NoError(t, err)
+
+	log.Printf("created gcs integration: %s", gcs.GetName())
 }

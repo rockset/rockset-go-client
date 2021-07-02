@@ -7,6 +7,19 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+func (rc *RockClient) GetIntegration(ctx context.Context, name string) (openapi.Integration, error) {
+	var err error
+	req := rc.IntegrationsApi.GetIntegration(ctx, name)
+
+	var resp openapi.GetIntegrationResponse
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = req.Execute()
+		return err
+	})
+
+	return resp.GetData(), err
+}
+
 func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error {
 	var err error
 	req := rc.IntegrationsApi.DeleteIntegration(ctx, name)
@@ -20,7 +33,7 @@ func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error 
 }
 
 func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, creds option.AWSCredentialsFn,
-	options ...option.S3IntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.S3IntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -53,14 +66,14 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
-	options ...option.KinesisIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.KinesisIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
@@ -91,14 +104,14 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
-	options ...option.DynamoDBIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.DynamoDBIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -130,14 +143,14 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string, awsKeys option.AWSCredentialsFn,
-	options ...option.RedshiftIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.RedshiftIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -167,14 +180,14 @@ func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAccountKeyFileJSON string,
-	options ...option.GCSIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.GCSIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -201,14 +214,14 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAcc
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connectionString string,
-	options ...option.SegmentIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.SegmentIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -231,14 +244,14 @@ func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connec
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, topics []string, format KafkaFormat,
-	options ...option.KafkaIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.KafkaIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -264,14 +277,14 @@ func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, t
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
 
 func (rc *RockClient) CreateMongoDBIntegration(ctx context.Context, name, connectionURI string,
-	options ...option.MongoDBIntegrationOption) (openapi.CreateIntegrationResponse, error) {
+	options ...option.MongoDBIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp openapi.CreateIntegrationResponse
 
@@ -296,8 +309,8 @@ func (rc *RockClient) CreateMongoDBIntegration(ctx context.Context, name, connec
 	})
 
 	if err != nil {
-		return openapi.CreateIntegrationResponse{}, err
+		return openapi.Integration{}, err
 	}
 
-	return resp, nil
+	return resp.GetData(), nil
 }
