@@ -43,3 +43,49 @@ func TestTemplate(t *testing.T) {
 
 	log.Debug().Str("org", org.GetDisplayName())
 }
+
+func TestWithAPIKey(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	ctx := testCtx()
+	log := zerolog.Ctx(ctx)
+
+	key := os.Getenv(rockset.APIKeyEnvironmentVariableName)
+	err := os.Unsetenv(rockset.APIKeyEnvironmentVariableName)
+	require.NoError(t, err)
+
+	defer func() {
+		if err = os.Setenv(rockset.APIKeyEnvironmentVariableName, key); err != nil {
+			panic("failed to reset environment")
+		}
+	}()
+
+	rc, err := rockset.NewClient(rockset.WithAPIKey(key))
+	require.NoError(t, err)
+
+	org, err := rc.GetOrganization(ctx)
+	require.NoError(t, err)
+
+	log.Debug().Str("org", org.GetDisplayName())
+}
+
+func TestWithAPIServer(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	const use1a1 = "https://api.use1a1.rockset.com/"
+
+	ctx := testCtx()
+	log := zerolog.Ctx(ctx)
+
+	// this is messing with the environment
+	err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
+	require.NoError(t, err)
+
+	rc, err := rockset.NewClient(rockset.WithAPIServer(use1a1))
+	require.NoError(t, err)
+
+	org, err := rc.GetOrganization(ctx)
+	require.NoError(t, err)
+
+	log.Debug().Str("org", org.GetDisplayName())
+}
