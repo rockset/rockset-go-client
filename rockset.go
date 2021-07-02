@@ -84,14 +84,14 @@ type RockOption func(rc *RockConfig)
 // WithAPIKey sets the API key to use
 func WithAPIKey(apiKey string) RockOption {
 	return func(rc *RockConfig) {
-		rc.cfg.AddDefaultHeader("Authorization", "apikey "+apiKey)
+		rc.APIKey = apiKey
 	}
 }
 
 // WithAPIServer sets the API server to connect to, and override the ROCKSET_APISERVER.
 func WithAPIServer(server string) RockOption {
 	return func(rc *RockConfig) {
-		rc.cfg.Host = server
+		rc.APIServer = server
 	}
 }
 
