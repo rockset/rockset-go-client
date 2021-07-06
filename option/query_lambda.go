@@ -43,3 +43,29 @@ func WithParameter2(name, valueType, value string) QueryLambdaOption {
 		})
 	}
 }
+
+type ListQueryLambdaOptions struct {
+	Workspace *string
+}
+
+type ListQueryLambdaOption func(request *ListQueryLambdaOptions)
+
+func WithQueryLambdaWorkspace(name string) ListQueryLambdaOption {
+	return func(o *ListQueryLambdaOptions) {
+
+	}
+}
+
+type ListQueryLambdaTagsOptions struct {
+	Workspace   *string
+	QueryLambda *string
+}
+
+type ListQueryLambdaTagsOption func(request *ListQueryLambdaTagsOptions)
+
+func WithQueryLambda(workspace, name string) ListQueryLambdaTagsOption {
+	return func(o *ListQueryLambdaTagsOptions) {
+		o.Workspace = &workspace
+		o.QueryLambda = &name
+	}
+}
