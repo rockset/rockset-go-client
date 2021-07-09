@@ -111,10 +111,10 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 		req.Description = opts.Description
 	}
 	if c.AwsRole != nil {
-		req.S3.AwsRole = c.AwsRole
+		req.Kinesis.AwsRole = c.AwsRole
 	}
 	if c.AwsAccessKey != nil {
-		req.S3.AwsAccessKey = c.AwsAccessKey
+		req.Kinesis.AwsAccessKey = c.AwsAccessKey
 	}
 
 	err = rc.Retry(ctx, func() error {

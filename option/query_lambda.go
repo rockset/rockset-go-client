@@ -69,3 +69,26 @@ func WithQueryLambda(workspace, name string) ListQueryLambdaTagsOption {
 		o.QueryLambda = &name
 	}
 }
+
+type CreateQueryLambdaOptions struct {
+	Description     *string
+	QueryParameters []openapi.QueryParameter
+}
+
+type CreateQueryLambdaOption func(request *CreateQueryLambdaOptions)
+
+func WithQueryLambdaDescription(desc string) CreateQueryLambdaOption {
+	return func(o *CreateQueryLambdaOptions) {
+		o.Description = &desc
+	}
+}
+
+func WithDefaultParameter(name, paramType, value string) CreateQueryLambdaOption {
+	return func(o *CreateQueryLambdaOptions) {
+		o.QueryParameters = append(o.QueryParameters, openapi.QueryParameter{
+			Name:  name,
+			Type:  paramType,
+			Value: value,
+		})
+	}
+}

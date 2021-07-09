@@ -11,6 +11,30 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+func TestRockClient_CreateQueryLambda(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	ctx := testCtx()
+
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	ql, err := rc.CreateQueryLambda(ctx, "commons", "qlTest", "SELECT 1",
+		option.WithDefaultParameter("", "", ""))
+	require.NoError(t, err)
+
+	defer func() {
+		err := rc.DeleteQueryLambda(ctx, "commons", "qlTest")
+		assert.NoError(t, err)
+	}()
+
+	assert.Equal(t, "qlTest", *ql.Name)
+
+	ql, err = rc.UpdateQueryLambda(ctx, "commons", "qlTest", "SELECT 2",
+		option.WithDefaultParameter("dummy", "string", "foo"))
+	assert.NoError(t, err)
+}
+
 func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
