@@ -65,7 +65,9 @@ type PatchOperation struct {
 	From  *string     `json:"from"`
 }
 
-// PatchDocuments updates (patches) existing documents in a collection
+// PatchDocuments patches (updates) existing documents in a collection. This convenience method does not use the
+// generated client, as it takes values as map[string]interface{} which doesn't work when you want to patch e.g.
+// a top-level boolean value.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#patchdocuments
 func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection string,
@@ -116,7 +118,7 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 
 	return nil, Error{
 		ErrorModel: &em,
-		// TODO: set cause too
+		Cause:      fmt.Errorf("unexpected http response (%d): %s", resp.StatusCode, resp.Status),
 	}
 }
 
@@ -129,7 +131,7 @@ func (rc *RockClient) patchDocumentsRequest(ctx context.Context, ws, collection 
 		return nil, err
 	}
 
-	// TODO escape workspace and collection
+	// workspace and collection do not need to be escaped as they can only contain alphanumeric or dash characters
 	u := fmt.Sprintf("%s/v1/orgs/self/ws/%s/collections/%s/docs", rc.RockConfig.APIServer, ws, collection)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPatch, u, &payload)
 	if err != nil {
