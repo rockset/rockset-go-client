@@ -2,8 +2,10 @@ package rockset
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 	"net/http/httputil"
+	"net/url"
 	"os"
 
 	"github.com/rs/zerolog"
@@ -66,6 +68,16 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	if rc.APIServer == "" {
 		rc.APIServer = DefaultAPIServer
 	}
+
+	u, err := url.Parse(rc.APIServer)
+	if err != nil {
+		return nil, err
+	}
+	if u.Host == "" {
+		return nil, fmt.Errorf("%s is not a valid URL", rc.APIServer)
+	}
+	// we do not allow setting the scheme from the URL as we only support HTTPS
+	cfg.Host = u.Host
 
 	if rc.APIKey == "" {
 		return nil, errors.New("no API key provided")
