@@ -3,6 +3,7 @@ module github.com/rockset/rockset-go-client
 go 1.16
 
 require (
+	github.com/fatih/structs v1.1.0
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/rockset/rockset-go-client/openapi v0.12.0
 	github.com/rs/zerolog v1.23.0
