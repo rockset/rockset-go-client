@@ -1,8 +1,11 @@
 package rockset
 
 import (
+	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
@@ -78,6 +81,7 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}
 	// we do not allow setting the scheme from the URL as we only support HTTPS
 	cfg.Host = u.Host
+	cfg.Scheme = "https"
 
 	if rc.APIKey == "" {
 		return nil, errors.New("no API key provided")
@@ -145,4 +149,51 @@ func (r *debugRoundTripper) RoundTrip(req *http.Request) (*http.Response, error)
 	log.Debug().Str("data", string(resb)).Msg("response")
 
 	return res, err
+}
+
+// Ping connects to the Rockset API server and can be used to verify connectivity. It does not
+// require authentication, so to test that use the GetOrganization() method instead.
+func (rc *RockClient) Ping(ctx context.Context) error {
+	c := rc.RockConfig.cfg.HTTPClient
+	u := url.URL{
+		Scheme: rc.RockConfig.cfg.Scheme,
+		Host:   rc.RockConfig.cfg.Host,
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, u.String(), nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.Do(req)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("unexpected return code: %d", resp.StatusCode)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	var ping struct {
+		Message string `json:"message"`
+	}
+	err = json.Unmarshal(body, &ping)
+	if err != nil {
+		return err
+	}
+
+	log := zerolog.Ctx(ctx)
+	log.Debug().Msgf("ping response: %s", ping.Message)
+
+	const goRockset = "GO ROCKSET!"
+	if ping.Message != goRockset {
+		return fmt.Errorf("unexpected message: %s", ping.Message)
+	}
+
+	return nil
 }
