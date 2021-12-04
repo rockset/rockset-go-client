@@ -120,3 +120,15 @@ func TestRockClientWithAPIServerEnv(t *testing.T) {
 
 	log.Debug().Str("org", org.GetDisplayName())
 }
+
+func TestRockClient_Ping(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	ctx := testCtx()
+
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	err = rc.Ping(ctx)
+	require.NoError(t, err)
+}
