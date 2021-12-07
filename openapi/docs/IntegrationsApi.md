@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateIntegration**](IntegrationsApi.md#CreateIntegration) | **Post** /v1/orgs/self/integrations | Create Integration
 [**DeleteIntegration**](IntegrationsApi.md#DeleteIntegration) | **Delete** /v1/orgs/self/integrations/{integration} | Delete Integration
-[**GetIntegration**](IntegrationsApi.md#GetIntegration) | **Get** /v1/orgs/self/integrations/{integration} | Get Integration
+[**GetIntegration**](IntegrationsApi.md#GetIntegration) | **Get** /v1/orgs/self/integrations/{integration} | Retrieve Integration
 [**ListIntegrations**](IntegrationsApi.md#ListIntegrations) | **Get** /v1/orgs/self/integrations | List Integrations
 
 
@@ -151,7 +151,7 @@ No authorization required
 
 > GetIntegrationResponse GetIntegration(ctx, integration).Execute()
 
-Get Integration
+Retrieve Integration
 
 
 

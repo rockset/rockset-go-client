@@ -14,11 +14,14 @@ Name | Type | Description | Notes
 **Stats** | Pointer to [**CollectionStats**](CollectionStats.md) |  | [optional] 
 **RetentionSecs** | Pointer to **int64** | number of seconds after which data is purged based on event time | [optional] 
 **FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | list of mappings applied on all documents in a collection | [optional] 
+**FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields for a collection | [optional] 
 **Aliases** | Pointer to [**[]Alias**](Alias.md) | list of aliases for a collection | [optional] 
 **FieldSchemas** | Pointer to [**[]FieldSchema**](FieldSchema.md) | list of field schemas  | [optional] 
 **InvertedIndexGroupEncodingOptions** | Pointer to [**InvertedIndexGroupEncodingOptions**](InvertedIndexGroupEncodingOptions.md) |  | [optional] 
 **FieldPartitions** | Pointer to [**[]FieldPartition**](FieldPartition.md) |  | [optional] 
+**InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not | [optional] 
+**EnableExactlyOnceWrites** | Pointer to **bool** | If true, exactly-once write semantics is enabled. | [optional] 
 
 ## Methods
 
@@ -289,6 +292,31 @@ SetFieldMappings sets FieldMappings field to given value.
 
 HasFieldMappings returns a boolean if a field has been set.
 
+### GetFieldMappingQuery
+
+`func (o *Collection) GetFieldMappingQuery() FieldMappingQuery`
+
+GetFieldMappingQuery returns the FieldMappingQuery field if non-nil, zero value otherwise.
+
+### GetFieldMappingQueryOk
+
+`func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool)`
+
+GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappingQuery
+
+`func (o *Collection) SetFieldMappingQuery(v FieldMappingQuery)`
+
+SetFieldMappingQuery sets FieldMappingQuery field to given value.
+
+### HasFieldMappingQuery
+
+`func (o *Collection) HasFieldMappingQuery() bool`
+
+HasFieldMappingQuery returns a boolean if a field has been set.
+
 ### GetClusteringKey
 
 `func (o *Collection) GetClusteringKey() []FieldPartition`
@@ -413,6 +441,56 @@ SetFieldPartitions sets FieldPartitions field to given value.
 `func (o *Collection) HasFieldPartitions() bool`
 
 HasFieldPartitions returns a boolean if a field has been set.
+
+### GetInsertOnly
+
+`func (o *Collection) GetInsertOnly() bool`
+
+GetInsertOnly returns the InsertOnly field if non-nil, zero value otherwise.
+
+### GetInsertOnlyOk
+
+`func (o *Collection) GetInsertOnlyOk() (*bool, bool)`
+
+GetInsertOnlyOk returns a tuple with the InsertOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInsertOnly
+
+`func (o *Collection) SetInsertOnly(v bool)`
+
+SetInsertOnly sets InsertOnly field to given value.
+
+### HasInsertOnly
+
+`func (o *Collection) HasInsertOnly() bool`
+
+HasInsertOnly returns a boolean if a field has been set.
+
+### GetEnableExactlyOnceWrites
+
+`func (o *Collection) GetEnableExactlyOnceWrites() bool`
+
+GetEnableExactlyOnceWrites returns the EnableExactlyOnceWrites field if non-nil, zero value otherwise.
+
+### GetEnableExactlyOnceWritesOk
+
+`func (o *Collection) GetEnableExactlyOnceWritesOk() (*bool, bool)`
+
+GetEnableExactlyOnceWritesOk returns a tuple with the EnableExactlyOnceWrites field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableExactlyOnceWrites
+
+`func (o *Collection) SetEnableExactlyOnceWrites(v bool)`
+
+SetEnableExactlyOnceWrites sets EnableExactlyOnceWrites field to given value.
+
+### HasEnableExactlyOnceWrites
+
+`func (o *Collection) HasEnableExactlyOnceWrites() bool`
+
+HasEnableExactlyOnceWrites returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

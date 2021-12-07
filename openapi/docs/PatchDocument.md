@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | Unique id of the document which is being patched | 
-**Patch** | [**[]PatchOperation**](PatchOperation.md) | List of patch operations | 
+**Id** | **string** | Unique ID of the document to be patched. | 
+**Patch** | [**[]PatchOperation**](PatchOperation.md) | List of patch operations. | 
 
 ## Methods
 

@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | list of named parameters | [optional] 
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the SQL query text | [optional] 
 **GenerateWarnings** | Pointer to **bool** | Whether to generate warnings | [optional] 
+**Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
+**InitialPaginateResponseDocCount** | Pointer to **int32** | Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetGenerateWarnings sets GenerateWarnings field to given value.
 `func (o *ExecuteQueryLambdaRequest) HasGenerateWarnings() bool`
 
 HasGenerateWarnings returns a boolean if a field has been set.
+
+### GetPaginate
+
+`func (o *ExecuteQueryLambdaRequest) GetPaginate() bool`
+
+GetPaginate returns the Paginate field if non-nil, zero value otherwise.
+
+### GetPaginateOk
+
+`func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool)`
+
+GetPaginateOk returns a tuple with the Paginate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaginate
+
+`func (o *ExecuteQueryLambdaRequest) SetPaginate(v bool)`
+
+SetPaginate sets Paginate field to given value.
+
+### HasPaginate
+
+`func (o *ExecuteQueryLambdaRequest) HasPaginate() bool`
+
+HasPaginate returns a boolean if a field has been set.
+
+### GetInitialPaginateResponseDocCount
+
+`func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCount() int32`
+
+GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field if non-nil, zero value otherwise.
+
+### GetInitialPaginateResponseDocCountOk
+
+`func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCountOk() (*int32, bool)`
+
+GetInitialPaginateResponseDocCountOk returns a tuple with the InitialPaginateResponseDocCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInitialPaginateResponseDocCount
+
+`func (o *ExecuteQueryLambdaRequest) SetInitialPaginateResponseDocCount(v int32)`
+
+SetInitialPaginateResponseDocCount sets InitialPaginateResponseDocCount field to given value.
+
+### HasInitialPaginateResponseDocCount
+
+`func (o *ExecuteQueryLambdaRequest) HasInitialPaginateResponseDocCount() bool`
+
+HasInitialPaginateResponseDocCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

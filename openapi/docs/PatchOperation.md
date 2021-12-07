@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Op** | **string** | Operation to be performed in this patch | 
-**Path** | **string** | JSON-Pointer referencing a location in the target document where theoperation is performed | 
-**Value** | Pointer to **map[string]interface{}** | Value used in the patch operation. Required for add, replace, test, and increment operations | [optional] 
-**From** | Pointer to **string** | JSON-Pointer referencing a location in the target document.Required for copy and move operations | [optional] 
+**Op** | **string** | [JSON Patch operation](https://datatracker.ietf.org/doc/html/rfc6902#page-4) to be performed in this patch. Case insensitive. | 
+**Path** | **string** | [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) referencing a location in the target document where the operation is performed | 
+**Value** | Pointer to **map[string]interface{}** | Value used in the patch operation. Required for &#x60;ADD&#x60;, &#x60;REPLACE&#x60;, &#x60;TEST&#x60;, and &#x60;INCREMENT&#x60; operations. | [optional] 
+**From** | Pointer to **string** | [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) referencing a location in the target document. Required for &#x60;COPY&#x60; and &#x60;MOVE&#x60; operations. | [optional] 
 
 ## Methods
 

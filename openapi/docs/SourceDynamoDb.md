@@ -6,8 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AwsRegion** | Pointer to **string** | AWS region name of DynamoDB table, by default us-west-2 is used | [optional] 
 **TableName** | **string** | name of DynamoDB table containing data | 
-**Status** | Pointer to [**StatusDynamoDb**](StatusDynamoDb.md) |  | [optional] 
+**CurrentStatus** | Pointer to [**StatusDynamoDbV2**](StatusDynamoDbV2.md) |  | [optional] 
 **Rcu** | Pointer to **int64** | Max RCU usage for scan | [optional] 
+**Status** | Pointer to [**StatusDynamoDb**](StatusDynamoDb.md) |  | [optional] 
+**UseScanApi** | Pointer to **bool** | Whether to use DynamoDB Scan API for the initial scan | [optional] 
 
 ## Methods
 
@@ -73,30 +75,30 @@ and a boolean to check if the value has been set.
 SetTableName sets TableName field to given value.
 
 
-### GetStatus
+### GetCurrentStatus
 
-`func (o *SourceDynamoDb) GetStatus() StatusDynamoDb`
+`func (o *SourceDynamoDb) GetCurrentStatus() StatusDynamoDbV2`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetCurrentStatus returns the CurrentStatus field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetCurrentStatusOk
 
-`func (o *SourceDynamoDb) GetStatusOk() (*StatusDynamoDb, bool)`
+`func (o *SourceDynamoDb) GetCurrentStatusOk() (*StatusDynamoDbV2, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetCurrentStatusOk returns a tuple with the CurrentStatus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetCurrentStatus
 
-`func (o *SourceDynamoDb) SetStatus(v StatusDynamoDb)`
+`func (o *SourceDynamoDb) SetCurrentStatus(v StatusDynamoDbV2)`
 
-SetStatus sets Status field to given value.
+SetCurrentStatus sets CurrentStatus field to given value.
 
-### HasStatus
+### HasCurrentStatus
 
-`func (o *SourceDynamoDb) HasStatus() bool`
+`func (o *SourceDynamoDb) HasCurrentStatus() bool`
 
-HasStatus returns a boolean if a field has been set.
+HasCurrentStatus returns a boolean if a field has been set.
 
 ### GetRcu
 
@@ -122,6 +124,56 @@ SetRcu sets Rcu field to given value.
 `func (o *SourceDynamoDb) HasRcu() bool`
 
 HasRcu returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *SourceDynamoDb) GetStatus() StatusDynamoDb`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *SourceDynamoDb) GetStatusOk() (*StatusDynamoDb, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *SourceDynamoDb) SetStatus(v StatusDynamoDb)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *SourceDynamoDb) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetUseScanApi
+
+`func (o *SourceDynamoDb) GetUseScanApi() bool`
+
+GetUseScanApi returns the UseScanApi field if non-nil, zero value otherwise.
+
+### GetUseScanApiOk
+
+`func (o *SourceDynamoDb) GetUseScanApiOk() (*bool, bool)`
+
+GetUseScanApiOk returns a tuple with the UseScanApi field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseScanApi
+
+`func (o *SourceDynamoDb) SetUseScanApi(v bool)`
+
+SetUseScanApi sets UseScanApi field to given value.
+
+### HasUseScanApi
+
+`func (o *SourceDynamoDb) HasUseScanApi() bool`
+
+HasUseScanApi returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

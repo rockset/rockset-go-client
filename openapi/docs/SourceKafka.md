@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **KafkaTopicName** | **string** | The Kafka topic to be tailed | 
 **Status** | Pointer to [**StatusKafka**](StatusKafka.md) |  | [optional] 
+**UseV3** | Pointer to **bool** |  | [optional] 
+**OffsetResetPolicy** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -70,6 +72,56 @@ SetStatus sets Status field to given value.
 `func (o *SourceKafka) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetUseV3
+
+`func (o *SourceKafka) GetUseV3() bool`
+
+GetUseV3 returns the UseV3 field if non-nil, zero value otherwise.
+
+### GetUseV3Ok
+
+`func (o *SourceKafka) GetUseV3Ok() (*bool, bool)`
+
+GetUseV3Ok returns a tuple with the UseV3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseV3
+
+`func (o *SourceKafka) SetUseV3(v bool)`
+
+SetUseV3 sets UseV3 field to given value.
+
+### HasUseV3
+
+`func (o *SourceKafka) HasUseV3() bool`
+
+HasUseV3 returns a boolean if a field has been set.
+
+### GetOffsetResetPolicy
+
+`func (o *SourceKafka) GetOffsetResetPolicy() string`
+
+GetOffsetResetPolicy returns the OffsetResetPolicy field if non-nil, zero value otherwise.
+
+### GetOffsetResetPolicyOk
+
+`func (o *SourceKafka) GetOffsetResetPolicyOk() (*string, bool)`
+
+GetOffsetResetPolicyOk returns a tuple with the OffsetResetPolicy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOffsetResetPolicy
+
+`func (o *SourceKafka) SetOffsetResetPolicy(v string)`
+
+SetOffsetResetPolicy sets OffsetResetPolicy field to given value.
+
+### HasOffsetResetPolicy
+
+`func (o *SourceKafka) HasOffsetResetPolicy() bool`
+
+HasOffsetResetPolicy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

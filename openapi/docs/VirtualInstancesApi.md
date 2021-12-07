@@ -4,7 +4,7 @@ All URIs are relative to *https://api.rs2.usw2.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetVirtualInstance**](VirtualInstancesApi.md#GetVirtualInstance) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Get Virtual Instance
+[**GetVirtualInstance**](VirtualInstancesApi.md#GetVirtualInstance) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Retrieve Virtual Instance
 [**ListVirtualInstances**](VirtualInstancesApi.md#ListVirtualInstances) | **Get** /v1/orgs/self/virtualinstances | List Virtual Instances
 [**SetVirtualInstance**](VirtualInstancesApi.md#SetVirtualInstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Update Virtual Instance
 
@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 > GetVirtualInstanceResponse GetVirtualInstance(ctx, virtualInstanceId).Execute()
 
-Get Virtual Instance
+Retrieve Virtual Instance
 
 
 

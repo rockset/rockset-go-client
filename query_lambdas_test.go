@@ -95,23 +95,6 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 	}
 }
 
-func TestRockClient_ListQueryLambdaTagVersions(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
-	ctx := testCtx()
-	log := zerolog.Ctx(ctx)
-
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	versions, err := rc.ListQueryLambdaTagVersions(ctx, "latest")
-	require.NoError(t, err)
-
-	for _, l := range versions {
-		log.Printf("version: %s", *l.Version)
-	}
-}
-
 func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
@@ -138,24 +121,7 @@ func TestRockClient_ListQueryLambdaTags(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	tags, err := rc.ListQueryLambdaTags(ctx)
-	require.NoError(t, err)
-
-	for _, tag := range tags {
-		log.Printf("tag: %s", *tag.TagName)
-	}
-}
-
-func TestRockClient_ListQueryLambdaTags_forQL(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
-	ctx := testCtx()
-	log := zerolog.Ctx(ctx)
-
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	tags, err := rc.ListQueryLambdaTags(ctx, option.WithQueryLambda("commons", "events"))
+	tags, err := rc.ListQueryLambdaTags(ctx, "commons", "events")
 	require.NoError(t, err)
 
 	for _, tag := range tags {

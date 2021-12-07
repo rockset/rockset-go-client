@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [**[]PatchDocument**](PatchDocument.md) | List of JSON Patch Documents | 
+**Data** | [**[]PatchDocument**](PatchDocument.md) | List of patches to be applied. | 
 
 ## Methods
 

@@ -4,16 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**KafkaTopicNames** | **[]string** | Kafka topics to tail | 
+**KafkaTopicNames** | Pointer to **[]string** | Kafka topics to tail | [optional] 
 **SourceStatusByTopic** | Pointer to [**map[string]StatusKafka**](StatusKafka.md) | The status of the Kafka source by topic | [optional] [readonly] 
-**KafkaDataFormat** | **string** | The format of the Kafka topics being tailed | 
+**KafkaDataFormat** | Pointer to **string** | The format of the Kafka topics being tailed | [optional] 
 **ConnectionString** | Pointer to **string** | kafka connection string | [optional] [readonly] 
+**UseV3** | Pointer to **bool** |  | [optional] 
+**BootstrapServers** | Pointer to **string** |  | [optional] 
+**SecurityConfig** | Pointer to [**KafkaV3SecurityConfig**](KafkaV3SecurityConfig.md) |  | [optional] 
 
 ## Methods
 
 ### NewKafkaIntegration
 
-`func NewKafkaIntegration(kafkaTopicNames []string, kafkaDataFormat string, ) *KafkaIntegration`
+`func NewKafkaIntegration() *KafkaIntegration`
 
 NewKafkaIntegration instantiates a new KafkaIntegration object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +50,11 @@ and a boolean to check if the value has been set.
 
 SetKafkaTopicNames sets KafkaTopicNames field to given value.
 
+### HasKafkaTopicNames
+
+`func (o *KafkaIntegration) HasKafkaTopicNames() bool`
+
+HasKafkaTopicNames returns a boolean if a field has been set.
 
 ### GetSourceStatusByTopic
 
@@ -92,6 +100,11 @@ and a boolean to check if the value has been set.
 
 SetKafkaDataFormat sets KafkaDataFormat field to given value.
 
+### HasKafkaDataFormat
+
+`func (o *KafkaIntegration) HasKafkaDataFormat() bool`
+
+HasKafkaDataFormat returns a boolean if a field has been set.
 
 ### GetConnectionString
 
@@ -117,6 +130,81 @@ SetConnectionString sets ConnectionString field to given value.
 `func (o *KafkaIntegration) HasConnectionString() bool`
 
 HasConnectionString returns a boolean if a field has been set.
+
+### GetUseV3
+
+`func (o *KafkaIntegration) GetUseV3() bool`
+
+GetUseV3 returns the UseV3 field if non-nil, zero value otherwise.
+
+### GetUseV3Ok
+
+`func (o *KafkaIntegration) GetUseV3Ok() (*bool, bool)`
+
+GetUseV3Ok returns a tuple with the UseV3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUseV3
+
+`func (o *KafkaIntegration) SetUseV3(v bool)`
+
+SetUseV3 sets UseV3 field to given value.
+
+### HasUseV3
+
+`func (o *KafkaIntegration) HasUseV3() bool`
+
+HasUseV3 returns a boolean if a field has been set.
+
+### GetBootstrapServers
+
+`func (o *KafkaIntegration) GetBootstrapServers() string`
+
+GetBootstrapServers returns the BootstrapServers field if non-nil, zero value otherwise.
+
+### GetBootstrapServersOk
+
+`func (o *KafkaIntegration) GetBootstrapServersOk() (*string, bool)`
+
+GetBootstrapServersOk returns a tuple with the BootstrapServers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBootstrapServers
+
+`func (o *KafkaIntegration) SetBootstrapServers(v string)`
+
+SetBootstrapServers sets BootstrapServers field to given value.
+
+### HasBootstrapServers
+
+`func (o *KafkaIntegration) HasBootstrapServers() bool`
+
+HasBootstrapServers returns a boolean if a field has been set.
+
+### GetSecurityConfig
+
+`func (o *KafkaIntegration) GetSecurityConfig() KafkaV3SecurityConfig`
+
+GetSecurityConfig returns the SecurityConfig field if non-nil, zero value otherwise.
+
+### GetSecurityConfigOk
+
+`func (o *KafkaIntegration) GetSecurityConfigOk() (*KafkaV3SecurityConfig, bool)`
+
+GetSecurityConfigOk returns a tuple with the SecurityConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecurityConfig
+
+`func (o *KafkaIntegration) SetSecurityConfig(v KafkaV3SecurityConfig)`
+
+SetSecurityConfig sets SecurityConfig field to given value.
+
+### HasSecurityConfig
+
+`func (o *KafkaIntegration) HasSecurityConfig() bool`
+
+HasSecurityConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

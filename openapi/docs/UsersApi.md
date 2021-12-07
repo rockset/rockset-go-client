@@ -6,8 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateUser**](UsersApi.md#CreateUser) | **Post** /v1/orgs/self/users | Create User
 [**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /v1/orgs/self/users/{user} | Delete User
-[**GetCurrentUser**](UsersApi.md#GetCurrentUser) | **Get** /v1/orgs/self/users/self | Get Current User
+[**GetCurrentUser**](UsersApi.md#GetCurrentUser) | **Get** /v1/orgs/self/users/self | Retrieve Current User
+[**GetUser**](UsersApi.md#GetUser) | **Get** /v1/orgs/self/users/{user} | Retrieve User
+[**ListUnsubscribePreferences**](UsersApi.md#ListUnsubscribePreferences) | **Get** /v1/orgs/self/users/self/preferences | Get all notification preferences
 [**ListUsers**](UsersApi.md#ListUsers) | **Get** /v1/orgs/self/users | List Users
+[**UpdateUnsubscribePreferences**](UsersApi.md#UpdateUnsubscribePreferences) | **Post** /v1/orgs/self/users/self/preferences | Update notification preferences
 
 
 
@@ -151,7 +154,7 @@ No authorization required
 
 > User GetCurrentUser(ctx).Execute()
 
-Get Current User
+Retrieve Current User
 
 
 
@@ -193,6 +196,137 @@ Other parameters are passed through a pointer to a apiGetCurrentUserRequest stru
 ### Return type
 
 [**User**](User.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetUser
+
+> User GetUser(ctx, user).Execute()
+
+Retrieve User
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    user := "user_example" // string | user email
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.GetUser(context.Background(), user).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.GetUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUser`: User
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.GetUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**user** | **string** | user email | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUnsubscribePreferences
+
+> ListUnsubscribePreferencesResponse ListUnsubscribePreferences(ctx).Execute()
+
+Get all notification preferences
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.ListUnsubscribePreferences(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.ListUnsubscribePreferences``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUnsubscribePreferences`: ListUnsubscribePreferencesResponse
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.ListUnsubscribePreferences`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListUnsubscribePreferencesRequest struct via the builder pattern
+
+
+### Return type
+
+[**ListUnsubscribePreferencesResponse**](ListUnsubscribePreferencesResponse.md)
 
 ### Authorization
 
@@ -262,6 +396,72 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateUnsubscribePreferences
+
+> UpdateUnsubscribePreferencesResponse UpdateUnsubscribePreferences(ctx).Body(body).Execute()
+
+Update notification preferences
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    body := *openapiclient.NewUpdateUnsubscribePreferencesRequest() // UpdateUnsubscribePreferencesRequest | JSON Object
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UsersApi.UpdateUnsubscribePreferences(context.Background()).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.UpdateUnsubscribePreferences``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateUnsubscribePreferences`: UpdateUnsubscribePreferencesResponse
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.UpdateUnsubscribePreferences`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateUnsubscribePreferencesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**UpdateUnsubscribePreferencesRequest**](UpdateUnsubscribePreferencesRequest.md) | JSON Object | 
+
+### Return type
+
+[**UpdateUnsubscribePreferencesResponse**](UpdateUnsubscribePreferencesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -56,20 +56,6 @@ func WithQueryLambdaWorkspace(name string) ListQueryLambdaOption {
 	}
 }
 
-type ListQueryLambdaTagsOptions struct {
-	Workspace   *string
-	QueryLambda *string
-}
-
-type ListQueryLambdaTagsOption func(request *ListQueryLambdaTagsOptions)
-
-func WithQueryLambda(workspace, name string) ListQueryLambdaTagsOption {
-	return func(o *ListQueryLambdaTagsOptions) {
-		o.Workspace = &workspace
-		o.QueryLambda = &name
-	}
-}
-
 type CreateQueryLambdaOptions struct {
 	Description     *string
 	QueryParameters []openapi.QueryParameter

@@ -25,7 +25,7 @@ func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization
 	}
 
 	data := resp.GetData()
-	log.Debug().Str("name", data.GetCompanyName()).Msg("organization")
+	log.Debug().Str("name", data.GetDisplayName()).Msg("organization")
 
 	return data, nil
 }

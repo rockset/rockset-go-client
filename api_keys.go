@@ -43,24 +43,12 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 		o(&opts)
 	}
 
-	// create for current user
-	if opts.User == nil {
-		getReq := rc.APIKeysApi.GetApiKey(ctx, name)
-
-		err = rc.Retry(ctx, func() error {
-			resp, _, err = getReq.Execute()
-			return err
-		})
-
-		if err != nil {
-			return openapi.ApiKey{}, err
-		}
-
-		return resp.GetData(), nil
+	user := "self"
+	if opts.User != nil {
+		user = *opts.User
 	}
 
-	// an admin can create for another user
-	getReq := rc.APIKeysApi.GetApiKeyAdmin(ctx, *opts.User, name)
+	getReq := rc.APIKeysApi.GetApiKey(ctx, user, name)
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = getReq.Execute()
@@ -86,24 +74,12 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 		o(&opts)
 	}
 
-	// delete for current user
-	if opts.User == nil {
-		delReq := rc.APIKeysApi.DeleteApiKey(ctx, keyName)
-
-		err = rc.Retry(ctx, func() error {
-			_, _, err = delReq.Execute()
-			return err
-		})
-
-		if err != nil {
-			return err
-		}
-
-		return nil
+	user := "self"
+	if opts.User != nil {
+		user = *opts.User
 	}
 
-	// an admin can delete for another user
-	getReq := rc.APIKeysApi.DeleteApiKeyAdmin(ctx, keyName, *opts.User)
+	getReq := rc.APIKeysApi.DeleteApiKey(ctx, keyName, user)
 
 	err = rc.Retry(ctx, func() error {
 		_, _, err = getReq.Execute()
@@ -130,24 +106,12 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 		o(&opts)
 	}
 
-	// list for current user
-	if opts.User == nil {
-		getReq := rc.APIKeysApi.ListApiKeys(ctx)
-
-		err = rc.Retry(ctx, func() error {
-			resp, _, err = getReq.Execute()
-			return err
-		})
-
-		if err != nil {
-			return nil, err
-		}
-
-		return resp.GetData(), nil
+	user := "self"
+	if opts.User != nil {
+		user = *opts.User
 	}
 
-	// an admin can list for another user
-	getReq := rc.APIKeysApi.ListApiKeysAdmin(ctx, *opts.User)
+	getReq := rc.APIKeysApi.ListApiKeys(ctx, user)
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = getReq.Execute()

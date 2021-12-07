@@ -7,15 +7,12 @@ Method | HTTP request | Description
 [**CreateQueryLambda**](QueryLambdasApi.md#CreateQueryLambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas | Create Query Lambda
 [**CreateQueryLambdaTag**](QueryLambdasApi.md#CreateQueryLambdaTag) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags | Create Query Lambda Tag
 [**DeleteQueryLambda**](QueryLambdasApi.md#DeleteQueryLambda) | **Delete** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda} | Delete Query Lambda
-[**DeleteQueryLambdaTag**](QueryLambdasApi.md#DeleteQueryLambdaTag) | **Delete** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag} | Delete Query Lambda Tag Version
 [**DeleteQueryLambdaVersion**](QueryLambdasApi.md#DeleteQueryLambdaVersion) | **Delete** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/version/{version} | Delete Query Lambda Version
-[**ExecuteQueryLambda**](QueryLambdasApi.md#ExecuteQueryLambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version} | Execute Query Lambda
+[**ExecuteQueryLambda**](QueryLambdasApi.md#ExecuteQueryLambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version} | Execute Query Lambda By Version
 [**ExecuteQueryLambdaByTag**](QueryLambdasApi.md#ExecuteQueryLambdaByTag) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag} | Execute Query Lambda By Tag
-[**GetQueryLambdaTagVersion**](QueryLambdasApi.md#GetQueryLambdaTagVersion) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag} | Get Query Lambda Tag
-[**GetQueryLambdaVersion**](QueryLambdasApi.md#GetQueryLambdaVersion) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version} | Get Query Lambda Version
+[**GetQueryLambdaTagVersion**](QueryLambdasApi.md#GetQueryLambdaTagVersion) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag} | Retrieve Query Lambda Tag
+[**GetQueryLambdaVersion**](QueryLambdasApi.md#GetQueryLambdaVersion) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version} | Retrieve Query Lambda Version
 [**ListAllQueryLambdas**](QueryLambdasApi.md#ListAllQueryLambdas) | **Get** /v1/orgs/self/lambdas | List Query Lambdas
-[**ListOrganizationTags**](QueryLambdasApi.md#ListOrganizationTags) | **Get** /v1/orgs/self/lambdas/tags | List All Query Lambda Tags
-[**ListQueryLambdaTagVersions**](QueryLambdasApi.md#ListQueryLambdaTagVersions) | **Get** /v1/orgs/self/lambdas/tags/{tag} | List Query Lambda Tag Versions
 [**ListQueryLambdaTags**](QueryLambdasApi.md#ListQueryLambdaTags) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags | List Query Lambda Tags
 [**ListQueryLambdaVersions**](QueryLambdasApi.md#ListQueryLambdaVersions) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | List Query Lambda Versions
 [**ListQueryLambdasInWorkspace**](QueryLambdasApi.md#ListQueryLambdasInWorkspace) | **Get** /v1/orgs/self/ws/{workspace}/lambdas | List Query Lambdas in Workspace
@@ -243,82 +240,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DeleteQueryLambdaTag
-
-> QueryLambdaTagResponse DeleteQueryLambdaTag(ctx, workspace, queryLambda, tag).Execute()
-
-Delete Query Lambda Tag Version
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    queryLambda := "queryLambda_example" // string | name of the Query Lambda
-    tag := "tag_example" // string | name of the tag
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.DeleteQueryLambdaTag(context.Background(), workspace, queryLambda, tag).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.DeleteQueryLambdaTag``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteQueryLambdaTag`: QueryLambdaTagResponse
-    fmt.Fprintf(os.Stdout, "Response from `QueryLambdasApi.DeleteQueryLambdaTag`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
-**queryLambda** | **string** | name of the Query Lambda | 
-**tag** | **string** | name of the tag | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteQueryLambdaTagRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-
-
-### Return type
-
-[**QueryLambdaTagResponse**](QueryLambdaTagResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## DeleteQueryLambdaVersion
 
 > QueryLambdaVersionResponse DeleteQueryLambdaVersion(ctx, workspace, queryLambda, version).Execute()
@@ -399,7 +320,7 @@ No authorization required
 
 > QueryResponse ExecuteQueryLambda(ctx, workspace, queryLambda, version).Body(body).Execute()
 
-Execute Query Lambda
+Execute Query Lambda By Version
 
 
 
@@ -555,7 +476,7 @@ No authorization required
 
 > QueryLambdaTagResponse GetQueryLambdaTagVersion(ctx, workspace, queryLambda, tag).Execute()
 
-Get Query Lambda Tag
+Retrieve Query Lambda Tag
 
 
 
@@ -631,7 +552,7 @@ No authorization required
 
 > QueryLambdaVersionResponse GetQueryLambdaVersion(ctx, workspace, queryLambda, version).Execute()
 
-Get Query Lambda Version
+Retrieve Query Lambda Version
 
 
 
@@ -749,137 +670,6 @@ Other parameters are passed through a pointer to a apiListAllQueryLambdasRequest
 ### Return type
 
 [**ListQueryLambdasResponse**](ListQueryLambdasResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListOrganizationTags
-
-> ListQueryLambdaTagsResponse ListOrganizationTags(ctx).Execute()
-
-List All Query Lambda Tags
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ListOrganizationTags(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ListOrganizationTags``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListOrganizationTags`: ListQueryLambdaTagsResponse
-    fmt.Fprintf(os.Stdout, "Response from `QueryLambdasApi.ListOrganizationTags`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListOrganizationTagsRequest struct via the builder pattern
-
-
-### Return type
-
-[**ListQueryLambdaTagsResponse**](ListQueryLambdaTagsResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListQueryLambdaTagVersions
-
-> ListQueryLambdaVersionsResponse ListQueryLambdaTagVersions(ctx, tag).Execute()
-
-List Query Lambda Tag Versions
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    tag := "tag_example" // string | name of the tag
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ListQueryLambdaTagVersions(context.Background(), tag).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ListQueryLambdaTagVersions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListQueryLambdaTagVersions`: ListQueryLambdaVersionsResponse
-    fmt.Fprintf(os.Stdout, "Response from `QueryLambdasApi.ListQueryLambdaTagVersions`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**tag** | **string** | name of the tag | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListQueryLambdaTagVersionsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ListQueryLambdaVersionsResponse**](ListQueryLambdaVersionsResponse.md)
 
 ### Authorization
 

@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **PurgedDocSize** | Pointer to **int64** | total size of bytes purged in bytes | [optional] 
 **BytesInserted** | Pointer to **int64** | total number of bytes inserted into the collection | [optional] 
 **BytesOverwritten** | Pointer to **int64** | total number of bytes overwritten in writing into the collection | [optional] 
+**BulkBytesInserted** | Pointer to **int64** | total number of bytes inserted into the collection during bulk | [optional] 
+**BulkBytesOverwritten** | Pointer to **int64** | total number of bytes overwritten in writing into the collection during bulk | [optional] 
 
 ## Methods
 
@@ -387,6 +389,56 @@ SetBytesOverwritten sets BytesOverwritten field to given value.
 `func (o *CollectionStats) HasBytesOverwritten() bool`
 
 HasBytesOverwritten returns a boolean if a field has been set.
+
+### GetBulkBytesInserted
+
+`func (o *CollectionStats) GetBulkBytesInserted() int64`
+
+GetBulkBytesInserted returns the BulkBytesInserted field if non-nil, zero value otherwise.
+
+### GetBulkBytesInsertedOk
+
+`func (o *CollectionStats) GetBulkBytesInsertedOk() (*int64, bool)`
+
+GetBulkBytesInsertedOk returns a tuple with the BulkBytesInserted field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBulkBytesInserted
+
+`func (o *CollectionStats) SetBulkBytesInserted(v int64)`
+
+SetBulkBytesInserted sets BulkBytesInserted field to given value.
+
+### HasBulkBytesInserted
+
+`func (o *CollectionStats) HasBulkBytesInserted() bool`
+
+HasBulkBytesInserted returns a boolean if a field has been set.
+
+### GetBulkBytesOverwritten
+
+`func (o *CollectionStats) GetBulkBytesOverwritten() int64`
+
+GetBulkBytesOverwritten returns the BulkBytesOverwritten field if non-nil, zero value otherwise.
+
+### GetBulkBytesOverwrittenOk
+
+`func (o *CollectionStats) GetBulkBytesOverwrittenOk() (*int64, bool)`
+
+GetBulkBytesOverwrittenOk returns a tuple with the BulkBytesOverwritten field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBulkBytesOverwritten
+
+`func (o *CollectionStats) SetBulkBytesOverwritten(v int64)`
+
+SetBulkBytesOverwritten sets BulkBytesOverwritten field to given value.
+
+### HasBulkBytesOverwritten
+
+`func (o *CollectionStats) HasBulkBytesOverwritten() bool`
+
+HasBulkBytesOverwritten returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

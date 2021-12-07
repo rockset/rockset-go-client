@@ -31,8 +31,8 @@ import (
 )
 
 func main() {
-    workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    collection := "collection_example" // string | name of the collection
+    workspace := "workspace_example" // string | Name of the workspace. (default to "commons")
+    collection := "collection_example" // string | Name of the collection.
     body := *openapiclient.NewAddDocumentsRequest([]map[string]interface{}{map[string]interface{}(123)}) // AddDocumentsRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
@@ -53,8 +53,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
-**collection** | **string** | name of the collection | 
+**workspace** | **string** | Name of the workspace. | [default to &quot;commons&quot;]
+**collection** | **string** | Name of the collection. | 
 
 ### Other Parameters
 
@@ -106,8 +106,8 @@ import (
 )
 
 func main() {
-    workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    collection := "collection_example" // string | name of the collection
+    workspace := "workspace_example" // string | Name of the workspace. (default to "commons")
+    collection := "collection_example" // string | Name of the collection.
     body := *openapiclient.NewDeleteDocumentsRequest([]openapiclient.DeleteDocumentsRequestData{*openapiclient.NewDeleteDocumentsRequestData("2cd61e3b")}) // DeleteDocumentsRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
@@ -128,8 +128,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
-**collection** | **string** | name of the collection | 
+**workspace** | **string** | Name of the workspace. | [default to &quot;commons&quot;]
+**collection** | **string** | Name of the collection. | 
 
 ### Other Parameters
 
@@ -181,9 +181,9 @@ import (
 )
 
 func main() {
-    workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    collection := "collection_example" // string | name of the collection
-    body := *openapiclient.NewPatchDocumentsRequest([]openapiclient.PatchDocument{*openapiclient.NewPatchDocument("ca2d6832-1bfd-f88f-0620-d2aa27a5d86c", []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("add", "/foo/bar")})}) // PatchDocumentsRequest | JSON Patch objects
+    workspace := "workspace_example" // string | Name of the workspace. (default to "commons")
+    collection := "collection_example" // string | Name of the collection.
+    body := *openapiclient.NewPatchDocumentsRequest([]openapiclient.PatchDocument{*openapiclient.NewPatchDocument("ca2d6832-1bfd-f88f-0620-d2aa27a5d86c", []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("ADD", "/foo/bar")})}) // PatchDocumentsRequest | JSON Patch objects
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -203,8 +203,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
-**collection** | **string** | name of the collection | 
+**workspace** | **string** | Name of the workspace. | [default to &quot;commons&quot;]
+**collection** | **string** | Name of the collection. | 
 
 ### Other Parameters
 

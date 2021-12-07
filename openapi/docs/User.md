@@ -10,10 +10,6 @@ Name | Type | Description | Notes
 **LastName** | Pointer to **string** | user last name | [optional] 
 **Roles** | Pointer to **[]string** | List of roles for a given user | [optional] 
 **State** | Pointer to **string** | state of user - NEW / ACTIVE | [optional] 
-**Org** | Pointer to **string** |  | [optional] 
-**InviteState** | Pointer to **string** |  | [optional] 
-**Orgs** | Pointer to [**[]Organization**](Organization.md) |  | [optional] 
-**OrgMemberships** | Pointer to [**[]OrgMembership**](OrgMembership.md) |  | [optional] 
 
 ## Methods
 
@@ -178,106 +174,6 @@ SetState sets State field to given value.
 `func (o *User) HasState() bool`
 
 HasState returns a boolean if a field has been set.
-
-### GetOrg
-
-`func (o *User) GetOrg() string`
-
-GetOrg returns the Org field if non-nil, zero value otherwise.
-
-### GetOrgOk
-
-`func (o *User) GetOrgOk() (*string, bool)`
-
-GetOrgOk returns a tuple with the Org field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrg
-
-`func (o *User) SetOrg(v string)`
-
-SetOrg sets Org field to given value.
-
-### HasOrg
-
-`func (o *User) HasOrg() bool`
-
-HasOrg returns a boolean if a field has been set.
-
-### GetInviteState
-
-`func (o *User) GetInviteState() string`
-
-GetInviteState returns the InviteState field if non-nil, zero value otherwise.
-
-### GetInviteStateOk
-
-`func (o *User) GetInviteStateOk() (*string, bool)`
-
-GetInviteStateOk returns a tuple with the InviteState field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInviteState
-
-`func (o *User) SetInviteState(v string)`
-
-SetInviteState sets InviteState field to given value.
-
-### HasInviteState
-
-`func (o *User) HasInviteState() bool`
-
-HasInviteState returns a boolean if a field has been set.
-
-### GetOrgs
-
-`func (o *User) GetOrgs() []Organization`
-
-GetOrgs returns the Orgs field if non-nil, zero value otherwise.
-
-### GetOrgsOk
-
-`func (o *User) GetOrgsOk() (*[]Organization, bool)`
-
-GetOrgsOk returns a tuple with the Orgs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrgs
-
-`func (o *User) SetOrgs(v []Organization)`
-
-SetOrgs sets Orgs field to given value.
-
-### HasOrgs
-
-`func (o *User) HasOrgs() bool`
-
-HasOrgs returns a boolean if a field has been set.
-
-### GetOrgMemberships
-
-`func (o *User) GetOrgMemberships() []OrgMembership`
-
-GetOrgMemberships returns the OrgMemberships field if non-nil, zero value otherwise.
-
-### GetOrgMembershipsOk
-
-`func (o *User) GetOrgMembershipsOk() (*[]OrgMembership, bool)`
-
-GetOrgMembershipsOk returns a tuple with the OrgMemberships field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetOrgMemberships
-
-`func (o *User) SetOrgMemberships(v []OrgMembership)`
-
-SetOrgMemberships sets OrgMemberships field to given value.
-
-### HasOrgMemberships
-
-`func (o *User) HasOrgMemberships() bool`
-
-HasOrgMemberships returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

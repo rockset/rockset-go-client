@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | descriptive label | 
+**Name** | **string** | Name for this API key. | 
 **Role** | Pointer to **string** |  | [optional] 
 
 ## Methods

@@ -15,11 +15,11 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 
 	q := rc.QueriesApi.Query(ctx)
 	rq := openapi.NewQueryRequestWithDefaults()
-	rq.Sql = openapi.NewQueryRequestSql(sql)
+	rq.Sql = openapi.QueryRequestSql{Query: sql}
 	rq.Sql.Parameters = &[]openapi.QueryParameter{}
 
 	for _, o := range options {
-		o(rq.Sql)
+		o(&rq.Sql)
 	}
 
 	err = rc.Retry(ctx, func() error {
@@ -43,11 +43,11 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	q := rc.QueriesApi.Validate(ctx)
 
 	rq := openapi.NewQueryRequestWithDefaults()
-	rq.Sql = openapi.NewQueryRequestSql(sql)
+	rq.Sql = openapi.QueryRequestSql{Query: sql}
 	rq.Sql.Parameters = &[]openapi.QueryParameter{}
 
 	for _, o := range options {
-		o(rq.Sql)
+		o(&rq.Sql)
 	}
 
 	err = rc.Retry(ctx, func() error {
