@@ -137,25 +137,6 @@ func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name,
 	return resp.GetData(), nil
 }
 
-// DeleteQueryLambdaTag deletes a query lambda tag.
-//
-// https://docs.rockset.com/rest-api/#deletequerylambdatag
-func (rc *RockClient) DeleteQueryLambdaTag(ctx context.Context, workspace, name, tag string) error {
-	var err error
-
-	q := rc.QueryLambdasApi.DeleteQueryLambdaTag(ctx, workspace, name, tag)
-	err = rc.Retry(ctx, func() error {
-		_, _, err = q.Execute()
-		return err
-	})
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 // DeleteQueryLambdaVersion deletes a query lambda version.
 //
 // https://docs.rockset.com/rest-api/#deletequerylambdaversion
@@ -291,25 +272,6 @@ func (rc *RockClient) ListQueryLambdas(ctx context.Context,
 	return resp.GetData(), err
 }
 
-// ListQueryLambdaTagVersions lists all query lambdas for the tag.
-func (rc *RockClient) ListQueryLambdaTagVersions(ctx context.Context,
-	tag string) ([]openapi.QueryLambdaVersion, error) {
-	var err error
-	var resp openapi.ListQueryLambdaVersionsResponse
-
-	q := rc.QueryLambdasApi.ListQueryLambdaTagVersions(ctx, tag)
-	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
-	})
-
-	if err != nil {
-		return nil, err
-	}
-
-	return resp.GetData(), err
-}
-
 // ListQueryLambdaVersions lists all versions for a query lambda.
 func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 	workspace, name string) ([]openapi.QueryLambdaVersion, error) {
@@ -329,32 +291,16 @@ func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 	return resp.GetData(), err
 }
 
-// ListQueryLambdaTags lists all tags for the organization, or for a specific query lambda if the
-// option.WithQueryLambda is used.
-func (rc *RockClient) ListQueryLambdaTags(ctx context.Context,
-	options ...option.ListQueryLambdaTagsOption) ([]openapi.QueryLambdaTag, error) {
+// ListQueryLambdaTags lists all tags for a query lambda.
+func (rc *RockClient) ListQueryLambdaTags(ctx context.Context, workspace, queryLambda string) ([]openapi.QueryLambdaTag, error) {
 	var err error
 	var resp openapi.ListQueryLambdaTagsResponse
 
-	opts := option.ListQueryLambdaTagsOptions{}
-
-	for _, o := range options {
-		o(&opts)
-	}
-
-	if opts.Workspace == nil {
-		q := rc.QueryLambdasApi.ListOrganizationTags(ctx)
-		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Execute()
-			return err
-		})
-	} else {
-		q := rc.QueryLambdasApi.ListQueryLambdaTags(ctx, *opts.Workspace, *opts.QueryLambda)
-		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Execute()
-			return err
-		})
-	}
+	q := rc.QueryLambdasApi.ListQueryLambdaTags(ctx, workspace, queryLambda)
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Execute()
+		return err
+	})
 
 	if err != nil {
 		return nil, err

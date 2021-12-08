@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | list of named parameters | [optional] 
-**Query** | **string** | SQL query as a string | 
-**DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the query | [optional] 
-**GenerateWarnings** | Pointer to **bool** | Whether to generate warnings | [optional] 
-**ProfilingEnabled** | Pointer to **bool** | Whether to generate a performance profile for this query | [optional] 
+**Query** | **string** | SQL query string. | 
+**GenerateWarnings** | Pointer to **bool** | Flag to enable warnings. Warnings can help debug query issues but negatively affect performance. | [optional] 
+**ProfilingEnabled** | Pointer to **bool** | Flag to generate a performance profile for this query. | [optional] 
+**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
+**DefaultRowLimit** | Pointer to **int32** | Row limit to use. Limits specified in the query text will override this default. | [optional] 
+**Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
+**InitialPaginateResponseDocCount** | Pointer to **int32** | Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
 
 ## Methods
 
@@ -29,31 +31,6 @@ NewQueryRequestSqlWithDefaults instantiates a new QueryRequestSql object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetParameters
-
-`func (o *QueryRequestSql) GetParameters() []QueryParameter`
-
-GetParameters returns the Parameters field if non-nil, zero value otherwise.
-
-### GetParametersOk
-
-`func (o *QueryRequestSql) GetParametersOk() (*[]QueryParameter, bool)`
-
-GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetParameters
-
-`func (o *QueryRequestSql) SetParameters(v []QueryParameter)`
-
-SetParameters sets Parameters field to given value.
-
-### HasParameters
-
-`func (o *QueryRequestSql) HasParameters() bool`
-
-HasParameters returns a boolean if a field has been set.
-
 ### GetQuery
 
 `func (o *QueryRequestSql) GetQuery() string`
@@ -73,31 +50,6 @@ and a boolean to check if the value has been set.
 
 SetQuery sets Query field to given value.
 
-
-### GetDefaultRowLimit
-
-`func (o *QueryRequestSql) GetDefaultRowLimit() int32`
-
-GetDefaultRowLimit returns the DefaultRowLimit field if non-nil, zero value otherwise.
-
-### GetDefaultRowLimitOk
-
-`func (o *QueryRequestSql) GetDefaultRowLimitOk() (*int32, bool)`
-
-GetDefaultRowLimitOk returns a tuple with the DefaultRowLimit field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDefaultRowLimit
-
-`func (o *QueryRequestSql) SetDefaultRowLimit(v int32)`
-
-SetDefaultRowLimit sets DefaultRowLimit field to given value.
-
-### HasDefaultRowLimit
-
-`func (o *QueryRequestSql) HasDefaultRowLimit() bool`
-
-HasDefaultRowLimit returns a boolean if a field has been set.
 
 ### GetGenerateWarnings
 
@@ -148,6 +100,106 @@ SetProfilingEnabled sets ProfilingEnabled field to given value.
 `func (o *QueryRequestSql) HasProfilingEnabled() bool`
 
 HasProfilingEnabled returns a boolean if a field has been set.
+
+### GetParameters
+
+`func (o *QueryRequestSql) GetParameters() []QueryParameter`
+
+GetParameters returns the Parameters field if non-nil, zero value otherwise.
+
+### GetParametersOk
+
+`func (o *QueryRequestSql) GetParametersOk() (*[]QueryParameter, bool)`
+
+GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParameters
+
+`func (o *QueryRequestSql) SetParameters(v []QueryParameter)`
+
+SetParameters sets Parameters field to given value.
+
+### HasParameters
+
+`func (o *QueryRequestSql) HasParameters() bool`
+
+HasParameters returns a boolean if a field has been set.
+
+### GetDefaultRowLimit
+
+`func (o *QueryRequestSql) GetDefaultRowLimit() int32`
+
+GetDefaultRowLimit returns the DefaultRowLimit field if non-nil, zero value otherwise.
+
+### GetDefaultRowLimitOk
+
+`func (o *QueryRequestSql) GetDefaultRowLimitOk() (*int32, bool)`
+
+GetDefaultRowLimitOk returns a tuple with the DefaultRowLimit field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultRowLimit
+
+`func (o *QueryRequestSql) SetDefaultRowLimit(v int32)`
+
+SetDefaultRowLimit sets DefaultRowLimit field to given value.
+
+### HasDefaultRowLimit
+
+`func (o *QueryRequestSql) HasDefaultRowLimit() bool`
+
+HasDefaultRowLimit returns a boolean if a field has been set.
+
+### GetPaginate
+
+`func (o *QueryRequestSql) GetPaginate() bool`
+
+GetPaginate returns the Paginate field if non-nil, zero value otherwise.
+
+### GetPaginateOk
+
+`func (o *QueryRequestSql) GetPaginateOk() (*bool, bool)`
+
+GetPaginateOk returns a tuple with the Paginate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaginate
+
+`func (o *QueryRequestSql) SetPaginate(v bool)`
+
+SetPaginate sets Paginate field to given value.
+
+### HasPaginate
+
+`func (o *QueryRequestSql) HasPaginate() bool`
+
+HasPaginate returns a boolean if a field has been set.
+
+### GetInitialPaginateResponseDocCount
+
+`func (o *QueryRequestSql) GetInitialPaginateResponseDocCount() int32`
+
+GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field if non-nil, zero value otherwise.
+
+### GetInitialPaginateResponseDocCountOk
+
+`func (o *QueryRequestSql) GetInitialPaginateResponseDocCountOk() (*int32, bool)`
+
+GetInitialPaginateResponseDocCountOk returns a tuple with the InitialPaginateResponseDocCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInitialPaginateResponseDocCount
+
+`func (o *QueryRequestSql) SetInitialPaginateResponseDocCount(v int32)`
+
+SetInitialPaginateResponseDocCount sets InitialPaginateResponseDocCount field to given value.
+
+### HasInitialPaginateResponseDocCount
+
+`func (o *QueryRequestSql) HasInitialPaginateResponseDocCount() bool`
+
+HasInitialPaginateResponseDocCount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

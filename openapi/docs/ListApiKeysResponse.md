@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]ApiKey**](ApiKey.md) | list of API key objects | [optional] 
+**Data** | Pointer to [**[]ApiKey**](ApiKey.md) | List of API key objects. | [optional] 
 
 ## Methods
 

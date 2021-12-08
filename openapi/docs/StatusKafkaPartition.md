@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PartitionNumber** | Pointer to **int32** | The number of this partition | [optional] 
-**NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed by this partition | [optional] 
+**PartitionOffset** | Pointer to **int64** | Latest offset of partition | [optional] 
 
 ## Methods
 
@@ -51,30 +51,30 @@ SetPartitionNumber sets PartitionNumber field to given value.
 
 HasPartitionNumber returns a boolean if a field has been set.
 
-### GetNumDocumentsProcessed
+### GetPartitionOffset
 
-`func (o *StatusKafkaPartition) GetNumDocumentsProcessed() int64`
+`func (o *StatusKafkaPartition) GetPartitionOffset() int64`
 
-GetNumDocumentsProcessed returns the NumDocumentsProcessed field if non-nil, zero value otherwise.
+GetPartitionOffset returns the PartitionOffset field if non-nil, zero value otherwise.
 
-### GetNumDocumentsProcessedOk
+### GetPartitionOffsetOk
 
-`func (o *StatusKafkaPartition) GetNumDocumentsProcessedOk() (*int64, bool)`
+`func (o *StatusKafkaPartition) GetPartitionOffsetOk() (*int64, bool)`
 
-GetNumDocumentsProcessedOk returns a tuple with the NumDocumentsProcessed field if it's non-nil, zero value otherwise
+GetPartitionOffsetOk returns a tuple with the PartitionOffset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetNumDocumentsProcessed
+### SetPartitionOffset
 
-`func (o *StatusKafkaPartition) SetNumDocumentsProcessed(v int64)`
+`func (o *StatusKafkaPartition) SetPartitionOffset(v int64)`
 
-SetNumDocumentsProcessed sets NumDocumentsProcessed field to given value.
+SetPartitionOffset sets PartitionOffset field to given value.
 
-### HasNumDocumentsProcessed
+### HasPartitionOffset
 
-`func (o *StatusKafkaPartition) HasNumDocumentsProcessed() bool`
+`func (o *StatusKafkaPartition) HasPartitionOffset() bool`
 
-HasNumDocumentsProcessed returns a boolean if a field has been set.
+HasPartitionOffset returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

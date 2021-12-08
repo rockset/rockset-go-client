@@ -30,7 +30,7 @@ import (
 )
 
 func main() {
-    body := *openapiclient.NewQueryRequest() // QueryRequest | JSON object
+    body := *openapiclient.NewQueryRequest(*openapiclient.NewQueryRequestSql("SELECT * FROM foo where _id = :_id")) // QueryRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -77,7 +77,7 @@ No authorization required
 
 ## Validate
 
-> ValidateQueryResponse Validate(ctx).Body(body).Parameters(parameters).Execute()
+> ValidateQueryResponse Validate(ctx).Body(body).Execute()
 
 Validate Query
 
@@ -96,12 +96,11 @@ import (
 )
 
 func main() {
-    body := *openapiclient.NewQueryRequest() // QueryRequest | JSON object
-    parameters := true // bool |  (optional)
+    body := *openapiclient.NewQueryRequest(*openapiclient.NewQueryRequestSql("SELECT * FROM foo where _id = :_id")) // QueryRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueriesApi.Validate(context.Background()).Body(body).Parameters(parameters).Execute()
+    resp, r, err := api_client.QueriesApi.Validate(context.Background()).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueriesApi.Validate``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -123,7 +122,6 @@ Other parameters are passed through a pointer to a apiValidateRequest struct via
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**QueryRequest**](QueryRequest.md) | JSON object | 
- **parameters** | **bool** |  | 
 
 ### Return type
 

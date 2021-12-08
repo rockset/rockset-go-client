@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
-**Name** | **string** | descriptive label | 
-**Key** | **string** | string of 64 alphanumeric characters. | 
-**LastAccessTime** | Pointer to **string** | ISO-8601 date | [optional] 
+**CreatedAt** | Pointer to **string** | Date that API key was created (ISO-8601 format). | [optional] 
+**Name** | **string** | Name of the API key. | 
+**Key** | **string** | API key string of 64 alphanumeric characters. | 
+**LastAccessTime** | Pointer to **string** | Date that API key was most recently used (ISO-8601 format). | [optional] 
 **Role** | Pointer to **string** |  | [optional] 
-**CreatedBy** | Pointer to **string** |  | [optional] 
+**CreatedBy** | Pointer to **string** | Email of API key owner. | [optional] 
+**State** | Pointer to **string** | current state of this key | [optional] 
 
 ## Methods
 
@@ -169,6 +170,31 @@ SetCreatedBy sets CreatedBy field to given value.
 `func (o *ApiKey) HasCreatedBy() bool`
 
 HasCreatedBy returns a boolean if a field has been set.
+
+### GetState
+
+`func (o *ApiKey) GetState() string`
+
+GetState returns the State field if non-nil, zero value otherwise.
+
+### GetStateOk
+
+`func (o *ApiKey) GetStateOk() (*string, bool)`
+
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetState
+
+`func (o *ApiKey) SetState(v string)`
+
+SetState sets State field to given value.
+
+### HasState
+
+`func (o *ApiKey) HasState() bool`
+
+HasState returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

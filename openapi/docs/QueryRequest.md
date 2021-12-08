@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sql** | Pointer to [**QueryRequestSql**](QueryRequestSql.md) |  | [optional] 
+**Sql** | [**QueryRequestSql**](QueryRequestSql.md) |  | 
 
 ## Methods
 
 ### NewQueryRequest
 
-`func NewQueryRequest() *QueryRequest`
+`func NewQueryRequest(sql QueryRequestSql, ) *QueryRequest`
 
 NewQueryRequest instantiates a new QueryRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +44,6 @@ and a boolean to check if the value has been set.
 
 SetSql sets Sql field to given value.
 
-### HasSql
-
-`func (o *QueryRequest) HasSql() bool`
-
-HasSql returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

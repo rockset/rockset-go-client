@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **State** | Pointer to **string** | State of the Kafka source | [optional] 
 **LastConsumedTime** | Pointer to **string** | Time at which the last document was consumed from Kafka | [optional] 
 **NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed by this Kafka topic | [optional] 
+**KafkaPartitions** | Pointer to [**[]StatusKafkaPartition**](StatusKafkaPartition.md) | Status info per partition | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetNumDocumentsProcessed sets NumDocumentsProcessed field to given value.
 `func (o *StatusKafka) HasNumDocumentsProcessed() bool`
 
 HasNumDocumentsProcessed returns a boolean if a field has been set.
+
+### GetKafkaPartitions
+
+`func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition`
+
+GetKafkaPartitions returns the KafkaPartitions field if non-nil, zero value otherwise.
+
+### GetKafkaPartitionsOk
+
+`func (o *StatusKafka) GetKafkaPartitionsOk() (*[]StatusKafkaPartition, bool)`
+
+GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKafkaPartitions
+
+`func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition)`
+
+SetKafkaPartitions sets KafkaPartitions field to given value.
+
+### HasKafkaPartitions
+
+`func (o *StatusKafka) HasKafkaPartitions() bool`
+
+HasKafkaPartitions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -41,6 +41,15 @@ func WithDynamoDBMaxRCU(maxRCU int64) CollectionOption {
 	}
 }
 
+// WithFieldMappingQuery sets the field mapping query
+func WithFieldMappingQuery(sql string) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		o.FieldMappingQuery = &openapi.FieldMappingQuery{
+			Sql: &sql,
+		}
+	}
+}
+
 type EventTimeInfoFormat string
 
 const (

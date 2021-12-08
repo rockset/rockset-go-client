@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**FormatVersion** | Pointer to **int64** |  | [optional] 
 **GroupSize** | Pointer to **int64** |  | [optional] 
 **RestartLength** | Pointer to **int64** |  | [optional] 
 **EventTimeCodec** | Pointer to **string** |  | [optional] 
@@ -27,6 +28,31 @@ will change when the set of required properties is changed
 NewInvertedIndexGroupEncodingOptionsWithDefaults instantiates a new InvertedIndexGroupEncodingOptions object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetFormatVersion
+
+`func (o *InvertedIndexGroupEncodingOptions) GetFormatVersion() int64`
+
+GetFormatVersion returns the FormatVersion field if non-nil, zero value otherwise.
+
+### GetFormatVersionOk
+
+`func (o *InvertedIndexGroupEncodingOptions) GetFormatVersionOk() (*int64, bool)`
+
+GetFormatVersionOk returns a tuple with the FormatVersion field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFormatVersion
+
+`func (o *InvertedIndexGroupEncodingOptions) SetFormatVersion(v int64)`
+
+SetFormatVersion sets FormatVersion field to given value.
+
+### HasFormatVersion
+
+`func (o *InvertedIndexGroupEncodingOptions) HasFormatVersion() bool`
+
+HasFormatVersion returns a boolean if a field has been set.
 
 ### GetGroupSize
 

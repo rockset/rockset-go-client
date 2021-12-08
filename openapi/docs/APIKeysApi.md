@@ -5,12 +5,10 @@ All URIs are relative to *https://api.rs2.usw2.rockset.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateApiKey**](APIKeysApi.md#CreateApiKey) | **Post** /v1/orgs/self/users/self/apikeys | Create API Key
-[**DeleteApiKey**](APIKeysApi.md#DeleteApiKey) | **Delete** /v1/orgs/self/users/self/apikeys/{name} | Delete API Key
-[**DeleteApiKeyAdmin**](APIKeysApi.md#DeleteApiKeyAdmin) | **Delete** /v1/orgs/self/users/{user}/apikeys/{name} | Delete API Key (any user)
-[**GetApiKey**](APIKeysApi.md#GetApiKey) | **Get** /v1/orgs/self/users/self/apikeys/{name} | Get API Key
-[**GetApiKeyAdmin**](APIKeysApi.md#GetApiKeyAdmin) | **Get** /v1/orgs/self/users/{user}/apikeys/{name} | Get any API Key
-[**ListApiKeys**](APIKeysApi.md#ListApiKeys) | **Get** /v1/orgs/self/users/self/apikeys | List API Keys
-[**ListApiKeysAdmin**](APIKeysApi.md#ListApiKeysAdmin) | **Get** /v1/orgs/self/users/{user}/apikeys | List API Keys (any user)
+[**DeleteApiKey**](APIKeysApi.md#DeleteApiKey) | **Delete** /v1/orgs/self/users/{user}/apikeys/{name} | Delete API Key
+[**GetApiKey**](APIKeysApi.md#GetApiKey) | **Get** /v1/orgs/self/users/{user}/apikeys/{name} | Retrieve API Key
+[**ListApiKeys**](APIKeysApi.md#ListApiKeys) | **Get** /v1/orgs/self/users/{user}/apikeys | List API Keys.
+[**UpdateApiKey**](APIKeysApi.md#UpdateApiKey) | **Post** /v1/orgs/self/users/{user}/apikeys/{name} | Update an API key&#39;s state
 
 
 
@@ -35,7 +33,7 @@ import (
 )
 
 func main() {
-    body := *openapiclient.NewCreateApiKeyRequest("event-logger") // CreateApiKeyRequest | JSON object
+    body := *openapiclient.NewCreateApiKeyRequest("my-app") // CreateApiKeyRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -82,7 +80,7 @@ No authorization required
 
 ## DeleteApiKey
 
-> DeleteApiKeyResponse DeleteApiKey(ctx, name).Execute()
+> DeleteApiKeyResponse DeleteApiKey(ctx, name, user).Execute()
 
 Delete API Key
 
@@ -101,11 +99,12 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | name of the API key
+    name := "my-key" // string | Name of the API key.
+    user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.DeleteApiKey(context.Background(), name).Execute()
+    resp, r, err := api_client.APIKeysApi.DeleteApiKey(context.Background(), name, user).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.DeleteApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -121,83 +120,12 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | name of the API key | 
+**name** | **string** | Name of the API key. | 
+**user** | **string** | Email of the API key owner. Use &#x60;self&#x60; to specify the currently authenticated user. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteApiKeyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**DeleteApiKeyResponse**](DeleteApiKeyResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteApiKeyAdmin
-
-> DeleteApiKeyResponse DeleteApiKeyAdmin(ctx, name, user).Execute()
-
-Delete API Key (any user)
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    name := "name_example" // string | name of the API key
-    user := "user_example" // string | user email
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.DeleteApiKeyAdmin(context.Background(), name, user).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.DeleteApiKeyAdmin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteApiKeyAdmin`: DeleteApiKeyResponse
-    fmt.Fprintf(os.Stdout, "Response from `APIKeysApi.DeleteApiKeyAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | name of the API key | 
-**user** | **string** | user email | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteApiKeyAdminRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -225,9 +153,9 @@ No authorization required
 
 ## GetApiKey
 
-> GetApiKeyResponse GetApiKey(ctx, name).Execute()
+> GetApiKeyResponse GetApiKey(ctx, user, name).Execute()
 
-Get API Key
+Retrieve API Key
 
 
 
@@ -244,11 +172,12 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | name of the API key
+    user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
+    name := "my-key" // string | Name of the API key.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.GetApiKey(context.Background(), name).Execute()
+    resp, r, err := api_client.APIKeysApi.GetApiKey(context.Background(), user, name).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.GetApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -264,83 +193,12 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** | name of the API key | 
+**user** | **string** | Email of the API key owner. Use &#x60;self&#x60; to specify the currently authenticated user. | 
+**name** | **string** | Name of the API key. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetApiKeyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**GetApiKeyResponse**](GetApiKeyResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetApiKeyAdmin
-
-> GetApiKeyResponse GetApiKeyAdmin(ctx, user, name).Execute()
-
-Get any API Key
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    user := "user_example" // string | email of the api key owner
-    name := "name_example" // string | name of the API key
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.GetApiKeyAdmin(context.Background(), user, name).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.GetApiKeyAdmin``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApiKeyAdmin`: GetApiKeyResponse
-    fmt.Fprintf(os.Stdout, "Response from `APIKeysApi.GetApiKeyAdmin`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**user** | **string** | email of the api key owner | 
-**name** | **string** | name of the API key | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetApiKeyAdminRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -368,9 +226,9 @@ No authorization required
 
 ## ListApiKeys
 
-> ListApiKeysResponse ListApiKeys(ctx).Execute()
+> ListApiKeysResponse ListApiKeys(ctx, user).Execute()
 
-List API Keys
+List API Keys.
 
 
 
@@ -387,10 +245,11 @@ import (
 )
 
 func main() {
+    user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.ListApiKeys(context.Background()).Execute()
+    resp, r, err := api_client.APIKeysApi.ListApiKeys(context.Background(), user).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.ListApiKeys``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -402,11 +261,19 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**user** | **string** | Email of the API key owner. Use &#x60;self&#x60; to specify the currently authenticated user. | 
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListApiKeysRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
 
 
 ### Return type
@@ -427,11 +294,11 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListApiKeysAdmin
+## UpdateApiKey
 
-> ListApiKeysResponse ListApiKeysAdmin(ctx, user).Execute()
+> UpdateApiKeyResponse UpdateApiKey(ctx, name, user).Body(body).Execute()
 
-List API Keys (any user)
+Update an API key's state
 
 
 
@@ -448,17 +315,19 @@ import (
 )
 
 func main() {
-    user := "user_example" // string | user email
+    name := "my-key" // string | Name of the API key.
+    user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
+    body := *openapiclient.NewUpdateApiKeyRequest() // UpdateApiKeyRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.ListApiKeysAdmin(context.Background(), user).Execute()
+    resp, r, err := api_client.APIKeysApi.UpdateApiKey(context.Background(), name, user).Body(body).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.ListApiKeysAdmin``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.UpdateApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListApiKeysAdmin`: ListApiKeysResponse
-    fmt.Fprintf(os.Stdout, "Response from `APIKeysApi.ListApiKeysAdmin`: %v\n", resp)
+    // response from `UpdateApiKey`: UpdateApiKeyResponse
+    fmt.Fprintf(os.Stdout, "Response from `APIKeysApi.UpdateApiKey`: %v\n", resp)
 }
 ```
 
@@ -468,20 +337,23 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**user** | **string** | user email | 
+**name** | **string** | Name of the API key. | 
+**user** | **string** | Email of the API key owner. Use &#x60;self&#x60; to specify the currently authenticated user. | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListApiKeysAdminRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiUpdateApiKeyRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **body** | [**UpdateApiKeyRequest**](UpdateApiKeyRequest.md) | JSON object | 
+
 ### Return type
 
-[**ListApiKeysResponse**](ListApiKeysResponse.md)
+[**UpdateApiKeyResponse**](UpdateApiKeyResponse.md)
 
 ### Authorization
 
@@ -489,7 +361,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

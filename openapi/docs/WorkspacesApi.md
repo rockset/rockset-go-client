@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**ChildWorkspaces**](WorkspacesApi.md#ChildWorkspaces) | **Get** /v1/orgs/self/ws/{workspace}/ws | List Workspaces in Workspace
 [**CreateWorkspace**](WorkspacesApi.md#CreateWorkspace) | **Post** /v1/orgs/self/ws | Create Workspace
 [**DeleteWorkspace**](WorkspacesApi.md#DeleteWorkspace) | **Delete** /v1/orgs/self/ws/{workspace} | Delete Workspace
-[**GetWorkspace**](WorkspacesApi.md#GetWorkspace) | **Get** /v1/orgs/self/ws/{workspace} | Get Workspace
+[**GetWorkspace**](WorkspacesApi.md#GetWorkspace) | **Get** /v1/orgs/self/ws/{workspace} | Retrieve Workspace
 [**ListWorkspaces**](WorkspacesApi.md#ListWorkspaces) | **Get** /v1/orgs/self/ws | List Workspaces
 
 
@@ -222,7 +222,7 @@ No authorization required
 
 > GetWorkspaceResponse GetWorkspace(ctx, workspace).Execute()
 
-Get Workspace
+Retrieve Workspace
 
 
 
@@ -290,7 +290,7 @@ No authorization required
 
 ## ListWorkspaces
 
-> ListWorkspacesResponse ListWorkspaces(ctx).Execute()
+> ListWorkspacesResponse ListWorkspaces(ctx).FetchAcrossRegions(fetchAcrossRegions).Execute()
 
 List Workspaces
 
@@ -309,10 +309,11 @@ import (
 )
 
 func main() {
+    fetchAcrossRegions := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkspacesApi.ListWorkspaces(context.Background()).Execute()
+    resp, r, err := api_client.WorkspacesApi.ListWorkspaces(context.Background()).FetchAcrossRegions(fetchAcrossRegions).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.ListWorkspaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -324,12 +325,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListWorkspacesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **fetchAcrossRegions** | **bool** |  | 
 
 ### Return type
 

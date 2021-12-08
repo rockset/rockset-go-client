@@ -10,8 +10,10 @@ docker run --rm \
     -i /rockset/spec/spec2.yaml \
     --git-user-id rockset \
     --git-repo-id rockset-go-client \
-    --additional-properties packageVersion=0.11.0,isGoSubmodule=true,generateInterfaces=true \
+    --additional-properties packageVersion=0.12.0,generateInterfaces=true \
     -o /rockset/openapi
+
+rm openapi/go.*
 
 go get -u ./...
 

@@ -8,9 +8,11 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | text describing the collection | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | list of sources from which to ingest data | [optional] 
 **RetentionSecs** | Pointer to **int64** | number of seconds after which data is purged, based on event time | [optional] 
-**TimePartitionResolutionSecs** | Pointer to **int64** | If non-null, the collection will be time partition and each partition will be time_partition_resolution_secs wide. | [optional] 
+**TimePartitionResolutionSecs** | Pointer to **int64** | If non-null, the collection will be time partitioned and each partition will be time_partition_resolution_secs wide. | [optional] 
+**InsertOnly** | Pointer to **bool** | If true disallows updates and deletes, but makes indexing more efficient | [optional] 
 **EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
 **FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | list of mappings | [optional] 
+**FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields | [optional] 
 **FieldSchemas** | Pointer to [**[]FieldSchema**](FieldSchema.md) | list of field schemas | [optional] 
 **InvertedIndexGroupEncodingOptions** | Pointer to [**InvertedIndexGroupEncodingOptions**](InvertedIndexGroupEncodingOptions.md) |  | [optional] 
@@ -154,6 +156,31 @@ SetTimePartitionResolutionSecs sets TimePartitionResolutionSecs field to given v
 
 HasTimePartitionResolutionSecs returns a boolean if a field has been set.
 
+### GetInsertOnly
+
+`func (o *CreateCollectionRequest) GetInsertOnly() bool`
+
+GetInsertOnly returns the InsertOnly field if non-nil, zero value otherwise.
+
+### GetInsertOnlyOk
+
+`func (o *CreateCollectionRequest) GetInsertOnlyOk() (*bool, bool)`
+
+GetInsertOnlyOk returns a tuple with the InsertOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInsertOnly
+
+`func (o *CreateCollectionRequest) SetInsertOnly(v bool)`
+
+SetInsertOnly sets InsertOnly field to given value.
+
+### HasInsertOnly
+
+`func (o *CreateCollectionRequest) HasInsertOnly() bool`
+
+HasInsertOnly returns a boolean if a field has been set.
+
 ### GetEventTimeInfo
 
 `func (o *CreateCollectionRequest) GetEventTimeInfo() EventTimeInfo`
@@ -203,6 +230,31 @@ SetFieldMappings sets FieldMappings field to given value.
 `func (o *CreateCollectionRequest) HasFieldMappings() bool`
 
 HasFieldMappings returns a boolean if a field has been set.
+
+### GetFieldMappingQuery
+
+`func (o *CreateCollectionRequest) GetFieldMappingQuery() FieldMappingQuery`
+
+GetFieldMappingQuery returns the FieldMappingQuery field if non-nil, zero value otherwise.
+
+### GetFieldMappingQueryOk
+
+`func (o *CreateCollectionRequest) GetFieldMappingQueryOk() (*FieldMappingQuery, bool)`
+
+GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFieldMappingQuery
+
+`func (o *CreateCollectionRequest) SetFieldMappingQuery(v FieldMappingQuery)`
+
+SetFieldMappingQuery sets FieldMappingQuery field to given value.
+
+### HasFieldMappingQuery
+
+`func (o *CreateCollectionRequest) HasFieldMappingQuery() bool`
+
+HasFieldMappingQuery returns a boolean if a field has been set.
 
 ### GetClusteringKey
 

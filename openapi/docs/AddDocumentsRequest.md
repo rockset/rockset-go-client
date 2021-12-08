@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | **[]map[string]interface{}** | Array of JSON documents | 
+**Data** | **[]map[string]interface{}** | Array of documents to be added to the collection. | 
 
 ## Methods
 

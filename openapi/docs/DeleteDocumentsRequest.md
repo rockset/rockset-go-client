@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | [**[]DeleteDocumentsRequestData**](DeleteDocumentsRequestData.md) | array of document IDs | 
+**Data** | [**[]DeleteDocumentsRequestData**](DeleteDocumentsRequestData.md) | Array of IDs of documents to be deleted | 
 
 ## Methods
 

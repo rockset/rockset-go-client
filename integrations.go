@@ -282,9 +282,10 @@ func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, t
 		o(&opts)
 	}
 
+	f := format.String()
 	req.Kafka = &openapi.KafkaIntegration{
-		KafkaTopicNames: topics,
-		KafkaDataFormat: format.String(),
+		KafkaTopicNames: &topics,
+		KafkaDataFormat: &f,
 	}
 	if opts.Description != nil {
 		req.Description = opts.Description
