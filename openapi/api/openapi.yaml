@@ -6396,6 +6396,36 @@ components:
       required:
       - aws_role_arn
       type: object
+    Cluster:
+      properties:
+        id:
+          description: unique identifier for the cluster
+          example: asdf98-as9df8adf-adsf9asfd
+          type: string
+        cluster_type:
+          description: cluster type
+          enum:
+          - PUBLIC
+          - PRIVATE
+          example: PRIVATE
+          type: string
+        aws_region:
+          description: aws region
+          example: us-west-2
+          type: string
+        domain:
+          description: domain of org using cluster
+          example: rockset
+          type: string
+        top_level_domain:
+          description: top level domain of org using cluster
+          example: .com
+          type: string
+        apiserver_url:
+          description: api server url for cluster
+          example: api.rockset.us-west-2.rockset.com
+          type: string
+      type: object
     Collection:
       example:
         field_mapping_query:
@@ -6465,8 +6495,10 @@ components:
               kafka_partitions:
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               state: ACTIVE
             use_v3: true
           format_params:
@@ -6580,8 +6612,10 @@ components:
               kafka_partitions:
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               state: ACTIVE
             use_v3: true
           format_params:
@@ -7082,8 +7116,10 @@ components:
               kafka_partitions:
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               state: ACTIVE
             use_v3: true
           format_params:
@@ -7197,8 +7233,10 @@ components:
               kafka_partitions:
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               - partition_offset: 100
                 partition_number: 123
+                offset_lag: 10
               state: ACTIVE
             use_v3: true
           format_params:
@@ -7427,8 +7465,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -7542,8 +7582,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -7866,8 +7908,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -7981,8 +8025,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -8212,8 +8258,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -8327,8 +8375,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -8858,8 +8908,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -8973,8 +9025,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -9275,8 +9329,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -9390,8 +9446,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -9621,8 +9679,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -9736,8 +9796,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -10488,8 +10550,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -10603,8 +10667,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -10848,8 +10914,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -10963,8 +11031,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -11194,8 +11264,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -11309,8 +11381,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -11666,8 +11740,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -11781,8 +11857,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -12012,8 +12090,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -12127,8 +12207,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -12577,8 +12659,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -12692,8 +12776,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -12923,8 +13009,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -13038,8 +13126,10 @@ components:
                 kafka_partitions:
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 - partition_offset: 100
                   partition_number: 123
+                  offset_lag: 10
                 state: ACTIVE
               use_v3: true
             format_params:
@@ -13286,8 +13376,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -13401,8 +13493,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -13632,8 +13726,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -13747,8 +13843,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -14021,8 +14119,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -14136,8 +14236,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -14367,8 +14469,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -14482,8 +14586,10 @@ components:
                   kafka_partitions:
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   - partition_offset: 100
                     partition_number: 123
+                    offset_lag: 10
                   state: ACTIVE
                 use_v3: true
               format_params:
@@ -15053,11 +15159,28 @@ components:
       example:
         deletionScheduledAt: deletionScheduledAt
         created_at: 2001-08-28T00:23:41Z
+        external_id: <hash>
+        rockset_user: <id>
         id: rockset
         display_name: Rockset, Inc
+        clusters: '[{ ... }]'
       properties:
         deletionScheduledAt:
           type: string
+        rockset_user:
+          description: Rockset's global AWS user
+          example: <id>
+          type: string
+        external_id:
+          description: organization's unique external ID within Rockset
+          example: <hash>
+          type: string
+        clusters:
+          description: list of clusters associated with this org
+          example: '[{ ... }]'
+          items:
+            $ref: '#/components/schemas/Cluster'
+          type: array
         id:
           description: unique identifier for the organization
           example: rockset
@@ -15076,8 +15199,11 @@ components:
         data:
           deletionScheduledAt: deletionScheduledAt
           created_at: 2001-08-28T00:23:41Z
+          external_id: <hash>
+          rockset_user: <id>
           id: rockset
           display_name: Rockset, Inc
+          clusters: '[{ ... }]'
       properties:
         data:
           $ref: '#/components/schemas/Organization'
@@ -16004,8 +16130,10 @@ components:
             kafka_partitions:
             - partition_offset: 100
               partition_number: 123
+              offset_lag: 10
             - partition_offset: 100
               partition_number: 123
+              offset_lag: 10
             state: ACTIVE
           use_v3: true
         format_params:
@@ -16203,8 +16331,10 @@ components:
           kafka_partitions:
           - partition_offset: 100
             partition_number: 123
+            offset_lag: 10
           - partition_offset: 100
             partition_number: 123
+            offset_lag: 10
           state: ACTIVE
         use_v3: true
       properties:
@@ -16510,8 +16640,10 @@ components:
         kafka_partitions:
         - partition_offset: 100
           partition_number: 123
+          offset_lag: 10
         - partition_offset: 100
           partition_number: 123
+          offset_lag: 10
         state: ACTIVE
       properties:
         state:
@@ -16541,6 +16673,7 @@ components:
       example:
         partition_offset: 100
         partition_number: 123
+        offset_lag: 10
       properties:
         partition_number:
           description: The number of this partition
@@ -16550,6 +16683,11 @@ components:
         partition_offset:
           description: Latest offset of partition
           example: 100
+          format: int64
+          type: integer
+        offset_lag:
+          description: Per partition lag for offset
+          example: 10
           format: int64
           type: integer
       type: object

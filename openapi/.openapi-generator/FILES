@@ -26,6 +26,7 @@ docs/AliasesApi.md
 docs/ApiKey.md
 docs/AwsAccessKey.md
 docs/AwsRole.md
+docs/Cluster.md
 docs/Collection.md
 docs/CollectionStats.md
 docs/CollectionsApi.md
@@ -181,6 +182,7 @@ model_alias.go
 model_api_key.go
 model_aws_access_key.go
 model_aws_role.go
+model_cluster.go
 model_collection.go
 model_collection_stats.go
 model_create_alias_request.go
