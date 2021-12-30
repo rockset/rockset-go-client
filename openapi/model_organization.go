@@ -17,6 +17,12 @@ import (
 // Organization An organization in Rockset is a container for users and collections.
 type Organization struct {
 	DeletionScheduledAt *string `json:"deletionScheduledAt,omitempty"`
+	// Rockset's global AWS user
+	RocksetUser *string `json:"rockset_user,omitempty"`
+	// organization's unique external ID within Rockset
+	ExternalId *string `json:"external_id,omitempty"`
+	// list of clusters associated with this org
+	Clusters *[]Cluster `json:"clusters,omitempty"`
 	// unique identifier for the organization
 	Id *string `json:"id,omitempty"`
 	// ISO-8601 date
@@ -72,6 +78,102 @@ func (o *Organization) HasDeletionScheduledAt() bool {
 // SetDeletionScheduledAt gets a reference to the given string and assigns it to the DeletionScheduledAt field.
 func (o *Organization) SetDeletionScheduledAt(v string) {
 	o.DeletionScheduledAt = &v
+}
+
+// GetRocksetUser returns the RocksetUser field value if set, zero value otherwise.
+func (o *Organization) GetRocksetUser() string {
+	if o == nil || o.RocksetUser == nil {
+		var ret string
+		return ret
+	}
+	return *o.RocksetUser
+}
+
+// GetRocksetUserOk returns a tuple with the RocksetUser field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetRocksetUserOk() (*string, bool) {
+	if o == nil || o.RocksetUser == nil {
+		return nil, false
+	}
+	return o.RocksetUser, true
+}
+
+// HasRocksetUser returns a boolean if a field has been set.
+func (o *Organization) HasRocksetUser() bool {
+	if o != nil && o.RocksetUser != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRocksetUser gets a reference to the given string and assigns it to the RocksetUser field.
+func (o *Organization) SetRocksetUser(v string) {
+	o.RocksetUser = &v
+}
+
+// GetExternalId returns the ExternalId field value if set, zero value otherwise.
+func (o *Organization) GetExternalId() string {
+	if o == nil || o.ExternalId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ExternalId
+}
+
+// GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetExternalIdOk() (*string, bool) {
+	if o == nil || o.ExternalId == nil {
+		return nil, false
+	}
+	return o.ExternalId, true
+}
+
+// HasExternalId returns a boolean if a field has been set.
+func (o *Organization) HasExternalId() bool {
+	if o != nil && o.ExternalId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalId gets a reference to the given string and assigns it to the ExternalId field.
+func (o *Organization) SetExternalId(v string) {
+	o.ExternalId = &v
+}
+
+// GetClusters returns the Clusters field value if set, zero value otherwise.
+func (o *Organization) GetClusters() []Cluster {
+	if o == nil || o.Clusters == nil {
+		var ret []Cluster
+		return ret
+	}
+	return *o.Clusters
+}
+
+// GetClustersOk returns a tuple with the Clusters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetClustersOk() (*[]Cluster, bool) {
+	if o == nil || o.Clusters == nil {
+		return nil, false
+	}
+	return o.Clusters, true
+}
+
+// HasClusters returns a boolean if a field has been set.
+func (o *Organization) HasClusters() bool {
+	if o != nil && o.Clusters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClusters gets a reference to the given []Cluster and assigns it to the Clusters field.
+func (o *Organization) SetClusters(v []Cluster) {
+	o.Clusters = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -174,6 +276,15 @@ func (o Organization) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.DeletionScheduledAt != nil {
 		toSerialize["deletionScheduledAt"] = o.DeletionScheduledAt
+	}
+	if o.RocksetUser != nil {
+		toSerialize["rockset_user"] = o.RocksetUser
+	}
+	if o.ExternalId != nil {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if o.Clusters != nil {
+		toSerialize["clusters"] = o.Clusters
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id

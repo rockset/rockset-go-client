@@ -20,6 +20,8 @@ type StatusKafkaPartition struct {
 	PartitionNumber *int32 `json:"partition_number,omitempty"`
 	// Latest offset of partition
 	PartitionOffset *int64 `json:"partition_offset,omitempty"`
+	// Per partition lag for offset
+	OffsetLag *int64 `json:"offset_lag,omitempty"`
 }
 
 // NewStatusKafkaPartition instantiates a new StatusKafkaPartition object
@@ -103,6 +105,38 @@ func (o *StatusKafkaPartition) SetPartitionOffset(v int64) {
 	o.PartitionOffset = &v
 }
 
+// GetOffsetLag returns the OffsetLag field value if set, zero value otherwise.
+func (o *StatusKafkaPartition) GetOffsetLag() int64 {
+	if o == nil || o.OffsetLag == nil {
+		var ret int64
+		return ret
+	}
+	return *o.OffsetLag
+}
+
+// GetOffsetLagOk returns a tuple with the OffsetLag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatusKafkaPartition) GetOffsetLagOk() (*int64, bool) {
+	if o == nil || o.OffsetLag == nil {
+		return nil, false
+	}
+	return o.OffsetLag, true
+}
+
+// HasOffsetLag returns a boolean if a field has been set.
+func (o *StatusKafkaPartition) HasOffsetLag() bool {
+	if o != nil && o.OffsetLag != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOffsetLag gets a reference to the given int64 and assigns it to the OffsetLag field.
+func (o *StatusKafkaPartition) SetOffsetLag(v int64) {
+	o.OffsetLag = &v
+}
+
 func (o StatusKafkaPartition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PartitionNumber != nil {
@@ -110,6 +144,9 @@ func (o StatusKafkaPartition) MarshalJSON() ([]byte, error) {
 	}
 	if o.PartitionOffset != nil {
 		toSerialize["partition_offset"] = o.PartitionOffset
+	}
+	if o.OffsetLag != nil {
+		toSerialize["offset_lag"] = o.OffsetLag
 	}
 	return json.Marshal(toSerialize)
 }

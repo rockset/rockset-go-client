@@ -2,6 +2,8 @@
 
 set -e
 
+VERSION=$(grep --only-matching --extended-regexp '\d+\.\d+\.\d+' version.go)
+
 rm -rf openapi
 
 docker run --rm \
@@ -10,7 +12,7 @@ docker run --rm \
     -i /rockset/spec/spec2.yaml \
     --git-user-id rockset \
     --git-repo-id rockset-go-client \
-    --additional-properties packageVersion=0.12.0,generateInterfaces=true \
+    --additional-properties "packageVersion=${VERSION},generateInterfaces=true" \
     -o /rockset/openapi
 
 rm openapi/go.*

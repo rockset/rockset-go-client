@@ -49,15 +49,6 @@ fmt.Printf("%+v\n", res)
 
 ## Testing
 
-For local development, add a `replace` directive in `go.mod`
-
-```
-replace (
-       github.com/rockset/rockset-go-client/option => ./option
-       github.com/rockset/rockset-go-client/openapi => ./openapi
-)
-```
-
 There are a number of testable examples which require an API key, i.e. set the `ROCKSET_APIKEY` 
 environment variable. 
 
