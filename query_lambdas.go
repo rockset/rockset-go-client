@@ -115,7 +115,8 @@ func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sq
 // CreateQueryLambdaTag creates a new tag for the query lambda version.
 //
 // https://docs.rockset.com/rest-api/#createquerylambdatag
-func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name, version, tag string) (openapi.QueryLambdaTag, error) {
+func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name, version,
+	tag string) (openapi.QueryLambdaTag, error) {
 	var err error
 	var resp openapi.QueryLambdaTagResponse
 
@@ -144,6 +145,25 @@ func (rc *RockClient) DeleteQueryLambdaVersion(ctx context.Context, workspace, n
 	var err error
 
 	q := rc.QueryLambdasApi.DeleteQueryLambdaVersion(ctx, workspace, name, version)
+	err = rc.Retry(ctx, func() error {
+		_, _, err = q.Execute()
+		return err
+	})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// DeleteQueryLambdaTag deletes a query lambda tag.
+//
+// https://docs.rockset.com/rest-api/#deletequerylambdatag
+func (rc *RockClient) DeleteQueryLambdaTag(ctx context.Context, workspace, name, tag string) error {
+	var err error
+
+	q := rc.QueryLambdasApi.DeleteQueryLambdaTag(ctx, workspace, name, tag)
 	err = rc.Retry(ctx, func() error {
 		_, _, err = q.Execute()
 		return err
@@ -292,7 +312,8 @@ func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 }
 
 // ListQueryLambdaTags lists all tags for a query lambda.
-func (rc *RockClient) ListQueryLambdaTags(ctx context.Context, workspace, queryLambda string) ([]openapi.QueryLambdaTag, error) {
+func (rc *RockClient) ListQueryLambdaTags(ctx context.Context, workspace,
+	queryLambda string) ([]openapi.QueryLambdaTag, error) {
 	var err error
 	var resp openapi.ListQueryLambdaTagsResponse
 

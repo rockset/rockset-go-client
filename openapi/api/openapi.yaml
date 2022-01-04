@@ -5033,6 +5033,117 @@ paths:
       - Query Lambdas
       x-codegen-request-body-name: body
   /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}:
+    delete:
+      description: Delete a tag for a specific Query Lambda
+      operationId: deleteQueryLambdaTag
+      parameters:
+      - description: name of the workspace
+        in: path
+        name: workspace
+        required: true
+        schema:
+          default: commons
+          type: string
+      - description: name of the Query Lambda
+        in: path
+        name: queryLambda
+        required: true
+        schema:
+          type: string
+      - description: name of the tag
+        in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryLambdaTagResponse'
+          description: tag deleted successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Delete Query Lambda Tag Version
+      tags:
+      - Query Lambdas
     get:
       description: Retrieve the Query Lambda version associated with a given tag.
       operationId: getQueryLambdaTagVersion
