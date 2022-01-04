@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateQueryLambda**](QueryLambdasApi.md#CreateQueryLambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas | Create Query Lambda
 [**CreateQueryLambdaTag**](QueryLambdasApi.md#CreateQueryLambdaTag) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags | Create Query Lambda Tag
 [**DeleteQueryLambda**](QueryLambdasApi.md#DeleteQueryLambda) | **Delete** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda} | Delete Query Lambda
+[**DeleteQueryLambdaTag**](QueryLambdasApi.md#DeleteQueryLambdaTag) | **Delete** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag} | Delete Query Lambda Tag Version
 [**DeleteQueryLambdaVersion**](QueryLambdasApi.md#DeleteQueryLambdaVersion) | **Delete** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/version/{version} | Delete Query Lambda Version
 [**ExecuteQueryLambda**](QueryLambdasApi.md#ExecuteQueryLambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version} | Execute Query Lambda By Version
 [**ExecuteQueryLambdaByTag**](QueryLambdasApi.md#ExecuteQueryLambdaByTag) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag} | Execute Query Lambda By Tag
@@ -225,6 +226,82 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeleteQueryLambdaResponse**](DeleteQueryLambdaResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteQueryLambdaTag
+
+> QueryLambdaTagResponse DeleteQueryLambdaTag(ctx, workspace, queryLambda, tag).Execute()
+
+Delete Query Lambda Tag Version
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    workspace := "workspace_example" // string | name of the workspace (default to "commons")
+    queryLambda := "queryLambda_example" // string | name of the Query Lambda
+    tag := "tag_example" // string | name of the tag
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.QueryLambdasApi.DeleteQueryLambdaTag(context.Background(), workspace, queryLambda, tag).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.DeleteQueryLambdaTag``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `DeleteQueryLambdaTag`: QueryLambdaTagResponse
+    fmt.Fprintf(os.Stdout, "Response from `QueryLambdasApi.DeleteQueryLambdaTag`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
+**queryLambda** | **string** | name of the Query Lambda | 
+**tag** | **string** | name of the tag | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteQueryLambdaTagRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+[**QueryLambdaTagResponse**](QueryLambdaTagResponse.md)
 
 ### Authorization
 
