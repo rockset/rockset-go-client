@@ -25,7 +25,7 @@ type Alias struct {
 	// email of the creator
 	CreatorEmail *string `json:"creator_email,omitempty"`
 	// list of fully qualified collection names referenced by alias
-	Collections *[]string `json:"collections,omitempty"`
+	Collections []string `json:"collections,omitempty"`
 	// state of the alias
 	State *string `json:"state,omitempty"`
 	// ISO-8601 date
@@ -185,12 +185,12 @@ func (o *Alias) GetCollections() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Collections
+	return o.Collections
 }
 
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Alias) GetCollectionsOk() (*[]string, bool) {
+func (o *Alias) GetCollectionsOk() ([]string, bool) {
 	if o == nil || o.Collections == nil {
 		return nil, false
 	}
@@ -208,7 +208,7 @@ func (o *Alias) HasCollections() bool {
 
 // SetCollections gets a reference to the given []string and assigns it to the Collections field.
 func (o *Alias) SetCollections(v []string) {
-	o.Collections = &v
+	o.Collections = v
 }
 
 // GetState returns the State field value if set, zero value otherwise.

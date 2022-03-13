@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type CollectionsApi interface {
@@ -31,83 +31,83 @@ type CollectionsApi interface {
 
 	Create new collection in a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiCreateCollectionRequest
 	*/
-	CreateCollection(ctx _context.Context, workspace string) ApiCreateCollectionRequest
+	CreateCollection(ctx context.Context, workspace string) ApiCreateCollectionRequest
 
 	// CreateCollectionExecute executes the request
 	//  @return CreateCollectionResponse
-	CreateCollectionExecute(r ApiCreateCollectionRequest) (CreateCollectionResponse, *_nethttp.Response, error)
+	CreateCollectionExecute(r ApiCreateCollectionRequest) (*CreateCollectionResponse, *http.Response, error)
 
 	/*
 	DeleteCollection Delete Collection
 
 	Delete a collection and all its documents from Rockset.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param collection name of the collection
 	 @return ApiDeleteCollectionRequest
 	*/
-	DeleteCollection(ctx _context.Context, workspace string, collection string) ApiDeleteCollectionRequest
+	DeleteCollection(ctx context.Context, workspace string, collection string) ApiDeleteCollectionRequest
 
 	// DeleteCollectionExecute executes the request
 	//  @return DeleteCollectionResponse
-	DeleteCollectionExecute(r ApiDeleteCollectionRequest) (DeleteCollectionResponse, *_nethttp.Response, error)
+	DeleteCollectionExecute(r ApiDeleteCollectionRequest) (*DeleteCollectionResponse, *http.Response, error)
 
 	/*
 	GetCollection Retrieve Collection
 
 	Get details about a collection.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param collection name of the collection
 	 @return ApiGetCollectionRequest
 	*/
-	GetCollection(ctx _context.Context, workspace string, collection string) ApiGetCollectionRequest
+	GetCollection(ctx context.Context, workspace string, collection string) ApiGetCollectionRequest
 
 	// GetCollectionExecute executes the request
 	//  @return GetCollectionResponse
-	GetCollectionExecute(r ApiGetCollectionRequest) (GetCollectionResponse, *_nethttp.Response, error)
+	GetCollectionExecute(r ApiGetCollectionRequest) (*GetCollectionResponse, *http.Response, error)
 
 	/*
 	ListCollections List Collections
 
 	Retrieve all collections in an organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListCollectionsRequest
 	*/
-	ListCollections(ctx _context.Context) ApiListCollectionsRequest
+	ListCollections(ctx context.Context) ApiListCollectionsRequest
 
 	// ListCollectionsExecute executes the request
 	//  @return ListCollectionsResponse
-	ListCollectionsExecute(r ApiListCollectionsRequest) (ListCollectionsResponse, *_nethttp.Response, error)
+	ListCollectionsExecute(r ApiListCollectionsRequest) (*ListCollectionsResponse, *http.Response, error)
 
 	/*
 	WorkspaceCollections List Collections in Workspace
 
 	Retrieve all collections in a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiWorkspaceCollectionsRequest
 	*/
-	WorkspaceCollections(ctx _context.Context, workspace string) ApiWorkspaceCollectionsRequest
+	WorkspaceCollections(ctx context.Context, workspace string) ApiWorkspaceCollectionsRequest
 
 	// WorkspaceCollectionsExecute executes the request
 	//  @return ListCollectionsResponse
-	WorkspaceCollectionsExecute(r ApiWorkspaceCollectionsRequest) (ListCollectionsResponse, *_nethttp.Response, error)
+	WorkspaceCollectionsExecute(r ApiWorkspaceCollectionsRequest) (*ListCollectionsResponse, *http.Response, error)
 }
 
 // CollectionsApiService CollectionsApi service
 type CollectionsApiService service
 
 type ApiCreateCollectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService CollectionsApi
 	workspace string
 	body *CreateCollectionRequest
@@ -119,7 +119,7 @@ func (r ApiCreateCollectionRequest) Body(body CreateCollectionRequest) ApiCreate
 	return r
 }
 
-func (r ApiCreateCollectionRequest) Execute() (CreateCollectionResponse, *_nethttp.Response, error) {
+func (r ApiCreateCollectionRequest) Execute() (*CreateCollectionResponse, *http.Response, error) {
 	return r.ApiService.CreateCollectionExecute(r)
 }
 
@@ -128,11 +128,11 @@ CreateCollection Create Collection
 
 Create new collection in a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiCreateCollectionRequest
 */
-func (a *CollectionsApiService) CreateCollection(ctx _context.Context, workspace string) ApiCreateCollectionRequest {
+func (a *CollectionsApiService) CreateCollection(ctx context.Context, workspace string) ApiCreateCollectionRequest {
 	return ApiCreateCollectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -142,25 +142,25 @@ func (a *CollectionsApiService) CreateCollection(ctx _context.Context, workspace
 
 // Execute executes the request
 //  @return CreateCollectionResponse
-func (a *CollectionsApiService) CreateCollectionExecute(r ApiCreateCollectionRequest) (CreateCollectionResponse, *_nethttp.Response, error) {
+func (a *CollectionsApiService) CreateCollectionExecute(r ApiCreateCollectionRequest) (*CreateCollectionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  CreateCollectionResponse
+		localVarReturnValue  *CreateCollectionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CollectionsApiService.CreateCollection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -194,15 +194,15 @@ func (a *CollectionsApiService) CreateCollectionExecute(r ApiCreateCollectionReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -340,7 +340,7 @@ func (a *CollectionsApiService) CreateCollectionExecute(r ApiCreateCollectionReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -351,14 +351,14 @@ func (a *CollectionsApiService) CreateCollectionExecute(r ApiCreateCollectionReq
 }
 
 type ApiDeleteCollectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService CollectionsApi
 	workspace string
 	collection string
 }
 
 
-func (r ApiDeleteCollectionRequest) Execute() (DeleteCollectionResponse, *_nethttp.Response, error) {
+func (r ApiDeleteCollectionRequest) Execute() (*DeleteCollectionResponse, *http.Response, error) {
 	return r.ApiService.DeleteCollectionExecute(r)
 }
 
@@ -367,12 +367,12 @@ DeleteCollection Delete Collection
 
 Delete a collection and all its documents from Rockset.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param collection name of the collection
  @return ApiDeleteCollectionRequest
 */
-func (a *CollectionsApiService) DeleteCollection(ctx _context.Context, workspace string, collection string) ApiDeleteCollectionRequest {
+func (a *CollectionsApiService) DeleteCollection(ctx context.Context, workspace string, collection string) ApiDeleteCollectionRequest {
 	return ApiDeleteCollectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -383,26 +383,26 @@ func (a *CollectionsApiService) DeleteCollection(ctx _context.Context, workspace
 
 // Execute executes the request
 //  @return DeleteCollectionResponse
-func (a *CollectionsApiService) DeleteCollectionExecute(r ApiDeleteCollectionRequest) (DeleteCollectionResponse, *_nethttp.Response, error) {
+func (a *CollectionsApiService) DeleteCollectionExecute(r ApiDeleteCollectionRequest) (*DeleteCollectionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteCollectionResponse
+		localVarReturnValue  *DeleteCollectionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CollectionsApiService.DeleteCollection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", _neturl.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -431,15 +431,15 @@ func (a *CollectionsApiService) DeleteCollectionExecute(r ApiDeleteCollectionReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -577,7 +577,7 @@ func (a *CollectionsApiService) DeleteCollectionExecute(r ApiDeleteCollectionReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -588,14 +588,14 @@ func (a *CollectionsApiService) DeleteCollectionExecute(r ApiDeleteCollectionReq
 }
 
 type ApiGetCollectionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService CollectionsApi
 	workspace string
 	collection string
 }
 
 
-func (r ApiGetCollectionRequest) Execute() (GetCollectionResponse, *_nethttp.Response, error) {
+func (r ApiGetCollectionRequest) Execute() (*GetCollectionResponse, *http.Response, error) {
 	return r.ApiService.GetCollectionExecute(r)
 }
 
@@ -604,12 +604,12 @@ GetCollection Retrieve Collection
 
 Get details about a collection.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param collection name of the collection
  @return ApiGetCollectionRequest
 */
-func (a *CollectionsApiService) GetCollection(ctx _context.Context, workspace string, collection string) ApiGetCollectionRequest {
+func (a *CollectionsApiService) GetCollection(ctx context.Context, workspace string, collection string) ApiGetCollectionRequest {
 	return ApiGetCollectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -620,26 +620,26 @@ func (a *CollectionsApiService) GetCollection(ctx _context.Context, workspace st
 
 // Execute executes the request
 //  @return GetCollectionResponse
-func (a *CollectionsApiService) GetCollectionExecute(r ApiGetCollectionRequest) (GetCollectionResponse, *_nethttp.Response, error) {
+func (a *CollectionsApiService) GetCollectionExecute(r ApiGetCollectionRequest) (*GetCollectionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetCollectionResponse
+		localVarReturnValue  *GetCollectionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CollectionsApiService.GetCollection")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", _neturl.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -668,15 +668,15 @@ func (a *CollectionsApiService) GetCollectionExecute(r ApiGetCollectionRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -814,7 +814,7 @@ func (a *CollectionsApiService) GetCollectionExecute(r ApiGetCollectionRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -825,12 +825,12 @@ func (a *CollectionsApiService) GetCollectionExecute(r ApiGetCollectionRequest) 
 }
 
 type ApiListCollectionsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService CollectionsApi
 }
 
 
-func (r ApiListCollectionsRequest) Execute() (ListCollectionsResponse, *_nethttp.Response, error) {
+func (r ApiListCollectionsRequest) Execute() (*ListCollectionsResponse, *http.Response, error) {
 	return r.ApiService.ListCollectionsExecute(r)
 }
 
@@ -839,10 +839,10 @@ ListCollections List Collections
 
 Retrieve all collections in an organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListCollectionsRequest
 */
-func (a *CollectionsApiService) ListCollections(ctx _context.Context) ApiListCollectionsRequest {
+func (a *CollectionsApiService) ListCollections(ctx context.Context) ApiListCollectionsRequest {
 	return ApiListCollectionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -851,24 +851,24 @@ func (a *CollectionsApiService) ListCollections(ctx _context.Context) ApiListCol
 
 // Execute executes the request
 //  @return ListCollectionsResponse
-func (a *CollectionsApiService) ListCollectionsExecute(r ApiListCollectionsRequest) (ListCollectionsResponse, *_nethttp.Response, error) {
+func (a *CollectionsApiService) ListCollectionsExecute(r ApiListCollectionsRequest) (*ListCollectionsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListCollectionsResponse
+		localVarReturnValue  *ListCollectionsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CollectionsApiService.ListCollections")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/collections"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -897,15 +897,15 @@ func (a *CollectionsApiService) ListCollectionsExecute(r ApiListCollectionsReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1043,7 +1043,7 @@ func (a *CollectionsApiService) ListCollectionsExecute(r ApiListCollectionsReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1054,13 +1054,13 @@ func (a *CollectionsApiService) ListCollectionsExecute(r ApiListCollectionsReque
 }
 
 type ApiWorkspaceCollectionsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService CollectionsApi
 	workspace string
 }
 
 
-func (r ApiWorkspaceCollectionsRequest) Execute() (ListCollectionsResponse, *_nethttp.Response, error) {
+func (r ApiWorkspaceCollectionsRequest) Execute() (*ListCollectionsResponse, *http.Response, error) {
 	return r.ApiService.WorkspaceCollectionsExecute(r)
 }
 
@@ -1069,11 +1069,11 @@ WorkspaceCollections List Collections in Workspace
 
 Retrieve all collections in a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiWorkspaceCollectionsRequest
 */
-func (a *CollectionsApiService) WorkspaceCollections(ctx _context.Context, workspace string) ApiWorkspaceCollectionsRequest {
+func (a *CollectionsApiService) WorkspaceCollections(ctx context.Context, workspace string) ApiWorkspaceCollectionsRequest {
 	return ApiWorkspaceCollectionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1083,25 +1083,25 @@ func (a *CollectionsApiService) WorkspaceCollections(ctx _context.Context, works
 
 // Execute executes the request
 //  @return ListCollectionsResponse
-func (a *CollectionsApiService) WorkspaceCollectionsExecute(r ApiWorkspaceCollectionsRequest) (ListCollectionsResponse, *_nethttp.Response, error) {
+func (a *CollectionsApiService) WorkspaceCollectionsExecute(r ApiWorkspaceCollectionsRequest) (*ListCollectionsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListCollectionsResponse
+		localVarReturnValue  *ListCollectionsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CollectionsApiService.WorkspaceCollections")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1130,15 +1130,15 @@ func (a *CollectionsApiService) WorkspaceCollectionsExecute(r ApiWorkspaceCollec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1276,7 +1276,7 @@ func (a *CollectionsApiService) WorkspaceCollectionsExecute(r ApiWorkspaceCollec
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

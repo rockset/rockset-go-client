@@ -50,11 +50,11 @@ func (o *FieldMask) GetInputPath() []string {
 
 // GetInputPathOk returns a tuple with the InputPath field value
 // and a boolean to check if the value has been set.
-func (o *FieldMask) GetInputPathOk() (*[]string, bool) {
+func (o *FieldMask) GetInputPathOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.InputPath, true
+	return o.InputPath, true
 }
 
 // SetInputPath sets field value

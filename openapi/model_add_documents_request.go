@@ -50,11 +50,11 @@ func (o *AddDocumentsRequest) GetData() []map[string]interface{} {
 
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
-func (o *AddDocumentsRequest) GetDataOk() (*[]map[string]interface{}, bool) {
+func (o *AddDocumentsRequest) GetDataOk() ([]map[string]interface{}, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Data, true
+	return o.Data, true
 }
 
 // SetData sets field value

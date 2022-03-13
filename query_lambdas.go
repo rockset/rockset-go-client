@@ -17,7 +17,7 @@ const LatestTag = "latest"
 func (rc *RockClient) CreateQueryLambda(ctx context.Context, workspace, name, sql string,
 	options ...option.CreateQueryLambdaOption) (openapi.QueryLambdaVersion, error) {
 	var err error
-	var resp openapi.QueryLambdaVersionResponse
+	var resp *openapi.QueryLambdaVersionResponse
 
 	q := rc.QueryLambdasApi.CreateQueryLambda(ctx, workspace)
 	req := openapi.NewCreateQueryLambdaRequestWithDefaults()
@@ -37,7 +37,7 @@ func (rc *RockClient) CreateQueryLambda(ctx context.Context, workspace, name, sq
 	}
 
 	if len(opts.QueryParameters) > 0 {
-		req.Sql.DefaultParameters = &opts.QueryParameters
+		req.Sql.DefaultParameters = opts.QueryParameters
 	}
 
 	err = rc.Retry(ctx, func() error {
@@ -78,7 +78,7 @@ func (rc *RockClient) DeleteQueryLambda(ctx context.Context, workspace, name str
 func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sql string,
 	options ...option.CreateQueryLambdaOption) (openapi.QueryLambdaVersion, error) {
 	var err error
-	var resp openapi.QueryLambdaVersionResponse
+	var resp *openapi.QueryLambdaVersionResponse
 
 	q := rc.QueryLambdasApi.UpdateQueryLambda(ctx, workspace, name)
 	req := openapi.NewUpdateQueryLambdaRequestWithDefaults()
@@ -97,7 +97,7 @@ func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sq
 	}
 
 	if len(opts.QueryParameters) > 0 {
-		req.Sql.DefaultParameters = &opts.QueryParameters
+		req.Sql.DefaultParameters = opts.QueryParameters
 	}
 
 	err = rc.Retry(ctx, func() error {
@@ -118,7 +118,7 @@ func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sq
 func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name, version,
 	tag string) (openapi.QueryLambdaTag, error) {
 	var err error
-	var resp openapi.QueryLambdaTagResponse
+	var resp *openapi.QueryLambdaTagResponse
 
 	q := rc.QueryLambdasApi.CreateQueryLambdaTag(ctx, workspace, name)
 	req := openapi.NewCreateQueryLambdaTagRequestWithDefaults()
@@ -192,7 +192,7 @@ func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name st
 	}
 
 	var err error
-	var resp openapi.QueryResponse
+	var resp *openapi.QueryResponse
 	if req.Version != "" {
 		q := rc.QueryLambdasApi.ExecuteQueryLambda(ctx, workspace, name, req.Version)
 		err = rc.Retry(ctx, func() error {
@@ -217,14 +217,14 @@ func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name st
 		return openapi.QueryResponse{}, err
 	}
 
-	return resp, nil
+	return *resp, nil
 }
 
 // GetQueryLambdaVersionByTag gets the query lambda version for a tag.
 func (rc *RockClient) GetQueryLambdaVersionByTag(ctx context.Context,
 	workspace, name, tag string) (openapi.QueryLambdaTag, error) {
 	var err error
-	var resp openapi.QueryLambdaTagResponse
+	var resp *openapi.QueryLambdaTagResponse
 
 	q := rc.QueryLambdasApi.GetQueryLambdaTagVersion(ctx, workspace, name, tag)
 	err = rc.Retry(ctx, func() error {
@@ -243,7 +243,7 @@ func (rc *RockClient) GetQueryLambdaVersionByTag(ctx context.Context,
 func (rc *RockClient) GetQueryLambdaVersion(ctx context.Context,
 	workspace, name, version string) (openapi.QueryLambdaVersion, error) {
 	var err error
-	var resp openapi.QueryLambdaVersionResponse
+	var resp *openapi.QueryLambdaVersionResponse
 
 	q := rc.QueryLambdasApi.GetQueryLambdaVersion(ctx, workspace, name, version)
 	err = rc.Retry(ctx, func() error {
@@ -264,7 +264,7 @@ func (rc *RockClient) GetQueryLambdaVersion(ctx context.Context,
 func (rc *RockClient) ListQueryLambdas(ctx context.Context,
 	options ...option.ListQueryLambdaOption) ([]openapi.QueryLambda, error) {
 	var err error
-	var resp openapi.ListQueryLambdasResponse
+	var resp *openapi.ListQueryLambdasResponse
 
 	opts := option.ListQueryLambdaOptions{}
 	for _, o := range options {
@@ -296,7 +296,7 @@ func (rc *RockClient) ListQueryLambdas(ctx context.Context,
 func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 	workspace, name string) ([]openapi.QueryLambdaVersion, error) {
 	var err error
-	var resp openapi.ListQueryLambdaVersionsResponse
+	var resp *openapi.ListQueryLambdaVersionsResponse
 
 	q := rc.QueryLambdasApi.ListQueryLambdaVersions(ctx, workspace, name)
 	err = rc.Retry(ctx, func() error {
@@ -315,7 +315,7 @@ func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 func (rc *RockClient) ListQueryLambdaTags(ctx context.Context, workspace,
 	queryLambda string) ([]openapi.QueryLambdaTag, error) {
 	var err error
-	var resp openapi.ListQueryLambdaTagsResponse
+	var resp *openapi.ListQueryLambdaTagsResponse
 
 	q := rc.QueryLambdasApi.ListQueryLambdaTags(ctx, workspace, queryLambda)
 	err = rc.Retry(ctx, func() error {

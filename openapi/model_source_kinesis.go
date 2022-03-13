@@ -21,7 +21,9 @@ type SourceKinesis struct {
 	// name of kinesis stream
 	StreamName string `json:"stream_name"`
 	// set of fields that correspond to a DMS primary key
-	DmsPrimaryKey *[]string `json:"dms_primary_key,omitempty"`
+	DmsPrimaryKey []string `json:"dms_primary_key,omitempty"`
+	// For non-DMS streams, Rockset can tail from the earliest end or latest end of kinesis source.
+	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`
 }
 
 // NewSourceKinesis instantiates a new SourceKinesis object
@@ -104,12 +106,12 @@ func (o *SourceKinesis) GetDmsPrimaryKey() []string {
 		var ret []string
 		return ret
 	}
-	return *o.DmsPrimaryKey
+	return o.DmsPrimaryKey
 }
 
 // GetDmsPrimaryKeyOk returns a tuple with the DmsPrimaryKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceKinesis) GetDmsPrimaryKeyOk() (*[]string, bool) {
+func (o *SourceKinesis) GetDmsPrimaryKeyOk() ([]string, bool) {
 	if o == nil || o.DmsPrimaryKey == nil {
 		return nil, false
 	}
@@ -127,7 +129,39 @@ func (o *SourceKinesis) HasDmsPrimaryKey() bool {
 
 // SetDmsPrimaryKey gets a reference to the given []string and assigns it to the DmsPrimaryKey field.
 func (o *SourceKinesis) SetDmsPrimaryKey(v []string) {
-	o.DmsPrimaryKey = &v
+	o.DmsPrimaryKey = v
+}
+
+// GetOffsetResetPolicy returns the OffsetResetPolicy field value if set, zero value otherwise.
+func (o *SourceKinesis) GetOffsetResetPolicy() string {
+	if o == nil || o.OffsetResetPolicy == nil {
+		var ret string
+		return ret
+	}
+	return *o.OffsetResetPolicy
+}
+
+// GetOffsetResetPolicyOk returns a tuple with the OffsetResetPolicy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceKinesis) GetOffsetResetPolicyOk() (*string, bool) {
+	if o == nil || o.OffsetResetPolicy == nil {
+		return nil, false
+	}
+	return o.OffsetResetPolicy, true
+}
+
+// HasOffsetResetPolicy returns a boolean if a field has been set.
+func (o *SourceKinesis) HasOffsetResetPolicy() bool {
+	if o != nil && o.OffsetResetPolicy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOffsetResetPolicy gets a reference to the given string and assigns it to the OffsetResetPolicy field.
+func (o *SourceKinesis) SetOffsetResetPolicy(v string) {
+	o.OffsetResetPolicy = &v
 }
 
 func (o SourceKinesis) MarshalJSON() ([]byte, error) {
@@ -140,6 +174,9 @@ func (o SourceKinesis) MarshalJSON() ([]byte, error) {
 	}
 	if o.DmsPrimaryKey != nil {
 		toSerialize["dms_primary_key"] = o.DmsPrimaryKey
+	}
+	if o.OffsetResetPolicy != nil {
+		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
 	}
 	return json.Marshal(toSerialize)
 }

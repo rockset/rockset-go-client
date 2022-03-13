@@ -46,8 +46,8 @@ func main() {
     body := *openapiclient.NewCreateQueryLambdaRequest("myQueryLambda", *openapiclient.NewQueryLambdaSql("SELECT 'Foo'")) // CreateQueryLambdaRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.CreateQueryLambda(context.Background(), workspace).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.CreateQueryLambda(context.Background(), workspace).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.CreateQueryLambda``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -119,8 +119,8 @@ func main() {
     body := *openapiclient.NewCreateQueryLambdaTagRequest("production", "123ABC") // CreateQueryLambdaTagRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.CreateQueryLambdaTag(context.Background(), workspace, queryLambda).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.CreateQueryLambdaTag(context.Background(), workspace, queryLambda).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.CreateQueryLambdaTag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -193,8 +193,8 @@ func main() {
     queryLambda := "queryLambda_example" // string | name of the Query Lambda
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.DeleteQueryLambda(context.Background(), workspace, queryLambda).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.DeleteQueryLambda(context.Background(), workspace, queryLambda).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.DeleteQueryLambda``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,8 +267,8 @@ func main() {
     tag := "tag_example" // string | name of the tag
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.DeleteQueryLambdaTag(context.Background(), workspace, queryLambda, tag).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.DeleteQueryLambdaTag(context.Background(), workspace, queryLambda, tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.DeleteQueryLambdaTag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -343,8 +343,8 @@ func main() {
     version := "version_example" // string | version
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.DeleteQueryLambdaVersion(context.Background(), workspace, queryLambda, version).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.DeleteQueryLambdaVersion(context.Background(), workspace, queryLambda, version).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.DeleteQueryLambdaVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -420,8 +420,8 @@ func main() {
     body := *openapiclient.NewExecuteQueryLambdaRequest() // ExecuteQueryLambdaRequest | JSON object (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ExecuteQueryLambda(context.Background(), workspace, queryLambda, version).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.ExecuteQueryLambda(context.Background(), workspace, queryLambda, version).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ExecuteQueryLambda``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -498,8 +498,8 @@ func main() {
     body := *openapiclient.NewExecuteQueryLambdaRequest() // ExecuteQueryLambdaRequest | JSON object (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ExecuteQueryLambdaByTag(context.Background(), workspace, queryLambda, tag).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.ExecuteQueryLambdaByTag(context.Background(), workspace, queryLambda, tag).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ExecuteQueryLambdaByTag``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -575,8 +575,8 @@ func main() {
     tag := "tag_example" // string | name of the tag
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.GetQueryLambdaTagVersion(context.Background(), workspace, queryLambda, tag).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.GetQueryLambdaTagVersion(context.Background(), workspace, queryLambda, tag).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.GetQueryLambdaTagVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -651,8 +651,8 @@ func main() {
     version := "version_example" // string | version
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.GetQueryLambdaVersion(context.Background(), workspace, queryLambda, version).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.GetQueryLambdaVersion(context.Background(), workspace, queryLambda, version).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.GetQueryLambdaVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -724,8 +724,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ListAllQueryLambdas(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.ListAllQueryLambdas(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ListAllQueryLambdas``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -787,8 +787,8 @@ func main() {
     queryLambda := "queryLambda_example" // string | name of the Query Lambda
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ListQueryLambdaTags(context.Background(), workspace, queryLambda).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.ListQueryLambdaTags(context.Background(), workspace, queryLambda).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ListQueryLambdaTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -860,8 +860,8 @@ func main() {
     queryLambda := "queryLambda_example" // string | name of the Query Lambda
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ListQueryLambdaVersions(context.Background(), workspace, queryLambda).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.ListQueryLambdaVersions(context.Background(), workspace, queryLambda).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ListQueryLambdaVersions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -932,8 +932,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.ListQueryLambdasInWorkspace(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.ListQueryLambdasInWorkspace(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.ListQueryLambdasInWorkspace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1005,8 +1005,8 @@ func main() {
     create := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryLambdasApi.UpdateQueryLambda(context.Background(), workspace, queryLambda).Body(body).Create(create).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryLambdasApi.UpdateQueryLambda(context.Background(), workspace, queryLambda).Body(body).Create(create).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryLambdasApi.UpdateQueryLambda``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

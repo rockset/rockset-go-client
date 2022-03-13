@@ -27,7 +27,7 @@ func Example_queryRaw() {
 	rq.Sql.ProfilingEnabled = openapi.PtrBool(true)
 	rq.Sql.DefaultRowLimit = openapi.PtrInt32(10)
 
-	rq.Sql.Parameters = &[]openapi.QueryParameter{
+	rq.Sql.Parameters = []openapi.QueryParameter{
 		{
 			Name:  "label",
 			Type:  "string",
@@ -40,7 +40,7 @@ func Example_queryRaw() {
 		log.Fatal(err)
 	}
 
-	for _, c := range *r.Collections {
+	for _, c := range r.Collections {
 		fmt.Printf("collection: %s\n", c)
 	}
 
@@ -64,7 +64,7 @@ func ExampleRockClient_query() {
 		log.Fatal(err)
 	}
 
-	for _, c := range *r.Collections {
+	for _, c := range r.Collections {
 		fmt.Printf("collection: %s\n", c)
 	}
 

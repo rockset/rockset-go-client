@@ -24,7 +24,7 @@ func WithRowLimit(limit int32) QueryOption {
 
 func WithParameter(name, valueType, value string) QueryOption {
 	return func(o *openapi.QueryRequestSql) {
-		*o.Parameters = append(*o.Parameters, openapi.QueryParameter{
+		o.Parameters = append(o.Parameters, openapi.QueryParameter{
 			Name:  name,
 			Type:  valueType,
 			Value: value,

@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type WorkspacesApi interface {
@@ -31,86 +31,86 @@ type WorkspacesApi interface {
 
 	List workspaces under given workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiChildWorkspacesRequest
 	*/
-	ChildWorkspaces(ctx _context.Context, workspace string) ApiChildWorkspacesRequest
+	ChildWorkspaces(ctx context.Context, workspace string) ApiChildWorkspacesRequest
 
 	// ChildWorkspacesExecute executes the request
 	//  @return ListWorkspacesResponse
-	ChildWorkspacesExecute(r ApiChildWorkspacesRequest) (ListWorkspacesResponse, *_nethttp.Response, error)
+	ChildWorkspacesExecute(r ApiChildWorkspacesRequest) (*ListWorkspacesResponse, *http.Response, error)
 
 	/*
 	CreateWorkspace Create Workspace
 
 	Create a new workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateWorkspaceRequest
 	*/
-	CreateWorkspace(ctx _context.Context) ApiCreateWorkspaceRequest
+	CreateWorkspace(ctx context.Context) ApiCreateWorkspaceRequest
 
 	// CreateWorkspaceExecute executes the request
 	//  @return CreateWorkspaceResponse
-	CreateWorkspaceExecute(r ApiCreateWorkspaceRequest) (CreateWorkspaceResponse, *_nethttp.Response, error)
+	CreateWorkspaceExecute(r ApiCreateWorkspaceRequest) (*CreateWorkspaceResponse, *http.Response, error)
 
 	/*
 	DeleteWorkspace Delete Workspace
 
 	Remove a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiDeleteWorkspaceRequest
 	*/
-	DeleteWorkspace(ctx _context.Context, workspace string) ApiDeleteWorkspaceRequest
+	DeleteWorkspace(ctx context.Context, workspace string) ApiDeleteWorkspaceRequest
 
 	// DeleteWorkspaceExecute executes the request
 	//  @return DeleteWorkspaceResponse
-	DeleteWorkspaceExecute(r ApiDeleteWorkspaceRequest) (DeleteWorkspaceResponse, *_nethttp.Response, error)
+	DeleteWorkspaceExecute(r ApiDeleteWorkspaceRequest) (*DeleteWorkspaceResponse, *http.Response, error)
 
 	/*
 	GetWorkspace Retrieve Workspace
 
 	Get information about a single workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiGetWorkspaceRequest
 	*/
-	GetWorkspace(ctx _context.Context, workspace string) ApiGetWorkspaceRequest
+	GetWorkspace(ctx context.Context, workspace string) ApiGetWorkspaceRequest
 
 	// GetWorkspaceExecute executes the request
 	//  @return GetWorkspaceResponse
-	GetWorkspaceExecute(r ApiGetWorkspaceRequest) (GetWorkspaceResponse, *_nethttp.Response, error)
+	GetWorkspaceExecute(r ApiGetWorkspaceRequest) (*GetWorkspaceResponse, *http.Response, error)
 
 	/*
 	ListWorkspaces List Workspaces
 
 	List all workspaces in an organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListWorkspacesRequest
 	*/
-	ListWorkspaces(ctx _context.Context) ApiListWorkspacesRequest
+	ListWorkspaces(ctx context.Context) ApiListWorkspacesRequest
 
 	// ListWorkspacesExecute executes the request
 	//  @return ListWorkspacesResponse
-	ListWorkspacesExecute(r ApiListWorkspacesRequest) (ListWorkspacesResponse, *_nethttp.Response, error)
+	ListWorkspacesExecute(r ApiListWorkspacesRequest) (*ListWorkspacesResponse, *http.Response, error)
 }
 
 // WorkspacesApiService WorkspacesApi service
 type WorkspacesApiService service
 
 type ApiChildWorkspacesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService WorkspacesApi
 	workspace string
 }
 
 
-func (r ApiChildWorkspacesRequest) Execute() (ListWorkspacesResponse, *_nethttp.Response, error) {
+func (r ApiChildWorkspacesRequest) Execute() (*ListWorkspacesResponse, *http.Response, error) {
 	return r.ApiService.ChildWorkspacesExecute(r)
 }
 
@@ -119,11 +119,11 @@ ChildWorkspaces List Workspaces in Workspace
 
 List workspaces under given workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiChildWorkspacesRequest
 */
-func (a *WorkspacesApiService) ChildWorkspaces(ctx _context.Context, workspace string) ApiChildWorkspacesRequest {
+func (a *WorkspacesApiService) ChildWorkspaces(ctx context.Context, workspace string) ApiChildWorkspacesRequest {
 	return ApiChildWorkspacesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -133,25 +133,25 @@ func (a *WorkspacesApiService) ChildWorkspaces(ctx _context.Context, workspace s
 
 // Execute executes the request
 //  @return ListWorkspacesResponse
-func (a *WorkspacesApiService) ChildWorkspacesExecute(r ApiChildWorkspacesRequest) (ListWorkspacesResponse, *_nethttp.Response, error) {
+func (a *WorkspacesApiService) ChildWorkspacesExecute(r ApiChildWorkspacesRequest) (*ListWorkspacesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListWorkspacesResponse
+		localVarReturnValue  *ListWorkspacesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkspacesApiService.ChildWorkspaces")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/ws"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -180,15 +180,15 @@ func (a *WorkspacesApiService) ChildWorkspacesExecute(r ApiChildWorkspacesReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -326,7 +326,7 @@ func (a *WorkspacesApiService) ChildWorkspacesExecute(r ApiChildWorkspacesReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -337,7 +337,7 @@ func (a *WorkspacesApiService) ChildWorkspacesExecute(r ApiChildWorkspacesReques
 }
 
 type ApiCreateWorkspaceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService WorkspacesApi
 	body *CreateWorkspaceRequest
 }
@@ -348,7 +348,7 @@ func (r ApiCreateWorkspaceRequest) Body(body CreateWorkspaceRequest) ApiCreateWo
 	return r
 }
 
-func (r ApiCreateWorkspaceRequest) Execute() (CreateWorkspaceResponse, *_nethttp.Response, error) {
+func (r ApiCreateWorkspaceRequest) Execute() (*CreateWorkspaceResponse, *http.Response, error) {
 	return r.ApiService.CreateWorkspaceExecute(r)
 }
 
@@ -357,10 +357,10 @@ CreateWorkspace Create Workspace
 
 Create a new workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateWorkspaceRequest
 */
-func (a *WorkspacesApiService) CreateWorkspace(ctx _context.Context) ApiCreateWorkspaceRequest {
+func (a *WorkspacesApiService) CreateWorkspace(ctx context.Context) ApiCreateWorkspaceRequest {
 	return ApiCreateWorkspaceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -369,24 +369,24 @@ func (a *WorkspacesApiService) CreateWorkspace(ctx _context.Context) ApiCreateWo
 
 // Execute executes the request
 //  @return CreateWorkspaceResponse
-func (a *WorkspacesApiService) CreateWorkspaceExecute(r ApiCreateWorkspaceRequest) (CreateWorkspaceResponse, *_nethttp.Response, error) {
+func (a *WorkspacesApiService) CreateWorkspaceExecute(r ApiCreateWorkspaceRequest) (*CreateWorkspaceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  CreateWorkspaceResponse
+		localVarReturnValue  *CreateWorkspaceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkspacesApiService.CreateWorkspace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -420,15 +420,15 @@ func (a *WorkspacesApiService) CreateWorkspaceExecute(r ApiCreateWorkspaceReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -566,7 +566,7 @@ func (a *WorkspacesApiService) CreateWorkspaceExecute(r ApiCreateWorkspaceReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -577,13 +577,13 @@ func (a *WorkspacesApiService) CreateWorkspaceExecute(r ApiCreateWorkspaceReques
 }
 
 type ApiDeleteWorkspaceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService WorkspacesApi
 	workspace string
 }
 
 
-func (r ApiDeleteWorkspaceRequest) Execute() (DeleteWorkspaceResponse, *_nethttp.Response, error) {
+func (r ApiDeleteWorkspaceRequest) Execute() (*DeleteWorkspaceResponse, *http.Response, error) {
 	return r.ApiService.DeleteWorkspaceExecute(r)
 }
 
@@ -592,11 +592,11 @@ DeleteWorkspace Delete Workspace
 
 Remove a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiDeleteWorkspaceRequest
 */
-func (a *WorkspacesApiService) DeleteWorkspace(ctx _context.Context, workspace string) ApiDeleteWorkspaceRequest {
+func (a *WorkspacesApiService) DeleteWorkspace(ctx context.Context, workspace string) ApiDeleteWorkspaceRequest {
 	return ApiDeleteWorkspaceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -606,25 +606,25 @@ func (a *WorkspacesApiService) DeleteWorkspace(ctx _context.Context, workspace s
 
 // Execute executes the request
 //  @return DeleteWorkspaceResponse
-func (a *WorkspacesApiService) DeleteWorkspaceExecute(r ApiDeleteWorkspaceRequest) (DeleteWorkspaceResponse, *_nethttp.Response, error) {
+func (a *WorkspacesApiService) DeleteWorkspaceExecute(r ApiDeleteWorkspaceRequest) (*DeleteWorkspaceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteWorkspaceResponse
+		localVarReturnValue  *DeleteWorkspaceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkspacesApiService.DeleteWorkspace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -653,15 +653,15 @@ func (a *WorkspacesApiService) DeleteWorkspaceExecute(r ApiDeleteWorkspaceReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -799,7 +799,7 @@ func (a *WorkspacesApiService) DeleteWorkspaceExecute(r ApiDeleteWorkspaceReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -810,13 +810,13 @@ func (a *WorkspacesApiService) DeleteWorkspaceExecute(r ApiDeleteWorkspaceReques
 }
 
 type ApiGetWorkspaceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService WorkspacesApi
 	workspace string
 }
 
 
-func (r ApiGetWorkspaceRequest) Execute() (GetWorkspaceResponse, *_nethttp.Response, error) {
+func (r ApiGetWorkspaceRequest) Execute() (*GetWorkspaceResponse, *http.Response, error) {
 	return r.ApiService.GetWorkspaceExecute(r)
 }
 
@@ -825,11 +825,11 @@ GetWorkspace Retrieve Workspace
 
 Get information about a single workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiGetWorkspaceRequest
 */
-func (a *WorkspacesApiService) GetWorkspace(ctx _context.Context, workspace string) ApiGetWorkspaceRequest {
+func (a *WorkspacesApiService) GetWorkspace(ctx context.Context, workspace string) ApiGetWorkspaceRequest {
 	return ApiGetWorkspaceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -839,25 +839,25 @@ func (a *WorkspacesApiService) GetWorkspace(ctx _context.Context, workspace stri
 
 // Execute executes the request
 //  @return GetWorkspaceResponse
-func (a *WorkspacesApiService) GetWorkspaceExecute(r ApiGetWorkspaceRequest) (GetWorkspaceResponse, *_nethttp.Response, error) {
+func (a *WorkspacesApiService) GetWorkspaceExecute(r ApiGetWorkspaceRequest) (*GetWorkspaceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetWorkspaceResponse
+		localVarReturnValue  *GetWorkspaceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkspacesApiService.GetWorkspace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -886,15 +886,15 @@ func (a *WorkspacesApiService) GetWorkspaceExecute(r ApiGetWorkspaceRequest) (Ge
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1032,7 +1032,7 @@ func (a *WorkspacesApiService) GetWorkspaceExecute(r ApiGetWorkspaceRequest) (Ge
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1043,7 +1043,7 @@ func (a *WorkspacesApiService) GetWorkspaceExecute(r ApiGetWorkspaceRequest) (Ge
 }
 
 type ApiListWorkspacesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService WorkspacesApi
 	fetchAcrossRegions *bool
 }
@@ -1053,7 +1053,7 @@ func (r ApiListWorkspacesRequest) FetchAcrossRegions(fetchAcrossRegions bool) Ap
 	return r
 }
 
-func (r ApiListWorkspacesRequest) Execute() (ListWorkspacesResponse, *_nethttp.Response, error) {
+func (r ApiListWorkspacesRequest) Execute() (*ListWorkspacesResponse, *http.Response, error) {
 	return r.ApiService.ListWorkspacesExecute(r)
 }
 
@@ -1062,10 +1062,10 @@ ListWorkspaces List Workspaces
 
 List all workspaces in an organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListWorkspacesRequest
 */
-func (a *WorkspacesApiService) ListWorkspaces(ctx _context.Context) ApiListWorkspacesRequest {
+func (a *WorkspacesApiService) ListWorkspaces(ctx context.Context) ApiListWorkspacesRequest {
 	return ApiListWorkspacesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1074,24 +1074,24 @@ func (a *WorkspacesApiService) ListWorkspaces(ctx _context.Context) ApiListWorks
 
 // Execute executes the request
 //  @return ListWorkspacesResponse
-func (a *WorkspacesApiService) ListWorkspacesExecute(r ApiListWorkspacesRequest) (ListWorkspacesResponse, *_nethttp.Response, error) {
+func (a *WorkspacesApiService) ListWorkspacesExecute(r ApiListWorkspacesRequest) (*ListWorkspacesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListWorkspacesResponse
+		localVarReturnValue  *ListWorkspacesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "WorkspacesApiService.ListWorkspaces")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.fetchAcrossRegions != nil {
 		localVarQueryParams.Add("fetch_across_regions", parameterToString(*r.fetchAcrossRegions, ""))
@@ -1123,15 +1123,15 @@ func (a *WorkspacesApiService) ListWorkspacesExecute(r ApiListWorkspacesRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1269,7 +1269,7 @@ func (a *WorkspacesApiService) ListWorkspacesExecute(r ApiListWorkspacesRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

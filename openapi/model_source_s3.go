@@ -22,7 +22,7 @@ type SourceS3 struct {
 	SecretAccess *string `json:"secret_access,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
-	// Pattern that selects keys to ingest.
+	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
 	Pattern *string `json:"pattern,omitempty"`
 	// AWS region containing source bucket
 	Region *string `json:"region,omitempty"`
@@ -33,7 +33,7 @@ type SourceS3 struct {
 	// do not use
 	Format *string `json:"format,omitempty"`
 	// custom transformation on data field
-	Mappings *[]FieldMask `json:"mappings,omitempty"`
+	Mappings []FieldMask `json:"mappings,omitempty"`
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
 	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
 	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
@@ -254,11 +254,11 @@ func (o *SourceS3) GetPrefixes() []string {
 
 // GetPrefixesOk returns a tuple with the Prefixes field value
 // and a boolean to check if the value has been set.
-func (o *SourceS3) GetPrefixesOk() (*[]string, bool) {
+func (o *SourceS3) GetPrefixesOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Prefixes, true
+	return o.Prefixes, true
 }
 
 // SetPrefixes sets field value
@@ -304,12 +304,12 @@ func (o *SourceS3) GetMappings() []FieldMask {
 		var ret []FieldMask
 		return ret
 	}
-	return *o.Mappings
+	return o.Mappings
 }
 
 // GetMappingsOk returns a tuple with the Mappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceS3) GetMappingsOk() (*[]FieldMask, bool) {
+func (o *SourceS3) GetMappingsOk() ([]FieldMask, bool) {
 	if o == nil || o.Mappings == nil {
 		return nil, false
 	}
@@ -327,7 +327,7 @@ func (o *SourceS3) HasMappings() bool {
 
 // SetMappings gets a reference to the given []FieldMask and assigns it to the Mappings field.
 func (o *SourceS3) SetMappings(v []FieldMask) {
-	o.Mappings = &v
+	o.Mappings = v
 }
 
 // GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.

@@ -27,7 +27,7 @@ type QueryLambda struct {
 	// number of Query Lambda versions
 	VersionCount *int32 `json:"version_count,omitempty"`
 	// collections/aliases queried by underlying SQL query
-	Collections *[]string `json:"collections,omitempty"`
+	Collections []string `json:"collections,omitempty"`
 	LatestVersion *QueryLambdaVersion `json:"latest_version,omitempty"`
 }
 
@@ -214,12 +214,12 @@ func (o *QueryLambda) GetCollections() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Collections
+	return o.Collections
 }
 
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambda) GetCollectionsOk() (*[]string, bool) {
+func (o *QueryLambda) GetCollectionsOk() ([]string, bool) {
 	if o == nil || o.Collections == nil {
 		return nil, false
 	}
@@ -237,7 +237,7 @@ func (o *QueryLambda) HasCollections() bool {
 
 // SetCollections gets a reference to the given []string and assigns it to the Collections field.
 func (o *QueryLambda) SetCollections(v []string) {
-	o.Collections = &v
+	o.Collections = v
 }
 
 // GetLatestVersion returns the LatestVersion field value if set, zero value otherwise.

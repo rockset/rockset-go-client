@@ -17,7 +17,7 @@ import (
 // KafkaIntegration struct for KafkaIntegration
 type KafkaIntegration struct {
 	// Kafka topics to tail
-	KafkaTopicNames *[]string `json:"kafka_topic_names,omitempty"`
+	KafkaTopicNames []string `json:"kafka_topic_names,omitempty"`
 	// The status of the Kafka source by topic
 	SourceStatusByTopic *map[string]StatusKafka `json:"source_status_by_topic,omitempty"`
 	// The format of the Kafka topics being tailed
@@ -52,12 +52,12 @@ func (o *KafkaIntegration) GetKafkaTopicNames() []string {
 		var ret []string
 		return ret
 	}
-	return *o.KafkaTopicNames
+	return o.KafkaTopicNames
 }
 
 // GetKafkaTopicNamesOk returns a tuple with the KafkaTopicNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetKafkaTopicNamesOk() (*[]string, bool) {
+func (o *KafkaIntegration) GetKafkaTopicNamesOk() ([]string, bool) {
 	if o == nil || o.KafkaTopicNames == nil {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *KafkaIntegration) HasKafkaTopicNames() bool {
 
 // SetKafkaTopicNames gets a reference to the given []string and assigns it to the KafkaTopicNames field.
 func (o *KafkaIntegration) SetKafkaTopicNames(v []string) {
-	o.KafkaTopicNames = &v
+	o.KafkaTopicNames = v
 }
 
 // GetSourceStatusByTopic returns the SourceStatusByTopic field value if set, zero value otherwise.

@@ -15,7 +15,7 @@ import (
 func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 	options ...option.WorkspaceOption) (openapi.Workspace, error) {
 	var err error
-	var resp openapi.CreateWorkspaceResponse
+	var resp *openapi.CreateWorkspaceResponse
 
 	q := rc.WorkspacesApi.CreateWorkspace(ctx)
 	req := openapi.NewCreateWorkspaceRequest(workspace)
@@ -46,7 +46,7 @@ func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 // REST API documentation https://docs.rockset.com/rest-api/#getworkspace
 func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (openapi.Workspace, error) {
 	var err error
-	var resp openapi.GetWorkspaceResponse
+	var resp *openapi.GetWorkspaceResponse
 	log := zerolog.Ctx(ctx)
 
 	q := rc.WorkspacesApi.GetWorkspace(ctx, workspace)
@@ -71,7 +71,7 @@ func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (opena
 // REST API documentation https://docs.rockset.com/rest-api/#listworkspaces
 func (rc *RockClient) ListWorkspaces(ctx context.Context) ([]openapi.Workspace, error) {
 	var err error
-	var resp openapi.ListWorkspacesResponse
+	var resp *openapi.ListWorkspacesResponse
 
 	q := rc.WorkspacesApi.ListWorkspaces(ctx)
 

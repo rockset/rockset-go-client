@@ -22,7 +22,7 @@ func ExampleRockClient_queryLambda() {
 		log.Fatal(err)
 	}
 
-	for _, c := range *r.Collections {
+	for _, c := range r.Collections {
 		fmt.Printf("collection: %s\n", c)
 	}
 
@@ -43,7 +43,7 @@ func ExampleRockClient_queryLambdaByTag() {
 		log.Fatal(err)
 	}
 
-	for _, c := range *r.Collections {
+	for _, c := range r.Collections {
 		fmt.Printf("collection: %s\n", c)
 	}
 
@@ -65,7 +65,7 @@ func ExampleRockClient_queryLambdaByVersion() {
 		log.Fatal(err)
 	}
 
-	for _, c := range *r.Collections {
+	for _, c := range r.Collections {
 		fmt.Printf("collection: %s\n", c)
 	}
 

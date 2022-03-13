@@ -17,7 +17,7 @@ import (
 // ListVirtualInstancesResponse struct for ListVirtualInstancesResponse
 type ListVirtualInstancesResponse struct {
 	// list of all virtual instances
-	Data *[]VirtualInstance `json:"data,omitempty"`
+	Data []VirtualInstance `json:"data,omitempty"`
 }
 
 // NewListVirtualInstancesResponse instantiates a new ListVirtualInstancesResponse object
@@ -43,12 +43,12 @@ func (o *ListVirtualInstancesResponse) GetData() []VirtualInstance {
 		var ret []VirtualInstance
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListVirtualInstancesResponse) GetDataOk() (*[]VirtualInstance, bool) {
+func (o *ListVirtualInstancesResponse) GetDataOk() ([]VirtualInstance, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListVirtualInstancesResponse) HasData() bool {
 
 // SetData gets a reference to the given []VirtualInstance and assigns it to the Data field.
 func (o *ListVirtualInstancesResponse) SetData(v []VirtualInstance) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListVirtualInstancesResponse) MarshalJSON() ([]byte, error) {

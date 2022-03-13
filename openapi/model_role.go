@@ -25,7 +25,7 @@ type Role struct {
 	// Email of the user who created the role.
 	CreatedBy *string `json:"created_by,omitempty"`
 	// List of privileges associated with the role.
-	Privileges *[]Privilege `json:"privileges,omitempty"`
+	Privileges []Privilege `json:"privileges,omitempty"`
 	// ISO-8601 date of when the role was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 }
@@ -181,12 +181,12 @@ func (o *Role) GetPrivileges() []Privilege {
 		var ret []Privilege
 		return ret
 	}
-	return *o.Privileges
+	return o.Privileges
 }
 
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Role) GetPrivilegesOk() (*[]Privilege, bool) {
+func (o *Role) GetPrivilegesOk() ([]Privilege, bool) {
 	if o == nil || o.Privileges == nil {
 		return nil, false
 	}
@@ -204,7 +204,7 @@ func (o *Role) HasPrivileges() bool {
 
 // SetPrivileges gets a reference to the given []Privilege and assigns it to the Privileges field.
 func (o *Role) SetPrivileges(v []Privilege) {
-	o.Privileges = &v
+	o.Privileges = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.

@@ -31,13 +31,13 @@ func WithCollectionRetention(d time.Duration) CollectionOption {
 // WithDynamoDBMaxRCU sets the max RCU for a DynamoDB collection.
 func WithDynamoDBMaxRCU(maxRCU int64) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
-		if o.Sources == nil || len(*o.Sources) != 1 {
+		if o.Sources == nil || len(o.Sources) != 1 {
 			return
 		}
-		if (*o.Sources)[0].Dynamodb == nil {
+		if (o.Sources)[0].Dynamodb == nil {
 			return
 		}
-		(*o.Sources)[0].Dynamodb.Rcu = &maxRCU
+		(o.Sources)[0].Dynamodb.Rcu = &maxRCU
 	}
 }
 
@@ -47,6 +47,13 @@ func WithFieldMappingQuery(sql string) CollectionOption {
 		o.FieldMappingQuery = &openapi.FieldMappingQuery{
 			Sql: &sql,
 		}
+	}
+}
+
+// WithInsertOnly enables insert only for the collection
+func WithInsertOnly() CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		o.InsertOnly = openapi.PtrBool(true)
 	}
 }
 
@@ -61,13 +68,13 @@ const (
 func WithCollectionClusteringKey(fieldName, fieldType string, keys []string) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		if o.ClusteringKey == nil {
-			o.ClusteringKey = &[]openapi.FieldPartition{}
+			o.ClusteringKey = []openapi.FieldPartition{}
 		}
 
-		*o.ClusteringKey = append(*o.ClusteringKey, openapi.FieldPartition{
+		o.ClusteringKey = append(o.ClusteringKey, openapi.FieldPartition{
 			FieldName: &fieldName,
 			Type:      &fieldType,
-			Keys:      &keys,
+			Keys:      keys,
 		})
 	}
 }
@@ -152,9 +159,9 @@ func WithCollectionFieldSchema(fieldName string, options ...FieldOption) Collect
 		}
 
 		if o.FieldSchemas == nil {
-			o.FieldSchemas = &[]openapi.FieldSchema{}
+			o.FieldSchemas = []openapi.FieldSchema{}
 		}
-		*o.FieldSchemas = append(*o.FieldSchemas, s)
+		o.FieldSchemas = append(o.FieldSchemas, s)
 	}
 }
 
@@ -221,13 +228,13 @@ func WithCollectionFieldMapping(name string, dropAll bool, outputField OutputFie
 				fn(&in)
 				inputs[i] = in
 			}
-			mapping.InputFields = &inputs
+			mapping.InputFields = inputs
 		}
 
 		if o.FieldMappings == nil {
-			o.FieldMappings = &[]openapi.FieldMappingV2{}
+			o.FieldMappings = []openapi.FieldMappingV2{}
 		}
-		*o.FieldMappings = append(*o.FieldMappings, mapping)
+		o.FieldMappings = append(o.FieldMappings, mapping)
 	}
 }
 

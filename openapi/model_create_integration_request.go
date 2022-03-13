@@ -25,6 +25,8 @@ type CreateIntegrationRequest struct {
 	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
 	Redshift *RedshiftIntegration `json:"redshift,omitempty"`
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
+	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
+	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
 	Segment *SegmentIntegration `json:"segment,omitempty"`
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
@@ -264,6 +266,70 @@ func (o *CreateIntegrationRequest) SetGcs(v GcsIntegration) {
 	o.Gcs = &v
 }
 
+// GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration {
+	if o == nil || o.AzureBlobStorage == nil {
+		var ret AzureBlobStorageIntegration
+		return ret
+	}
+	return *o.AzureBlobStorage
+}
+
+// GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool) {
+	if o == nil || o.AzureBlobStorage == nil {
+		return nil, false
+	}
+	return o.AzureBlobStorage, true
+}
+
+// HasAzureBlobStorage returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool {
+	if o != nil && o.AzureBlobStorage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureBlobStorage gets a reference to the given AzureBlobStorageIntegration and assigns it to the AzureBlobStorage field.
+func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegration) {
+	o.AzureBlobStorage = &v
+}
+
+// GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration {
+	if o == nil || o.AzureEventHubs == nil {
+		var ret AzureEventHubsIntegration
+		return ret
+	}
+	return *o.AzureEventHubs
+}
+
+// GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool) {
+	if o == nil || o.AzureEventHubs == nil {
+		return nil, false
+	}
+	return o.AzureEventHubs, true
+}
+
+// HasAzureEventHubs returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasAzureEventHubs() bool {
+	if o != nil && o.AzureEventHubs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureEventHubs gets a reference to the given AzureEventHubsIntegration and assigns it to the AzureEventHubs field.
+func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration) {
+	o.AzureEventHubs = &v
+}
+
 // GetSegment returns the Segment field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetSegment() SegmentIntegration {
 	if o == nil || o.Segment == nil {
@@ -382,6 +448,12 @@ func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Gcs != nil {
 		toSerialize["gcs"] = o.Gcs
+	}
+	if o.AzureBlobStorage != nil {
+		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
+	}
+	if o.AzureEventHubs != nil {
+		toSerialize["azure_event_hubs"] = o.AzureEventHubs
 	}
 	if o.Segment != nil {
 		toSerialize["segment"] = o.Segment

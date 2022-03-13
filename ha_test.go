@@ -36,7 +36,7 @@ func TestHA_Integration(t *testing.T) {
 	res, errs := ha.Query(ctx, "SELECT * FROM commons._events LIMIT 10")
 	assert.Len(t, errs, 0)
 
-	assert.Equal(t, "commons._events", (*res.Collections)[0])
+	assert.Equal(t, "commons._events", (res.Collections)[0])
 }
 
 func TestHA_OK_FirstFastest(t *testing.T) {

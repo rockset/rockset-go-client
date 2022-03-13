@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type QueryLambdasApi interface {
@@ -31,233 +31,233 @@ type QueryLambdasApi interface {
 
 	Create a Query Lambda in given workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiCreateQueryLambdaRequest
 	*/
-	CreateQueryLambda(ctx _context.Context, workspace string) ApiCreateQueryLambdaRequest
+	CreateQueryLambda(ctx context.Context, workspace string) ApiCreateQueryLambdaRequest
 
 	// CreateQueryLambdaExecute executes the request
 	//  @return QueryLambdaVersionResponse
-	CreateQueryLambdaExecute(r ApiCreateQueryLambdaRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error)
+	CreateQueryLambdaExecute(r ApiCreateQueryLambdaRequest) (*QueryLambdaVersionResponse, *http.Response, error)
 
 	/*
 	CreateQueryLambdaTag Create Query Lambda Tag
 
 	Create a tag for a specific Query Lambda version, or update that tag if it already exists.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @return ApiCreateQueryLambdaTagRequest
 	*/
-	CreateQueryLambdaTag(ctx _context.Context, workspace string, queryLambda string) ApiCreateQueryLambdaTagRequest
+	CreateQueryLambdaTag(ctx context.Context, workspace string, queryLambda string) ApiCreateQueryLambdaTagRequest
 
 	// CreateQueryLambdaTagExecute executes the request
 	//  @return QueryLambdaTagResponse
-	CreateQueryLambdaTagExecute(r ApiCreateQueryLambdaTagRequest) (QueryLambdaTagResponse, *_nethttp.Response, error)
+	CreateQueryLambdaTagExecute(r ApiCreateQueryLambdaTagRequest) (*QueryLambdaTagResponse, *http.Response, error)
 
 	/*
 	DeleteQueryLambda Delete Query Lambda
 
 	Delete a Query Lambda.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @return ApiDeleteQueryLambdaRequest
 	*/
-	DeleteQueryLambda(ctx _context.Context, workspace string, queryLambda string) ApiDeleteQueryLambdaRequest
+	DeleteQueryLambda(ctx context.Context, workspace string, queryLambda string) ApiDeleteQueryLambdaRequest
 
 	// DeleteQueryLambdaExecute executes the request
 	//  @return DeleteQueryLambdaResponse
-	DeleteQueryLambdaExecute(r ApiDeleteQueryLambdaRequest) (DeleteQueryLambdaResponse, *_nethttp.Response, error)
+	DeleteQueryLambdaExecute(r ApiDeleteQueryLambdaRequest) (*DeleteQueryLambdaResponse, *http.Response, error)
 
 	/*
 	DeleteQueryLambdaTag Delete Query Lambda Tag Version
 
 	Delete a tag for a specific Query Lambda
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @param tag name of the tag
 	 @return ApiDeleteQueryLambdaTagRequest
 	*/
-	DeleteQueryLambdaTag(ctx _context.Context, workspace string, queryLambda string, tag string) ApiDeleteQueryLambdaTagRequest
+	DeleteQueryLambdaTag(ctx context.Context, workspace string, queryLambda string, tag string) ApiDeleteQueryLambdaTagRequest
 
 	// DeleteQueryLambdaTagExecute executes the request
 	//  @return QueryLambdaTagResponse
-	DeleteQueryLambdaTagExecute(r ApiDeleteQueryLambdaTagRequest) (QueryLambdaTagResponse, *_nethttp.Response, error)
+	DeleteQueryLambdaTagExecute(r ApiDeleteQueryLambdaTagRequest) (*QueryLambdaTagResponse, *http.Response, error)
 
 	/*
 	DeleteQueryLambdaVersion Delete Query Lambda Version
 
 	Delete a Query Lambda version.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @param version version
 	 @return ApiDeleteQueryLambdaVersionRequest
 	*/
-	DeleteQueryLambdaVersion(ctx _context.Context, workspace string, queryLambda string, version string) ApiDeleteQueryLambdaVersionRequest
+	DeleteQueryLambdaVersion(ctx context.Context, workspace string, queryLambda string, version string) ApiDeleteQueryLambdaVersionRequest
 
 	// DeleteQueryLambdaVersionExecute executes the request
 	//  @return QueryLambdaVersionResponse
-	DeleteQueryLambdaVersionExecute(r ApiDeleteQueryLambdaVersionRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error)
+	DeleteQueryLambdaVersionExecute(r ApiDeleteQueryLambdaVersionRequest) (*QueryLambdaVersionResponse, *http.Response, error)
 
 	/*
 	ExecuteQueryLambda Execute Query Lambda By Version
 
 	Execute a particular version of a Query Lambda.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @param version version
 	 @return ApiExecuteQueryLambdaRequest
 	*/
-	ExecuteQueryLambda(ctx _context.Context, workspace string, queryLambda string, version string) ApiExecuteQueryLambdaRequest
+	ExecuteQueryLambda(ctx context.Context, workspace string, queryLambda string, version string) ApiExecuteQueryLambdaRequest
 
 	// ExecuteQueryLambdaExecute executes the request
 	//  @return QueryResponse
-	ExecuteQueryLambdaExecute(r ApiExecuteQueryLambdaRequest) (QueryResponse, *_nethttp.Response, error)
+	ExecuteQueryLambdaExecute(r ApiExecuteQueryLambdaRequest) (*QueryResponse, *http.Response, error)
 
 	/*
 	ExecuteQueryLambdaByTag Execute Query Lambda By Tag
 
 	Execute the Query Lambda version associated with a given tag.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @param tag tag
 	 @return ApiExecuteQueryLambdaByTagRequest
 	*/
-	ExecuteQueryLambdaByTag(ctx _context.Context, workspace string, queryLambda string, tag string) ApiExecuteQueryLambdaByTagRequest
+	ExecuteQueryLambdaByTag(ctx context.Context, workspace string, queryLambda string, tag string) ApiExecuteQueryLambdaByTagRequest
 
 	// ExecuteQueryLambdaByTagExecute executes the request
 	//  @return QueryResponse
-	ExecuteQueryLambdaByTagExecute(r ApiExecuteQueryLambdaByTagRequest) (QueryResponse, *_nethttp.Response, error)
+	ExecuteQueryLambdaByTagExecute(r ApiExecuteQueryLambdaByTagRequest) (*QueryResponse, *http.Response, error)
 
 	/*
 	GetQueryLambdaTagVersion Retrieve Query Lambda Tag
 
 	Retrieve the Query Lambda version associated with a given tag.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @param tag name of the tag
 	 @return ApiGetQueryLambdaTagVersionRequest
 	*/
-	GetQueryLambdaTagVersion(ctx _context.Context, workspace string, queryLambda string, tag string) ApiGetQueryLambdaTagVersionRequest
+	GetQueryLambdaTagVersion(ctx context.Context, workspace string, queryLambda string, tag string) ApiGetQueryLambdaTagVersionRequest
 
 	// GetQueryLambdaTagVersionExecute executes the request
 	//  @return QueryLambdaTagResponse
-	GetQueryLambdaTagVersionExecute(r ApiGetQueryLambdaTagVersionRequest) (QueryLambdaTagResponse, *_nethttp.Response, error)
+	GetQueryLambdaTagVersionExecute(r ApiGetQueryLambdaTagVersionRequest) (*QueryLambdaTagResponse, *http.Response, error)
 
 	/*
 	GetQueryLambdaVersion Retrieve Query Lambda Version
 
 	Retrieve details for a specified version of a Query Lambda.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @param version version
 	 @return ApiGetQueryLambdaVersionRequest
 	*/
-	GetQueryLambdaVersion(ctx _context.Context, workspace string, queryLambda string, version string) ApiGetQueryLambdaVersionRequest
+	GetQueryLambdaVersion(ctx context.Context, workspace string, queryLambda string, version string) ApiGetQueryLambdaVersionRequest
 
 	// GetQueryLambdaVersionExecute executes the request
 	//  @return QueryLambdaVersionResponse
-	GetQueryLambdaVersionExecute(r ApiGetQueryLambdaVersionRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error)
+	GetQueryLambdaVersionExecute(r ApiGetQueryLambdaVersionRequest) (*QueryLambdaVersionResponse, *http.Response, error)
 
 	/*
 	ListAllQueryLambdas List Query Lambdas
 
 	List all Query Lambdas in an organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListAllQueryLambdasRequest
 	*/
-	ListAllQueryLambdas(ctx _context.Context) ApiListAllQueryLambdasRequest
+	ListAllQueryLambdas(ctx context.Context) ApiListAllQueryLambdasRequest
 
 	// ListAllQueryLambdasExecute executes the request
 	//  @return ListQueryLambdasResponse
-	ListAllQueryLambdasExecute(r ApiListAllQueryLambdasRequest) (ListQueryLambdasResponse, *_nethttp.Response, error)
+	ListAllQueryLambdasExecute(r ApiListAllQueryLambdasRequest) (*ListQueryLambdasResponse, *http.Response, error)
 
 	/*
 	ListQueryLambdaTags List Query Lambda Tags
 
 	List all tags associated with a Query Lambda
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @return ApiListQueryLambdaTagsRequest
 	*/
-	ListQueryLambdaTags(ctx _context.Context, workspace string, queryLambda string) ApiListQueryLambdaTagsRequest
+	ListQueryLambdaTags(ctx context.Context, workspace string, queryLambda string) ApiListQueryLambdaTagsRequest
 
 	// ListQueryLambdaTagsExecute executes the request
 	//  @return ListQueryLambdaTagsResponse
-	ListQueryLambdaTagsExecute(r ApiListQueryLambdaTagsRequest) (ListQueryLambdaTagsResponse, *_nethttp.Response, error)
+	ListQueryLambdaTagsExecute(r ApiListQueryLambdaTagsRequest) (*ListQueryLambdaTagsResponse, *http.Response, error)
 
 	/*
 	ListQueryLambdaVersions List Query Lambda Versions
 
 	List all versions of a Query Lambda.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @return ApiListQueryLambdaVersionsRequest
 	*/
-	ListQueryLambdaVersions(ctx _context.Context, workspace string, queryLambda string) ApiListQueryLambdaVersionsRequest
+	ListQueryLambdaVersions(ctx context.Context, workspace string, queryLambda string) ApiListQueryLambdaVersionsRequest
 
 	// ListQueryLambdaVersionsExecute executes the request
 	//  @return ListQueryLambdaVersionsResponse
-	ListQueryLambdaVersionsExecute(r ApiListQueryLambdaVersionsRequest) (ListQueryLambdaVersionsResponse, *_nethttp.Response, error)
+	ListQueryLambdaVersionsExecute(r ApiListQueryLambdaVersionsRequest) (*ListQueryLambdaVersionsResponse, *http.Response, error)
 
 	/*
 	ListQueryLambdasInWorkspace List Query Lambdas in Workspace
 
 	List all Query Lambdas under given workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiListQueryLambdasInWorkspaceRequest
 	*/
-	ListQueryLambdasInWorkspace(ctx _context.Context, workspace string) ApiListQueryLambdasInWorkspaceRequest
+	ListQueryLambdasInWorkspace(ctx context.Context, workspace string) ApiListQueryLambdasInWorkspaceRequest
 
 	// ListQueryLambdasInWorkspaceExecute executes the request
 	//  @return ListQueryLambdasResponse
-	ListQueryLambdasInWorkspaceExecute(r ApiListQueryLambdasInWorkspaceRequest) (ListQueryLambdasResponse, *_nethttp.Response, error)
+	ListQueryLambdasInWorkspaceExecute(r ApiListQueryLambdasInWorkspaceRequest) (*ListQueryLambdasResponse, *http.Response, error)
 
 	/*
 	UpdateQueryLambda Update Query Lambda
 
 	Create a new version of a Query Lambda in given workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param queryLambda name of the Query Lambda
 	 @return ApiUpdateQueryLambdaRequest
 	*/
-	UpdateQueryLambda(ctx _context.Context, workspace string, queryLambda string) ApiUpdateQueryLambdaRequest
+	UpdateQueryLambda(ctx context.Context, workspace string, queryLambda string) ApiUpdateQueryLambdaRequest
 
 	// UpdateQueryLambdaExecute executes the request
 	//  @return QueryLambdaVersionResponse
-	UpdateQueryLambdaExecute(r ApiUpdateQueryLambdaRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error)
+	UpdateQueryLambdaExecute(r ApiUpdateQueryLambdaRequest) (*QueryLambdaVersionResponse, *http.Response, error)
 }
 
 // QueryLambdasApiService QueryLambdasApi service
 type QueryLambdasApiService service
 
 type ApiCreateQueryLambdaRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	body *CreateQueryLambdaRequest
@@ -269,7 +269,7 @@ func (r ApiCreateQueryLambdaRequest) Body(body CreateQueryLambdaRequest) ApiCrea
 	return r
 }
 
-func (r ApiCreateQueryLambdaRequest) Execute() (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (r ApiCreateQueryLambdaRequest) Execute() (*QueryLambdaVersionResponse, *http.Response, error) {
 	return r.ApiService.CreateQueryLambdaExecute(r)
 }
 
@@ -278,11 +278,11 @@ CreateQueryLambda Create Query Lambda
 
 Create a Query Lambda in given workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiCreateQueryLambdaRequest
 */
-func (a *QueryLambdasApiService) CreateQueryLambda(ctx _context.Context, workspace string) ApiCreateQueryLambdaRequest {
+func (a *QueryLambdasApiService) CreateQueryLambda(ctx context.Context, workspace string) ApiCreateQueryLambdaRequest {
 	return ApiCreateQueryLambdaRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -292,25 +292,25 @@ func (a *QueryLambdasApiService) CreateQueryLambda(ctx _context.Context, workspa
 
 // Execute executes the request
 //  @return QueryLambdaVersionResponse
-func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambdaRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambdaRequest) (*QueryLambdaVersionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaVersionResponse
+		localVarReturnValue  *QueryLambdaVersionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.CreateQueryLambda")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -344,15 +344,15 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -490,7 +490,7 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -501,7 +501,7 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 }
 
 type ApiCreateQueryLambdaTagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -514,7 +514,7 @@ func (r ApiCreateQueryLambdaTagRequest) Body(body CreateQueryLambdaTagRequest) A
 	return r
 }
 
-func (r ApiCreateQueryLambdaTagRequest) Execute() (QueryLambdaTagResponse, *_nethttp.Response, error) {
+func (r ApiCreateQueryLambdaTagRequest) Execute() (*QueryLambdaTagResponse, *http.Response, error) {
 	return r.ApiService.CreateQueryLambdaTagExecute(r)
 }
 
@@ -523,12 +523,12 @@ CreateQueryLambdaTag Create Query Lambda Tag
 
 Create a tag for a specific Query Lambda version, or update that tag if it already exists.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @return ApiCreateQueryLambdaTagRequest
 */
-func (a *QueryLambdasApiService) CreateQueryLambdaTag(ctx _context.Context, workspace string, queryLambda string) ApiCreateQueryLambdaTagRequest {
+func (a *QueryLambdasApiService) CreateQueryLambdaTag(ctx context.Context, workspace string, queryLambda string) ApiCreateQueryLambdaTagRequest {
 	return ApiCreateQueryLambdaTagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -539,26 +539,26 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTag(ctx _context.Context, work
 
 // Execute executes the request
 //  @return QueryLambdaTagResponse
-func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLambdaTagRequest) (QueryLambdaTagResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLambdaTagRequest) (*QueryLambdaTagResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaTagResponse
+		localVarReturnValue  *QueryLambdaTagResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.CreateQueryLambdaTag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -592,15 +592,15 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -738,7 +738,7 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -749,14 +749,14 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 }
 
 type ApiDeleteQueryLambdaRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
 }
 
 
-func (r ApiDeleteQueryLambdaRequest) Execute() (DeleteQueryLambdaResponse, *_nethttp.Response, error) {
+func (r ApiDeleteQueryLambdaRequest) Execute() (*DeleteQueryLambdaResponse, *http.Response, error) {
 	return r.ApiService.DeleteQueryLambdaExecute(r)
 }
 
@@ -765,12 +765,12 @@ DeleteQueryLambda Delete Query Lambda
 
 Delete a Query Lambda.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @return ApiDeleteQueryLambdaRequest
 */
-func (a *QueryLambdasApiService) DeleteQueryLambda(ctx _context.Context, workspace string, queryLambda string) ApiDeleteQueryLambdaRequest {
+func (a *QueryLambdasApiService) DeleteQueryLambda(ctx context.Context, workspace string, queryLambda string) ApiDeleteQueryLambdaRequest {
 	return ApiDeleteQueryLambdaRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -781,26 +781,26 @@ func (a *QueryLambdasApiService) DeleteQueryLambda(ctx _context.Context, workspa
 
 // Execute executes the request
 //  @return DeleteQueryLambdaResponse
-func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambdaRequest) (DeleteQueryLambdaResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambdaRequest) (*DeleteQueryLambdaResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteQueryLambdaResponse
+		localVarReturnValue  *DeleteQueryLambdaResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.DeleteQueryLambda")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -829,15 +829,15 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -975,7 +975,7 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -986,7 +986,7 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 }
 
 type ApiDeleteQueryLambdaTagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -994,7 +994,7 @@ type ApiDeleteQueryLambdaTagRequest struct {
 }
 
 
-func (r ApiDeleteQueryLambdaTagRequest) Execute() (QueryLambdaTagResponse, *_nethttp.Response, error) {
+func (r ApiDeleteQueryLambdaTagRequest) Execute() (*QueryLambdaTagResponse, *http.Response, error) {
 	return r.ApiService.DeleteQueryLambdaTagExecute(r)
 }
 
@@ -1003,13 +1003,13 @@ DeleteQueryLambdaTag Delete Query Lambda Tag Version
 
 Delete a tag for a specific Query Lambda
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @param tag name of the tag
  @return ApiDeleteQueryLambdaTagRequest
 */
-func (a *QueryLambdasApiService) DeleteQueryLambdaTag(ctx _context.Context, workspace string, queryLambda string, tag string) ApiDeleteQueryLambdaTagRequest {
+func (a *QueryLambdasApiService) DeleteQueryLambdaTag(ctx context.Context, workspace string, queryLambda string, tag string) ApiDeleteQueryLambdaTagRequest {
 	return ApiDeleteQueryLambdaTagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1021,27 +1021,27 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTag(ctx _context.Context, work
 
 // Execute executes the request
 //  @return QueryLambdaTagResponse
-func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLambdaTagRequest) (QueryLambdaTagResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLambdaTagRequest) (*QueryLambdaTagResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaTagResponse
+		localVarReturnValue  *QueryLambdaTagResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.DeleteQueryLambdaTag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", _neturl.PathEscape(parameterToString(r.tag, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterToString(r.tag, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1070,15 +1070,15 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1216,7 +1216,7 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1227,7 +1227,7 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 }
 
 type ApiDeleteQueryLambdaVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -1235,7 +1235,7 @@ type ApiDeleteQueryLambdaVersionRequest struct {
 }
 
 
-func (r ApiDeleteQueryLambdaVersionRequest) Execute() (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (r ApiDeleteQueryLambdaVersionRequest) Execute() (*QueryLambdaVersionResponse, *http.Response, error) {
 	return r.ApiService.DeleteQueryLambdaVersionExecute(r)
 }
 
@@ -1244,13 +1244,13 @@ DeleteQueryLambdaVersion Delete Query Lambda Version
 
 Delete a Query Lambda version.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @param version version
  @return ApiDeleteQueryLambdaVersionRequest
 */
-func (a *QueryLambdasApiService) DeleteQueryLambdaVersion(ctx _context.Context, workspace string, queryLambda string, version string) ApiDeleteQueryLambdaVersionRequest {
+func (a *QueryLambdasApiService) DeleteQueryLambdaVersion(ctx context.Context, workspace string, queryLambda string, version string) ApiDeleteQueryLambdaVersionRequest {
 	return ApiDeleteQueryLambdaVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1262,27 +1262,27 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersion(ctx _context.Context, 
 
 // Execute executes the request
 //  @return QueryLambdaVersionResponse
-func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQueryLambdaVersionRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQueryLambdaVersionRequest) (*QueryLambdaVersionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaVersionResponse
+		localVarReturnValue  *QueryLambdaVersionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.DeleteQueryLambdaVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/version/{version}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", _neturl.PathEscape(parameterToString(r.version, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterToString(r.version, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1311,15 +1311,15 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1457,7 +1457,7 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1468,7 +1468,7 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 }
 
 type ApiExecuteQueryLambdaRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -1482,7 +1482,7 @@ func (r ApiExecuteQueryLambdaRequest) Body(body ExecuteQueryLambdaRequest) ApiEx
 	return r
 }
 
-func (r ApiExecuteQueryLambdaRequest) Execute() (QueryResponse, *_nethttp.Response, error) {
+func (r ApiExecuteQueryLambdaRequest) Execute() (*QueryResponse, *http.Response, error) {
 	return r.ApiService.ExecuteQueryLambdaExecute(r)
 }
 
@@ -1491,13 +1491,13 @@ ExecuteQueryLambda Execute Query Lambda By Version
 
 Execute a particular version of a Query Lambda.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @param version version
  @return ApiExecuteQueryLambdaRequest
 */
-func (a *QueryLambdasApiService) ExecuteQueryLambda(ctx _context.Context, workspace string, queryLambda string, version string) ApiExecuteQueryLambdaRequest {
+func (a *QueryLambdasApiService) ExecuteQueryLambda(ctx context.Context, workspace string, queryLambda string, version string) ApiExecuteQueryLambdaRequest {
 	return ApiExecuteQueryLambdaRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1509,27 +1509,27 @@ func (a *QueryLambdasApiService) ExecuteQueryLambda(ctx _context.Context, worksp
 
 // Execute executes the request
 //  @return QueryResponse
-func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLambdaRequest) (QueryResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLambdaRequest) (*QueryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryResponse
+		localVarReturnValue  *QueryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.ExecuteQueryLambda")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", _neturl.PathEscape(parameterToString(r.version, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterToString(r.version, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1560,15 +1560,15 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1706,7 +1706,7 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1717,7 +1717,7 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 }
 
 type ApiExecuteQueryLambdaByTagRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -1731,7 +1731,7 @@ func (r ApiExecuteQueryLambdaByTagRequest) Body(body ExecuteQueryLambdaRequest) 
 	return r
 }
 
-func (r ApiExecuteQueryLambdaByTagRequest) Execute() (QueryResponse, *_nethttp.Response, error) {
+func (r ApiExecuteQueryLambdaByTagRequest) Execute() (*QueryResponse, *http.Response, error) {
 	return r.ApiService.ExecuteQueryLambdaByTagExecute(r)
 }
 
@@ -1740,13 +1740,13 @@ ExecuteQueryLambdaByTag Execute Query Lambda By Tag
 
 Execute the Query Lambda version associated with a given tag.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @param tag tag
  @return ApiExecuteQueryLambdaByTagRequest
 */
-func (a *QueryLambdasApiService) ExecuteQueryLambdaByTag(ctx _context.Context, workspace string, queryLambda string, tag string) ApiExecuteQueryLambdaByTagRequest {
+func (a *QueryLambdasApiService) ExecuteQueryLambdaByTag(ctx context.Context, workspace string, queryLambda string, tag string) ApiExecuteQueryLambdaByTagRequest {
 	return ApiExecuteQueryLambdaByTagRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1758,27 +1758,27 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTag(ctx _context.Context, w
 
 // Execute executes the request
 //  @return QueryResponse
-func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQueryLambdaByTagRequest) (QueryResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQueryLambdaByTagRequest) (*QueryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryResponse
+		localVarReturnValue  *QueryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.ExecuteQueryLambdaByTag")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", _neturl.PathEscape(parameterToString(r.tag, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterToString(r.tag, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -1809,15 +1809,15 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1955,7 +1955,7 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1966,7 +1966,7 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 }
 
 type ApiGetQueryLambdaTagVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -1974,7 +1974,7 @@ type ApiGetQueryLambdaTagVersionRequest struct {
 }
 
 
-func (r ApiGetQueryLambdaTagVersionRequest) Execute() (QueryLambdaTagResponse, *_nethttp.Response, error) {
+func (r ApiGetQueryLambdaTagVersionRequest) Execute() (*QueryLambdaTagResponse, *http.Response, error) {
 	return r.ApiService.GetQueryLambdaTagVersionExecute(r)
 }
 
@@ -1983,13 +1983,13 @@ GetQueryLambdaTagVersion Retrieve Query Lambda Tag
 
 Retrieve the Query Lambda version associated with a given tag.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @param tag name of the tag
  @return ApiGetQueryLambdaTagVersionRequest
 */
-func (a *QueryLambdasApiService) GetQueryLambdaTagVersion(ctx _context.Context, workspace string, queryLambda string, tag string) ApiGetQueryLambdaTagVersionRequest {
+func (a *QueryLambdasApiService) GetQueryLambdaTagVersion(ctx context.Context, workspace string, queryLambda string, tag string) ApiGetQueryLambdaTagVersionRequest {
 	return ApiGetQueryLambdaTagVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2001,27 +2001,27 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersion(ctx _context.Context, 
 
 // Execute executes the request
 //  @return QueryLambdaTagResponse
-func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLambdaTagVersionRequest) (QueryLambdaTagResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLambdaTagVersionRequest) (*QueryLambdaTagResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaTagResponse
+		localVarReturnValue  *QueryLambdaTagResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.GetQueryLambdaTagVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", _neturl.PathEscape(parameterToString(r.tag, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterToString(r.tag, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2050,15 +2050,15 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2196,7 +2196,7 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2207,7 +2207,7 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 }
 
 type ApiGetQueryLambdaVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -2215,7 +2215,7 @@ type ApiGetQueryLambdaVersionRequest struct {
 }
 
 
-func (r ApiGetQueryLambdaVersionRequest) Execute() (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (r ApiGetQueryLambdaVersionRequest) Execute() (*QueryLambdaVersionResponse, *http.Response, error) {
 	return r.ApiService.GetQueryLambdaVersionExecute(r)
 }
 
@@ -2224,13 +2224,13 @@ GetQueryLambdaVersion Retrieve Query Lambda Version
 
 Retrieve details for a specified version of a Query Lambda.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @param version version
  @return ApiGetQueryLambdaVersionRequest
 */
-func (a *QueryLambdasApiService) GetQueryLambdaVersion(ctx _context.Context, workspace string, queryLambda string, version string) ApiGetQueryLambdaVersionRequest {
+func (a *QueryLambdasApiService) GetQueryLambdaVersion(ctx context.Context, workspace string, queryLambda string, version string) ApiGetQueryLambdaVersionRequest {
 	return ApiGetQueryLambdaVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2242,27 +2242,27 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersion(ctx _context.Context, wor
 
 // Execute executes the request
 //  @return QueryLambdaVersionResponse
-func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambdaVersionRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambdaVersionRequest) (*QueryLambdaVersionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaVersionResponse
+		localVarReturnValue  *QueryLambdaVersionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.GetQueryLambdaVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", _neturl.PathEscape(parameterToString(r.version, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterToString(r.version, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2291,15 +2291,15 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2437,7 +2437,7 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2448,12 +2448,12 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 }
 
 type ApiListAllQueryLambdasRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 }
 
 
-func (r ApiListAllQueryLambdasRequest) Execute() (ListQueryLambdasResponse, *_nethttp.Response, error) {
+func (r ApiListAllQueryLambdasRequest) Execute() (*ListQueryLambdasResponse, *http.Response, error) {
 	return r.ApiService.ListAllQueryLambdasExecute(r)
 }
 
@@ -2462,10 +2462,10 @@ ListAllQueryLambdas List Query Lambdas
 
 List all Query Lambdas in an organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAllQueryLambdasRequest
 */
-func (a *QueryLambdasApiService) ListAllQueryLambdas(ctx _context.Context) ApiListAllQueryLambdasRequest {
+func (a *QueryLambdasApiService) ListAllQueryLambdas(ctx context.Context) ApiListAllQueryLambdasRequest {
 	return ApiListAllQueryLambdasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2474,24 +2474,24 @@ func (a *QueryLambdasApiService) ListAllQueryLambdas(ctx _context.Context) ApiLi
 
 // Execute executes the request
 //  @return ListQueryLambdasResponse
-func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLambdasRequest) (ListQueryLambdasResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLambdasRequest) (*ListQueryLambdasResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListQueryLambdasResponse
+		localVarReturnValue  *ListQueryLambdasResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.ListAllQueryLambdas")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/lambdas"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2520,15 +2520,15 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2666,7 +2666,7 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2677,14 +2677,14 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 }
 
 type ApiListQueryLambdaTagsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
 }
 
 
-func (r ApiListQueryLambdaTagsRequest) Execute() (ListQueryLambdaTagsResponse, *_nethttp.Response, error) {
+func (r ApiListQueryLambdaTagsRequest) Execute() (*ListQueryLambdaTagsResponse, *http.Response, error) {
 	return r.ApiService.ListQueryLambdaTagsExecute(r)
 }
 
@@ -2693,12 +2693,12 @@ ListQueryLambdaTags List Query Lambda Tags
 
 List all tags associated with a Query Lambda
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @return ApiListQueryLambdaTagsRequest
 */
-func (a *QueryLambdasApiService) ListQueryLambdaTags(ctx _context.Context, workspace string, queryLambda string) ApiListQueryLambdaTagsRequest {
+func (a *QueryLambdasApiService) ListQueryLambdaTags(ctx context.Context, workspace string, queryLambda string) ApiListQueryLambdaTagsRequest {
 	return ApiListQueryLambdaTagsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2709,26 +2709,26 @@ func (a *QueryLambdasApiService) ListQueryLambdaTags(ctx _context.Context, works
 
 // Execute executes the request
 //  @return ListQueryLambdaTagsResponse
-func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambdaTagsRequest) (ListQueryLambdaTagsResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambdaTagsRequest) (*ListQueryLambdaTagsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListQueryLambdaTagsResponse
+		localVarReturnValue  *ListQueryLambdaTagsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.ListQueryLambdaTags")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2757,15 +2757,15 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2903,7 +2903,7 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2914,14 +2914,14 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 }
 
 type ApiListQueryLambdaVersionsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
 }
 
 
-func (r ApiListQueryLambdaVersionsRequest) Execute() (ListQueryLambdaVersionsResponse, *_nethttp.Response, error) {
+func (r ApiListQueryLambdaVersionsRequest) Execute() (*ListQueryLambdaVersionsResponse, *http.Response, error) {
 	return r.ApiService.ListQueryLambdaVersionsExecute(r)
 }
 
@@ -2930,12 +2930,12 @@ ListQueryLambdaVersions List Query Lambda Versions
 
 List all versions of a Query Lambda.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @return ApiListQueryLambdaVersionsRequest
 */
-func (a *QueryLambdasApiService) ListQueryLambdaVersions(ctx _context.Context, workspace string, queryLambda string) ApiListQueryLambdaVersionsRequest {
+func (a *QueryLambdasApiService) ListQueryLambdaVersions(ctx context.Context, workspace string, queryLambda string) ApiListQueryLambdaVersionsRequest {
 	return ApiListQueryLambdaVersionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2946,26 +2946,26 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersions(ctx _context.Context, w
 
 // Execute executes the request
 //  @return ListQueryLambdaVersionsResponse
-func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLambdaVersionsRequest) (ListQueryLambdaVersionsResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLambdaVersionsRequest) (*ListQueryLambdaVersionsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListQueryLambdaVersionsResponse
+		localVarReturnValue  *ListQueryLambdaVersionsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.ListQueryLambdaVersions")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2994,15 +2994,15 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3140,7 +3140,7 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3151,13 +3151,13 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 }
 
 type ApiListQueryLambdasInWorkspaceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 }
 
 
-func (r ApiListQueryLambdasInWorkspaceRequest) Execute() (ListQueryLambdasResponse, *_nethttp.Response, error) {
+func (r ApiListQueryLambdasInWorkspaceRequest) Execute() (*ListQueryLambdasResponse, *http.Response, error) {
 	return r.ApiService.ListQueryLambdasInWorkspaceExecute(r)
 }
 
@@ -3166,11 +3166,11 @@ ListQueryLambdasInWorkspace List Query Lambdas in Workspace
 
 List all Query Lambdas under given workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiListQueryLambdasInWorkspaceRequest
 */
-func (a *QueryLambdasApiService) ListQueryLambdasInWorkspace(ctx _context.Context, workspace string) ApiListQueryLambdasInWorkspaceRequest {
+func (a *QueryLambdasApiService) ListQueryLambdasInWorkspace(ctx context.Context, workspace string) ApiListQueryLambdasInWorkspaceRequest {
 	return ApiListQueryLambdasInWorkspaceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3180,25 +3180,25 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspace(ctx _context.Contex
 
 // Execute executes the request
 //  @return ListQueryLambdasResponse
-func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQueryLambdasInWorkspaceRequest) (ListQueryLambdasResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQueryLambdasInWorkspaceRequest) (*ListQueryLambdasResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListQueryLambdasResponse
+		localVarReturnValue  *ListQueryLambdasResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.ListQueryLambdasInWorkspace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3227,15 +3227,15 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3373,7 +3373,7 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3384,7 +3384,7 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 }
 
 type ApiUpdateQueryLambdaRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueryLambdasApi
 	workspace string
 	queryLambda string
@@ -3402,7 +3402,7 @@ func (r ApiUpdateQueryLambdaRequest) Create(create bool) ApiUpdateQueryLambdaReq
 	return r
 }
 
-func (r ApiUpdateQueryLambdaRequest) Execute() (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (r ApiUpdateQueryLambdaRequest) Execute() (*QueryLambdaVersionResponse, *http.Response, error) {
 	return r.ApiService.UpdateQueryLambdaExecute(r)
 }
 
@@ -3411,12 +3411,12 @@ UpdateQueryLambda Update Query Lambda
 
 Create a new version of a Query Lambda in given workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param queryLambda name of the Query Lambda
  @return ApiUpdateQueryLambdaRequest
 */
-func (a *QueryLambdasApiService) UpdateQueryLambda(ctx _context.Context, workspace string, queryLambda string) ApiUpdateQueryLambdaRequest {
+func (a *QueryLambdasApiService) UpdateQueryLambda(ctx context.Context, workspace string, queryLambda string) ApiUpdateQueryLambdaRequest {
 	return ApiUpdateQueryLambdaRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3427,26 +3427,26 @@ func (a *QueryLambdasApiService) UpdateQueryLambda(ctx _context.Context, workspa
 
 // Execute executes the request
 //  @return QueryLambdaVersionResponse
-func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambdaRequest) (QueryLambdaVersionResponse, *_nethttp.Response, error) {
+func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambdaRequest) (*QueryLambdaVersionResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryLambdaVersionResponse
+		localVarReturnValue  *QueryLambdaVersionResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryLambdasApiService.UpdateQueryLambda")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", _neturl.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -3483,15 +3483,15 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3629,7 +3629,7 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

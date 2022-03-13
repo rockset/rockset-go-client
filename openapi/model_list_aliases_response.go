@@ -17,7 +17,7 @@ import (
 // ListAliasesResponse struct for ListAliasesResponse
 type ListAliasesResponse struct {
 	// list of all aliases
-	Data *[]Alias `json:"data,omitempty"`
+	Data []Alias `json:"data,omitempty"`
 }
 
 // NewListAliasesResponse instantiates a new ListAliasesResponse object
@@ -43,12 +43,12 @@ func (o *ListAliasesResponse) GetData() []Alias {
 		var ret []Alias
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListAliasesResponse) GetDataOk() (*[]Alias, bool) {
+func (o *ListAliasesResponse) GetDataOk() ([]Alias, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListAliasesResponse) HasData() bool {
 
 // SetData gets a reference to the given []Alias and assigns it to the Data field.
 func (o *ListAliasesResponse) SetData(v []Alias) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListAliasesResponse) MarshalJSON() ([]byte, error) {

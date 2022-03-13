@@ -23,7 +23,7 @@ type QueryRequestSql struct {
 	// Flag to generate a performance profile for this query.
 	ProfilingEnabled *bool `json:"profiling_enabled,omitempty"`
 	// List of named parameters.
-	Parameters *[]QueryParameter `json:"parameters,omitempty"`
+	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Row limit to use. Limits specified in the query text will override this default.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
 	// Flag to paginate and store the results of this query for later / sequential retrieval.
@@ -144,12 +144,12 @@ func (o *QueryRequestSql) GetParameters() []QueryParameter {
 		var ret []QueryParameter
 		return ret
 	}
-	return *o.Parameters
+	return o.Parameters
 }
 
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetParametersOk() (*[]QueryParameter, bool) {
+func (o *QueryRequestSql) GetParametersOk() ([]QueryParameter, bool) {
 	if o == nil || o.Parameters == nil {
 		return nil, false
 	}
@@ -167,7 +167,7 @@ func (o *QueryRequestSql) HasParameters() bool {
 
 // SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
 func (o *QueryRequestSql) SetParameters(v []QueryParameter) {
-	o.Parameters = &v
+	o.Parameters = v
 }
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.

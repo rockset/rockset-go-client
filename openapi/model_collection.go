@@ -29,21 +29,21 @@ type Collection struct {
 	// current status of collection, one of: CREATED, READY, DELETED
 	Status *string `json:"status,omitempty"`
 	// list of sources from which collection ingests
-	Sources *[]Source `json:"sources,omitempty"`
+	Sources []Source `json:"sources,omitempty"`
 	Stats *CollectionStats `json:"stats,omitempty"`
 	// number of seconds after which data is purged based on event time
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
 	// list of mappings applied on all documents in a collection
-	FieldMappings *[]FieldMappingV2 `json:"field_mappings,omitempty"`
+	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// list of clustering fields for a collection
-	ClusteringKey *[]FieldPartition `json:"clustering_key,omitempty"`
+	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 	// list of aliases for a collection
-	Aliases *[]Alias `json:"aliases,omitempty"`
+	Aliases []Alias `json:"aliases,omitempty"`
 	// list of field schemas 
-	FieldSchemas *[]FieldSchema `json:"field_schemas,omitempty"`
+	FieldSchemas []FieldSchema `json:"field_schemas,omitempty"`
 	InvertedIndexGroupEncodingOptions *InvertedIndexGroupEncodingOptions `json:"inverted_index_group_encoding_options,omitempty"`
-	FieldPartitions *[]FieldPartition `json:"fieldPartitions,omitempty"`
+	FieldPartitions []FieldPartition `json:"fieldPartitions,omitempty"`
 	// Whether the collection is insert only or not
 	InsertOnly *bool `json:"insert_only,omitempty"`
 	// If true, exactly-once write semantics is enabled.
@@ -265,12 +265,12 @@ func (o *Collection) GetSources() []Source {
 		var ret []Source
 		return ret
 	}
-	return *o.Sources
+	return o.Sources
 }
 
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetSourcesOk() (*[]Source, bool) {
+func (o *Collection) GetSourcesOk() ([]Source, bool) {
 	if o == nil || o.Sources == nil {
 		return nil, false
 	}
@@ -288,7 +288,7 @@ func (o *Collection) HasSources() bool {
 
 // SetSources gets a reference to the given []Source and assigns it to the Sources field.
 func (o *Collection) SetSources(v []Source) {
-	o.Sources = &v
+	o.Sources = v
 }
 
 // GetStats returns the Stats field value if set, zero value otherwise.
@@ -361,12 +361,12 @@ func (o *Collection) GetFieldMappings() []FieldMappingV2 {
 		var ret []FieldMappingV2
 		return ret
 	}
-	return *o.FieldMappings
+	return o.FieldMappings
 }
 
 // GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetFieldMappingsOk() (*[]FieldMappingV2, bool) {
+func (o *Collection) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
 	if o == nil || o.FieldMappings == nil {
 		return nil, false
 	}
@@ -384,7 +384,7 @@ func (o *Collection) HasFieldMappings() bool {
 
 // SetFieldMappings gets a reference to the given []FieldMappingV2 and assigns it to the FieldMappings field.
 func (o *Collection) SetFieldMappings(v []FieldMappingV2) {
-	o.FieldMappings = &v
+	o.FieldMappings = v
 }
 
 // GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
@@ -425,12 +425,12 @@ func (o *Collection) GetClusteringKey() []FieldPartition {
 		var ret []FieldPartition
 		return ret
 	}
-	return *o.ClusteringKey
+	return o.ClusteringKey
 }
 
 // GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetClusteringKeyOk() (*[]FieldPartition, bool) {
+func (o *Collection) GetClusteringKeyOk() ([]FieldPartition, bool) {
 	if o == nil || o.ClusteringKey == nil {
 		return nil, false
 	}
@@ -448,7 +448,7 @@ func (o *Collection) HasClusteringKey() bool {
 
 // SetClusteringKey gets a reference to the given []FieldPartition and assigns it to the ClusteringKey field.
 func (o *Collection) SetClusteringKey(v []FieldPartition) {
-	o.ClusteringKey = &v
+	o.ClusteringKey = v
 }
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
@@ -457,12 +457,12 @@ func (o *Collection) GetAliases() []Alias {
 		var ret []Alias
 		return ret
 	}
-	return *o.Aliases
+	return o.Aliases
 }
 
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetAliasesOk() (*[]Alias, bool) {
+func (o *Collection) GetAliasesOk() ([]Alias, bool) {
 	if o == nil || o.Aliases == nil {
 		return nil, false
 	}
@@ -480,7 +480,7 @@ func (o *Collection) HasAliases() bool {
 
 // SetAliases gets a reference to the given []Alias and assigns it to the Aliases field.
 func (o *Collection) SetAliases(v []Alias) {
-	o.Aliases = &v
+	o.Aliases = v
 }
 
 // GetFieldSchemas returns the FieldSchemas field value if set, zero value otherwise.
@@ -489,12 +489,12 @@ func (o *Collection) GetFieldSchemas() []FieldSchema {
 		var ret []FieldSchema
 		return ret
 	}
-	return *o.FieldSchemas
+	return o.FieldSchemas
 }
 
 // GetFieldSchemasOk returns a tuple with the FieldSchemas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetFieldSchemasOk() (*[]FieldSchema, bool) {
+func (o *Collection) GetFieldSchemasOk() ([]FieldSchema, bool) {
 	if o == nil || o.FieldSchemas == nil {
 		return nil, false
 	}
@@ -512,7 +512,7 @@ func (o *Collection) HasFieldSchemas() bool {
 
 // SetFieldSchemas gets a reference to the given []FieldSchema and assigns it to the FieldSchemas field.
 func (o *Collection) SetFieldSchemas(v []FieldSchema) {
-	o.FieldSchemas = &v
+	o.FieldSchemas = v
 }
 
 // GetInvertedIndexGroupEncodingOptions returns the InvertedIndexGroupEncodingOptions field value if set, zero value otherwise.
@@ -553,12 +553,12 @@ func (o *Collection) GetFieldPartitions() []FieldPartition {
 		var ret []FieldPartition
 		return ret
 	}
-	return *o.FieldPartitions
+	return o.FieldPartitions
 }
 
 // GetFieldPartitionsOk returns a tuple with the FieldPartitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetFieldPartitionsOk() (*[]FieldPartition, bool) {
+func (o *Collection) GetFieldPartitionsOk() ([]FieldPartition, bool) {
 	if o == nil || o.FieldPartitions == nil {
 		return nil, false
 	}
@@ -576,7 +576,7 @@ func (o *Collection) HasFieldPartitions() bool {
 
 // SetFieldPartitions gets a reference to the given []FieldPartition and assigns it to the FieldPartitions field.
 func (o *Collection) SetFieldPartitions(v []FieldPartition) {
-	o.FieldPartitions = &v
+	o.FieldPartitions = v
 }
 
 // GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.

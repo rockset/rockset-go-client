@@ -8,6 +8,9 @@ Name | Type | Description | Notes
 **S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
 **Kinesis** | Pointer to [**SourceKinesis**](SourceKinesis.md) |  | [optional] 
 **Gcs** | Pointer to [**SourceGcs**](SourceGcs.md) |  | [optional] 
+**AzureBlobStorage** | Pointer to [**SourceAzureBlobStorage**](SourceAzureBlobStorage.md) |  | [optional] 
+**AzureServiceBus** | Pointer to [**SourceAzureServiceBus**](SourceAzureServiceBus.md) |  | [optional] 
+**AzureEventHubs** | Pointer to [**SourceAzureEventHubs**](SourceAzureEventHubs.md) |  | [optional] 
 **Redshift** | Pointer to [**SourceRedshift**](SourceRedshift.md) |  | [optional] 
 **Dynamodb** | Pointer to [**SourceDynamoDb**](SourceDynamoDb.md) |  | [optional] 
 **FileUpload** | Pointer to [**SourceFileUpload**](SourceFileUpload.md) |  | [optional] 
@@ -129,6 +132,81 @@ SetGcs sets Gcs field to given value.
 `func (o *Source) HasGcs() bool`
 
 HasGcs returns a boolean if a field has been set.
+
+### GetAzureBlobStorage
+
+`func (o *Source) GetAzureBlobStorage() SourceAzureBlobStorage`
+
+GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
+
+### GetAzureBlobStorageOk
+
+`func (o *Source) GetAzureBlobStorageOk() (*SourceAzureBlobStorage, bool)`
+
+GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureBlobStorage
+
+`func (o *Source) SetAzureBlobStorage(v SourceAzureBlobStorage)`
+
+SetAzureBlobStorage sets AzureBlobStorage field to given value.
+
+### HasAzureBlobStorage
+
+`func (o *Source) HasAzureBlobStorage() bool`
+
+HasAzureBlobStorage returns a boolean if a field has been set.
+
+### GetAzureServiceBus
+
+`func (o *Source) GetAzureServiceBus() SourceAzureServiceBus`
+
+GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
+
+### GetAzureServiceBusOk
+
+`func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool)`
+
+GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureServiceBus
+
+`func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus)`
+
+SetAzureServiceBus sets AzureServiceBus field to given value.
+
+### HasAzureServiceBus
+
+`func (o *Source) HasAzureServiceBus() bool`
+
+HasAzureServiceBus returns a boolean if a field has been set.
+
+### GetAzureEventHubs
+
+`func (o *Source) GetAzureEventHubs() SourceAzureEventHubs`
+
+GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
+
+### GetAzureEventHubsOk
+
+`func (o *Source) GetAzureEventHubsOk() (*SourceAzureEventHubs, bool)`
+
+GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureEventHubs
+
+`func (o *Source) SetAzureEventHubs(v SourceAzureEventHubs)`
+
+SetAzureEventHubs sets AzureEventHubs field to given value.
+
+### HasAzureEventHubs
+
+`func (o *Source) HasAzureEventHubs() bool`
+
+HasAzureEventHubs returns a boolean if a field has been set.
 
 ### GetRedshift
 

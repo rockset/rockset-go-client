@@ -23,9 +23,9 @@ type CsvParams struct {
 	// can be one of: UTF-8, ISO_8859_1, UTF-16
 	Encoding *string `json:"encoding,omitempty"`
 	// names of columns
-	ColumnNames *[]string `json:"columnNames,omitempty"`
+	ColumnNames []string `json:"columnNames,omitempty"`
 	// names of columns
-	ColumnTypes *[]string `json:"columnTypes,omitempty"`
+	ColumnTypes []string `json:"columnTypes,omitempty"`
 	// character within which a cell value is enclosed,null character if no such character, default is '\"'
 	QuoteChar *string `json:"quoteChar,omitempty"`
 	// escape character removes any special meaning from the following character,default is '\\'
@@ -151,12 +151,12 @@ func (o *CsvParams) GetColumnNames() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ColumnNames
+	return o.ColumnNames
 }
 
 // GetColumnNamesOk returns a tuple with the ColumnNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CsvParams) GetColumnNamesOk() (*[]string, bool) {
+func (o *CsvParams) GetColumnNamesOk() ([]string, bool) {
 	if o == nil || o.ColumnNames == nil {
 		return nil, false
 	}
@@ -174,7 +174,7 @@ func (o *CsvParams) HasColumnNames() bool {
 
 // SetColumnNames gets a reference to the given []string and assigns it to the ColumnNames field.
 func (o *CsvParams) SetColumnNames(v []string) {
-	o.ColumnNames = &v
+	o.ColumnNames = v
 }
 
 // GetColumnTypes returns the ColumnTypes field value if set, zero value otherwise.
@@ -183,12 +183,12 @@ func (o *CsvParams) GetColumnTypes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.ColumnTypes
+	return o.ColumnTypes
 }
 
 // GetColumnTypesOk returns a tuple with the ColumnTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CsvParams) GetColumnTypesOk() (*[]string, bool) {
+func (o *CsvParams) GetColumnTypesOk() ([]string, bool) {
 	if o == nil || o.ColumnTypes == nil {
 		return nil, false
 	}
@@ -206,7 +206,7 @@ func (o *CsvParams) HasColumnTypes() bool {
 
 // SetColumnTypes gets a reference to the given []string and assigns it to the ColumnTypes field.
 func (o *CsvParams) SetColumnTypes(v []string) {
-	o.ColumnTypes = &v
+	o.ColumnTypes = v
 }
 
 // GetQuoteChar returns the QuoteChar field value if set, zero value otherwise.

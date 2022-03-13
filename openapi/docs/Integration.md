@@ -13,6 +13,9 @@ Name | Type | Description | Notes
 **Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
+**AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
+**AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
+**AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
 **Segment** | Pointer to [**SegmentIntegration**](SegmentIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
@@ -250,6 +253,81 @@ SetGcs sets Gcs field to given value.
 `func (o *Integration) HasGcs() bool`
 
 HasGcs returns a boolean if a field has been set.
+
+### GetAzureBlobStorage
+
+`func (o *Integration) GetAzureBlobStorage() AzureBlobStorageIntegration`
+
+GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
+
+### GetAzureBlobStorageOk
+
+`func (o *Integration) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool)`
+
+GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureBlobStorage
+
+`func (o *Integration) SetAzureBlobStorage(v AzureBlobStorageIntegration)`
+
+SetAzureBlobStorage sets AzureBlobStorage field to given value.
+
+### HasAzureBlobStorage
+
+`func (o *Integration) HasAzureBlobStorage() bool`
+
+HasAzureBlobStorage returns a boolean if a field has been set.
+
+### GetAzureServiceBus
+
+`func (o *Integration) GetAzureServiceBus() AzureServiceBusIntegration`
+
+GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
+
+### GetAzureServiceBusOk
+
+`func (o *Integration) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)`
+
+GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureServiceBus
+
+`func (o *Integration) SetAzureServiceBus(v AzureServiceBusIntegration)`
+
+SetAzureServiceBus sets AzureServiceBus field to given value.
+
+### HasAzureServiceBus
+
+`func (o *Integration) HasAzureServiceBus() bool`
+
+HasAzureServiceBus returns a boolean if a field has been set.
+
+### GetAzureEventHubs
+
+`func (o *Integration) GetAzureEventHubs() AzureEventHubsIntegration`
+
+GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
+
+### GetAzureEventHubsOk
+
+`func (o *Integration) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool)`
+
+GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureEventHubs
+
+`func (o *Integration) SetAzureEventHubs(v AzureEventHubsIntegration)`
+
+SetAzureEventHubs sets AzureEventHubs field to given value.
+
+### HasAzureEventHubs
+
+`func (o *Integration) HasAzureEventHubs() bool`
+
+HasAzureEventHubs returns a boolean if a field has been set.
 
 ### GetSegment
 

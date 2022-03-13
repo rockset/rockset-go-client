@@ -77,11 +77,11 @@ func (o *PatchDocument) GetPatch() []PatchOperation {
 
 // GetPatchOk returns a tuple with the Patch field value
 // and a boolean to check if the value has been set.
-func (o *PatchDocument) GetPatchOk() (*[]PatchOperation, bool) {
+func (o *PatchDocument) GetPatchOk() ([]PatchOperation, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Patch, true
+	return o.Patch, true
 }
 
 // SetPatch sets field value

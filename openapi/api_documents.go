@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type DocumentsApi interface {
@@ -31,55 +31,55 @@ type DocumentsApi interface {
 
 	Add documents to a collection.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace Name of the workspace.
 	 @param collection Name of the collection.
 	 @return ApiAddDocumentsRequest
 	*/
-	AddDocuments(ctx _context.Context, workspace string, collection string) ApiAddDocumentsRequest
+	AddDocuments(ctx context.Context, workspace string, collection string) ApiAddDocumentsRequest
 
 	// AddDocumentsExecute executes the request
 	//  @return AddDocumentsResponse
-	AddDocumentsExecute(r ApiAddDocumentsRequest) (AddDocumentsResponse, *_nethttp.Response, error)
+	AddDocumentsExecute(r ApiAddDocumentsRequest) (*AddDocumentsResponse, *http.Response, error)
 
 	/*
 	DeleteDocuments Delete Documents
 
 	Delete documents from a collection.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace Name of the workspace.
 	 @param collection Name of the collection.
 	 @return ApiDeleteDocumentsRequest
 	*/
-	DeleteDocuments(ctx _context.Context, workspace string, collection string) ApiDeleteDocumentsRequest
+	DeleteDocuments(ctx context.Context, workspace string, collection string) ApiDeleteDocumentsRequest
 
 	// DeleteDocumentsExecute executes the request
 	//  @return DeleteDocumentsResponse
-	DeleteDocumentsExecute(r ApiDeleteDocumentsRequest) (DeleteDocumentsResponse, *_nethttp.Response, error)
+	DeleteDocumentsExecute(r ApiDeleteDocumentsRequest) (*DeleteDocumentsResponse, *http.Response, error)
 
 	/*
 	PatchDocuments Patch Documents
 
 	Update existing documents in a collection.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace Name of the workspace.
 	 @param collection Name of the collection.
 	 @return ApiPatchDocumentsRequest
 	*/
-	PatchDocuments(ctx _context.Context, workspace string, collection string) ApiPatchDocumentsRequest
+	PatchDocuments(ctx context.Context, workspace string, collection string) ApiPatchDocumentsRequest
 
 	// PatchDocumentsExecute executes the request
 	//  @return PatchDocumentsResponse
-	PatchDocumentsExecute(r ApiPatchDocumentsRequest) (PatchDocumentsResponse, *_nethttp.Response, error)
+	PatchDocumentsExecute(r ApiPatchDocumentsRequest) (*PatchDocumentsResponse, *http.Response, error)
 }
 
 // DocumentsApiService DocumentsApi service
 type DocumentsApiService service
 
 type ApiAddDocumentsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService DocumentsApi
 	workspace string
 	collection string
@@ -92,7 +92,7 @@ func (r ApiAddDocumentsRequest) Body(body AddDocumentsRequest) ApiAddDocumentsRe
 	return r
 }
 
-func (r ApiAddDocumentsRequest) Execute() (AddDocumentsResponse, *_nethttp.Response, error) {
+func (r ApiAddDocumentsRequest) Execute() (*AddDocumentsResponse, *http.Response, error) {
 	return r.ApiService.AddDocumentsExecute(r)
 }
 
@@ -101,12 +101,12 @@ AddDocuments Add Documents
 
 Add documents to a collection.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace Name of the workspace.
  @param collection Name of the collection.
  @return ApiAddDocumentsRequest
 */
-func (a *DocumentsApiService) AddDocuments(ctx _context.Context, workspace string, collection string) ApiAddDocumentsRequest {
+func (a *DocumentsApiService) AddDocuments(ctx context.Context, workspace string, collection string) ApiAddDocumentsRequest {
 	return ApiAddDocumentsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -117,26 +117,26 @@ func (a *DocumentsApiService) AddDocuments(ctx _context.Context, workspace strin
 
 // Execute executes the request
 //  @return AddDocumentsResponse
-func (a *DocumentsApiService) AddDocumentsExecute(r ApiAddDocumentsRequest) (AddDocumentsResponse, *_nethttp.Response, error) {
+func (a *DocumentsApiService) AddDocumentsExecute(r ApiAddDocumentsRequest) (*AddDocumentsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  AddDocumentsResponse
+		localVarReturnValue  *AddDocumentsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DocumentsApiService.AddDocuments")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", _neturl.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -170,15 +170,15 @@ func (a *DocumentsApiService) AddDocumentsExecute(r ApiAddDocumentsRequest) (Add
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -316,7 +316,7 @@ func (a *DocumentsApiService) AddDocumentsExecute(r ApiAddDocumentsRequest) (Add
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -327,7 +327,7 @@ func (a *DocumentsApiService) AddDocumentsExecute(r ApiAddDocumentsRequest) (Add
 }
 
 type ApiDeleteDocumentsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService DocumentsApi
 	workspace string
 	collection string
@@ -340,7 +340,7 @@ func (r ApiDeleteDocumentsRequest) Body(body DeleteDocumentsRequest) ApiDeleteDo
 	return r
 }
 
-func (r ApiDeleteDocumentsRequest) Execute() (DeleteDocumentsResponse, *_nethttp.Response, error) {
+func (r ApiDeleteDocumentsRequest) Execute() (*DeleteDocumentsResponse, *http.Response, error) {
 	return r.ApiService.DeleteDocumentsExecute(r)
 }
 
@@ -349,12 +349,12 @@ DeleteDocuments Delete Documents
 
 Delete documents from a collection.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace Name of the workspace.
  @param collection Name of the collection.
  @return ApiDeleteDocumentsRequest
 */
-func (a *DocumentsApiService) DeleteDocuments(ctx _context.Context, workspace string, collection string) ApiDeleteDocumentsRequest {
+func (a *DocumentsApiService) DeleteDocuments(ctx context.Context, workspace string, collection string) ApiDeleteDocumentsRequest {
 	return ApiDeleteDocumentsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -365,26 +365,26 @@ func (a *DocumentsApiService) DeleteDocuments(ctx _context.Context, workspace st
 
 // Execute executes the request
 //  @return DeleteDocumentsResponse
-func (a *DocumentsApiService) DeleteDocumentsExecute(r ApiDeleteDocumentsRequest) (DeleteDocumentsResponse, *_nethttp.Response, error) {
+func (a *DocumentsApiService) DeleteDocumentsExecute(r ApiDeleteDocumentsRequest) (*DeleteDocumentsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteDocumentsResponse
+		localVarReturnValue  *DeleteDocumentsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DocumentsApiService.DeleteDocuments")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", _neturl.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -418,15 +418,15 @@ func (a *DocumentsApiService) DeleteDocumentsExecute(r ApiDeleteDocumentsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -564,7 +564,7 @@ func (a *DocumentsApiService) DeleteDocumentsExecute(r ApiDeleteDocumentsRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -575,7 +575,7 @@ func (a *DocumentsApiService) DeleteDocumentsExecute(r ApiDeleteDocumentsRequest
 }
 
 type ApiPatchDocumentsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService DocumentsApi
 	workspace string
 	collection string
@@ -588,7 +588,7 @@ func (r ApiPatchDocumentsRequest) Body(body PatchDocumentsRequest) ApiPatchDocum
 	return r
 }
 
-func (r ApiPatchDocumentsRequest) Execute() (PatchDocumentsResponse, *_nethttp.Response, error) {
+func (r ApiPatchDocumentsRequest) Execute() (*PatchDocumentsResponse, *http.Response, error) {
 	return r.ApiService.PatchDocumentsExecute(r)
 }
 
@@ -597,12 +597,12 @@ PatchDocuments Patch Documents
 
 Update existing documents in a collection.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace Name of the workspace.
  @param collection Name of the collection.
  @return ApiPatchDocumentsRequest
 */
-func (a *DocumentsApiService) PatchDocuments(ctx _context.Context, workspace string, collection string) ApiPatchDocumentsRequest {
+func (a *DocumentsApiService) PatchDocuments(ctx context.Context, workspace string, collection string) ApiPatchDocumentsRequest {
 	return ApiPatchDocumentsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -613,26 +613,26 @@ func (a *DocumentsApiService) PatchDocuments(ctx _context.Context, workspace str
 
 // Execute executes the request
 //  @return PatchDocumentsResponse
-func (a *DocumentsApiService) PatchDocumentsExecute(r ApiPatchDocumentsRequest) (PatchDocumentsResponse, *_nethttp.Response, error) {
+func (a *DocumentsApiService) PatchDocumentsExecute(r ApiPatchDocumentsRequest) (*PatchDocumentsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  PatchDocumentsResponse
+		localVarReturnValue  *PatchDocumentsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DocumentsApiService.PatchDocuments")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/docs"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", _neturl.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -666,15 +666,15 @@ func (a *DocumentsApiService) PatchDocumentsExecute(r ApiPatchDocumentsRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -812,7 +812,7 @@ func (a *DocumentsApiService) PatchDocumentsExecute(r ApiPatchDocumentsRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

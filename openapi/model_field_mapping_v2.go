@@ -21,7 +21,7 @@ type FieldMappingV2 struct {
 	// A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set
 	IsDropAllFields *bool `json:"is_drop_all_fields,omitempty"`
 	// A List of InputField for this mapping
-	InputFields *[]InputField `json:"input_fields,omitempty"`
+	InputFields []InputField `json:"input_fields,omitempty"`
 	OutputField *OutputField `json:"output_field,omitempty"`
 }
 
@@ -112,12 +112,12 @@ func (o *FieldMappingV2) GetInputFields() []InputField {
 		var ret []InputField
 		return ret
 	}
-	return *o.InputFields
+	return o.InputFields
 }
 
 // GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FieldMappingV2) GetInputFieldsOk() (*[]InputField, bool) {
+func (o *FieldMappingV2) GetInputFieldsOk() ([]InputField, bool) {
 	if o == nil || o.InputFields == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *FieldMappingV2) HasInputFields() bool {
 
 // SetInputFields gets a reference to the given []InputField and assigns it to the InputFields field.
 func (o *FieldMappingV2) SetInputFields(v []InputField) {
-	o.InputFields = &v
+	o.InputFields = v
 }
 
 // GetOutputField returns the OutputField field value if set, zero value otherwise.

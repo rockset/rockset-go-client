@@ -21,7 +21,7 @@ import (
 func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection string,
 	docs []interface{}) ([]openapi.DocumentStatus, error) {
 	var err error
-	var resp openapi.AddDocumentsResponse
+	var resp *openapi.AddDocumentsResponse
 
 	log := zerolog.Ctx(ctx)
 	q := rc.DocumentsApi.AddDocuments(ctx, workspace, collection)
@@ -160,7 +160,7 @@ func closeAndLog(ctx context.Context, c io.Closer) {
 func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection string,
 	docIDs []string) ([]openapi.DocumentStatus, error) {
 	var err error
-	var resp openapi.DeleteDocumentsResponse
+	var resp *openapi.DeleteDocumentsResponse
 
 	log := zerolog.Ctx(ctx)
 	q := rc.DocumentsApi.DeleteDocuments(ctx, workspace, collection)

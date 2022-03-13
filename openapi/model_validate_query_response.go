@@ -56,11 +56,11 @@ func (o *ValidateQueryResponse) GetName() []string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *ValidateQueryResponse) GetNameOk() (*[]string, bool) {
+func (o *ValidateQueryResponse) GetNameOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
 // SetName sets field value
@@ -80,11 +80,11 @@ func (o *ValidateQueryResponse) GetCollections() []string {
 
 // GetCollectionsOk returns a tuple with the Collections field value
 // and a boolean to check if the value has been set.
-func (o *ValidateQueryResponse) GetCollectionsOk() (*[]string, bool) {
+func (o *ValidateQueryResponse) GetCollectionsOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Collections, true
+	return o.Collections, true
 }
 
 // SetCollections sets field value
@@ -104,11 +104,11 @@ func (o *ValidateQueryResponse) GetParameters() []string {
 
 // GetParametersOk returns a tuple with the Parameters field value
 // and a boolean to check if the value has been set.
-func (o *ValidateQueryResponse) GetParametersOk() (*[]string, bool) {
+func (o *ValidateQueryResponse) GetParametersOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Parameters, true
+	return o.Parameters, true
 }
 
 // SetParameters sets field value

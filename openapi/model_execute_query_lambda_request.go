@@ -17,7 +17,7 @@ import (
 // ExecuteQueryLambdaRequest struct for ExecuteQueryLambdaRequest
 type ExecuteQueryLambdaRequest struct {
 	// list of named parameters
-	Parameters *[]QueryParameter `json:"parameters,omitempty"`
+	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Row limit to use if no limit specified in the SQL query text
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
 	// Whether to generate warnings
@@ -51,12 +51,12 @@ func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter {
 		var ret []QueryParameter
 		return ret
 	}
-	return *o.Parameters
+	return o.Parameters
 }
 
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExecuteQueryLambdaRequest) GetParametersOk() (*[]QueryParameter, bool) {
+func (o *ExecuteQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
 	if o == nil || o.Parameters == nil {
 		return nil, false
 	}
@@ -74,7 +74,7 @@ func (o *ExecuteQueryLambdaRequest) HasParameters() bool {
 
 // SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
 func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter) {
-	o.Parameters = &v
+	o.Parameters = v
 }
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.

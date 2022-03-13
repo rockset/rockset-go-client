@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type AliasesApi interface {
@@ -31,99 +31,99 @@ type AliasesApi interface {
 
 	Create new alias in a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiCreateAliasRequest
 	*/
-	CreateAlias(ctx _context.Context, workspace string) ApiCreateAliasRequest
+	CreateAlias(ctx context.Context, workspace string) ApiCreateAliasRequest
 
 	// CreateAliasExecute executes the request
 	//  @return CreateAliasResponse
-	CreateAliasExecute(r ApiCreateAliasRequest) (CreateAliasResponse, *_nethttp.Response, error)
+	CreateAliasExecute(r ApiCreateAliasRequest) (*CreateAliasResponse, *http.Response, error)
 
 	/*
 	DeleteAlias Delete Alias
 
 	Delete an alias.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param alias name of the alias
 	 @return ApiDeleteAliasRequest
 	*/
-	DeleteAlias(ctx _context.Context, workspace string, alias string) ApiDeleteAliasRequest
+	DeleteAlias(ctx context.Context, workspace string, alias string) ApiDeleteAliasRequest
 
 	// DeleteAliasExecute executes the request
 	//  @return DeleteAliasResponse
-	DeleteAliasExecute(r ApiDeleteAliasRequest) (DeleteAliasResponse, *_nethttp.Response, error)
+	DeleteAliasExecute(r ApiDeleteAliasRequest) (*DeleteAliasResponse, *http.Response, error)
 
 	/*
 	GetAlias Retrieve Alias
 
 	Get details about an alias
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param alias name of the alias
 	 @return ApiGetAliasRequest
 	*/
-	GetAlias(ctx _context.Context, workspace string, alias string) ApiGetAliasRequest
+	GetAlias(ctx context.Context, workspace string, alias string) ApiGetAliasRequest
 
 	// GetAliasExecute executes the request
 	//  @return GetAliasResponse
-	GetAliasExecute(r ApiGetAliasRequest) (GetAliasResponse, *_nethttp.Response, error)
+	GetAliasExecute(r ApiGetAliasRequest) (*GetAliasResponse, *http.Response, error)
 
 	/*
 	ListAliases List Aliases
 
 	Retrieve all aliases in an organization
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListAliasesRequest
 	*/
-	ListAliases(ctx _context.Context) ApiListAliasesRequest
+	ListAliases(ctx context.Context) ApiListAliasesRequest
 
 	// ListAliasesExecute executes the request
 	//  @return ListAliasesResponse
-	ListAliasesExecute(r ApiListAliasesRequest) (ListAliasesResponse, *_nethttp.Response, error)
+	ListAliasesExecute(r ApiListAliasesRequest) (*ListAliasesResponse, *http.Response, error)
 
 	/*
 	UpdateAlias Update Alias
 
 	Update alias in a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param alias name of the alias
 	 @return ApiUpdateAliasRequest
 	*/
-	UpdateAlias(ctx _context.Context, workspace string, alias string) ApiUpdateAliasRequest
+	UpdateAlias(ctx context.Context, workspace string, alias string) ApiUpdateAliasRequest
 
 	// UpdateAliasExecute executes the request
 	//  @return GetAliasResponse
-	UpdateAliasExecute(r ApiUpdateAliasRequest) (GetAliasResponse, *_nethttp.Response, error)
+	UpdateAliasExecute(r ApiUpdateAliasRequest) (*GetAliasResponse, *http.Response, error)
 
 	/*
 	WorkspaceAliases List Aliases in Workspace
 
 	Retrieve all aliases in a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiWorkspaceAliasesRequest
 	*/
-	WorkspaceAliases(ctx _context.Context, workspace string) ApiWorkspaceAliasesRequest
+	WorkspaceAliases(ctx context.Context, workspace string) ApiWorkspaceAliasesRequest
 
 	// WorkspaceAliasesExecute executes the request
 	//  @return ListAliasesResponse
-	WorkspaceAliasesExecute(r ApiWorkspaceAliasesRequest) (ListAliasesResponse, *_nethttp.Response, error)
+	WorkspaceAliasesExecute(r ApiWorkspaceAliasesRequest) (*ListAliasesResponse, *http.Response, error)
 }
 
 // AliasesApiService AliasesApi service
 type AliasesApiService service
 
 type ApiCreateAliasRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AliasesApi
 	workspace string
 	body *CreateAliasRequest
@@ -135,7 +135,7 @@ func (r ApiCreateAliasRequest) Body(body CreateAliasRequest) ApiCreateAliasReque
 	return r
 }
 
-func (r ApiCreateAliasRequest) Execute() (CreateAliasResponse, *_nethttp.Response, error) {
+func (r ApiCreateAliasRequest) Execute() (*CreateAliasResponse, *http.Response, error) {
 	return r.ApiService.CreateAliasExecute(r)
 }
 
@@ -144,11 +144,11 @@ CreateAlias Create Alias
 
 Create new alias in a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiCreateAliasRequest
 */
-func (a *AliasesApiService) CreateAlias(ctx _context.Context, workspace string) ApiCreateAliasRequest {
+func (a *AliasesApiService) CreateAlias(ctx context.Context, workspace string) ApiCreateAliasRequest {
 	return ApiCreateAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -158,25 +158,25 @@ func (a *AliasesApiService) CreateAlias(ctx _context.Context, workspace string) 
 
 // Execute executes the request
 //  @return CreateAliasResponse
-func (a *AliasesApiService) CreateAliasExecute(r ApiCreateAliasRequest) (CreateAliasResponse, *_nethttp.Response, error) {
+func (a *AliasesApiService) CreateAliasExecute(r ApiCreateAliasRequest) (*CreateAliasResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  CreateAliasResponse
+		localVarReturnValue  *CreateAliasResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AliasesApiService.CreateAlias")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/aliases"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -210,15 +210,15 @@ func (a *AliasesApiService) CreateAliasExecute(r ApiCreateAliasRequest) (CreateA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -356,7 +356,7 @@ func (a *AliasesApiService) CreateAliasExecute(r ApiCreateAliasRequest) (CreateA
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -367,14 +367,14 @@ func (a *AliasesApiService) CreateAliasExecute(r ApiCreateAliasRequest) (CreateA
 }
 
 type ApiDeleteAliasRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AliasesApi
 	workspace string
 	alias string
 }
 
 
-func (r ApiDeleteAliasRequest) Execute() (DeleteAliasResponse, *_nethttp.Response, error) {
+func (r ApiDeleteAliasRequest) Execute() (*DeleteAliasResponse, *http.Response, error) {
 	return r.ApiService.DeleteAliasExecute(r)
 }
 
@@ -383,12 +383,12 @@ DeleteAlias Delete Alias
 
 Delete an alias.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param alias name of the alias
  @return ApiDeleteAliasRequest
 */
-func (a *AliasesApiService) DeleteAlias(ctx _context.Context, workspace string, alias string) ApiDeleteAliasRequest {
+func (a *AliasesApiService) DeleteAlias(ctx context.Context, workspace string, alias string) ApiDeleteAliasRequest {
 	return ApiDeleteAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -399,26 +399,26 @@ func (a *AliasesApiService) DeleteAlias(ctx _context.Context, workspace string, 
 
 // Execute executes the request
 //  @return DeleteAliasResponse
-func (a *AliasesApiService) DeleteAliasExecute(r ApiDeleteAliasRequest) (DeleteAliasResponse, *_nethttp.Response, error) {
+func (a *AliasesApiService) DeleteAliasExecute(r ApiDeleteAliasRequest) (*DeleteAliasResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteAliasResponse
+		localVarReturnValue  *DeleteAliasResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AliasesApiService.DeleteAlias")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/aliases/{alias}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"alias"+"}", _neturl.PathEscape(parameterToString(r.alias, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"alias"+"}", url.PathEscape(parameterToString(r.alias, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -447,15 +447,15 @@ func (a *AliasesApiService) DeleteAliasExecute(r ApiDeleteAliasRequest) (DeleteA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -464,7 +464,7 @@ func (a *AliasesApiService) DeleteAliasExecute(r ApiDeleteAliasRequest) (DeleteA
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -475,14 +475,14 @@ func (a *AliasesApiService) DeleteAliasExecute(r ApiDeleteAliasRequest) (DeleteA
 }
 
 type ApiGetAliasRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AliasesApi
 	workspace string
 	alias string
 }
 
 
-func (r ApiGetAliasRequest) Execute() (GetAliasResponse, *_nethttp.Response, error) {
+func (r ApiGetAliasRequest) Execute() (*GetAliasResponse, *http.Response, error) {
 	return r.ApiService.GetAliasExecute(r)
 }
 
@@ -491,12 +491,12 @@ GetAlias Retrieve Alias
 
 Get details about an alias
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param alias name of the alias
  @return ApiGetAliasRequest
 */
-func (a *AliasesApiService) GetAlias(ctx _context.Context, workspace string, alias string) ApiGetAliasRequest {
+func (a *AliasesApiService) GetAlias(ctx context.Context, workspace string, alias string) ApiGetAliasRequest {
 	return ApiGetAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -507,26 +507,26 @@ func (a *AliasesApiService) GetAlias(ctx _context.Context, workspace string, ali
 
 // Execute executes the request
 //  @return GetAliasResponse
-func (a *AliasesApiService) GetAliasExecute(r ApiGetAliasRequest) (GetAliasResponse, *_nethttp.Response, error) {
+func (a *AliasesApiService) GetAliasExecute(r ApiGetAliasRequest) (*GetAliasResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetAliasResponse
+		localVarReturnValue  *GetAliasResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AliasesApiService.GetAlias")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/aliases/{alias}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"alias"+"}", _neturl.PathEscape(parameterToString(r.alias, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"alias"+"}", url.PathEscape(parameterToString(r.alias, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -555,15 +555,15 @@ func (a *AliasesApiService) GetAliasExecute(r ApiGetAliasRequest) (GetAliasRespo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -701,7 +701,7 @@ func (a *AliasesApiService) GetAliasExecute(r ApiGetAliasRequest) (GetAliasRespo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -712,12 +712,12 @@ func (a *AliasesApiService) GetAliasExecute(r ApiGetAliasRequest) (GetAliasRespo
 }
 
 type ApiListAliasesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AliasesApi
 }
 
 
-func (r ApiListAliasesRequest) Execute() (ListAliasesResponse, *_nethttp.Response, error) {
+func (r ApiListAliasesRequest) Execute() (*ListAliasesResponse, *http.Response, error) {
 	return r.ApiService.ListAliasesExecute(r)
 }
 
@@ -726,10 +726,10 @@ ListAliases List Aliases
 
 Retrieve all aliases in an organization
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAliasesRequest
 */
-func (a *AliasesApiService) ListAliases(ctx _context.Context) ApiListAliasesRequest {
+func (a *AliasesApiService) ListAliases(ctx context.Context) ApiListAliasesRequest {
 	return ApiListAliasesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -738,24 +738,24 @@ func (a *AliasesApiService) ListAliases(ctx _context.Context) ApiListAliasesRequ
 
 // Execute executes the request
 //  @return ListAliasesResponse
-func (a *AliasesApiService) ListAliasesExecute(r ApiListAliasesRequest) (ListAliasesResponse, *_nethttp.Response, error) {
+func (a *AliasesApiService) ListAliasesExecute(r ApiListAliasesRequest) (*ListAliasesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListAliasesResponse
+		localVarReturnValue  *ListAliasesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AliasesApiService.ListAliases")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/aliases"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -784,15 +784,15 @@ func (a *AliasesApiService) ListAliasesExecute(r ApiListAliasesRequest) (ListAli
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -930,7 +930,7 @@ func (a *AliasesApiService) ListAliasesExecute(r ApiListAliasesRequest) (ListAli
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -941,7 +941,7 @@ func (a *AliasesApiService) ListAliasesExecute(r ApiListAliasesRequest) (ListAli
 }
 
 type ApiUpdateAliasRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AliasesApi
 	workspace string
 	alias string
@@ -954,7 +954,7 @@ func (r ApiUpdateAliasRequest) Body(body UpdateAliasRequest) ApiUpdateAliasReque
 	return r
 }
 
-func (r ApiUpdateAliasRequest) Execute() (GetAliasResponse, *_nethttp.Response, error) {
+func (r ApiUpdateAliasRequest) Execute() (*GetAliasResponse, *http.Response, error) {
 	return r.ApiService.UpdateAliasExecute(r)
 }
 
@@ -963,12 +963,12 @@ UpdateAlias Update Alias
 
 Update alias in a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param alias name of the alias
  @return ApiUpdateAliasRequest
 */
-func (a *AliasesApiService) UpdateAlias(ctx _context.Context, workspace string, alias string) ApiUpdateAliasRequest {
+func (a *AliasesApiService) UpdateAlias(ctx context.Context, workspace string, alias string) ApiUpdateAliasRequest {
 	return ApiUpdateAliasRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -979,26 +979,26 @@ func (a *AliasesApiService) UpdateAlias(ctx _context.Context, workspace string, 
 
 // Execute executes the request
 //  @return GetAliasResponse
-func (a *AliasesApiService) UpdateAliasExecute(r ApiUpdateAliasRequest) (GetAliasResponse, *_nethttp.Response, error) {
+func (a *AliasesApiService) UpdateAliasExecute(r ApiUpdateAliasRequest) (*GetAliasResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetAliasResponse
+		localVarReturnValue  *GetAliasResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AliasesApiService.UpdateAlias")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/aliases/{alias}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"alias"+"}", _neturl.PathEscape(parameterToString(r.alias, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"alias"+"}", url.PathEscape(parameterToString(r.alias, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -1032,15 +1032,15 @@ func (a *AliasesApiService) UpdateAliasExecute(r ApiUpdateAliasRequest) (GetAlia
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1049,7 +1049,7 @@ func (a *AliasesApiService) UpdateAliasExecute(r ApiUpdateAliasRequest) (GetAlia
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1060,13 +1060,13 @@ func (a *AliasesApiService) UpdateAliasExecute(r ApiUpdateAliasRequest) (GetAlia
 }
 
 type ApiWorkspaceAliasesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AliasesApi
 	workspace string
 }
 
 
-func (r ApiWorkspaceAliasesRequest) Execute() (ListAliasesResponse, *_nethttp.Response, error) {
+func (r ApiWorkspaceAliasesRequest) Execute() (*ListAliasesResponse, *http.Response, error) {
 	return r.ApiService.WorkspaceAliasesExecute(r)
 }
 
@@ -1075,11 +1075,11 @@ WorkspaceAliases List Aliases in Workspace
 
 Retrieve all aliases in a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiWorkspaceAliasesRequest
 */
-func (a *AliasesApiService) WorkspaceAliases(ctx _context.Context, workspace string) ApiWorkspaceAliasesRequest {
+func (a *AliasesApiService) WorkspaceAliases(ctx context.Context, workspace string) ApiWorkspaceAliasesRequest {
 	return ApiWorkspaceAliasesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1089,25 +1089,25 @@ func (a *AliasesApiService) WorkspaceAliases(ctx _context.Context, workspace str
 
 // Execute executes the request
 //  @return ListAliasesResponse
-func (a *AliasesApiService) WorkspaceAliasesExecute(r ApiWorkspaceAliasesRequest) (ListAliasesResponse, *_nethttp.Response, error) {
+func (a *AliasesApiService) WorkspaceAliasesExecute(r ApiWorkspaceAliasesRequest) (*ListAliasesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListAliasesResponse
+		localVarReturnValue  *ListAliasesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AliasesApiService.WorkspaceAliases")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/aliases"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1136,15 +1136,15 @@ func (a *AliasesApiService) WorkspaceAliasesExecute(r ApiWorkspaceAliasesRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1282,7 +1282,7 @@ func (a *AliasesApiService) WorkspaceAliasesExecute(r ApiWorkspaceAliasesRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

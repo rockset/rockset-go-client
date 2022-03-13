@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type ViewsApi interface {
@@ -31,99 +31,99 @@ type ViewsApi interface {
 
 	Create a view
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiCreateViewRequest
 	*/
-	CreateView(ctx _context.Context, workspace string) ApiCreateViewRequest
+	CreateView(ctx context.Context, workspace string) ApiCreateViewRequest
 
 	// CreateViewExecute executes the request
 	//  @return CreateViewResponse
-	CreateViewExecute(r ApiCreateViewRequest) (CreateViewResponse, *_nethttp.Response, error)
+	CreateViewExecute(r ApiCreateViewRequest) (*CreateViewResponse, *http.Response, error)
 
 	/*
 	DeleteView Delete View
 
 	Delete a view
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param view name of the view
 	 @return ApiDeleteViewRequest
 	*/
-	DeleteView(ctx _context.Context, workspace string, view string) ApiDeleteViewRequest
+	DeleteView(ctx context.Context, workspace string, view string) ApiDeleteViewRequest
 
 	// DeleteViewExecute executes the request
 	//  @return DeleteViewResponse
-	DeleteViewExecute(r ApiDeleteViewRequest) (DeleteViewResponse, *_nethttp.Response, error)
+	DeleteViewExecute(r ApiDeleteViewRequest) (*DeleteViewResponse, *http.Response, error)
 
 	/*
 	GetView Retrieve View
 
 	Get details about a view
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param view name of the view
 	 @return ApiGetViewRequest
 	*/
-	GetView(ctx _context.Context, workspace string, view string) ApiGetViewRequest
+	GetView(ctx context.Context, workspace string, view string) ApiGetViewRequest
 
 	// GetViewExecute executes the request
 	//  @return GetViewResponse
-	GetViewExecute(r ApiGetViewRequest) (GetViewResponse, *_nethttp.Response, error)
+	GetViewExecute(r ApiGetViewRequest) (*GetViewResponse, *http.Response, error)
 
 	/*
 	ListViews List Views
 
 	Retrieve all views in an organization
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListViewsRequest
 	*/
-	ListViews(ctx _context.Context) ApiListViewsRequest
+	ListViews(ctx context.Context) ApiListViewsRequest
 
 	// ListViewsExecute executes the request
 	//  @return ListViewsResponse
-	ListViewsExecute(r ApiListViewsRequest) (ListViewsResponse, *_nethttp.Response, error)
+	ListViewsExecute(r ApiListViewsRequest) (*ListViewsResponse, *http.Response, error)
 
 	/*
 	UpdateView Update View
 
 	Update a view
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @param view name of the view
 	 @return ApiUpdateViewRequest
 	*/
-	UpdateView(ctx _context.Context, workspace string, view string) ApiUpdateViewRequest
+	UpdateView(ctx context.Context, workspace string, view string) ApiUpdateViewRequest
 
 	// UpdateViewExecute executes the request
 	//  @return UpdateViewResponse
-	UpdateViewExecute(r ApiUpdateViewRequest) (UpdateViewResponse, *_nethttp.Response, error)
+	UpdateViewExecute(r ApiUpdateViewRequest) (*UpdateViewResponse, *http.Response, error)
 
 	/*
 	WorkspaceViews List Views in Workspace
 
 	Retrieve all views in a workspace.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
 	 @return ApiWorkspaceViewsRequest
 	*/
-	WorkspaceViews(ctx _context.Context, workspace string) ApiWorkspaceViewsRequest
+	WorkspaceViews(ctx context.Context, workspace string) ApiWorkspaceViewsRequest
 
 	// WorkspaceViewsExecute executes the request
 	//  @return ListViewsResponse
-	WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (ListViewsResponse, *_nethttp.Response, error)
+	WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (*ListViewsResponse, *http.Response, error)
 }
 
 // ViewsApiService ViewsApi service
 type ViewsApiService service
 
 type ApiCreateViewRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ViewsApi
 	workspace string
 	body *CreateViewRequest
@@ -135,7 +135,7 @@ func (r ApiCreateViewRequest) Body(body CreateViewRequest) ApiCreateViewRequest 
 	return r
 }
 
-func (r ApiCreateViewRequest) Execute() (CreateViewResponse, *_nethttp.Response, error) {
+func (r ApiCreateViewRequest) Execute() (*CreateViewResponse, *http.Response, error) {
 	return r.ApiService.CreateViewExecute(r)
 }
 
@@ -144,11 +144,11 @@ CreateView Create View
 
 Create a view
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiCreateViewRequest
 */
-func (a *ViewsApiService) CreateView(ctx _context.Context, workspace string) ApiCreateViewRequest {
+func (a *ViewsApiService) CreateView(ctx context.Context, workspace string) ApiCreateViewRequest {
 	return ApiCreateViewRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -158,25 +158,25 @@ func (a *ViewsApiService) CreateView(ctx _context.Context, workspace string) Api
 
 // Execute executes the request
 //  @return CreateViewResponse
-func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (CreateViewResponse, *_nethttp.Response, error) {
+func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (*CreateViewResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  CreateViewResponse
+		localVarReturnValue  *CreateViewResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.CreateView")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -210,15 +210,15 @@ func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (CreateViewR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -227,7 +227,7 @@ func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (CreateViewR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -238,14 +238,14 @@ func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (CreateViewR
 }
 
 type ApiDeleteViewRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ViewsApi
 	workspace string
 	view string
 }
 
 
-func (r ApiDeleteViewRequest) Execute() (DeleteViewResponse, *_nethttp.Response, error) {
+func (r ApiDeleteViewRequest) Execute() (*DeleteViewResponse, *http.Response, error) {
 	return r.ApiService.DeleteViewExecute(r)
 }
 
@@ -254,12 +254,12 @@ DeleteView Delete View
 
 Delete a view
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param view name of the view
  @return ApiDeleteViewRequest
 */
-func (a *ViewsApiService) DeleteView(ctx _context.Context, workspace string, view string) ApiDeleteViewRequest {
+func (a *ViewsApiService) DeleteView(ctx context.Context, workspace string, view string) ApiDeleteViewRequest {
 	return ApiDeleteViewRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -270,26 +270,26 @@ func (a *ViewsApiService) DeleteView(ctx _context.Context, workspace string, vie
 
 // Execute executes the request
 //  @return DeleteViewResponse
-func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (DeleteViewResponse, *_nethttp.Response, error) {
+func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (*DeleteViewResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteViewResponse
+		localVarReturnValue  *DeleteViewResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.DeleteView")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views/{view}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", _neturl.PathEscape(parameterToString(r.view, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", url.PathEscape(parameterToString(r.view, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -318,15 +318,15 @@ func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (DeleteViewR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -335,7 +335,7 @@ func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (DeleteViewR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -346,14 +346,14 @@ func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (DeleteViewR
 }
 
 type ApiGetViewRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ViewsApi
 	workspace string
 	view string
 }
 
 
-func (r ApiGetViewRequest) Execute() (GetViewResponse, *_nethttp.Response, error) {
+func (r ApiGetViewRequest) Execute() (*GetViewResponse, *http.Response, error) {
 	return r.ApiService.GetViewExecute(r)
 }
 
@@ -362,12 +362,12 @@ GetView Retrieve View
 
 Get details about a view
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param view name of the view
  @return ApiGetViewRequest
 */
-func (a *ViewsApiService) GetView(ctx _context.Context, workspace string, view string) ApiGetViewRequest {
+func (a *ViewsApiService) GetView(ctx context.Context, workspace string, view string) ApiGetViewRequest {
 	return ApiGetViewRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -378,26 +378,26 @@ func (a *ViewsApiService) GetView(ctx _context.Context, workspace string, view s
 
 // Execute executes the request
 //  @return GetViewResponse
-func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (GetViewResponse, *_nethttp.Response, error) {
+func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (*GetViewResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetViewResponse
+		localVarReturnValue  *GetViewResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.GetView")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views/{view}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", _neturl.PathEscape(parameterToString(r.view, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", url.PathEscape(parameterToString(r.view, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -426,15 +426,15 @@ func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (GetViewResponse, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -572,7 +572,7 @@ func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (GetViewResponse, 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -583,12 +583,12 @@ func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (GetViewResponse, 
 }
 
 type ApiListViewsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ViewsApi
 }
 
 
-func (r ApiListViewsRequest) Execute() (ListViewsResponse, *_nethttp.Response, error) {
+func (r ApiListViewsRequest) Execute() (*ListViewsResponse, *http.Response, error) {
 	return r.ApiService.ListViewsExecute(r)
 }
 
@@ -597,10 +597,10 @@ ListViews List Views
 
 Retrieve all views in an organization
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListViewsRequest
 */
-func (a *ViewsApiService) ListViews(ctx _context.Context) ApiListViewsRequest {
+func (a *ViewsApiService) ListViews(ctx context.Context) ApiListViewsRequest {
 	return ApiListViewsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -609,24 +609,24 @@ func (a *ViewsApiService) ListViews(ctx _context.Context) ApiListViewsRequest {
 
 // Execute executes the request
 //  @return ListViewsResponse
-func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (ListViewsResponse, *_nethttp.Response, error) {
+func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (*ListViewsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListViewsResponse
+		localVarReturnValue  *ListViewsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.ListViews")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/views"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -655,15 +655,15 @@ func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (ListViewsResp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -801,7 +801,7 @@ func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (ListViewsResp
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -812,7 +812,7 @@ func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (ListViewsResp
 }
 
 type ApiUpdateViewRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ViewsApi
 	workspace string
 	view string
@@ -825,7 +825,7 @@ func (r ApiUpdateViewRequest) Body(body UpdateViewRequest) ApiUpdateViewRequest 
 	return r
 }
 
-func (r ApiUpdateViewRequest) Execute() (UpdateViewResponse, *_nethttp.Response, error) {
+func (r ApiUpdateViewRequest) Execute() (*UpdateViewResponse, *http.Response, error) {
 	return r.ApiService.UpdateViewExecute(r)
 }
 
@@ -834,12 +834,12 @@ UpdateView Update View
 
 Update a view
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @param view name of the view
  @return ApiUpdateViewRequest
 */
-func (a *ViewsApiService) UpdateView(ctx _context.Context, workspace string, view string) ApiUpdateViewRequest {
+func (a *ViewsApiService) UpdateView(ctx context.Context, workspace string, view string) ApiUpdateViewRequest {
 	return ApiUpdateViewRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -850,26 +850,26 @@ func (a *ViewsApiService) UpdateView(ctx _context.Context, workspace string, vie
 
 // Execute executes the request
 //  @return UpdateViewResponse
-func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (UpdateViewResponse, *_nethttp.Response, error) {
+func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (*UpdateViewResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  UpdateViewResponse
+		localVarReturnValue  *UpdateViewResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.UpdateView")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views/{view}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", _neturl.PathEscape(parameterToString(r.view, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", url.PathEscape(parameterToString(r.view, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -903,15 +903,15 @@ func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (UpdateViewR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -920,7 +920,7 @@ func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (UpdateViewR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -931,13 +931,13 @@ func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (UpdateViewR
 }
 
 type ApiWorkspaceViewsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ViewsApi
 	workspace string
 }
 
 
-func (r ApiWorkspaceViewsRequest) Execute() (ListViewsResponse, *_nethttp.Response, error) {
+func (r ApiWorkspaceViewsRequest) Execute() (*ListViewsResponse, *http.Response, error) {
 	return r.ApiService.WorkspaceViewsExecute(r)
 }
 
@@ -946,11 +946,11 @@ WorkspaceViews List Views in Workspace
 
 Retrieve all views in a workspace.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
  @return ApiWorkspaceViewsRequest
 */
-func (a *ViewsApiService) WorkspaceViews(ctx _context.Context, workspace string) ApiWorkspaceViewsRequest {
+func (a *ViewsApiService) WorkspaceViews(ctx context.Context, workspace string) ApiWorkspaceViewsRequest {
 	return ApiWorkspaceViewsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -960,25 +960,25 @@ func (a *ViewsApiService) WorkspaceViews(ctx _context.Context, workspace string)
 
 // Execute executes the request
 //  @return ListViewsResponse
-func (a *ViewsApiService) WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (ListViewsResponse, *_nethttp.Response, error) {
+func (a *ViewsApiService) WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (*ListViewsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListViewsResponse
+		localVarReturnValue  *ListViewsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.WorkspaceViews")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", _neturl.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1007,15 +1007,15 @@ func (a *ViewsApiService) WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (Lis
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1153,7 +1153,7 @@ func (a *ViewsApiService) WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (Lis
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

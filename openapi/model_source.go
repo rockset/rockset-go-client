@@ -21,6 +21,9 @@ type Source struct {
 	S3 *SourceS3 `json:"s3,omitempty"`
 	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
 	Gcs *SourceGcs `json:"gcs,omitempty"`
+	AzureBlobStorage *SourceAzureBlobStorage `json:"azure_blob_storage,omitempty"`
+	AzureServiceBus *SourceAzureServiceBus `json:"azure_service_bus,omitempty"`
+	AzureEventHubs *SourceAzureEventHubs `json:"azure_event_hubs,omitempty"`
 	Redshift *SourceRedshift `json:"redshift,omitempty"`
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
@@ -166,6 +169,102 @@ func (o *Source) HasGcs() bool {
 // SetGcs gets a reference to the given SourceGcs and assigns it to the Gcs field.
 func (o *Source) SetGcs(v SourceGcs) {
 	o.Gcs = &v
+}
+
+// GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
+func (o *Source) GetAzureBlobStorage() SourceAzureBlobStorage {
+	if o == nil || o.AzureBlobStorage == nil {
+		var ret SourceAzureBlobStorage
+		return ret
+	}
+	return *o.AzureBlobStorage
+}
+
+// GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetAzureBlobStorageOk() (*SourceAzureBlobStorage, bool) {
+	if o == nil || o.AzureBlobStorage == nil {
+		return nil, false
+	}
+	return o.AzureBlobStorage, true
+}
+
+// HasAzureBlobStorage returns a boolean if a field has been set.
+func (o *Source) HasAzureBlobStorage() bool {
+	if o != nil && o.AzureBlobStorage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureBlobStorage gets a reference to the given SourceAzureBlobStorage and assigns it to the AzureBlobStorage field.
+func (o *Source) SetAzureBlobStorage(v SourceAzureBlobStorage) {
+	o.AzureBlobStorage = &v
+}
+
+// GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
+func (o *Source) GetAzureServiceBus() SourceAzureServiceBus {
+	if o == nil || o.AzureServiceBus == nil {
+		var ret SourceAzureServiceBus
+		return ret
+	}
+	return *o.AzureServiceBus
+}
+
+// GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool) {
+	if o == nil || o.AzureServiceBus == nil {
+		return nil, false
+	}
+	return o.AzureServiceBus, true
+}
+
+// HasAzureServiceBus returns a boolean if a field has been set.
+func (o *Source) HasAzureServiceBus() bool {
+	if o != nil && o.AzureServiceBus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureServiceBus gets a reference to the given SourceAzureServiceBus and assigns it to the AzureServiceBus field.
+func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus) {
+	o.AzureServiceBus = &v
+}
+
+// GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
+func (o *Source) GetAzureEventHubs() SourceAzureEventHubs {
+	if o == nil || o.AzureEventHubs == nil {
+		var ret SourceAzureEventHubs
+		return ret
+	}
+	return *o.AzureEventHubs
+}
+
+// GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetAzureEventHubsOk() (*SourceAzureEventHubs, bool) {
+	if o == nil || o.AzureEventHubs == nil {
+		return nil, false
+	}
+	return o.AzureEventHubs, true
+}
+
+// HasAzureEventHubs returns a boolean if a field has been set.
+func (o *Source) HasAzureEventHubs() bool {
+	if o != nil && o.AzureEventHubs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureEventHubs gets a reference to the given SourceAzureEventHubs and assigns it to the AzureEventHubs field.
+func (o *Source) SetAzureEventHubs(v SourceAzureEventHubs) {
+	o.AzureEventHubs = &v
 }
 
 // GetRedshift returns the Redshift field value if set, zero value otherwise.
@@ -405,6 +504,15 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	}
 	if o.Gcs != nil {
 		toSerialize["gcs"] = o.Gcs
+	}
+	if o.AzureBlobStorage != nil {
+		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
+	}
+	if o.AzureServiceBus != nil {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
+	}
+	if o.AzureEventHubs != nil {
+		toSerialize["azure_event_hubs"] = o.AzureEventHubs
 	}
 	if o.Redshift != nil {
 		toSerialize["redshift"] = o.Redshift

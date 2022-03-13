@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type VirtualInstancesApi interface {
@@ -31,57 +31,57 @@ type VirtualInstancesApi interface {
 
 	Get details about a virtual instance.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId uuid of the virtual instance
 	 @return ApiGetVirtualInstanceRequest
 	*/
-	GetVirtualInstance(ctx _context.Context, virtualInstanceId string) ApiGetVirtualInstanceRequest
+	GetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiGetVirtualInstanceRequest
 
 	// GetVirtualInstanceExecute executes the request
 	//  @return GetVirtualInstanceResponse
-	GetVirtualInstanceExecute(r ApiGetVirtualInstanceRequest) (GetVirtualInstanceResponse, *_nethttp.Response, error)
+	GetVirtualInstanceExecute(r ApiGetVirtualInstanceRequest) (*GetVirtualInstanceResponse, *http.Response, error)
 
 	/*
 	ListVirtualInstances List Virtual Instances
 
 	Retrieve all virtual instances in an organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListVirtualInstancesRequest
 	*/
-	ListVirtualInstances(ctx _context.Context) ApiListVirtualInstancesRequest
+	ListVirtualInstances(ctx context.Context) ApiListVirtualInstancesRequest
 
 	// ListVirtualInstancesExecute executes the request
 	//  @return ListVirtualInstancesResponse
-	ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (ListVirtualInstancesResponse, *_nethttp.Response, error)
+	ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (*ListVirtualInstancesResponse, *http.Response, error)
 
 	/*
 	SetVirtualInstance Update Virtual Instance
 
 	Update the properties of a virtual instance.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId uuid of the virtual instance
 	 @return ApiSetVirtualInstanceRequest
 	*/
-	SetVirtualInstance(ctx _context.Context, virtualInstanceId string) ApiSetVirtualInstanceRequest
+	SetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiSetVirtualInstanceRequest
 
 	// SetVirtualInstanceExecute executes the request
 	//  @return UpdateVirtualInstanceResponse
-	SetVirtualInstanceExecute(r ApiSetVirtualInstanceRequest) (UpdateVirtualInstanceResponse, *_nethttp.Response, error)
+	SetVirtualInstanceExecute(r ApiSetVirtualInstanceRequest) (*UpdateVirtualInstanceResponse, *http.Response, error)
 }
 
 // VirtualInstancesApiService VirtualInstancesApi service
 type VirtualInstancesApiService service
 
 type ApiGetVirtualInstanceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
 
-func (r ApiGetVirtualInstanceRequest) Execute() (GetVirtualInstanceResponse, *_nethttp.Response, error) {
+func (r ApiGetVirtualInstanceRequest) Execute() (*GetVirtualInstanceResponse, *http.Response, error) {
 	return r.ApiService.GetVirtualInstanceExecute(r)
 }
 
@@ -90,11 +90,11 @@ GetVirtualInstance Retrieve Virtual Instance
 
 Get details about a virtual instance.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId uuid of the virtual instance
  @return ApiGetVirtualInstanceRequest
 */
-func (a *VirtualInstancesApiService) GetVirtualInstance(ctx _context.Context, virtualInstanceId string) ApiGetVirtualInstanceRequest {
+func (a *VirtualInstancesApiService) GetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiGetVirtualInstanceRequest {
 	return ApiGetVirtualInstanceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -104,25 +104,25 @@ func (a *VirtualInstancesApiService) GetVirtualInstance(ctx _context.Context, vi
 
 // Execute executes the request
 //  @return GetVirtualInstanceResponse
-func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualInstanceRequest) (GetVirtualInstanceResponse, *_nethttp.Response, error) {
+func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualInstanceRequest) (*GetVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetVirtualInstanceResponse
+		localVarReturnValue  *GetVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.GetVirtualInstance")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/virtualinstances/{virtualInstanceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"virtualInstanceId"+"}", _neturl.PathEscape(parameterToString(r.virtualInstanceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"virtualInstanceId"+"}", url.PathEscape(parameterToString(r.virtualInstanceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -151,15 +151,15 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -297,7 +297,7 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -308,12 +308,12 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 }
 
 type ApiListVirtualInstancesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService VirtualInstancesApi
 }
 
 
-func (r ApiListVirtualInstancesRequest) Execute() (ListVirtualInstancesResponse, *_nethttp.Response, error) {
+func (r ApiListVirtualInstancesRequest) Execute() (*ListVirtualInstancesResponse, *http.Response, error) {
 	return r.ApiService.ListVirtualInstancesExecute(r)
 }
 
@@ -322,10 +322,10 @@ ListVirtualInstances List Virtual Instances
 
 Retrieve all virtual instances in an organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListVirtualInstancesRequest
 */
-func (a *VirtualInstancesApiService) ListVirtualInstances(ctx _context.Context) ApiListVirtualInstancesRequest {
+func (a *VirtualInstancesApiService) ListVirtualInstances(ctx context.Context) ApiListVirtualInstancesRequest {
 	return ApiListVirtualInstancesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -334,24 +334,24 @@ func (a *VirtualInstancesApiService) ListVirtualInstances(ctx _context.Context) 
 
 // Execute executes the request
 //  @return ListVirtualInstancesResponse
-func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (ListVirtualInstancesResponse, *_nethttp.Response, error) {
+func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (*ListVirtualInstancesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListVirtualInstancesResponse
+		localVarReturnValue  *ListVirtualInstancesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.ListVirtualInstances")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/virtualinstances"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -380,15 +380,15 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -526,7 +526,7 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -537,7 +537,7 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 }
 
 type ApiSetVirtualInstanceRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService VirtualInstancesApi
 	virtualInstanceId string
 	body *UpdateVirtualInstanceRequest
@@ -549,7 +549,7 @@ func (r ApiSetVirtualInstanceRequest) Body(body UpdateVirtualInstanceRequest) Ap
 	return r
 }
 
-func (r ApiSetVirtualInstanceRequest) Execute() (UpdateVirtualInstanceResponse, *_nethttp.Response, error) {
+func (r ApiSetVirtualInstanceRequest) Execute() (*UpdateVirtualInstanceResponse, *http.Response, error) {
 	return r.ApiService.SetVirtualInstanceExecute(r)
 }
 
@@ -558,11 +558,11 @@ SetVirtualInstance Update Virtual Instance
 
 Update the properties of a virtual instance.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId uuid of the virtual instance
  @return ApiSetVirtualInstanceRequest
 */
-func (a *VirtualInstancesApiService) SetVirtualInstance(ctx _context.Context, virtualInstanceId string) ApiSetVirtualInstanceRequest {
+func (a *VirtualInstancesApiService) SetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiSetVirtualInstanceRequest {
 	return ApiSetVirtualInstanceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -572,25 +572,25 @@ func (a *VirtualInstancesApiService) SetVirtualInstance(ctx _context.Context, vi
 
 // Execute executes the request
 //  @return UpdateVirtualInstanceResponse
-func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualInstanceRequest) (UpdateVirtualInstanceResponse, *_nethttp.Response, error) {
+func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualInstanceRequest) (*UpdateVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  UpdateVirtualInstanceResponse
+		localVarReturnValue  *UpdateVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.SetVirtualInstance")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/virtualinstances/{virtualInstanceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"virtualInstanceId"+"}", _neturl.PathEscape(parameterToString(r.virtualInstanceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"virtualInstanceId"+"}", url.PathEscape(parameterToString(r.virtualInstanceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -624,15 +624,15 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -770,7 +770,7 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

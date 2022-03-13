@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type APIKeysApi interface {
@@ -31,84 +31,84 @@ type APIKeysApi interface {
 
 	Create a new API key for the authenticated user.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateApiKeyRequest
 	*/
-	CreateApiKey(ctx _context.Context) ApiCreateApiKeyRequest
+	CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest
 
 	// CreateApiKeyExecute executes the request
 	//  @return CreateApiKeyResponse
-	CreateApiKeyExecute(r ApiCreateApiKeyRequest) (CreateApiKeyResponse, *_nethttp.Response, error)
+	CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*CreateApiKeyResponse, *http.Response, error)
 
 	/*
 	DeleteApiKey Delete API Key
 
 	Delete an API key for any user in your organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param name Name of the API key.
 	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
 	 @return ApiDeleteApiKeyRequest
 	*/
-	DeleteApiKey(ctx _context.Context, name string, user string) ApiDeleteApiKeyRequest
+	DeleteApiKey(ctx context.Context, name string, user string) ApiDeleteApiKeyRequest
 
 	// DeleteApiKeyExecute executes the request
 	//  @return DeleteApiKeyResponse
-	DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (DeleteApiKeyResponse, *_nethttp.Response, error)
+	DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*DeleteApiKeyResponse, *http.Response, error)
 
 	/*
 	GetApiKey Retrieve API Key
 
 	Retrieve a particular API key for any user in your organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
 	 @param name Name of the API key.
 	 @return ApiGetApiKeyRequest
 	*/
-	GetApiKey(ctx _context.Context, user string, name string) ApiGetApiKeyRequest
+	GetApiKey(ctx context.Context, user string, name string) ApiGetApiKeyRequest
 
 	// GetApiKeyExecute executes the request
 	//  @return GetApiKeyResponse
-	GetApiKeyExecute(r ApiGetApiKeyRequest) (GetApiKeyResponse, *_nethttp.Response, error)
+	GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyResponse, *http.Response, error)
 
 	/*
 	ListApiKeys List API Keys.
 
 	List API key metadata for any user in your organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
 	 @return ApiListApiKeysRequest
 	*/
-	ListApiKeys(ctx _context.Context, user string) ApiListApiKeysRequest
+	ListApiKeys(ctx context.Context, user string) ApiListApiKeysRequest
 
 	// ListApiKeysExecute executes the request
 	//  @return ListApiKeysResponse
-	ListApiKeysExecute(r ApiListApiKeysRequest) (ListApiKeysResponse, *_nethttp.Response, error)
+	ListApiKeysExecute(r ApiListApiKeysRequest) (*ListApiKeysResponse, *http.Response, error)
 
 	/*
 	UpdateApiKey Update an API key's state
 
 	Update the state of an API key for any user in your organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param name Name of the API key.
 	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
 	 @return ApiUpdateApiKeyRequest
 	*/
-	UpdateApiKey(ctx _context.Context, name string, user string) ApiUpdateApiKeyRequest
+	UpdateApiKey(ctx context.Context, name string, user string) ApiUpdateApiKeyRequest
 
 	// UpdateApiKeyExecute executes the request
 	//  @return UpdateApiKeyResponse
-	UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (UpdateApiKeyResponse, *_nethttp.Response, error)
+	UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*UpdateApiKeyResponse, *http.Response, error)
 }
 
 // APIKeysApiService APIKeysApi service
 type APIKeysApiService service
 
 type ApiCreateApiKeyRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService APIKeysApi
 	body *CreateApiKeyRequest
 }
@@ -119,7 +119,7 @@ func (r ApiCreateApiKeyRequest) Body(body CreateApiKeyRequest) ApiCreateApiKeyRe
 	return r
 }
 
-func (r ApiCreateApiKeyRequest) Execute() (CreateApiKeyResponse, *_nethttp.Response, error) {
+func (r ApiCreateApiKeyRequest) Execute() (*CreateApiKeyResponse, *http.Response, error) {
 	return r.ApiService.CreateApiKeyExecute(r)
 }
 
@@ -128,10 +128,10 @@ CreateApiKey Create API Key
 
 Create a new API key for the authenticated user.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateApiKeyRequest
 */
-func (a *APIKeysApiService) CreateApiKey(ctx _context.Context) ApiCreateApiKeyRequest {
+func (a *APIKeysApiService) CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest {
 	return ApiCreateApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -140,24 +140,24 @@ func (a *APIKeysApiService) CreateApiKey(ctx _context.Context) ApiCreateApiKeyRe
 
 // Execute executes the request
 //  @return CreateApiKeyResponse
-func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (CreateApiKeyResponse, *_nethttp.Response, error) {
+func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*CreateApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  CreateApiKeyResponse
+		localVarReturnValue  *CreateApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "APIKeysApiService.CreateApiKey")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/self/apikeys"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -191,15 +191,15 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (Creat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -337,7 +337,7 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (Creat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -348,14 +348,14 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (Creat
 }
 
 type ApiDeleteApiKeyRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService APIKeysApi
 	name string
 	user string
 }
 
 
-func (r ApiDeleteApiKeyRequest) Execute() (DeleteApiKeyResponse, *_nethttp.Response, error) {
+func (r ApiDeleteApiKeyRequest) Execute() (*DeleteApiKeyResponse, *http.Response, error) {
 	return r.ApiService.DeleteApiKeyExecute(r)
 }
 
@@ -364,12 +364,12 @@ DeleteApiKey Delete API Key
 
 Delete an API key for any user in your organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name Name of the API key.
  @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
  @return ApiDeleteApiKeyRequest
 */
-func (a *APIKeysApiService) DeleteApiKey(ctx _context.Context, name string, user string) ApiDeleteApiKeyRequest {
+func (a *APIKeysApiService) DeleteApiKey(ctx context.Context, name string, user string) ApiDeleteApiKeyRequest {
 	return ApiDeleteApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -380,26 +380,26 @@ func (a *APIKeysApiService) DeleteApiKey(ctx _context.Context, name string, user
 
 // Execute executes the request
 //  @return DeleteApiKeyResponse
-func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (DeleteApiKeyResponse, *_nethttp.Response, error) {
+func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*DeleteApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteApiKeyResponse
+		localVarReturnValue  *DeleteApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "APIKeysApiService.DeleteApiKey")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", _neturl.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -428,15 +428,15 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (Delet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -574,7 +574,7 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (Delet
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -585,14 +585,14 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (Delet
 }
 
 type ApiGetApiKeyRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService APIKeysApi
 	user string
 	name string
 }
 
 
-func (r ApiGetApiKeyRequest) Execute() (GetApiKeyResponse, *_nethttp.Response, error) {
+func (r ApiGetApiKeyRequest) Execute() (*GetApiKeyResponse, *http.Response, error) {
 	return r.ApiService.GetApiKeyExecute(r)
 }
 
@@ -601,12 +601,12 @@ GetApiKey Retrieve API Key
 
 Retrieve a particular API key for any user in your organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
  @param name Name of the API key.
  @return ApiGetApiKeyRequest
 */
-func (a *APIKeysApiService) GetApiKey(ctx _context.Context, user string, name string) ApiGetApiKeyRequest {
+func (a *APIKeysApiService) GetApiKey(ctx context.Context, user string, name string) ApiGetApiKeyRequest {
 	return ApiGetApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -617,26 +617,26 @@ func (a *APIKeysApiService) GetApiKey(ctx _context.Context, user string, name st
 
 // Execute executes the request
 //  @return GetApiKeyResponse
-func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (GetApiKeyResponse, *_nethttp.Response, error) {
+func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetApiKeyResponse
+		localVarReturnValue  *GetApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "APIKeysApiService.GetApiKey")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", _neturl.PathEscape(parameterToString(r.user, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -665,15 +665,15 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (GetApiKeyRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -811,7 +811,7 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (GetApiKeyRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -822,13 +822,13 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (GetApiKeyRe
 }
 
 type ApiListApiKeysRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService APIKeysApi
 	user string
 }
 
 
-func (r ApiListApiKeysRequest) Execute() (ListApiKeysResponse, *_nethttp.Response, error) {
+func (r ApiListApiKeysRequest) Execute() (*ListApiKeysResponse, *http.Response, error) {
 	return r.ApiService.ListApiKeysExecute(r)
 }
 
@@ -837,11 +837,11 @@ ListApiKeys List API Keys.
 
 List API key metadata for any user in your organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
  @return ApiListApiKeysRequest
 */
-func (a *APIKeysApiService) ListApiKeys(ctx _context.Context, user string) ApiListApiKeysRequest {
+func (a *APIKeysApiService) ListApiKeys(ctx context.Context, user string) ApiListApiKeysRequest {
 	return ApiListApiKeysRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -851,25 +851,25 @@ func (a *APIKeysApiService) ListApiKeys(ctx _context.Context, user string) ApiLi
 
 // Execute executes the request
 //  @return ListApiKeysResponse
-func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (ListApiKeysResponse, *_nethttp.Response, error) {
+func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListApiKeysResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListApiKeysResponse
+		localVarReturnValue  *ListApiKeysResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "APIKeysApiService.ListApiKeys")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", _neturl.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -898,15 +898,15 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (ListApi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1044,7 +1044,7 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (ListApi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1055,7 +1055,7 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (ListApi
 }
 
 type ApiUpdateApiKeyRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService APIKeysApi
 	name string
 	user string
@@ -1068,7 +1068,7 @@ func (r ApiUpdateApiKeyRequest) Body(body UpdateApiKeyRequest) ApiUpdateApiKeyRe
 	return r
 }
 
-func (r ApiUpdateApiKeyRequest) Execute() (UpdateApiKeyResponse, *_nethttp.Response, error) {
+func (r ApiUpdateApiKeyRequest) Execute() (*UpdateApiKeyResponse, *http.Response, error) {
 	return r.ApiService.UpdateApiKeyExecute(r)
 }
 
@@ -1077,12 +1077,12 @@ UpdateApiKey Update an API key's state
 
 Update the state of an API key for any user in your organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name Name of the API key.
  @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
  @return ApiUpdateApiKeyRequest
 */
-func (a *APIKeysApiService) UpdateApiKey(ctx _context.Context, name string, user string) ApiUpdateApiKeyRequest {
+func (a *APIKeysApiService) UpdateApiKey(ctx context.Context, name string, user string) ApiUpdateApiKeyRequest {
 	return ApiUpdateApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1093,26 +1093,26 @@ func (a *APIKeysApiService) UpdateApiKey(ctx _context.Context, name string, user
 
 // Execute executes the request
 //  @return UpdateApiKeyResponse
-func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (UpdateApiKeyResponse, *_nethttp.Response, error) {
+func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*UpdateApiKeyResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  UpdateApiKeyResponse
+		localVarReturnValue  *UpdateApiKeyResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "APIKeysApiService.UpdateApiKey")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", _neturl.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -1146,15 +1146,15 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (Updat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1292,7 +1292,7 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (Updat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -14,7 +14,7 @@ import (
 // REST API documentation https://docs.rockset.com/rest-api/#getvirtualinstance
 func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (openapi.VirtualInstance, error) {
 	var err error
-	var resp openapi.GetVirtualInstanceResponse
+	var resp *openapi.GetVirtualInstanceResponse
 
 	q := rc.VirtualInstancesApi.GetVirtualInstance(ctx, vID)
 
@@ -35,7 +35,7 @@ func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (opena
 // REST API documentation https://docs.rockset.com/rest-api/#listvirtualinstances
 func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.VirtualInstance, error) {
 	var err error
-	var resp openapi.ListVirtualInstancesResponse
+	var resp *openapi.ListVirtualInstancesResponse
 
 	q := rc.VirtualInstancesApi.ListVirtualInstances(ctx)
 
@@ -57,7 +57,7 @@ func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.Virtu
 func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	options ...option.VirtualInstanceOption) (openapi.VirtualInstance, error) {
 	var err error
-	var resp openapi.UpdateVirtualInstanceResponse
+	var resp *openapi.UpdateVirtualInstanceResponse
 
 	opts := option.VirtualInstanceOptions{}
 	for _, o := range options {

@@ -17,7 +17,7 @@ import (
 // ListCollectionsResponse struct for ListCollectionsResponse
 type ListCollectionsResponse struct {
 	// list of all collections
-	Data *[]Collection `json:"data,omitempty"`
+	Data []Collection `json:"data,omitempty"`
 }
 
 // NewListCollectionsResponse instantiates a new ListCollectionsResponse object
@@ -43,12 +43,12 @@ func (o *ListCollectionsResponse) GetData() []Collection {
 		var ret []Collection
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListCollectionsResponse) GetDataOk() (*[]Collection, bool) {
+func (o *ListCollectionsResponse) GetDataOk() ([]Collection, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListCollectionsResponse) HasData() bool {
 
 // SetData gets a reference to the given []Collection and assigns it to the Data field.
 func (o *ListCollectionsResponse) SetData(v []Collection) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListCollectionsResponse) MarshalJSON() ([]byte, error) {

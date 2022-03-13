@@ -36,7 +36,7 @@ func WithWarnings2() QueryLambdaOption {
 
 func WithParameter2(name, valueType, value string) QueryLambdaOption {
 	return func(o *ExecuteQueryLambdaRequest) {
-		*o.Parameters = append(*o.Parameters, openapi.QueryParameter{
+		o.Parameters = append(o.Parameters, openapi.QueryParameter{
 			Name:  name,
 			Type:  valueType,
 			Value: value,

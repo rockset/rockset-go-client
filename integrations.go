@@ -11,7 +11,7 @@ func (rc *RockClient) GetIntegration(ctx context.Context, name string) (openapi.
 	var err error
 	req := rc.IntegrationsApi.GetIntegration(ctx, name)
 
-	var resp openapi.GetIntegrationResponse
+	var resp *openapi.GetIntegrationResponse
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = req.Execute()
 		return err
@@ -27,7 +27,7 @@ func (rc *RockClient) ListIntegrations(ctx context.Context) ([]openapi.Integrati
 	var err error
 	req := rc.IntegrationsApi.ListIntegrations(ctx)
 
-	var resp openapi.ListIntegrationsResponse
+	var resp *openapi.ListIntegrationsResponse
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = req.Execute()
 		return err
@@ -54,7 +54,7 @@ func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error 
 func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.S3IntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
@@ -94,7 +94,7 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.KinesisIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
@@ -132,7 +132,7 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.DynamoDBIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
@@ -171,7 +171,7 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string, awsKeys option.AWSCredentialsFn,
 	options ...option.RedshiftIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
@@ -208,7 +208,7 @@ func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string
 func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAccountKeyFileJSON string,
 	options ...option.GCSIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
@@ -242,7 +242,7 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAcc
 func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connectionString string,
 	options ...option.SegmentIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
@@ -272,7 +272,7 @@ func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connec
 func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, topics []string, format KafkaFormat,
 	options ...option.KafkaIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
@@ -284,7 +284,7 @@ func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, t
 
 	f := format.String()
 	req.Kafka = &openapi.KafkaIntegration{
-		KafkaTopicNames: &topics,
+		KafkaTopicNames: topics,
 		KafkaDataFormat: &f,
 	}
 	if opts.Description != nil {
@@ -306,7 +306,7 @@ func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, t
 func (rc *RockClient) CreateMongoDBIntegration(ctx context.Context, name, connectionURI string,
 	options ...option.MongoDBIntegrationOption) (openapi.Integration, error) {
 	var err error
-	var resp openapi.CreateIntegrationResponse
+	var resp *openapi.CreateIntegrationResponse
 
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)

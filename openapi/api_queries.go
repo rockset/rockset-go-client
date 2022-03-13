@@ -12,15 +12,15 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type QueriesApi interface {
@@ -30,35 +30,35 @@ type QueriesApi interface {
 
 	Make a SQL query to Rockset.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiQueryRequest
 	*/
-	Query(ctx _context.Context) ApiQueryRequest
+	Query(ctx context.Context) ApiQueryRequest
 
 	// QueryExecute executes the request
 	//  @return QueryResponse
-	QueryExecute(r ApiQueryRequest) (QueryResponse, *_nethttp.Response, error)
+	QueryExecute(r ApiQueryRequest) (*QueryResponse, *http.Response, error)
 
 	/*
 	Validate Validate Query
 
 	Validate a SQL query with Rockset's parser and planner.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiValidateRequest
 	*/
-	Validate(ctx _context.Context) ApiValidateRequest
+	Validate(ctx context.Context) ApiValidateRequest
 
 	// ValidateExecute executes the request
 	//  @return ValidateQueryResponse
-	ValidateExecute(r ApiValidateRequest) (ValidateQueryResponse, *_nethttp.Response, error)
+	ValidateExecute(r ApiValidateRequest) (*ValidateQueryResponse, *http.Response, error)
 }
 
 // QueriesApiService QueriesApi service
 type QueriesApiService service
 
 type ApiQueryRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueriesApi
 	body *QueryRequest
 }
@@ -69,7 +69,7 @@ func (r ApiQueryRequest) Body(body QueryRequest) ApiQueryRequest {
 	return r
 }
 
-func (r ApiQueryRequest) Execute() (QueryResponse, *_nethttp.Response, error) {
+func (r ApiQueryRequest) Execute() (*QueryResponse, *http.Response, error) {
 	return r.ApiService.QueryExecute(r)
 }
 
@@ -78,10 +78,10 @@ Query Query
 
 Make a SQL query to Rockset.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiQueryRequest
 */
-func (a *QueriesApiService) Query(ctx _context.Context) ApiQueryRequest {
+func (a *QueriesApiService) Query(ctx context.Context) ApiQueryRequest {
 	return ApiQueryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -90,24 +90,24 @@ func (a *QueriesApiService) Query(ctx _context.Context) ApiQueryRequest {
 
 // Execute executes the request
 //  @return QueryResponse
-func (a *QueriesApiService) QueryExecute(r ApiQueryRequest) (QueryResponse, *_nethttp.Response, error) {
+func (a *QueriesApiService) QueryExecute(r ApiQueryRequest) (*QueryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  QueryResponse
+		localVarReturnValue  *QueryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueriesApiService.Query")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/queries"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -141,15 +141,15 @@ func (a *QueriesApiService) QueryExecute(r ApiQueryRequest) (QueryResponse, *_ne
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -287,7 +287,7 @@ func (a *QueriesApiService) QueryExecute(r ApiQueryRequest) (QueryResponse, *_ne
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -298,7 +298,7 @@ func (a *QueriesApiService) QueryExecute(r ApiQueryRequest) (QueryResponse, *_ne
 }
 
 type ApiValidateRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService QueriesApi
 	body *QueryRequest
 }
@@ -309,7 +309,7 @@ func (r ApiValidateRequest) Body(body QueryRequest) ApiValidateRequest {
 	return r
 }
 
-func (r ApiValidateRequest) Execute() (ValidateQueryResponse, *_nethttp.Response, error) {
+func (r ApiValidateRequest) Execute() (*ValidateQueryResponse, *http.Response, error) {
 	return r.ApiService.ValidateExecute(r)
 }
 
@@ -318,10 +318,10 @@ Validate Validate Query
 
 Validate a SQL query with Rockset's parser and planner.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiValidateRequest
 */
-func (a *QueriesApiService) Validate(ctx _context.Context) ApiValidateRequest {
+func (a *QueriesApiService) Validate(ctx context.Context) ApiValidateRequest {
 	return ApiValidateRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -330,24 +330,24 @@ func (a *QueriesApiService) Validate(ctx _context.Context) ApiValidateRequest {
 
 // Execute executes the request
 //  @return ValidateQueryResponse
-func (a *QueriesApiService) ValidateExecute(r ApiValidateRequest) (ValidateQueryResponse, *_nethttp.Response, error) {
+func (a *QueriesApiService) ValidateExecute(r ApiValidateRequest) (*ValidateQueryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ValidateQueryResponse
+		localVarReturnValue  *ValidateQueryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueriesApiService.Validate")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/queries/validations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -381,15 +381,15 @@ func (a *QueriesApiService) ValidateExecute(r ApiValidateRequest) (ValidateQuery
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -527,7 +527,7 @@ func (a *QueriesApiService) ValidateExecute(r ApiValidateRequest) (ValidateQuery
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

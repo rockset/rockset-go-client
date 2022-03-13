@@ -38,8 +38,8 @@ func main() {
     body := *openapiclient.NewCreateViewRequest("myAwesomeView", "SELECT * FROM foo") // CreateViewRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ViewsApi.CreateView(context.Background(), workspace).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ViewsApi.CreateView(context.Background(), workspace).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.CreateView``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -110,8 +110,8 @@ func main() {
     view := "view_example" // string | name of the view
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ViewsApi.DeleteView(context.Background(), workspace, view).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ViewsApi.DeleteView(context.Background(), workspace, view).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.DeleteView``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -183,8 +183,8 @@ func main() {
     view := "view_example" // string | name of the view
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ViewsApi.GetView(context.Background(), workspace, view).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ViewsApi.GetView(context.Background(), workspace, view).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.GetView``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,8 +254,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ViewsApi.ListViews(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ViewsApi.ListViews(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.ListViews``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -318,8 +318,8 @@ func main() {
     body := *openapiclient.NewUpdateViewRequest("SELECT * FROM foo") // UpdateViewRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ViewsApi.UpdateView(context.Background(), workspace, view).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ViewsApi.UpdateView(context.Background(), workspace, view).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.UpdateView``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -391,8 +391,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ViewsApi.WorkspaceViews(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ViewsApi.WorkspaceViews(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ViewsApi.WorkspaceViews``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

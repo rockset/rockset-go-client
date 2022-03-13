@@ -12,7 +12,7 @@ import (
 
 func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string) (openapi.Collection, error) {
 	var err error
-	var resp openapi.GetCollectionResponse
+	var resp *openapi.GetCollectionResponse
 	getReq := rc.CollectionsApi.GetCollection(ctx, workspace, name)
 
 	err = rc.Retry(ctx, func() error {
@@ -37,7 +37,7 @@ func (rc *RockClient) ListCollections(ctx context.Context, options ...option.Lis
 		o(&opts)
 	}
 
-	var resp openapi.ListCollectionsResponse
+	var resp *openapi.ListCollectionsResponse
 
 	if opts.Workspace == nil {
 		listReq := rc.CollectionsApi.ListCollections(ctx)
@@ -80,7 +80,7 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
 	request *openapi.CreateCollectionRequest) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 	log := zerolog.Ctx(ctx)
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
@@ -108,7 +108,7 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 	workspace, name, description, integration, bucket, pattern string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -117,7 +117,7 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			S3: &openapi.SourceS3{
@@ -149,7 +149,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	workspace, name, description, integration, region, stream string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -158,7 +158,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			Kinesis: &openapi.SourceKinesis{
@@ -189,7 +189,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	workspace, name, description, integration, bucket, prefix string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -198,7 +198,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			Gcs: &openapi.SourceGcs{
@@ -229,7 +229,7 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 	workspace, name, description, integration, database, schema, tableName string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -238,7 +238,7 @@ func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			Redshift: &openapi.SourceRedshift{
@@ -271,7 +271,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	workspace, name, description, integration, region, tableName string, maxRCU int64,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -280,7 +280,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			Dynamodb: &openapi.SourceDynamoDb{
@@ -312,7 +312,7 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	fileUploadTime time.Time,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -321,7 +321,7 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			FileUpload: &openapi.SourceFileUpload{
 				// TODO how do you send the actual file contents?!?!
@@ -351,7 +351,7 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 	workspace, name, description, integration, topic string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -360,7 +360,7 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			Kafka: &openapi.SourceKafka{
@@ -390,7 +390,7 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	workspace, name, description, integration, database, collection string,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
-	var resp openapi.CreateCollectionResponse
+	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
@@ -399,7 +399,7 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	f := openapi.FormatParams{}
 	format(&f)
 
-	createParams.Sources = &[]openapi.Source{
+	createParams.Sources = []openapi.Source{
 		{
 			IntegrationName: integration,
 			Mongodb: &openapi.SourceMongoDb{

@@ -45,8 +45,8 @@ func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...op
 		types[i] = t.String()
 	}
 	csv := openapi.CsvParams{
-		ColumnNames: &columnNames,
-		ColumnTypes: &types,
+		ColumnNames: columnNames,
+		ColumnTypes: types,
 	}
 
 	for _, o := range options {

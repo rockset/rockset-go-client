@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bucket** | Pointer to **string** | name of GCS bucket you want to ingest from | [optional] 
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
+**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
 **ObjectCountDownloaded** | Pointer to **int64** |  | [optional] 
 **ObjectCountTotal** | Pointer to **int64** |  | [optional] 
 **ObjectBytesTotal** | Pointer to **int64** |  | [optional] 
@@ -78,6 +79,31 @@ SetPrefix sets Prefix field to given value.
 `func (o *SourceGcs) HasPrefix() bool`
 
 HasPrefix returns a boolean if a field has been set.
+
+### GetPattern
+
+`func (o *SourceGcs) GetPattern() string`
+
+GetPattern returns the Pattern field if non-nil, zero value otherwise.
+
+### GetPatternOk
+
+`func (o *SourceGcs) GetPatternOk() (*string, bool)`
+
+GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPattern
+
+`func (o *SourceGcs) SetPattern(v string)`
+
+SetPattern sets Pattern field to given value.
+
+### HasPattern
+
+`func (o *SourceGcs) HasPattern() bool`
+
+HasPattern returns a boolean if a field has been set.
 
 ### GetObjectCountDownloaded
 

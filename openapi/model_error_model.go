@@ -28,6 +28,8 @@ type ErrorModel struct {
 	TraceId *string `json:"trace_id,omitempty"`
 	// ID of the error
 	ErrorId *string `json:"error_id,omitempty"`
+	// ID of the query (if applicable)
+	QueryId *string `json:"query_id,omitempty"`
 }
 
 // NewErrorModel instantiates a new ErrorModel object
@@ -239,6 +241,38 @@ func (o *ErrorModel) SetErrorId(v string) {
 	o.ErrorId = &v
 }
 
+// GetQueryId returns the QueryId field value if set, zero value otherwise.
+func (o *ErrorModel) GetQueryId() string {
+	if o == nil || o.QueryId == nil {
+		var ret string
+		return ret
+	}
+	return *o.QueryId
+}
+
+// GetQueryIdOk returns a tuple with the QueryId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ErrorModel) GetQueryIdOk() (*string, bool) {
+	if o == nil || o.QueryId == nil {
+		return nil, false
+	}
+	return o.QueryId, true
+}
+
+// HasQueryId returns a boolean if a field has been set.
+func (o *ErrorModel) HasQueryId() bool {
+	if o != nil && o.QueryId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQueryId gets a reference to the given string and assigns it to the QueryId field.
+func (o *ErrorModel) SetQueryId(v string) {
+	o.QueryId = &v
+}
+
 func (o ErrorModel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Message != nil {
@@ -258,6 +292,9 @@ func (o ErrorModel) MarshalJSON() ([]byte, error) {
 	}
 	if o.ErrorId != nil {
 		toSerialize["error_id"] = o.ErrorId
+	}
+	if o.QueryId != nil {
+		toSerialize["query_id"] = o.QueryId
 	}
 	return json.Marshal(toSerialize)
 }

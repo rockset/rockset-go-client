@@ -17,7 +17,7 @@ import (
 // DeleteDocumentsResponse struct for DeleteDocumentsResponse
 type DeleteDocumentsResponse struct {
 	// information about deleted documents
-	Data *[]DocumentStatus `json:"data,omitempty"`
+	Data []DocumentStatus `json:"data,omitempty"`
 }
 
 // NewDeleteDocumentsResponse instantiates a new DeleteDocumentsResponse object
@@ -43,12 +43,12 @@ func (o *DeleteDocumentsResponse) GetData() []DocumentStatus {
 		var ret []DocumentStatus
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeleteDocumentsResponse) GetDataOk() (*[]DocumentStatus, bool) {
+func (o *DeleteDocumentsResponse) GetDataOk() ([]DocumentStatus, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *DeleteDocumentsResponse) HasData() bool {
 
 // SetData gets a reference to the given []DocumentStatus and assigns it to the Data field.
 func (o *DeleteDocumentsResponse) SetData(v []DocumentStatus) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o DeleteDocumentsResponse) MarshalJSON() ([]byte, error) {

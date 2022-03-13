@@ -111,11 +111,11 @@ func (o *CreateAliasRequest) GetCollections() []string {
 
 // GetCollectionsOk returns a tuple with the Collections field value
 // and a boolean to check if the value has been set.
-func (o *CreateAliasRequest) GetCollectionsOk() (*[]string, bool) {
+func (o *CreateAliasRequest) GetCollectionsOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Collections, true
+	return o.Collections, true
 }
 
 // SetCollections sets field value

@@ -21,7 +21,7 @@ type FieldPartition struct {
 	// The type of partitions on a field
 	Type *string `json:"type,omitempty"`
 	// The values for partitioning of a field
-	Keys *[]string `json:"keys,omitempty"`
+	Keys []string `json:"keys,omitempty"`
 }
 
 // NewFieldPartition instantiates a new FieldPartition object
@@ -111,12 +111,12 @@ func (o *FieldPartition) GetKeys() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Keys
+	return o.Keys
 }
 
 // GetKeysOk returns a tuple with the Keys field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FieldPartition) GetKeysOk() (*[]string, bool) {
+func (o *FieldPartition) GetKeysOk() ([]string, bool) {
 	if o == nil || o.Keys == nil {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *FieldPartition) HasKeys() bool {
 
 // SetKeys gets a reference to the given []string and assigns it to the Keys field.
 func (o *FieldPartition) SetKeys(v []string) {
-	o.Keys = &v
+	o.Keys = v
 }
 
 func (o FieldPartition) MarshalJSON() ([]byte, error) {

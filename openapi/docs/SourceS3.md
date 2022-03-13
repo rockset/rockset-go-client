@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **AccessKey** | Pointer to **string** | AWS credential with ListObjects and GetObject access | [optional] [readonly] 
 **SecretAccess** | Pointer to **string** | AWS credential with ListObjects and GetObject access | [optional] [readonly] 
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
-**Pattern** | Pointer to **string** | Pattern that selects keys to ingest. | [optional] 
+**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
 **Region** | Pointer to **string** | AWS region containing source bucket | [optional] 
 **Bucket** | **string** | address of S3 bucket containing data | 
 **Prefixes** | **[]string** | list of prefixes to paths from which data should be ingested | [readonly] 
