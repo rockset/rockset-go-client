@@ -19,7 +19,7 @@ type QueryLambdaSql struct {
 	// SQL text
 	Query string `json:"query"`
 	// default parameters for this Query Lambda
-	DefaultParameters *[]QueryParameter `json:"default_parameters,omitempty"`
+	DefaultParameters []QueryParameter `json:"default_parameters,omitempty"`
 }
 
 // NewQueryLambdaSql instantiates a new QueryLambdaSql object
@@ -70,12 +70,12 @@ func (o *QueryLambdaSql) GetDefaultParameters() []QueryParameter {
 		var ret []QueryParameter
 		return ret
 	}
-	return *o.DefaultParameters
+	return o.DefaultParameters
 }
 
 // GetDefaultParametersOk returns a tuple with the DefaultParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambdaSql) GetDefaultParametersOk() (*[]QueryParameter, bool) {
+func (o *QueryLambdaSql) GetDefaultParametersOk() ([]QueryParameter, bool) {
 	if o == nil || o.DefaultParameters == nil {
 		return nil, false
 	}
@@ -93,7 +93,7 @@ func (o *QueryLambdaSql) HasDefaultParameters() bool {
 
 // SetDefaultParameters gets a reference to the given []QueryParameter and assigns it to the DefaultParameters field.
 func (o *QueryLambdaSql) SetDefaultParameters(v []QueryParameter) {
-	o.DefaultParameters = &v
+	o.DefaultParameters = v
 }
 
 func (o QueryLambdaSql) MarshalJSON() ([]byte, error) {

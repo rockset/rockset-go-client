@@ -23,7 +23,7 @@ func ExampleRockClient_validateQuery() {
 		log.Fatal(err)
 	}
 
-	for _, c := range *r.Collections {
+	for _, c := range r.Collections {
 		fmt.Printf("collection: %s\n", c)
 	}
 

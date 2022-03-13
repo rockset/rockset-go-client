@@ -13,7 +13,7 @@ import (
 // REST API documentation https://docs.rockset.com/rest-api/#createuser
 func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []string) (openapi.User, error) {
 	var err error
-	var resp openapi.CreateUserResponse
+	var resp *openapi.CreateUserResponse
 
 	q := rc.UsersApi.CreateUser(ctx)
 	req := openapi.NewCreateUserRequest(email, roles)
@@ -55,7 +55,7 @@ func (rc *RockClient) DeleteUser(ctx context.Context, email string) error {
 // REST API documentation https://docs.rockset.com/rest-api/#getcurrentuser
 func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) {
 	var err error
-	var user openapi.User
+	var user *openapi.User
 
 	q := rc.UsersApi.GetCurrentUser(ctx)
 
@@ -65,10 +65,10 @@ func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) 
 	})
 
 	if err != nil {
-		return user, err
+		return openapi.User{}, err
 	}
 
-	return user, nil
+	return *user, nil
 }
 
 // ListUsers lists all users.
@@ -76,7 +76,7 @@ func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) 
 // REST API documentation https://docs.rockset.com/rest-api/#listusers
 func (rc *RockClient) ListUsers(ctx context.Context) ([]openapi.User, error) {
 	var err error
-	var resp openapi.ListUsersResponse
+	var resp *openapi.ListUsersResponse
 
 	q := rc.UsersApi.ListUsers(ctx)
 

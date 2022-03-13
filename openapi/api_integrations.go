@@ -12,16 +12,16 @@ package openapi
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
 // Linger please
 var (
-	_ _context.Context
+	_ context.Context
 )
 
 type IntegrationsApi interface {
@@ -31,65 +31,65 @@ type IntegrationsApi interface {
 
 	Create a new integration.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateIntegrationRequest
 	*/
-	CreateIntegration(ctx _context.Context) ApiCreateIntegrationRequest
+	CreateIntegration(ctx context.Context) ApiCreateIntegrationRequest
 
 	// CreateIntegrationExecute executes the request
 	//  @return CreateIntegrationResponse
-	CreateIntegrationExecute(r ApiCreateIntegrationRequest) (CreateIntegrationResponse, *_nethttp.Response, error)
+	CreateIntegrationExecute(r ApiCreateIntegrationRequest) (*CreateIntegrationResponse, *http.Response, error)
 
 	/*
 	DeleteIntegration Delete Integration
 
 	Remove an integration.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param integration name of the integration
 	 @return ApiDeleteIntegrationRequest
 	*/
-	DeleteIntegration(ctx _context.Context, integration string) ApiDeleteIntegrationRequest
+	DeleteIntegration(ctx context.Context, integration string) ApiDeleteIntegrationRequest
 
 	// DeleteIntegrationExecute executes the request
 	//  @return DeleteIntegrationResponse
-	DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (DeleteIntegrationResponse, *_nethttp.Response, error)
+	DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (*DeleteIntegrationResponse, *http.Response, error)
 
 	/*
 	GetIntegration Retrieve Integration
 
 	Retrieve information about a single integration.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param integration name of the integration
 	 @return ApiGetIntegrationRequest
 	*/
-	GetIntegration(ctx _context.Context, integration string) ApiGetIntegrationRequest
+	GetIntegration(ctx context.Context, integration string) ApiGetIntegrationRequest
 
 	// GetIntegrationExecute executes the request
 	//  @return GetIntegrationResponse
-	GetIntegrationExecute(r ApiGetIntegrationRequest) (GetIntegrationResponse, *_nethttp.Response, error)
+	GetIntegrationExecute(r ApiGetIntegrationRequest) (*GetIntegrationResponse, *http.Response, error)
 
 	/*
 	ListIntegrations List Integrations
 
 	List all integrations in an organization.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListIntegrationsRequest
 	*/
-	ListIntegrations(ctx _context.Context) ApiListIntegrationsRequest
+	ListIntegrations(ctx context.Context) ApiListIntegrationsRequest
 
 	// ListIntegrationsExecute executes the request
 	//  @return ListIntegrationsResponse
-	ListIntegrationsExecute(r ApiListIntegrationsRequest) (ListIntegrationsResponse, *_nethttp.Response, error)
+	ListIntegrationsExecute(r ApiListIntegrationsRequest) (*ListIntegrationsResponse, *http.Response, error)
 }
 
 // IntegrationsApiService IntegrationsApi service
 type IntegrationsApiService service
 
 type ApiCreateIntegrationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IntegrationsApi
 	body *CreateIntegrationRequest
 }
@@ -100,7 +100,7 @@ func (r ApiCreateIntegrationRequest) Body(body CreateIntegrationRequest) ApiCrea
 	return r
 }
 
-func (r ApiCreateIntegrationRequest) Execute() (CreateIntegrationResponse, *_nethttp.Response, error) {
+func (r ApiCreateIntegrationRequest) Execute() (*CreateIntegrationResponse, *http.Response, error) {
 	return r.ApiService.CreateIntegrationExecute(r)
 }
 
@@ -109,10 +109,10 @@ CreateIntegration Create Integration
 
 Create a new integration.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateIntegrationRequest
 */
-func (a *IntegrationsApiService) CreateIntegration(ctx _context.Context) ApiCreateIntegrationRequest {
+func (a *IntegrationsApiService) CreateIntegration(ctx context.Context) ApiCreateIntegrationRequest {
 	return ApiCreateIntegrationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -121,24 +121,24 @@ func (a *IntegrationsApiService) CreateIntegration(ctx _context.Context) ApiCrea
 
 // Execute executes the request
 //  @return CreateIntegrationResponse
-func (a *IntegrationsApiService) CreateIntegrationExecute(r ApiCreateIntegrationRequest) (CreateIntegrationResponse, *_nethttp.Response, error) {
+func (a *IntegrationsApiService) CreateIntegrationExecute(r ApiCreateIntegrationRequest) (*CreateIntegrationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  CreateIntegrationResponse
+		localVarReturnValue  *CreateIntegrationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.CreateIntegration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/integrations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -172,15 +172,15 @@ func (a *IntegrationsApiService) CreateIntegrationExecute(r ApiCreateIntegration
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -318,7 +318,7 @@ func (a *IntegrationsApiService) CreateIntegrationExecute(r ApiCreateIntegration
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -329,13 +329,13 @@ func (a *IntegrationsApiService) CreateIntegrationExecute(r ApiCreateIntegration
 }
 
 type ApiDeleteIntegrationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IntegrationsApi
 	integration string
 }
 
 
-func (r ApiDeleteIntegrationRequest) Execute() (DeleteIntegrationResponse, *_nethttp.Response, error) {
+func (r ApiDeleteIntegrationRequest) Execute() (*DeleteIntegrationResponse, *http.Response, error) {
 	return r.ApiService.DeleteIntegrationExecute(r)
 }
 
@@ -344,11 +344,11 @@ DeleteIntegration Delete Integration
 
 Remove an integration.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param integration name of the integration
  @return ApiDeleteIntegrationRequest
 */
-func (a *IntegrationsApiService) DeleteIntegration(ctx _context.Context, integration string) ApiDeleteIntegrationRequest {
+func (a *IntegrationsApiService) DeleteIntegration(ctx context.Context, integration string) ApiDeleteIntegrationRequest {
 	return ApiDeleteIntegrationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -358,25 +358,25 @@ func (a *IntegrationsApiService) DeleteIntegration(ctx _context.Context, integra
 
 // Execute executes the request
 //  @return DeleteIntegrationResponse
-func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (DeleteIntegrationResponse, *_nethttp.Response, error) {
+func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (*DeleteIntegrationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  DeleteIntegrationResponse
+		localVarReturnValue  *DeleteIntegrationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.DeleteIntegration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/integrations/{integration}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", _neturl.PathEscape(parameterToString(r.integration, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", url.PathEscape(parameterToString(r.integration, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -405,15 +405,15 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -551,7 +551,7 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -562,13 +562,13 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 }
 
 type ApiGetIntegrationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IntegrationsApi
 	integration string
 }
 
 
-func (r ApiGetIntegrationRequest) Execute() (GetIntegrationResponse, *_nethttp.Response, error) {
+func (r ApiGetIntegrationRequest) Execute() (*GetIntegrationResponse, *http.Response, error) {
 	return r.ApiService.GetIntegrationExecute(r)
 }
 
@@ -577,11 +577,11 @@ GetIntegration Retrieve Integration
 
 Retrieve information about a single integration.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param integration name of the integration
  @return ApiGetIntegrationRequest
 */
-func (a *IntegrationsApiService) GetIntegration(ctx _context.Context, integration string) ApiGetIntegrationRequest {
+func (a *IntegrationsApiService) GetIntegration(ctx context.Context, integration string) ApiGetIntegrationRequest {
 	return ApiGetIntegrationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -591,25 +591,25 @@ func (a *IntegrationsApiService) GetIntegration(ctx _context.Context, integratio
 
 // Execute executes the request
 //  @return GetIntegrationResponse
-func (a *IntegrationsApiService) GetIntegrationExecute(r ApiGetIntegrationRequest) (GetIntegrationResponse, *_nethttp.Response, error) {
+func (a *IntegrationsApiService) GetIntegrationExecute(r ApiGetIntegrationRequest) (*GetIntegrationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  GetIntegrationResponse
+		localVarReturnValue  *GetIntegrationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.GetIntegration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/integrations/{integration}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", _neturl.PathEscape(parameterToString(r.integration, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration"+"}", url.PathEscape(parameterToString(r.integration, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -638,15 +638,15 @@ func (a *IntegrationsApiService) GetIntegrationExecute(r ApiGetIntegrationReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -784,7 +784,7 @@ func (a *IntegrationsApiService) GetIntegrationExecute(r ApiGetIntegrationReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -795,12 +795,12 @@ func (a *IntegrationsApiService) GetIntegrationExecute(r ApiGetIntegrationReques
 }
 
 type ApiListIntegrationsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService IntegrationsApi
 }
 
 
-func (r ApiListIntegrationsRequest) Execute() (ListIntegrationsResponse, *_nethttp.Response, error) {
+func (r ApiListIntegrationsRequest) Execute() (*ListIntegrationsResponse, *http.Response, error) {
 	return r.ApiService.ListIntegrationsExecute(r)
 }
 
@@ -809,10 +809,10 @@ ListIntegrations List Integrations
 
 List all integrations in an organization.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListIntegrationsRequest
 */
-func (a *IntegrationsApiService) ListIntegrations(ctx _context.Context) ApiListIntegrationsRequest {
+func (a *IntegrationsApiService) ListIntegrations(ctx context.Context) ApiListIntegrationsRequest {
 	return ApiListIntegrationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -821,24 +821,24 @@ func (a *IntegrationsApiService) ListIntegrations(ctx _context.Context) ApiListI
 
 // Execute executes the request
 //  @return ListIntegrationsResponse
-func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRequest) (ListIntegrationsResponse, *_nethttp.Response, error) {
+func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRequest) (*ListIntegrationsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  ListIntegrationsResponse
+		localVarReturnValue  *ListIntegrationsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.ListIntegrations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/integrations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -867,15 +867,15 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1013,7 +1013,7 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

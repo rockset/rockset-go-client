@@ -11,7 +11,7 @@ import (
 // GetOrganization gets the current organization.
 func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization, error) {
 	var err error
-	var resp openapi.OrganizationResponse
+	var resp *openapi.OrganizationResponse
 	log := zerolog.Ctx(ctx)
 	getReq := rc.OrganizationsApi.GetOrganization(ctx)
 

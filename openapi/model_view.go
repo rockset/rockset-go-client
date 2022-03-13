@@ -30,7 +30,7 @@ type View struct {
 	// SQL query of the view
 	QuerySql *string `json:"query_sql,omitempty"`
 	// list of entities referenced by view. An entity can be a view, alias or collection
-	Entities *[]string `json:"entities,omitempty"`
+	Entities []string `json:"entities,omitempty"`
 	// state of the view
 	State *string `json:"state,omitempty"`
 	// ISO-8601 date
@@ -286,12 +286,12 @@ func (o *View) GetEntities() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Entities
+	return o.Entities
 }
 
 // GetEntitiesOk returns a tuple with the Entities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *View) GetEntitiesOk() (*[]string, bool) {
+func (o *View) GetEntitiesOk() ([]string, bool) {
 	if o == nil || o.Entities == nil {
 		return nil, false
 	}
@@ -309,7 +309,7 @@ func (o *View) HasEntities() bool {
 
 // SetEntities gets a reference to the given []string and assigns it to the Entities field.
 func (o *View) SetEntities(v []string) {
-	o.Entities = &v
+	o.Entities = v
 }
 
 // GetState returns the State field value if set, zero value otherwise.

@@ -17,7 +17,7 @@ import (
 // ListWorkspacesResponse struct for ListWorkspacesResponse
 type ListWorkspacesResponse struct {
 	// list of workspaces
-	Data *[]Workspace `json:"data,omitempty"`
+	Data []Workspace `json:"data,omitempty"`
 }
 
 // NewListWorkspacesResponse instantiates a new ListWorkspacesResponse object
@@ -43,12 +43,12 @@ func (o *ListWorkspacesResponse) GetData() []Workspace {
 		var ret []Workspace
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListWorkspacesResponse) GetDataOk() (*[]Workspace, bool) {
+func (o *ListWorkspacesResponse) GetDataOk() ([]Workspace, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListWorkspacesResponse) HasData() bool {
 
 // SetData gets a reference to the given []Workspace and assigns it to the Data field.
 func (o *ListWorkspacesResponse) SetData(v []Workspace) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListWorkspacesResponse) MarshalJSON() ([]byte, error) {

@@ -34,8 +34,8 @@ func main() {
     virtualInstanceId := "virtualInstanceId_example" // string | uuid of the virtual instance
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.VirtualInstancesApi.GetVirtualInstance(context.Background(), virtualInstanceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.VirtualInstancesApi.GetVirtualInstance(context.Background(), virtualInstanceId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `VirtualInstancesApi.GetVirtualInstance``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -103,8 +103,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.VirtualInstancesApi.ListVirtualInstances(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.VirtualInstancesApi.ListVirtualInstances(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `VirtualInstancesApi.ListVirtualInstances``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -166,8 +166,8 @@ func main() {
     body := *openapiclient.NewUpdateVirtualInstanceRequest() // UpdateVirtualInstanceRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.VirtualInstancesApi.SetVirtualInstance(context.Background(), virtualInstanceId).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.VirtualInstancesApi.SetVirtualInstance(context.Background(), virtualInstanceId).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `VirtualInstancesApi.SetVirtualInstance``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

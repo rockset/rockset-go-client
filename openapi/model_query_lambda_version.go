@@ -30,7 +30,7 @@ type QueryLambdaVersion struct {
 	Description *string `json:"description,omitempty"`
 	Sql *QueryLambdaSql `json:"sql,omitempty"`
 	// collections queried by underlying SQL query
-	Collections *[]string `json:"collections,omitempty"`
+	Collections []string `json:"collections,omitempty"`
 	// status of this Query Lambda
 	State *string `json:"state,omitempty"`
 	Stats *QueryLambdaStats `json:"stats,omitempty"`
@@ -283,12 +283,12 @@ func (o *QueryLambdaVersion) GetCollections() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Collections
+	return o.Collections
 }
 
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetCollectionsOk() (*[]string, bool) {
+func (o *QueryLambdaVersion) GetCollectionsOk() ([]string, bool) {
 	if o == nil || o.Collections == nil {
 		return nil, false
 	}
@@ -306,7 +306,7 @@ func (o *QueryLambdaVersion) HasCollections() bool {
 
 // SetCollections gets a reference to the given []string and assigns it to the Collections field.
 func (o *QueryLambdaVersion) SetCollections(v []string) {
-	o.Collections = &v
+	o.Collections = v
 }
 
 // GetState returns the State field value if set, zero value otherwise.

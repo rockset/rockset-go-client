@@ -87,7 +87,7 @@ func TestWithAPIServer(t *testing.T) {
 	err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
 	require.NoError(t, err)
 
-	rc, err := rockset.NewClient(rockset.WithAPIServer(use1a1), rockset.WithHTTPDebug())
+	rc, err := rockset.NewClient(rockset.WithAPIServer(use1a1))
 	require.NoError(t, err)
 
 	org, err := rc.GetOrganization(ctx)
@@ -112,7 +112,7 @@ func TestRockClientWithAPIServerEnv(t *testing.T) {
 	err := os.Setenv(rockset.APIServerEnvironmentVariableName, use1a1)
 	require.NoError(t, err)
 
-	rc, err := rockset.NewClient(rockset.WithHTTPDebug())
+	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
 	org, err := rc.GetOrganization(ctx)

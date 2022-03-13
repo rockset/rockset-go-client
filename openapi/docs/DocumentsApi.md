@@ -36,8 +36,8 @@ func main() {
     body := *openapiclient.NewAddDocumentsRequest([]map[string]interface{}{map[string]interface{}(123)}) // AddDocumentsRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DocumentsApi.AddDocuments(context.Background(), workspace, collection).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DocumentsApi.AddDocuments(context.Background(), workspace, collection).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DocumentsApi.AddDocuments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -111,8 +111,8 @@ func main() {
     body := *openapiclient.NewDeleteDocumentsRequest([]openapiclient.DeleteDocumentsRequestData{*openapiclient.NewDeleteDocumentsRequestData("2cd61e3b")}) // DeleteDocumentsRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DocumentsApi.DeleteDocuments(context.Background(), workspace, collection).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DocumentsApi.DeleteDocuments(context.Background(), workspace, collection).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DocumentsApi.DeleteDocuments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -186,8 +186,8 @@ func main() {
     body := *openapiclient.NewPatchDocumentsRequest([]openapiclient.PatchDocument{*openapiclient.NewPatchDocument("ca2d6832-1bfd-f88f-0620-d2aa27a5d86c", []openapiclient.PatchOperation{*openapiclient.NewPatchOperation("ADD", "/foo/bar")})}) // PatchDocumentsRequest | JSON Patch objects
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DocumentsApi.PatchDocuments(context.Background(), workspace, collection).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.DocumentsApi.PatchDocuments(context.Background(), workspace, collection).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DocumentsApi.PatchDocuments``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

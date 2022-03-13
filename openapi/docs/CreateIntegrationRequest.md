@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Redshift** | Pointer to [**RedshiftIntegration**](RedshiftIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
+**AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
+**AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
 **Segment** | Pointer to [**SegmentIntegration**](SegmentIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
@@ -203,6 +205,56 @@ SetGcs sets Gcs field to given value.
 `func (o *CreateIntegrationRequest) HasGcs() bool`
 
 HasGcs returns a boolean if a field has been set.
+
+### GetAzureBlobStorage
+
+`func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration`
+
+GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
+
+### GetAzureBlobStorageOk
+
+`func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool)`
+
+GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureBlobStorage
+
+`func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegration)`
+
+SetAzureBlobStorage sets AzureBlobStorage field to given value.
+
+### HasAzureBlobStorage
+
+`func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool`
+
+HasAzureBlobStorage returns a boolean if a field has been set.
+
+### GetAzureEventHubs
+
+`func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration`
+
+GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
+
+### GetAzureEventHubsOk
+
+`func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool)`
+
+GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureEventHubs
+
+`func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration)`
+
+SetAzureEventHubs sets AzureEventHubs field to given value.
+
+### HasAzureEventHubs
+
+`func (o *CreateIntegrationRequest) HasAzureEventHubs() bool`
+
+HasAzureEventHubs returns a boolean if a field has been set.
 
 ### GetSegment
 

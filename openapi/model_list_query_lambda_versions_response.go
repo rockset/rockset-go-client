@@ -17,7 +17,7 @@ import (
 // ListQueryLambdaVersionsResponse struct for ListQueryLambdaVersionsResponse
 type ListQueryLambdaVersionsResponse struct {
 	// list of all versions for a particular Query Lambda
-	Data *[]QueryLambdaVersion `json:"data,omitempty"`
+	Data []QueryLambdaVersion `json:"data,omitempty"`
 }
 
 // NewListQueryLambdaVersionsResponse instantiates a new ListQueryLambdaVersionsResponse object
@@ -43,12 +43,12 @@ func (o *ListQueryLambdaVersionsResponse) GetData() []QueryLambdaVersion {
 		var ret []QueryLambdaVersion
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListQueryLambdaVersionsResponse) GetDataOk() (*[]QueryLambdaVersion, bool) {
+func (o *ListQueryLambdaVersionsResponse) GetDataOk() ([]QueryLambdaVersion, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListQueryLambdaVersionsResponse) HasData() bool {
 
 // SetData gets a reference to the given []QueryLambdaVersion and assigns it to the Data field.
 func (o *ListQueryLambdaVersionsResponse) SetData(v []QueryLambdaVersion) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListQueryLambdaVersionsResponse) MarshalJSON() ([]byte, error) {

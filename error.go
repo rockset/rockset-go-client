@@ -20,7 +20,7 @@ type Error struct {
 func NewError(err error) Error {
 	var re = Error{Cause: err}
 
-	var ge openapi.GenericOpenAPIError
+	var ge *openapi.GenericOpenAPIError
 	if errors.As(err, &ge) {
 		if m, ok := ge.Model().(openapi.ErrorModel); ok {
 			re.ErrorModel = &m

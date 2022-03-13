@@ -36,8 +36,8 @@ func main() {
     body := *openapiclient.NewCreateApiKeyRequest("my-app") // CreateApiKeyRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.CreateApiKey(context.Background()).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.APIKeysApi.CreateApiKey(context.Background()).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.CreateApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -103,8 +103,8 @@ func main() {
     user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.DeleteApiKey(context.Background(), name, user).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.APIKeysApi.DeleteApiKey(context.Background(), name, user).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.DeleteApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -176,8 +176,8 @@ func main() {
     name := "my-key" // string | Name of the API key.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.GetApiKey(context.Background(), user, name).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.APIKeysApi.GetApiKey(context.Background(), user, name).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.GetApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -248,8 +248,8 @@ func main() {
     user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.ListApiKeys(context.Background(), user).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.APIKeysApi.ListApiKeys(context.Background(), user).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.ListApiKeys``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -320,8 +320,8 @@ func main() {
     body := *openapiclient.NewUpdateApiKeyRequest() // UpdateApiKeyRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.APIKeysApi.UpdateApiKey(context.Background(), name, user).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.APIKeysApi.UpdateApiKey(context.Background(), name, user).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.UpdateApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

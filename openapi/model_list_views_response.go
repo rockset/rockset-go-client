@@ -17,7 +17,7 @@ import (
 // ListViewsResponse struct for ListViewsResponse
 type ListViewsResponse struct {
 	// list of all views
-	Data *[]View `json:"data,omitempty"`
+	Data []View `json:"data,omitempty"`
 }
 
 // NewListViewsResponse instantiates a new ListViewsResponse object
@@ -43,12 +43,12 @@ func (o *ListViewsResponse) GetData() []View {
 		var ret []View
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListViewsResponse) GetDataOk() (*[]View, bool) {
+func (o *ListViewsResponse) GetDataOk() ([]View, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListViewsResponse) HasData() bool {
 
 // SetData gets a reference to the given []View and assigns it to the Data field.
 func (o *ListViewsResponse) SetData(v []View) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListViewsResponse) MarshalJSON() ([]byte, error) {

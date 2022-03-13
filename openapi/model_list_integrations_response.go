@@ -17,7 +17,7 @@ import (
 // ListIntegrationsResponse struct for ListIntegrationsResponse
 type ListIntegrationsResponse struct {
 	// list of integration objects
-	Data *[]Integration `json:"data,omitempty"`
+	Data []Integration `json:"data,omitempty"`
 }
 
 // NewListIntegrationsResponse instantiates a new ListIntegrationsResponse object
@@ -43,12 +43,12 @@ func (o *ListIntegrationsResponse) GetData() []Integration {
 		var ret []Integration
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListIntegrationsResponse) GetDataOk() (*[]Integration, bool) {
+func (o *ListIntegrationsResponse) GetDataOk() ([]Integration, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListIntegrationsResponse) HasData() bool {
 
 // SetData gets a reference to the given []Integration and assigns it to the Data field.
 func (o *ListIntegrationsResponse) SetData(v []Integration) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListIntegrationsResponse) MarshalJSON() ([]byte, error) {

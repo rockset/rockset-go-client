@@ -17,7 +17,7 @@ import (
 // ListUnsubscribePreferencesResponse struct for ListUnsubscribePreferencesResponse
 type ListUnsubscribePreferencesResponse struct {
 	// List of notification preferences
-	Data *[]UnsubscribePreference `json:"data,omitempty"`
+	Data []UnsubscribePreference `json:"data,omitempty"`
 }
 
 // NewListUnsubscribePreferencesResponse instantiates a new ListUnsubscribePreferencesResponse object
@@ -43,12 +43,12 @@ func (o *ListUnsubscribePreferencesResponse) GetData() []UnsubscribePreference {
 		var ret []UnsubscribePreference
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListUnsubscribePreferencesResponse) GetDataOk() (*[]UnsubscribePreference, bool) {
+func (o *ListUnsubscribePreferencesResponse) GetDataOk() ([]UnsubscribePreference, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListUnsubscribePreferencesResponse) HasData() bool {
 
 // SetData gets a reference to the given []UnsubscribePreference and assigns it to the Data field.
 func (o *ListUnsubscribePreferencesResponse) SetData(v []UnsubscribePreference) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListUnsubscribePreferencesResponse) MarshalJSON() ([]byte, error) {

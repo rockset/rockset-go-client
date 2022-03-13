@@ -23,7 +23,7 @@ type StatusKafka struct {
 	// Number of documents consumed by this Kafka topic
 	NumDocumentsProcessed *int64 `json:"num_documents_processed,omitempty"`
 	// Status info per partition
-	KafkaPartitions *[]StatusKafkaPartition `json:"kafka_partitions,omitempty"`
+	KafkaPartitions []StatusKafkaPartition `json:"kafka_partitions,omitempty"`
 }
 
 // NewStatusKafka instantiates a new StatusKafka object
@@ -145,12 +145,12 @@ func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition {
 		var ret []StatusKafkaPartition
 		return ret
 	}
-	return *o.KafkaPartitions
+	return o.KafkaPartitions
 }
 
 // GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusKafka) GetKafkaPartitionsOk() (*[]StatusKafkaPartition, bool) {
+func (o *StatusKafka) GetKafkaPartitionsOk() ([]StatusKafkaPartition, bool) {
 	if o == nil || o.KafkaPartitions == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *StatusKafka) HasKafkaPartitions() bool {
 
 // SetKafkaPartitions gets a reference to the given []StatusKafkaPartition and assigns it to the KafkaPartitions field.
 func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition) {
-	o.KafkaPartitions = &v
+	o.KafkaPartitions = v
 }
 
 func (o StatusKafka) MarshalJSON() ([]byte, error) {

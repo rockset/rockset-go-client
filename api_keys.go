@@ -12,7 +12,7 @@ import (
 // REST API documentation https://docs.rockset.com/rest-api/#createapikey
 func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string) (openapi.ApiKey, error) {
 	var err error
-	var resp openapi.CreateApiKeyResponse
+	var resp *openapi.CreateApiKeyResponse
 
 	createReq := rc.APIKeysApi.CreateApiKey(ctx)
 	b := openapi.NewCreateApiKeyRequest(keyName)
@@ -36,7 +36,7 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string) (openapi
 func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 	options ...option.APIKeyOption) (openapi.ApiKey, error) {
 	var err error
-	var resp openapi.GetApiKeyResponse
+	var resp *openapi.GetApiKeyResponse
 
 	opts := option.APIKeyOptions{}
 	for _, o := range options {
@@ -99,7 +99,7 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 // REST API documentation https://docs.rockset.com/rest-api/#listapikey
 func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyOption) ([]openapi.ApiKey, error) {
 	var err error
-	var resp openapi.ListApiKeysResponse
+	var resp *openapi.ListApiKeysResponse
 
 	opts := option.APIKeyOptions{}
 	for _, o := range options {

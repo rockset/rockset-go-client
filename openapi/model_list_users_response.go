@@ -17,7 +17,7 @@ import (
 // ListUsersResponse struct for ListUsersResponse
 type ListUsersResponse struct {
 	// list of users
-	Data *[]User `json:"data,omitempty"`
+	Data []User `json:"data,omitempty"`
 }
 
 // NewListUsersResponse instantiates a new ListUsersResponse object
@@ -43,12 +43,12 @@ func (o *ListUsersResponse) GetData() []User {
 		var ret []User
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListUsersResponse) GetDataOk() (*[]User, bool) {
+func (o *ListUsersResponse) GetDataOk() ([]User, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListUsersResponse) HasData() bool {
 
 // SetData gets a reference to the given []User and assigns it to the Data field.
 func (o *ListUsersResponse) SetData(v []User) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListUsersResponse) MarshalJSON() ([]byte, error) {

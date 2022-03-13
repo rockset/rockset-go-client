@@ -21,7 +21,7 @@ type CreateCollectionRequest struct {
 	// text describing the collection
 	Description *string `json:"description,omitempty"`
 	// list of sources from which to ingest data
-	Sources *[]Source `json:"sources,omitempty"`
+	Sources []Source `json:"sources,omitempty"`
 	// number of seconds after which data is purged, based on event time
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
 	// If non-null, the collection will be time partitioned and each partition will be time_partition_resolution_secs wide.
@@ -30,12 +30,12 @@ type CreateCollectionRequest struct {
 	InsertOnly *bool `json:"insert_only,omitempty"`
 	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
 	// list of mappings
-	FieldMappings *[]FieldMappingV2 `json:"field_mappings,omitempty"`
+	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// list of clustering fields
-	ClusteringKey *[]FieldPartition `json:"clustering_key,omitempty"`
+	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 	// list of field schemas
-	FieldSchemas *[]FieldSchema `json:"field_schemas,omitempty"`
+	FieldSchemas []FieldSchema `json:"field_schemas,omitempty"`
 	InvertedIndexGroupEncodingOptions *InvertedIndexGroupEncodingOptions `json:"inverted_index_group_encoding_options,omitempty"`
 }
 
@@ -119,12 +119,12 @@ func (o *CreateCollectionRequest) GetSources() []Source {
 		var ret []Source
 		return ret
 	}
-	return *o.Sources
+	return o.Sources
 }
 
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetSourcesOk() (*[]Source, bool) {
+func (o *CreateCollectionRequest) GetSourcesOk() ([]Source, bool) {
 	if o == nil || o.Sources == nil {
 		return nil, false
 	}
@@ -142,7 +142,7 @@ func (o *CreateCollectionRequest) HasSources() bool {
 
 // SetSources gets a reference to the given []Source and assigns it to the Sources field.
 func (o *CreateCollectionRequest) SetSources(v []Source) {
-	o.Sources = &v
+	o.Sources = v
 }
 
 // GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
@@ -279,12 +279,12 @@ func (o *CreateCollectionRequest) GetFieldMappings() []FieldMappingV2 {
 		var ret []FieldMappingV2
 		return ret
 	}
-	return *o.FieldMappings
+	return o.FieldMappings
 }
 
 // GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetFieldMappingsOk() (*[]FieldMappingV2, bool) {
+func (o *CreateCollectionRequest) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
 	if o == nil || o.FieldMappings == nil {
 		return nil, false
 	}
@@ -302,7 +302,7 @@ func (o *CreateCollectionRequest) HasFieldMappings() bool {
 
 // SetFieldMappings gets a reference to the given []FieldMappingV2 and assigns it to the FieldMappings field.
 func (o *CreateCollectionRequest) SetFieldMappings(v []FieldMappingV2) {
-	o.FieldMappings = &v
+	o.FieldMappings = v
 }
 
 // GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
@@ -343,12 +343,12 @@ func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition {
 		var ret []FieldPartition
 		return ret
 	}
-	return *o.ClusteringKey
+	return o.ClusteringKey
 }
 
 // GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetClusteringKeyOk() (*[]FieldPartition, bool) {
+func (o *CreateCollectionRequest) GetClusteringKeyOk() ([]FieldPartition, bool) {
 	if o == nil || o.ClusteringKey == nil {
 		return nil, false
 	}
@@ -366,7 +366,7 @@ func (o *CreateCollectionRequest) HasClusteringKey() bool {
 
 // SetClusteringKey gets a reference to the given []FieldPartition and assigns it to the ClusteringKey field.
 func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
-	o.ClusteringKey = &v
+	o.ClusteringKey = v
 }
 
 // GetFieldSchemas returns the FieldSchemas field value if set, zero value otherwise.
@@ -375,12 +375,12 @@ func (o *CreateCollectionRequest) GetFieldSchemas() []FieldSchema {
 		var ret []FieldSchema
 		return ret
 	}
-	return *o.FieldSchemas
+	return o.FieldSchemas
 }
 
 // GetFieldSchemasOk returns a tuple with the FieldSchemas field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetFieldSchemasOk() (*[]FieldSchema, bool) {
+func (o *CreateCollectionRequest) GetFieldSchemasOk() ([]FieldSchema, bool) {
 	if o == nil || o.FieldSchemas == nil {
 		return nil, false
 	}
@@ -398,7 +398,7 @@ func (o *CreateCollectionRequest) HasFieldSchemas() bool {
 
 // SetFieldSchemas gets a reference to the given []FieldSchema and assigns it to the FieldSchemas field.
 func (o *CreateCollectionRequest) SetFieldSchemas(v []FieldSchema) {
-	o.FieldSchemas = &v
+	o.FieldSchemas = v
 }
 
 // GetInvertedIndexGroupEncodingOptions returns the InvertedIndexGroupEncodingOptions field value if set, zero value otherwise.

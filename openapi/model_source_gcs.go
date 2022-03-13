@@ -20,6 +20,8 @@ type SourceGcs struct {
 	Bucket *string `json:"bucket,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
+	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
+	Pattern *string `json:"pattern,omitempty"`
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
 	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
 	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
@@ -104,6 +106,38 @@ func (o *SourceGcs) HasPrefix() bool {
 // SetPrefix gets a reference to the given string and assigns it to the Prefix field.
 func (o *SourceGcs) SetPrefix(v string) {
 	o.Prefix = &v
+}
+
+// GetPattern returns the Pattern field value if set, zero value otherwise.
+func (o *SourceGcs) GetPattern() string {
+	if o == nil || o.Pattern == nil {
+		var ret string
+		return ret
+	}
+	return *o.Pattern
+}
+
+// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceGcs) GetPatternOk() (*string, bool) {
+	if o == nil || o.Pattern == nil {
+		return nil, false
+	}
+	return o.Pattern, true
+}
+
+// HasPattern returns a boolean if a field has been set.
+func (o *SourceGcs) HasPattern() bool {
+	if o != nil && o.Pattern != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPattern gets a reference to the given string and assigns it to the Pattern field.
+func (o *SourceGcs) SetPattern(v string) {
+	o.Pattern = &v
 }
 
 // GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
@@ -209,6 +243,9 @@ func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	}
 	if o.Prefix != nil {
 		toSerialize["prefix"] = o.Prefix
+	}
+	if o.Pattern != nil {
+		toSerialize["pattern"] = o.Pattern
 	}
 	if o.ObjectCountDownloaded != nil {
 		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded

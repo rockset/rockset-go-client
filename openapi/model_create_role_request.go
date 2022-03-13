@@ -21,7 +21,7 @@ type CreateRoleRequest struct {
 	// Description for the role.
 	Description *string `json:"description,omitempty"`
 	// List of privileges that will be associated with the role.
-	Privileges *[]Privilege `json:"privileges,omitempty"`
+	Privileges []Privilege `json:"privileges,omitempty"`
 }
 
 // NewCreateRoleRequest instantiates a new CreateRoleRequest object
@@ -111,12 +111,12 @@ func (o *CreateRoleRequest) GetPrivileges() []Privilege {
 		var ret []Privilege
 		return ret
 	}
-	return *o.Privileges
+	return o.Privileges
 }
 
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateRoleRequest) GetPrivilegesOk() (*[]Privilege, bool) {
+func (o *CreateRoleRequest) GetPrivilegesOk() ([]Privilege, bool) {
 	if o == nil || o.Privileges == nil {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *CreateRoleRequest) HasPrivileges() bool {
 
 // SetPrivileges gets a reference to the given []Privilege and assigns it to the Privileges field.
 func (o *CreateRoleRequest) SetPrivileges(v []Privilege) {
-	o.Privileges = &v
+	o.Privileges = v
 }
 
 func (o CreateRoleRequest) MarshalJSON() ([]byte, error) {

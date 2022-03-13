@@ -36,8 +36,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkspacesApi.ChildWorkspaces(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkspacesApi.ChildWorkspaces(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.ChildWorkspaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -106,8 +106,8 @@ func main() {
     body := *openapiclient.NewCreateWorkspaceRequest("event_logs") // CreateWorkspaceRequest | workspace details
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkspacesApi.CreateWorkspace(context.Background()).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkspacesApi.CreateWorkspace(context.Background()).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.CreateWorkspace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -172,8 +172,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkspacesApi.DeleteWorkspace(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkspacesApi.DeleteWorkspace(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.DeleteWorkspace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -242,8 +242,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkspacesApi.GetWorkspace(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkspacesApi.GetWorkspace(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.GetWorkspace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -312,8 +312,8 @@ func main() {
     fetchAcrossRegions := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.WorkspacesApi.ListWorkspaces(context.Background()).FetchAcrossRegions(fetchAcrossRegions).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.WorkspacesApi.ListWorkspaces(context.Background()).FetchAcrossRegions(fetchAcrossRegions).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.ListWorkspaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

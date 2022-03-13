@@ -38,8 +38,8 @@ func main() {
     body := *openapiclient.NewCreateAliasRequest("aliasName", []string{"Collections_example"}) // CreateAliasRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AliasesApi.CreateAlias(context.Background(), workspace).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AliasesApi.CreateAlias(context.Background(), workspace).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AliasesApi.CreateAlias``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -110,8 +110,8 @@ func main() {
     alias := "alias_example" // string | name of the alias
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AliasesApi.DeleteAlias(context.Background(), workspace, alias).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AliasesApi.DeleteAlias(context.Background(), workspace, alias).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AliasesApi.DeleteAlias``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -183,8 +183,8 @@ func main() {
     alias := "alias_example" // string | name of the alias
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AliasesApi.GetAlias(context.Background(), workspace, alias).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AliasesApi.GetAlias(context.Background(), workspace, alias).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AliasesApi.GetAlias``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,8 +254,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AliasesApi.ListAliases(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AliasesApi.ListAliases(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AliasesApi.ListAliases``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -318,8 +318,8 @@ func main() {
     body := *openapiclient.NewUpdateAliasRequest([]string{"Collections_example"}) // UpdateAliasRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AliasesApi.UpdateAlias(context.Background(), workspace, alias).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AliasesApi.UpdateAlias(context.Background(), workspace, alias).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AliasesApi.UpdateAlias``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -391,8 +391,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AliasesApi.WorkspaceAliases(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AliasesApi.WorkspaceAliases(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AliasesApi.WorkspaceAliases``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

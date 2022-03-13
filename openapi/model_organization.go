@@ -22,7 +22,7 @@ type Organization struct {
 	// organization's unique external ID within Rockset
 	ExternalId *string `json:"external_id,omitempty"`
 	// list of clusters associated with this org
-	Clusters *[]Cluster `json:"clusters,omitempty"`
+	Clusters []Cluster `json:"clusters,omitempty"`
 	// unique identifier for the organization
 	Id *string `json:"id,omitempty"`
 	// ISO-8601 date
@@ -150,12 +150,12 @@ func (o *Organization) GetClusters() []Cluster {
 		var ret []Cluster
 		return ret
 	}
-	return *o.Clusters
+	return o.Clusters
 }
 
 // GetClustersOk returns a tuple with the Clusters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Organization) GetClustersOk() (*[]Cluster, bool) {
+func (o *Organization) GetClustersOk() ([]Cluster, bool) {
 	if o == nil || o.Clusters == nil {
 		return nil, false
 	}
@@ -173,7 +173,7 @@ func (o *Organization) HasClusters() bool {
 
 // SetClusters gets a reference to the given []Cluster and assigns it to the Clusters field.
 func (o *Organization) SetClusters(v []Cluster) {
-	o.Clusters = &v
+	o.Clusters = v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.

@@ -17,7 +17,7 @@ import (
 // AddDocumentsResponse struct for AddDocumentsResponse
 type AddDocumentsResponse struct {
 	// information about the added documents
-	Data *[]DocumentStatus `json:"data,omitempty"`
+	Data []DocumentStatus `json:"data,omitempty"`
 }
 
 // NewAddDocumentsResponse instantiates a new AddDocumentsResponse object
@@ -43,12 +43,12 @@ func (o *AddDocumentsResponse) GetData() []DocumentStatus {
 		var ret []DocumentStatus
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AddDocumentsResponse) GetDataOk() (*[]DocumentStatus, bool) {
+func (o *AddDocumentsResponse) GetDataOk() ([]DocumentStatus, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *AddDocumentsResponse) HasData() bool {
 
 // SetData gets a reference to the given []DocumentStatus and assigns it to the Data field.
 func (o *AddDocumentsResponse) SetData(v []DocumentStatus) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o AddDocumentsResponse) MarshalJSON() ([]byte, error) {

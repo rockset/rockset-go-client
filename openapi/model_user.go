@@ -25,7 +25,7 @@ type User struct {
 	// user last name
 	LastName *string `json:"last_name,omitempty"`
 	// List of roles for a given user
-	Roles *[]string `json:"roles,omitempty"`
+	Roles []string `json:"roles,omitempty"`
 	// state of user - NEW / ACTIVE
 	State *string `json:"state,omitempty"`
 }
@@ -174,12 +174,12 @@ func (o *User) GetRoles() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Roles
+	return o.Roles
 }
 
 // GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *User) GetRolesOk() (*[]string, bool) {
+func (o *User) GetRolesOk() ([]string, bool) {
 	if o == nil || o.Roles == nil {
 		return nil, false
 	}
@@ -197,7 +197,7 @@ func (o *User) HasRoles() bool {
 
 // SetRoles gets a reference to the given []string and assigns it to the Roles field.
 func (o *User) SetRoles(v []string) {
-	o.Roles = &v
+	o.Roles = v
 }
 
 // GetState returns the State field value if set, zero value otherwise.

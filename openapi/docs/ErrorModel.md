@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Column** | Pointer to **int32** | Column where the error happened (if applicable) | [optional] 
 **TraceId** | Pointer to **string** | Internal trace ID to help with debugging | [optional] 
 **ErrorId** | Pointer to **string** | ID of the error | [optional] 
+**QueryId** | Pointer to **string** | ID of the query (if applicable) | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetErrorId sets ErrorId field to given value.
 `func (o *ErrorModel) HasErrorId() bool`
 
 HasErrorId returns a boolean if a field has been set.
+
+### GetQueryId
+
+`func (o *ErrorModel) GetQueryId() string`
+
+GetQueryId returns the QueryId field if non-nil, zero value otherwise.
+
+### GetQueryIdOk
+
+`func (o *ErrorModel) GetQueryIdOk() (*string, bool)`
+
+GetQueryIdOk returns a tuple with the QueryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryId
+
+`func (o *ErrorModel) SetQueryId(v string)`
+
+SetQueryId sets QueryId field to given value.
+
+### HasQueryId
+
+`func (o *ErrorModel) HasQueryId() bool`
+
+HasQueryId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

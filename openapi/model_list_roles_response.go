@@ -17,7 +17,7 @@ import (
 // ListRolesResponse struct for ListRolesResponse
 type ListRolesResponse struct {
 	// List of all roles.
-	Data *[]Role `json:"data,omitempty"`
+	Data []Role `json:"data,omitempty"`
 }
 
 // NewListRolesResponse instantiates a new ListRolesResponse object
@@ -43,12 +43,12 @@ func (o *ListRolesResponse) GetData() []Role {
 		var ret []Role
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListRolesResponse) GetDataOk() (*[]Role, bool) {
+func (o *ListRolesResponse) GetDataOk() ([]Role, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListRolesResponse) HasData() bool {
 
 // SetData gets a reference to the given []Role and assigns it to the Data field.
 func (o *ListRolesResponse) SetData(v []Role) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListRolesResponse) MarshalJSON() ([]byte, error) {

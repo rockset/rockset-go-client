@@ -17,7 +17,7 @@ import (
 // FieldMaskMask Field masking function name + args. The args is a JSON object.
 type FieldMaskMask struct {
 	Name string `json:"name"`
-	Args *map[string]interface{} `json:"args,omitempty"`
+	Args map[string]interface{} `json:"args,omitempty"`
 }
 
 // NewFieldMaskMask instantiates a new FieldMaskMask object
@@ -68,12 +68,12 @@ func (o *FieldMaskMask) GetArgs() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Args
+	return o.Args
 }
 
 // GetArgsOk returns a tuple with the Args field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FieldMaskMask) GetArgsOk() (*map[string]interface{}, bool) {
+func (o *FieldMaskMask) GetArgsOk() (map[string]interface{}, bool) {
 	if o == nil || o.Args == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *FieldMaskMask) HasArgs() bool {
 
 // SetArgs gets a reference to the given map[string]interface{} and assigns it to the Args field.
 func (o *FieldMaskMask) SetArgs(v map[string]interface{}) {
-	o.Args = &v
+	o.Args = v
 }
 
 func (o FieldMaskMask) MarshalJSON() ([]byte, error) {

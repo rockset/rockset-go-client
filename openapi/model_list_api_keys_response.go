@@ -17,7 +17,7 @@ import (
 // ListApiKeysResponse struct for ListApiKeysResponse
 type ListApiKeysResponse struct {
 	// List of API key objects.
-	Data *[]ApiKey `json:"data,omitempty"`
+	Data []ApiKey `json:"data,omitempty"`
 }
 
 // NewListApiKeysResponse instantiates a new ListApiKeysResponse object
@@ -43,12 +43,12 @@ func (o *ListApiKeysResponse) GetData() []ApiKey {
 		var ret []ApiKey
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListApiKeysResponse) GetDataOk() (*[]ApiKey, bool) {
+func (o *ListApiKeysResponse) GetDataOk() ([]ApiKey, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListApiKeysResponse) HasData() bool {
 
 // SetData gets a reference to the given []ApiKey and assigns it to the Data field.
 func (o *ListApiKeysResponse) SetData(v []ApiKey) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListApiKeysResponse) MarshalJSON() ([]byte, error) {

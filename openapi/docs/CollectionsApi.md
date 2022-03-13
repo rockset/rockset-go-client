@@ -37,8 +37,8 @@ func main() {
     body := *openapiclient.NewCreateCollectionRequest("global-transactions") // CreateCollectionRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CollectionsApi.CreateCollection(context.Background(), workspace).Body(body).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.CreateCollection(context.Background(), workspace).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.CreateCollection``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -109,8 +109,8 @@ func main() {
     collection := "collection_example" // string | name of the collection
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CollectionsApi.DeleteCollection(context.Background(), workspace, collection).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.DeleteCollection(context.Background(), workspace, collection).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.DeleteCollection``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -182,8 +182,8 @@ func main() {
     collection := "collection_example" // string | name of the collection
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CollectionsApi.GetCollection(context.Background(), workspace, collection).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.GetCollection(context.Background(), workspace, collection).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.GetCollection``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -253,8 +253,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CollectionsApi.ListCollections(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.ListCollections(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.ListCollections``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -315,8 +315,8 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.CollectionsApi.WorkspaceCollections(context.Background(), workspace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.WorkspaceCollections(context.Background(), workspace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.WorkspaceCollections``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

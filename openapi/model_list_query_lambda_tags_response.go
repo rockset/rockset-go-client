@@ -17,7 +17,7 @@ import (
 // ListQueryLambdaTagsResponse struct for ListQueryLambdaTagsResponse
 type ListQueryLambdaTagsResponse struct {
 	// list of all tags associated with a Query Lambda
-	Data *[]QueryLambdaTag `json:"data,omitempty"`
+	Data []QueryLambdaTag `json:"data,omitempty"`
 }
 
 // NewListQueryLambdaTagsResponse instantiates a new ListQueryLambdaTagsResponse object
@@ -43,12 +43,12 @@ func (o *ListQueryLambdaTagsResponse) GetData() []QueryLambdaTag {
 		var ret []QueryLambdaTag
 		return ret
 	}
-	return *o.Data
+	return o.Data
 }
 
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListQueryLambdaTagsResponse) GetDataOk() (*[]QueryLambdaTag, bool) {
+func (o *ListQueryLambdaTagsResponse) GetDataOk() ([]QueryLambdaTag, bool) {
 	if o == nil || o.Data == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *ListQueryLambdaTagsResponse) HasData() bool {
 
 // SetData gets a reference to the given []QueryLambdaTag and assigns it to the Data field.
 func (o *ListQueryLambdaTagsResponse) SetData(v []QueryLambdaTag) {
-	o.Data = &v
+	o.Data = v
 }
 
 func (o ListQueryLambdaTagsResponse) MarshalJSON() ([]byte, error) {

@@ -26,6 +26,9 @@ docs/AliasesApi.md
 docs/ApiKey.md
 docs/AwsAccessKey.md
 docs/AwsRole.md
+docs/AzureBlobStorageIntegration.md
+docs/AzureEventHubsIntegration.md
+docs/AzureServiceBusIntegration.md
 docs/Cluster.md
 docs/Collection.md
 docs/CollectionStats.md
@@ -136,6 +139,9 @@ docs/RoleResponse.md
 docs/S3Integration.md
 docs/SegmentIntegration.md
 docs/Source.md
+docs/SourceAzureBlobStorage.md
+docs/SourceAzureEventHubs.md
+docs/SourceAzureServiceBus.md
 docs/SourceDynamoDb.md
 docs/SourceFileUpload.md
 docs/SourceGcs.md
@@ -146,6 +152,9 @@ docs/SourceRedshift.md
 docs/SourceS3.md
 docs/SqlExpression.md
 docs/Status.md
+docs/StatusAzureEventHubs.md
+docs/StatusAzureEventHubsPartition.md
+docs/StatusAzureServiceBus.md
 docs/StatusDynamoDb.md
 docs/StatusDynamoDbV2.md
 docs/StatusKafka.md
@@ -182,6 +191,9 @@ model_alias.go
 model_api_key.go
 model_aws_access_key.go
 model_aws_role.go
+model_azure_blob_storage_integration.go
+model_azure_event_hubs_integration.go
+model_azure_service_bus_integration.go
 model_cluster.go
 model_collection.go
 model_collection_stats.go
@@ -285,6 +297,9 @@ model_role_response.go
 model_s3_integration.go
 model_segment_integration.go
 model_source.go
+model_source_azure_blob_storage.go
+model_source_azure_event_hubs.go
+model_source_azure_service_bus.go
 model_source_dynamo_db.go
 model_source_file_upload.go
 model_source_gcs.go
@@ -295,6 +310,9 @@ model_source_redshift.go
 model_source_s3.go
 model_sql_expression.go
 model_status.go
+model_status_azure_event_hubs.go
+model_status_azure_event_hubs_partition.go
+model_status_azure_service_bus.go
 model_status_dynamo_db.go
 model_status_dynamo_db_v2.go
 model_status_kafka.go
