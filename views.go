@@ -80,7 +80,8 @@ func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query str
 	return resp.GetData(), nil
 }
 
-// DeleteView deletes a view.
+// DeleteView marks the view for deletion, which will take place in the background. Use the
+// WaitUntilViewGone() call to block until the view has been deleted.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#deleteview
 func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) error {
@@ -104,7 +105,7 @@ func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) er
 	return nil
 }
 
-// ListViews list views.
+// ListViews list views. Use option.WithViewWorkspace() to limit the request to just one workspace.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#listviews
 func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewOption) ([]openapi.View, error) {
