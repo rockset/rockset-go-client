@@ -106,7 +106,7 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 		o(&opts)
 	}
 
-	req.S3 = &openapi.S3Integration{}
+	req.Kinesis = &openapi.KinesisIntegration{}
 	if opts.Description != nil {
 		req.Description = opts.Description
 	}
