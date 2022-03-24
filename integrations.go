@@ -129,8 +129,10 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 	return resp.GetData(), nil
 }
 
+// CreateDynamoDBIntegration creates a new AWS DynamoDB integration. It requires AWS credentials using either
+// option.AWSKeys() or option.AWSRole(), and an S3 bucket which is used to export the DynamoDB tables.
 func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string, creds option.AWSCredentialsFn,
-	options ...option.DynamoDBIntegrationOption) (openapi.Integration, error) {
+	s3BucketName string, options ...option.DynamoDBIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp *openapi.CreateIntegrationResponse
 
@@ -145,7 +147,9 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 		o(&opts)
 	}
 
-	req.Dynamodb = &openapi.DynamodbIntegration{}
+	req.Dynamodb = &openapi.DynamodbIntegration{
+		S3ExportBucketName: &s3BucketName,
+	}
 	if opts.Description != nil {
 		req.Description = opts.Description
 	}
