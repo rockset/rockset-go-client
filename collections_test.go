@@ -1,13 +1,13 @@
 package rockset_test
 
 import (
-	"github.com/rockset/rockset-go-client/option"
 	"testing"
 
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 func TestRockClient_ListCollections_all(t *testing.T) {
