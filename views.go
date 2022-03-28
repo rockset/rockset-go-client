@@ -2,10 +2,12 @@ package rockset
 
 import (
 	"context"
+	"net/http"
+
+	"github.com/rs/zerolog"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/rs/zerolog"
-	"net/http"
 )
 
 // CreateView creates a new view, with an optional description.

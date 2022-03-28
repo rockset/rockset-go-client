@@ -17,7 +17,7 @@ import (
 
 func TestHA_Integration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
-	const apikeyName = "ROCKSET_APIKEY_USE1A1"
+	const apikeyName = "ROCKSET_APIKEY_USE1A1" //nolint
 	apikey := os.Getenv(apikeyName)
 	if apikey == "" {
 		t.Skipf("skipping test as %s is not set", apikeyName)
@@ -123,7 +123,8 @@ func newFakeQuerier(qid string, delay time.Duration, err error) *fakeQuerier {
 	}
 }
 
-func (f *fakeQuerier) Query(ctx context.Context, query string, options ...option.QueryOption) (openapi.QueryResponse, error) {
+func (f *fakeQuerier) Query(ctx context.Context, query string,
+	options ...option.QueryOption) (openapi.QueryResponse, error) {
 	select {
 	case <-time.After(f.delay):
 		if f.err != nil {
@@ -133,5 +134,4 @@ func (f *fakeQuerier) Query(ctx context.Context, query string, options ...option
 	case <-ctx.Done():
 		return openapi.QueryResponse{}, ctx.Err()
 	}
-
 }

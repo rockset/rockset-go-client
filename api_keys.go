@@ -29,6 +29,8 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string) (openapi
 	return resp.GetData(), nil
 }
 
+const self = "self"
+
 // GetAPIKey gets the named API key.
 // An admin can get an api key for another user with option.ForUser().
 //
@@ -43,7 +45,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 		o(&opts)
 	}
 
-	user := "self"
+	user := self
 	if opts.User != nil {
 		user = *opts.User
 	}
@@ -74,7 +76,7 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 		o(&opts)
 	}
 
-	user := "self"
+	user := self
 	if opts.User != nil {
 		user = *opts.User
 	}
@@ -106,7 +108,7 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 		o(&opts)
 	}
 
-	user := "self"
+	user := self
 	if opts.User != nil {
 		user = *opts.User
 	}

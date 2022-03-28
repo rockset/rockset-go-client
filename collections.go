@@ -28,7 +28,8 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 	return resp.GetData(), nil
 }
 
-func (rc *RockClient) ListCollections(ctx context.Context, options ...option.ListCollectionOption) ([]openapi.Collection, error) {
+func (rc *RockClient) ListCollections(ctx context.Context,
+	options ...option.ListCollectionOption) ([]openapi.Collection, error) {
 	var err error
 
 	opts := option.ListCollectionOptions{}

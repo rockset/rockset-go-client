@@ -45,10 +45,6 @@ func Example_s3() {
 		option.WithInsertOnly(),
 		option.WithCollectionFieldSchema("city", option.WithColumnIndexMode(option.ColumnIndexModeNoStore)),
 		option.WithFieldMappingQuery("SELECT * FROM _input"),
-		// TODO ask @kli if this the way forward
-		//option.WithCollectionFieldMapping("test", false,
-		//	option.OutputField("out", "CAST(:country AS string)", option.OnErrorSkip),
-		//	option.InputField("country", option.FieldMissingSkip, false, "country")),
 	)
 	if err != nil {
 		log.Fatalf("failed to create collection: %v", err)

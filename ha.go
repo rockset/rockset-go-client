@@ -5,6 +5,7 @@ import (
 	"sync"
 
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -24,11 +25,6 @@ func NewHA(client ...Querier) *HA {
 
 func (ha *HA) Query(ctx context.Context, query string, options ...option.QueryOption) (openapi.QueryResponse, []error) {
 	log := zerolog.Ctx(ctx)
-	// create a sub-context, so we can cancel all HTTP requests after getting the first answer
-	subCtx, cancel := context.WithCancel(ctx)
-
-	// make sure to cancel any pending query result as we don't need them when we return
-	defer cancel()
 
 	var wg sync.WaitGroup
 	resultCh := make(chan openapi.QueryResponse, len(ha.clients))
@@ -58,6 +54,17 @@ func (ha *HA) Query(ctx context.Context, query string, options ...option.QueryOp
 		close(errorCh)
 	}()
 
+	// create a sub-context, so we can cancel all HTTP requests after getting the first answer
+	subCtx, cancel := context.WithCancel(ctx)
+
+	// make sure to cancel any pending query result as we don't need them when we return
+	defer cancel()
+
+	return returnFirst(subCtx, resultCh, errorCh)
+}
+
+func returnFirst(ctx context.Context, resultCh chan openapi.QueryResponse,
+	errorCh chan error) (openapi.QueryResponse, []error) {
 	var errors []error
 	for {
 		select {
@@ -81,9 +88,9 @@ func (ha *HA) Query(ctx context.Context, query string, options ...option.QueryOp
 			}
 
 			return res, nil
-		case <-subCtx.Done():
-			log.Error().Err(subCtx.Err()).Msg("context cancelled")
-			errors = append(errors, subCtx.Err())
+		case <-ctx.Done():
+			log.Error().Err(ctx.Err()).Msg("context cancelled")
+			errors = append(errors, ctx.Err())
 
 			return openapi.QueryResponse{}, errors
 		case err, ok := <-errorCh:

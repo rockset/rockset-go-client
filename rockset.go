@@ -20,7 +20,7 @@ import (
 const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
 
 // APIKeyEnvironmentVariableName is the environment variable name for the API key
-const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY"
+const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY" //nolint
 
 // APIServerEnvironmentVariableName is the environment variable name for the API server
 const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"

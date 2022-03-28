@@ -7,7 +7,10 @@ run:
 
 linters-settings:
   gci:
-    local-prefixes: github.com/rockset/rockset-go-client
+    sections:
+      - standard
+      - default
+      - prefix(github.com/rockset/rockset-go-client)
   goimports:
     local-prefixes: github.com/rockset/rockset-go-client
 
@@ -28,7 +31,6 @@ linters:
     - gocyclo
     - gofmt
     - goimports
-    - golint
     - gomnd
     - goprintffuncname
     - gosec
