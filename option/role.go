@@ -4,8 +4,10 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
+// GlobalAction is the type for RBAC actions that operate on global resources.
 type GlobalAction int
 
+// String returns the string representation used for the REST API call
 func (a GlobalAction) String() string {
 	return globalActions[a]
 }
@@ -64,8 +66,10 @@ var globalActions = []string{
 	"GRANT_REVOKE_ROLE_GLOBAL",
 }
 
+// IntegrationAction is the type for actions that operate on integrations.
 type IntegrationAction int
 
+// String returns the string representation used for the REST API call
 func (a IntegrationAction) String() string {
 	return integrationActions[a]
 }
@@ -80,15 +84,17 @@ var integrationActions = []string{
 	"CREATE_COLLECTION_INTEGRATION",
 }
 
+// WorkspaceAction is the type for actions that operate on workspaces.
 type WorkspaceAction int
 
+// String returns the string representation used for the REST API call
 func (a WorkspaceAction) String() string {
 	return wsActions[a]
 }
 
 const (
 	AllWorkspaceActions WorkspaceAction = iota
-	Delete
+	DeleteWorkspace
 	QueryData
 	WriteData
 	CreateCollection
@@ -136,6 +142,7 @@ func WithRoleDescription(desc string) RoleOption {
 	}
 }
 
+// WithGlobalPrivilege is used to add a global action to a role.
 func WithGlobalPrivilege(action GlobalAction) RoleOption {
 	return func(o *RoleOptions) {
 		a := action.String()
@@ -145,7 +152,7 @@ func WithGlobalPrivilege(action GlobalAction) RoleOption {
 	}
 }
 
-// WithIntegrationPrivilege adds a privilege for an integration
+// WithIntegrationPrivilege is used to add an integration action to a role.
 func WithIntegrationPrivilege(action IntegrationAction, integration string) RoleOption {
 	return func(o *RoleOptions) {
 		a := action.String()
@@ -156,7 +163,8 @@ func WithIntegrationPrivilege(action IntegrationAction, integration string) Role
 	}
 }
 
-// WithWorkspacePrivilege adds a privilege for a workspace
+// WithWorkspacePrivilege is used to add a workspace action to a role. If WithCluster isn't specified, the privilege
+// applied to all clusters. Only the last WithCluster is what is used.
 func WithWorkspacePrivilege(action WorkspaceAction, workspace string, options ...func(*openapi.Privilege)) RoleOption {
 	return func(o *RoleOptions) {
 		a := action.String()
@@ -174,6 +182,7 @@ func WithWorkspacePrivilege(action WorkspaceAction, workspace string, options ..
 	}
 }
 
+// WithCluster is used to specify a cluster for a WithWorkspacePrivilege.
 func WithCluster(name string) func(*openapi.Privilege) {
 	return func(p *openapi.Privilege) {
 		p.Cluster = &name

@@ -96,7 +96,7 @@ func (rc *RockClient) DeleteRole(ctx context.Context, roleName string) error {
 	return nil
 }
 
-// ListRoles list roles.
+// ListRoles list all roles.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#listroles
 func (rc *RockClient) ListRoles(ctx context.Context) ([]openapi.Role, error) {
