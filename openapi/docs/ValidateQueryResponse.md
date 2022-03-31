@@ -4,15 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **[]string** | list of collection specified in query | 
-**Collections** | **[]string** | list of collection specified in query | 
+**Collections** | **[]string** | list of collections specified in query | 
 **Parameters** | **[]string** | list of parameters specified in query | 
 
 ## Methods
 
 ### NewValidateQueryResponse
 
-`func NewValidateQueryResponse(name []string, collections []string, parameters []string, ) *ValidateQueryResponse`
+`func NewValidateQueryResponse(collections []string, parameters []string, ) *ValidateQueryResponse`
 
 NewValidateQueryResponse instantiates a new ValidateQueryResponse object
 This constructor will assign default values to properties that have it defined,
@@ -26,26 +25,6 @@ will change when the set of required properties is changed
 NewValidateQueryResponseWithDefaults instantiates a new ValidateQueryResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetName
-
-`func (o *ValidateQueryResponse) GetName() []string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *ValidateQueryResponse) GetNameOk() (*[]string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *ValidateQueryResponse) SetName(v []string)`
-
-SetName sets Name field to given value.
-
 
 ### GetCollections
 

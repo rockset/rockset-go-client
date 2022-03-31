@@ -6,7 +6,7 @@ api/openapi.yaml
 api_aliases.go
 api_api_keys.go
 api_collections.go
-api_custom_roles_beta.go
+api_custom_roles.go
 api_documents.go
 api_integrations.go
 api_organizations.go
@@ -51,7 +51,7 @@ docs/CreateViewResponse.md
 docs/CreateWorkspaceRequest.md
 docs/CreateWorkspaceResponse.md
 docs/CsvParams.md
-docs/CustomRolesBetaApi.md
+docs/CustomRolesApi.md
 docs/DeleteAliasResponse.md
 docs/DeleteApiKeyResponse.md
 docs/DeleteCollectionResponse.md
@@ -71,11 +71,7 @@ docs/EventTimeInfo.md
 docs/ExecuteQueryLambdaRequest.md
 docs/FieldMappingQuery.md
 docs/FieldMappingV2.md
-docs/FieldMask.md
-docs/FieldMaskMask.md
-docs/FieldOptions.md
 docs/FieldPartition.md
-docs/FieldSchema.md
 docs/FormatParams.md
 docs/GcpServiceAccount.md
 docs/GcsIntegration.md
@@ -89,7 +85,6 @@ docs/GetWorkspaceResponse.md
 docs/InputField.md
 docs/Integration.md
 docs/IntegrationsApi.md
-docs/InvertedIndexGroupEncodingOptions.md
 docs/KafkaIntegration.md
 docs/KafkaV3SecurityConfig.md
 docs/KinesisIntegration.md
@@ -133,7 +128,6 @@ docs/QueryRequest.md
 docs/QueryRequestSql.md
 docs/QueryResponse.md
 docs/QueryResponseStats.md
-docs/RedshiftIntegration.md
 docs/Role.md
 docs/RoleResponse.md
 docs/S3Integration.md
@@ -148,13 +142,13 @@ docs/SourceGcs.md
 docs/SourceKafka.md
 docs/SourceKinesis.md
 docs/SourceMongoDb.md
-docs/SourceRedshift.md
 docs/SourceS3.md
 docs/SqlExpression.md
 docs/Status.md
 docs/StatusAzureEventHubs.md
 docs/StatusAzureEventHubsPartition.md
 docs/StatusAzureServiceBus.md
+docs/StatusAzureServiceBusSession.md
 docs/StatusDynamoDb.md
 docs/StatusDynamoDbV2.md
 docs/StatusKafka.md
@@ -233,11 +227,7 @@ model_event_time_info.go
 model_execute_query_lambda_request.go
 model_field_mapping_query.go
 model_field_mapping_v2.go
-model_field_mask.go
-model_field_mask_mask.go
-model_field_options.go
 model_field_partition.go
-model_field_schema.go
 model_format_params.go
 model_gcp_service_account.go
 model_gcs_integration.go
@@ -250,7 +240,6 @@ model_get_virtual_instance_response.go
 model_get_workspace_response.go
 model_input_field.go
 model_integration.go
-model_inverted_index_group_encoding_options.go
 model_kafka_integration.go
 model_kafka_v3_security_config.go
 model_kinesis_integration.go
@@ -291,7 +280,6 @@ model_query_request.go
 model_query_request_sql.go
 model_query_response.go
 model_query_response_stats.go
-model_redshift_integration.go
 model_role.go
 model_role_response.go
 model_s3_integration.go
@@ -306,13 +294,13 @@ model_source_gcs.go
 model_source_kafka.go
 model_source_kinesis.go
 model_source_mongo_db.go
-model_source_redshift.go
 model_source_s3.go
 model_sql_expression.go
 model_status.go
 model_status_azure_event_hubs.go
 model_status_azure_event_hubs_partition.go
 model_status_azure_service_bus.go
+model_status_azure_service_bus_session.go
 model_status_dynamo_db.go
 model_status_dynamo_db_v2.go
 model_status_kafka.go

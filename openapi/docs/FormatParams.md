@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **Xml** | Pointer to [**XmlParams**](XmlParams.md) |  | [optional] 
 **MysqlDms** | Pointer to **bool** |  | [optional] 
 **PostgresDms** | Pointer to **bool** |  | [optional] 
+**MssqlDms** | Pointer to **bool** |  | [optional] 
+**OracleDms** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -153,6 +155,56 @@ SetPostgresDms sets PostgresDms field to given value.
 `func (o *FormatParams) HasPostgresDms() bool`
 
 HasPostgresDms returns a boolean if a field has been set.
+
+### GetMssqlDms
+
+`func (o *FormatParams) GetMssqlDms() bool`
+
+GetMssqlDms returns the MssqlDms field if non-nil, zero value otherwise.
+
+### GetMssqlDmsOk
+
+`func (o *FormatParams) GetMssqlDmsOk() (*bool, bool)`
+
+GetMssqlDmsOk returns a tuple with the MssqlDms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMssqlDms
+
+`func (o *FormatParams) SetMssqlDms(v bool)`
+
+SetMssqlDms sets MssqlDms field to given value.
+
+### HasMssqlDms
+
+`func (o *FormatParams) HasMssqlDms() bool`
+
+HasMssqlDms returns a boolean if a field has been set.
+
+### GetOracleDms
+
+`func (o *FormatParams) GetOracleDms() bool`
+
+GetOracleDms returns the OracleDms field if non-nil, zero value otherwise.
+
+### GetOracleDmsOk
+
+`func (o *FormatParams) GetOracleDmsOk() (*bool, bool)`
+
+GetOracleDmsOk returns a tuple with the OracleDms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOracleDms
+
+`func (o *FormatParams) SetOracleDms(v bool)`
+
+SetOracleDms sets OracleDms field to given value.
+
+### HasOracleDms
+
+`func (o *FormatParams) HasOracleDms() bool`
+
+HasOracleDms returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

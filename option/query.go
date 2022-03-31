@@ -10,12 +10,6 @@ func WithWarnings() QueryOption {
 	}
 }
 
-func WithProfiling() QueryOption {
-	return func(o *openapi.QueryRequestSql) {
-		o.ProfilingEnabled = openapi.PtrBool(true)
-	}
-}
-
 func WithRowLimit(limit int32) QueryOption {
 	return func(o *openapi.QueryRequestSql) {
 		o.DefaultRowLimit = &limit

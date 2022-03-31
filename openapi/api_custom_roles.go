@@ -24,7 +24,7 @@ var (
 	_ context.Context
 )
 
-type CustomRolesBetaApi interface {
+type CustomRolesApi interface {
 
 	/*
 	CreateRole Create a Role
@@ -85,12 +85,12 @@ type CustomRolesBetaApi interface {
 	UpdateRoleExecute(r ApiUpdateRoleRequest) (*RoleResponse, *http.Response, error)
 }
 
-// CustomRolesBetaApiService CustomRolesBetaApi service
-type CustomRolesBetaApiService service
+// CustomRolesApiService CustomRolesApi service
+type CustomRolesApiService service
 
 type ApiCreateRoleRequest struct {
 	ctx context.Context
-	ApiService CustomRolesBetaApi
+	ApiService CustomRolesApi
 	body *CreateRoleRequest
 }
 
@@ -112,7 +112,7 @@ Create a role for your organization.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateRoleRequest
 */
-func (a *CustomRolesBetaApiService) CreateRole(ctx context.Context) ApiCreateRoleRequest {
+func (a *CustomRolesApiService) CreateRole(ctx context.Context) ApiCreateRoleRequest {
 	return ApiCreateRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -121,7 +121,7 @@ func (a *CustomRolesBetaApiService) CreateRole(ctx context.Context) ApiCreateRol
 
 // Execute executes the request
 //  @return RoleResponse
-func (a *CustomRolesBetaApiService) CreateRoleExecute(r ApiCreateRoleRequest) (*RoleResponse, *http.Response, error) {
+func (a *CustomRolesApiService) CreateRoleExecute(r ApiCreateRoleRequest) (*RoleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -129,7 +129,7 @@ func (a *CustomRolesBetaApiService) CreateRoleExecute(r ApiCreateRoleRequest) (*
 		localVarReturnValue  *RoleResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesBetaApiService.CreateRole")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesApiService.CreateRole")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -330,7 +330,7 @@ func (a *CustomRolesBetaApiService) CreateRoleExecute(r ApiCreateRoleRequest) (*
 
 type ApiDeleteRoleRequest struct {
 	ctx context.Context
-	ApiService CustomRolesBetaApi
+	ApiService CustomRolesApi
 	roleName string
 }
 
@@ -348,7 +348,7 @@ Delete a role for your organization.
  @param roleName
  @return ApiDeleteRoleRequest
 */
-func (a *CustomRolesBetaApiService) DeleteRole(ctx context.Context, roleName string) ApiDeleteRoleRequest {
+func (a *CustomRolesApiService) DeleteRole(ctx context.Context, roleName string) ApiDeleteRoleRequest {
 	return ApiDeleteRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -358,7 +358,7 @@ func (a *CustomRolesBetaApiService) DeleteRole(ctx context.Context, roleName str
 
 // Execute executes the request
 //  @return RoleResponse
-func (a *CustomRolesBetaApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*RoleResponse, *http.Response, error) {
+func (a *CustomRolesApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*RoleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -366,7 +366,7 @@ func (a *CustomRolesBetaApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*
 		localVarReturnValue  *RoleResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesBetaApiService.DeleteRole")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesApiService.DeleteRole")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -563,7 +563,7 @@ func (a *CustomRolesBetaApiService) DeleteRoleExecute(r ApiDeleteRoleRequest) (*
 
 type ApiListRolesRequest struct {
 	ctx context.Context
-	ApiService CustomRolesBetaApi
+	ApiService CustomRolesApi
 }
 
 
@@ -579,7 +579,7 @@ List all roles for your organization.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRolesRequest
 */
-func (a *CustomRolesBetaApiService) ListRoles(ctx context.Context) ApiListRolesRequest {
+func (a *CustomRolesApiService) ListRoles(ctx context.Context) ApiListRolesRequest {
 	return ApiListRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -588,7 +588,7 @@ func (a *CustomRolesBetaApiService) ListRoles(ctx context.Context) ApiListRolesR
 
 // Execute executes the request
 //  @return ListRolesResponse
-func (a *CustomRolesBetaApiService) ListRolesExecute(r ApiListRolesRequest) (*ListRolesResponse, *http.Response, error) {
+func (a *CustomRolesApiService) ListRolesExecute(r ApiListRolesRequest) (*ListRolesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -596,7 +596,7 @@ func (a *CustomRolesBetaApiService) ListRolesExecute(r ApiListRolesRequest) (*Li
 		localVarReturnValue  *ListRolesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesBetaApiService.ListRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesApiService.ListRoles")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -792,7 +792,7 @@ func (a *CustomRolesBetaApiService) ListRolesExecute(r ApiListRolesRequest) (*Li
 
 type ApiUpdateRoleRequest struct {
 	ctx context.Context
-	ApiService CustomRolesBetaApi
+	ApiService CustomRolesApi
 	roleName string
 	body *UpdateRoleRequest
 }
@@ -816,7 +816,7 @@ Update a role for your organization.
  @param roleName
  @return ApiUpdateRoleRequest
 */
-func (a *CustomRolesBetaApiService) UpdateRole(ctx context.Context, roleName string) ApiUpdateRoleRequest {
+func (a *CustomRolesApiService) UpdateRole(ctx context.Context, roleName string) ApiUpdateRoleRequest {
 	return ApiUpdateRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -826,7 +826,7 @@ func (a *CustomRolesBetaApiService) UpdateRole(ctx context.Context, roleName str
 
 // Execute executes the request
 //  @return RoleResponse
-func (a *CustomRolesBetaApiService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*RoleResponse, *http.Response, error) {
+func (a *CustomRolesApiService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*RoleResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -834,7 +834,7 @@ func (a *CustomRolesBetaApiService) UpdateRoleExecute(r ApiUpdateRoleRequest) (*
 		localVarReturnValue  *RoleResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesBetaApiService.UpdateRole")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomRolesApiService.UpdateRole")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

@@ -24,8 +24,6 @@ type CreateCollectionRequest struct {
 	Sources []Source `json:"sources,omitempty"`
 	// number of seconds after which data is purged, based on event time
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
-	// If non-null, the collection will be time partitioned and each partition will be time_partition_resolution_secs wide.
-	TimePartitionResolutionSecs *int64 `json:"time_partition_resolution_secs,omitempty"`
 	// If true disallows updates and deletes, but makes indexing more efficient
 	InsertOnly *bool `json:"insert_only,omitempty"`
 	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
@@ -34,9 +32,6 @@ type CreateCollectionRequest struct {
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// list of clustering fields
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
-	// list of field schemas
-	FieldSchemas []FieldSchema `json:"field_schemas,omitempty"`
-	InvertedIndexGroupEncodingOptions *InvertedIndexGroupEncodingOptions `json:"inverted_index_group_encoding_options,omitempty"`
 }
 
 // NewCreateCollectionRequest instantiates a new CreateCollectionRequest object
@@ -175,38 +170,6 @@ func (o *CreateCollectionRequest) HasRetentionSecs() bool {
 // SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
 func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
 	o.RetentionSecs = &v
-}
-
-// GetTimePartitionResolutionSecs returns the TimePartitionResolutionSecs field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetTimePartitionResolutionSecs() int64 {
-	if o == nil || o.TimePartitionResolutionSecs == nil {
-		var ret int64
-		return ret
-	}
-	return *o.TimePartitionResolutionSecs
-}
-
-// GetTimePartitionResolutionSecsOk returns a tuple with the TimePartitionResolutionSecs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetTimePartitionResolutionSecsOk() (*int64, bool) {
-	if o == nil || o.TimePartitionResolutionSecs == nil {
-		return nil, false
-	}
-	return o.TimePartitionResolutionSecs, true
-}
-
-// HasTimePartitionResolutionSecs returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasTimePartitionResolutionSecs() bool {
-	if o != nil && o.TimePartitionResolutionSecs != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimePartitionResolutionSecs gets a reference to the given int64 and assigns it to the TimePartitionResolutionSecs field.
-func (o *CreateCollectionRequest) SetTimePartitionResolutionSecs(v int64) {
-	o.TimePartitionResolutionSecs = &v
 }
 
 // GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
@@ -369,70 +332,6 @@ func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
 	o.ClusteringKey = v
 }
 
-// GetFieldSchemas returns the FieldSchemas field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetFieldSchemas() []FieldSchema {
-	if o == nil || o.FieldSchemas == nil {
-		var ret []FieldSchema
-		return ret
-	}
-	return o.FieldSchemas
-}
-
-// GetFieldSchemasOk returns a tuple with the FieldSchemas field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetFieldSchemasOk() ([]FieldSchema, bool) {
-	if o == nil || o.FieldSchemas == nil {
-		return nil, false
-	}
-	return o.FieldSchemas, true
-}
-
-// HasFieldSchemas returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasFieldSchemas() bool {
-	if o != nil && o.FieldSchemas != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFieldSchemas gets a reference to the given []FieldSchema and assigns it to the FieldSchemas field.
-func (o *CreateCollectionRequest) SetFieldSchemas(v []FieldSchema) {
-	o.FieldSchemas = v
-}
-
-// GetInvertedIndexGroupEncodingOptions returns the InvertedIndexGroupEncodingOptions field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetInvertedIndexGroupEncodingOptions() InvertedIndexGroupEncodingOptions {
-	if o == nil || o.InvertedIndexGroupEncodingOptions == nil {
-		var ret InvertedIndexGroupEncodingOptions
-		return ret
-	}
-	return *o.InvertedIndexGroupEncodingOptions
-}
-
-// GetInvertedIndexGroupEncodingOptionsOk returns a tuple with the InvertedIndexGroupEncodingOptions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetInvertedIndexGroupEncodingOptionsOk() (*InvertedIndexGroupEncodingOptions, bool) {
-	if o == nil || o.InvertedIndexGroupEncodingOptions == nil {
-		return nil, false
-	}
-	return o.InvertedIndexGroupEncodingOptions, true
-}
-
-// HasInvertedIndexGroupEncodingOptions returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasInvertedIndexGroupEncodingOptions() bool {
-	if o != nil && o.InvertedIndexGroupEncodingOptions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInvertedIndexGroupEncodingOptions gets a reference to the given InvertedIndexGroupEncodingOptions and assigns it to the InvertedIndexGroupEncodingOptions field.
-func (o *CreateCollectionRequest) SetInvertedIndexGroupEncodingOptions(v InvertedIndexGroupEncodingOptions) {
-	o.InvertedIndexGroupEncodingOptions = &v
-}
-
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -446,9 +345,6 @@ func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RetentionSecs != nil {
 		toSerialize["retention_secs"] = o.RetentionSecs
-	}
-	if o.TimePartitionResolutionSecs != nil {
-		toSerialize["time_partition_resolution_secs"] = o.TimePartitionResolutionSecs
 	}
 	if o.InsertOnly != nil {
 		toSerialize["insert_only"] = o.InsertOnly
@@ -464,12 +360,6 @@ func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.ClusteringKey != nil {
 		toSerialize["clustering_key"] = o.ClusteringKey
-	}
-	if o.FieldSchemas != nil {
-		toSerialize["field_schemas"] = o.FieldSchemas
-	}
-	if o.InvertedIndexGroupEncodingOptions != nil {
-		toSerialize["inverted_index_group_encoding_options"] = o.InvertedIndexGroupEncodingOptions
 	}
 	return json.Marshal(toSerialize)
 }

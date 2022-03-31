@@ -23,7 +23,6 @@ type CreateIntegrationRequest struct {
 	S3 *S3Integration `json:"s3,omitempty"`
 	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
 	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
-	Redshift *RedshiftIntegration `json:"redshift,omitempty"`
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
 	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
@@ -200,38 +199,6 @@ func (o *CreateIntegrationRequest) HasDynamodb() bool {
 // SetDynamodb gets a reference to the given DynamodbIntegration and assigns it to the Dynamodb field.
 func (o *CreateIntegrationRequest) SetDynamodb(v DynamodbIntegration) {
 	o.Dynamodb = &v
-}
-
-// GetRedshift returns the Redshift field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetRedshift() RedshiftIntegration {
-	if o == nil || o.Redshift == nil {
-		var ret RedshiftIntegration
-		return ret
-	}
-	return *o.Redshift
-}
-
-// GetRedshiftOk returns a tuple with the Redshift field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetRedshiftOk() (*RedshiftIntegration, bool) {
-	if o == nil || o.Redshift == nil {
-		return nil, false
-	}
-	return o.Redshift, true
-}
-
-// HasRedshift returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasRedshift() bool {
-	if o != nil && o.Redshift != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRedshift gets a reference to the given RedshiftIntegration and assigns it to the Redshift field.
-func (o *CreateIntegrationRequest) SetRedshift(v RedshiftIntegration) {
-	o.Redshift = &v
 }
 
 // GetGcs returns the Gcs field value if set, zero value otherwise.
@@ -442,9 +409,6 @@ func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Dynamodb != nil {
 		toSerialize["dynamodb"] = o.Dynamodb
-	}
-	if o.Redshift != nil {
-		toSerialize["redshift"] = o.Redshift
 	}
 	if o.Gcs != nil {
 		toSerialize["gcs"] = o.Gcs

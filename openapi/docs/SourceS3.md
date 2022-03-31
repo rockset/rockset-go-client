@@ -4,18 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccessKey** | Pointer to **string** | AWS credential with ListObjects and GetObject access | [optional] [readonly] 
-**SecretAccess** | Pointer to **string** | AWS credential with ListObjects and GetObject access | [optional] [readonly] 
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
 **Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
 **Region** | Pointer to **string** | AWS region containing source bucket | [optional] 
 **Bucket** | **string** | address of S3 bucket containing data | 
 **Prefixes** | **[]string** | list of prefixes to paths from which data should be ingested | [readonly] 
-**Format** | Pointer to **string** | do not use | [optional] 
-**Mappings** | Pointer to [**[]FieldMask**](FieldMask.md) | custom transformation on data field | [optional] 
-**ObjectCountDownloaded** | Pointer to **int64** |  | [optional] 
-**ObjectCountTotal** | Pointer to **int64** |  | [optional] 
-**ObjectBytesTotal** | Pointer to **int64** |  | [optional] 
+**ObjectCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -35,56 +31,6 @@ will change when the set of required properties is changed
 NewSourceS3WithDefaults instantiates a new SourceS3 object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetAccessKey
-
-`func (o *SourceS3) GetAccessKey() string`
-
-GetAccessKey returns the AccessKey field if non-nil, zero value otherwise.
-
-### GetAccessKeyOk
-
-`func (o *SourceS3) GetAccessKeyOk() (*string, bool)`
-
-GetAccessKeyOk returns a tuple with the AccessKey field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAccessKey
-
-`func (o *SourceS3) SetAccessKey(v string)`
-
-SetAccessKey sets AccessKey field to given value.
-
-### HasAccessKey
-
-`func (o *SourceS3) HasAccessKey() bool`
-
-HasAccessKey returns a boolean if a field has been set.
-
-### GetSecretAccess
-
-`func (o *SourceS3) GetSecretAccess() string`
-
-GetSecretAccess returns the SecretAccess field if non-nil, zero value otherwise.
-
-### GetSecretAccessOk
-
-`func (o *SourceS3) GetSecretAccessOk() (*string, bool)`
-
-GetSecretAccessOk returns a tuple with the SecretAccess field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSecretAccess
-
-`func (o *SourceS3) SetSecretAccess(v string)`
-
-SetSecretAccess sets SecretAccess field to given value.
-
-### HasSecretAccess
-
-`func (o *SourceS3) HasSecretAccess() bool`
-
-HasSecretAccess returns a boolean if a field has been set.
 
 ### GetPrefix
 
@@ -200,56 +146,6 @@ and a boolean to check if the value has been set.
 
 SetPrefixes sets Prefixes field to given value.
 
-
-### GetFormat
-
-`func (o *SourceS3) GetFormat() string`
-
-GetFormat returns the Format field if non-nil, zero value otherwise.
-
-### GetFormatOk
-
-`func (o *SourceS3) GetFormatOk() (*string, bool)`
-
-GetFormatOk returns a tuple with the Format field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFormat
-
-`func (o *SourceS3) SetFormat(v string)`
-
-SetFormat sets Format field to given value.
-
-### HasFormat
-
-`func (o *SourceS3) HasFormat() bool`
-
-HasFormat returns a boolean if a field has been set.
-
-### GetMappings
-
-`func (o *SourceS3) GetMappings() []FieldMask`
-
-GetMappings returns the Mappings field if non-nil, zero value otherwise.
-
-### GetMappingsOk
-
-`func (o *SourceS3) GetMappingsOk() (*[]FieldMask, bool)`
-
-GetMappingsOk returns a tuple with the Mappings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMappings
-
-`func (o *SourceS3) SetMappings(v []FieldMask)`
-
-SetMappings sets Mappings field to given value.
-
-### HasMappings
-
-`func (o *SourceS3) HasMappings() bool`
-
-HasMappings returns a boolean if a field has been set.
 
 ### GetObjectCountDownloaded
 

@@ -24,7 +24,6 @@ type Source struct {
 	AzureBlobStorage *SourceAzureBlobStorage `json:"azure_blob_storage,omitempty"`
 	AzureServiceBus *SourceAzureServiceBus `json:"azure_service_bus,omitempty"`
 	AzureEventHubs *SourceAzureEventHubs `json:"azure_event_hubs,omitempty"`
-	Redshift *SourceRedshift `json:"redshift,omitempty"`
 	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
 	Kafka *SourceKafka `json:"kafka,omitempty"`
@@ -267,38 +266,6 @@ func (o *Source) SetAzureEventHubs(v SourceAzureEventHubs) {
 	o.AzureEventHubs = &v
 }
 
-// GetRedshift returns the Redshift field value if set, zero value otherwise.
-func (o *Source) GetRedshift() SourceRedshift {
-	if o == nil || o.Redshift == nil {
-		var ret SourceRedshift
-		return ret
-	}
-	return *o.Redshift
-}
-
-// GetRedshiftOk returns a tuple with the Redshift field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetRedshiftOk() (*SourceRedshift, bool) {
-	if o == nil || o.Redshift == nil {
-		return nil, false
-	}
-	return o.Redshift, true
-}
-
-// HasRedshift returns a boolean if a field has been set.
-func (o *Source) HasRedshift() bool {
-	if o != nil && o.Redshift != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRedshift gets a reference to the given SourceRedshift and assigns it to the Redshift field.
-func (o *Source) SetRedshift(v SourceRedshift) {
-	o.Redshift = &v
-}
-
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
 func (o *Source) GetDynamodb() SourceDynamoDb {
 	if o == nil || o.Dynamodb == nil {
@@ -513,9 +480,6 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	}
 	if o.AzureEventHubs != nil {
 		toSerialize["azure_event_hubs"] = o.AzureEventHubs
-	}
-	if o.Redshift != nil {
-		toSerialize["redshift"] = o.Redshift
 	}
 	if o.Dynamodb != nil {
 		toSerialize["dynamodb"] = o.Dynamodb

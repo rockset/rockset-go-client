@@ -40,14 +40,8 @@ type Collection struct {
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 	// list of aliases for a collection
 	Aliases []Alias `json:"aliases,omitempty"`
-	// list of field schemas 
-	FieldSchemas []FieldSchema `json:"field_schemas,omitempty"`
-	InvertedIndexGroupEncodingOptions *InvertedIndexGroupEncodingOptions `json:"inverted_index_group_encoding_options,omitempty"`
-	FieldPartitions []FieldPartition `json:"fieldPartitions,omitempty"`
 	// Whether the collection is insert only or not
 	InsertOnly *bool `json:"insert_only,omitempty"`
-	// If true, exactly-once write semantics is enabled.
-	EnableExactlyOnceWrites *bool `json:"enable_exactly_once_writes,omitempty"`
 }
 
 // NewCollection instantiates a new Collection object
@@ -483,102 +477,6 @@ func (o *Collection) SetAliases(v []Alias) {
 	o.Aliases = v
 }
 
-// GetFieldSchemas returns the FieldSchemas field value if set, zero value otherwise.
-func (o *Collection) GetFieldSchemas() []FieldSchema {
-	if o == nil || o.FieldSchemas == nil {
-		var ret []FieldSchema
-		return ret
-	}
-	return o.FieldSchemas
-}
-
-// GetFieldSchemasOk returns a tuple with the FieldSchemas field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetFieldSchemasOk() ([]FieldSchema, bool) {
-	if o == nil || o.FieldSchemas == nil {
-		return nil, false
-	}
-	return o.FieldSchemas, true
-}
-
-// HasFieldSchemas returns a boolean if a field has been set.
-func (o *Collection) HasFieldSchemas() bool {
-	if o != nil && o.FieldSchemas != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFieldSchemas gets a reference to the given []FieldSchema and assigns it to the FieldSchemas field.
-func (o *Collection) SetFieldSchemas(v []FieldSchema) {
-	o.FieldSchemas = v
-}
-
-// GetInvertedIndexGroupEncodingOptions returns the InvertedIndexGroupEncodingOptions field value if set, zero value otherwise.
-func (o *Collection) GetInvertedIndexGroupEncodingOptions() InvertedIndexGroupEncodingOptions {
-	if o == nil || o.InvertedIndexGroupEncodingOptions == nil {
-		var ret InvertedIndexGroupEncodingOptions
-		return ret
-	}
-	return *o.InvertedIndexGroupEncodingOptions
-}
-
-// GetInvertedIndexGroupEncodingOptionsOk returns a tuple with the InvertedIndexGroupEncodingOptions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetInvertedIndexGroupEncodingOptionsOk() (*InvertedIndexGroupEncodingOptions, bool) {
-	if o == nil || o.InvertedIndexGroupEncodingOptions == nil {
-		return nil, false
-	}
-	return o.InvertedIndexGroupEncodingOptions, true
-}
-
-// HasInvertedIndexGroupEncodingOptions returns a boolean if a field has been set.
-func (o *Collection) HasInvertedIndexGroupEncodingOptions() bool {
-	if o != nil && o.InvertedIndexGroupEncodingOptions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInvertedIndexGroupEncodingOptions gets a reference to the given InvertedIndexGroupEncodingOptions and assigns it to the InvertedIndexGroupEncodingOptions field.
-func (o *Collection) SetInvertedIndexGroupEncodingOptions(v InvertedIndexGroupEncodingOptions) {
-	o.InvertedIndexGroupEncodingOptions = &v
-}
-
-// GetFieldPartitions returns the FieldPartitions field value if set, zero value otherwise.
-func (o *Collection) GetFieldPartitions() []FieldPartition {
-	if o == nil || o.FieldPartitions == nil {
-		var ret []FieldPartition
-		return ret
-	}
-	return o.FieldPartitions
-}
-
-// GetFieldPartitionsOk returns a tuple with the FieldPartitions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetFieldPartitionsOk() ([]FieldPartition, bool) {
-	if o == nil || o.FieldPartitions == nil {
-		return nil, false
-	}
-	return o.FieldPartitions, true
-}
-
-// HasFieldPartitions returns a boolean if a field has been set.
-func (o *Collection) HasFieldPartitions() bool {
-	if o != nil && o.FieldPartitions != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFieldPartitions gets a reference to the given []FieldPartition and assigns it to the FieldPartitions field.
-func (o *Collection) SetFieldPartitions(v []FieldPartition) {
-	o.FieldPartitions = v
-}
-
 // GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
 func (o *Collection) GetInsertOnly() bool {
 	if o == nil || o.InsertOnly == nil {
@@ -609,38 +507,6 @@ func (o *Collection) HasInsertOnly() bool {
 // SetInsertOnly gets a reference to the given bool and assigns it to the InsertOnly field.
 func (o *Collection) SetInsertOnly(v bool) {
 	o.InsertOnly = &v
-}
-
-// GetEnableExactlyOnceWrites returns the EnableExactlyOnceWrites field value if set, zero value otherwise.
-func (o *Collection) GetEnableExactlyOnceWrites() bool {
-	if o == nil || o.EnableExactlyOnceWrites == nil {
-		var ret bool
-		return ret
-	}
-	return *o.EnableExactlyOnceWrites
-}
-
-// GetEnableExactlyOnceWritesOk returns a tuple with the EnableExactlyOnceWrites field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetEnableExactlyOnceWritesOk() (*bool, bool) {
-	if o == nil || o.EnableExactlyOnceWrites == nil {
-		return nil, false
-	}
-	return o.EnableExactlyOnceWrites, true
-}
-
-// HasEnableExactlyOnceWrites returns a boolean if a field has been set.
-func (o *Collection) HasEnableExactlyOnceWrites() bool {
-	if o != nil && o.EnableExactlyOnceWrites != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEnableExactlyOnceWrites gets a reference to the given bool and assigns it to the EnableExactlyOnceWrites field.
-func (o *Collection) SetEnableExactlyOnceWrites(v bool) {
-	o.EnableExactlyOnceWrites = &v
 }
 
 func (o Collection) MarshalJSON() ([]byte, error) {
@@ -684,20 +550,8 @@ func (o Collection) MarshalJSON() ([]byte, error) {
 	if o.Aliases != nil {
 		toSerialize["aliases"] = o.Aliases
 	}
-	if o.FieldSchemas != nil {
-		toSerialize["field_schemas"] = o.FieldSchemas
-	}
-	if o.InvertedIndexGroupEncodingOptions != nil {
-		toSerialize["inverted_index_group_encoding_options"] = o.InvertedIndexGroupEncodingOptions
-	}
-	if o.FieldPartitions != nil {
-		toSerialize["fieldPartitions"] = o.FieldPartitions
-	}
 	if o.InsertOnly != nil {
 		toSerialize["insert_only"] = o.InsertOnly
-	}
-	if o.EnableExactlyOnceWrites != nil {
-		toSerialize["enable_exactly_once_writes"] = o.EnableExactlyOnceWrites
 	}
 	return json.Marshal(toSerialize)
 }

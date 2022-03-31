@@ -17,11 +17,7 @@ Name | Type | Description | Notes
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields for a collection | [optional] 
 **Aliases** | Pointer to [**[]Alias**](Alias.md) | list of aliases for a collection | [optional] 
-**FieldSchemas** | Pointer to [**[]FieldSchema**](FieldSchema.md) | list of field schemas  | [optional] 
-**InvertedIndexGroupEncodingOptions** | Pointer to [**InvertedIndexGroupEncodingOptions**](InvertedIndexGroupEncodingOptions.md) |  | [optional] 
-**FieldPartitions** | Pointer to [**[]FieldPartition**](FieldPartition.md) |  | [optional] 
 **InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not | [optional] 
-**EnableExactlyOnceWrites** | Pointer to **bool** | If true, exactly-once write semantics is enabled. | [optional] 
 
 ## Methods
 
@@ -367,81 +363,6 @@ SetAliases sets Aliases field to given value.
 
 HasAliases returns a boolean if a field has been set.
 
-### GetFieldSchemas
-
-`func (o *Collection) GetFieldSchemas() []FieldSchema`
-
-GetFieldSchemas returns the FieldSchemas field if non-nil, zero value otherwise.
-
-### GetFieldSchemasOk
-
-`func (o *Collection) GetFieldSchemasOk() (*[]FieldSchema, bool)`
-
-GetFieldSchemasOk returns a tuple with the FieldSchemas field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFieldSchemas
-
-`func (o *Collection) SetFieldSchemas(v []FieldSchema)`
-
-SetFieldSchemas sets FieldSchemas field to given value.
-
-### HasFieldSchemas
-
-`func (o *Collection) HasFieldSchemas() bool`
-
-HasFieldSchemas returns a boolean if a field has been set.
-
-### GetInvertedIndexGroupEncodingOptions
-
-`func (o *Collection) GetInvertedIndexGroupEncodingOptions() InvertedIndexGroupEncodingOptions`
-
-GetInvertedIndexGroupEncodingOptions returns the InvertedIndexGroupEncodingOptions field if non-nil, zero value otherwise.
-
-### GetInvertedIndexGroupEncodingOptionsOk
-
-`func (o *Collection) GetInvertedIndexGroupEncodingOptionsOk() (*InvertedIndexGroupEncodingOptions, bool)`
-
-GetInvertedIndexGroupEncodingOptionsOk returns a tuple with the InvertedIndexGroupEncodingOptions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInvertedIndexGroupEncodingOptions
-
-`func (o *Collection) SetInvertedIndexGroupEncodingOptions(v InvertedIndexGroupEncodingOptions)`
-
-SetInvertedIndexGroupEncodingOptions sets InvertedIndexGroupEncodingOptions field to given value.
-
-### HasInvertedIndexGroupEncodingOptions
-
-`func (o *Collection) HasInvertedIndexGroupEncodingOptions() bool`
-
-HasInvertedIndexGroupEncodingOptions returns a boolean if a field has been set.
-
-### GetFieldPartitions
-
-`func (o *Collection) GetFieldPartitions() []FieldPartition`
-
-GetFieldPartitions returns the FieldPartitions field if non-nil, zero value otherwise.
-
-### GetFieldPartitionsOk
-
-`func (o *Collection) GetFieldPartitionsOk() (*[]FieldPartition, bool)`
-
-GetFieldPartitionsOk returns a tuple with the FieldPartitions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFieldPartitions
-
-`func (o *Collection) SetFieldPartitions(v []FieldPartition)`
-
-SetFieldPartitions sets FieldPartitions field to given value.
-
-### HasFieldPartitions
-
-`func (o *Collection) HasFieldPartitions() bool`
-
-HasFieldPartitions returns a boolean if a field has been set.
-
 ### GetInsertOnly
 
 `func (o *Collection) GetInsertOnly() bool`
@@ -466,31 +387,6 @@ SetInsertOnly sets InsertOnly field to given value.
 `func (o *Collection) HasInsertOnly() bool`
 
 HasInsertOnly returns a boolean if a field has been set.
-
-### GetEnableExactlyOnceWrites
-
-`func (o *Collection) GetEnableExactlyOnceWrites() bool`
-
-GetEnableExactlyOnceWrites returns the EnableExactlyOnceWrites field if non-nil, zero value otherwise.
-
-### GetEnableExactlyOnceWritesOk
-
-`func (o *Collection) GetEnableExactlyOnceWritesOk() (*bool, bool)`
-
-GetEnableExactlyOnceWritesOk returns a tuple with the EnableExactlyOnceWrites field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnableExactlyOnceWrites
-
-`func (o *Collection) SetEnableExactlyOnceWrites(v bool)`
-
-SetEnableExactlyOnceWrites sets EnableExactlyOnceWrites field to given value.
-
-### HasEnableExactlyOnceWrites
-
-`func (o *Collection) HasEnableExactlyOnceWrites() bool`
-
-HasEnableExactlyOnceWrites returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

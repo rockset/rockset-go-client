@@ -21,8 +21,8 @@ type StatusAzureServiceBus struct {
 	FirstProcessedAt *time.Time `json:"first_processed_at,omitempty"`
 	// Number of records processed
 	RecordsProcessed *int64 `json:"records_processed,omitempty"`
-	// ISO-8601 date when the last message was processed
-	LastProcessedAt *time.Time `json:"last_processed_at,omitempty"`
+	// Sessions processed
+	Sessions *map[string]StatusAzureServiceBusSession `json:"sessions,omitempty"`
 }
 
 // NewStatusAzureServiceBus instantiates a new StatusAzureServiceBus object
@@ -106,36 +106,36 @@ func (o *StatusAzureServiceBus) SetRecordsProcessed(v int64) {
 	o.RecordsProcessed = &v
 }
 
-// GetLastProcessedAt returns the LastProcessedAt field value if set, zero value otherwise.
-func (o *StatusAzureServiceBus) GetLastProcessedAt() time.Time {
-	if o == nil || o.LastProcessedAt == nil {
-		var ret time.Time
+// GetSessions returns the Sessions field value if set, zero value otherwise.
+func (o *StatusAzureServiceBus) GetSessions() map[string]StatusAzureServiceBusSession {
+	if o == nil || o.Sessions == nil {
+		var ret map[string]StatusAzureServiceBusSession
 		return ret
 	}
-	return *o.LastProcessedAt
+	return *o.Sessions
 }
 
-// GetLastProcessedAtOk returns a tuple with the LastProcessedAt field value if set, nil otherwise
+// GetSessionsOk returns a tuple with the Sessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusAzureServiceBus) GetLastProcessedAtOk() (*time.Time, bool) {
-	if o == nil || o.LastProcessedAt == nil {
+func (o *StatusAzureServiceBus) GetSessionsOk() (*map[string]StatusAzureServiceBusSession, bool) {
+	if o == nil || o.Sessions == nil {
 		return nil, false
 	}
-	return o.LastProcessedAt, true
+	return o.Sessions, true
 }
 
-// HasLastProcessedAt returns a boolean if a field has been set.
-func (o *StatusAzureServiceBus) HasLastProcessedAt() bool {
-	if o != nil && o.LastProcessedAt != nil {
+// HasSessions returns a boolean if a field has been set.
+func (o *StatusAzureServiceBus) HasSessions() bool {
+	if o != nil && o.Sessions != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastProcessedAt gets a reference to the given time.Time and assigns it to the LastProcessedAt field.
-func (o *StatusAzureServiceBus) SetLastProcessedAt(v time.Time) {
-	o.LastProcessedAt = &v
+// SetSessions gets a reference to the given map[string]StatusAzureServiceBusSession and assigns it to the Sessions field.
+func (o *StatusAzureServiceBus) SetSessions(v map[string]StatusAzureServiceBusSession) {
+	o.Sessions = &v
 }
 
 func (o StatusAzureServiceBus) MarshalJSON() ([]byte, error) {
@@ -146,8 +146,8 @@ func (o StatusAzureServiceBus) MarshalJSON() ([]byte, error) {
 	if o.RecordsProcessed != nil {
 		toSerialize["records_processed"] = o.RecordsProcessed
 	}
-	if o.LastProcessedAt != nil {
-		toSerialize["last_processed_at"] = o.LastProcessedAt
+	if o.Sessions != nil {
+		toSerialize["sessions"] = o.Sessions
 	}
 	return json.Marshal(toSerialize)
 }

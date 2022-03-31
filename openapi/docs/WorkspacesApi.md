@@ -4,82 +4,11 @@ All URIs are relative to *https://api.rs2.usw2.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ChildWorkspaces**](WorkspacesApi.md#ChildWorkspaces) | **Get** /v1/orgs/self/ws/{workspace}/ws | List Workspaces in Workspace
 [**CreateWorkspace**](WorkspacesApi.md#CreateWorkspace) | **Post** /v1/orgs/self/ws | Create Workspace
 [**DeleteWorkspace**](WorkspacesApi.md#DeleteWorkspace) | **Delete** /v1/orgs/self/ws/{workspace} | Delete Workspace
 [**GetWorkspace**](WorkspacesApi.md#GetWorkspace) | **Get** /v1/orgs/self/ws/{workspace} | Retrieve Workspace
 [**ListWorkspaces**](WorkspacesApi.md#ListWorkspaces) | **Get** /v1/orgs/self/ws | List Workspaces
 
-
-
-## ChildWorkspaces
-
-> ListWorkspacesResponse ChildWorkspaces(ctx, workspace).Execute()
-
-List Workspaces in Workspace
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    workspace := "workspace_example" // string | name of the workspace (default to "commons")
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkspacesApi.ChildWorkspaces(context.Background(), workspace).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.ChildWorkspaces``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ChildWorkspaces`: ListWorkspacesResponse
-    fmt.Fprintf(os.Stdout, "Response from `WorkspacesApi.ChildWorkspaces`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiChildWorkspacesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**ListWorkspacesResponse**](ListWorkspacesResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
 
 
 ## CreateWorkspace

@@ -55,7 +55,7 @@ type APIClient struct {
 
 	CollectionsApi CollectionsApi
 
-	CustomRolesBetaApi CustomRolesBetaApi
+	CustomRolesApi CustomRolesApi
 
 	DocumentsApi DocumentsApi
 
@@ -95,7 +95,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.APIKeysApi = (*APIKeysApiService)(&c.common)
 	c.AliasesApi = (*AliasesApiService)(&c.common)
 	c.CollectionsApi = (*CollectionsApiService)(&c.common)
-	c.CustomRolesBetaApi = (*CustomRolesBetaApiService)(&c.common)
+	c.CustomRolesApi = (*CustomRolesApiService)(&c.common)
 	c.DocumentsApi = (*DocumentsApiService)(&c.common)
 	c.IntegrationsApi = (*IntegrationsApiService)(&c.common)
 	c.OrganizationsApi = (*OrganizationsApiService)(&c.common)

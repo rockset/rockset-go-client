@@ -19,7 +19,7 @@ tags:
 - name: API Keys
 - name: Aliases
 - name: Collections
-- name: Custom Roles (beta)
+- name: Custom Roles
 - name: Documents
 - name: Integrations
 - name: Organizations
@@ -1077,7 +1077,7 @@ paths:
           description: not ready
       summary: List Roles
       tags:
-      - Custom Roles (beta)
+      - Custom Roles
     post:
       description: Create a role for your organization.
       operationId: createRole
@@ -1175,7 +1175,7 @@ paths:
           description: not ready
       summary: Create a Role
       tags:
-      - Custom Roles (beta)
+      - Custom Roles
       x-codegen-request-body-name: body
   /v1/orgs/self/roles/{roleName}:
     delete:
@@ -1274,7 +1274,7 @@ paths:
           description: not ready
       summary: Delete a Role
       tags:
-      - Custom Roles (beta)
+      - Custom Roles
     post:
       description: Update a role for your organization.
       operationId: updateRole
@@ -1378,7 +1378,7 @@ paths:
           description: not ready
       summary: Update a Role
       tags:
-      - Custom Roles (beta)
+      - Custom Roles
       x-codegen-request-body-name: body
   /v1/orgs/self/users:
     get:
@@ -1852,7 +1852,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: not ready
-      summary: Get all notification preferences
+      summary: Retrieve Notification Preferences
       tags:
       - Users
     post:
@@ -1950,7 +1950,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: not ready
-      summary: Update notification preferences
+      summary: Update Notification Preferences
       tags:
       - Users
       x-codegen-request-body-name: body
@@ -2249,7 +2249,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: not ready
-      summary: List API Keys.
+      summary: List API Keys
       tags:
       - API Keys
   /v1/orgs/self/users/{user}/apikeys/{name}:
@@ -2578,7 +2578,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: not ready
-      summary: Update an API key's state
+      summary: Update API Key State
       tags:
       - API Keys
       x-codegen-request-body-name: body
@@ -6237,106 +6237,6 @@ paths:
       tags:
       - Views
       x-codegen-request-body-name: body
-  /v1/orgs/self/ws/{workspace}/ws:
-    get:
-      description: List workspaces under given workspace.
-      operationId: childWorkspaces
-      parameters:
-      - description: name of the workspace
-        in: path
-        name: workspace
-        required: true
-        schema:
-          default: commons
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListWorkspacesResponse'
-          description: workspaces retrieved successfully
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: bad request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: unauthorized
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: forbidden
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: not found
-        "405":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: not allowed
-        "406":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: not acceptable
-        "408":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: request timeout
-        "415":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: not supported
-        "429":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: resource exceeded
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: internal error
-        "501":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: not implemented
-        "502":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: bad gateway
-        "503":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorModel'
-          description: not ready
-      summary: List Workspaces in Workspace
-      tags:
-      - Workspaces
 components:
   schemas:
     AddDocumentsRequest:
@@ -6440,7 +6340,6 @@ components:
       description: API keys are used to authenticate requests to Rockset's API. An
         API key is tied to the user who creates it.
       example:
-        role: role
         name: my-key
         created_at: 2001-08-28T00:23:41Z
         state: ACTIVE
@@ -6463,8 +6362,6 @@ components:
         last_access_time:
           description: Date that API key was most recently used (ISO-8601 format).
           example: 2001-08-28T00:23:41Z
-          type: string
-        role:
           type: string
         created_by:
           description: Email of API key owner.
@@ -6595,25 +6492,9 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 0
             prefixes: '["/transactions", "/stores"]'
-            mappings:
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
             object_count_total: 6
-            secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
             prefix: prefix/to/keys
-            access_key: AKIAIOSFODNN7EXAMPLE
             pattern: prefix/to/**/keys/*.format
-            format: none
             object_bytes_total: 1
             region: us-west-2
           format_params:
@@ -6633,6 +6514,8 @@ components:
               separator: ','
             postgres_dms: true
             json: true
+            mssql_dms: true
+            oracle_dms: true
             mysql_dms: true
           azure_blob_storage:
             container: server-logs
@@ -6683,11 +6566,6 @@ components:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
               state: ACTIVE
-          redshift:
-            schema: common
-            incremental_field: updated_at
-            database: dev
-            table_name: redshift_table_name
           gcs:
             bucket: server-logs
             object_count_downloaded: 5
@@ -6714,7 +6592,10 @@ components:
             topic: rockset-topic
             subscription: rockset-subscription
             status:
-              last_processed_at: 2019-01-15T21:48:23Z
+              sessions:
+                key:
+                  sequence_number: 323862
+                  last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
           mongodb:
@@ -6742,25 +6623,9 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 0
             prefixes: '["/transactions", "/stores"]'
-            mappings:
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
             object_count_total: 6
-            secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
             prefix: prefix/to/keys
-            access_key: AKIAIOSFODNN7EXAMPLE
             pattern: prefix/to/**/keys/*.format
-            format: none
             object_bytes_total: 1
             region: us-west-2
           format_params:
@@ -6780,6 +6645,8 @@ components:
               separator: ','
             postgres_dms: true
             json: true
+            mssql_dms: true
+            oracle_dms: true
             mysql_dms: true
           azure_blob_storage:
             container: server-logs
@@ -6830,11 +6697,6 @@ components:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
               state: ACTIVE
-          redshift:
-            schema: common
-            incremental_field: updated_at
-            database: dev
-            table_name: redshift_table_name
           gcs:
             bucket: server-logs
             object_count_downloaded: 5
@@ -6861,7 +6723,10 @@ components:
             topic: rockset-topic
             subscription: rockset-subscription
             status:
-              last_processed_at: 2019-01-15T21:48:23Z
+              sessions:
+                key:
+                  sequence_number: 323862
+                  last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
           mongodb:
@@ -6948,37 +6813,8 @@ components:
           last_queried_ms: 1535101119334
           row_index_size: 123456
           bulk_bytes_overwritten: 4
-        field_schemas:
-        - field_options:
-            range_index_mode: v1_index
-            index_mode: index
-            type_index_mode: index
-            column_index_mode: store
-          field_name: address.city.zipcode
-        - field_options:
-            range_index_mode: v1_index
-            index_mode: index
-            type_index_mode: index
-            column_index_mode: store
-          field_name: address.city.zipcode
         retention_secs: 2592000
         name: global-transactions
-        enable_exactly_once_writes: true
-        inverted_index_group_encoding_options:
-          group_size: 1
-          restart_length: 1
-          doc_id_codec: doc_id_codec
-          event_time_codec: event_time_codec
-          format_version: 7
-        fieldPartitions:
-        - keys: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
-          type: AUTO
-          field_name: address.city.zipcode
-        - keys: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
-          type: AUTO
-          field_name: address.city.zipcode
         status: READY
       properties:
         created_at:
@@ -7049,22 +6885,8 @@ components:
           items:
             $ref: '#/components/schemas/Alias'
           type: array
-        field_schemas:
-          description: 'list of field schemas '
-          items:
-            $ref: '#/components/schemas/FieldSchema'
-          type: array
-        inverted_index_group_encoding_options:
-          $ref: '#/components/schemas/InvertedIndexGroupEncodingOptions'
-        fieldPartitions:
-          items:
-            $ref: '#/components/schemas/FieldPartition'
-          type: array
         insert_only:
           description: Whether the collection is insert only or not
-          type: boolean
-        enable_exactly_once_writes:
-          description: If true, exactly-once write semantics is enabled.
           type: boolean
       type: object
     CollectionStats:
@@ -7223,7 +7045,6 @@ components:
     CreateApiKeyResponse:
       example:
         data:
-          role: role
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -7276,25 +7097,9 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 0
             prefixes: '["/transactions", "/stores"]'
-            mappings:
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
             object_count_total: 6
-            secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
             prefix: prefix/to/keys
-            access_key: AKIAIOSFODNN7EXAMPLE
             pattern: prefix/to/**/keys/*.format
-            format: none
             object_bytes_total: 1
             region: us-west-2
           format_params:
@@ -7314,6 +7119,8 @@ components:
               separator: ','
             postgres_dms: true
             json: true
+            mssql_dms: true
+            oracle_dms: true
             mysql_dms: true
           azure_blob_storage:
             container: server-logs
@@ -7364,11 +7171,6 @@ components:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
               state: ACTIVE
-          redshift:
-            schema: common
-            incremental_field: updated_at
-            database: dev
-            table_name: redshift_table_name
           gcs:
             bucket: server-logs
             object_count_downloaded: 5
@@ -7395,7 +7197,10 @@ components:
             topic: rockset-topic
             subscription: rockset-subscription
             status:
-              last_processed_at: 2019-01-15T21:48:23Z
+              sessions:
+                key:
+                  sequence_number: 323862
+                  last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
           mongodb:
@@ -7423,25 +7228,9 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 0
             prefixes: '["/transactions", "/stores"]'
-            mappings:
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
-            - input_path:
-              - input_path
-              - input_path
-              mask:
-                args: '{}'
-                name: name
             object_count_total: 6
-            secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
             prefix: prefix/to/keys
-            access_key: AKIAIOSFODNN7EXAMPLE
             pattern: prefix/to/**/keys/*.format
-            format: none
             object_bytes_total: 1
             region: us-west-2
           format_params:
@@ -7461,6 +7250,8 @@ components:
               separator: ','
             postgres_dms: true
             json: true
+            mssql_dms: true
+            oracle_dms: true
             mysql_dms: true
           azure_blob_storage:
             container: server-logs
@@ -7511,11 +7302,6 @@ components:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
               state: ACTIVE
-          redshift:
-            schema: common
-            incremental_field: updated_at
-            database: dev
-            table_name: redshift_table_name
           gcs:
             bucket: server-logs
             object_count_downloaded: 5
@@ -7542,7 +7328,10 @@ components:
             topic: rockset-topic
             subscription: rockset-subscription
             status:
-              last_processed_at: 2019-01-15T21:48:23Z
+              sessions:
+                key:
+                  sequence_number: 323862
+                  last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
           mongodb:
@@ -7566,25 +7355,11 @@ components:
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
-        time_partition_resolution_secs: 0
         insert_only: true
         event_time_info:
           field: timestamp
           format: seconds_since_epoch
           time_zone: UTC
-        field_schemas:
-        - field_options:
-            range_index_mode: v1_index
-            index_mode: index
-            type_index_mode: index
-            column_index_mode: store
-          field_name: address.city.zipcode
-        - field_options:
-            range_index_mode: v1_index
-            index_mode: index
-            type_index_mode: index
-            column_index_mode: store
-          field_name: address.city.zipcode
         retention_secs: 1000000
         name: global-transactions
         description: transactions from stores worldwide
@@ -7597,12 +7372,6 @@ components:
             type is AUTO
           type: AUTO
           field_name: address.city.zipcode
-        inverted_index_group_encoding_options:
-          group_size: 1
-          restart_length: 1
-          doc_id_codec: doc_id_codec
-          event_time_codec: event_time_codec
-          format_version: 7
       properties:
         name:
           description: unique identifier for collection, can contain alphanumeric
@@ -7624,11 +7393,6 @@ components:
           example: 1000000
           format: int64
           type: integer
-        time_partition_resolution_secs:
-          description: If non-null, the collection will be time partitioned and each
-            partition will be time_partition_resolution_secs wide.
-          format: int64
-          type: integer
         insert_only:
           description: If true disallows updates and deletes, but makes indexing more
             efficient
@@ -7647,13 +7411,6 @@ components:
           items:
             $ref: '#/components/schemas/FieldPartition'
           type: array
-        field_schemas:
-          description: list of field schemas
-          items:
-            $ref: '#/components/schemas/FieldSchema'
-          type: array
-        inverted_index_group_encoding_options:
-          $ref: '#/components/schemas/InvertedIndexGroupEncodingOptions'
       required:
       - name
       type: object
@@ -7685,25 +7442,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -7723,6 +7464,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -7773,11 +7516,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -7804,7 +7542,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -7832,25 +7573,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -7870,6 +7595,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -7920,11 +7647,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -7951,7 +7673,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -8038,37 +7763,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
       properties:
         data:
@@ -8082,15 +7778,6 @@ components:
             aws_secret_access_key: wJal....
           aws_role:
             aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
-        redshift:
-          password: pswd....
-          port: 5439
-          aws_access_key:
-            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
-            aws_secret_access_key: wJal....
-          host: test.yuyugt.us-west-2.redshift.amazonaws.com
-          s3_bucket_path: s3://redshift-unload
-          username: awsuser
         azure_event_hubs:
           connection_string: connection_string
         gcs:
@@ -8144,8 +7831,6 @@ components:
           $ref: '#/components/schemas/KinesisIntegration'
         dynamodb:
           $ref: '#/components/schemas/DynamodbIntegration'
-        redshift:
-          $ref: '#/components/schemas/RedshiftIntegration'
         gcs:
           $ref: '#/components/schemas/GcsIntegration'
         azure_blob_storage:
@@ -8216,25 +7901,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -8254,6 +7923,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -8304,11 +7975,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -8335,7 +8001,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -8363,25 +8032,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -8401,6 +8054,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -8451,11 +8106,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -8482,7 +8132,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -8569,37 +8222,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           - field_mapping_query:
               sql: sql
@@ -8626,25 +8250,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -8664,6 +8272,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -8714,11 +8324,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -8745,7 +8350,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -8773,25 +8381,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -8811,6 +8403,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -8861,11 +8455,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -8892,7 +8481,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -8979,37 +8571,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           gcs:
             gcp_service_account:
@@ -9283,7 +8846,6 @@ components:
     DeleteApiKeyResponse:
       example:
         data:
-          role: role
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -9322,25 +8884,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -9360,6 +8906,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -9410,11 +8958,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -9441,7 +8984,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -9469,25 +9015,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -9507,6 +9037,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -9557,11 +9089,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -9588,7 +9115,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -9675,37 +9205,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
       properties:
         data:
@@ -9825,25 +9326,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -9863,6 +9348,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -9913,11 +9400,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -9944,7 +9426,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -9972,25 +9457,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -10010,6 +9479,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -10060,11 +9531,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -10091,7 +9557,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -10178,37 +9647,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           - field_mapping_query:
               sql: sql
@@ -10235,25 +9675,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -10273,6 +9697,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -10323,11 +9749,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -10354,7 +9775,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -10382,25 +9806,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -10420,6 +9828,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -10470,11 +9880,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -10501,7 +9906,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -10588,37 +9996,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           gcs:
             gcp_service_account:
@@ -10755,7 +10134,7 @@ components:
           example: 2cd61e3b
           type: string
         status:
-          description: status, one of ADDED, REPLACED, DELETED, ERROR
+          description: status of the document
           enum:
           - ADDED
           - REPLACED
@@ -10952,62 +10331,6 @@ components:
         output_field:
           $ref: '#/components/schemas/OutputField'
       type: object
-    FieldMask:
-      example:
-        input_path:
-        - input_path
-        - input_path
-        mask:
-          args: '{}'
-          name: name
-      properties:
-        input_path:
-          items:
-            type: string
-          type: array
-        mask:
-          $ref: '#/components/schemas/FieldMaskMask'
-      required:
-      - input_path
-      type: object
-    FieldMaskMask:
-      description: Field masking function name + args. The args is a JSON object.
-      example:
-        args: '{}'
-        name: name
-      properties:
-        name:
-          type: string
-        args:
-          properties: {}
-          type: object
-      required:
-      - name
-      type: object
-    FieldOptions:
-      example:
-        range_index_mode: v1_index
-        index_mode: index
-        type_index_mode: index
-        column_index_mode: store
-      properties:
-        index_mode:
-          description: ' index or no_index'
-          example: index
-          type: string
-        range_index_mode:
-          description: ' v1_index or no_index'
-          example: v1_index
-          type: string
-        type_index_mode:
-          description: ' index or no_index'
-          example: index
-          type: string
-        column_index_mode:
-          description: ' store or no_store'
-          example: store
-          type: string
-      type: object
     FieldPartition:
       example:
         keys: Values of a record to partition on. This is not needed if the partition
@@ -11033,22 +10356,6 @@ components:
             type: string
           type: array
       type: object
-    FieldSchema:
-      example:
-        field_options:
-          range_index_mode: v1_index
-          index_mode: index
-          type_index_mode: index
-          column_index_mode: store
-        field_name: address.city.zipcode
-      properties:
-        field_name:
-          description: The name of a field, parsed as a SQL qualified name
-          example: address.city.zipcode
-          type: string
-        field_options:
-          $ref: '#/components/schemas/FieldOptions'
-      type: object
     FormatParams:
       example:
         xml:
@@ -11067,6 +10374,8 @@ components:
           separator: ','
         postgres_dms: true
         json: true
+        mssql_dms: true
+        oracle_dms: true
         mysql_dms: true
       properties:
         json:
@@ -11080,6 +10389,10 @@ components:
         mysql_dms:
           type: boolean
         postgres_dms:
+          type: boolean
+        mssql_dms:
+          type: boolean
+        oracle_dms:
           type: boolean
       type: object
     GcpServiceAccount:
@@ -11118,7 +10431,6 @@ components:
     GetApiKeyResponse:
       example:
         data:
-          role: role
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -11157,25 +10469,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -11195,6 +10491,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -11245,11 +10543,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -11276,7 +10569,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -11304,25 +10600,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -11342,6 +10622,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -11392,11 +10674,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -11423,7 +10700,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -11510,37 +10790,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
       properties:
         data:
@@ -11601,25 +10852,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -11639,6 +10874,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -11689,11 +10926,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -11720,7 +10952,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -11748,25 +10983,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -11786,6 +11005,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -11836,11 +11057,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -11867,7 +11083,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -11954,37 +11173,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           - field_mapping_query:
               sql: sql
@@ -12011,25 +11201,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -12049,6 +11223,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -12099,11 +11275,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -12130,7 +11301,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -12158,25 +11332,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -12196,6 +11354,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -12246,11 +11406,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -12277,7 +11432,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -12364,37 +11522,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           gcs:
             gcp_service_account:
@@ -12553,25 +11682,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -12591,6 +11704,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -12641,11 +11756,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -12672,7 +11782,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -12700,25 +11813,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -12738,6 +11835,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -12788,11 +11887,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -12819,7 +11913,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -12906,37 +12003,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
         - field_mapping_query:
             sql: sql
@@ -12963,25 +12031,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -13001,6 +12053,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -13051,11 +12105,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -13082,7 +12131,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -13110,25 +12162,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -13148,6 +12184,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -13198,11 +12236,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -13229,7 +12262,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -13316,37 +12352,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
         gcs:
           gcp_service_account:
@@ -13415,28 +12422,6 @@ components:
       required:
       - created_by
       - name
-      type: object
-    InvertedIndexGroupEncodingOptions:
-      example:
-        group_size: 1
-        restart_length: 1
-        doc_id_codec: doc_id_codec
-        event_time_codec: event_time_codec
-        format_version: 7
-      properties:
-        format_version:
-          format: int64
-          type: integer
-        group_size:
-          format: int64
-          type: integer
-        restart_length:
-          format: int64
-          type: integer
-        event_time_codec:
-          type: string
-        doc_id_codec:
-          type: string
       type: object
     KafkaIntegration:
       example:
@@ -13535,15 +12520,13 @@ components:
     ListApiKeysResponse:
       example:
         data:
-        - role: role
-          name: my-key
+        - name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           created_by: test@example.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
-        - role: role
-          name: my-key
+        - name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           created_by: test@example.com
@@ -13584,25 +12567,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -13622,6 +12589,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -13672,11 +12641,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -13703,7 +12667,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -13731,25 +12698,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -13769,6 +12720,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -13819,11 +12772,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -13850,7 +12798,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -13937,37 +12888,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
         - field_mapping_query:
             sql: sql
@@ -13994,25 +12916,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -14032,6 +12938,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -14082,11 +12990,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -14113,7 +13016,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -14141,25 +13047,9 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
               prefixes: '["/transactions", "/stores"]'
-              mappings:
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
-              - input_path:
-                - input_path
-                - input_path
-                mask:
-                  args: '{}'
-                  name: name
               object_count_total: 6
-              secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
               prefix: prefix/to/keys
-              access_key: AKIAIOSFODNN7EXAMPLE
               pattern: prefix/to/**/keys/*.format
-              format: none
               object_bytes_total: 1
               region: us-west-2
             format_params:
@@ -14179,6 +13069,8 @@ components:
                 separator: ','
               postgres_dms: true
               json: true
+              mssql_dms: true
+              oracle_dms: true
               mysql_dms: true
             azure_blob_storage:
               container: server-logs
@@ -14229,11 +13121,6 @@ components:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
                 state: ACTIVE
-            redshift:
-              schema: common
-              incremental_field: updated_at
-              database: dev
-              table_name: redshift_table_name
             gcs:
               bucket: server-logs
               object_count_downloaded: 5
@@ -14260,7 +13147,10 @@ components:
               topic: rockset-topic
               subscription: rockset-subscription
               status:
-                last_processed_at: 2019-01-15T21:48:23Z
+                sessions:
+                  key:
+                    sequence_number: 323862
+                    last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
             mongodb:
@@ -14347,37 +13237,8 @@ components:
             last_queried_ms: 1535101119334
             row_index_size: 123456
             bulk_bytes_overwritten: 4
-          field_schemas:
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
-          - field_options:
-              range_index_mode: v1_index
-              index_mode: index
-              type_index_mode: index
-              column_index_mode: store
-            field_name: address.city.zipcode
           retention_secs: 2592000
           name: global-transactions
-          enable_exactly_once_writes: true
-          inverted_index_group_encoding_options:
-            group_size: 1
-            restart_length: 1
-            doc_id_codec: doc_id_codec
-            event_time_codec: event_time_codec
-            format_version: 7
-          fieldPartitions:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
-            type: AUTO
-            field_name: address.city.zipcode
           status: READY
       properties:
         data:
@@ -14441,25 +13302,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -14479,6 +13324,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -14529,11 +13376,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -14560,7 +13402,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -14588,25 +13433,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -14626,6 +13455,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -14676,11 +13507,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -14707,7 +13533,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -14794,37 +13623,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           - field_mapping_query:
               sql: sql
@@ -14851,25 +13651,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -14889,6 +13673,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -14939,11 +13725,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -14970,7 +13751,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -14998,25 +13782,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -15036,6 +13804,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -15086,11 +13856,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -15117,7 +13882,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -15204,37 +13972,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           gcs:
             gcp_service_account:
@@ -15310,25 +14049,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -15348,6 +14071,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -15398,11 +14123,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -15429,7 +14149,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -15457,25 +14180,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -15495,6 +14202,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -15545,11 +14254,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -15576,7 +14280,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -15663,37 +14370,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           - field_mapping_query:
               sql: sql
@@ -15720,25 +14398,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -15758,6 +14420,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -15808,11 +14472,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -15839,7 +14498,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -15867,25 +14529,9 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
                 prefixes: '["/transactions", "/stores"]'
-                mappings:
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
-                - input_path:
-                  - input_path
-                  - input_path
-                  mask:
-                    args: '{}'
-                    name: name
                 object_count_total: 6
-                secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
                 prefix: prefix/to/keys
-                access_key: AKIAIOSFODNN7EXAMPLE
                 pattern: prefix/to/**/keys/*.format
-                format: none
                 object_bytes_total: 1
                 region: us-west-2
               format_params:
@@ -15905,6 +14551,8 @@ components:
                   separator: ','
                 postgres_dms: true
                 json: true
+                mssql_dms: true
+                oracle_dms: true
                 mysql_dms: true
               azure_blob_storage:
                 container: server-logs
@@ -15955,11 +14603,6 @@ components:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
                   state: ACTIVE
-              redshift:
-                schema: common
-                incremental_field: updated_at
-                database: dev
-                table_name: redshift_table_name
               gcs:
                 bucket: server-logs
                 object_count_downloaded: 5
@@ -15986,7 +14629,10 @@ components:
                 topic: rockset-topic
                 subscription: rockset-subscription
                 status:
-                  last_processed_at: 2019-01-15T21:48:23Z
+                  sessions:
+                    key:
+                      sequence_number: 323862
+                      last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
               mongodb:
@@ -16073,37 +14719,8 @@ components:
               last_queried_ms: 1535101119334
               row_index_size: 123456
               bulk_bytes_overwritten: 4
-            field_schemas:
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
-            - field_options:
-                range_index_mode: v1_index
-                index_mode: index
-                type_index_mode: index
-                column_index_mode: store
-              field_name: address.city.zipcode
             retention_secs: 2592000
             name: global-transactions
-            enable_exactly_once_writes: true
-            inverted_index_group_encoding_options:
-              group_size: 1
-              restart_length: 1
-              doc_id_codec: doc_id_codec
-              event_time_codec: event_time_codec
-              format_version: 7
-            fieldPartitions:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
-              type: AUTO
-              field_name: address.city.zipcode
             status: READY
           gcs:
             gcp_service_account:
@@ -17134,7 +15751,6 @@ components:
     QueryRequest:
       example:
         sql:
-          profiling_enabled: true
           generate_warnings: true
           query: SELECT * FROM foo where _id = :_id
           initial_paginate_response_doc_count: 6
@@ -17155,7 +15771,6 @@ components:
       type: object
     QueryRequestSql:
       example:
-        profiling_enabled: true
         generate_warnings: true
         query: SELECT * FROM foo where _id = :_id
         initial_paginate_response_doc_count: 6
@@ -17176,9 +15791,6 @@ components:
         generate_warnings:
           description: Flag to enable warnings. Warnings can help debug query issues
             but negatively affect performance.
-          type: boolean
-        profiling_enabled:
-          description: Flag to generate a performance profile for this query.
           type: boolean
         parameters:
           description: List of named parameters.
@@ -17302,47 +15914,6 @@ components:
           format: int64
           type: integer
       type: object
-    RedshiftIntegration:
-      example:
-        password: pswd....
-        port: 5439
-        aws_access_key:
-          aws_access_key_id: AKIAIOSFODNN7EXAMPLE
-          aws_secret_access_key: wJal....
-        host: test.yuyugt.us-west-2.redshift.amazonaws.com
-        s3_bucket_path: s3://redshift-unload
-        username: awsuser
-      properties:
-        aws_access_key:
-          $ref: '#/components/schemas/AwsAccessKey'
-        username:
-          description: Username associated with Redshift cluster
-          example: awsuser
-          type: string
-        password:
-          description: Password associated with Redshift cluster
-          example: pswd....
-          type: string
-        host:
-          description: Redshift Cluster host
-          example: test.yuyugt.us-west-2.redshift.amazonaws.com
-          type: string
-        port:
-          description: Redshift Cluster port
-          example: 5439
-          format: int32
-          type: integer
-        s3_bucket_path:
-          description: unload S3 bucket path
-          example: s3://redshift-unload
-          type: string
-      required:
-      - host
-      - password
-      - port
-      - s3_bucket_path
-      - username
-      type: object
     Role:
       example:
         role_name: read_write
@@ -17434,25 +16005,9 @@ components:
           bucket: s3://customer-account-info
           object_count_downloaded: 0
           prefixes: '["/transactions", "/stores"]'
-          mappings:
-          - input_path:
-            - input_path
-            - input_path
-            mask:
-              args: '{}'
-              name: name
-          - input_path:
-            - input_path
-            - input_path
-            mask:
-              args: '{}'
-              name: name
           object_count_total: 6
-          secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
           prefix: prefix/to/keys
-          access_key: AKIAIOSFODNN7EXAMPLE
           pattern: prefix/to/**/keys/*.format
-          format: none
           object_bytes_total: 1
           region: us-west-2
         format_params:
@@ -17472,6 +16027,8 @@ components:
             separator: ','
           postgres_dms: true
           json: true
+          mssql_dms: true
+          oracle_dms: true
           mysql_dms: true
         azure_blob_storage:
           container: server-logs
@@ -17522,11 +16079,6 @@ components:
             num_documents_processed: 1337
             last_consumed_time: 2001-08-28T00:23:41Z
             state: ACTIVE
-        redshift:
-          schema: common
-          incremental_field: updated_at
-          database: dev
-          table_name: redshift_table_name
         gcs:
           bucket: server-logs
           object_count_downloaded: 5
@@ -17553,7 +16105,10 @@ components:
           topic: rockset-topic
           subscription: rockset-subscription
           status:
-            last_processed_at: 2019-01-15T21:48:23Z
+            sessions:
+              key:
+                sequence_number: 323862
+                last_processed: 2022-08-23T00:13:41Z
             first_processed_at: 2021-08-28T00:23:41Z
             records_processed: 1000
         mongodb:
@@ -17594,8 +16149,6 @@ components:
           $ref: '#/components/schemas/SourceAzureServiceBus'
         azure_event_hubs:
           $ref: '#/components/schemas/SourceAzureEventHubs'
-        redshift:
-          $ref: '#/components/schemas/SourceRedshift'
         dynamodb:
           $ref: '#/components/schemas/SourceDynamoDb'
         file_upload:
@@ -17635,12 +16188,15 @@ components:
           type: string
         blob_count_downloaded:
           format: int64
+          readOnly: true
           type: integer
         blob_count_total:
           format: int64
+          readOnly: true
           type: integer
         blob_bytes_total:
           format: int64
+          readOnly: true
           type: integer
       type: object
     SourceAzureEventHubs:
@@ -17678,7 +16234,10 @@ components:
         topic: rockset-topic
         subscription: rockset-subscription
         status:
-          last_processed_at: 2019-01-15T21:48:23Z
+          sessions:
+            key:
+              sequence_number: 323862
+              last_processed: 2022-08-23T00:13:41Z
           first_processed_at: 2021-08-28T00:23:41Z
           records_processed: 1000
       properties:
@@ -17783,12 +16342,15 @@ components:
           type: string
         object_count_downloaded:
           format: int64
+          readOnly: true
           type: integer
         object_count_total:
           format: int64
+          readOnly: true
           type: integer
         object_bytes_total:
           format: int64
+          readOnly: true
           type: integer
       type: object
     SourceKafka:
@@ -17889,71 +16451,17 @@ components:
       - collection_name
       - database_name
       type: object
-    SourceRedshift:
-      example:
-        schema: common
-        incremental_field: updated_at
-        database: dev
-        table_name: redshift_table_name
-      properties:
-        database:
-          description: name of the database in Redshift Cluster
-          example: dev
-          type: string
-        schema:
-          description: schema which contains the Redshift table
-          example: common
-          type: string
-        table_name:
-          description: name of Redshift table containing data
-          example: redshift_table_name
-          type: string
-        incremental_field:
-          description: field in Redshift source table to monitor for updates
-          example: updated_at
-          type: string
-      required:
-      - database
-      - schema
-      - table_name
-      type: object
     SourceS3:
       example:
         bucket: s3://customer-account-info
         object_count_downloaded: 0
         prefixes: '["/transactions", "/stores"]'
-        mappings:
-        - input_path:
-          - input_path
-          - input_path
-          mask:
-            args: '{}'
-            name: name
-        - input_path:
-          - input_path
-          - input_path
-          mask:
-            args: '{}'
-            name: name
         object_count_total: 6
-        secret_access: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
         prefix: prefix/to/keys
-        access_key: AKIAIOSFODNN7EXAMPLE
         pattern: prefix/to/**/keys/*.format
-        format: none
         object_bytes_total: 1
         region: us-west-2
       properties:
-        access_key:
-          description: AWS credential with ListObjects and GetObject access
-          example: AKIAIOSFODNN7EXAMPLE
-          readOnly: true
-          type: string
-        secret_access:
-          description: AWS credential with ListObjects and GetObject access
-          example: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-          readOnly: true
-          type: string
         prefix:
           description: Prefix that selects keys to ingest.
           example: prefix/to/keys
@@ -17978,25 +16486,17 @@ components:
             type: string
           readOnly: true
           type: array
-        format:
-          description: do not use
-          enum:
-          - JSON
-          example: none
-          type: string
-        mappings:
-          description: custom transformation on data field
-          items:
-            $ref: '#/components/schemas/FieldMask'
-          type: array
         object_count_downloaded:
           format: int64
+          readOnly: true
           type: integer
         object_count_total:
           format: int64
+          readOnly: true
           type: integer
         object_bytes_total:
           format: int64
+          readOnly: true
           type: integer
       required:
       - bucket
@@ -18108,7 +16608,10 @@ components:
       type: object
     StatusAzureServiceBus:
       example:
-        last_processed_at: 2019-01-15T21:48:23Z
+        sessions:
+          key:
+            sequence_number: 323862
+            last_processed: 2022-08-23T00:13:41Z
         first_processed_at: 2021-08-28T00:23:41Z
         records_processed: 1000
       properties:
@@ -18122,9 +16625,26 @@ components:
           example: 1000
           format: int64
           type: integer
-        last_processed_at:
-          description: ISO-8601 date when the last message was processed
-          example: 2019-01-15T21:48:23Z
+        sessions:
+          additionalProperties:
+            $ref: '#/components/schemas/StatusAzureServiceBusSession'
+          description: Sessions processed
+          type: object
+      type: object
+    StatusAzureServiceBusSession:
+      example:
+        sequence_number: 323862
+        last_processed: 2022-08-23T00:13:41Z
+      properties:
+        sequence_number:
+          description: The last processed sequence number within this session
+          example: 323862
+          format: int64
+          type: integer
+        last_processed:
+          description: Most recent ISO-8601 date when a message from this session
+            was processed
+          example: 2022-08-23T00:13:41Z
           format: date-time
           type: string
       type: object
@@ -18364,7 +16884,6 @@ components:
     UpdateApiKeyResponse:
       example:
         data:
-          role: role
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -18570,17 +17089,10 @@ components:
     ValidateQueryResponse:
       example:
         collections: '["commons.foo"]'
-        name: '["commons.foo"]'
         parameters: '["foo"]'
       properties:
-        name:
-          description: list of collection specified in query
-          example: '["commons.foo"]'
-          items:
-            type: string
-          type: array
         collections:
-          description: list of collection specified in query
+          description: list of collections specified in query
           example: '["commons.foo"]'
           items:
             type: string
@@ -18593,7 +17105,6 @@ components:
           type: array
       required:
       - collections
-      - name
       - parameters
       type: object
     View:

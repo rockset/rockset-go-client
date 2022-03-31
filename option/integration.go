@@ -72,29 +72,6 @@ func WithGCSIntegrationDescription(desc string) GCSIntegrationOption {
 	}
 }
 
-type RedshiftIntegration struct {
-	openapi.RedshiftIntegration
-	Description *string
-}
-type RedshiftIntegrationOption func(request *RedshiftIntegration)
-
-func WithRedshiftIntegrationDescription(desc string) RedshiftIntegrationOption {
-	return func(o *RedshiftIntegration) {
-		o.Description = &desc
-	}
-}
-
-func WithRedshiftIntegrationConfig(s3BucketPath, username, password, host string,
-	port int32) RedshiftIntegrationOption {
-	return func(o *RedshiftIntegration) {
-		o.RedshiftIntegration.Username = username
-		o.RedshiftIntegration.Password = password
-		o.RedshiftIntegration.Host = host
-		o.RedshiftIntegration.Port = port
-		o.RedshiftIntegration.S3BucketPath = s3BucketPath
-	}
-}
-
 type SegmentIntegration struct {
 	Description *string
 }

@@ -16,9 +16,7 @@ import (
 
 // ValidateQueryResponse struct for ValidateQueryResponse
 type ValidateQueryResponse struct {
-	// list of collection specified in query
-	Name []string `json:"name"`
-	// list of collection specified in query
+	// list of collections specified in query
 	Collections []string `json:"collections"`
 	// list of parameters specified in query
 	Parameters []string `json:"parameters"`
@@ -28,9 +26,8 @@ type ValidateQueryResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewValidateQueryResponse(name []string, collections []string, parameters []string) *ValidateQueryResponse {
+func NewValidateQueryResponse(collections []string, parameters []string) *ValidateQueryResponse {
 	this := ValidateQueryResponse{}
-	this.Name = name
 	this.Collections = collections
 	this.Parameters = parameters
 	return &this
@@ -42,30 +39,6 @@ func NewValidateQueryResponse(name []string, collections []string, parameters []
 func NewValidateQueryResponseWithDefaults() *ValidateQueryResponse {
 	this := ValidateQueryResponse{}
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *ValidateQueryResponse) GetName() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *ValidateQueryResponse) GetNameOk() ([]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// SetName sets field value
-func (o *ValidateQueryResponse) SetName(v []string) {
-	o.Name = v
 }
 
 // GetCollections returns the Collections field value
@@ -118,9 +91,6 @@ func (o *ValidateQueryResponse) SetParameters(v []string) {
 
 func (o ValidateQueryResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
 	if true {
 		toSerialize["collections"] = o.Collections
 	}

@@ -24,7 +24,6 @@ func Example_queryRaw() {
 
 	rq.Sql = openapi.QueryRequestSql{Query: "SELECT * FROM commons._events where label = :label"}
 	rq.Sql.GenerateWarnings = openapi.PtrBool(true)
-	rq.Sql.ProfilingEnabled = openapi.PtrBool(true)
 	rq.Sql.DefaultRowLimit = openapi.PtrInt32(10)
 
 	rq.Sql.Parameters = []openapi.QueryParameter{
@@ -58,7 +57,7 @@ func ExampleRockClient_query() {
 	}
 
 	r, err := rc.Query(ctx, "SELECT * FROM commons._events where label = :label",
-		option.WithWarnings(), option.WithProfiling(), option.WithRowLimit(10),
+		option.WithWarnings(), option.WithRowLimit(10),
 		option.WithParameter("label", "string", "QUERY_SUCCESS"))
 	if err != nil {
 		log.Fatal(err)

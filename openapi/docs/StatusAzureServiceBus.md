@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FirstProcessedAt** | Pointer to **time.Time** | Service Bus first message processed time in ISO-8601 format | [optional] 
 **RecordsProcessed** | Pointer to **int64** | Number of records processed | [optional] 
-**LastProcessedAt** | Pointer to **time.Time** | ISO-8601 date when the last message was processed | [optional] 
+**Sessions** | Pointer to [**map[string]StatusAzureServiceBusSession**](StatusAzureServiceBusSession.md) | Sessions processed | [optional] 
 
 ## Methods
 
@@ -77,30 +77,30 @@ SetRecordsProcessed sets RecordsProcessed field to given value.
 
 HasRecordsProcessed returns a boolean if a field has been set.
 
-### GetLastProcessedAt
+### GetSessions
 
-`func (o *StatusAzureServiceBus) GetLastProcessedAt() time.Time`
+`func (o *StatusAzureServiceBus) GetSessions() map[string]StatusAzureServiceBusSession`
 
-GetLastProcessedAt returns the LastProcessedAt field if non-nil, zero value otherwise.
+GetSessions returns the Sessions field if non-nil, zero value otherwise.
 
-### GetLastProcessedAtOk
+### GetSessionsOk
 
-`func (o *StatusAzureServiceBus) GetLastProcessedAtOk() (*time.Time, bool)`
+`func (o *StatusAzureServiceBus) GetSessionsOk() (*map[string]StatusAzureServiceBusSession, bool)`
 
-GetLastProcessedAtOk returns a tuple with the LastProcessedAt field if it's non-nil, zero value otherwise
+GetSessionsOk returns a tuple with the Sessions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastProcessedAt
+### SetSessions
 
-`func (o *StatusAzureServiceBus) SetLastProcessedAt(v time.Time)`
+`func (o *StatusAzureServiceBus) SetSessions(v map[string]StatusAzureServiceBusSession)`
 
-SetLastProcessedAt sets LastProcessedAt field to given value.
+SetSessions sets Sessions field to given value.
 
-### HasLastProcessedAt
+### HasSessions
 
-`func (o *StatusAzureServiceBus) HasLastProcessedAt() bool`
+`func (o *StatusAzureServiceBus) HasSessions() bool`
 
-HasLastProcessedAt returns a boolean if a field has been set.
+HasSessions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

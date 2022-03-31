@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
 **Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
-**Redshift** | Pointer to [**RedshiftIntegration**](RedshiftIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
 **AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
 **AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
@@ -155,31 +154,6 @@ SetDynamodb sets Dynamodb field to given value.
 `func (o *CreateIntegrationRequest) HasDynamodb() bool`
 
 HasDynamodb returns a boolean if a field has been set.
-
-### GetRedshift
-
-`func (o *CreateIntegrationRequest) GetRedshift() RedshiftIntegration`
-
-GetRedshift returns the Redshift field if non-nil, zero value otherwise.
-
-### GetRedshiftOk
-
-`func (o *CreateIntegrationRequest) GetRedshiftOk() (*RedshiftIntegration, bool)`
-
-GetRedshiftOk returns a tuple with the Redshift field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRedshift
-
-`func (o *CreateIntegrationRequest) SetRedshift(v RedshiftIntegration)`
-
-SetRedshift sets Redshift field to given value.
-
-### HasRedshift
-
-`func (o *CreateIntegrationRequest) HasRedshift() bool`
-
-HasRedshift returns a boolean if a field has been set.
 
 ### GetGcs
 

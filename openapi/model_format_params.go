@@ -22,6 +22,8 @@ type FormatParams struct {
 	Xml *XmlParams `json:"xml,omitempty"`
 	MysqlDms *bool `json:"mysql_dms,omitempty"`
 	PostgresDms *bool `json:"postgres_dms,omitempty"`
+	MssqlDms *bool `json:"mssql_dms,omitempty"`
+	OracleDms *bool `json:"oracle_dms,omitempty"`
 }
 
 // NewFormatParams instantiates a new FormatParams object
@@ -201,6 +203,70 @@ func (o *FormatParams) SetPostgresDms(v bool) {
 	o.PostgresDms = &v
 }
 
+// GetMssqlDms returns the MssqlDms field value if set, zero value otherwise.
+func (o *FormatParams) GetMssqlDms() bool {
+	if o == nil || o.MssqlDms == nil {
+		var ret bool
+		return ret
+	}
+	return *o.MssqlDms
+}
+
+// GetMssqlDmsOk returns a tuple with the MssqlDms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetMssqlDmsOk() (*bool, bool) {
+	if o == nil || o.MssqlDms == nil {
+		return nil, false
+	}
+	return o.MssqlDms, true
+}
+
+// HasMssqlDms returns a boolean if a field has been set.
+func (o *FormatParams) HasMssqlDms() bool {
+	if o != nil && o.MssqlDms != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMssqlDms gets a reference to the given bool and assigns it to the MssqlDms field.
+func (o *FormatParams) SetMssqlDms(v bool) {
+	o.MssqlDms = &v
+}
+
+// GetOracleDms returns the OracleDms field value if set, zero value otherwise.
+func (o *FormatParams) GetOracleDms() bool {
+	if o == nil || o.OracleDms == nil {
+		var ret bool
+		return ret
+	}
+	return *o.OracleDms
+}
+
+// GetOracleDmsOk returns a tuple with the OracleDms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetOracleDmsOk() (*bool, bool) {
+	if o == nil || o.OracleDms == nil {
+		return nil, false
+	}
+	return o.OracleDms, true
+}
+
+// HasOracleDms returns a boolean if a field has been set.
+func (o *FormatParams) HasOracleDms() bool {
+	if o != nil && o.OracleDms != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOracleDms gets a reference to the given bool and assigns it to the OracleDms field.
+func (o *FormatParams) SetOracleDms(v bool) {
+	o.OracleDms = &v
+}
+
 func (o FormatParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Json != nil {
@@ -217,6 +283,12 @@ func (o FormatParams) MarshalJSON() ([]byte, error) {
 	}
 	if o.PostgresDms != nil {
 		toSerialize["postgres_dms"] = o.PostgresDms
+	}
+	if o.MssqlDms != nil {
+		toSerialize["mssql_dms"] = o.MssqlDms
+	}
+	if o.OracleDms != nil {
+		toSerialize["oracle_dms"] = o.OracleDms
 	}
 	return json.Marshal(toSerialize)
 }
