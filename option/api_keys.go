@@ -12,3 +12,15 @@ func ForUser(username string) APIKeyOption {
 		o.User = &username
 	}
 }
+
+type APIKeyRoleOptions struct {
+	Role *string
+}
+
+type APIKeyRoleOption func(*APIKeyRoleOptions)
+
+func WithRole(role string) APIKeyRoleOption {
+	return func(o *APIKeyRoleOptions) {
+		o.Role = &role
+	}
+}
