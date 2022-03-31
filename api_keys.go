@@ -7,15 +7,25 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// CreateAPIKey creates a new API key for the current user with the specified.
+// CreateAPIKey creates a new API key for the current user with the specified, with an optional role.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#createapikey
-func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string) (openapi.ApiKey, error) {
+func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string,
+	options ...option.APIKeyRoleOption) (openapi.ApiKey, error) {
 	var err error
 	var resp *openapi.CreateApiKeyResponse
 
 	createReq := rc.APIKeysApi.CreateApiKey(ctx)
 	b := openapi.NewCreateApiKeyRequest(keyName)
+
+	var opts option.APIKeyRoleOptions
+	for _, o := range options {
+		o(&opts)
+	}
+
+	if opts.Role != nil {
+		b.Role = opts.Role
+	}
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = createReq.Body(*b).Execute()
