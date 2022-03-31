@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **Bucket** | Pointer to **string** | name of GCS bucket you want to ingest from | [optional] 
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
 **Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
-**ObjectCountDownloaded** | Pointer to **int64** |  | [optional] 
-**ObjectCountTotal** | Pointer to **int64** |  | [optional] 
-**ObjectBytesTotal** | Pointer to **int64** |  | [optional] 
+**ObjectCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
 
 ## Methods
 

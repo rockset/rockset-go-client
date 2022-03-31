@@ -21,7 +21,7 @@ type DocumentStatus struct {
 	Error *ErrorModel `json:"error,omitempty"`
 	// unique document ID
 	Id *string `json:"_id,omitempty"`
-	// status, one of ADDED, REPLACED, DELETED, ERROR
+	// status of the document
 	Status *string `json:"status,omitempty"`
 	// unique id used to represent each patch request
 	PatchId *string `json:"patch_id,omitempty"`

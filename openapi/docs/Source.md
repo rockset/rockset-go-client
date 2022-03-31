@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **AzureBlobStorage** | Pointer to [**SourceAzureBlobStorage**](SourceAzureBlobStorage.md) |  | [optional] 
 **AzureServiceBus** | Pointer to [**SourceAzureServiceBus**](SourceAzureServiceBus.md) |  | [optional] 
 **AzureEventHubs** | Pointer to [**SourceAzureEventHubs**](SourceAzureEventHubs.md) |  | [optional] 
-**Redshift** | Pointer to [**SourceRedshift**](SourceRedshift.md) |  | [optional] 
 **Dynamodb** | Pointer to [**SourceDynamoDb**](SourceDynamoDb.md) |  | [optional] 
 **FileUpload** | Pointer to [**SourceFileUpload**](SourceFileUpload.md) |  | [optional] 
 **Kafka** | Pointer to [**SourceKafka**](SourceKafka.md) |  | [optional] 
@@ -207,31 +206,6 @@ SetAzureEventHubs sets AzureEventHubs field to given value.
 `func (o *Source) HasAzureEventHubs() bool`
 
 HasAzureEventHubs returns a boolean if a field has been set.
-
-### GetRedshift
-
-`func (o *Source) GetRedshift() SourceRedshift`
-
-GetRedshift returns the Redshift field if non-nil, zero value otherwise.
-
-### GetRedshiftOk
-
-`func (o *Source) GetRedshiftOk() (*SourceRedshift, bool)`
-
-GetRedshiftOk returns a tuple with the Redshift field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRedshift
-
-`func (o *Source) SetRedshift(v SourceRedshift)`
-
-SetRedshift sets Redshift field to given value.
-
-### HasRedshift
-
-`func (o *Source) HasRedshift() bool`
-
-HasRedshift returns a boolean if a field has been set.
 
 ### GetDynamodb
 

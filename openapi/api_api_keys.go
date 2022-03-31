@@ -73,7 +73,7 @@ type APIKeysApi interface {
 	GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyResponse, *http.Response, error)
 
 	/*
-	ListApiKeys List API Keys.
+	ListApiKeys List API Keys
 
 	List API key metadata for any user in your organization.
 
@@ -88,7 +88,7 @@ type APIKeysApi interface {
 	ListApiKeysExecute(r ApiListApiKeysRequest) (*ListApiKeysResponse, *http.Response, error)
 
 	/*
-	UpdateApiKey Update an API key's state
+	UpdateApiKey Update API Key State
 
 	Update the state of an API key for any user in your organization.
 
@@ -833,7 +833,7 @@ func (r ApiListApiKeysRequest) Execute() (*ListApiKeysResponse, *http.Response, 
 }
 
 /*
-ListApiKeys List API Keys.
+ListApiKeys List API Keys
 
 List API key metadata for any user in your organization.
 
@@ -1073,7 +1073,7 @@ func (r ApiUpdateApiKeyRequest) Execute() (*UpdateApiKeyResponse, *http.Response
 }
 
 /*
-UpdateApiKey Update an API key's state
+UpdateApiKey Update API Key State
 
 Update the state of an API key for any user in your organization.
 

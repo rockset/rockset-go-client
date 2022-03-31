@@ -85,7 +85,7 @@ type UsersApi interface {
 	GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error)
 
 	/*
-	ListUnsubscribePreferences Get all notification preferences
+	ListUnsubscribePreferences Retrieve Notification Preferences
 
 	Get all notification preferences.
 
@@ -113,7 +113,7 @@ type UsersApi interface {
 	ListUsersExecute(r ApiListUsersRequest) (*ListUsersResponse, *http.Response, error)
 
 	/*
-	UpdateUnsubscribePreferences Update notification preferences
+	UpdateUnsubscribePreferences Update Notification Preferences
 
 	Update notification preference.
 
@@ -1076,7 +1076,7 @@ func (r ApiListUnsubscribePreferencesRequest) Execute() (*ListUnsubscribePrefere
 }
 
 /*
-ListUnsubscribePreferences Get all notification preferences
+ListUnsubscribePreferences Retrieve Notification Preferences
 
 Get all notification preferences.
 
@@ -1540,7 +1540,7 @@ func (r ApiUpdateUnsubscribePreferencesRequest) Execute() (*UpdateUnsubscribePre
 }
 
 /*
-UpdateUnsubscribePreferences Update notification preferences
+UpdateUnsubscribePreferences Update Notification Preferences
 
 Update notification preference.
 

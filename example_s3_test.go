@@ -43,7 +43,6 @@ func Example_s3() {
 			option.WithSeparator(","),
 		),
 		option.WithInsertOnly(),
-		option.WithCollectionFieldSchema("city", option.WithColumnIndexMode(option.ColumnIndexModeNoStore)),
 		option.WithFieldMappingQuery("SELECT * FROM _input"),
 	)
 	if err != nil {

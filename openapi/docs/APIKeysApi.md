@@ -7,8 +7,8 @@ Method | HTTP request | Description
 [**CreateApiKey**](APIKeysApi.md#CreateApiKey) | **Post** /v1/orgs/self/users/self/apikeys | Create API Key
 [**DeleteApiKey**](APIKeysApi.md#DeleteApiKey) | **Delete** /v1/orgs/self/users/{user}/apikeys/{name} | Delete API Key
 [**GetApiKey**](APIKeysApi.md#GetApiKey) | **Get** /v1/orgs/self/users/{user}/apikeys/{name} | Retrieve API Key
-[**ListApiKeys**](APIKeysApi.md#ListApiKeys) | **Get** /v1/orgs/self/users/{user}/apikeys | List API Keys.
-[**UpdateApiKey**](APIKeysApi.md#UpdateApiKey) | **Post** /v1/orgs/self/users/{user}/apikeys/{name} | Update an API key&#39;s state
+[**ListApiKeys**](APIKeysApi.md#ListApiKeys) | **Get** /v1/orgs/self/users/{user}/apikeys | List API Keys
+[**UpdateApiKey**](APIKeysApi.md#UpdateApiKey) | **Post** /v1/orgs/self/users/{user}/apikeys/{name} | Update API Key State
 
 
 
@@ -228,7 +228,7 @@ No authorization required
 
 > ListApiKeysResponse ListApiKeys(ctx, user).Execute()
 
-List API Keys.
+List API Keys
 
 
 
@@ -298,7 +298,7 @@ No authorization required
 
 > UpdateApiKeyResponse UpdateApiKey(ctx, name, user).Body(body).Execute()
 
-Update an API key's state
+Update API Key State
 
 
 

@@ -172,43 +172,6 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 	return resp.GetData(), nil
 }
 
-func (rc *RockClient) CreateRedshiftIntegration(ctx context.Context, name string, awsKeys option.AWSCredentialsFn,
-	options ...option.RedshiftIntegrationOption) (openapi.Integration, error) {
-	var err error
-	var resp *openapi.CreateIntegrationResponse
-
-	q := rc.IntegrationsApi.CreateIntegration(ctx)
-	req := openapi.NewCreateIntegrationRequest(name)
-
-	c := option.AWSCredentials{}
-	awsKeys(&c)
-
-	opts := option.RedshiftIntegration{}
-	for _, o := range options {
-		o(&opts)
-	}
-
-	// TODO: move option arguments into required args
-	//       WithRedshiftIntegrationConfig()
-	req.Redshift = &opts.RedshiftIntegration
-	// TODO: AWSRole isn't applicable, how do we prevent someone from using it at compile-time?
-	req.Redshift.AwsAccessKey = c.AwsAccessKey
-	if opts.Description != nil {
-		req.Description = opts.Description
-	}
-
-	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
-	})
-
-	if err != nil {
-		return openapi.Integration{}, err
-	}
-
-	return resp.GetData(), nil
-}
-
 func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAccountKeyFileJSON string,
 	options ...option.GCSIntegrationOption) (openapi.Integration, error) {
 	var err error

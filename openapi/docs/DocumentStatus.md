@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Collection** | Pointer to **string** | collection name | [optional] 
 **Error** | Pointer to [**ErrorModel**](ErrorModel.md) |  | [optional] 
 **Id** | Pointer to **string** | unique document ID | [optional] 
-**Status** | Pointer to **string** | status, one of ADDED, REPLACED, DELETED, ERROR | [optional] 
+**Status** | Pointer to **string** | status of the document | [optional] 
 **PatchId** | Pointer to **string** | unique id used to represent each patch request | [optional] 
 
 ## Methods

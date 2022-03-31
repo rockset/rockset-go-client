@@ -20,8 +20,6 @@ type QueryRequestSql struct {
 	Query string `json:"query"`
 	// Flag to enable warnings. Warnings can help debug query issues but negatively affect performance.
 	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
-	// Flag to generate a performance profile for this query.
-	ProfilingEnabled *bool `json:"profiling_enabled,omitempty"`
 	// List of named parameters.
 	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Row limit to use. Limits specified in the query text will override this default.
@@ -104,38 +102,6 @@ func (o *QueryRequestSql) HasGenerateWarnings() bool {
 // SetGenerateWarnings gets a reference to the given bool and assigns it to the GenerateWarnings field.
 func (o *QueryRequestSql) SetGenerateWarnings(v bool) {
 	o.GenerateWarnings = &v
-}
-
-// GetProfilingEnabled returns the ProfilingEnabled field value if set, zero value otherwise.
-func (o *QueryRequestSql) GetProfilingEnabled() bool {
-	if o == nil || o.ProfilingEnabled == nil {
-		var ret bool
-		return ret
-	}
-	return *o.ProfilingEnabled
-}
-
-// GetProfilingEnabledOk returns a tuple with the ProfilingEnabled field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetProfilingEnabledOk() (*bool, bool) {
-	if o == nil || o.ProfilingEnabled == nil {
-		return nil, false
-	}
-	return o.ProfilingEnabled, true
-}
-
-// HasProfilingEnabled returns a boolean if a field has been set.
-func (o *QueryRequestSql) HasProfilingEnabled() bool {
-	if o != nil && o.ProfilingEnabled != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetProfilingEnabled gets a reference to the given bool and assigns it to the ProfilingEnabled field.
-func (o *QueryRequestSql) SetProfilingEnabled(v bool) {
-	o.ProfilingEnabled = &v
 }
 
 // GetParameters returns the Parameters field value if set, zero value otherwise.
@@ -273,9 +239,6 @@ func (o QueryRequestSql) MarshalJSON() ([]byte, error) {
 	}
 	if o.GenerateWarnings != nil {
 		toSerialize["generate_warnings"] = o.GenerateWarnings
-	}
-	if o.ProfilingEnabled != nil {
-		toSerialize["profiling_enabled"] = o.ProfilingEnabled
 	}
 	if o.Parameters != nil {
 		toSerialize["parameters"] = o.Parameters

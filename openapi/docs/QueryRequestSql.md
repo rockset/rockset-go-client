@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Query** | **string** | SQL query string. | 
 **GenerateWarnings** | Pointer to **bool** | Flag to enable warnings. Warnings can help debug query issues but negatively affect performance. | [optional] 
-**ProfilingEnabled** | Pointer to **bool** | Flag to generate a performance profile for this query. | [optional] 
 **Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use. Limits specified in the query text will override this default. | [optional] 
 **Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
@@ -75,31 +74,6 @@ SetGenerateWarnings sets GenerateWarnings field to given value.
 `func (o *QueryRequestSql) HasGenerateWarnings() bool`
 
 HasGenerateWarnings returns a boolean if a field has been set.
-
-### GetProfilingEnabled
-
-`func (o *QueryRequestSql) GetProfilingEnabled() bool`
-
-GetProfilingEnabled returns the ProfilingEnabled field if non-nil, zero value otherwise.
-
-### GetProfilingEnabledOk
-
-`func (o *QueryRequestSql) GetProfilingEnabledOk() (*bool, bool)`
-
-GetProfilingEnabledOk returns a tuple with the ProfilingEnabled field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetProfilingEnabled
-
-`func (o *QueryRequestSql) SetProfilingEnabled(v bool)`
-
-SetProfilingEnabled sets ProfilingEnabled field to given value.
-
-### HasProfilingEnabled
-
-`func (o *QueryRequestSql) HasProfilingEnabled() bool`
-
-HasProfilingEnabled returns a boolean if a field has been set.
 
 ### GetParameters
 

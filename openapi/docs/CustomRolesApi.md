@@ -1,13 +1,13 @@
-# \CustomRolesBetaApi
+# \CustomRolesApi
 
 All URIs are relative to *https://api.rs2.usw2.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRole**](CustomRolesBetaApi.md#CreateRole) | **Post** /v1/orgs/self/roles | Create a Role
-[**DeleteRole**](CustomRolesBetaApi.md#DeleteRole) | **Delete** /v1/orgs/self/roles/{roleName} | Delete a Role
-[**ListRoles**](CustomRolesBetaApi.md#ListRoles) | **Get** /v1/orgs/self/roles | List Roles
-[**UpdateRole**](CustomRolesBetaApi.md#UpdateRole) | **Post** /v1/orgs/self/roles/{roleName} | Update a Role
+[**CreateRole**](CustomRolesApi.md#CreateRole) | **Post** /v1/orgs/self/roles | Create a Role
+[**DeleteRole**](CustomRolesApi.md#DeleteRole) | **Delete** /v1/orgs/self/roles/{roleName} | Delete a Role
+[**ListRoles**](CustomRolesApi.md#ListRoles) | **Get** /v1/orgs/self/roles | List Roles
+[**UpdateRole**](CustomRolesApi.md#UpdateRole) | **Post** /v1/orgs/self/roles/{roleName} | Update a Role
 
 
 
@@ -36,13 +36,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesBetaApi.CreateRole(context.Background()).Body(body).Execute()
+    resp, r, err := apiClient.CustomRolesApi.CreateRole(context.Background()).Body(body).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesBetaApi.CreateRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.CreateRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateRole`: RoleResponse
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesBetaApi.CreateRole`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.CreateRole`: %v\n", resp)
 }
 ```
 
@@ -102,13 +102,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesBetaApi.DeleteRole(context.Background(), roleName).Execute()
+    resp, r, err := apiClient.CustomRolesApi.DeleteRole(context.Background(), roleName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesBetaApi.DeleteRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.DeleteRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `DeleteRole`: RoleResponse
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesBetaApi.DeleteRole`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.DeleteRole`: %v\n", resp)
 }
 ```
 
@@ -171,13 +171,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesBetaApi.ListRoles(context.Background()).Execute()
+    resp, r, err := apiClient.CustomRolesApi.ListRoles(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesBetaApi.ListRoles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.ListRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListRoles`: ListRolesResponse
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesBetaApi.ListRoles`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.ListRoles`: %v\n", resp)
 }
 ```
 
@@ -234,13 +234,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CustomRolesBetaApi.UpdateRole(context.Background(), roleName).Body(body).Execute()
+    resp, r, err := apiClient.CustomRolesApi.UpdateRole(context.Background(), roleName).Body(body).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesBetaApi.UpdateRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.UpdateRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateRole`: RoleResponse
-    fmt.Fprintf(os.Stdout, "Response from `CustomRolesBetaApi.UpdateRole`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.UpdateRole`: %v\n", resp)
 }
 ```
 

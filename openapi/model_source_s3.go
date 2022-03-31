@@ -16,10 +16,6 @@ import (
 
 // SourceS3 struct for SourceS3
 type SourceS3 struct {
-	// AWS credential with ListObjects and GetObject access
-	AccessKey *string `json:"access_key,omitempty"`
-	// AWS credential with ListObjects and GetObject access
-	SecretAccess *string `json:"secret_access,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
 	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
@@ -30,10 +26,6 @@ type SourceS3 struct {
 	Bucket string `json:"bucket"`
 	// list of prefixes to paths from which data should be ingested
 	Prefixes []string `json:"prefixes"`
-	// do not use
-	Format *string `json:"format,omitempty"`
-	// custom transformation on data field
-	Mappings []FieldMask `json:"mappings,omitempty"`
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
 	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
 	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
@@ -56,70 +48,6 @@ func NewSourceS3(bucket string, prefixes []string) *SourceS3 {
 func NewSourceS3WithDefaults() *SourceS3 {
 	this := SourceS3{}
 	return &this
-}
-
-// GetAccessKey returns the AccessKey field value if set, zero value otherwise.
-func (o *SourceS3) GetAccessKey() string {
-	if o == nil || o.AccessKey == nil {
-		var ret string
-		return ret
-	}
-	return *o.AccessKey
-}
-
-// GetAccessKeyOk returns a tuple with the AccessKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceS3) GetAccessKeyOk() (*string, bool) {
-	if o == nil || o.AccessKey == nil {
-		return nil, false
-	}
-	return o.AccessKey, true
-}
-
-// HasAccessKey returns a boolean if a field has been set.
-func (o *SourceS3) HasAccessKey() bool {
-	if o != nil && o.AccessKey != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccessKey gets a reference to the given string and assigns it to the AccessKey field.
-func (o *SourceS3) SetAccessKey(v string) {
-	o.AccessKey = &v
-}
-
-// GetSecretAccess returns the SecretAccess field value if set, zero value otherwise.
-func (o *SourceS3) GetSecretAccess() string {
-	if o == nil || o.SecretAccess == nil {
-		var ret string
-		return ret
-	}
-	return *o.SecretAccess
-}
-
-// GetSecretAccessOk returns a tuple with the SecretAccess field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceS3) GetSecretAccessOk() (*string, bool) {
-	if o == nil || o.SecretAccess == nil {
-		return nil, false
-	}
-	return o.SecretAccess, true
-}
-
-// HasSecretAccess returns a boolean if a field has been set.
-func (o *SourceS3) HasSecretAccess() bool {
-	if o != nil && o.SecretAccess != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSecretAccess gets a reference to the given string and assigns it to the SecretAccess field.
-func (o *SourceS3) SetSecretAccess(v string) {
-	o.SecretAccess = &v
 }
 
 // GetPrefix returns the Prefix field value if set, zero value otherwise.
@@ -266,70 +194,6 @@ func (o *SourceS3) SetPrefixes(v []string) {
 	o.Prefixes = v
 }
 
-// GetFormat returns the Format field value if set, zero value otherwise.
-func (o *SourceS3) GetFormat() string {
-	if o == nil || o.Format == nil {
-		var ret string
-		return ret
-	}
-	return *o.Format
-}
-
-// GetFormatOk returns a tuple with the Format field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceS3) GetFormatOk() (*string, bool) {
-	if o == nil || o.Format == nil {
-		return nil, false
-	}
-	return o.Format, true
-}
-
-// HasFormat returns a boolean if a field has been set.
-func (o *SourceS3) HasFormat() bool {
-	if o != nil && o.Format != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFormat gets a reference to the given string and assigns it to the Format field.
-func (o *SourceS3) SetFormat(v string) {
-	o.Format = &v
-}
-
-// GetMappings returns the Mappings field value if set, zero value otherwise.
-func (o *SourceS3) GetMappings() []FieldMask {
-	if o == nil || o.Mappings == nil {
-		var ret []FieldMask
-		return ret
-	}
-	return o.Mappings
-}
-
-// GetMappingsOk returns a tuple with the Mappings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceS3) GetMappingsOk() ([]FieldMask, bool) {
-	if o == nil || o.Mappings == nil {
-		return nil, false
-	}
-	return o.Mappings, true
-}
-
-// HasMappings returns a boolean if a field has been set.
-func (o *SourceS3) HasMappings() bool {
-	if o != nil && o.Mappings != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMappings gets a reference to the given []FieldMask and assigns it to the Mappings field.
-func (o *SourceS3) SetMappings(v []FieldMask) {
-	o.Mappings = v
-}
-
 // GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
 func (o *SourceS3) GetObjectCountDownloaded() int64 {
 	if o == nil || o.ObjectCountDownloaded == nil {
@@ -428,12 +292,6 @@ func (o *SourceS3) SetObjectBytesTotal(v int64) {
 
 func (o SourceS3) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccessKey != nil {
-		toSerialize["access_key"] = o.AccessKey
-	}
-	if o.SecretAccess != nil {
-		toSerialize["secret_access"] = o.SecretAccess
-	}
 	if o.Prefix != nil {
 		toSerialize["prefix"] = o.Prefix
 	}
@@ -448,12 +306,6 @@ func (o SourceS3) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["prefixes"] = o.Prefixes
-	}
-	if o.Format != nil {
-		toSerialize["format"] = o.Format
-	}
-	if o.Mappings != nil {
-		toSerialize["mappings"] = o.Mappings
 	}
 	if o.ObjectCountDownloaded != nil {
 		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded

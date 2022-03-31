@@ -8,14 +8,11 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | text describing the collection | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | list of sources from which to ingest data | [optional] 
 **RetentionSecs** | Pointer to **int64** | number of seconds after which data is purged, based on event time | [optional] 
-**TimePartitionResolutionSecs** | Pointer to **int64** | If non-null, the collection will be time partitioned and each partition will be time_partition_resolution_secs wide. | [optional] 
 **InsertOnly** | Pointer to **bool** | If true disallows updates and deletes, but makes indexing more efficient | [optional] 
 **EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
 **FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | list of mappings | [optional] 
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields | [optional] 
-**FieldSchemas** | Pointer to [**[]FieldSchema**](FieldSchema.md) | list of field schemas | [optional] 
-**InvertedIndexGroupEncodingOptions** | Pointer to [**InvertedIndexGroupEncodingOptions**](InvertedIndexGroupEncodingOptions.md) |  | [optional] 
 
 ## Methods
 
@@ -130,31 +127,6 @@ SetRetentionSecs sets RetentionSecs field to given value.
 `func (o *CreateCollectionRequest) HasRetentionSecs() bool`
 
 HasRetentionSecs returns a boolean if a field has been set.
-
-### GetTimePartitionResolutionSecs
-
-`func (o *CreateCollectionRequest) GetTimePartitionResolutionSecs() int64`
-
-GetTimePartitionResolutionSecs returns the TimePartitionResolutionSecs field if non-nil, zero value otherwise.
-
-### GetTimePartitionResolutionSecsOk
-
-`func (o *CreateCollectionRequest) GetTimePartitionResolutionSecsOk() (*int64, bool)`
-
-GetTimePartitionResolutionSecsOk returns a tuple with the TimePartitionResolutionSecs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTimePartitionResolutionSecs
-
-`func (o *CreateCollectionRequest) SetTimePartitionResolutionSecs(v int64)`
-
-SetTimePartitionResolutionSecs sets TimePartitionResolutionSecs field to given value.
-
-### HasTimePartitionResolutionSecs
-
-`func (o *CreateCollectionRequest) HasTimePartitionResolutionSecs() bool`
-
-HasTimePartitionResolutionSecs returns a boolean if a field has been set.
 
 ### GetInsertOnly
 
@@ -280,56 +252,6 @@ SetClusteringKey sets ClusteringKey field to given value.
 `func (o *CreateCollectionRequest) HasClusteringKey() bool`
 
 HasClusteringKey returns a boolean if a field has been set.
-
-### GetFieldSchemas
-
-`func (o *CreateCollectionRequest) GetFieldSchemas() []FieldSchema`
-
-GetFieldSchemas returns the FieldSchemas field if non-nil, zero value otherwise.
-
-### GetFieldSchemasOk
-
-`func (o *CreateCollectionRequest) GetFieldSchemasOk() (*[]FieldSchema, bool)`
-
-GetFieldSchemasOk returns a tuple with the FieldSchemas field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFieldSchemas
-
-`func (o *CreateCollectionRequest) SetFieldSchemas(v []FieldSchema)`
-
-SetFieldSchemas sets FieldSchemas field to given value.
-
-### HasFieldSchemas
-
-`func (o *CreateCollectionRequest) HasFieldSchemas() bool`
-
-HasFieldSchemas returns a boolean if a field has been set.
-
-### GetInvertedIndexGroupEncodingOptions
-
-`func (o *CreateCollectionRequest) GetInvertedIndexGroupEncodingOptions() InvertedIndexGroupEncodingOptions`
-
-GetInvertedIndexGroupEncodingOptions returns the InvertedIndexGroupEncodingOptions field if non-nil, zero value otherwise.
-
-### GetInvertedIndexGroupEncodingOptionsOk
-
-`func (o *CreateCollectionRequest) GetInvertedIndexGroupEncodingOptionsOk() (*InvertedIndexGroupEncodingOptions, bool)`
-
-GetInvertedIndexGroupEncodingOptionsOk returns a tuple with the InvertedIndexGroupEncodingOptions field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInvertedIndexGroupEncodingOptions
-
-`func (o *CreateCollectionRequest) SetInvertedIndexGroupEncodingOptions(v InvertedIndexGroupEncodingOptions)`
-
-SetInvertedIndexGroupEncodingOptions sets InvertedIndexGroupEncodingOptions field to given value.
-
-### HasInvertedIndexGroupEncodingOptions
-
-`func (o *CreateCollectionRequest) HasInvertedIndexGroupEncodingOptions() bool`
-
-HasInvertedIndexGroupEncodingOptions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

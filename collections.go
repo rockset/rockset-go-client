@@ -226,48 +226,6 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	return resp.GetData(), nil
 }
 
-func (rc *RockClient) CreateRedshiftCollection(ctx context.Context,
-	workspace, name, description, integration, database, schema, tableName string,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
-	var err error
-	var resp *openapi.CreateCollectionResponse
-
-	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
-	createParams.Description = &description
-
-	f := openapi.FormatParams{}
-	format(&f)
-
-	createParams.Sources = []openapi.Source{
-		{
-			IntegrationName: integration,
-			Redshift: &openapi.SourceRedshift{
-				Database:         database,
-				Schema:           schema,
-				TableName:        tableName,
-				IncrementalField: nil, // TODO this is an optional string field
-			},
-			FormatParams: &f,
-		},
-	}
-
-	for _, o := range options {
-		o(createParams)
-	}
-
-	err = rc.Retry(ctx, func() error {
-		resp, _, err = createReq.Body(*createParams).Execute()
-		return err
-	})
-
-	if err != nil {
-		return openapi.Collection{}, err
-	}
-
-	return resp.GetData(), nil
-}
-
 func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	workspace, name, description, integration, region, tableName string, maxRCU int64,
 	format Format, options ...option.CollectionOption) (openapi.Collection, error) {

@@ -8,9 +8,9 @@ Method | HTTP request | Description
 [**DeleteUser**](UsersApi.md#DeleteUser) | **Delete** /v1/orgs/self/users/{user} | Delete User
 [**GetCurrentUser**](UsersApi.md#GetCurrentUser) | **Get** /v1/orgs/self/users/self | Retrieve Current User
 [**GetUser**](UsersApi.md#GetUser) | **Get** /v1/orgs/self/users/{user} | Retrieve User
-[**ListUnsubscribePreferences**](UsersApi.md#ListUnsubscribePreferences) | **Get** /v1/orgs/self/users/self/preferences | Get all notification preferences
+[**ListUnsubscribePreferences**](UsersApi.md#ListUnsubscribePreferences) | **Get** /v1/orgs/self/users/self/preferences | Retrieve Notification Preferences
 [**ListUsers**](UsersApi.md#ListUsers) | **Get** /v1/orgs/self/users | List Users
-[**UpdateUnsubscribePreferences**](UsersApi.md#UpdateUnsubscribePreferences) | **Post** /v1/orgs/self/users/self/preferences | Update notification preferences
+[**UpdateUnsubscribePreferences**](UsersApi.md#UpdateUnsubscribePreferences) | **Post** /v1/orgs/self/users/self/preferences | Update Notification Preferences
 
 
 
@@ -285,7 +285,7 @@ No authorization required
 
 > ListUnsubscribePreferencesResponse ListUnsubscribePreferences(ctx).Execute()
 
-Get all notification preferences
+Retrieve Notification Preferences
 
 
 
@@ -407,7 +407,7 @@ No authorization required
 
 > UpdateUnsubscribePreferencesResponse UpdateUnsubscribePreferences(ctx).Body(body).Execute()
 
-Update notification preferences
+Update Notification Preferences
 
 
 
