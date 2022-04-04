@@ -48,9 +48,7 @@ func (s *HaSuite) TestHA_OK_FirstFastest() {
 
 	res, errs := ha.Query(s.ctx, "SELECT 1")
 	s.Nil(errs, errs)
-	// require.Nil(t, errs)
 	s.Equal("0", *res.QueryId)
-	// assert.Equal(t, "0", *res.QueryId)
 }
 
 func (s *HaSuite) TestHA_OK_SecondFastest() {
@@ -74,7 +72,6 @@ func (s *HaSuite) TestHA_OK_FirstFails() {
 	s.Nil(errs, errs)
 	s.Equal("1", *res.QueryId, "Response Query Id %d != 1", *res.QueryId)
 	s.Assert().Equal("1", *res.QueryId)
-	// assert.Equal(t, "1", *res.QueryId)
 }
 
 func (s *HaSuite) TestHA_Fail_BothFail() {
