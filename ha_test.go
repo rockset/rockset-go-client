@@ -65,14 +65,12 @@ func (s *HaSuite) TestHA_OK_SecondFastest() {
 }
 
 func (s *HaSuite) TestHA_OK_FirstFails() {
-	ctx := testCtx()
-
 	f0 := newFakeQuerier("0", time.Millisecond, errors.New("failed"))
 	f1 := newFakeQuerier("1", 2*time.Millisecond, nil)
 
 	ha := rockset.NewHA(f0, f1)
 
-	res, errs := ha.Query(ctx, "SELECT 1")
+	res, errs := ha.Query(s.ctx, "SELECT 1")
 	s.Nil(errs, errs)
 	s.Equal("1", *res.QueryId, "Response Query Id %d != 1", *res.QueryId)
 	s.Assert().Equal("1", *res.QueryId)
@@ -80,28 +78,24 @@ func (s *HaSuite) TestHA_OK_FirstFails() {
 }
 
 func (s *HaSuite) TestHA_Fail_BothFail() {
-	ctx := testCtx()
-
 	f0 := newFakeQuerier("0", time.Millisecond, errors.New("fail0"))
 	f1 := newFakeQuerier("1", 2*time.Millisecond, errors.New("fail1"))
 
 	ha := rockset.NewHA(f0, f1)
 
-	_, errs := ha.Query(ctx, "SELECT 1")
+	_, errs := ha.Query(s.ctx, "SELECT 1")
 	s.Len(errs, 2)
 	s.Equal("fail0", errs[0].Error())
 	s.Equal("fail1", errs[1].Error())
 }
 
 func (s *HaSuite) TestHA_Fail_ContextCancelled() {
-	ctx := testCtx()
-
 	f0 := newFakeQuerier("0", 10*time.Millisecond, nil)
 	f1 := newFakeQuerier("1", 10*time.Millisecond, nil)
 
 	ha := rockset.NewHA(f0, f1)
 
-	c, cancel := context.WithTimeout(ctx, time.Millisecond)
+	c, cancel := context.WithTimeout(s.ctx, time.Millisecond)
 	defer cancel()
 
 	_, errs := ha.Query(c, "SELECT 1")
