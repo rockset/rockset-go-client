@@ -9,6 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/openapi"
@@ -39,33 +40,31 @@ func TestHA_Integration(t *testing.T) {
 	assert.Equal(t, "commons._events", (res.Collections)[0])
 }
 
-func TestHA_OK_FirstFastest(t *testing.T) {
-	ctx := testCtx()
-
+func (s *HaSuite) TestHA_OK_FirstFastest() {
 	f0 := newFakeQuerier("0", time.Millisecond, nil)
 	f1 := newFakeQuerier("1", 2*time.Millisecond, nil)
 
 	ha := rockset.NewHA(f0, f1)
 
-	res, errs := ha.Query(ctx, "SELECT 1")
-	require.Nil(t, errs)
-	assert.Equal(t, "0", *res.QueryId)
+	res, errs := ha.Query(s.ctx, "SELECT 1")
+	s.Nil(errs, errs)
+	// require.Nil(t, errs)
+	s.Equal("0", *res.QueryId)
+	// assert.Equal(t, "0", *res.QueryId)
 }
 
-func TestHA_OK_SecondFastest(t *testing.T) {
-	ctx := testCtx()
-
+func (s *HaSuite) TestHA_OK_SecondFastest() {
 	f0 := newFakeQuerier("0", 2*time.Millisecond, nil)
 	f1 := newFakeQuerier("1", time.Millisecond, nil)
 
 	ha := rockset.NewHA(f0, f1)
 
-	res, errs := ha.Query(ctx, "SELECT 1")
-	require.Nil(t, errs)
-	assert.Equal(t, "1", *res.QueryId)
+	res, errs := ha.Query(s.ctx, "SELECT 1")
+	s.Nil(errs, errs)
+	s.Equal("1", *res.QueryId, "Query Id %d != 1", *res.QueryId)
 }
 
-func TestHA_OK_FirstFails(t *testing.T) {
+func (s *HaSuite) TestHA_OK_FirstFails() {
 	ctx := testCtx()
 
 	f0 := newFakeQuerier("0", time.Millisecond, errors.New("failed"))
@@ -74,11 +73,13 @@ func TestHA_OK_FirstFails(t *testing.T) {
 	ha := rockset.NewHA(f0, f1)
 
 	res, errs := ha.Query(ctx, "SELECT 1")
-	require.Nil(t, errs)
-	assert.Equal(t, "1", *res.QueryId)
+	s.Nil(errs, errs)
+	s.Equal("1", *res.QueryId, "Response Query Id %d != 1", *res.QueryId)
+	s.Assert().Equal("1", *res.QueryId)
+	// assert.Equal(t, "1", *res.QueryId)
 }
 
-func TestHA_Fail_BothFail(t *testing.T) {
+func (s *HaSuite) TestHA_Fail_BothFail() {
 	ctx := testCtx()
 
 	f0 := newFakeQuerier("0", time.Millisecond, errors.New("fail0"))
@@ -87,12 +88,12 @@ func TestHA_Fail_BothFail(t *testing.T) {
 	ha := rockset.NewHA(f0, f1)
 
 	_, errs := ha.Query(ctx, "SELECT 1")
-	require.Len(t, errs, 2)
-	assert.Equal(t, "fail0", errs[0].Error())
-	assert.Equal(t, "fail1", errs[1].Error())
+	s.Len(errs, 2)
+	s.Equal("fail0", errs[0].Error())
+	s.Equal("fail1", errs[1].Error())
 }
 
-func TestHA_Fail_ContextCancelled(t *testing.T) {
+func (s *HaSuite) TestHA_Fail_ContextCancelled() {
 	ctx := testCtx()
 
 	f0 := newFakeQuerier("0", 10*time.Millisecond, nil)
@@ -104,7 +105,7 @@ func TestHA_Fail_ContextCancelled(t *testing.T) {
 	defer cancel()
 
 	_, errs := ha.Query(c, "SELECT 1")
-	require.Len(t, errs, 1)
+	s.Len(errs, 1)
 }
 
 type fakeQuerier struct {
@@ -134,4 +135,18 @@ func (f *fakeQuerier) Query(ctx context.Context, query string,
 	case <-ctx.Done():
 		return openapi.QueryResponse{}, ctx.Err()
 	}
+}
+
+type HaSuite struct {
+	suite.Suite
+	ctx context.Context
+}
+
+func TestHaSuite(t *testing.T) {
+	s := new(HaSuite)
+	suite.Run(t, s)
+}
+
+func (s *HaSuite) SetupAllSuite() {
+	s.ctx = testCtx()
 }
