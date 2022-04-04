@@ -9,6 +9,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/openapi"
@@ -39,72 +40,56 @@ func TestHA_Integration(t *testing.T) {
 	assert.Equal(t, "commons._events", (res.Collections)[0])
 }
 
-func TestHA_OK_FirstFastest(t *testing.T) {
-	ctx := testCtx()
-
-	f0 := newFakeQuerier("0", time.Millisecond, nil)
-	f1 := newFakeQuerier("1", 2*time.Millisecond, nil)
-
-	ha := rockset.NewHA(f0, f1)
-
-	res, errs := ha.Query(ctx, "SELECT 1")
-	require.Nil(t, errs)
-	assert.Equal(t, "0", *res.QueryId)
+func (s *HaSuite) subFastest(test HaTest) {
+	ha := rockset.NewHA(test.first, test.second)
+	res, errs := ha.Query(s.ctx, "SELECT 1")
+	s.Nil(errs, errs)
+	s.Equal(test.fastID, *res.QueryId, "Response Query Id %d != %d", *res.QueryId, test.fastID)
 }
 
-func TestHA_OK_SecondFastest(t *testing.T) {
-	ctx := testCtx()
+func (s *HaSuite) subFail(test HaTest) {
+	ha := rockset.NewHA(test.first, test.second)
 
-	f0 := newFakeQuerier("0", 2*time.Millisecond, nil)
-	f1 := newFakeQuerier("1", time.Millisecond, nil)
-
-	ha := rockset.NewHA(f0, f1)
-
-	res, errs := ha.Query(ctx, "SELECT 1")
-	require.Nil(t, errs)
-	assert.Equal(t, "1", *res.QueryId)
+	_, errs := ha.Query(s.ctx, "SELECT 1")
+	s.Require().Len(errs, 1)
+	s.Equal(test.failError, errs[0].Error())
 }
 
-func TestHA_OK_FirstFails(t *testing.T) {
-	ctx := testCtx()
+func (s *HaSuite) TestHATable() {
+	for _, test := range s.tests {
+		if test.fastID != "" {
+			s.Run(test.name, func() { s.subFastest(test) })
+		}
 
-	f0 := newFakeQuerier("0", time.Millisecond, errors.New("failed"))
-	f1 := newFakeQuerier("1", 2*time.Millisecond, nil)
-
-	ha := rockset.NewHA(f0, f1)
-
-	res, errs := ha.Query(ctx, "SELECT 1")
-	require.Nil(t, errs)
-	assert.Equal(t, "1", *res.QueryId)
+		if test.failError != "" {
+			s.Run(test.name, func() { s.subFail(test) })
+		}
+	}
 }
 
-func TestHA_Fail_BothFail(t *testing.T) {
-	ctx := testCtx()
-
+func (s *HaSuite) TestHA_Fail_BothFail() {
 	f0 := newFakeQuerier("0", time.Millisecond, errors.New("fail0"))
 	f1 := newFakeQuerier("1", 2*time.Millisecond, errors.New("fail1"))
 
 	ha := rockset.NewHA(f0, f1)
 
-	_, errs := ha.Query(ctx, "SELECT 1")
-	require.Len(t, errs, 2)
-	assert.Equal(t, "fail0", errs[0].Error())
-	assert.Equal(t, "fail1", errs[1].Error())
+	_, errs := ha.Query(s.ctx, "SELECT 1")
+	s.Len(errs, 2)
+	s.Equal("fail0", errs[0].Error())
+	s.Equal("fail1", errs[1].Error())
 }
 
-func TestHA_Fail_ContextCancelled(t *testing.T) {
-	ctx := testCtx()
-
+func (s *HaSuite) TestHA_Fail_ContextCancelled() {
 	f0 := newFakeQuerier("0", 10*time.Millisecond, nil)
 	f1 := newFakeQuerier("1", 10*time.Millisecond, nil)
 
 	ha := rockset.NewHA(f0, f1)
 
-	c, cancel := context.WithTimeout(ctx, time.Millisecond)
+	c, cancel := context.WithTimeout(s.ctx, time.Millisecond)
 	defer cancel()
 
 	_, errs := ha.Query(c, "SELECT 1")
-	require.Len(t, errs, 1)
+	s.Len(errs, 1)
 }
 
 type fakeQuerier struct {
@@ -134,4 +119,39 @@ func (f *fakeQuerier) Query(ctx context.Context, query string,
 	case <-ctx.Done():
 		return openapi.QueryResponse{}, ctx.Err()
 	}
+}
+
+type HaTest struct {
+	name      string
+	first     *fakeQuerier
+	second    *fakeQuerier
+	fastID    string
+	failError string
+}
+
+type HaSuite struct {
+	suite.Suite
+	ctx   context.Context
+	tests []HaTest
+}
+
+func TestHaSuite(t *testing.T) {
+	s := new(HaSuite)
+	suite.Run(t, s)
+}
+
+func (s *HaSuite) SetupSuite() {
+	s.ctx = testCtx()
+
+	fast := newFakeQuerier("0", time.Millisecond, nil)
+	slow := newFakeQuerier("1", 4*time.Millisecond, nil)
+	fail := newFakeQuerier("0", time.Millisecond, errors.New("failed"))
+
+	tests := []HaTest{
+		{name: "FirstFastest", first: fast, second: slow, fastID: *fast.response.QueryId, failError: ""},
+		{name: "SecondFastest", first: slow, second: fast, fastID: *fast.response.QueryId, failError: ""},
+		{name: "FirstFail", first: fail, second: slow, fastID: "", failError: "failed"},
+	}
+
+	s.tests = tests
 }
