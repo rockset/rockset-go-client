@@ -52,6 +52,23 @@ func (s *HASuite) TestContextFail() {
 	s.Len(err, 1)
 }
 
+func (s *HASuite) TestHA() {
+	for _, t := range s.tests {
+		mocks := createMocks(t.queries)
+		ha := rockset.NewHA(mocks...)
+		ctx := testCtx()
+		s.Run(t.name, func() {
+			res, errs := ha.Query(ctx, "SELECT 1")
+			s.Equal(len(t.exErrors), len(errs))
+			if res.QueryId == nil {
+				s.Equal("", t.exID)
+				return
+			}
+			s.Equal(*res.QueryId, t.exID)
+		})
+	}
+}
+
 func createMock(queryID string, delay time.Duration, err error) rockset.Querier {
 	var mQ mockQuerier
 	call := mQ.On("Query", mock.Anything, mock.Anything, mock.Anything)
@@ -71,25 +88,21 @@ func createMocks(queries []query) []rockset.Querier {
 	return mocks
 }
 
-func (s *HASuite) TestHA() {
-	for _, t := range s.tests {
-		mocks := createMocks(t.queries)
-		ha := rockset.NewHA(mocks...)
-		ctx := testCtx()
-		s.Run(t.name, func() {
-			res, errs := ha.Query(ctx, "SELECT 1")
-			s.Equal(len(t.exErrors), len(errs))
-			if res.QueryId == nil {
-				s.Equal("", t.exID)
-				return
-			}
-			s.Equal(*res.QueryId, t.exID)
-		})
-	}
-}
-
 type mockQuerier struct {
 	mock.Mock
+}
+
+type test struct {
+	name     string
+	queries  []query
+	exID     string
+	exErrors []error
+}
+
+type query struct {
+	id    string
+	delay time.Duration
+	err   error
 }
 
 func (m *mockQuerier) Query(ctx context.Context, query string,
@@ -154,17 +167,4 @@ func (s *HASuite) SetupSuite() {
 	}
 
 	s.tests = tests
-}
-
-type test struct {
-	name     string
-	queries  []query
-	exID     string
-	exErrors []error
-}
-
-type query struct {
-	id    string
-	delay time.Duration
-	err   error
 }
