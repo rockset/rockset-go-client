@@ -16,11 +16,11 @@ import (
 )
 
 func (s *HASuite) TestHA_Integration() {
-	skipUnlessIntegrationTest(t)
+	skipUnlessIntegrationTest(s.T())
 	const apikeyName = "ROCKSET_APIKEY_USE1A1" //nolint
 	apikey := os.Getenv(apikeyName)
 	if apikey == "" {
-		t.Skipf("skipping test as %s is not set", apikeyName)
+		s.T().Skipf("skipping test as %s is not set", apikeyName)
 	}
 
 	ctx := testCtx()
@@ -36,7 +36,20 @@ func (s *HASuite) TestHA_Integration() {
 	res, errs := ha.Query(ctx, "SELECT * FROM commons._events LIMIT 10")
 	s.Len(errs, 0)
 
-	assert.Equal(t, "commons._events", (res.Collections)[0])
+	s.Equal("commons._events", (res.Collections)[0])
+}
+
+func (s *HASuite) TestContextFail() {
+	a := createMock("1", time.Second, nil)
+	b := createMock("2", time.Second, nil)
+	ha := rockset.NewHA(a, b)
+
+	ctx := testCtx()
+	c, cancel := context.WithTimeout(ctx, time.Millisecond)
+	defer cancel()
+
+	_, err := ha.Query(c, "SELECT 1")
+	s.Len(err, 1)
 }
 
 func createMock(queryID string, delay time.Duration, err error) rockset.Querier {
@@ -66,6 +79,10 @@ func (s *HASuite) TestHA() {
 		s.Run(t.name, func() {
 			res, errs := ha.Query(ctx, "SELECT 1")
 			s.Equal(len(t.exErrors), len(errs))
+			if res.QueryId == nil {
+				s.Equal("", t.exID)
+				return
+			}
 			s.Equal(*res.QueryId, t.exID)
 		})
 	}
@@ -75,7 +92,8 @@ type mockQuerier struct {
 	mock.Mock
 }
 
-func (m *mockQuerier) Query(ctx context.Context, query string, options ...option.QueryOption) (openapi.QueryResponse, error) {
+func (m *mockQuerier) Query(ctx context.Context, query string,
+	options ...option.QueryOption) (openapi.QueryResponse, error) {
 
 	args := m.Called(ctx, query, options)
 	return args.Get(0).(openapi.QueryResponse), args.Error(1)
@@ -122,6 +140,15 @@ func (s *HASuite) SetupSuite() {
 			queries: []query{
 				{id: "1", delay: time.Millisecond, err: errors.New("fail")},
 				{id: "2", delay: time.Millisecond * 5, err: nil},
+			},
+		},
+		{
+			name:     "BothFail",
+			exID:     "",
+			exErrors: []error{errors.New("fail"), errors.New("fail")},
+			queries: []query{
+				{id: "1", delay: time.Millisecond, err: errors.New("fail")},
+				{id: "2", delay: time.Millisecond * 5, err: errors.New("fail")},
 			},
 		},
 	}
