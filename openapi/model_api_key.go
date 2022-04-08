@@ -24,6 +24,8 @@ type ApiKey struct {
 	Key string `json:"key"`
 	// Date that API key was most recently used (ISO-8601 format).
 	LastAccessTime *string `json:"last_access_time,omitempty"`
+	// Role specifying access control. If not specified, API key will have access to all of the associated user's roles.
+	Role *string `json:"role,omitempty"`
 	// Email of API key owner.
 	CreatedBy *string `json:"created_by,omitempty"`
 	// current state of this key
@@ -161,6 +163,38 @@ func (o *ApiKey) SetLastAccessTime(v string) {
 	o.LastAccessTime = &v
 }
 
+// GetRole returns the Role field value if set, zero value otherwise.
+func (o *ApiKey) GetRole() string {
+	if o == nil || o.Role == nil {
+		var ret string
+		return ret
+	}
+	return *o.Role
+}
+
+// GetRoleOk returns a tuple with the Role field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiKey) GetRoleOk() (*string, bool) {
+	if o == nil || o.Role == nil {
+		return nil, false
+	}
+	return o.Role, true
+}
+
+// HasRole returns a boolean if a field has been set.
+func (o *ApiKey) HasRole() bool {
+	if o != nil && o.Role != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRole gets a reference to the given string and assigns it to the Role field.
+func (o *ApiKey) SetRole(v string) {
+	o.Role = &v
+}
+
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *ApiKey) GetCreatedBy() string {
 	if o == nil || o.CreatedBy == nil {
@@ -238,6 +272,9 @@ func (o ApiKey) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastAccessTime != nil {
 		toSerialize["last_access_time"] = o.LastAccessTime
+	}
+	if o.Role != nil {
+		toSerialize["role"] = o.Role
 	}
 	if o.CreatedBy != nil {
 		toSerialize["created_by"] = o.CreatedBy

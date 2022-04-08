@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateRole**](CustomRolesApi.md#CreateRole) | **Post** /v1/orgs/self/roles | Create a Role
 [**DeleteRole**](CustomRolesApi.md#DeleteRole) | **Delete** /v1/orgs/self/roles/{roleName} | Delete a Role
+[**GetRole**](CustomRolesApi.md#GetRole) | **Get** /v1/orgs/self/roles/{roleName} | Retrieve role
 [**ListRoles**](CustomRolesApi.md#ListRoles) | **Get** /v1/orgs/self/roles | List Roles
 [**UpdateRole**](CustomRolesApi.md#UpdateRole) | **Post** /v1/orgs/self/roles/{roleName} | Update a Role
 
@@ -123,6 +124,76 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteRoleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**RoleResponse**](RoleResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetRole
+
+> RoleResponse GetRole(ctx, roleName).Execute()
+
+Retrieve role
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    roleName := "roleName_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CustomRolesApi.GetRole(context.Background(), roleName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CustomRolesApi.GetRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetRole`: RoleResponse
+    fmt.Fprintf(os.Stdout, "Response from `CustomRolesApi.GetRole`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**roleName** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetRoleRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

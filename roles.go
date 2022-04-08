@@ -2,7 +2,6 @@ package rockset
 
 import (
 	"context"
-
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -94,6 +93,27 @@ func (rc *RockClient) DeleteRole(ctx context.Context, roleName string) error {
 	}
 
 	return nil
+}
+
+// GetRole retrieve a role.
+//
+// REST API documentation https://docs.rockset.com/rest-api/#getrole
+func (rc *RockClient) GetRole(ctx context.Context, roleName string) (openapi.Role, error) {
+	var err error
+	var resp *openapi.RoleResponse
+
+	getReq := rc.CustomRolesApi.GetRole(ctx, roleName)
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = getReq.Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.Role{}, err
+	}
+
+	return resp.GetData(), nil
 }
 
 // ListRoles list all roles.

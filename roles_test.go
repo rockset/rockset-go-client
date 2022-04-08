@@ -3,31 +3,45 @@ package rockset_test
 import (
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 	"testing"
 )
 
-func TestRole_CRUD(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+type RoleTestSuite struct {
+	suite.Suite
+	name string
+	rc   *rockset.RockClient
+}
 
-	name := "foobar"
+func (s *RoleTestSuite) SetupSuite() {
+	skipUnlessIntegrationTest(s.T())
+	s.name = "foobar"
+	rc, err := rockset.NewClient()
+	s.NoError(err)
+	s.rc = rc
+}
+
+func (s *RoleTestSuite) TearDownSuite() {
+	ctx := testCtx()
+	_ = s.rc.DeleteRole(ctx, s.name)
+}
+
+func TestRoleTestSuite(t *testing.T) {
+	suite.Run(t, &RoleTestSuite{})
+}
+
+func (s *RoleTestSuite) TestCRUD() {
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	role, err := s.rc.CreateRole(ctx, s.name, option.WithRoleDescription("custom role"))
+	s.NoError(err)
 
-	role, err := rc.CreateRole(ctx, name, option.WithRoleDescription("custom role"))
-	require.NoError(t, err)
+	r, err := s.rc.GetRole(ctx, s.name)
+	s.NoError(err)
+	s.Equal(r.GetRoleName(), role.GetRoleName())
 
-	// delete in defer, so we clean up in case of error
-	defer func() {
-		err := rc.DeleteRole(ctx, name)
-		assert.NoError(t, err)
-	}()
-
-	roles, err := rc.ListRoles(ctx)
-	require.NoError(t, err)
+	roles, err := s.rc.ListRoles(ctx)
+	s.NoError(err)
 
 	var found bool
 	for _, r := range roles {
@@ -35,13 +49,16 @@ func TestRole_CRUD(t *testing.T) {
 			found = true
 		}
 	}
-	assert.True(t, found)
+	s.True(found)
 
-	role, err = rc.UpdateRole(ctx, name,
+	role, err = s.rc.UpdateRole(ctx, s.name,
 		option.WithGlobalPrivilege(option.ListRolesGlobal),
 		option.WithIntegrationPrivilege(option.CreateCollectionIntegration, "test"),
-		option.WithWorkspacePrivilege(option.QueryData, "ws"),
-		option.WithWorkspacePrivilege(option.CreateView, "ws", option.WithCluster("rs2")),
+		option.WithWorkspacePrivilege(option.QueryDataWs, "ws"),
+		option.WithWorkspacePrivilege(option.CreateViewWs, "ws", option.WithCluster("rs2")),
 	)
-	require.NoError(t, err)
+	s.NoError(err)
+
+	err = s.rc.DeleteRole(ctx, s.name)
+	s.NoError(err)
 }
