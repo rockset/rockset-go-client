@@ -25,6 +25,11 @@ func GetGlobalAction(action string) GlobalAction {
 	return UnknownGlobalAction
 }
 
+// IsGlobalAction returns true if action is a GlobalAction
+func IsGlobalAction(action string) bool {
+	return GetGlobalAction(action) != UnknownGlobalAction
+}
+
 const (
 	UnknownGlobalAction GlobalAction = iota
 	AllGlobalActions
@@ -92,6 +97,11 @@ func GetIntegrationAction(action string) IntegrationAction {
 	return UnknownIntegrationAction
 }
 
+// IsIntegrationAction returns true if action is am IntegrationAction
+func IsIntegrationAction(action string) bool {
+	return GetIntegrationAction(action) != UnknownIntegrationAction
+}
+
 // String returns the string representation used for the REST API call
 func (a IntegrationAction) String() string {
 	for k, v := range integrationActions {
@@ -123,6 +133,11 @@ func GetWorkspaceAction(action string) WorkspaceAction {
 	}
 
 	return UnknownWorkspaceAction
+}
+
+// IsWorkspaceAction returns true if action is am WorkspaceAction
+func IsWorkspaceAction(action string) bool {
+	return GetWorkspaceAction(action) != UnknownWorkspaceAction
 }
 
 // String returns the string representation used for the REST API call
