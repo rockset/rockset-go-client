@@ -20,7 +20,7 @@ type FieldPartition struct {
 	FieldName *string `json:"field_name,omitempty"`
 	// The type of partitions on a field
 	Type *string `json:"type,omitempty"`
-	// The values for partitioning of a field
+	// The values for partitioning of a field. Unneeded if the partition type is AUTO.
 	Keys []string `json:"keys,omitempty"`
 }
 

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name | [optional] 
 **Type** | Pointer to **string** | The type of partitions on a field | [optional] 
-**Keys** | Pointer to **[]string** | The values for partitioning of a field | [optional] 
+**Keys** | Pointer to **[]string** | The values for partitioning of a field. Unneeded if the partition type is AUTO. | [optional] 
 
 ## Methods
 
