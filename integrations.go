@@ -51,6 +51,27 @@ func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error 
 	return err
 }
 
+func (rc *RockClient) CreateAzureBlobStorageIntegration(ctx context.Context, name string,
+	connection string) (openapi.Integration, error) {
+	var err error
+	var resp *openapi.CreateIntegrationResponse
+	q := rc.IntegrationsApi.CreateIntegration(ctx)
+	req := openapi.NewCreateIntegrationRequest(name)
+
+	req.AzureBlobStorage = &openapi.AzureBlobStorageIntegration{}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.Integration{}, err
+	}
+
+	return resp.GetData(), nil
+}
+
 func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.S3IntegrationOption) (openapi.Integration, error) {
 	var err error
