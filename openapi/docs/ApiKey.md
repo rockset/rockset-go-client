@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Name of the API key. | 
 **Key** | **string** | API key string of 64 alphanumeric characters. | 
 **LastAccessTime** | Pointer to **string** | Date that API key was most recently used (ISO-8601 format). | [optional] 
+**Role** | Pointer to **string** | Role specifying access control. If not specified, API key will have access to all of the associated user&#39;s roles. | [optional] 
 **CreatedBy** | Pointer to **string** | Email of API key owner. | [optional] 
 **State** | Pointer to **string** | current state of this key | [optional] 
 
@@ -119,6 +120,31 @@ SetLastAccessTime sets LastAccessTime field to given value.
 `func (o *ApiKey) HasLastAccessTime() bool`
 
 HasLastAccessTime returns a boolean if a field has been set.
+
+### GetRole
+
+`func (o *ApiKey) GetRole() string`
+
+GetRole returns the Role field if non-nil, zero value otherwise.
+
+### GetRoleOk
+
+`func (o *ApiKey) GetRoleOk() (*string, bool)`
+
+GetRoleOk returns a tuple with the Role field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRole
+
+`func (o *ApiKey) SetRole(v string)`
+
+SetRole sets Role field to given value.
+
+### HasRole
+
+`func (o *ApiKey) HasRole() bool`
+
+HasRole returns a boolean if a field has been set.
 
 ### GetCreatedBy
 

@@ -996,7 +996,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ListRolesResponse'
-          description: roles retrived successfully
+          description: roles retrieved successfully
         "400":
           content:
             application/json:
@@ -1273,6 +1273,103 @@ paths:
                 $ref: '#/components/schemas/ErrorModel'
           description: not ready
       summary: Delete a Role
+      tags:
+      - Custom Roles
+    get:
+      description: Retrieve a role by name for your organization.
+      operationId: getRole
+      parameters:
+      - in: path
+        name: roleName
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleResponse'
+          description: role retrieved successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Retrieve role
       tags:
       - Custom Roles
     post:
@@ -6340,6 +6437,7 @@ components:
       description: API keys are used to authenticate requests to Rockset's API. An
         API key is tied to the user who creates it.
       example:
+        role: read-only
         name: my-key
         created_at: 2001-08-28T00:23:41Z
         state: ACTIVE
@@ -6362,6 +6460,11 @@ components:
         last_access_time:
           description: Date that API key was most recently used (ISO-8601 format).
           example: 2001-08-28T00:23:41Z
+          type: string
+        role:
+          description: Role specifying access control. If not specified, API key will
+            have access to all of the associated user's roles.
+          example: read-only
           type: string
         created_by:
           description: Email of API key owner.
@@ -6754,45 +6857,43 @@ components:
         created_at: 2001-08-28T00:23:41Z
         description: transactions from stores worldwide
         clustering_key:
-        - keys: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
+        - keys: '["value1", "value2"]'
           type: AUTO
           field_name: address.city.zipcode
-        - keys: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
+        - keys: '["value1", "value2"]'
           type: AUTO
           field_name: address.city.zipcode
         created_by: hello@rockset.com
         field_mappings:
         - output_field:
-            on_error: '[''SKIP'', ''FAIL'']'
+            on_error: SKIP
             value:
               sql: SHA256()
             field_name: zip_hash
           name: myTestMapping
           input_fields:
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           is_drop_all_fields: true
         - output_field:
-            on_error: '[''SKIP'', ''FAIL'']'
+            on_error: SKIP
             value:
               sql: SHA256()
             field_name: zip_hash
           name: myTestMapping
           input_fields:
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           is_drop_all_fields: true
@@ -7045,6 +7146,7 @@ components:
     CreateApiKeyResponse:
       example:
         data:
+          role: read-only
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -7059,34 +7161,34 @@ components:
       example:
         field_mappings:
         - output_field:
-            on_error: '[''SKIP'', ''FAIL'']'
+            on_error: SKIP
             value:
               sql: SHA256()
             field_name: zip_hash
           name: myTestMapping
           input_fields:
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           is_drop_all_fields: true
         - output_field:
-            on_error: '[''SKIP'', ''FAIL'']'
+            on_error: SKIP
             value:
               sql: SHA256()
             field_name: zip_hash
           name: myTestMapping
           input_fields:
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           - is_drop: true
-            if_missing: '[''SKIP'', ''PASS'']'
+            if_missing: SKIP
             param: zip
             field_name: address.city.zipcode
           is_drop_all_fields: true
@@ -7364,12 +7466,10 @@ components:
         name: global-transactions
         description: transactions from stores worldwide
         clustering_key:
-        - keys: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
+        - keys: '["value1", "value2"]'
           type: AUTO
           field_name: address.city.zipcode
-        - keys: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
+        - keys: '["value1", "value2"]'
           type: AUTO
           field_name: address.city.zipcode
       properties:
@@ -7704,45 +7804,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -7786,7 +7884,7 @@ components:
         segment:
           connection_string: connection_string
         kafka:
-          source_status_by_topic: topic-a:DORMANT
+          source_status_by_topic: '{"topic-a": "DORMANT"}'
           kafka_topic_names:
           - kafka_topic_names
           - kafka_topic_names
@@ -8163,45 +8261,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -8512,45 +8608,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -8580,7 +8674,7 @@ components:
           segment:
             connection_string: connection_string
           kafka:
-            source_status_by_topic: topic-a:DORMANT
+            source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -8846,6 +8940,7 @@ components:
     DeleteApiKeyResponse:
       example:
         data:
+          role: read-only
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -9146,45 +9241,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -9588,45 +9681,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -9937,45 +10028,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -10005,7 +10094,7 @@ components:
           segment:
             connection_string: connection_string
           kafka:
-            source_status_by_topic: topic-a:DORMANT
+            source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -10298,18 +10387,18 @@ components:
     FieldMappingV2:
       example:
         output_field:
-          on_error: '[''SKIP'', ''FAIL'']'
+          on_error: SKIP
           value:
             sql: SHA256()
           field_name: zip_hash
         name: myTestMapping
         input_fields:
         - is_drop: true
-          if_missing: '[''SKIP'', ''PASS'']'
+          if_missing: SKIP
           param: zip
           field_name: address.city.zipcode
         - is_drop: true
-          if_missing: '[''SKIP'', ''PASS'']'
+          if_missing: SKIP
           param: zip
           field_name: address.city.zipcode
         is_drop_all_fields: true
@@ -10333,8 +10422,7 @@ components:
       type: object
     FieldPartition:
       example:
-        keys: Values of a record to partition on. This is not needed if the partition
-          type is AUTO
+        keys: '["value1", "value2"]'
         type: AUTO
         field_name: address.city.zipcode
       properties:
@@ -10349,9 +10437,9 @@ components:
           example: AUTO
           type: string
         keys:
-          description: The values for partitioning of a field
-          example: Values of a record to partition on. This is not needed if the partition
-            type is AUTO
+          description: The values for partitioning of a field. Unneeded if the partition
+            type is AUTO.
+          example: '["value1", "value2"]'
           items:
             type: string
           type: array
@@ -10431,6 +10519,7 @@ components:
     GetApiKeyResponse:
       example:
         data:
+          role: read-only
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -10731,45 +10820,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -11114,45 +11201,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -11463,45 +11548,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -11531,7 +11614,7 @@ components:
           segment:
             connection_string: connection_string
           kafka:
-            source_status_by_topic: topic-a:DORMANT
+            source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -11602,7 +11685,7 @@ components:
     InputField:
       example:
         is_drop: true
-        if_missing: '[''SKIP'', ''PASS'']'
+        if_missing: SKIP
         param: zip
         field_name: address.city.zipcode
       properties:
@@ -11615,7 +11698,7 @@ components:
           enum:
           - SKIP
           - PASS
-          example: '[''SKIP'', ''PASS'']'
+          example: SKIP
           type: string
         is_drop:
           description: If true, then drop fieldName from the document
@@ -11944,45 +12027,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -12293,45 +12374,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -12361,7 +12440,7 @@ components:
         segment:
           connection_string: connection_string
         kafka:
-          source_status_by_topic: topic-a:DORMANT
+          source_status_by_topic: '{"topic-a": "DORMANT"}'
           kafka_topic_names:
           - kafka_topic_names
           - kafka_topic_names
@@ -12425,7 +12504,7 @@ components:
       type: object
     KafkaIntegration:
       example:
-        source_status_by_topic: topic-a:DORMANT
+        source_status_by_topic: '{"topic-a": "DORMANT"}'
         kafka_topic_names:
         - kafka_topic_names
         - kafka_topic_names
@@ -12447,7 +12526,7 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/StatusKafka'
           description: The status of the Kafka source by topic
-          example: topic-a:DORMANT
+          example: '{"topic-a": "DORMANT"}'
           readOnly: true
           type: object
         kafka_data_format:
@@ -12520,13 +12599,15 @@ components:
     ListApiKeysResponse:
       example:
         data:
-        - name: my-key
+        - role: read-only
+          name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           created_by: test@example.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
-        - name: my-key
+        - role: read-only
+          name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           created_by: test@example.com
@@ -12829,45 +12910,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -13178,45 +13257,43 @@ components:
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
           clustering_key:
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
-          - keys: Values of a record to partition on. This is not needed if the partition
-              type is AUTO
+          - keys: '["value1", "value2"]'
             type: AUTO
             field_name: address.city.zipcode
           created_by: hello@rockset.com
           field_mappings:
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
           - output_field:
-              on_error: '[''SKIP'', ''FAIL'']'
+              on_error: SKIP
               value:
                 sql: SHA256()
               field_name: zip_hash
             name: myTestMapping
             input_fields:
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             - is_drop: true
-              if_missing: '[''SKIP'', ''PASS'']'
+              if_missing: SKIP
               param: zip
               field_name: address.city.zipcode
             is_drop_all_fields: true
@@ -13564,45 +13641,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -13913,45 +13988,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -13981,7 +14054,7 @@ components:
           segment:
             connection_string: connection_string
           kafka:
-            source_status_by_topic: topic-a:DORMANT
+            source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -14311,45 +14384,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -14660,45 +14731,43 @@ components:
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
             clustering_key:
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
-            - keys: Values of a record to partition on. This is not needed if the
-                partition type is AUTO
+            - keys: '["value1", "value2"]'
               type: AUTO
               field_name: address.city.zipcode
             created_by: hello@rockset.com
             field_mappings:
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
             - output_field:
-                on_error: '[''SKIP'', ''FAIL'']'
+                on_error: SKIP
                 value:
                   sql: SHA256()
                 field_name: zip_hash
               name: myTestMapping
               input_fields:
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               - is_drop: true
-                if_missing: '[''SKIP'', ''PASS'']'
+                if_missing: SKIP
                 param: zip
                 field_name: address.city.zipcode
               is_drop_all_fields: true
@@ -14728,7 +14797,7 @@ components:
           segment:
             connection_string: connection_string
           kafka:
-            source_status_by_topic: topic-a:DORMANT
+            source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -15166,7 +15235,7 @@ components:
       type: object
     OutputField:
       example:
-        on_error: '[''SKIP'', ''FAIL'']'
+        on_error: SKIP
         value:
           sql: SHA256()
         field_name: zip_hash
@@ -15182,7 +15251,7 @@ components:
           enum:
           - SKIP
           - FAIL
-          example: '[''SKIP'', ''FAIL'']'
+          example: SKIP
           type: string
       type: object
     PaginationInfo:
@@ -16884,6 +16953,7 @@ components:
     UpdateApiKeyResponse:
       example:
         data:
+          role: read-only
           name: my-key
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
