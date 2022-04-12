@@ -58,7 +58,9 @@ func (rc *RockClient) CreateAzureBlobStorageIntegration(ctx context.Context, nam
 	q := rc.IntegrationsApi.CreateIntegration(ctx)
 	req := openapi.NewCreateIntegrationRequest(name)
 
-	req.AzureBlobStorage = &openapi.AzureBlobStorageIntegration{}
+	req.AzureBlobStorage = &openapi.AzureBlobStorageIntegration{
+		ConnectionString: connection,
+	}
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = q.Body(*req).Execute()
