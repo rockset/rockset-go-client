@@ -148,9 +148,10 @@ func (s *HaSuite) SetupSuite() {
 	fail := newFakeQuerier("0", time.Millisecond, errors.New("failed"))
 
 	tests := []HaTest{
-		{name: "FirstFastest", first: fast, second: slow, fastID: *fast.response.QueryId, failError: ""},
-		{name: "SecondFastest", first: slow, second: fast, fastID: *fast.response.QueryId, failError: ""},
-		{name: "FirstFail", first: fail, second: slow, fastID: "", failError: "failed"},
+		{name: "FirstFastest", first: fast, second: slow, fastID: *fast.response.QueryId},
+		{name: "SecondFastest", first: slow, second: fast, fastID: *fast.response.QueryId},
+		{name: "FirstFail", first: fail, second: slow, fastID: *slow.response.QueryId},
+		{name: "BothFail", first: fail, second: fail, failError: ""},
 	}
 
 	s.tests = tests

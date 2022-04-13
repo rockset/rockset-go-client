@@ -1,11 +1,13 @@
 package rockset_test
 
 import (
-	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/option"
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"testing"
+
+	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 func TestAPIKey(t *testing.T) {
@@ -18,10 +20,10 @@ func TestAPIKey(t *testing.T) {
 	const keyName = "admin"
 	const roleName = "admin"
 
-	key, err := rc.CreateAPIKey(ctx, keyName, option.WithRole(roleName))
+	_, err = rc.CreateAPIKey(ctx, keyName, option.WithRole(roleName))
 	require.NoError(t, err)
 
-	key, err = rc.GetAPIKey(ctx, keyName)
+	key, err := rc.GetAPIKey(ctx, keyName)
 	require.NoError(t, err)
 	assert.Equal(t, roleName, key.GetRole())
 
