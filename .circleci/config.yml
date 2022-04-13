@@ -1,12 +1,33 @@
-version: 2
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - test
+      - release:
+          # Only run this job on git tag pushes
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*(-.*)*/
 jobs:
-  build:
+  test:
     docker:
       - image: cimg/go:1.18
     steps:
       - checkout
       - run: go mod download
       - run: go vet ./...
-      - run: go test -v -cover -race -coverprofile=/tmp/coverage.out
+      - run: go test -v -cover -race -coverprofile=cover.out
       - run: go install github.com/mattn/goveralls@latest
-      - run: $HOME/go/bin/goveralls -coverprofile=/tmp/coverage.out -service=circle-ci
+      - run: goveralls -coverprofile=cover.out -service=circle-ci
+  release:
+    docker:
+      - image: cimg/go:1.18
+    steps:
+      - checkout
+      - run: go mod download
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            curl -sL https://git.io/goreleaser | bash
