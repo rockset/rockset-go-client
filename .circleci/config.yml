@@ -2,10 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.16
+      - image: cimg/go:1.18
     working_directory: /go/src/github.com/rockset/rockset-go-client
     steps:
       - checkout
-      - run: echo "replace github.com/rockset/rockset-go-client/openapi => ./openapi" >> go.mod
       - run: go mod download
       - run: go vet ./...
+      - run: go test -v -cover -race -coverprofile=/tmp/coverage.out
+      - run: go install github.com/mattn/goveralls@latest
+      - run: $HOME/go/bin/goveralls -coverprofile=/tmp/coverage.out -service=circle-ci
