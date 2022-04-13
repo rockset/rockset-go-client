@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: cimg/go:1.18
-    working_directory: /go/src/github.com/rockset/rockset-go-client
     steps:
       - checkout
       - run: go mod download
