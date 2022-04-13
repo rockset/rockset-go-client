@@ -19,7 +19,6 @@ linters:
     - deadcode
     - depguard
     - dogsled
-    - dupl
     - errcheck
     - exportloopref
     - exhaustive
@@ -27,7 +26,6 @@ linters:
     - gochecknoinits
     - gci
     - goconst
-    - gocritic
     - gocyclo
     - gofmt
     - goimports

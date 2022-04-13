@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -9,7 +10,8 @@ import (
 // CreateRole creates a new role
 //
 // REST API documentation https://docs.rockset.com/rest-api/#createrole
-func (rc *RockClient) CreateRole(ctx context.Context, roleName string, options ...option.RoleOption) (openapi.Role, error) {
+func (rc *RockClient) CreateRole(ctx context.Context, roleName string,
+	options ...option.RoleOption) (openapi.Role, error) {
 	var err error
 	var resp *openapi.RoleResponse
 
@@ -44,7 +46,8 @@ func (rc *RockClient) CreateRole(ctx context.Context, roleName string, options .
 // UpdateRole updates a role.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#updaterole
-func (rc *RockClient) UpdateRole(ctx context.Context, roleName string, options ...option.RoleOption) (openapi.Role, error) {
+func (rc *RockClient) UpdateRole(ctx context.Context, roleName string,
+	options ...option.RoleOption) (openapi.Role, error) {
 	var err error
 	var resp *openapi.RoleResponse
 

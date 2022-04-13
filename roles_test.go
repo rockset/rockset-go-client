@@ -1,10 +1,12 @@
 package rockset_test
 
 import (
+	"testing"
+
+	"github.com/stretchr/testify/suite"
+
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/suite"
-	"testing"
 )
 
 type RoleTestSuite struct {

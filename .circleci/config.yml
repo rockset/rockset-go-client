@@ -2,9 +2,17 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - check
-      - test
+      - validation
+      - test:
+          requires:
+            - validation
+          # Skip tests on tag pushes as they have already run
+          filters:
+            tags:
+              ignore: /v[0-9]+(\.[0-9]+)*(-.*)*/
       - release:
+          requires:
+            - validation
           # Only run this job on git tag pushes
           filters:
             branches:
@@ -12,7 +20,7 @@ workflows:
             tags:
               only: /v[0-9]+(\.[0-9]+)*(-.*)*/
 jobs:
-  check:
+  validation:
     docker:
       - image: cimg/go:1.18
     steps:
