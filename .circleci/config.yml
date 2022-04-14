@@ -1,11 +1,50 @@
-version: 2
+version: 2.1
+workflows:
+  main:
+    jobs:
+      - validation
+      - test:
+          requires:
+            - validation
+          # Skip tests on tag pushes as they have already run
+          filters:
+            tags:
+              ignore: /v[0-9]+(\.[0-9]+)*(-.*)*/
+      - release:
+          requires:
+            - validation
+          # Only run this job on git tag pushes
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*(-.*)*/
 jobs:
-  build:
+  validation:
     docker:
-      - image: circleci/golang:1.16
-    working_directory: /go/src/github.com/rockset/rockset-go-client
+      - image: cimg/go:1.18
     steps:
       - checkout
-      - run: echo "replace github.com/rockset/rockset-go-client/openapi => ./openapi" >> go.mod
-      - run: go mod download
+      - run: go generate ./...
+      - run: git diff --exit-code
+      - run: go mod tidy
+      - run: git diff --exit-code
       - run: go vet ./...
+  test:
+    docker:
+      - image: cimg/go:1.18
+    steps:
+      - checkout
+      - run: go install github.com/mattn/goveralls@latest
+      - run: go test -v -cover -race -coverprofile=cover.out
+      - run: goveralls -coverprofile=cover.out -service=circle-ci
+  release:
+    docker:
+      - image: cimg/go:1.18
+    steps:
+      - checkout
+      - run: go mod download
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            curl -sL https://git.io/goreleaser | bash
