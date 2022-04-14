@@ -7,8 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -16,142 +15,155 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-func TestHA_Integration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+func (s *HASuite) TestHA_Integration() {
+	skipUnlessIntegrationTest(s.T())
 	const apikeyName = "ROCKSET_APIKEY_USE1A1" //nolint
 	apikey := os.Getenv(apikeyName)
 	if apikey == "" {
-		t.Skipf("skipping test as %s is not set", apikeyName)
+		s.T().Skipf("skipping test as %s is not set", apikeyName)
 	}
 
 	ctx := testCtx()
 
 	use1a1, err := rockset.NewClient(rockset.WithAPIServer("https://api.use1a1.rockset.com"),
 		rockset.WithAPIKey(apikey))
-	require.NoError(t, err)
+	s.NoError(err)
 
 	rs2, err := rockset.NewClient()
-	require.NoError(t, err)
+	s.NoError(err)
 
 	ha := rockset.NewHA(use1a1, rs2)
 	res, errs := ha.Query(ctx, "SELECT * FROM commons._events LIMIT 10")
-	assert.Len(t, errs, 0)
+	s.Len(errs, 0)
 
-	assert.Equal(t, "commons._events", (res.Collections)[0])
+	s.Equal("commons._events", (res.Collections)[0])
 }
 
-func (s *HaSuite) subFastest(test HaTest) {
-	ha := rockset.NewHA(test.first, test.second)
-	res, errs := ha.Query(s.ctx, "SELECT 1")
-	s.Nil(errs, errs)
-	s.Equal(test.fastID, *res.QueryId, "Response Query Id %d != %d", *res.QueryId, test.fastID)
-}
+func (s *HASuite) TestContextFail() {
+	a := createMock("1", time.Second, nil)
+	b := createMock("2", time.Second, nil)
+	ha := rockset.NewHA(a, b)
 
-func (s *HaSuite) subFail(test HaTest) {
-	ha := rockset.NewHA(test.first, test.second)
-
-	_, errs := ha.Query(s.ctx, "SELECT 1")
-	s.Require().Len(errs, 1)
-	s.Equal(test.failError, errs[0].Error())
-}
-
-func (s *HaSuite) TestHATable() {
-	for _, test := range s.tests {
-		if test.fastID != "" {
-			s.Run(test.name, func() { s.subFastest(test) })
-		}
-
-		if test.failError != "" {
-			s.Run(test.name, func() { s.subFail(test) })
-		}
-	}
-}
-
-func (s *HaSuite) TestHA_Fail_BothFail() {
-	f0 := newFakeQuerier("0", time.Millisecond, errors.New("fail0"))
-	f1 := newFakeQuerier("1", 2*time.Millisecond, errors.New("fail1"))
-
-	ha := rockset.NewHA(f0, f1)
-
-	_, errs := ha.Query(s.ctx, "SELECT 1")
-	s.Len(errs, 2)
-	s.Equal("fail0", errs[0].Error())
-	s.Equal("fail1", errs[1].Error())
-}
-
-func (s *HaSuite) TestHA_Fail_ContextCancelled() {
-	f0 := newFakeQuerier("0", 10*time.Millisecond, nil)
-	f1 := newFakeQuerier("1", 10*time.Millisecond, nil)
-
-	ha := rockset.NewHA(f0, f1)
-
-	c, cancel := context.WithTimeout(s.ctx, time.Millisecond)
+	ctx := testCtx()
+	c, cancel := context.WithTimeout(ctx, time.Millisecond)
 	defer cancel()
 
-	_, errs := ha.Query(c, "SELECT 1")
-	s.Len(errs, 1)
+	_, err := ha.Query(c, "SELECT 1")
+	s.Len(err, 1)
 }
 
-type fakeQuerier struct {
-	delay    time.Duration
-	err      error
-	response openapi.QueryResponse
-}
-
-func newFakeQuerier(qid string, delay time.Duration, err error) *fakeQuerier {
-	return &fakeQuerier{
-		delay: delay,
-		err:   err,
-		response: openapi.QueryResponse{
-			QueryId: &qid,
-		},
+func (s *HASuite) TestHA() {
+	for _, t := range s.tests {
+		mocks := createMocks(t.queries)
+		ha := rockset.NewHA(mocks...)
+		ctx := testCtx()
+		s.Run(t.name, func() {
+			res, errs := ha.Query(ctx, "SELECT 1")
+			s.Equal(len(t.exErrors), len(errs))
+			if res.QueryId == nil {
+				s.Equal("", t.exID)
+				return
+			}
+			s.Equal(*res.QueryId, t.exID)
+		})
 	}
 }
 
-func (f *fakeQuerier) Query(ctx context.Context, query string,
+func createMock(queryID string, delay time.Duration, err error) rockset.Querier {
+	var mQ mockQuerier
+	call := mQ.On("Query", mock.Anything, mock.Anything, mock.Anything)
+	call.After(delay)
+	call.Return(openapi.QueryResponse{
+		QueryId: &queryID,
+	}, err)
+
+	return &mQ
+}
+
+func createMocks(queries []query) []rockset.Querier {
+	mocks := []rockset.Querier{}
+	for _, q := range queries {
+		mocks = append(mocks, createMock(q.id, q.delay, q.err))
+	}
+	return mocks
+}
+
+type mockQuerier struct {
+	mock.Mock
+}
+
+type test struct {
+	name     string
+	queries  []query
+	exID     string
+	exErrors []error
+}
+
+type query struct {
+	id    string
+	delay time.Duration
+	err   error
+}
+
+func (m *mockQuerier) Query(ctx context.Context, query string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
-	select {
-	case <-time.After(f.delay):
-		if f.err != nil {
-			return openapi.QueryResponse{}, f.err
-		}
-		return f.response, nil
-	case <-ctx.Done():
-		return openapi.QueryResponse{}, ctx.Err()
-	}
+
+	args := m.Called(ctx, query, options)
+	return args.Get(0).(openapi.QueryResponse), args.Error(1)
 }
 
-type HaTest struct {
-	name      string
-	first     *fakeQuerier
-	second    *fakeQuerier
-	fastID    string
-	failError string
-}
-
-type HaSuite struct {
+type HASuite struct {
 	suite.Suite
-	ctx   context.Context
-	tests []HaTest
+	tests []test
 }
 
 func TestHaSuite(t *testing.T) {
-	s := new(HaSuite)
+	s := new(HASuite)
 	suite.Run(t, s)
 }
 
-func (s *HaSuite) SetupSuite() {
-	s.ctx = testCtx()
+func (s *HASuite) SetupTest() {
 
-	fast := newFakeQuerier("0", time.Millisecond, nil)
-	slow := newFakeQuerier("1", 4*time.Millisecond, nil)
-	fail := newFakeQuerier("0", time.Millisecond, errors.New("failed"))
+}
 
-	tests := []HaTest{
-		{name: "FirstFastest", first: fast, second: slow, fastID: *fast.response.QueryId},
-		{name: "SecondFastest", first: slow, second: fast, fastID: *fast.response.QueryId},
-		{name: "FirstFail", first: fail, second: slow, fastID: *slow.response.QueryId},
-		{name: "BothFail", first: fail, second: fail, failError: ""},
+func (s *HASuite) SetupSuite() {
+	tests := []test{
+		{
+			name:     "FirstFastest",
+			exID:     "1",
+			exErrors: []error{},
+			queries: []query{
+				{id: "1", delay: time.Millisecond, err: nil},
+				{id: "2", delay: time.Millisecond * 5, err: nil},
+			},
+		},
+		{
+			name:     "SecondFastest",
+			exID:     "2",
+			exErrors: []error{},
+			queries: []query{
+				{id: "1", delay: time.Millisecond * 5, err: nil},
+				{id: "2", delay: time.Millisecond, err: nil},
+			},
+		},
+		{
+			name:     "FirstFail",
+			exID:     "2",
+			exErrors: []error{},
+			queries: []query{
+				{id: "1", delay: time.Millisecond, err: errors.New("fail")},
+				{id: "2", delay: time.Millisecond * 5, err: nil},
+			},
+		},
+		{
+			name:     "BothFail",
+			exID:     "",
+			exErrors: []error{errors.New("fail"), errors.New("fail")},
+			queries: []query{
+				{id: "1", delay: time.Millisecond, err: errors.New("fail")},
+				{id: "2", delay: time.Millisecond * 5, err: errors.New("fail")},
+			},
+		},
 	}
 
 	s.tests = tests
