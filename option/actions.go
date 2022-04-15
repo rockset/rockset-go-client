@@ -3,6 +3,8 @@ package option
 // TODO: this should be done use go:generate instead
 // https://pkg.go.dev/golang.org/x/tools/cmd/stringer
 
+const unknown = "unknown"
+
 // GlobalAction is the type for RBAC actions that operate on global resources.
 type GlobalAction int
 
@@ -13,7 +15,7 @@ func (a GlobalAction) String() string {
 			return k
 		}
 	}
-	return "unknown"
+	return unknown
 }
 
 // GetGlobalAction returns the corresponding GlobalAction
@@ -50,7 +52,7 @@ const (
 	DeleteIntegrationGlobal
 	ListIntegrationsGlobal
 	UpdateResourceOwnerGlobal
-	CreateApiKeyGlobal
+	CreateAPIKeyGlobal
 	CreateRoleGlobal
 	UpdateRoleGlobal
 	DeleteRoleGlobal
@@ -77,7 +79,7 @@ var globalActions = map[string]GlobalAction{
 	"DELETE_INTEGRATION_GLOBAL":    DeleteIntegrationGlobal,
 	"LIST_INTEGRATIONS_GLOBAL":     ListIntegrationsGlobal,
 	"UPDATE_RESOURCE_OWNER_GLOBAL": UpdateResourceOwnerGlobal,
-	"CREATE_API_KEY_GLOBAL":        CreateApiKeyGlobal,
+	"CREATE_API_KEY_GLOBAL":        CreateAPIKeyGlobal,
 	"CREATE_ROLE_GLOBAL":           CreateRoleGlobal,
 	"UPDATE_ROLE_GLOBAL":           UpdateRoleGlobal,
 	"DELETE_ROLE_GLOBAL":           DeleteRoleGlobal,
@@ -109,7 +111,7 @@ func (a IntegrationAction) String() string {
 			return k
 		}
 	}
-	return "unknown"
+	return unknown
 }
 
 const (
@@ -147,7 +149,7 @@ func (a WorkspaceAction) String() string {
 			return k
 		}
 	}
-	return "unknown"
+	return unknown
 }
 
 const (
