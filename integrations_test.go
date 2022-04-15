@@ -16,7 +16,55 @@ import (
 )
 
 func (s *IntegrationsSuite) TestAzureBlob() {
-	s.T().Skip("pending better abstraction for local testing")
+	skipUnlessIntegrationTest(s.T())
+
+	ctx := testCtx()
+	name := "azureBlobTest"
+	connectionString := ""
+
+	rc, err := rockset.NewClient()
+	s.Require().NoError(err)
+
+	// get the integration
+	getReq := rc.IntegrationsApi.GetIntegration(ctx, name)
+	_, _, err = getReq.Execute()
+	if err != nil {
+		// check if it is missing
+		var re rockset.Error
+		if errors.As(err, &re) {
+			if !re.IsNotFoundError() {
+				s.Require().NoError(err)
+			}
+		}
+	} else {
+		// the integration exists, delete it
+		deleteReq := rc.IntegrationsApi.DeleteIntegration(ctx, name)
+		_, _, err = deleteReq.Execute()
+		s.Require().NoError(err)
+	}
+
+	_, err = rc.CreateAzureBlobStorageIntegration(ctx, name, connectionString)
+	s.Require().NoError(err)
+
+	// list integrations and look for the newly created integration
+	listReq := rc.IntegrationsApi.ListIntegrations(ctx)
+	listResp, _, err := listReq.Execute()
+	s.Require().NoError(err)
+
+	var found bool
+	for _, i := range listResp.GetData() {
+		if i.Name == name {
+			found = true
+		}
+	}
+	if !found {
+		s.T().Errorf("could not find %s", name)
+	}
+
+	// delete
+	deleteReq := rc.IntegrationsApi.DeleteIntegration(ctx, name)
+	_, _, err = deleteReq.Execute()
+	s.Require().NoError(err)
 }
 
 func TestRockClient_S3Integration(t *testing.T) {
