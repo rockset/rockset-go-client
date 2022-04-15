@@ -1,16 +1,23 @@
 package rockset_test
 
 import (
+	"context"
 	"errors"
 	"log"
 	"os"
 	"testing"
 
+	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 )
+
+func (s *IntegrationsSuite) TestAzureBlob() {
+	s.T().Skip("pending better abstraction for local testing")
+}
 
 func TestRockClient_S3Integration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
@@ -99,4 +106,21 @@ func TestRockClient_CreateGCSIntegration(t *testing.T) {
 	require.NoError(t, err)
 
 	log.Printf("created gcs integration: %s", gcs.GetName())
+}
+
+type IntegrationsSuite struct {
+	suite.Suite
+}
+
+func TestIntegrations(t *testing.T) {
+	s := new(IntegrationsSuite)
+	suite.Run(t, s)
+}
+
+type MockIntegrationsAPI struct {
+	mock.Mock
+}
+
+func (m *MockIntegrationsAPI) CreateIntegration(ctx context.Context) {
+
 }
