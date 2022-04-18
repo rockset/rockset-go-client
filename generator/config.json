@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generate-cli": {
+    "generators": {
+      "go": {
+        "generatorName": "go",
+        "additionalProperties": {
+          "generateInterfaces": true
+        }
+      }
+    }
+  }
+}
