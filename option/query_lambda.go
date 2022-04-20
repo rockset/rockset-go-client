@@ -52,7 +52,7 @@ type ListQueryLambdaOption func(request *ListQueryLambdaOptions)
 
 func WithQueryLambdaWorkspace(name string) ListQueryLambdaOption {
 	return func(o *ListQueryLambdaOptions) {
-
+		o.Workspace = &name
 	}
 }
 
