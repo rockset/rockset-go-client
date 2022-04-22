@@ -48,7 +48,7 @@ func (s *IntegrationsSuite) TestCreateAzureBlob() {
 	createExecute := s.IntegrationsApi.On("CreateIntegrationExecute", mock.Anything)
 	createExecute.Return(&integrationResponse, new(http.Response), nil)
 
-	rc, err := rockset.NewClient()
+	rc, err := rockset.NewClient(rockset.WithAPIKey("fake"), rockset.WithAPIServer("https://null.nothing"))
 	s.Require().NoError(err)
 	rc.IntegrationsApi = s.IntegrationsApi
 
@@ -158,16 +158,8 @@ type IntegrationsSuite struct {
 }
 
 func (s *IntegrationsSuite) SetupSuite() {
-	os.Setenv(APIKeyEnvironmentVariableName, "api key")
-	os.Setenv(APIServerEnvironmentVariableName, "https://null.nothing")
-
 	s.IntegrationsApi = &MockIntegrationsAPI{}
 	s.resp = MockIntegrationResponse{}
-}
-
-func (s *IntegrationsSuite) TearDownSuite() {
-	os.Setenv(APIKeyEnvironmentVariableName, "")
-	os.Setenv(APIServerEnvironmentVariableName, "")
 }
 
 func TestIntegrations(t *testing.T) {
