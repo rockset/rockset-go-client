@@ -4,67 +4,59 @@ import (
 	"context"
 	"errors"
 	"log"
+	"net/http"
 	"os"
+	"reflect"
 	"testing"
+	"unsafe"
 
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
-func (s *IntegrationsSuite) TestAzureBlob() {
-	skipUnlessIntegrationTest(s.T())
-
-	ctx := testCtx()
+func (s *IntegrationsSuite) TestCreateAzureBlob() {
 	name := "azureBlobTest"
 	connectionString := ""
+	ctx := testCtx()
+
+	integrationRequest := openapi.ApiCreateIntegrationRequest{
+		ApiService: s.IntegrationsApi,
+	}
+	err := InjectCtx(ctx, &integrationRequest)
+	s.Require().NoError(err)
+	integrationRequest.ApiService = s.IntegrationsApi
+
+	integrationResponse := openapi.CreateIntegrationResponse{}
+
+	integration := openapi.Integration{
+		Name: name,
+	}
+
+	execute := s.resp.On("Execute")
+	execute.Return(integration)
+
+	createIntegration := s.IntegrationsApi.On("CreateIntegration", mock.Anything)
+	createIntegration.Return(integrationRequest)
 
 	rc, err := rockset.NewClient()
 	s.Require().NoError(err)
+	rc.IntegrationsApi = s.IntegrationsApi
 
-	// get the integration
-	getReq := rc.IntegrationsApi.GetIntegration(ctx, name)
-	_, _, err = getReq.Execute()
-	if err != nil {
-		// check if it is missing
-		var re rockset.Error
-		if errors.As(err, &re) {
-			if !re.IsNotFoundError() {
-				s.Require().NoError(err)
-			}
-		}
-	} else {
-		// the integration exists, delete it
-		deleteReq := rc.IntegrationsApi.DeleteIntegration(ctx, name)
-		_, _, err = deleteReq.Execute()
-		s.Require().NoError(err)
-	}
+	createExecute := s.IntegrationsApi.On("CreateIntegrationExecute", mock.Anything)
+	createExecute.Return(&integrationResponse, new(http.Response), nil)
 
-	_, err = rc.CreateAzureBlobStorageIntegration(ctx, name, connectionString)
+	resp, err := rc.CreateAzureBlobStorageIntegration(ctx, name, connectionString)
 	s.Require().NoError(err)
+	s.Require().True(resp.HasAzureBlobStorage())
+	actual := resp.GetAzureBlobStorage()
 
-	// list integrations and look for the newly created integration
-	listReq := rc.IntegrationsApi.ListIntegrations(ctx)
-	listResp, _, err := listReq.Execute()
-	s.Require().NoError(err)
-
-	var found bool
-	for _, i := range listResp.GetData() {
-		if i.Name == name {
-			found = true
-		}
-	}
-	if !found {
-		s.T().Errorf("could not find %s", name)
-	}
-
-	// delete
-	deleteReq := rc.IntegrationsApi.DeleteIntegration(ctx, name)
-	_, _, err = deleteReq.Execute()
-	s.Require().NoError(err)
+	s.Equal(name, resp.GetName())
+	s.Equal(connectionString, actual.GetConnectionString())
 }
 
 func TestRockClient_S3Integration(t *testing.T) {
@@ -158,6 +150,22 @@ func TestRockClient_CreateGCSIntegration(t *testing.T) {
 
 type IntegrationsSuite struct {
 	suite.Suite
+	IntegrationsApi MockIntegrationsAPI
+
+	resp MockIntegrationResponse
+}
+
+func (s *IntegrationsSuite) SetupSuite() {
+	s.IntegrationsApi = MockIntegrationsAPI{}
+	s.resp = MockIntegrationResponse{}
+
+	os.Setenv(APIKeyEnvironmentVariableName, "api key")
+	os.Setenv(APIServerEnvironmentVariableName, "https://null.nothing")
+}
+
+func (s *IntegrationsSuite) TearDownSuite() {
+	os.Setenv(APIKeyEnvironmentVariableName, "")
+	os.Setenv(APIServerEnvironmentVariableName, "")
 }
 
 func TestIntegrations(t *testing.T) {
@@ -167,8 +175,46 @@ func TestIntegrations(t *testing.T) {
 
 type MockIntegrationsAPI struct {
 	mock.Mock
+	openapi.IntegrationsApi
 }
 
-func (m *MockIntegrationsAPI) CreateIntegration(ctx context.Context) {
+func (m MockIntegrationsAPI) CreateIntegration(ctx context.Context) openapi.ApiCreateIntegrationRequest {
+	args := m.Called(ctx)
+	return args.Get(0).(openapi.ApiCreateIntegrationRequest)
+}
 
+func (m MockIntegrationsAPI) CreateIntegrationExecute(r openapi.ApiCreateIntegrationRequest) (*openapi.CreateIntegrationResponse, *http.Response, error) {
+	args := m.Called()
+	return args.Get(0).(*openapi.CreateIntegrationResponse), args.Get(1).(*http.Response), args.Error(2)
+}
+
+type MockIntegrationRequest struct {
+	mock.Mock
+	openapi.ApiGetIntegrationRequest
+}
+
+func (m MockIntegrationRequest) Execute() (*openapi.GetIntegrationResponse, *http.Response, error) {
+	args := m.Called()
+	return args.Get(0).(*openapi.GetIntegrationResponse), args.Get(1).(*http.Response), args.Error(2)
+}
+
+type MockIntegrationResponse struct {
+	mock.Mock
+	openapi.GetIntegrationResponse
+}
+
+//InjectCtx is necessary because the openapi.ApiCreateIntegrationRequest
+//keeps a copy of a context in an unexported field `ctx`. Since we are
+//mocking the call to create it, we cannot put the context in (our
+//mocks are not in the same package).
+//This allows us to set that context.
+//nolint
+func InjectCtx(ctx context.Context, subject *openapi.ApiCreateIntegrationRequest) error {
+	sv := reflect.ValueOf(subject).Elem()
+	cf := sv.FieldByName("ctx")
+	cfp := cf.UnsafeAddr()
+	nf := reflect.NewAt(cf.Type(), unsafe.Pointer(cfp)).Elem()
+	nf.Set(reflect.ValueOf(ctx))
+
+	return nil
 }
