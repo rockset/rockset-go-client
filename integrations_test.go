@@ -27,28 +27,30 @@ func (s *IntegrationsSuite) TestCreateAzureBlob() {
 	integrationRequest := openapi.ApiCreateIntegrationRequest{
 		ApiService: s.IntegrationsApi,
 	}
-	err := InjectCtx(ctx, &integrationRequest)
-	s.Require().NoError(err)
+	InjectCtx(ctx, &integrationRequest)
 	integrationRequest.ApiService = s.IntegrationsApi
 
-	integrationResponse := openapi.CreateIntegrationResponse{}
-
 	integration := openapi.Integration{
-		Name: name,
+		Name:             name,
+		AzureBlobStorage: &openapi.AzureBlobStorageIntegration{},
+	}
+
+	integrationResponse := openapi.CreateIntegrationResponse{
+		Data: &integration,
 	}
 
 	execute := s.resp.On("Execute")
-	execute.Return(integration)
+	execute.Return(&integration)
 
 	createIntegration := s.IntegrationsApi.On("CreateIntegration", mock.Anything)
 	createIntegration.Return(integrationRequest)
 
+	createExecute := s.IntegrationsApi.On("CreateIntegrationExecute", mock.Anything)
+	createExecute.Return(&integrationResponse, new(http.Response), nil)
+
 	rc, err := rockset.NewClient()
 	s.Require().NoError(err)
 	rc.IntegrationsApi = s.IntegrationsApi
-
-	createExecute := s.IntegrationsApi.On("CreateIntegrationExecute", mock.Anything)
-	createExecute.Return(&integrationResponse, new(http.Response), nil)
 
 	resp, err := rc.CreateAzureBlobStorageIntegration(ctx, name, connectionString)
 	s.Require().NoError(err)
@@ -150,17 +152,17 @@ func TestRockClient_CreateGCSIntegration(t *testing.T) {
 
 type IntegrationsSuite struct {
 	suite.Suite
-	IntegrationsApi MockIntegrationsAPI
+	IntegrationsApi *MockIntegrationsAPI
 
 	resp MockIntegrationResponse
 }
 
 func (s *IntegrationsSuite) SetupSuite() {
-	s.IntegrationsApi = MockIntegrationsAPI{}
-	s.resp = MockIntegrationResponse{}
-
 	os.Setenv(APIKeyEnvironmentVariableName, "api key")
 	os.Setenv(APIServerEnvironmentVariableName, "https://null.nothing")
+
+	s.IntegrationsApi = &MockIntegrationsAPI{}
+	s.resp = MockIntegrationResponse{}
 }
 
 func (s *IntegrationsSuite) TearDownSuite() {
@@ -209,12 +211,10 @@ type MockIntegrationResponse struct {
 //mocks are not in the same package).
 //This allows us to set that context.
 //nolint
-func InjectCtx(ctx context.Context, subject *openapi.ApiCreateIntegrationRequest) error {
+func InjectCtx(ctx context.Context, subject *openapi.ApiCreateIntegrationRequest) {
 	sv := reflect.ValueOf(subject).Elem()
 	cf := sv.FieldByName("ctx")
 	cfp := cf.UnsafeAddr()
 	nf := reflect.NewAt(cf.Type(), unsafe.Pointer(cfp)).Elem()
 	nf.Set(reflect.ValueOf(ctx))
-
-	return nil
 }
