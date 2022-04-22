@@ -82,7 +82,6 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	log := zerolog.Ctx(ctx)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
@@ -91,7 +90,7 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 	require.NoError(t, err)
 
 	for _, l := range lambdas {
-		log.Printf("lambda: %s", *l.Name)
+		assert.Equal(t, "commons", l.GetWorkspace())
 	}
 }
 
