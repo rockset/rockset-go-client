@@ -205,8 +205,8 @@ type MockIntegrationResponse struct {
 //nolint
 func InjectCtx(ctx context.Context, subject *openapi.ApiCreateIntegrationRequest) {
 	sv := reflect.ValueOf(subject).Elem()
-	cf := sv.FieldByName("ctx")
-	cfp := cf.UnsafeAddr()
-	nf := reflect.NewAt(cf.Type(), unsafe.Pointer(cfp)).Elem()
+	cf := sv.Field(0)
+	cfp := unsafe.Pointer(cf.UnsafeAddr())
+	nf := reflect.NewAt(cf.Type(), cfp).Elem()
 	nf.Set(reflect.ValueOf(ctx))
 }
