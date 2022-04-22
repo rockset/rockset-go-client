@@ -172,12 +172,12 @@ type MockIntegrationsAPI struct {
 	openapi.IntegrationsApi
 }
 
-func (m MockIntegrationsAPI) CreateIntegration(ctx context.Context) openapi.ApiCreateIntegrationRequest {
+func (m *MockIntegrationsAPI) CreateIntegration(ctx context.Context) openapi.ApiCreateIntegrationRequest {
 	args := m.Called(ctx)
 	return args.Get(0).(openapi.ApiCreateIntegrationRequest)
 }
 
-func (m MockIntegrationsAPI) CreateIntegrationExecute(r openapi.ApiCreateIntegrationRequest) (*openapi.CreateIntegrationResponse, *http.Response, error) {
+func (m *MockIntegrationsAPI) CreateIntegrationExecute(r openapi.ApiCreateIntegrationRequest) (*openapi.CreateIntegrationResponse, *http.Response, error) {
 	args := m.Called()
 	return args.Get(0).(*openapi.CreateIntegrationResponse), args.Get(1).(*http.Response), args.Error(2)
 }
@@ -187,7 +187,7 @@ type MockIntegrationRequest struct {
 	openapi.ApiGetIntegrationRequest
 }
 
-func (m MockIntegrationRequest) Execute() (*openapi.GetIntegrationResponse, *http.Response, error) {
+func (m *MockIntegrationRequest) Execute() (*openapi.GetIntegrationResponse, *http.Response, error) {
 	args := m.Called()
 	return args.Get(0).(*openapi.GetIntegrationResponse), args.Get(1).(*http.Response), args.Error(2)
 }
