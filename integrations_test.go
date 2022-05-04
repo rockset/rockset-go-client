@@ -1,65 +1,16 @@
 package rockset_test
 
 import (
-	"context"
 	"errors"
 	"log"
-	"net/http"
 	"os"
-	"reflect"
 	"testing"
-	"unsafe"
 
-	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
-
-func (s *IntegrationsSuite) TestCreateAzureBlob() {
-	name := "azureBlobTest"
-	connectionString := ""
-	ctx := testCtx()
-
-	integrationRequest := openapi.ApiCreateIntegrationRequest{
-		ApiService: s.IntegrationsApi,
-	}
-	InjectCtx(ctx, &integrationRequest)
-	integrationRequest.ApiService = s.IntegrationsApi
-
-	integration := openapi.Integration{
-		Name:             name,
-		AzureBlobStorage: &openapi.AzureBlobStorageIntegration{},
-	}
-
-	integrationResponse := openapi.CreateIntegrationResponse{
-		Data: &integration,
-	}
-
-	execute := s.resp.On("Execute")
-	execute.Return(&integration)
-
-	createIntegration := s.IntegrationsApi.On("CreateIntegration", mock.Anything)
-	createIntegration.Return(integrationRequest)
-
-	createExecute := s.IntegrationsApi.On("CreateIntegrationExecute", mock.Anything)
-	createExecute.Return(&integrationResponse, new(http.Response), nil)
-
-	rc, err := rockset.NewClient(rockset.WithAPIKey("fake"), rockset.WithAPIServer("https://null.nothing"))
-	s.Require().NoError(err)
-	rc.IntegrationsApi = s.IntegrationsApi
-
-	resp, err := rc.CreateAzureBlobStorageIntegration(ctx, name, connectionString)
-	s.Require().NoError(err)
-	s.Require().True(resp.HasAzureBlobStorage())
-	actual := resp.GetAzureBlobStorage()
-
-	s.Equal(name, resp.GetName())
-	s.Equal(connectionString, actual.GetConnectionString())
-}
 
 func TestRockClient_S3Integration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
@@ -148,65 +99,4 @@ func TestRockClient_CreateGCSIntegration(t *testing.T) {
 	require.NoError(t, err)
 
 	log.Printf("created gcs integration: %s", gcs.GetName())
-}
-
-type IntegrationsSuite struct {
-	suite.Suite
-	IntegrationsApi *MockIntegrationsAPI
-
-	resp MockIntegrationResponse
-}
-
-func (s *IntegrationsSuite) SetupSuite() {
-	s.IntegrationsApi = &MockIntegrationsAPI{}
-	s.resp = MockIntegrationResponse{}
-}
-
-func TestIntegrations(t *testing.T) {
-	s := new(IntegrationsSuite)
-	suite.Run(t, s)
-}
-
-type MockIntegrationsAPI struct {
-	mock.Mock
-	openapi.IntegrationsApi
-}
-
-func (m *MockIntegrationsAPI) CreateIntegration(ctx context.Context) openapi.ApiCreateIntegrationRequest {
-	args := m.Called(ctx)
-	return args.Get(0).(openapi.ApiCreateIntegrationRequest)
-}
-
-func (m *MockIntegrationsAPI) CreateIntegrationExecute(r openapi.ApiCreateIntegrationRequest) (*openapi.CreateIntegrationResponse, *http.Response, error) {
-	args := m.Called()
-	return args.Get(0).(*openapi.CreateIntegrationResponse), args.Get(1).(*http.Response), args.Error(2)
-}
-
-type MockIntegrationRequest struct {
-	mock.Mock
-	openapi.ApiGetIntegrationRequest
-}
-
-func (m *MockIntegrationRequest) Execute() (*openapi.GetIntegrationResponse, *http.Response, error) {
-	args := m.Called()
-	return args.Get(0).(*openapi.GetIntegrationResponse), args.Get(1).(*http.Response), args.Error(2)
-}
-
-type MockIntegrationResponse struct {
-	mock.Mock
-	openapi.GetIntegrationResponse
-}
-
-//InjectCtx is necessary because the openapi.ApiCreateIntegrationRequest
-//keeps a copy of a context in an unexported field `ctx`. Since we are
-//mocking the call to create it, we cannot put the context in (our
-//mocks are not in the same package).
-//This allows us to set that context.
-//nolint
-func InjectCtx(ctx context.Context, subject *openapi.ApiCreateIntegrationRequest) {
-	sv := reflect.ValueOf(subject).Elem()
-	cf := sv.Field(0)
-	cfp := unsafe.Pointer(cf.UnsafeAddr())
-	nf := reflect.NewAt(cf.Type(), cfp).Elem()
-	nf.Set(reflect.ValueOf(ctx))
 }
