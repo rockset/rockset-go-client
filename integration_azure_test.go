@@ -2,6 +2,7 @@ package rockset_test
 
 import (
 	"errors"
+	"flag"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -9,12 +10,16 @@ import (
 	"github.com/rockset/rockset-go-client"
 )
 
+var connectionString string
+
+func init() {
+	flag.StringVar(&connectionString, "connection_string", "", "Azure Blob Connection String")
+}
+
 func (s *IntegrationsSuite) TestAzureBlob() {
-	// Need to update skip, this doesn't rely on AWS variables
 	skipUnlessIntegrationTest(s.T())
 
 	name := "azuretest"
-	connectionString := "DefaultEndpointsProtocol=https;AccountName=rockset;AccountKey=<your-account-key>"
 
 	ctx := testCtx()
 
