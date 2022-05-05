@@ -2,33 +2,27 @@ package rockset_test
 
 import (
 	"errors"
-	"flag"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/rocksettest"
 )
 
 var connectionString string
 
-func init() {
-	flag.StringVar(&connectionString, "connection_string", "", "Azure Blob Connection String")
-}
-
 func (s *IntegrationsSuite) TestAzureBlob() {
-	skipUnlessIntegrationTest(s.T())
+	connectionString := rocksettest.SkipUnlessEnv(s.T(), "ROCKSET_AZURE_CONNECTION_STRING")
 
 	name := "azuretest"
-
-	ctx := testCtx()
+	ctx := rocksettest.TestCtx()
 
 	rc, err := rockset.NewClient()
 	s.Require().NoError(err)
 
 	// get the integration
-	getReq := rc.IntegrationsApi.GetIntegration(ctx, name)
-	_, _, err = getReq.Execute()
+	_, err = rc.GetIntegration(ctx, name)
 
 	if err != nil {
 		// check if it is missing
@@ -50,19 +44,9 @@ func (s *IntegrationsSuite) TestAzureBlob() {
 	s.Require().NoError(err)
 
 	// list integrations and look for the newly created integration
-	listReq := rc.IntegrationsApi.ListIntegrations(ctx)
-	listResp, _, err := listReq.Execute()
+	integration, err := rc.GetIntegration(ctx, name)
 	s.Require().NoError(err)
-
-	var found bool
-	for _, i := range listResp.GetData() {
-		if i.Name == name {
-			found = true
-		}
-	}
-	if !found {
-		s.Errorf(errors.New("azure integration not found"), "%s", name)
-	}
+	s.NotNil(integration)
 }
 
 type IntegrationsSuite struct {
