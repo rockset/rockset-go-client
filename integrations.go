@@ -51,6 +51,31 @@ func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error 
 	return err
 }
 
+// CreateAzureBlobStorageIntegration creates an integration for Azure's Blob Storage.
+// requires a name for the integration and a connection string for the blob storage.
+func (rc *RockClient) CreateAzureBlobStorageIntegration(ctx context.Context, name string,
+	connection string) (openapi.Integration, error) {
+	var err error
+	var resp *openapi.CreateIntegrationResponse
+	q := rc.IntegrationsApi.CreateIntegration(ctx)
+	req := openapi.NewCreateIntegrationRequest(name)
+
+	req.AzureBlobStorage = &openapi.AzureBlobStorageIntegration{
+		ConnectionString: connection,
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.Integration{}, err
+	}
+
+	return resp.GetData(), nil
+}
+
 func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, creds option.AWSCredentialsFn,
 	options ...option.S3IntegrationOption) (openapi.Integration, error) {
 	var err error
