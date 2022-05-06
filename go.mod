@@ -6,8 +6,8 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/rs/zerolog v1.26.1
 	github.com/seborama/govcr v4.5.0+incompatible
-	github.com/stretchr/testify v1.7.1
-	golang.org/x/oauth2 v0.0.0-20220309155454-6242fa91716a
+	github.com/stretchr/testify v1.7.0
+	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
 )
 
 require (

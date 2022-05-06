@@ -12,12 +12,6 @@ import (
 	"github.com/rockset/rockset-go-client"
 )
 
-// APIKeyEnvironmentVariableName is the environment variable name for the API key
-const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY" //nolint
-
-// APIServerEnvironmentVariableName is the environment variable name for the API server
-const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
-
 // helper function to skip unless ROCKSET_APIKEY is set
 func skipUnlessIntegrationTest(t *testing.T) {
 	if os.Getenv(rockset.APIKeyEnvironmentVariableName) == "" {
