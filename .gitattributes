@@ -1,0 +1,2 @@
+openapi/*.go linguist-generated
+vcr/*.cassette linguist-generated
