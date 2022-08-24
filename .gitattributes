@@ -1,2 +1,2 @@
-openapi/*.go linguist-generated
+openapi/** linguist-generated
 vcr/*.cassette linguist-generated
