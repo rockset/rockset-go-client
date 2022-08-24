@@ -16,27 +16,27 @@ import (
 
 // StatusMongoDb struct for StatusMongoDb
 type StatusMongoDb struct {
-	// MongoDB scan start time
+	// MongoDB scan start time.
 	ScanStartTime *string `json:"scan_start_time,omitempty"`
-	// MongoDB scan end time
+	// MongoDB scan end time.
 	ScanEndTime *string `json:"scan_end_time,omitempty"`
-	// Number of records inserted using scan
+	// Number of records inserted using scan.
 	ScanRecordsProcessed *int64 `json:"scan_records_processed,omitempty"`
-	// Number of records in MongoDB table at time of scan
+	// Number of records in MongoDB table at time of scan.
 	ScanTotalRecords *int64 `json:"scan_total_records,omitempty"`
-	// state of current ingest for this table
+	// State of current ingest for this table.
 	State *string `json:"state,omitempty"`
-	// ISO-8601 date when new insert from source was last processed
+	// ISO-8601 date when new insert from source was last processed.
 	StreamLastInsertProcessedAt *string `json:"stream_last_insert_processed_at,omitempty"`
-	// ISO-8601 date when update from source was last processed
+	// ISO-8601 date when update from source was last processed.
 	StreamLastUpdateProcessedAt *string `json:"stream_last_update_processed_at,omitempty"`
-	// ISO-8601 date when delete from source was last processed
+	// ISO-8601 date when delete from source was last processed.
 	StreamLastDeleteProcessedAt *string `json:"stream_last_delete_processed_at,omitempty"`
-	// Number of new records inserted using stream
+	// Number of new records inserted using stream.
 	StreamRecordsInserted *int64 `json:"stream_records_inserted,omitempty"`
-	// Number of new records updated using stream
+	// Number of new records updated using stream.
 	StreamRecordsUpdated *int64 `json:"stream_records_updated,omitempty"`
-	// Number of new records deleted using stream
+	// Number of new records deleted using stream.
 	StreamRecordsDeleted *int64 `json:"stream_records_deleted,omitempty"`
 }
 

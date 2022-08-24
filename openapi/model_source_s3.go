@@ -20,15 +20,16 @@ type SourceS3 struct {
 	Prefix *string `json:"prefix,omitempty"`
 	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
 	Pattern *string `json:"pattern,omitempty"`
-	// AWS region containing source bucket
+	// AWS region containing source bucket.
 	Region *string `json:"region,omitempty"`
-	// address of S3 bucket containing data
+	// Address of S3 bucket containing data.
 	Bucket string `json:"bucket"`
-	// list of prefixes to paths from which data should be ingested
+	// List of prefixes to paths from which data should be ingested.
 	Prefixes []string `json:"prefixes"`
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
 	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
 	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
+	ObjectBytesDownloaded *int64 `json:"object_bytes_downloaded,omitempty"`
 }
 
 // NewSourceS3 instantiates a new SourceS3 object
@@ -290,6 +291,38 @@ func (o *SourceS3) SetObjectBytesTotal(v int64) {
 	o.ObjectBytesTotal = &v
 }
 
+// GetObjectBytesDownloaded returns the ObjectBytesDownloaded field value if set, zero value otherwise.
+func (o *SourceS3) GetObjectBytesDownloaded() int64 {
+	if o == nil || o.ObjectBytesDownloaded == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectBytesDownloaded
+}
+
+// GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceS3) GetObjectBytesDownloadedOk() (*int64, bool) {
+	if o == nil || o.ObjectBytesDownloaded == nil {
+		return nil, false
+	}
+	return o.ObjectBytesDownloaded, true
+}
+
+// HasObjectBytesDownloaded returns a boolean if a field has been set.
+func (o *SourceS3) HasObjectBytesDownloaded() bool {
+	if o != nil && o.ObjectBytesDownloaded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectBytesDownloaded gets a reference to the given int64 and assigns it to the ObjectBytesDownloaded field.
+func (o *SourceS3) SetObjectBytesDownloaded(v int64) {
+	o.ObjectBytesDownloaded = &v
+}
+
 func (o SourceS3) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Prefix != nil {
@@ -315,6 +348,9 @@ func (o SourceS3) MarshalJSON() ([]byte, error) {
 	}
 	if o.ObjectBytesTotal != nil {
 		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
+	}
+	if o.ObjectBytesDownloaded != nil {
+		toSerialize["object_bytes_downloaded"] = o.ObjectBytesDownloaded
 	}
 	return json.Marshal(toSerialize)
 }

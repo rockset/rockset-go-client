@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | name of the field | 
-**Type** | **string** | data type of the field | 
+**Name** | **string** | Name of the field. | 
+**Type** | **string** | Data type of the field. | 
 
 ## Methods
 

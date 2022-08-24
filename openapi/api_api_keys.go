@@ -589,8 +589,14 @@ type ApiGetApiKeyRequest struct {
 	ApiService APIKeysApi
 	user string
 	name string
+	reveal *bool
 }
 
+// Reveal full key.
+func (r ApiGetApiKeyRequest) Reveal(reveal bool) ApiGetApiKeyRequest {
+	r.reveal = &reveal
+	return r
+}
 
 func (r ApiGetApiKeyRequest) Execute() (*GetApiKeyResponse, *http.Response, error) {
 	return r.ApiService.GetApiKeyExecute(r)
@@ -638,6 +644,9 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.reveal != nil {
+		localVarQueryParams.Add("reveal", parameterToString(*r.reveal, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

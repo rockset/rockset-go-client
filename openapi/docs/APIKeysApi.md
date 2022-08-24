@@ -1,6 +1,6 @@
 # \APIKeysApi
 
-All URIs are relative to *https://api.rs2.usw2.rockset.com*
+All URIs are relative to *https://api.use1a1.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -153,7 +153,7 @@ No authorization required
 
 ## GetApiKey
 
-> GetApiKeyResponse GetApiKey(ctx, user, name).Execute()
+> GetApiKeyResponse GetApiKey(ctx, user, name).Reveal(reveal).Execute()
 
 Retrieve API Key
 
@@ -174,10 +174,11 @@ import (
 func main() {
     user := "admin@me.com" // string | Email of the API key owner. Use `self` to specify the currently authenticated user.
     name := "my-key" // string | Name of the API key.
+    reveal := true // bool | Reveal full key. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.APIKeysApi.GetApiKey(context.Background(), user, name).Execute()
+    resp, r, err := apiClient.APIKeysApi.GetApiKey(context.Background(), user, name).Reveal(reveal).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `APIKeysApi.GetApiKey``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -205,6 +206,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
+ **reveal** | **bool** | Reveal full key. | 
 
 ### Return type
 

@@ -16,9 +16,9 @@ import (
 
 // UpdateViewRequest struct for UpdateViewRequest
 type UpdateViewRequest struct {
-	// optional description
+	// Optional description.
 	Description *string `json:"description,omitempty"`
-	// SQL for this view
+	// SQL for this view.
 	Query string `json:"query"`
 }
 

@@ -16,10 +16,14 @@ import (
 
 // UpdateVirtualInstanceRequest struct for UpdateVirtualInstanceRequest
 type UpdateVirtualInstanceRequest struct {
-	// requested virtual instance size
+	// Requested virtual instance size.
 	NewSize *string `json:"new_size,omitempty"`
 	NewType *string `json:"new_type,omitempty"`
 	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
+	// New virtual instance name.
+	Name *string `json:"name,omitempty"`
+	// New virtual instance description.
+	Description *string `json:"description,omitempty"`
 }
 
 // NewUpdateVirtualInstanceRequest instantiates a new UpdateVirtualInstanceRequest object
@@ -135,6 +139,70 @@ func (o *UpdateVirtualInstanceRequest) SetMonitoringEnabled(v bool) {
 	o.MonitoringEnabled = &v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *UpdateVirtualInstanceRequest) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *UpdateVirtualInstanceRequest) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.NewSize != nil {
@@ -145,6 +213,12 @@ func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.MonitoringEnabled != nil {
 		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

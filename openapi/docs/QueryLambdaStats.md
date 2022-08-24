@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**LastExecuted** | Pointer to **string** | ISO-8601 date | [optional] 
-**LastExecutedBy** | Pointer to **string** | user who last executed Query Lambda | [optional] 
-**LastExecutionError** | Pointer to **string** | ISO-8601 date of last execution failure | [optional] 
-**LastExecutionErrorMessage** | Pointer to **string** | error message associated with last failed execution | [optional] 
+**LastExecuted** | Pointer to **string** | ISO-8601 date. | [optional] 
+**LastExecutedBy** | Pointer to **string** | User who last executed Query Lambda. | [optional] 
+**LastExecutionError** | Pointer to **string** | ISO-8601 date of last execution failure. | [optional] 
+**LastExecutionErrorMessage** | Pointer to **string** | Error message associated with last failed execution. | [optional] 
 
 ## Methods
 

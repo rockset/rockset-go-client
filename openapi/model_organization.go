@@ -17,17 +17,17 @@ import (
 // Organization An organization in Rockset is a container for users and collections.
 type Organization struct {
 	DeletionScheduledAt *string `json:"deletionScheduledAt,omitempty"`
-	// Rockset's global AWS user
+	// Rockset's global AWS user.
 	RocksetUser *string `json:"rockset_user,omitempty"`
-	// organization's unique external ID within Rockset
+	// Organization's unique external ID within Rockset.
 	ExternalId *string `json:"external_id,omitempty"`
-	// list of clusters associated with this org
+	// List of clusters associated with this org.
 	Clusters []Cluster `json:"clusters,omitempty"`
-	// unique identifier for the organization
+	// Unique identifier for the organization.
 	Id *string `json:"id,omitempty"`
-	// ISO-8601 date
+	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// name of the organization
+	// Name of the organization.
 	DisplayName *string `json:"display_name,omitempty"`
 }
 

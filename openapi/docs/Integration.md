@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | descriptive label and unique identifier | 
-**Description** | Pointer to **string** | longer explanation for the integration | [optional] 
-**Collections** | Pointer to [**[]Collection**](Collection.md) | list of collections that use the integration | [optional] 
-**CreatedBy** | **string** | email of user who created the integration | 
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
+**Name** | **string** | Descriptive label and unique identifier. | 
+**Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
+**CreatedBy** | **string** | Email of user who created the integration. | 
+**OwnerEmail** | Pointer to **string** | User that owns this integration. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
 **S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
 **Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **Segment** | Pointer to [**SegmentIntegration**](SegmentIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
+**Snowflake** | Pointer to [**SnowflakeIntegration**](SnowflakeIntegration.md) |  | [optional] 
+**Collections** | Pointer to [**[]Collection**](Collection.md) | List of collections that use the integration. | [optional] 
 
 ## Methods
 
@@ -84,31 +86,6 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetCollections
-
-`func (o *Integration) GetCollections() []Collection`
-
-GetCollections returns the Collections field if non-nil, zero value otherwise.
-
-### GetCollectionsOk
-
-`func (o *Integration) GetCollectionsOk() (*[]Collection, bool)`
-
-GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCollections
-
-`func (o *Integration) SetCollections(v []Collection)`
-
-SetCollections sets Collections field to given value.
-
-### HasCollections
-
-`func (o *Integration) HasCollections() bool`
-
-HasCollections returns a boolean if a field has been set.
-
 ### GetCreatedBy
 
 `func (o *Integration) GetCreatedBy() string`
@@ -128,6 +105,31 @@ and a boolean to check if the value has been set.
 
 SetCreatedBy sets CreatedBy field to given value.
 
+
+### GetOwnerEmail
+
+`func (o *Integration) GetOwnerEmail() string`
+
+GetOwnerEmail returns the OwnerEmail field if non-nil, zero value otherwise.
+
+### GetOwnerEmailOk
+
+`func (o *Integration) GetOwnerEmailOk() (*string, bool)`
+
+GetOwnerEmailOk returns a tuple with the OwnerEmail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnerEmail
+
+`func (o *Integration) SetOwnerEmail(v string)`
+
+SetOwnerEmail sets OwnerEmail field to given value.
+
+### HasOwnerEmail
+
+`func (o *Integration) HasOwnerEmail() bool`
+
+HasOwnerEmail returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -403,6 +405,56 @@ SetMongodb sets Mongodb field to given value.
 `func (o *Integration) HasMongodb() bool`
 
 HasMongodb returns a boolean if a field has been set.
+
+### GetSnowflake
+
+`func (o *Integration) GetSnowflake() SnowflakeIntegration`
+
+GetSnowflake returns the Snowflake field if non-nil, zero value otherwise.
+
+### GetSnowflakeOk
+
+`func (o *Integration) GetSnowflakeOk() (*SnowflakeIntegration, bool)`
+
+GetSnowflakeOk returns a tuple with the Snowflake field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSnowflake
+
+`func (o *Integration) SetSnowflake(v SnowflakeIntegration)`
+
+SetSnowflake sets Snowflake field to given value.
+
+### HasSnowflake
+
+`func (o *Integration) HasSnowflake() bool`
+
+HasSnowflake returns a boolean if a field has been set.
+
+### GetCollections
+
+`func (o *Integration) GetCollections() []Collection`
+
+GetCollections returns the Collections field if non-nil, zero value otherwise.
+
+### GetCollectionsOk
+
+`func (o *Integration) GetCollectionsOk() (*[]Collection, bool)`
+
+GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollections
+
+`func (o *Integration) SetCollections(v []Collection)`
+
+SetCollections sets Collections field to given value.
+
+### HasCollections
+
+`func (o *Integration) HasCollections() bool`
+
+HasCollections returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

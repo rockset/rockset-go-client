@@ -16,7 +16,7 @@ import (
 
 // UpdateQueryLambdaRequest struct for UpdateQueryLambdaRequest
 type UpdateQueryLambdaRequest struct {
-	// optional description
+	// Optional description.
 	Description *string `json:"description,omitempty"`
 	Sql *QueryLambdaSql `json:"sql,omitempty"`
 }

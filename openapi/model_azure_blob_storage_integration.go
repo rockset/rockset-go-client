@@ -16,7 +16,7 @@ import (
 
 // AzureBlobStorageIntegration struct for AzureBlobStorageIntegration
 type AzureBlobStorageIntegration struct {
-	// credentials for Azure Blob Storage
+	// Credentials for the Azure Blob Service.
 	ConnectionString string `json:"connection_string"`
 }
 

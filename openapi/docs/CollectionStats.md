@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DocCount** | Pointer to **int64** | number of documents in the collection | [optional] 
-**PurgedDocCount** | Pointer to **int64** | number of documents purged from the collection | [optional] 
-**FillProgress** | Pointer to **float64** | number between 0 and 1 that indicates progress of collection creation | [optional] 
-**LastQueriedMs** | Pointer to **int64** | milliseconds since Unix epoch Jan 1, 1970 | [optional] 
-**LastUpdatedMs** | Pointer to **int64** | milliseconds since Unix epoch Jan 1, 1970 | [optional] 
-**TotalSize** | Pointer to **int64** | total collection size in bytes | [optional] 
-**TotalIndexSize** | Pointer to **int64** | total collection index size in bytes | [optional] 
-**RowIndexSize** | Pointer to **int64** | total collection row index size in bytes | [optional] 
-**ColumnIndexSize** | Pointer to **int64** | total collection column index size in bytes | [optional] 
-**InvertedIndexSize** | Pointer to **int64** | total collection inverted index size in bytes | [optional] 
-**RangeIndexSize** | Pointer to **int64** | total collection range index size in bytes | [optional] 
-**PurgedDocSize** | Pointer to **int64** | total size of bytes purged in bytes | [optional] 
-**BytesInserted** | Pointer to **int64** | total number of bytes inserted into the collection | [optional] 
-**BytesOverwritten** | Pointer to **int64** | total number of bytes overwritten in writing into the collection | [optional] 
-**BulkBytesInserted** | Pointer to **int64** | total number of bytes inserted into the collection during bulk | [optional] 
-**BulkBytesOverwritten** | Pointer to **int64** | total number of bytes overwritten in writing into the collection during bulk | [optional] 
+**DocCount** | Pointer to **int64** | Number of documents in the collection. | [optional] 
+**PurgedDocCount** | Pointer to **int64** | Number of documents purged from the collection. | [optional] 
+**FillProgress** | Pointer to **float64** | Number between 0 and 1 that indicates progress of collection creation. | [optional] 
+**LastQueriedMs** | Pointer to **int64** | Milliseconds since Unix epoch Jan 1, 1970. | [optional] 
+**LastUpdatedMs** | Pointer to **int64** | Milliseconds since Unix epoch Jan 1, 1970. | [optional] 
+**TotalSize** | Pointer to **int64** | Total collection size in bytes. | [optional] 
+**TotalIndexSize** | Pointer to **int64** | Total collection index size in bytes. | [optional] 
+**RowIndexSize** | Pointer to **int64** | Total collection row index size in bytes. | [optional] 
+**ColumnIndexSize** | Pointer to **int64** | Total collection column index size in bytes. | [optional] 
+**InvertedIndexSize** | Pointer to **int64** | Total collection inverted index size in bytes. | [optional] 
+**RangeIndexSize** | Pointer to **int64** | Total collection range index size in bytes. | [optional] 
+**PurgedDocSize** | Pointer to **int64** | Total size of bytes purged in bytes. | [optional] 
+**BytesInserted** | Pointer to **int64** | Total number of bytes inserted into the collection. | [optional] 
+**BytesOverwritten** | Pointer to **int64** | Total number of bytes overwritten in writing into the collection. | [optional] 
+**BulkBytesInserted** | Pointer to **int64** | Total number of bytes inserted into the collection during bulk. | [optional] 
+**BulkBytesOverwritten** | Pointer to **int64** | Total number of bytes overwritten in writing into the collection during bulk. | [optional] 
 
 ## Methods
 

@@ -16,8 +16,10 @@ import (
 
 // AwsRole struct for AwsRole
 type AwsRole struct {
-	// ARN of rockset-role created in your account
+	// ARN of rockset-role created in your account.
 	AwsRoleArn string `json:"aws_role_arn"`
+	// External id used for integration.
+	AwsExternalId *string `json:"aws_external_id,omitempty"`
 }
 
 // NewAwsRole instantiates a new AwsRole object
@@ -62,10 +64,45 @@ func (o *AwsRole) SetAwsRoleArn(v string) {
 	o.AwsRoleArn = v
 }
 
+// GetAwsExternalId returns the AwsExternalId field value if set, zero value otherwise.
+func (o *AwsRole) GetAwsExternalId() string {
+	if o == nil || o.AwsExternalId == nil {
+		var ret string
+		return ret
+	}
+	return *o.AwsExternalId
+}
+
+// GetAwsExternalIdOk returns a tuple with the AwsExternalId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AwsRole) GetAwsExternalIdOk() (*string, bool) {
+	if o == nil || o.AwsExternalId == nil {
+		return nil, false
+	}
+	return o.AwsExternalId, true
+}
+
+// HasAwsExternalId returns a boolean if a field has been set.
+func (o *AwsRole) HasAwsExternalId() bool {
+	if o != nil && o.AwsExternalId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAwsExternalId gets a reference to the given string and assigns it to the AwsExternalId field.
+func (o *AwsRole) SetAwsExternalId(v string) {
+	o.AwsExternalId = &v
+}
+
 func (o AwsRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["aws_role_arn"] = o.AwsRoleArn
+	}
+	if o.AwsExternalId != nil {
+		toSerialize["aws_external_id"] = o.AwsExternalId
 	}
 	return json.Marshal(toSerialize)
 }

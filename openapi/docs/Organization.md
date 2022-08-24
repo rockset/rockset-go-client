@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DeletionScheduledAt** | Pointer to **string** |  | [optional] 
-**RocksetUser** | Pointer to **string** | Rockset&#39;s global AWS user | [optional] 
-**ExternalId** | Pointer to **string** | organization&#39;s unique external ID within Rockset | [optional] 
-**Clusters** | Pointer to [**[]Cluster**](Cluster.md) | list of clusters associated with this org | [optional] 
-**Id** | Pointer to **string** | unique identifier for the organization | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
-**DisplayName** | Pointer to **string** | name of the organization | [optional] 
+**RocksetUser** | Pointer to **string** | Rockset&#39;s global AWS user. | [optional] 
+**ExternalId** | Pointer to **string** | Organization&#39;s unique external ID within Rockset. | [optional] 
+**Clusters** | Pointer to [**[]Cluster**](Cluster.md) | List of clusters associated with this org. | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the organization. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**DisplayName** | Pointer to **string** | Name of the organization. | [optional] 
 
 ## Methods
 

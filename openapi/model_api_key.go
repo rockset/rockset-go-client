@@ -24,11 +24,13 @@ type ApiKey struct {
 	Key string `json:"key"`
 	// Date that API key was most recently used (ISO-8601 format).
 	LastAccessTime *string `json:"last_access_time,omitempty"`
+	// The expiration date of this API key.
+	ExpiryTime *string `json:"expiry_time,omitempty"`
 	// Role specifying access control. If not specified, API key will have access to all of the associated user's roles.
 	Role *string `json:"role,omitempty"`
 	// Email of API key owner.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// current state of this key
+	// Current state of this key.
 	State *string `json:"state,omitempty"`
 }
 
@@ -163,6 +165,38 @@ func (o *ApiKey) SetLastAccessTime(v string) {
 	o.LastAccessTime = &v
 }
 
+// GetExpiryTime returns the ExpiryTime field value if set, zero value otherwise.
+func (o *ApiKey) GetExpiryTime() string {
+	if o == nil || o.ExpiryTime == nil {
+		var ret string
+		return ret
+	}
+	return *o.ExpiryTime
+}
+
+// GetExpiryTimeOk returns a tuple with the ExpiryTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiKey) GetExpiryTimeOk() (*string, bool) {
+	if o == nil || o.ExpiryTime == nil {
+		return nil, false
+	}
+	return o.ExpiryTime, true
+}
+
+// HasExpiryTime returns a boolean if a field has been set.
+func (o *ApiKey) HasExpiryTime() bool {
+	if o != nil && o.ExpiryTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiryTime gets a reference to the given string and assigns it to the ExpiryTime field.
+func (o *ApiKey) SetExpiryTime(v string) {
+	o.ExpiryTime = &v
+}
+
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *ApiKey) GetRole() string {
 	if o == nil || o.Role == nil {
@@ -272,6 +306,9 @@ func (o ApiKey) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastAccessTime != nil {
 		toSerialize["last_access_time"] = o.LastAccessTime
+	}
+	if o.ExpiryTime != nil {
+		toSerialize["expiry_time"] = o.ExpiryTime
 	}
 	if o.Role != nil {
 		toSerialize["role"] = o.Role

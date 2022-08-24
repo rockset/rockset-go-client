@@ -16,9 +16,9 @@ import (
 
 // ValidateQueryResponse struct for ValidateQueryResponse
 type ValidateQueryResponse struct {
-	// list of collections specified in query
+	// List of collections specified in query.
 	Collections []string `json:"collections"`
-	// list of parameters specified in query
+	// List of parameters specified in query.
 	Parameters []string `json:"parameters"`
 }
 

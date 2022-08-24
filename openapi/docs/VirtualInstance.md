@@ -4,23 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | virtual instance state | [optional] 
+**Name** | **string** | Virtual instance name. | 
+**Description** | Pointer to **string** | Virtual instance description. | [optional] 
+**CreatedBy** | Pointer to **string** | Creator of requested virtual instance. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
+**ResumedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
+**State** | Pointer to **string** | Virtual instance state. | [optional] 
 **CurrentType** | Pointer to **string** |  | [optional] 
 **DesiredType** | Pointer to **string** |  | [optional] 
-**CurrentSize** | Pointer to **string** | virtual instance current size | [optional] [readonly] 
-**DesiredSize** | Pointer to **string** | virtual instance desired size | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** | ISO-8601 date of when virtual instance size was last updated | [optional] 
-**EstimatedSwitchDurationMinutes** | Pointer to **int64** | estimated duration in minutes of last virtual instance size update | [optional] 
+**CurrentSize** | Pointer to **string** | Virtual instance current size. | [optional] [readonly] 
+**DesiredSize** | Pointer to **string** | Virtual instance desired size. | [optional] [readonly] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
+**DefaultVi** | Pointer to **bool** |  | [optional] 
 **DefaultPodCount** | Pointer to **int32** |  | [optional] 
 **ScaledPodCount** | Pointer to **int32** |  | [optional] 
-**Id** | Pointer to **string** | unique identifier for virtual instance | [optional] 
+**Id** | Pointer to **string** | Unique identifier for virtual instance. | [optional] 
+**Rrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
 
 ## Methods
 
 ### NewVirtualInstance
 
-`func NewVirtualInstance() *VirtualInstance`
+`func NewVirtualInstance(name string, ) *VirtualInstance`
 
 NewVirtualInstance instantiates a new VirtualInstance object
 This constructor will assign default values to properties that have it defined,
@@ -34,6 +39,126 @@ will change when the set of required properties is changed
 NewVirtualInstanceWithDefaults instantiates a new VirtualInstance object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetName
+
+`func (o *VirtualInstance) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *VirtualInstance) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *VirtualInstance) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetDescription
+
+`func (o *VirtualInstance) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *VirtualInstance) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *VirtualInstance) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *VirtualInstance) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
+
+### GetCreatedBy
+
+`func (o *VirtualInstance) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *VirtualInstance) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *VirtualInstance) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *VirtualInstance) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
+
+### GetCreatedAt
+
+`func (o *VirtualInstance) GetCreatedAt() string`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *VirtualInstance) GetCreatedAtOk() (*string, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *VirtualInstance) SetCreatedAt(v string)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *VirtualInstance) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetResumedAt
+
+`func (o *VirtualInstance) GetResumedAt() string`
+
+GetResumedAt returns the ResumedAt field if non-nil, zero value otherwise.
+
+### GetResumedAtOk
+
+`func (o *VirtualInstance) GetResumedAtOk() (*string, bool)`
+
+GetResumedAtOk returns a tuple with the ResumedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResumedAt
+
+`func (o *VirtualInstance) SetResumedAt(v string)`
+
+SetResumedAt sets ResumedAt field to given value.
+
+### HasResumedAt
+
+`func (o *VirtualInstance) HasResumedAt() bool`
+
+HasResumedAt returns a boolean if a field has been set.
 
 ### GetState
 
@@ -160,56 +285,6 @@ SetDesiredSize sets DesiredSize field to given value.
 
 HasDesiredSize returns a boolean if a field has been set.
 
-### GetLastUpdated
-
-`func (o *VirtualInstance) GetLastUpdated() string`
-
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
-
-### GetLastUpdatedOk
-
-`func (o *VirtualInstance) GetLastUpdatedOk() (*string, bool)`
-
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLastUpdated
-
-`func (o *VirtualInstance) SetLastUpdated(v string)`
-
-SetLastUpdated sets LastUpdated field to given value.
-
-### HasLastUpdated
-
-`func (o *VirtualInstance) HasLastUpdated() bool`
-
-HasLastUpdated returns a boolean if a field has been set.
-
-### GetEstimatedSwitchDurationMinutes
-
-`func (o *VirtualInstance) GetEstimatedSwitchDurationMinutes() int64`
-
-GetEstimatedSwitchDurationMinutes returns the EstimatedSwitchDurationMinutes field if non-nil, zero value otherwise.
-
-### GetEstimatedSwitchDurationMinutesOk
-
-`func (o *VirtualInstance) GetEstimatedSwitchDurationMinutesOk() (*int64, bool)`
-
-GetEstimatedSwitchDurationMinutesOk returns a tuple with the EstimatedSwitchDurationMinutes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEstimatedSwitchDurationMinutes
-
-`func (o *VirtualInstance) SetEstimatedSwitchDurationMinutes(v int64)`
-
-SetEstimatedSwitchDurationMinutes sets EstimatedSwitchDurationMinutes field to given value.
-
-### HasEstimatedSwitchDurationMinutes
-
-`func (o *VirtualInstance) HasEstimatedSwitchDurationMinutes() bool`
-
-HasEstimatedSwitchDurationMinutes returns a boolean if a field has been set.
-
 ### GetMonitoringEnabled
 
 `func (o *VirtualInstance) GetMonitoringEnabled() bool`
@@ -234,6 +309,31 @@ SetMonitoringEnabled sets MonitoringEnabled field to given value.
 `func (o *VirtualInstance) HasMonitoringEnabled() bool`
 
 HasMonitoringEnabled returns a boolean if a field has been set.
+
+### GetDefaultVi
+
+`func (o *VirtualInstance) GetDefaultVi() bool`
+
+GetDefaultVi returns the DefaultVi field if non-nil, zero value otherwise.
+
+### GetDefaultViOk
+
+`func (o *VirtualInstance) GetDefaultViOk() (*bool, bool)`
+
+GetDefaultViOk returns a tuple with the DefaultVi field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultVi
+
+`func (o *VirtualInstance) SetDefaultVi(v bool)`
+
+SetDefaultVi sets DefaultVi field to given value.
+
+### HasDefaultVi
+
+`func (o *VirtualInstance) HasDefaultVi() bool`
+
+HasDefaultVi returns a boolean if a field has been set.
 
 ### GetDefaultPodCount
 
@@ -309,6 +409,31 @@ SetId sets Id field to given value.
 `func (o *VirtualInstance) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetRrn
+
+`func (o *VirtualInstance) GetRrn() string`
+
+GetRrn returns the Rrn field if non-nil, zero value otherwise.
+
+### GetRrnOk
+
+`func (o *VirtualInstance) GetRrnOk() (*string, bool)`
+
+GetRrnOk returns a tuple with the Rrn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRrn
+
+`func (o *VirtualInstance) SetRrn(v string)`
+
+SetRrn sets Rrn field to given value.
+
+### HasRrn
+
+`func (o *VirtualInstance) HasRrn() bool`
+
+HasRrn returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

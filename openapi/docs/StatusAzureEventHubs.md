@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | State of the source | [optional] 
-**LastConsumedTime** | Pointer to **string** | Time at which the last document was consumed | [optional] 
-**NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed | [optional] 
-**Partitions** | Pointer to [**[]StatusAzureEventHubsPartition**](StatusAzureEventHubsPartition.md) | Status info per partition | [optional] 
+**State** | Pointer to **string** | State of the source. | [optional] 
+**LastConsumedTime** | Pointer to **string** | Time at which the last document was consumed. | [optional] 
+**NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed. | [optional] 
+**Partitions** | Pointer to [**[]StatusAzureEventHubsPartition**](StatusAzureEventHubsPartition.md) | Status info per partition. | [optional] 
 
 ## Methods
 

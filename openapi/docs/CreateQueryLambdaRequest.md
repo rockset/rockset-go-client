@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Query Lambda name | 
-**Description** | Pointer to **string** | optional description | [optional] 
+**Name** | **string** | Query Lambda name. | 
+**Description** | Pointer to **string** | Optional description. | [optional] 
 **Sql** | [**QueryLambdaSql**](QueryLambdaSql.md) |  | 
 
 ## Methods

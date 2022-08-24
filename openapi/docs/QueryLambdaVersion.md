@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Workspace** | Pointer to **string** | workspace of this Query Lambda | [optional] 
-**CreatedBy** | Pointer to **string** | user that created this Query Lambda | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date of when Query Lambda was created | [optional] 
-**Name** | Pointer to **string** | Query Lambda name | [optional] 
-**Version** | Pointer to **string** | Query Lambda version | [optional] 
-**Description** | Pointer to **string** | optional description | [optional] 
+**Workspace** | Pointer to **string** | Workspace of this Query Lambda. | [optional] 
+**CreatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date of when Query Lambda was created. | [optional] 
+**Name** | Pointer to **string** | Query Lambda name. | [optional] 
+**Version** | Pointer to **string** | Query Lambda version. | [optional] 
+**Description** | Pointer to **string** | Optional description. | [optional] 
 **Sql** | Pointer to [**QueryLambdaSql**](QueryLambdaSql.md) |  | [optional] 
-**Collections** | Pointer to **[]string** | collections queried by underlying SQL query | [optional] 
-**State** | Pointer to **string** | status of this Query Lambda | [optional] 
+**Collections** | Pointer to **[]string** | Collections queried by underlying SQL query. | [optional] 
+**State** | Pointer to **string** | Status of this Query Lambda. | [optional] 
 **Stats** | Pointer to [**QueryLambdaStats**](QueryLambdaStats.md) |  | [optional] 
 
 ## Methods

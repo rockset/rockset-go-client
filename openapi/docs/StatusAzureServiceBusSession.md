@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SequenceNumber** | Pointer to **int64** | The last processed sequence number within this session | [optional] 
-**LastProcessed** | Pointer to **time.Time** | Most recent ISO-8601 date when a message from this session was processed | [optional] 
+**SequenceNumber** | Pointer to **int64** | The last processed sequence number within this session. | [optional] 
+**LastProcessed** | Pointer to **string** | Most recent ISO-8601 date when a message from this session was processed. | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasSequenceNumber returns a boolean if a field has been set.
 
 ### GetLastProcessed
 
-`func (o *StatusAzureServiceBusSession) GetLastProcessed() time.Time`
+`func (o *StatusAzureServiceBusSession) GetLastProcessed() string`
 
 GetLastProcessed returns the LastProcessed field if non-nil, zero value otherwise.
 
 ### GetLastProcessedOk
 
-`func (o *StatusAzureServiceBusSession) GetLastProcessedOk() (*time.Time, bool)`
+`func (o *StatusAzureServiceBusSession) GetLastProcessedOk() (*string, bool)`
 
 GetLastProcessedOk returns a tuple with the LastProcessed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastProcessed
 
-`func (o *StatusAzureServiceBusSession) SetLastProcessed(v time.Time)`
+`func (o *StatusAzureServiceBusSession) SetLastProcessed(v string)`
 
 SetLastProcessed sets LastProcessed field to given value.
 

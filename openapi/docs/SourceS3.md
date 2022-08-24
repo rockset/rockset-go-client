@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
 **Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
-**Region** | Pointer to **string** | AWS region containing source bucket | [optional] 
-**Bucket** | **string** | address of S3 bucket containing data | 
-**Prefixes** | **[]string** | list of prefixes to paths from which data should be ingested | [readonly] 
+**Region** | Pointer to **string** | AWS region containing source bucket. | [optional] 
+**Bucket** | **string** | Address of S3 bucket containing data. | 
+**Prefixes** | **[]string** | List of prefixes to paths from which data should be ingested. | [readonly] 
 **ObjectCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
 **ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
 **ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectBytesDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
 
 ## Methods
 
@@ -221,6 +222,31 @@ SetObjectBytesTotal sets ObjectBytesTotal field to given value.
 `func (o *SourceS3) HasObjectBytesTotal() bool`
 
 HasObjectBytesTotal returns a boolean if a field has been set.
+
+### GetObjectBytesDownloaded
+
+`func (o *SourceS3) GetObjectBytesDownloaded() int64`
+
+GetObjectBytesDownloaded returns the ObjectBytesDownloaded field if non-nil, zero value otherwise.
+
+### GetObjectBytesDownloadedOk
+
+`func (o *SourceS3) GetObjectBytesDownloadedOk() (*int64, bool)`
+
+GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectBytesDownloaded
+
+`func (o *SourceS3) SetObjectBytesDownloaded(v int64)`
+
+SetObjectBytesDownloaded sets ObjectBytesDownloaded field to given value.
+
+### HasObjectBytesDownloaded
+
+`func (o *SourceS3) HasObjectBytesDownloaded() bool`
+
+HasObjectBytesDownloaded returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -16,11 +16,11 @@ import (
 
 // CreateAliasRequest struct for CreateAliasRequest
 type CreateAliasRequest struct {
-	// Alias name
+	// Alias name.
 	Name string `json:"name"`
-	// optional description
+	// Optional description.
 	Description *string `json:"description,omitempty"`
-	// list of fully qualified collection names referenced by alias
+	// List of fully qualified collection names referenced by alias.
 	Collections []string `json:"collections"`
 }
 

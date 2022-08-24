@@ -4,20 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
-**CreatedBy** | Pointer to **string** | email of user who created the collection | [optional] 
-**Name** | Pointer to **string** | unique identifer for collection, can contain alphanumeric or dash characters | [optional] 
-**Description** | Pointer to **string** | text describing the collection | [optional] 
-**Workspace** | Pointer to **string** | name of the workspace that the collection is in | [optional] 
-**Status** | Pointer to **string** | current status of collection, one of: CREATED, READY, DELETED | [optional] 
-**Sources** | Pointer to [**[]Source**](Source.md) | list of sources from which collection ingests | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**CreatedBy** | Pointer to **string** | Email of user who created the collection. | [optional] 
+**Name** | Pointer to **string** | Unique identifer for collection, can contain alphanumeric or dash characters. | [optional] 
+**Description** | Pointer to **string** | Text describing the collection. | [optional] 
+**Workspace** | Pointer to **string** | Name of the workspace that the collection is in. | [optional] 
+**Status** | Pointer to **string** | Current status of collection. | [optional] 
+**Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which collection ingests. | [optional] 
 **Stats** | Pointer to [**CollectionStats**](CollectionStats.md) |  | [optional] 
-**RetentionSecs** | Pointer to **int64** | number of seconds after which data is purged based on event time | [optional] 
-**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | list of mappings applied on all documents in a collection | [optional] 
+**RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged based on event time. | [optional] 
+**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | List of mappings applied on all documents in a collection. | [optional] 
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
-**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields for a collection | [optional] 
-**Aliases** | Pointer to [**[]Alias**](Alias.md) | list of aliases for a collection | [optional] 
-**InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not | [optional] 
+**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | List of clustering fields for a collection. | [optional] 
+**Aliases** | Pointer to [**[]Alias**](Alias.md) | List of aliases for a collection. | [optional] 
+**ReadOnly** | Pointer to **bool** | Whether the collection is read-only or not. | [optional] 
+**InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not. | [optional] 
 
 ## Methods
 
@@ -362,6 +363,31 @@ SetAliases sets Aliases field to given value.
 `func (o *Collection) HasAliases() bool`
 
 HasAliases returns a boolean if a field has been set.
+
+### GetReadOnly
+
+`func (o *Collection) GetReadOnly() bool`
+
+GetReadOnly returns the ReadOnly field if non-nil, zero value otherwise.
+
+### GetReadOnlyOk
+
+`func (o *Collection) GetReadOnlyOk() (*bool, bool)`
+
+GetReadOnlyOk returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadOnly
+
+`func (o *Collection) SetReadOnly(v bool)`
+
+SetReadOnly sets ReadOnly field to given value.
+
+### HasReadOnly
+
+`func (o *Collection) HasReadOnly() bool`
+
+HasReadOnly returns a boolean if a field has been set.
 
 ### GetInsertOnly
 

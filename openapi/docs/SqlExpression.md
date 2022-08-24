@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sql** | Pointer to **string** | The name of a sql function | [optional] 
+**Sql** | Pointer to **string** | The name of a sql function. | [optional] 
 
 ## Methods
 

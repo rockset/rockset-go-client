@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | The type of error | [optional] 
-**Message** | Pointer to **string** | A message associated with the error, containing more information about it | [optional] 
+**Type** | Pointer to **string** | The type of error. | [optional] 
+**Message** | Pointer to **string** | A message associated with the error, containing more information about it. | [optional] 
 **StatusCode** | Pointer to **int32** | The HTTP status code associated with this error, had it been sent as the response status code | [optional] 
 
 ## Methods

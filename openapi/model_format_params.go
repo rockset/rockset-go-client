@@ -16,7 +16,7 @@ import (
 
 // FormatParams struct for FormatParams
 type FormatParams struct {
-	// source data is in json format
+	// Source data is in json format.
 	Json *bool `json:"json,omitempty"`
 	Csv *CsvParams `json:"csv,omitempty"`
 	Xml *XmlParams `json:"xml,omitempty"`
@@ -24,6 +24,7 @@ type FormatParams struct {
 	PostgresDms *bool `json:"postgres_dms,omitempty"`
 	MssqlDms *bool `json:"mssql_dms,omitempty"`
 	OracleDms *bool `json:"oracle_dms,omitempty"`
+	Avro map[string]interface{} `json:"avro,omitempty"`
 }
 
 // NewFormatParams instantiates a new FormatParams object
@@ -267,6 +268,38 @@ func (o *FormatParams) SetOracleDms(v bool) {
 	o.OracleDms = &v
 }
 
+// GetAvro returns the Avro field value if set, zero value otherwise.
+func (o *FormatParams) GetAvro() map[string]interface{} {
+	if o == nil || o.Avro == nil {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.Avro
+}
+
+// GetAvroOk returns a tuple with the Avro field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetAvroOk() (map[string]interface{}, bool) {
+	if o == nil || o.Avro == nil {
+		return nil, false
+	}
+	return o.Avro, true
+}
+
+// HasAvro returns a boolean if a field has been set.
+func (o *FormatParams) HasAvro() bool {
+	if o != nil && o.Avro != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAvro gets a reference to the given map[string]interface{} and assigns it to the Avro field.
+func (o *FormatParams) SetAvro(v map[string]interface{}) {
+	o.Avro = v
+}
+
 func (o FormatParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Json != nil {
@@ -289,6 +322,9 @@ func (o FormatParams) MarshalJSON() ([]byte, error) {
 	}
 	if o.OracleDms != nil {
 		toSerialize["oracle_dms"] = o.OracleDms
+	}
+	if o.Avro != nil {
+		toSerialize["avro"] = o.Avro
 	}
 	return json.Marshal(toSerialize)
 }

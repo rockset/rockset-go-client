@@ -16,9 +16,9 @@ import (
 
 // CreateUserRequest struct for CreateUserRequest
 type CreateUserRequest struct {
-	// user email, must be unique
+	// User email, must be unique.
 	Email string `json:"email"`
-	// List of roles for a given user
+	// List of roles for a given user.
 	Roles []string `json:"roles"`
 }
 

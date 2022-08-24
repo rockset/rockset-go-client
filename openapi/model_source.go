@@ -16,8 +16,8 @@ import (
 
 // Source Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
 type Source struct {
-	// name of integration to use
-	IntegrationName string `json:"integration_name"`
+	// Name of integration to use.
+	IntegrationName *string `json:"integration_name,omitempty"`
 	S3 *SourceS3 `json:"s3,omitempty"`
 	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
 	Gcs *SourceGcs `json:"gcs,omitempty"`
@@ -28,6 +28,7 @@ type Source struct {
 	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
 	Kafka *SourceKafka `json:"kafka,omitempty"`
 	Mongodb *SourceMongoDb `json:"mongodb,omitempty"`
+	Snowflake *SourceSnowflake `json:"snowflake,omitempty"`
 	Status *Status `json:"status,omitempty"`
 	FormatParams *FormatParams `json:"format_params,omitempty"`
 }
@@ -36,9 +37,8 @@ type Source struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSource(integrationName string) *Source {
+func NewSource() *Source {
 	this := Source{}
-	this.IntegrationName = integrationName
 	return &this
 }
 
@@ -50,28 +50,36 @@ func NewSourceWithDefaults() *Source {
 	return &this
 }
 
-// GetIntegrationName returns the IntegrationName field value
+// GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
 func (o *Source) GetIntegrationName() string {
-	if o == nil {
+	if o == nil || o.IntegrationName == nil {
 		var ret string
 		return ret
 	}
-
-	return o.IntegrationName
+	return *o.IntegrationName
 }
 
-// GetIntegrationNameOk returns a tuple with the IntegrationName field value
+// GetIntegrationNameOk returns a tuple with the IntegrationName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetIntegrationNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.IntegrationName == nil {
 		return nil, false
 	}
-	return &o.IntegrationName, true
+	return o.IntegrationName, true
 }
 
-// SetIntegrationName sets field value
+// HasIntegrationName returns a boolean if a field has been set.
+func (o *Source) HasIntegrationName() bool {
+	if o != nil && o.IntegrationName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationName gets a reference to the given string and assigns it to the IntegrationName field.
 func (o *Source) SetIntegrationName(v string) {
-	o.IntegrationName = v
+	o.IntegrationName = &v
 }
 
 // GetS3 returns the S3 field value if set, zero value otherwise.
@@ -394,6 +402,38 @@ func (o *Source) SetMongodb(v SourceMongoDb) {
 	o.Mongodb = &v
 }
 
+// GetSnowflake returns the Snowflake field value if set, zero value otherwise.
+func (o *Source) GetSnowflake() SourceSnowflake {
+	if o == nil || o.Snowflake == nil {
+		var ret SourceSnowflake
+		return ret
+	}
+	return *o.Snowflake
+}
+
+// GetSnowflakeOk returns a tuple with the Snowflake field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetSnowflakeOk() (*SourceSnowflake, bool) {
+	if o == nil || o.Snowflake == nil {
+		return nil, false
+	}
+	return o.Snowflake, true
+}
+
+// HasSnowflake returns a boolean if a field has been set.
+func (o *Source) HasSnowflake() bool {
+	if o != nil && o.Snowflake != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSnowflake gets a reference to the given SourceSnowflake and assigns it to the Snowflake field.
+func (o *Source) SetSnowflake(v SourceSnowflake) {
+	o.Snowflake = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Source) GetStatus() Status {
 	if o == nil || o.Status == nil {
@@ -460,7 +500,7 @@ func (o *Source) SetFormatParams(v FormatParams) {
 
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.IntegrationName != nil {
 		toSerialize["integration_name"] = o.IntegrationName
 	}
 	if o.S3 != nil {
@@ -492,6 +532,9 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	}
 	if o.Mongodb != nil {
 		toSerialize["mongodb"] = o.Mongodb
+	}
+	if o.Snowflake != nil {
+		toSerialize["snowflake"] = o.Snowflake
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status

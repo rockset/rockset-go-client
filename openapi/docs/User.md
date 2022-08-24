@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
-**Email** | **string** | user email | 
-**FirstName** | Pointer to **string** | user first name | [optional] 
-**LastName** | Pointer to **string** | user last name | [optional] 
-**Roles** | Pointer to **[]string** | List of roles for a given user | [optional] 
-**State** | Pointer to **string** | state of user - NEW / ACTIVE | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**Email** | **string** | User email. | 
+**FirstName** | Pointer to **string** | User first name. | [optional] 
+**LastName** | Pointer to **string** | User last name. | [optional] 
+**Roles** | Pointer to **[]string** | List of roles for a given user. | [optional] 
+**State** | Pointer to **string** | State of user - NEW / ACTIVE. | [optional] 
 
 ## Methods
 

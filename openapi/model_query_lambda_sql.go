@@ -16,9 +16,9 @@ import (
 
 // QueryLambdaSql struct for QueryLambdaSql
 type QueryLambdaSql struct {
-	// SQL text
+	// SQL text.
 	Query string `json:"query"`
-	// default parameters for this Query Lambda
+	// Default parameters for this Query Lambda.
 	DefaultParameters []QueryParameter `json:"default_parameters,omitempty"`
 }
 

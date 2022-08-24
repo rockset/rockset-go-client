@@ -4,9 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**NewSize** | Pointer to **string** | requested virtual instance size | [optional] 
+**NewSize** | Pointer to **string** | Requested virtual instance size. | [optional] 
 **NewType** | Pointer to **string** |  | [optional] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
+**Name** | Pointer to **string** | New virtual instance name. | [optional] 
+**Description** | Pointer to **string** | New virtual instance description. | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetMonitoringEnabled sets MonitoringEnabled field to given value.
 `func (o *UpdateVirtualInstanceRequest) HasMonitoringEnabled() bool`
 
 HasMonitoringEnabled returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *UpdateVirtualInstanceRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *UpdateVirtualInstanceRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *UpdateVirtualInstanceRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *UpdateVirtualInstanceRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *UpdateVirtualInstanceRequest) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *UpdateVirtualInstanceRequest) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *UpdateVirtualInstanceRequest) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *UpdateVirtualInstanceRequest) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

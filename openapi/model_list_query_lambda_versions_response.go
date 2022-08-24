@@ -16,7 +16,7 @@ import (
 
 // ListQueryLambdaVersionsResponse struct for ListQueryLambdaVersionsResponse
 type ListQueryLambdaVersionsResponse struct {
-	// list of all versions for a particular Query Lambda
+	// List of all versions for a particular Query Lambda.
 	Data []QueryLambdaVersion `json:"data,omitempty"`
 }
 

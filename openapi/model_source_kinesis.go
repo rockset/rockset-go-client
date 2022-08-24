@@ -16,11 +16,11 @@ import (
 
 // SourceKinesis struct for SourceKinesis
 type SourceKinesis struct {
-	// AWS region name of Kinesis stream, by default us-west-2 is used
+	// AWS region name of Kinesis stream, by default us-west-2 is used.
 	AwsRegion *string `json:"aws_region,omitempty"`
-	// name of kinesis stream
+	// Name of kinesis stream.
 	StreamName string `json:"stream_name"`
-	// set of fields that correspond to a DMS primary key
+	// Set of fields that correspond to a DMS primary key.
 	DmsPrimaryKey []string `json:"dms_primary_key,omitempty"`
 	// For non-DMS streams, Rockset can tail from the earliest end or latest end of kinesis source.
 	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`

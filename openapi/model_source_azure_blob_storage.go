@@ -16,7 +16,7 @@ import (
 
 // SourceAzureBlobStorage struct for SourceAzureBlobStorage
 type SourceAzureBlobStorage struct {
-	// name of Azure blob Storage container you want to ingest from
+	// Name of Azure blob Storage container you want to ingest from.
 	Container *string `json:"container,omitempty"`
 	// Prefix that selects blobs to ingest.
 	Prefix *string `json:"prefix,omitempty"`

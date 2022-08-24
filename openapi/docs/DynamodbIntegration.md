@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AwsAccessKey** | Pointer to [**AwsAccessKey**](AwsAccessKey.md) |  | [optional] 
 **AwsRole** | Pointer to [**AwsRole**](AwsRole.md) |  | [optional] 
-**S3ExportBucketName** | Pointer to **string** |  | [optional] 
+**S3ExportBucketName** | Pointer to **string** | S3 bucket used for export during collection initial dump. | [optional] 
 
 ## Methods
 

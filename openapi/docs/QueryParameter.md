@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | name of the field | 
-**Type** | **string** | data type of the field | 
-**Value** | **string** | literal value of the field | 
+**Name** | **string** | Name of the field. | 
+**Type** | **string** | Data type of the field. | 
+**Value** | **string** | Literal value of the field. | 
 
 ## Methods
 

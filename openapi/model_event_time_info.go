@@ -16,11 +16,11 @@ import (
 
 // EventTimeInfo struct for EventTimeInfo
 type EventTimeInfo struct {
-	// name of the field containing event time
+	// Name of the field containing event time.
 	Field string `json:"field"`
-	// format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch
+	// Format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch.
 	Format *string `json:"format,omitempty"`
-	// default time zone, in standard IANA format
+	// Default time zone, in standard IANA format.
 	TimeZone *string `json:"time_zone,omitempty"`
 }
 

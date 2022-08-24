@@ -16,10 +16,10 @@ import (
 
 // OutputField struct for OutputField
 type OutputField struct {
-	// The name of a field, parsed as a SQL qualified name 
+	// The name of a field, parsed as a SQL qualified name.
 	FieldName *string `json:"field_name,omitempty"`
 	Value *SqlExpression `json:"value,omitempty"`
-	// Error in Mapping execution: 'skip' or 'fail' 
+	// Error in Mapping execution: 'skip' or 'fail'.
 	OnError *string `json:"on_error,omitempty"`
 }
 

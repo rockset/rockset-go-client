@@ -16,7 +16,7 @@ import (
 
 // AzureServiceBusIntegration struct for AzureServiceBusIntegration
 type AzureServiceBusIntegration struct {
-	// credentials for the Azure Service Bus
+	// Credentials for the Azure Service Bus.
 	ConnectionString string `json:"connection_string"`
 }
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Collections** | **[]string** | list of collections specified in query | 
-**Parameters** | **[]string** | list of parameters specified in query | 
+**Collections** | **[]string** | List of collections specified in query. | 
+**Parameters** | **[]string** | List of parameters specified in query. | 
 
 ## Methods
 

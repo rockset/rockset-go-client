@@ -16,11 +16,11 @@ import (
 
 // QueryParameter struct for QueryParameter
 type QueryParameter struct {
-	// name of the field
+	// Name of the field.
 	Name string `json:"name"`
-	// data type of the field
+	// Data type of the field.
 	Type string `json:"type"`
-	// literal value of the field
+	// Literal value of the field.
 	Value string `json:"value"`
 }
 

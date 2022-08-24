@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Integration**](Integration.md) | list of integration objects | [optional] 
+**Data** | Pointer to [**[]Integration**](Integration.md) | List of integration objects. | [optional] 
 
 ## Methods
 

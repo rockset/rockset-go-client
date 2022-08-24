@@ -16,15 +16,15 @@ import (
 
 // CsvParams struct for CsvParams
 type CsvParams struct {
-	// If the first line in every object specifies the column names
+	// If the first line in every object specifies the column names.
 	FirstLineAsColumnNames *bool `json:"firstLineAsColumnNames,omitempty"`
-	// a single character that is the column separator
+	// A single character that is the column separator.
 	Separator *string `json:"separator,omitempty"`
-	// can be one of: UTF-8, ISO_8859_1, UTF-16
+	// One of: UTF-8, ISO_8859_1, UTF-16.
 	Encoding *string `json:"encoding,omitempty"`
-	// names of columns
+	// Names of columns.
 	ColumnNames []string `json:"columnNames,omitempty"`
-	// names of columns
+	// Names of columns.
 	ColumnTypes []string `json:"columnTypes,omitempty"`
 	// character within which a cell value is enclosed,null character if no such character, default is '\"'
 	QuoteChar *string `json:"quoteChar,omitempty"`

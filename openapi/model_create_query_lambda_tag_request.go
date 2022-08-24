@@ -16,9 +16,9 @@ import (
 
 // CreateQueryLambdaTagRequest struct for CreateQueryLambdaTagRequest
 type CreateQueryLambdaTagRequest struct {
-	// name of Query Lambda tag
+	// Name of Query Lambda tag.
 	TagName string `json:"tag_name"`
-	// hash identifying a Query Lambda tag
+	// Hash identifying a Query Lambda tag.
 	Version string `json:"version"`
 }
 

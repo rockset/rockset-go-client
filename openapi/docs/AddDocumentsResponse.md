@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]DocumentStatus**](DocumentStatus.md) | information about the added documents | [optional] 
+**Data** | Pointer to [**[]DocumentStatus**](DocumentStatus.md) | Information about the added documents. | [optional] 
 
 ## Methods
 

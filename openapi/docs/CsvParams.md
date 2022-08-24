@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FirstLineAsColumnNames** | Pointer to **bool** | If the first line in every object specifies the column names | [optional] 
-**Separator** | Pointer to **string** | a single character that is the column separator | [optional] 
-**Encoding** | Pointer to **string** | can be one of: UTF-8, ISO_8859_1, UTF-16 | [optional] 
-**ColumnNames** | Pointer to **[]string** | names of columns | [optional] 
-**ColumnTypes** | Pointer to **[]string** | names of columns | [optional] 
+**FirstLineAsColumnNames** | Pointer to **bool** | If the first line in every object specifies the column names. | [optional] 
+**Separator** | Pointer to **string** | A single character that is the column separator. | [optional] 
+**Encoding** | Pointer to **string** | One of: UTF-8, ISO_8859_1, UTF-16. | [optional] 
+**ColumnNames** | Pointer to **[]string** | Names of columns. | [optional] 
+**ColumnTypes** | Pointer to **[]string** | Names of columns. | [optional] 
 **QuoteChar** | Pointer to **string** | character within which a cell value is enclosed,null character if no such character, default is &#39;\&quot;&#39; | [optional] 
 **EscapeChar** | Pointer to **string** | escape character removes any special meaning from the following character,default is &#39;\\&#39; | [optional] 
 

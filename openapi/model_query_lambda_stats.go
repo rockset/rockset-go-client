@@ -16,13 +16,13 @@ import (
 
 // QueryLambdaStats struct for QueryLambdaStats
 type QueryLambdaStats struct {
-	// ISO-8601 date
+	// ISO-8601 date.
 	LastExecuted *string `json:"last_executed,omitempty"`
-	// user who last executed Query Lambda
+	// User who last executed Query Lambda.
 	LastExecutedBy *string `json:"last_executed_by,omitempty"`
-	// ISO-8601 date of last execution failure
+	// ISO-8601 date of last execution failure.
 	LastExecutionError *string `json:"last_execution_error,omitempty"`
-	// error message associated with last failed execution
+	// Error message associated with last failed execution.
 	LastExecutionErrorMessage *string `json:"last_execution_error_message,omitempty"`
 }
 

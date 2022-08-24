@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]VirtualInstance**](VirtualInstance.md) | list of all virtual instances | [optional] 
+**Data** | Pointer to [**[]VirtualInstance**](VirtualInstance.md) | List of all virtual instances. | [optional] 
 
 ## Methods
 

@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**KafkaTopicNames** | Pointer to **[]string** | Kafka topics to tail | [optional] 
-**SourceStatusByTopic** | Pointer to [**map[string]StatusKafka**](StatusKafka.md) | The status of the Kafka source by topic | [optional] [readonly] 
-**KafkaDataFormat** | Pointer to **string** | The format of the Kafka topics being tailed | [optional] 
-**ConnectionString** | Pointer to **string** | kafka connection string | [optional] [readonly] 
+**KafkaTopicNames** | Pointer to **[]string** | Kafka topics to tail. | [optional] 
+**SourceStatusByTopic** | Pointer to [**map[string]StatusKafka**](StatusKafka.md) | The status of the Kafka source by topic. | [optional] [readonly] 
+**KafkaDataFormat** | Pointer to **string** | The format of the Kafka topics being tailed. | [optional] 
+**ConnectionString** | Pointer to **string** | Kafka connection string. | [optional] 
 **UseV3** | Pointer to **bool** |  | [optional] 
-**BootstrapServers** | Pointer to **string** |  | [optional] 
+**BootstrapServers** | Pointer to **string** | The Kafka bootstrap server url(s). Required only for V3 integration. | [optional] 
 **SecurityConfig** | Pointer to [**KafkaV3SecurityConfig**](KafkaV3SecurityConfig.md) |  | [optional] 
+**SchemaRegistryConfig** | Pointer to [**SchemaRegistryConfig**](SchemaRegistryConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -205,6 +206,31 @@ SetSecurityConfig sets SecurityConfig field to given value.
 `func (o *KafkaIntegration) HasSecurityConfig() bool`
 
 HasSecurityConfig returns a boolean if a field has been set.
+
+### GetSchemaRegistryConfig
+
+`func (o *KafkaIntegration) GetSchemaRegistryConfig() SchemaRegistryConfig`
+
+GetSchemaRegistryConfig returns the SchemaRegistryConfig field if non-nil, zero value otherwise.
+
+### GetSchemaRegistryConfigOk
+
+`func (o *KafkaIntegration) GetSchemaRegistryConfigOk() (*SchemaRegistryConfig, bool)`
+
+GetSchemaRegistryConfigOk returns a tuple with the SchemaRegistryConfig field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSchemaRegistryConfig
+
+`func (o *KafkaIntegration) SetSchemaRegistryConfig(v SchemaRegistryConfig)`
+
+SetSchemaRegistryConfig sets SchemaRegistryConfig field to given value.
+
+### HasSchemaRegistryConfig
+
+`func (o *KafkaIntegration) HasSchemaRegistryConfig() bool`
+
+HasSchemaRegistryConfig returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

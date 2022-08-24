@@ -16,7 +16,7 @@ import (
 
 // ListWorkspacesResponse struct for ListWorkspacesResponse
 type ListWorkspacesResponse struct {
-	// list of workspaces
+	// List of workspaces.
 	Data []Workspace `json:"data,omitempty"`
 }
 

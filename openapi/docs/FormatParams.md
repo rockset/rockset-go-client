@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Json** | Pointer to **bool** | source data is in json format | [optional] 
+**Json** | Pointer to **bool** | Source data is in json format. | [optional] 
 **Csv** | Pointer to [**CsvParams**](CsvParams.md) |  | [optional] 
 **Xml** | Pointer to [**XmlParams**](XmlParams.md) |  | [optional] 
 **MysqlDms** | Pointer to **bool** |  | [optional] 
 **PostgresDms** | Pointer to **bool** |  | [optional] 
 **MssqlDms** | Pointer to **bool** |  | [optional] 
 **OracleDms** | Pointer to **bool** |  | [optional] 
+**Avro** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -205,6 +206,31 @@ SetOracleDms sets OracleDms field to given value.
 `func (o *FormatParams) HasOracleDms() bool`
 
 HasOracleDms returns a boolean if a field has been set.
+
+### GetAvro
+
+`func (o *FormatParams) GetAvro() map[string]interface{}`
+
+GetAvro returns the Avro field if non-nil, zero value otherwise.
+
+### GetAvroOk
+
+`func (o *FormatParams) GetAvroOk() (*map[string]interface{}, bool)`
+
+GetAvroOk returns a tuple with the Avro field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAvro
+
+`func (o *FormatParams) SetAvro(v map[string]interface{})`
+
+SetAvro sets Avro field to given value.
+
+### HasAvro
+
+`func (o *FormatParams) HasAvro() bool`
+
+HasAvro returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

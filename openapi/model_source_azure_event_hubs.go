@@ -16,7 +16,7 @@ import (
 
 // SourceAzureEventHubs struct for SourceAzureEventHubs
 type SourceAzureEventHubs struct {
-	// name of the hub which rockset should ingest from
+	// Name of the hub which rockset should ingest from.
 	HubId *string `json:"hub_id,omitempty"`
 	// The offset reset policy.
 	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`

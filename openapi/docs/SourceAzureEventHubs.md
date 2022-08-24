@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**HubId** | Pointer to **string** | name of the hub which rockset should ingest from | [optional] 
+**HubId** | Pointer to **string** | Name of the hub which rockset should ingest from. | [optional] 
 **OffsetResetPolicy** | Pointer to **string** | The offset reset policy. | [optional] 
 **Status** | Pointer to [**StatusAzureEventHubs**](StatusAzureEventHubs.md) |  | [optional] 
 

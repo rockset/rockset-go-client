@@ -101,11 +101,11 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "OpenAPI-Generator/0.14.4/go",
+		UserAgent:        "OpenAPI-Generator/0.14.5/go",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "https://api.rs2.usw2.rockset.com",
+				URL: "https://api.use1a1.rockset.com",
 				Description: "No description provided",
 			},
 		},

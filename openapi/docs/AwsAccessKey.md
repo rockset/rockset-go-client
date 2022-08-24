@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AwsAccessKeyId** | **string** | AWS access key ID | 
-**AwsSecretAccessKey** | **string** | AWS secret access key | 
+**AwsAccessKeyId** | **string** | AWS access key ID. | 
+**AwsSecretAccessKey** | **string** | AWS secret access key. | 
 
 ## Methods
 

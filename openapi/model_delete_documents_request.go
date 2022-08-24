@@ -16,7 +16,7 @@ import (
 
 // DeleteDocumentsRequest struct for DeleteDocumentsRequest
 type DeleteDocumentsRequest struct {
-	// Array of IDs of documents to be deleted
+	// Array of IDs of documents to be deleted.
 	Data []DeleteDocumentsRequestData `json:"data"`
 }
 

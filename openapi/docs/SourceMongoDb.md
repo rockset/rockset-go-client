@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DatabaseName** | **string** | MongoDB database name containing this collection | 
-**CollectionName** | **string** | MongoDB collection name | 
+**DatabaseName** | **string** | MongoDB database name containing this collection. | 
+**CollectionName** | **string** | MongoDB collection name. | 
 **Status** | Pointer to [**StatusMongoDb**](StatusMongoDb.md) |  | [optional] 
 
 ## Methods

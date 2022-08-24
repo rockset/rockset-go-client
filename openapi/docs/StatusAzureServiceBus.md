@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FirstProcessedAt** | Pointer to **time.Time** | Service Bus first message processed time in ISO-8601 format | [optional] 
-**RecordsProcessed** | Pointer to **int64** | Number of records processed | [optional] 
-**Sessions** | Pointer to [**map[string]StatusAzureServiceBusSession**](StatusAzureServiceBusSession.md) | Sessions processed | [optional] 
+**FirstProcessedAt** | Pointer to **string** | Service Bus first message processed time in ISO-8601 format. | [optional] 
+**RecordsProcessed** | Pointer to **int64** | Number of records processed. | [optional] 
+**Sessions** | Pointer to [**map[string]StatusAzureServiceBusSession**](StatusAzureServiceBusSession.md) | Sessions processed. | [optional] 
 
 ## Methods
 
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetFirstProcessedAt
 
-`func (o *StatusAzureServiceBus) GetFirstProcessedAt() time.Time`
+`func (o *StatusAzureServiceBus) GetFirstProcessedAt() string`
 
 GetFirstProcessedAt returns the FirstProcessedAt field if non-nil, zero value otherwise.
 
 ### GetFirstProcessedAtOk
 
-`func (o *StatusAzureServiceBus) GetFirstProcessedAtOk() (*time.Time, bool)`
+`func (o *StatusAzureServiceBus) GetFirstProcessedAtOk() (*string, bool)`
 
 GetFirstProcessedAtOk returns a tuple with the FirstProcessedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetFirstProcessedAt
 
-`func (o *StatusAzureServiceBus) SetFirstProcessedAt(v time.Time)`
+`func (o *StatusAzureServiceBus) SetFirstProcessedAt(v string)`
 
 SetFirstProcessedAt sets FirstProcessedAt field to given value.
 

@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **Name** | **string** | Name of the API key. | 
 **Key** | **string** | API key string of 64 alphanumeric characters. | 
 **LastAccessTime** | Pointer to **string** | Date that API key was most recently used (ISO-8601 format). | [optional] 
+**ExpiryTime** | Pointer to **string** | The expiration date of this API key. | [optional] 
 **Role** | Pointer to **string** | Role specifying access control. If not specified, API key will have access to all of the associated user&#39;s roles. | [optional] 
 **CreatedBy** | Pointer to **string** | Email of API key owner. | [optional] 
-**State** | Pointer to **string** | current state of this key | [optional] 
+**State** | Pointer to **string** | Current state of this key. | [optional] 
 
 ## Methods
 
@@ -120,6 +121,31 @@ SetLastAccessTime sets LastAccessTime field to given value.
 `func (o *ApiKey) HasLastAccessTime() bool`
 
 HasLastAccessTime returns a boolean if a field has been set.
+
+### GetExpiryTime
+
+`func (o *ApiKey) GetExpiryTime() string`
+
+GetExpiryTime returns the ExpiryTime field if non-nil, zero value otherwise.
+
+### GetExpiryTimeOk
+
+`func (o *ApiKey) GetExpiryTimeOk() (*string, bool)`
+
+GetExpiryTimeOk returns a tuple with the ExpiryTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpiryTime
+
+`func (o *ApiKey) SetExpiryTime(v string)`
+
+SetExpiryTime sets ExpiryTime field to given value.
+
+### HasExpiryTime
+
+`func (o *ApiKey) HasExpiryTime() bool`
+
+HasExpiryTime returns a boolean if a field has been set.
 
 ### GetRole
 

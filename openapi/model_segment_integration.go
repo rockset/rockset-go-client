@@ -16,7 +16,7 @@ import (
 
 // SegmentIntegration struct for SegmentIntegration
 type SegmentIntegration struct {
-	// segment connection string
+	// Segment connection string.
 	ConnectionString *string `json:"connection_string,omitempty"`
 }
 

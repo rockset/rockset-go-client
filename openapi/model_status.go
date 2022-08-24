@@ -16,16 +16,26 @@ import (
 
 // Status struct for Status
 type Status struct {
-	// Status of the Source's ingestion, one of: INITIALIZING, WATCHING, PROCESSING, COMPLETED, ERROR
+	// Status of the Source's ingestion.
 	State *string `json:"state,omitempty"`
-	// state message
+	// ISO-8601 date when state was triggered.
+	Since *string `json:"since,omitempty"`
+	// State message.
 	Message *string `json:"message,omitempty"`
-	// ISO-8601 date when source was last processed
+	// ISO-8601 date when source was last processed.
 	LastProcessedAt *string `json:"last_processed_at,omitempty"`
-	// last source item processed by ingester
+	// Last source item processed by ingester.
 	LastProcessedItem *string `json:"last_processed_item,omitempty"`
-	// Total items processed of source
+	// Total items processed of source.
 	TotalProcessedItems *int64 `json:"total_processed_items,omitempty"`
+	// ISO-8601 date when last error occurred.
+	LastErrorAt *string `json:"last_error_at,omitempty"`
+	// Last source item that errored.
+	LastErrorItem *string `json:"last_error_item,omitempty"`
+	// Reason for the last error.
+	LastErrorReason *string `json:"last_error_reason,omitempty"`
+	// Total items that errored.
+	TotalErrorItems *int64 `json:"total_error_items,omitempty"`
 }
 
 // NewStatus instantiates a new Status object
@@ -75,6 +85,38 @@ func (o *Status) HasState() bool {
 // SetState gets a reference to the given string and assigns it to the State field.
 func (o *Status) SetState(v string) {
 	o.State = &v
+}
+
+// GetSince returns the Since field value if set, zero value otherwise.
+func (o *Status) GetSince() string {
+	if o == nil || o.Since == nil {
+		var ret string
+		return ret
+	}
+	return *o.Since
+}
+
+// GetSinceOk returns a tuple with the Since field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetSinceOk() (*string, bool) {
+	if o == nil || o.Since == nil {
+		return nil, false
+	}
+	return o.Since, true
+}
+
+// HasSince returns a boolean if a field has been set.
+func (o *Status) HasSince() bool {
+	if o != nil && o.Since != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSince gets a reference to the given string and assigns it to the Since field.
+func (o *Status) SetSince(v string) {
+	o.Since = &v
 }
 
 // GetMessage returns the Message field value if set, zero value otherwise.
@@ -205,10 +247,141 @@ func (o *Status) SetTotalProcessedItems(v int64) {
 	o.TotalProcessedItems = &v
 }
 
+// GetLastErrorAt returns the LastErrorAt field value if set, zero value otherwise.
+func (o *Status) GetLastErrorAt() string {
+	if o == nil || o.LastErrorAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastErrorAt
+}
+
+// GetLastErrorAtOk returns a tuple with the LastErrorAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetLastErrorAtOk() (*string, bool) {
+	if o == nil || o.LastErrorAt == nil {
+		return nil, false
+	}
+	return o.LastErrorAt, true
+}
+
+// HasLastErrorAt returns a boolean if a field has been set.
+func (o *Status) HasLastErrorAt() bool {
+	if o != nil && o.LastErrorAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastErrorAt gets a reference to the given string and assigns it to the LastErrorAt field.
+func (o *Status) SetLastErrorAt(v string) {
+	o.LastErrorAt = &v
+}
+
+// GetLastErrorItem returns the LastErrorItem field value if set, zero value otherwise.
+func (o *Status) GetLastErrorItem() string {
+	if o == nil || o.LastErrorItem == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastErrorItem
+}
+
+// GetLastErrorItemOk returns a tuple with the LastErrorItem field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetLastErrorItemOk() (*string, bool) {
+	if o == nil || o.LastErrorItem == nil {
+		return nil, false
+	}
+	return o.LastErrorItem, true
+}
+
+// HasLastErrorItem returns a boolean if a field has been set.
+func (o *Status) HasLastErrorItem() bool {
+	if o != nil && o.LastErrorItem != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastErrorItem gets a reference to the given string and assigns it to the LastErrorItem field.
+func (o *Status) SetLastErrorItem(v string) {
+	o.LastErrorItem = &v
+}
+
+// GetLastErrorReason returns the LastErrorReason field value if set, zero value otherwise.
+func (o *Status) GetLastErrorReason() string {
+	if o == nil || o.LastErrorReason == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastErrorReason
+}
+
+// GetLastErrorReasonOk returns a tuple with the LastErrorReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetLastErrorReasonOk() (*string, bool) {
+	if o == nil || o.LastErrorReason == nil {
+		return nil, false
+	}
+	return o.LastErrorReason, true
+}
+
+// HasLastErrorReason returns a boolean if a field has been set.
+func (o *Status) HasLastErrorReason() bool {
+	if o != nil && o.LastErrorReason != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastErrorReason gets a reference to the given string and assigns it to the LastErrorReason field.
+func (o *Status) SetLastErrorReason(v string) {
+	o.LastErrorReason = &v
+}
+
+// GetTotalErrorItems returns the TotalErrorItems field value if set, zero value otherwise.
+func (o *Status) GetTotalErrorItems() int64 {
+	if o == nil || o.TotalErrorItems == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TotalErrorItems
+}
+
+// GetTotalErrorItemsOk returns a tuple with the TotalErrorItems field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetTotalErrorItemsOk() (*int64, bool) {
+	if o == nil || o.TotalErrorItems == nil {
+		return nil, false
+	}
+	return o.TotalErrorItems, true
+}
+
+// HasTotalErrorItems returns a boolean if a field has been set.
+func (o *Status) HasTotalErrorItems() bool {
+	if o != nil && o.TotalErrorItems != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalErrorItems gets a reference to the given int64 and assigns it to the TotalErrorItems field.
+func (o *Status) SetTotalErrorItems(v int64) {
+	o.TotalErrorItems = &v
+}
+
 func (o Status) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.State != nil {
 		toSerialize["state"] = o.State
+	}
+	if o.Since != nil {
+		toSerialize["since"] = o.Since
 	}
 	if o.Message != nil {
 		toSerialize["message"] = o.Message
@@ -221,6 +394,18 @@ func (o Status) MarshalJSON() ([]byte, error) {
 	}
 	if o.TotalProcessedItems != nil {
 		toSerialize["total_processed_items"] = o.TotalProcessedItems
+	}
+	if o.LastErrorAt != nil {
+		toSerialize["last_error_at"] = o.LastErrorAt
+	}
+	if o.LastErrorItem != nil {
+		toSerialize["last_error_item"] = o.LastErrorItem
+	}
+	if o.LastErrorReason != nil {
+		toSerialize["last_error_reason"] = o.LastErrorReason
+	}
+	if o.TotalErrorItems != nil {
+		toSerialize["total_error_items"] = o.TotalErrorItems
 	}
 	return json.Marshal(toSerialize)
 }

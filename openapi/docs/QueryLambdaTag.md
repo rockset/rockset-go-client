@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TagName** | Pointer to **string** | name of Query Lambda tag | [optional] 
+**TagName** | Pointer to **string** | Name of Query Lambda tag. | [optional] 
 **Version** | Pointer to [**QueryLambdaVersion**](QueryLambdaVersion.md) |  | [optional] 
 
 ## Methods

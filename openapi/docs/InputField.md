@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name | [optional] 
-**IfMissing** | Pointer to **string** | Define the behaviour if fieldName is missing or is null | [optional] 
-**IsDrop** | Pointer to **bool** | If true, then drop fieldName from the document | [optional] 
-**Param** | Pointer to **string** | Sql parameter name | [optional] 
+**FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name. | [optional] 
+**IfMissing** | Pointer to **string** | Define the behaviour if fieldName is missing or is null. | [optional] 
+**IsDrop** | Pointer to **bool** | If true, then drop fieldName from the document. | [optional] 
+**Param** | Pointer to **string** | Sql parameter name. | [optional] 
 
 ## Methods
 

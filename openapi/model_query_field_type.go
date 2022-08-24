@@ -16,9 +16,9 @@ import (
 
 // QueryFieldType struct for QueryFieldType
 type QueryFieldType struct {
-	// name of the field
+	// Name of the field.
 	Name string `json:"name"`
-	// data type of the field
+	// Data type of the field.
 	Type string `json:"type"`
 }
 

@@ -16,16 +16,19 @@ import (
 
 // ExecuteQueryLambdaRequest struct for ExecuteQueryLambdaRequest
 type ExecuteQueryLambdaRequest struct {
-	// list of named parameters
+	// List of named parameters.
 	Parameters []QueryParameter `json:"parameters,omitempty"`
-	// Row limit to use if no limit specified in the SQL query text
+	// Row limit to use if no limit specified in the SQL query text.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
-	// Whether to generate warnings
+	// Whether to generate warnings.
 	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
 	// Flag to paginate and store the results of this query for later / sequential retrieval.
 	Paginate *bool `json:"paginate,omitempty"`
 	// Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
+	AsyncOptions *AsyncQueryOptions `json:"async_options,omitempty"`
+	// Virtual instance on which to run the query.
+	VirtualInstanceId *string `json:"virtual_instance_id,omitempty"`
 }
 
 // NewExecuteQueryLambdaRequest instantiates a new ExecuteQueryLambdaRequest object
@@ -205,6 +208,70 @@ func (o *ExecuteQueryLambdaRequest) SetInitialPaginateResponseDocCount(v int32) 
 	o.InitialPaginateResponseDocCount = &v
 }
 
+// GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions {
+	if o == nil || o.AsyncOptions == nil {
+		var ret AsyncQueryOptions
+		return ret
+	}
+	return *o.AsyncOptions
+}
+
+// GetAsyncOptionsOk returns a tuple with the AsyncOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
+	if o == nil || o.AsyncOptions == nil {
+		return nil, false
+	}
+	return o.AsyncOptions, true
+}
+
+// HasAsyncOptions returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool {
+	if o != nil && o.AsyncOptions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAsyncOptions gets a reference to the given AsyncQueryOptions and assigns it to the AsyncOptions field.
+func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions) {
+	o.AsyncOptions = &v
+}
+
+// GetVirtualInstanceId returns the VirtualInstanceId field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceId() string {
+	if o == nil || o.VirtualInstanceId == nil {
+		var ret string
+		return ret
+	}
+	return *o.VirtualInstanceId
+}
+
+// GetVirtualInstanceIdOk returns a tuple with the VirtualInstanceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceIdOk() (*string, bool) {
+	if o == nil || o.VirtualInstanceId == nil {
+		return nil, false
+	}
+	return o.VirtualInstanceId, true
+}
+
+// HasVirtualInstanceId returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasVirtualInstanceId() bool {
+	if o != nil && o.VirtualInstanceId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtualInstanceId gets a reference to the given string and assigns it to the VirtualInstanceId field.
+func (o *ExecuteQueryLambdaRequest) SetVirtualInstanceId(v string) {
+	o.VirtualInstanceId = &v
+}
+
 func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Parameters != nil {
@@ -221,6 +288,12 @@ func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.InitialPaginateResponseDocCount != nil {
 		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
+	}
+	if o.AsyncOptions != nil {
+		toSerialize["async_options"] = o.AsyncOptions
+	}
+	if o.VirtualInstanceId != nil {
+		toSerialize["virtual_instance_id"] = o.VirtualInstanceId
 	}
 	return json.Marshal(toSerialize)
 }

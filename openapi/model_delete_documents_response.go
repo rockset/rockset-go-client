@@ -16,7 +16,7 @@ import (
 
 // DeleteDocumentsResponse struct for DeleteDocumentsResponse
 type DeleteDocumentsResponse struct {
-	// information about deleted documents
+	// Information about deleted documents.
 	Data []DocumentStatus `json:"data,omitempty"`
 }
 

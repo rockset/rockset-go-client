@@ -16,7 +16,7 @@ import (
 
 // SourceGcs struct for SourceGcs
 type SourceGcs struct {
-	// name of GCS bucket you want to ingest from
+	// Name of GCS bucket you want to ingest from.
 	Bucket *string `json:"bucket,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
@@ -25,6 +25,7 @@ type SourceGcs struct {
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
 	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
 	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
+	ObjectBytesDownloaded *int64 `json:"object_bytes_downloaded,omitempty"`
 }
 
 // NewSourceGcs instantiates a new SourceGcs object
@@ -236,6 +237,38 @@ func (o *SourceGcs) SetObjectBytesTotal(v int64) {
 	o.ObjectBytesTotal = &v
 }
 
+// GetObjectBytesDownloaded returns the ObjectBytesDownloaded field value if set, zero value otherwise.
+func (o *SourceGcs) GetObjectBytesDownloaded() int64 {
+	if o == nil || o.ObjectBytesDownloaded == nil {
+		var ret int64
+		return ret
+	}
+	return *o.ObjectBytesDownloaded
+}
+
+// GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool) {
+	if o == nil || o.ObjectBytesDownloaded == nil {
+		return nil, false
+	}
+	return o.ObjectBytesDownloaded, true
+}
+
+// HasObjectBytesDownloaded returns a boolean if a field has been set.
+func (o *SourceGcs) HasObjectBytesDownloaded() bool {
+	if o != nil && o.ObjectBytesDownloaded != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetObjectBytesDownloaded gets a reference to the given int64 and assigns it to the ObjectBytesDownloaded field.
+func (o *SourceGcs) SetObjectBytesDownloaded(v int64) {
+	o.ObjectBytesDownloaded = &v
+}
+
 func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Bucket != nil {
@@ -255,6 +288,9 @@ func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	}
 	if o.ObjectBytesTotal != nil {
 		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
+	}
+	if o.ObjectBytesDownloaded != nil {
+		toSerialize["object_bytes_downloaded"] = o.ObjectBytesDownloaded
 	}
 	return json.Marshal(toSerialize)
 }

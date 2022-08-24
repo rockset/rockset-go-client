@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | **string** | user email, must be unique | 
-**Roles** | **[]string** | List of roles for a given user | 
+**Email** | **string** | User email, must be unique. | 
+**Roles** | **[]string** | List of roles for a given user. | 
 
 ## Methods
 

@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAt** | Pointer to **string** | ISO-8601 date of when workspace was created | [optional] 
-**CreatedBy** | Pointer to **string** | email of user who created the workspace | [optional] 
-**Name** | Pointer to **string** | descriptive label and unique identifier | [optional] 
-**Description** | Pointer to **string** | longer explanation for the workspace | [optional] 
-**CollectionCount** | Pointer to **int64** | number of collections that are immediate children of workspace | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date of when workspace was created. | [optional] 
+**CreatedBy** | Pointer to **string** | Email of user who created the workspace. | [optional] 
+**Name** | Pointer to **string** | Descriptive label and unique identifier. | [optional] 
+**Description** | Pointer to **string** | Longer explanation for the workspace. | [optional] 
+**CollectionCount** | Pointer to **int64** | Number of collections that are immediate children of workspace. | [optional] 
 
 ## Methods
 

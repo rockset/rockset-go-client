@@ -1,19 +1,300 @@
 # \QueriesApi
 
-All URIs are relative to *https://api.rs2.usw2.rockset.com*
+All URIs are relative to *https://api.use1a1.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Query**](QueriesApi.md#Query) | **Post** /v1/orgs/self/queries | Query
+[**CancelQuery**](QueriesApi.md#CancelQuery) | **Delete** /v1/orgs/self/queries/{queryId} | Cancel Query
+[**GetQuery**](QueriesApi.md#GetQuery) | **Get** /v1/orgs/self/queries/{queryId} | Retrieve Query
+[**GetQueryResults**](QueriesApi.md#GetQueryResults) | **Get** /v1/orgs/self/queries/{queryId}/pages | Retrieve Query Results Page
+[**ListActiveQueries**](QueriesApi.md#ListActiveQueries) | **Get** /v1/orgs/self/queries | List Queries
+[**Query**](QueriesApi.md#Query) | **Post** /v1/orgs/self/queries | Execute SQL Query
 [**Validate**](QueriesApi.md#Validate) | **Post** /v1/orgs/self/queries/validations | Validate Query
 
+
+
+## CancelQuery
+
+> CancelQueryResponse CancelQuery(ctx, queryId).Execute()
+
+Cancel Query
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    queryId := "queryId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueriesApi.CancelQuery(context.Background(), queryId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QueriesApi.CancelQuery``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CancelQuery`: CancelQueryResponse
+    fmt.Fprintf(os.Stdout, "Response from `QueriesApi.CancelQuery`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**queryId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCancelQueryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**CancelQueryResponse**](CancelQueryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetQuery
+
+> GetQueryResponse GetQuery(ctx, queryId).Execute()
+
+Retrieve Query
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    queryId := "queryId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueriesApi.GetQuery(context.Background(), queryId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QueriesApi.GetQuery``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetQuery`: GetQueryResponse
+    fmt.Fprintf(os.Stdout, "Response from `QueriesApi.GetQuery`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**queryId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetQueryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**GetQueryResponse**](GetQueryResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetQueryResults
+
+> QueryPaginationResponse GetQueryResults(ctx, queryId).Cursor(cursor).Docs(docs).Offset(offset).Execute()
+
+Retrieve Query Results Page
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    queryId := "queryId_example" // string | 
+    cursor := "cursor_example" // string |  (optional)
+    docs := int32(56) // int32 |  (optional)
+    offset := int32(56) // int32 |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueriesApi.GetQueryResults(context.Background(), queryId).Cursor(cursor).Docs(docs).Offset(offset).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QueriesApi.GetQueryResults``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetQueryResults`: QueryPaginationResponse
+    fmt.Fprintf(os.Stdout, "Response from `QueriesApi.GetQueryResults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**queryId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetQueryResultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **cursor** | **string** |  | 
+ **docs** | **int32** |  | 
+ **offset** | **int32** |  | 
+
+### Return type
+
+[**QueryPaginationResponse**](QueryPaginationResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListActiveQueries
+
+> ListQueriesResponse ListActiveQueries(ctx).Execute()
+
+List Queries
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueriesApi.ListActiveQueries(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `QueriesApi.ListActiveQueries``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListActiveQueries`: ListQueriesResponse
+    fmt.Fprintf(os.Stdout, "Response from `QueriesApi.ListActiveQueries`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListActiveQueriesRequest struct via the builder pattern
+
+
+### Return type
+
+[**ListQueriesResponse**](ListQueriesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## Query
 
 > QueryResponse Query(ctx).Body(body).Execute()
 
-Query
+Execute SQL Query
 
 
 

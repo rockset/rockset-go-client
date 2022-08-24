@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionString** | **string** | credentials for Azure Blob Storage | 
+**ConnectionString** | **string** | Credentials for the Azure Blob Service. | 
 
 ## Methods
 

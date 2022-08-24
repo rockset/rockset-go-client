@@ -16,11 +16,11 @@ import (
 
 // FieldMappingV2 struct for FieldMappingV2
 type FieldMappingV2 struct {
-	// A user specified string that is a name for this mapping
+	// A user specified string that is a name for this mapping.
 	Name *string `json:"name,omitempty"`
 	// A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set
 	IsDropAllFields *bool `json:"is_drop_all_fields,omitempty"`
-	// A List of InputField for this mapping
+	// A List of InputField for this mapping.
 	InputFields []InputField `json:"input_fields,omitempty"`
 	OutputField *OutputField `json:"output_field,omitempty"`
 }

@@ -16,17 +16,19 @@ import (
 
 // KafkaIntegration struct for KafkaIntegration
 type KafkaIntegration struct {
-	// Kafka topics to tail
+	// Kafka topics to tail.
 	KafkaTopicNames []string `json:"kafka_topic_names,omitempty"`
-	// The status of the Kafka source by topic
+	// The status of the Kafka source by topic.
 	SourceStatusByTopic *map[string]StatusKafka `json:"source_status_by_topic,omitempty"`
-	// The format of the Kafka topics being tailed
+	// The format of the Kafka topics being tailed.
 	KafkaDataFormat *string `json:"kafka_data_format,omitempty"`
-	// kafka connection string
+	// Kafka connection string.
 	ConnectionString *string `json:"connection_string,omitempty"`
 	UseV3 *bool `json:"use_v3,omitempty"`
+	// The Kafka bootstrap server url(s). Required only for V3 integration.
 	BootstrapServers *string `json:"bootstrap_servers,omitempty"`
 	SecurityConfig *KafkaV3SecurityConfig `json:"security_config,omitempty"`
+	SchemaRegistryConfig *SchemaRegistryConfig `json:"schema_registry_config,omitempty"`
 }
 
 // NewKafkaIntegration instantiates a new KafkaIntegration object
@@ -270,6 +272,38 @@ func (o *KafkaIntegration) SetSecurityConfig(v KafkaV3SecurityConfig) {
 	o.SecurityConfig = &v
 }
 
+// GetSchemaRegistryConfig returns the SchemaRegistryConfig field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetSchemaRegistryConfig() SchemaRegistryConfig {
+	if o == nil || o.SchemaRegistryConfig == nil {
+		var ret SchemaRegistryConfig
+		return ret
+	}
+	return *o.SchemaRegistryConfig
+}
+
+// GetSchemaRegistryConfigOk returns a tuple with the SchemaRegistryConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetSchemaRegistryConfigOk() (*SchemaRegistryConfig, bool) {
+	if o == nil || o.SchemaRegistryConfig == nil {
+		return nil, false
+	}
+	return o.SchemaRegistryConfig, true
+}
+
+// HasSchemaRegistryConfig returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasSchemaRegistryConfig() bool {
+	if o != nil && o.SchemaRegistryConfig != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSchemaRegistryConfig gets a reference to the given SchemaRegistryConfig and assigns it to the SchemaRegistryConfig field.
+func (o *KafkaIntegration) SetSchemaRegistryConfig(v SchemaRegistryConfig) {
+	o.SchemaRegistryConfig = &v
+}
+
 func (o KafkaIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.KafkaTopicNames != nil {
@@ -292,6 +326,9 @@ func (o KafkaIntegration) MarshalJSON() ([]byte, error) {
 	}
 	if o.SecurityConfig != nil {
 		toSerialize["security_config"] = o.SecurityConfig
+	}
+	if o.SchemaRegistryConfig != nil {
+		toSerialize["schema_registry_config"] = o.SchemaRegistryConfig
 	}
 	return json.Marshal(toSerialize)
 }

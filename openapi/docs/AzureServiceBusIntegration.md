@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionString** | **string** | credentials for the Azure Service Bus | 
+**ConnectionString** | **string** | Credentials for the Azure Service Bus. | 
 
 ## Methods
 

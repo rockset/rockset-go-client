@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Query** | **string** | SQL text | 
-**DefaultParameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | default parameters for this Query Lambda | [optional] 
+**Query** | **string** | SQL text. | 
+**DefaultParameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | Default parameters for this Query Lambda. | [optional] 
 
 ## Methods
 

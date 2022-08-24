@@ -16,7 +16,7 @@ import (
 
 // ListIntegrationsResponse struct for ListIntegrationsResponse
 type ListIntegrationsResponse struct {
-	// list of integration objects
+	// List of integration objects.
 	Data []Integration `json:"data,omitempty"`
 }
 

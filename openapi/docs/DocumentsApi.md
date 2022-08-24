@@ -1,6 +1,6 @@
 # \DocumentsApi
 
-All URIs are relative to *https://api.rs2.usw2.rockset.com*
+All URIs are relative to *https://api.use1a1.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

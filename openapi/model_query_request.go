@@ -17,6 +17,7 @@ import (
 // QueryRequest struct for QueryRequest
 type QueryRequest struct {
 	Sql QueryRequestSql `json:"sql"`
+	AsyncOptions *AsyncQueryOptions `json:"async_options,omitempty"`
 }
 
 // NewQueryRequest instantiates a new QueryRequest object
@@ -61,10 +62,45 @@ func (o *QueryRequest) SetSql(v QueryRequestSql) {
 	o.Sql = v
 }
 
+// GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
+func (o *QueryRequest) GetAsyncOptions() AsyncQueryOptions {
+	if o == nil || o.AsyncOptions == nil {
+		var ret AsyncQueryOptions
+		return ret
+	}
+	return *o.AsyncOptions
+}
+
+// GetAsyncOptionsOk returns a tuple with the AsyncOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
+	if o == nil || o.AsyncOptions == nil {
+		return nil, false
+	}
+	return o.AsyncOptions, true
+}
+
+// HasAsyncOptions returns a boolean if a field has been set.
+func (o *QueryRequest) HasAsyncOptions() bool {
+	if o != nil && o.AsyncOptions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAsyncOptions gets a reference to the given AsyncQueryOptions and assigns it to the AsyncOptions field.
+func (o *QueryRequest) SetAsyncOptions(v AsyncQueryOptions) {
+	o.AsyncOptions = &v
+}
+
 func (o QueryRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["sql"] = o.Sql
+	}
+	if o.AsyncOptions != nil {
+		toSerialize["async_options"] = o.AsyncOptions
 	}
 	return json.Marshal(toSerialize)
 }

@@ -16,15 +16,15 @@ import (
 
 // Integration Integrations that can be associated with data sources to create collections. Only one type of integration may be specified.
 type Integration struct {
-	// descriptive label and unique identifier
+	// Descriptive label and unique identifier.
 	Name string `json:"name"`
-	// longer explanation for the integration
+	// Longer explanation for the integration.
 	Description *string `json:"description,omitempty"`
-	// list of collections that use the integration
-	Collections []Collection `json:"collections,omitempty"`
-	// email of user who created the integration
+	// Email of user who created the integration.
 	CreatedBy string `json:"created_by"`
-	// ISO-8601 date
+	// User that owns this integration.
+	OwnerEmail *string `json:"owner_email,omitempty"`
+	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
 	S3 *S3Integration `json:"s3,omitempty"`
 	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
@@ -36,6 +36,9 @@ type Integration struct {
 	Segment *SegmentIntegration `json:"segment,omitempty"`
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
+	Snowflake *SnowflakeIntegration `json:"snowflake,omitempty"`
+	// List of collections that use the integration.
+	Collections []Collection `json:"collections,omitempty"`
 }
 
 // NewIntegration instantiates a new Integration object
@@ -113,38 +116,6 @@ func (o *Integration) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetCollections returns the Collections field value if set, zero value otherwise.
-func (o *Integration) GetCollections() []Collection {
-	if o == nil || o.Collections == nil {
-		var ret []Collection
-		return ret
-	}
-	return o.Collections
-}
-
-// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Integration) GetCollectionsOk() ([]Collection, bool) {
-	if o == nil || o.Collections == nil {
-		return nil, false
-	}
-	return o.Collections, true
-}
-
-// HasCollections returns a boolean if a field has been set.
-func (o *Integration) HasCollections() bool {
-	if o != nil && o.Collections != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCollections gets a reference to the given []Collection and assigns it to the Collections field.
-func (o *Integration) SetCollections(v []Collection) {
-	o.Collections = v
-}
-
 // GetCreatedBy returns the CreatedBy field value
 func (o *Integration) GetCreatedBy() string {
 	if o == nil {
@@ -167,6 +138,38 @@ func (o *Integration) GetCreatedByOk() (*string, bool) {
 // SetCreatedBy sets field value
 func (o *Integration) SetCreatedBy(v string) {
 	o.CreatedBy = v
+}
+
+// GetOwnerEmail returns the OwnerEmail field value if set, zero value otherwise.
+func (o *Integration) GetOwnerEmail() string {
+	if o == nil || o.OwnerEmail == nil {
+		var ret string
+		return ret
+	}
+	return *o.OwnerEmail
+}
+
+// GetOwnerEmailOk returns a tuple with the OwnerEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetOwnerEmailOk() (*string, bool) {
+	if o == nil || o.OwnerEmail == nil {
+		return nil, false
+	}
+	return o.OwnerEmail, true
+}
+
+// HasOwnerEmail returns a boolean if a field has been set.
+func (o *Integration) HasOwnerEmail() bool {
+	if o != nil && o.OwnerEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnerEmail gets a reference to the given string and assigns it to the OwnerEmail field.
+func (o *Integration) SetOwnerEmail(v string) {
+	o.OwnerEmail = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -521,6 +524,70 @@ func (o *Integration) SetMongodb(v MongoDbIntegration) {
 	o.Mongodb = &v
 }
 
+// GetSnowflake returns the Snowflake field value if set, zero value otherwise.
+func (o *Integration) GetSnowflake() SnowflakeIntegration {
+	if o == nil || o.Snowflake == nil {
+		var ret SnowflakeIntegration
+		return ret
+	}
+	return *o.Snowflake
+}
+
+// GetSnowflakeOk returns a tuple with the Snowflake field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetSnowflakeOk() (*SnowflakeIntegration, bool) {
+	if o == nil || o.Snowflake == nil {
+		return nil, false
+	}
+	return o.Snowflake, true
+}
+
+// HasSnowflake returns a boolean if a field has been set.
+func (o *Integration) HasSnowflake() bool {
+	if o != nil && o.Snowflake != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSnowflake gets a reference to the given SnowflakeIntegration and assigns it to the Snowflake field.
+func (o *Integration) SetSnowflake(v SnowflakeIntegration) {
+	o.Snowflake = &v
+}
+
+// GetCollections returns the Collections field value if set, zero value otherwise.
+func (o *Integration) GetCollections() []Collection {
+	if o == nil || o.Collections == nil {
+		var ret []Collection
+		return ret
+	}
+	return o.Collections
+}
+
+// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Integration) GetCollectionsOk() ([]Collection, bool) {
+	if o == nil || o.Collections == nil {
+		return nil, false
+	}
+	return o.Collections, true
+}
+
+// HasCollections returns a boolean if a field has been set.
+func (o *Integration) HasCollections() bool {
+	if o != nil && o.Collections != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollections gets a reference to the given []Collection and assigns it to the Collections field.
+func (o *Integration) SetCollections(v []Collection) {
+	o.Collections = v
+}
+
 func (o Integration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -529,11 +596,11 @@ func (o Integration) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
 	if true {
 		toSerialize["created_by"] = o.CreatedBy
+	}
+	if o.OwnerEmail != nil {
+		toSerialize["owner_email"] = o.OwnerEmail
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
@@ -567,6 +634,12 @@ func (o Integration) MarshalJSON() ([]byte, error) {
 	}
 	if o.Mongodb != nil {
 		toSerialize["mongodb"] = o.Mongodb
+	}
+	if o.Snowflake != nil {
+		toSerialize["snowflake"] = o.Snowflake
+	}
+	if o.Collections != nil {
+		toSerialize["collections"] = o.Collections
 	}
 	return json.Marshal(toSerialize)
 }

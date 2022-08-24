@@ -16,37 +16,37 @@ import (
 
 // CollectionStats struct for CollectionStats
 type CollectionStats struct {
-	// number of documents in the collection
+	// Number of documents in the collection.
 	DocCount *int64 `json:"doc_count,omitempty"`
-	// number of documents purged from the collection
+	// Number of documents purged from the collection.
 	PurgedDocCount *int64 `json:"purged_doc_count,omitempty"`
-	// number between 0 and 1 that indicates progress of collection creation
+	// Number between 0 and 1 that indicates progress of collection creation.
 	FillProgress *float64 `json:"fill_progress,omitempty"`
-	// milliseconds since Unix epoch Jan 1, 1970
+	// Milliseconds since Unix epoch Jan 1, 1970.
 	LastQueriedMs *int64 `json:"last_queried_ms,omitempty"`
-	// milliseconds since Unix epoch Jan 1, 1970
+	// Milliseconds since Unix epoch Jan 1, 1970.
 	LastUpdatedMs *int64 `json:"last_updated_ms,omitempty"`
-	// total collection size in bytes
+	// Total collection size in bytes.
 	TotalSize *int64 `json:"total_size,omitempty"`
-	// total collection index size in bytes
+	// Total collection index size in bytes.
 	TotalIndexSize *int64 `json:"total_index_size,omitempty"`
-	// total collection row index size in bytes
+	// Total collection row index size in bytes.
 	RowIndexSize *int64 `json:"row_index_size,omitempty"`
-	// total collection column index size in bytes
+	// Total collection column index size in bytes.
 	ColumnIndexSize *int64 `json:"column_index_size,omitempty"`
-	// total collection inverted index size in bytes
+	// Total collection inverted index size in bytes.
 	InvertedIndexSize *int64 `json:"inverted_index_size,omitempty"`
-	// total collection range index size in bytes
+	// Total collection range index size in bytes.
 	RangeIndexSize *int64 `json:"range_index_size,omitempty"`
-	// total size of bytes purged in bytes
+	// Total size of bytes purged in bytes.
 	PurgedDocSize *int64 `json:"purged_doc_size,omitempty"`
-	// total number of bytes inserted into the collection
+	// Total number of bytes inserted into the collection.
 	BytesInserted *int64 `json:"bytes_inserted,omitempty"`
-	// total number of bytes overwritten in writing into the collection
+	// Total number of bytes overwritten in writing into the collection.
 	BytesOverwritten *int64 `json:"bytes_overwritten,omitempty"`
-	// total number of bytes inserted into the collection during bulk
+	// Total number of bytes inserted into the collection during bulk.
 	BulkBytesInserted *int64 `json:"bulk_bytes_inserted,omitempty"`
-	// total number of bytes overwritten in writing into the collection during bulk
+	// Total number of bytes overwritten in writing into the collection during bulk.
 	BulkBytesOverwritten *int64 `json:"bulk_bytes_overwritten,omitempty"`
 }
 

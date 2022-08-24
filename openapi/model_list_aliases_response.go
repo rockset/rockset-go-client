@@ -16,7 +16,7 @@ import (
 
 // ListAliasesResponse struct for ListAliasesResponse
 type ListAliasesResponse struct {
-	// list of all aliases
+	// List of all aliases.
 	Data []Alias `json:"data,omitempty"`
 }
 

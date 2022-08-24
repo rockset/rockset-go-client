@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]UnsubscribePreference**](UnsubscribePreference.md) | List of notification preferences | [optional] 
+**Data** | Pointer to [**[]UnsubscribePreference**](UnsubscribePreference.md) | List of notification preferences. | [optional] 
 
 ## Methods
 

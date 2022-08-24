@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FileName** | **string** | name of the file | 
-**FileSize** | **int64** | size of the file in bytes | 
-**FileUploadTime** | **string** | time of file upload | 
+**FileName** | **string** | Name of the file. | 
+**FileSize** | **int64** | Size of the file in bytes. | 
+**FileUploadTime** | **string** | Time of file upload. | 
 
 ## Methods
 

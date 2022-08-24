@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Path** | Pointer to **string** |  | [optional] 
-**Name** | Pointer to **string** | name of the view | [optional] 
-**Description** | Pointer to **string** | view description | [optional] 
-**Workspace** | Pointer to **string** | name of the workspace | [optional] 
-**CreatorEmail** | Pointer to **string** | email of the creator | [optional] 
-**OwnerEmail** | Pointer to **string** | email of the owner | [optional] 
-**QuerySql** | Pointer to **string** | SQL query of the view | [optional] 
-**Entities** | Pointer to **[]string** | list of entities referenced by view. An entity can be a view, alias or collection | [optional] 
-**State** | Pointer to **string** | state of the view | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
-**ModifiedAt** | Pointer to **string** | ISO-8601 date | [optional] 
+**Name** | Pointer to **string** | Name of the view. | [optional] 
+**Description** | Pointer to **string** | View description. | [optional] 
+**Workspace** | Pointer to **string** | Name of the workspace. | [optional] 
+**CreatorEmail** | Pointer to **string** | Email of the creator. | [optional] 
+**OwnerEmail** | Pointer to **string** | Email of the owner, note: deprecated and will always be null. | [optional] 
+**QuerySql** | Pointer to **string** | SQL query of the view. | [optional] 
+**Entities** | Pointer to **[]string** | List of entities referenced by view. An entity can be a view, alias or collection. | [optional] 
+**State** | Pointer to **string** | State of the view. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**ModifiedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
 
 ## Methods
 

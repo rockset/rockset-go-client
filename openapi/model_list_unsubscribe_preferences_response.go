@@ -16,7 +16,7 @@ import (
 
 // ListUnsubscribePreferencesResponse struct for ListUnsubscribePreferencesResponse
 type ListUnsubscribePreferencesResponse struct {
-	// List of notification preferences
+	// List of notification preferences.
 	Data []UnsubscribePreference `json:"data,omitempty"`
 }
 

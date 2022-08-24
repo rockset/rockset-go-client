@@ -16,7 +16,7 @@ import (
 
 // AddDocumentsResponse struct for AddDocumentsResponse
 type AddDocumentsResponse struct {
-	// information about the added documents
+	// Information about the added documents.
 	Data []DocumentStatus `json:"data,omitempty"`
 }
 
