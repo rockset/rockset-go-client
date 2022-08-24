@@ -16,17 +16,17 @@ import (
 
 // QueryLambda struct for QueryLambda
 type QueryLambda struct {
-	// workspace of this Query Lambda
+	// Workspace of this Query Lambda.
 	Workspace *string `json:"workspace,omitempty"`
-	// user that created this Query Lambda
+	// User that created this Query Lambda.
 	LastUpdatedBy *string `json:"last_updated_by,omitempty"`
-	// ISO-8601 date of when Query Lambda was last updated
+	// ISO-8601 date of when Query Lambda was last updated.
 	LastUpdated *string `json:"last_updated,omitempty"`
-	// Query Lambda name
+	// Query Lambda name.
 	Name *string `json:"name,omitempty"`
-	// number of Query Lambda versions
+	// Number of Query Lambda versions.
 	VersionCount *int32 `json:"version_count,omitempty"`
-	// collections/aliases queried by underlying SQL query
+	// Collections/aliases queried by underlying SQL query.
 	Collections []string `json:"collections,omitempty"`
 	LatestVersion *QueryLambdaVersion `json:"latest_version,omitempty"`
 }

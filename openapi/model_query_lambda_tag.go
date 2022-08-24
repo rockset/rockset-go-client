@@ -16,7 +16,7 @@ import (
 
 // QueryLambdaTag struct for QueryLambdaTag
 type QueryLambdaTag struct {
-	// name of Query Lambda tag
+	// Name of Query Lambda tag.
 	TagName *string `json:"tag_name,omitempty"`
 	Version *QueryLambdaVersion `json:"version,omitempty"`
 }

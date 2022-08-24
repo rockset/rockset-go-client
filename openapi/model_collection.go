@@ -16,31 +16,33 @@ import (
 
 // Collection struct for Collection
 type Collection struct {
-	// ISO-8601 date
+	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// email of user who created the collection
+	// Email of user who created the collection.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// unique identifer for collection, can contain alphanumeric or dash characters
+	// Unique identifer for collection, can contain alphanumeric or dash characters.
 	Name *string `json:"name,omitempty"`
-	// text describing the collection
+	// Text describing the collection.
 	Description *string `json:"description,omitempty"`
-	// name of the workspace that the collection is in
+	// Name of the workspace that the collection is in.
 	Workspace *string `json:"workspace,omitempty"`
-	// current status of collection, one of: CREATED, READY, DELETED
+	// Current status of collection.
 	Status *string `json:"status,omitempty"`
-	// list of sources from which collection ingests
+	// List of sources from which collection ingests.
 	Sources []Source `json:"sources,omitempty"`
 	Stats *CollectionStats `json:"stats,omitempty"`
-	// number of seconds after which data is purged based on event time
+	// Number of seconds after which data is purged based on event time.
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
-	// list of mappings applied on all documents in a collection
+	// List of mappings applied on all documents in a collection.
 	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
-	// list of clustering fields for a collection
+	// List of clustering fields for a collection.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
-	// list of aliases for a collection
+	// List of aliases for a collection.
 	Aliases []Alias `json:"aliases,omitempty"`
-	// Whether the collection is insert only or not
+	// Whether the collection is read-only or not.
+	ReadOnly *bool `json:"read_only,omitempty"`
+	// Whether the collection is insert only or not.
 	InsertOnly *bool `json:"insert_only,omitempty"`
 }
 
@@ -477,6 +479,38 @@ func (o *Collection) SetAliases(v []Alias) {
 	o.Aliases = v
 }
 
+// GetReadOnly returns the ReadOnly field value if set, zero value otherwise.
+func (o *Collection) GetReadOnly() bool {
+	if o == nil || o.ReadOnly == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ReadOnly
+}
+
+// GetReadOnlyOk returns a tuple with the ReadOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetReadOnlyOk() (*bool, bool) {
+	if o == nil || o.ReadOnly == nil {
+		return nil, false
+	}
+	return o.ReadOnly, true
+}
+
+// HasReadOnly returns a boolean if a field has been set.
+func (o *Collection) HasReadOnly() bool {
+	if o != nil && o.ReadOnly != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReadOnly gets a reference to the given bool and assigns it to the ReadOnly field.
+func (o *Collection) SetReadOnly(v bool) {
+	o.ReadOnly = &v
+}
+
 // GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
 func (o *Collection) GetInsertOnly() bool {
 	if o == nil || o.InsertOnly == nil {
@@ -549,6 +583,9 @@ func (o Collection) MarshalJSON() ([]byte, error) {
 	}
 	if o.Aliases != nil {
 		toSerialize["aliases"] = o.Aliases
+	}
+	if o.ReadOnly != nil {
+		toSerialize["read_only"] = o.ReadOnly
 	}
 	if o.InsertOnly != nil {
 		toSerialize["insert_only"] = o.InsertOnly

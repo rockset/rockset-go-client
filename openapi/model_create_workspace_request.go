@@ -16,9 +16,9 @@ import (
 
 // CreateWorkspaceRequest struct for CreateWorkspaceRequest
 type CreateWorkspaceRequest struct {
-	// descriptive label and unique identifier
+	// Descriptive label and unique identifier.
 	Name string `json:"name"`
-	// longer explanation for the workspace
+	// Longer explanation for the workspace.
 	Description *string `json:"description,omitempty"`
 }
 

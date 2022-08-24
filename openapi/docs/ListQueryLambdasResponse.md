@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]QueryLambda**](QueryLambda.md) | list of all Query Lambdas | [optional] 
+**Data** | Pointer to [**[]QueryLambda**](QueryLambda.md) | List of all Query Lambdas. | [optional] 
 
 ## Methods
 

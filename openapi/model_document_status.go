@@ -16,14 +16,14 @@ import (
 
 // DocumentStatus struct for DocumentStatus
 type DocumentStatus struct {
-	// collection name
+	// Collection name.
 	Collection *string `json:"_collection,omitempty"`
 	Error *ErrorModel `json:"error,omitempty"`
-	// unique document ID
+	// Unique document ID.
 	Id *string `json:"_id,omitempty"`
-	// status of the document
+	// Status of the document.
 	Status *string `json:"status,omitempty"`
-	// unique id used to represent each patch request
+	// Unique id used to represent each patch request.
 	PatchId *string `json:"patch_id,omitempty"`
 }
 

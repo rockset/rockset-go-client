@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionString** | Pointer to **string** | azure event hubs connection string | [optional] [readonly] 
+**ConnectionString** | Pointer to **string** | Credentials for the Azure Event Hubs. | [optional] 
 
 ## Methods
 

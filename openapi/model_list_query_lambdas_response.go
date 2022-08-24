@@ -16,7 +16,7 @@ import (
 
 // ListQueryLambdasResponse struct for ListQueryLambdasResponse
 type ListQueryLambdasResponse struct {
-	// list of all Query Lambdas
+	// List of all Query Lambdas.
 	Data []QueryLambda `json:"data,omitempty"`
 }
 

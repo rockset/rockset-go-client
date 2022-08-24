@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Workspace** | Pointer to **string** | workspace of this Query Lambda | [optional] 
-**LastUpdatedBy** | Pointer to **string** | user that created this Query Lambda | [optional] 
-**LastUpdated** | Pointer to **string** | ISO-8601 date of when Query Lambda was last updated | [optional] 
-**Name** | Pointer to **string** | Query Lambda name | [optional] 
-**VersionCount** | Pointer to **int32** | number of Query Lambda versions | [optional] 
-**Collections** | Pointer to **[]string** | collections/aliases queried by underlying SQL query | [optional] 
+**Workspace** | Pointer to **string** | Workspace of this Query Lambda. | [optional] 
+**LastUpdatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
+**LastUpdated** | Pointer to **string** | ISO-8601 date of when Query Lambda was last updated. | [optional] 
+**Name** | Pointer to **string** | Query Lambda name. | [optional] 
+**VersionCount** | Pointer to **int32** | Number of Query Lambda versions. | [optional] 
+**Collections** | Pointer to **[]string** | Collections/aliases queried by underlying SQL query. | [optional] 
 **LatestVersion** | Pointer to [**QueryLambdaVersion**](QueryLambdaVersion.md) |  | [optional] 
 
 ## Methods

@@ -16,7 +16,7 @@ import (
 
 // SqlExpression struct for SqlExpression
 type SqlExpression struct {
-	// The name of a sql function
+	// The name of a sql function.
 	Sql *string `json:"sql,omitempty"`
 }
 

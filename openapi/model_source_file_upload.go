@@ -16,11 +16,11 @@ import (
 
 // SourceFileUpload struct for SourceFileUpload
 type SourceFileUpload struct {
-	// name of the file
+	// Name of the file.
 	FileName string `json:"file_name"`
-	// size of the file in bytes
+	// Size of the file in bytes.
 	FileSize int64 `json:"file_size"`
-	// time of file upload
+	// Time of file upload.
 	FileUploadTime string `json:"file_upload_time"`
 }
 

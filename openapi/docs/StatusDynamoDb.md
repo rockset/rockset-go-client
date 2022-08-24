@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ScanStartTime** | Pointer to **string** | DynamoDB scan start time | [optional] 
-**ScanEndTime** | Pointer to **string** | DynamoDb scan end time | [optional] 
-**ScanRecordsProcessed** | Pointer to **int64** | Number of records inserted using scan | [optional] 
-**ScanTotalRecords** | Pointer to **int64** | Number of records in DynamoDB table at time of scan | [optional] 
-**State** | Pointer to **string** | state of current ingest for this table | [optional] 
-**StreamLastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed | [optional] 
+**ScanStartTime** | Pointer to **string** | DynamoDB scan start time. | [optional] 
+**ScanEndTime** | Pointer to **string** | DynamoDb scan end time. | [optional] 
+**ScanRecordsProcessed** | Pointer to **int64** | Number of records inserted using scan. | [optional] 
+**ScanTotalRecords** | Pointer to **int64** | Number of records in DynamoDB table at time of scan. | [optional] 
+**State** | Pointer to **string** | State of current ingest for this table. | [optional] 
+**StreamLastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed. | [optional] 
 
 ## Methods
 

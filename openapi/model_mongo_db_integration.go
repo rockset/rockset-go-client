@@ -16,7 +16,7 @@ import (
 
 // MongoDbIntegration struct for MongoDbIntegration
 type MongoDbIntegration struct {
-	// MongoDB connection URI string
+	// MongoDB connection URI string.
 	ConnectionUri string `json:"connection_uri"`
 }
 

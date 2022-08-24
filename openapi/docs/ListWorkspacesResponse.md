@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Workspace**](Workspace.md) | list of workspaces | [optional] 
+**Data** | Pointer to [**[]Workspace**](Workspace.md) | List of workspaces. | [optional] 
 
 ## Methods
 

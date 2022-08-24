@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Container** | Pointer to **string** | name of Azure blob Storage container you want to ingest from | [optional] 
+**Container** | Pointer to **string** | Name of Azure blob Storage container you want to ingest from. | [optional] 
 **Prefix** | Pointer to **string** | Prefix that selects blobs to ingest. | [optional] 
 **Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
 **BlobCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 

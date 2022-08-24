@@ -16,9 +16,9 @@ import (
 
 // QueryResponseStats struct for QueryResponseStats
 type QueryResponseStats struct {
-	// query time in milliseconds
+	// Query time in milliseconds.
 	ElapsedTimeMs *int64 `json:"elapsed_time_ms,omitempty"`
-	// time query was throttled by admission control
+	// Time query was throttled by admission control.
 	ThrottledTimeMicros *int64 `json:"throttled_time_micros,omitempty"`
 }
 

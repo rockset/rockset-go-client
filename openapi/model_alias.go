@@ -16,21 +16,21 @@ import (
 
 // Alias struct for Alias
 type Alias struct {
-	// name of the alias
+	// Name of the alias.
 	Name *string `json:"name,omitempty"`
-	// alias description
+	// Alias description.
 	Description *string `json:"description,omitempty"`
-	// name of the workspace
+	// Name of the workspace.
 	Workspace *string `json:"workspace,omitempty"`
-	// email of the creator
+	// Email of the creator.
 	CreatorEmail *string `json:"creator_email,omitempty"`
-	// list of fully qualified collection names referenced by alias
+	// List of fully qualified collection names referenced by alias.
 	Collections []string `json:"collections,omitempty"`
-	// state of the alias
+	// State of the alias.
 	State *string `json:"state,omitempty"`
-	// ISO-8601 date
+	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// ISO-8601 date
+	// ISO-8601 date.
 	ModifiedAt *string `json:"modified_at,omitempty"`
 }
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionUri** | **string** | MongoDB connection URI string | 
+**ConnectionUri** | **string** | MongoDB connection URI string. | 
 
 ## Methods
 

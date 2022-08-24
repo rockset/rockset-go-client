@@ -16,9 +16,9 @@ import (
 
 // FieldPartition struct for FieldPartition
 type FieldPartition struct {
-	// The name of a field, parsed as a SQL qualified name
+	// The name of a field, parsed as a SQL qualified name.
 	FieldName *string `json:"field_name,omitempty"`
-	// The type of partitions on a field
+	// The type of partitions on a field.
 	Type *string `json:"type,omitempty"`
 	// The values for partitioning of a field. Unneeded if the partition type is AUTO.
 	Keys []string `json:"keys,omitempty"`

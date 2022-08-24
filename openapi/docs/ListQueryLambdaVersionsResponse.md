@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]QueryLambdaVersion**](QueryLambdaVersion.md) | list of all versions for a particular Query Lambda | [optional] 
+**Data** | Pointer to [**[]QueryLambdaVersion**](QueryLambdaVersion.md) | List of all versions for a particular Query Lambda. | [optional] 
 
 ## Methods
 

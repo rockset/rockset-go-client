@@ -16,9 +16,9 @@ import (
 
 // QueryError struct for QueryError
 type QueryError struct {
-	// The type of error
+	// The type of error.
 	Type *string `json:"type,omitempty"`
-	// A message associated with the error, containing more information about it
+	// A message associated with the error, containing more information about it.
 	Message *string `json:"message,omitempty"`
 	// The HTTP status code associated with this error, had it been sent as the response status code
 	StatusCode *int32 `json:"status_code,omitempty"`

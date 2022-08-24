@@ -16,17 +16,17 @@ import (
 
 // User struct for User
 type User struct {
-	// ISO-8601 date
+	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// user email
+	// User email.
 	Email string `json:"email"`
-	// user first name
+	// User first name.
 	FirstName *string `json:"first_name,omitempty"`
-	// user last name
+	// User last name.
 	LastName *string `json:"last_name,omitempty"`
-	// List of roles for a given user
+	// List of roles for a given user.
 	Roles []string `json:"roles,omitempty"`
-	// state of user - NEW / ACTIVE
+	// State of user - NEW / ACTIVE.
 	State *string `json:"state,omitempty"`
 }
 

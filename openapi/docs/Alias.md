@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | name of the alias | [optional] 
-**Description** | Pointer to **string** | alias description | [optional] 
-**Workspace** | Pointer to **string** | name of the workspace | [optional] 
-**CreatorEmail** | Pointer to **string** | email of the creator | [optional] 
-**Collections** | Pointer to **[]string** | list of fully qualified collection names referenced by alias | [optional] 
-**State** | Pointer to **string** | state of the alias | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date | [optional] 
-**ModifiedAt** | Pointer to **string** | ISO-8601 date | [optional] 
+**Name** | Pointer to **string** | Name of the alias. | [optional] 
+**Description** | Pointer to **string** | Alias description. | [optional] 
+**Workspace** | Pointer to **string** | Name of the workspace. | [optional] 
+**CreatorEmail** | Pointer to **string** | Email of the creator. | [optional] 
+**Collections** | Pointer to **[]string** | List of fully qualified collection names referenced by alias. | [optional] 
+**State** | Pointer to **string** | State of the alias. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**ModifiedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
 
 ## Methods
 

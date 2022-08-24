@@ -120,7 +120,7 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 
 	createParams.Sources = []openapi.Source{
 		{
-			IntegrationName: integration,
+			IntegrationName: &integration,
 			S3: &openapi.SourceS3{
 				Pattern:  &pattern,
 				Bucket:   bucket,
@@ -161,7 +161,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 
 	createParams.Sources = []openapi.Source{
 		{
-			IntegrationName: integration,
+			IntegrationName: &integration,
 			Kinesis: &openapi.SourceKinesis{
 				StreamName: stream,
 				AwsRegion:  &region,
@@ -201,7 +201,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 
 	createParams.Sources = []openapi.Source{
 		{
-			IntegrationName: integration,
+			IntegrationName: &integration,
 			Gcs: &openapi.SourceGcs{
 				Bucket: &bucket,
 				Prefix: &prefix,
@@ -241,7 +241,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 
 	createParams.Sources = []openapi.Source{
 		{
-			IntegrationName: integration,
+			IntegrationName: &integration,
 			Dynamodb: &openapi.SourceDynamoDb{
 				AwsRegion: &region,
 				TableName: tableName,
@@ -321,9 +321,9 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 
 	createParams.Sources = []openapi.Source{
 		{
-			IntegrationName: integration,
+			IntegrationName: &integration,
 			Kafka: &openapi.SourceKafka{
-				KafkaTopicName: topic,
+				KafkaTopicName: &topic,
 			},
 			FormatParams: &f,
 		},
@@ -360,7 +360,7 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 
 	createParams.Sources = []openapi.Source{
 		{
-			IntegrationName: integration,
+			IntegrationName: &integration,
 			Mongodb: &openapi.SourceMongoDb{
 				DatabaseName:   database,
 				CollectionName: collection,

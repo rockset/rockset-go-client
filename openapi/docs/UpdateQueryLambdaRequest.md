@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | optional description | [optional] 
+**Description** | Pointer to **string** | Optional description. | [optional] 
 **Sql** | Pointer to [**QueryLambdaSql**](QueryLambdaSql.md) |  | [optional] 
 
 ## Methods

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Sql** | Pointer to **string** | SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input | [optional] 
+**Sql** | Pointer to **string** | SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input. | [optional] 
 
 ## Methods
 

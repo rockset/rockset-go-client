@@ -797,13 +797,8 @@ func (a *WorkspacesApiService) GetWorkspaceExecute(r ApiGetWorkspaceRequest) (*G
 type ApiListWorkspacesRequest struct {
 	ctx context.Context
 	ApiService WorkspacesApi
-	fetchAcrossRegions *bool
 }
 
-func (r ApiListWorkspacesRequest) FetchAcrossRegions(fetchAcrossRegions bool) ApiListWorkspacesRequest {
-	r.fetchAcrossRegions = &fetchAcrossRegions
-	return r
-}
 
 func (r ApiListWorkspacesRequest) Execute() (*ListWorkspacesResponse, *http.Response, error) {
 	return r.ApiService.ListWorkspacesExecute(r)
@@ -845,9 +840,6 @@ func (a *WorkspacesApiService) ListWorkspacesExecute(r ApiListWorkspacesRequest)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.fetchAcrossRegions != nil {
-		localVarQueryParams.Add("fetch_across_regions", parameterToString(*r.fetchAcrossRegions, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

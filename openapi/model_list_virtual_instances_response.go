@@ -16,7 +16,7 @@ import (
 
 // ListVirtualInstancesResponse struct for ListVirtualInstancesResponse
 type ListVirtualInstancesResponse struct {
-	// list of all virtual instances
+	// List of all virtual instances.
 	Data []VirtualInstance `json:"data,omitempty"`
 }
 

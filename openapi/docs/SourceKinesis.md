@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AwsRegion** | Pointer to **string** | AWS region name of Kinesis stream, by default us-west-2 is used | [optional] 
-**StreamName** | **string** | name of kinesis stream | 
-**DmsPrimaryKey** | Pointer to **[]string** | set of fields that correspond to a DMS primary key | [optional] 
+**AwsRegion** | Pointer to **string** | AWS region name of Kinesis stream, by default us-west-2 is used. | [optional] 
+**StreamName** | **string** | Name of kinesis stream. | 
+**DmsPrimaryKey** | Pointer to **[]string** | Set of fields that correspond to a DMS primary key. | [optional] 
 **OffsetResetPolicy** | Pointer to **string** | For non-DMS streams, Rockset can tail from the earliest end or latest end of kinesis source. | [optional] 
 
 ## Methods

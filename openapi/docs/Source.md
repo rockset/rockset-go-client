@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**IntegrationName** | **string** | name of integration to use | 
+**IntegrationName** | Pointer to **string** | Name of integration to use. | [optional] 
 **S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
 **Kinesis** | Pointer to [**SourceKinesis**](SourceKinesis.md) |  | [optional] 
 **Gcs** | Pointer to [**SourceGcs**](SourceGcs.md) |  | [optional] 
@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **FileUpload** | Pointer to [**SourceFileUpload**](SourceFileUpload.md) |  | [optional] 
 **Kafka** | Pointer to [**SourceKafka**](SourceKafka.md) |  | [optional] 
 **Mongodb** | Pointer to [**SourceMongoDb**](SourceMongoDb.md) |  | [optional] 
+**Snowflake** | Pointer to [**SourceSnowflake**](SourceSnowflake.md) |  | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
 **FormatParams** | Pointer to [**FormatParams**](FormatParams.md) |  | [optional] 
 
@@ -22,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewSource
 
-`func NewSource(integrationName string, ) *Source`
+`func NewSource() *Source`
 
 NewSource instantiates a new Source object
 This constructor will assign default values to properties that have it defined,
@@ -56,6 +57,11 @@ and a boolean to check if the value has been set.
 
 SetIntegrationName sets IntegrationName field to given value.
 
+### HasIntegrationName
+
+`func (o *Source) HasIntegrationName() bool`
+
+HasIntegrationName returns a boolean if a field has been set.
 
 ### GetS3
 
@@ -306,6 +312,31 @@ SetMongodb sets Mongodb field to given value.
 `func (o *Source) HasMongodb() bool`
 
 HasMongodb returns a boolean if a field has been set.
+
+### GetSnowflake
+
+`func (o *Source) GetSnowflake() SourceSnowflake`
+
+GetSnowflake returns the Snowflake field if non-nil, zero value otherwise.
+
+### GetSnowflakeOk
+
+`func (o *Source) GetSnowflakeOk() (*SourceSnowflake, bool)`
+
+GetSnowflakeOk returns a tuple with the Snowflake field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSnowflake
+
+`func (o *Source) SetSnowflake(v SourceSnowflake)`
+
+SetSnowflake sets Snowflake field to given value.
+
+### HasSnowflake
+
+`func (o *Source) HasSnowflake() bool`
+
+HasSnowflake returns a boolean if a field has been set.
 
 ### GetStatus
 

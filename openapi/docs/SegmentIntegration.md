@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ConnectionString** | Pointer to **string** | segment connection string | [optional] [readonly] 
+**ConnectionString** | Pointer to **string** | Segment connection string. | [optional] 
 
 ## Methods
 

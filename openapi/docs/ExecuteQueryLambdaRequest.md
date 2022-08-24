@@ -4,11 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | list of named parameters | [optional] 
-**DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the SQL query text | [optional] 
-**GenerateWarnings** | Pointer to **bool** | Whether to generate warnings | [optional] 
+**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
+**DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the SQL query text. | [optional] 
+**GenerateWarnings** | Pointer to **bool** | Whether to generate warnings. | [optional] 
 **Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
 **InitialPaginateResponseDocCount** | Pointer to **int32** | Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
+**AsyncOptions** | Pointer to [**AsyncQueryOptions**](AsyncQueryOptions.md) |  | [optional] 
+**VirtualInstanceId** | Pointer to **string** | Virtual instance on which to run the query. | [optional] 
 
 ## Methods
 
@@ -153,6 +155,56 @@ SetInitialPaginateResponseDocCount sets InitialPaginateResponseDocCount field to
 `func (o *ExecuteQueryLambdaRequest) HasInitialPaginateResponseDocCount() bool`
 
 HasInitialPaginateResponseDocCount returns a boolean if a field has been set.
+
+### GetAsyncOptions
+
+`func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions`
+
+GetAsyncOptions returns the AsyncOptions field if non-nil, zero value otherwise.
+
+### GetAsyncOptionsOk
+
+`func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool)`
+
+GetAsyncOptionsOk returns a tuple with the AsyncOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAsyncOptions
+
+`func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions)`
+
+SetAsyncOptions sets AsyncOptions field to given value.
+
+### HasAsyncOptions
+
+`func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool`
+
+HasAsyncOptions returns a boolean if a field has been set.
+
+### GetVirtualInstanceId
+
+`func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceId() string`
+
+GetVirtualInstanceId returns the VirtualInstanceId field if non-nil, zero value otherwise.
+
+### GetVirtualInstanceIdOk
+
+`func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceIdOk() (*string, bool)`
+
+GetVirtualInstanceIdOk returns a tuple with the VirtualInstanceId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVirtualInstanceId
+
+`func (o *ExecuteQueryLambdaRequest) SetVirtualInstanceId(v string)`
+
+SetVirtualInstanceId sets VirtualInstanceId field to given value.
+
+### HasVirtualInstanceId
+
+`func (o *ExecuteQueryLambdaRequest) HasVirtualInstanceId() bool`
+
+HasVirtualInstanceId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

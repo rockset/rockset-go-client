@@ -18,6 +18,7 @@ import (
 type DynamodbIntegration struct {
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
 	AwsRole *AwsRole `json:"aws_role,omitempty"`
+	// S3 bucket used for export during collection initial dump.
 	S3ExportBucketName *string `json:"s3_export_bucket_name,omitempty"`
 }
 

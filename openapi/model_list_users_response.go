@@ -16,7 +16,7 @@ import (
 
 // ListUsersResponse struct for ListUsersResponse
 type ListUsersResponse struct {
-	// list of users
+	// List of users.
 	Data []User `json:"data,omitempty"`
 }
 

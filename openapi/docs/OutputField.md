@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name  | [optional] 
+**FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name. | [optional] 
 **Value** | Pointer to [**SqlExpression**](SqlExpression.md) |  | [optional] 
-**OnError** | Pointer to **string** | Error in Mapping execution: &#39;skip&#39; or &#39;fail&#39;  | [optional] 
+**OnError** | Pointer to **string** | Error in Mapping execution: &#39;skip&#39; or &#39;fail&#39;. | [optional] 
 
 ## Methods
 

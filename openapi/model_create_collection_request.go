@@ -16,21 +16,21 @@ import (
 
 // CreateCollectionRequest struct for CreateCollectionRequest
 type CreateCollectionRequest struct {
-	// unique identifier for collection, can contain alphanumeric or dash characters
+	// Unique identifier for collection, can contain alphanumeric or dash characters.
 	Name string `json:"name"`
-	// text describing the collection
+	// Text describing the collection.
 	Description *string `json:"description,omitempty"`
-	// list of sources from which to ingest data
+	// List of sources from which to ingest data.
 	Sources []Source `json:"sources,omitempty"`
-	// number of seconds after which data is purged, based on event time
+	// Number of seconds after which data is purged, based on event time.
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
-	// If true disallows updates and deletes, but makes indexing more efficient
+	// If true disallows updates and deletes, but makes indexing more efficient.
 	InsertOnly *bool `json:"insert_only,omitempty"`
 	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
-	// list of mappings
+	// List of mappings.
 	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
-	// list of clustering fields
+	// DEPRECATED. List of clustering fields. Use CLUSTER BY clause in ingest transformation instead.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 }
 

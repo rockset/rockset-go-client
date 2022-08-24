@@ -16,13 +16,13 @@ import (
 
 // StatusAzureEventHubs struct for StatusAzureEventHubs
 type StatusAzureEventHubs struct {
-	// State of the source
+	// State of the source.
 	State *string `json:"state,omitempty"`
-	// Time at which the last document was consumed
+	// Time at which the last document was consumed.
 	LastConsumedTime *string `json:"last_consumed_time,omitempty"`
-	// Number of documents consumed
+	// Number of documents consumed.
 	NumDocumentsProcessed *int64 `json:"num_documents_processed,omitempty"`
-	// Status info per partition
+	// Status info per partition.
 	Partitions []StatusAzureEventHubsPartition `json:"partitions,omitempty"`
 }
 

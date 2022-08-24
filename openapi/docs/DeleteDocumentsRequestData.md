@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** | unique document ID | 
+**Id** | **string** | Unique document ID. | 
 
 ## Methods
 

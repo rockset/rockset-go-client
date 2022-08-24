@@ -16,17 +16,17 @@ import (
 
 // StatusDynamoDb struct for StatusDynamoDb
 type StatusDynamoDb struct {
-	// DynamoDB scan start time
+	// DynamoDB scan start time.
 	ScanStartTime *string `json:"scan_start_time,omitempty"`
-	// DynamoDb scan end time
+	// DynamoDb scan end time.
 	ScanEndTime *string `json:"scan_end_time,omitempty"`
-	// Number of records inserted using scan
+	// Number of records inserted using scan.
 	ScanRecordsProcessed *int64 `json:"scan_records_processed,omitempty"`
-	// Number of records in DynamoDB table at time of scan
+	// Number of records in DynamoDB table at time of scan.
 	ScanTotalRecords *int64 `json:"scan_total_records,omitempty"`
-	// state of current ingest for this table
+	// State of current ingest for this table.
 	State *string `json:"state,omitempty"`
-	// ISO-8601 date when source was last processed
+	// ISO-8601 date when source was last processed.
 	StreamLastProcessedAt *string `json:"stream_last_processed_at,omitempty"`
 }
 

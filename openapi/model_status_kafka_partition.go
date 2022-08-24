@@ -16,11 +16,11 @@ import (
 
 // StatusKafkaPartition struct for StatusKafkaPartition
 type StatusKafkaPartition struct {
-	// The number of this partition
+	// The number of this partition.
 	PartitionNumber *int32 `json:"partition_number,omitempty"`
-	// Latest offset of partition
+	// Latest offset of partition.
 	PartitionOffset *int64 `json:"partition_offset,omitempty"`
-	// Per partition lag for offset
+	// Per partition lag for offset.
 	OffsetLag *int64 `json:"offset_lag,omitempty"`
 }
 

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**PartitionNumber** | Pointer to **int32** | The number of this partition | [optional] 
-**PartitionOffset** | Pointer to **int64** | Latest offset of partition | [optional] 
-**OffsetLag** | Pointer to **int64** | Per partition lag for offset | [optional] 
+**PartitionNumber** | Pointer to **int32** | The number of this partition. | [optional] 
+**PartitionOffset** | Pointer to **int64** | Latest offset of partition. | [optional] 
+**OffsetLag** | Pointer to **int64** | Per partition lag for offset. | [optional] 
 
 ## Methods
 

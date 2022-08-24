@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Message** | Pointer to **string** | descriptive message about the error | [optional] 
-**Type** | Pointer to **string** | category of the error | [optional] 
-**Line** | Pointer to **int32** | Line where the error happened (if applicable) | [optional] 
-**Column** | Pointer to **int32** | Column where the error happened (if applicable) | [optional] 
-**TraceId** | Pointer to **string** | Internal trace ID to help with debugging | [optional] 
-**ErrorId** | Pointer to **string** | ID of the error | [optional] 
-**QueryId** | Pointer to **string** | ID of the query (if applicable) | [optional] 
+**Message** | Pointer to **string** | Descriptive message about the error. | [optional] 
+**Type** | Pointer to **string** | Category of the error. | [optional] 
+**Line** | Pointer to **int32** | Line where the error happened (if applicable). | [optional] 
+**Column** | Pointer to **int32** | Column where the error happened (if applicable). | [optional] 
+**TraceId** | Pointer to **string** | Internal trace ID to help with debugging. | [optional] 
+**ErrorId** | Pointer to **string** | ID of the error. | [optional] 
+**QueryId** | Pointer to **string** | ID of the query (if applicable). | [optional] 
 
 ## Methods
 

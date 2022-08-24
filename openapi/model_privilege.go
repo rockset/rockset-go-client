@@ -20,7 +20,7 @@ type Privilege struct {
 	Action *string `json:"action,omitempty"`
 	// The resources on which the action is allowed. Defaults to '*All*' if not specified.
 	ResourceName *string `json:"resource_name,omitempty"`
-	// Cluster ID (`rs2` for us-west-2, `use1a1` for us-east-1) for which the action is allowed. Defaults to '*All*' if not specified.
+	// Cluster ID (`usw2a1` for us-west-2, `use1a1` for us-east-1, `euc1a1` for eu-central-1) for which the action is allowed. Defaults to '*All*' if not specified.
 	Cluster *string `json:"cluster,omitempty"`
 }
 

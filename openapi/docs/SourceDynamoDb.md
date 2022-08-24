@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AwsRegion** | Pointer to **string** | AWS region name of DynamoDB table, by default us-west-2 is used | [optional] 
-**TableName** | **string** | name of DynamoDB table containing data | 
+**AwsRegion** | Pointer to **string** | AWS region name of DynamoDB table, by default us-west-2 is used. | [optional] 
+**TableName** | **string** | Name of DynamoDB table containing data. | 
 **CurrentStatus** | Pointer to [**StatusDynamoDbV2**](StatusDynamoDbV2.md) |  | [optional] 
-**Rcu** | Pointer to **int64** | Max RCU usage for scan | [optional] 
+**Rcu** | Pointer to **int64** | Max RCU usage for scan. | [optional] 
 **Status** | Pointer to [**StatusDynamoDb**](StatusDynamoDb.md) |  | [optional] 
-**UseScanApi** | Pointer to **bool** | Whether to use DynamoDB Scan API for the initial scan | [optional] 
+**UseScanApi** | Pointer to **bool** | Whether to use DynamoDB Scan API for the initial scan. | [optional] 
 
 ## Methods
 

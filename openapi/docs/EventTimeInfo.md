@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Field** | **string** | name of the field containing event time | 
-**Format** | Pointer to **string** | format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch | [optional] 
-**TimeZone** | Pointer to **string** | default time zone, in standard IANA format | [optional] 
+**Field** | **string** | Name of the field containing event time. | 
+**Format** | Pointer to **string** | Format of time field, can be one of: milliseconds_since_epoch, seconds_since_epoch. | [optional] 
+**TimeZone** | Pointer to **string** | Default time zone, in standard IANA format. | [optional] 
 
 ## Methods
 

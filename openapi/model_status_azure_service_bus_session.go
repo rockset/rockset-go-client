@@ -12,15 +12,14 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // StatusAzureServiceBusSession struct for StatusAzureServiceBusSession
 type StatusAzureServiceBusSession struct {
-	// The last processed sequence number within this session
+	// The last processed sequence number within this session.
 	SequenceNumber *int64 `json:"sequence_number,omitempty"`
-	// Most recent ISO-8601 date when a message from this session was processed
-	LastProcessed *time.Time `json:"last_processed,omitempty"`
+	// Most recent ISO-8601 date when a message from this session was processed.
+	LastProcessed *string `json:"last_processed,omitempty"`
 }
 
 // NewStatusAzureServiceBusSession instantiates a new StatusAzureServiceBusSession object
@@ -73,9 +72,9 @@ func (o *StatusAzureServiceBusSession) SetSequenceNumber(v int64) {
 }
 
 // GetLastProcessed returns the LastProcessed field value if set, zero value otherwise.
-func (o *StatusAzureServiceBusSession) GetLastProcessed() time.Time {
+func (o *StatusAzureServiceBusSession) GetLastProcessed() string {
 	if o == nil || o.LastProcessed == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.LastProcessed
@@ -83,7 +82,7 @@ func (o *StatusAzureServiceBusSession) GetLastProcessed() time.Time {
 
 // GetLastProcessedOk returns a tuple with the LastProcessed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusAzureServiceBusSession) GetLastProcessedOk() (*time.Time, bool) {
+func (o *StatusAzureServiceBusSession) GetLastProcessedOk() (*string, bool) {
 	if o == nil || o.LastProcessed == nil {
 		return nil, false
 	}
@@ -99,8 +98,8 @@ func (o *StatusAzureServiceBusSession) HasLastProcessed() bool {
 	return false
 }
 
-// SetLastProcessed gets a reference to the given time.Time and assigns it to the LastProcessed field.
-func (o *StatusAzureServiceBusSession) SetLastProcessed(v time.Time) {
+// SetLastProcessed gets a reference to the given string and assigns it to the LastProcessed field.
+func (o *StatusAzureServiceBusSession) SetLastProcessed(v string) {
 	o.LastProcessed = &v
 }
 

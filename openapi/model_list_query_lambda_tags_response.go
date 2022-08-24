@@ -16,7 +16,7 @@ import (
 
 // ListQueryLambdaTagsResponse struct for ListQueryLambdaTagsResponse
 type ListQueryLambdaTagsResponse struct {
-	// list of all tags associated with a Query Lambda
+	// List of all tags associated with a Query Lambda.
 	Data []QueryLambdaTag `json:"data,omitempty"`
 }
 

@@ -16,10 +16,14 @@ import (
 
 // SourceKafka struct for SourceKafka
 type SourceKafka struct {
-	// The Kafka topic to be tailed
-	KafkaTopicName string `json:"kafka_topic_name"`
+	// The Kafka topic to be tailed.
+	KafkaTopicName *string `json:"kafka_topic_name,omitempty"`
 	Status *StatusKafka `json:"status,omitempty"`
+	// The Kafka consumer group Id being used.
+	ConsumerGroupId *string `json:"consumer_group_id,omitempty"`
+	// Whether to use v3 integration.
 	UseV3 *bool `json:"use_v3,omitempty"`
+	// The offset reset policy.
 	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`
 }
 
@@ -27,9 +31,8 @@ type SourceKafka struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSourceKafka(kafkaTopicName string) *SourceKafka {
+func NewSourceKafka() *SourceKafka {
 	this := SourceKafka{}
-	this.KafkaTopicName = kafkaTopicName
 	return &this
 }
 
@@ -41,28 +44,36 @@ func NewSourceKafkaWithDefaults() *SourceKafka {
 	return &this
 }
 
-// GetKafkaTopicName returns the KafkaTopicName field value
+// GetKafkaTopicName returns the KafkaTopicName field value if set, zero value otherwise.
 func (o *SourceKafka) GetKafkaTopicName() string {
-	if o == nil {
+	if o == nil || o.KafkaTopicName == nil {
 		var ret string
 		return ret
 	}
-
-	return o.KafkaTopicName
+	return *o.KafkaTopicName
 }
 
-// GetKafkaTopicNameOk returns a tuple with the KafkaTopicName field value
+// GetKafkaTopicNameOk returns a tuple with the KafkaTopicName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKafka) GetKafkaTopicNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.KafkaTopicName == nil {
 		return nil, false
 	}
-	return &o.KafkaTopicName, true
+	return o.KafkaTopicName, true
 }
 
-// SetKafkaTopicName sets field value
+// HasKafkaTopicName returns a boolean if a field has been set.
+func (o *SourceKafka) HasKafkaTopicName() bool {
+	if o != nil && o.KafkaTopicName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKafkaTopicName gets a reference to the given string and assigns it to the KafkaTopicName field.
 func (o *SourceKafka) SetKafkaTopicName(v string) {
-	o.KafkaTopicName = v
+	o.KafkaTopicName = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -95,6 +106,38 @@ func (o *SourceKafka) HasStatus() bool {
 // SetStatus gets a reference to the given StatusKafka and assigns it to the Status field.
 func (o *SourceKafka) SetStatus(v StatusKafka) {
 	o.Status = &v
+}
+
+// GetConsumerGroupId returns the ConsumerGroupId field value if set, zero value otherwise.
+func (o *SourceKafka) GetConsumerGroupId() string {
+	if o == nil || o.ConsumerGroupId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ConsumerGroupId
+}
+
+// GetConsumerGroupIdOk returns a tuple with the ConsumerGroupId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceKafka) GetConsumerGroupIdOk() (*string, bool) {
+	if o == nil || o.ConsumerGroupId == nil {
+		return nil, false
+	}
+	return o.ConsumerGroupId, true
+}
+
+// HasConsumerGroupId returns a boolean if a field has been set.
+func (o *SourceKafka) HasConsumerGroupId() bool {
+	if o != nil && o.ConsumerGroupId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetConsumerGroupId gets a reference to the given string and assigns it to the ConsumerGroupId field.
+func (o *SourceKafka) SetConsumerGroupId(v string) {
+	o.ConsumerGroupId = &v
 }
 
 // GetUseV3 returns the UseV3 field value if set, zero value otherwise.
@@ -163,11 +206,14 @@ func (o *SourceKafka) SetOffsetResetPolicy(v string) {
 
 func (o SourceKafka) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.KafkaTopicName != nil {
 		toSerialize["kafka_topic_name"] = o.KafkaTopicName
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.ConsumerGroupId != nil {
+		toSerialize["consumer_group_id"] = o.ConsumerGroupId
 	}
 	if o.UseV3 != nil {
 		toSerialize["use_v3"] = o.UseV3

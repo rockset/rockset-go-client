@@ -4,16 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**KafkaTopicName** | **string** | The Kafka topic to be tailed | 
+**KafkaTopicName** | Pointer to **string** | The Kafka topic to be tailed. | [optional] 
 **Status** | Pointer to [**StatusKafka**](StatusKafka.md) |  | [optional] 
-**UseV3** | Pointer to **bool** |  | [optional] 
-**OffsetResetPolicy** | Pointer to **string** |  | [optional] 
+**ConsumerGroupId** | Pointer to **string** | The Kafka consumer group Id being used. | [optional] 
+**UseV3** | Pointer to **bool** | Whether to use v3 integration. | [optional] 
+**OffsetResetPolicy** | Pointer to **string** | The offset reset policy. | [optional] 
 
 ## Methods
 
 ### NewSourceKafka
 
-`func NewSourceKafka(kafkaTopicName string, ) *SourceKafka`
+`func NewSourceKafka() *SourceKafka`
 
 NewSourceKafka instantiates a new SourceKafka object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +48,11 @@ and a boolean to check if the value has been set.
 
 SetKafkaTopicName sets KafkaTopicName field to given value.
 
+### HasKafkaTopicName
+
+`func (o *SourceKafka) HasKafkaTopicName() bool`
+
+HasKafkaTopicName returns a boolean if a field has been set.
 
 ### GetStatus
 
@@ -72,6 +78,31 @@ SetStatus sets Status field to given value.
 `func (o *SourceKafka) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetConsumerGroupId
+
+`func (o *SourceKafka) GetConsumerGroupId() string`
+
+GetConsumerGroupId returns the ConsumerGroupId field if non-nil, zero value otherwise.
+
+### GetConsumerGroupIdOk
+
+`func (o *SourceKafka) GetConsumerGroupIdOk() (*string, bool)`
+
+GetConsumerGroupIdOk returns a tuple with the ConsumerGroupId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConsumerGroupId
+
+`func (o *SourceKafka) SetConsumerGroupId(v string)`
+
+SetConsumerGroupId sets ConsumerGroupId field to given value.
+
+### HasConsumerGroupId
+
+`func (o *SourceKafka) HasConsumerGroupId() bool`
+
+HasConsumerGroupId returns a boolean if a field has been set.
 
 ### GetUseV3
 

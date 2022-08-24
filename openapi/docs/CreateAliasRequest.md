@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Alias name | 
-**Description** | Pointer to **string** | optional description | [optional] 
-**Collections** | **[]string** | list of fully qualified collection names referenced by alias | 
+**Name** | **string** | Alias name. | 
+**Description** | Pointer to **string** | Optional description. | [optional] 
+**Collections** | **[]string** | List of fully qualified collection names referenced by alias. | 
 
 ## Methods
 

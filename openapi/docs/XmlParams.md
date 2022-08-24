@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RootTag** | Pointer to **string** | tag until which xml is ignored | [optional] 
-**Encoding** | Pointer to **string** | encoding in which data source is encoded | [optional] 
-**DocTag** | Pointer to **string** | tags with which documents are identified | [optional] 
+**RootTag** | Pointer to **string** | Tag until which xml is ignored. | [optional] 
+**Encoding** | Pointer to **string** | Encoding in which data source is encoded. | [optional] 
+**DocTag** | Pointer to **string** | Tags with which documents are identified. | [optional] 
 **ValueTag** | Pointer to **string** | tag used for the value when there are attributes in the element having no child | [optional] 
-**AttributePrefix** | Pointer to **string** | tag to differentiate between attributes and elements | [optional] 
+**AttributePrefix** | Pointer to **string** | Tag to differentiate between attributes and elements. | [optional] 
 
 ## Methods
 

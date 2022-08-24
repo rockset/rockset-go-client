@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]DocumentStatus**](DocumentStatus.md) | information about deleted documents | [optional] 
+**Data** | Pointer to [**[]DocumentStatus**](DocumentStatus.md) | Information about deleted documents. | [optional] 
 
 ## Methods
 

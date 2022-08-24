@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | unique identifier for collection, can contain alphanumeric or dash characters | 
-**Description** | Pointer to **string** | text describing the collection | [optional] 
-**Sources** | Pointer to [**[]Source**](Source.md) | list of sources from which to ingest data | [optional] 
-**RetentionSecs** | Pointer to **int64** | number of seconds after which data is purged, based on event time | [optional] 
-**InsertOnly** | Pointer to **bool** | If true disallows updates and deletes, but makes indexing more efficient | [optional] 
+**Name** | **string** | Unique identifier for collection, can contain alphanumeric or dash characters. | 
+**Description** | Pointer to **string** | Text describing the collection. | [optional] 
+**Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which to ingest data. | [optional] 
+**RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged, based on event time. | [optional] 
+**InsertOnly** | Pointer to **bool** | If true disallows updates and deletes, but makes indexing more efficient. | [optional] 
 **EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
-**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | list of mappings | [optional] 
+**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | List of mappings. | [optional] 
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
-**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | list of clustering fields | [optional] 
+**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | DEPRECATED. List of clustering fields. Use CLUSTER BY clause in ingest transformation instead. | [optional] 
 
 ## Methods
 

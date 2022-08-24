@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TagName** | **string** | name of Query Lambda tag | 
-**Version** | **string** | hash identifying a Query Lambda tag | 
+**TagName** | **string** | Name of Query Lambda tag. | 
+**Version** | **string** | Hash identifying a Query Lambda tag. | 
 
 ## Methods
 

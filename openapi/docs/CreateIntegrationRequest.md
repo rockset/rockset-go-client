@@ -4,17 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | descriptive label | 
-**Description** | Pointer to **string** | longer explanation for the integration | [optional] 
+**Name** | **string** | Descriptive label. | 
+**Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
 **S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
 **Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
 **AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
+**AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
 **AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
 **Segment** | Pointer to [**SegmentIntegration**](SegmentIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
+**Snowflake** | Pointer to [**SnowflakeIntegration**](SnowflakeIntegration.md) |  | [optional] 
 
 ## Methods
 
@@ -205,6 +207,31 @@ SetAzureBlobStorage sets AzureBlobStorage field to given value.
 
 HasAzureBlobStorage returns a boolean if a field has been set.
 
+### GetAzureServiceBus
+
+`func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration`
+
+GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
+
+### GetAzureServiceBusOk
+
+`func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)`
+
+GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureServiceBus
+
+`func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegration)`
+
+SetAzureServiceBus sets AzureServiceBus field to given value.
+
+### HasAzureServiceBus
+
+`func (o *CreateIntegrationRequest) HasAzureServiceBus() bool`
+
+HasAzureServiceBus returns a boolean if a field has been set.
+
 ### GetAzureEventHubs
 
 `func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration`
@@ -304,6 +331,31 @@ SetMongodb sets Mongodb field to given value.
 `func (o *CreateIntegrationRequest) HasMongodb() bool`
 
 HasMongodb returns a boolean if a field has been set.
+
+### GetSnowflake
+
+`func (o *CreateIntegrationRequest) GetSnowflake() SnowflakeIntegration`
+
+GetSnowflake returns the Snowflake field if non-nil, zero value otherwise.
+
+### GetSnowflakeOk
+
+`func (o *CreateIntegrationRequest) GetSnowflakeOk() (*SnowflakeIntegration, bool)`
+
+GetSnowflakeOk returns a tuple with the Snowflake field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSnowflake
+
+`func (o *CreateIntegrationRequest) SetSnowflake(v SnowflakeIntegration)`
+
+SetSnowflake sets Snowflake field to given value.
+
+### HasSnowflake
+
+`func (o *CreateIntegrationRequest) HasSnowflake() bool`
+
+HasSnowflake returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

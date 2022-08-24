@@ -16,22 +16,22 @@ import (
 
 // QueryLambdaVersion struct for QueryLambdaVersion
 type QueryLambdaVersion struct {
-	// workspace of this Query Lambda
+	// Workspace of this Query Lambda.
 	Workspace *string `json:"workspace,omitempty"`
-	// user that created this Query Lambda
+	// User that created this Query Lambda.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// ISO-8601 date of when Query Lambda was created
+	// ISO-8601 date of when Query Lambda was created.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// Query Lambda name
+	// Query Lambda name.
 	Name *string `json:"name,omitempty"`
-	// Query Lambda version
+	// Query Lambda version.
 	Version *string `json:"version,omitempty"`
-	// optional description
+	// Optional description.
 	Description *string `json:"description,omitempty"`
 	Sql *QueryLambdaSql `json:"sql,omitempty"`
-	// collections queried by underlying SQL query
+	// Collections queried by underlying SQL query.
 	Collections []string `json:"collections,omitempty"`
-	// status of this Query Lambda
+	// Status of this Query Lambda.
 	State *string `json:"state,omitempty"`
 	Stats *QueryLambdaStats `json:"stats,omitempty"`
 }

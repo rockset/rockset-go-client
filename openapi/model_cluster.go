@@ -16,17 +16,17 @@ import (
 
 // Cluster struct for Cluster
 type Cluster struct {
-	// unique identifier for the cluster
+	// Unique identifier for the cluster.
 	Id *string `json:"id,omitempty"`
-	// cluster type
+	// Cluster type.
 	ClusterType *string `json:"cluster_type,omitempty"`
-	// aws region
+	// Aws region.
 	AwsRegion *string `json:"aws_region,omitempty"`
-	// domain of org using cluster
+	// Domain of org using cluster.
 	Domain *string `json:"domain,omitempty"`
-	// top level domain of org using cluster
+	// Top level domain of org using cluster.
 	TopLevelDomain *string `json:"top_level_domain,omitempty"`
-	// api server url for cluster
+	// Api server url for cluster.
 	ApiserverUrl *string `json:"apiserver_url,omitempty"`
 }
 

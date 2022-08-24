@@ -16,9 +16,9 @@ import (
 
 // AwsAccessKey struct for AwsAccessKey
 type AwsAccessKey struct {
-	// AWS access key ID
+	// AWS access key ID.
 	AwsAccessKeyId string `json:"aws_access_key_id"`
-	// AWS secret access key
+	// AWS secret access key.
 	AwsSecretAccessKey string `json:"aws_secret_access_key"`
 }
 

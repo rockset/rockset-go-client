@@ -16,7 +16,7 @@ import (
 
 // FieldMappingQuery struct for FieldMappingQuery
 type FieldMappingQuery struct {
-	// SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input
+	// SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input.
 	Sql *string `json:"sql,omitempty"`
 }
 

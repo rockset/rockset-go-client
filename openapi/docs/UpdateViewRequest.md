@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Description** | Pointer to **string** | optional description | [optional] 
-**Query** | **string** | SQL for this view | 
+**Description** | Pointer to **string** | Optional description. | [optional] 
+**Query** | **string** | SQL for this view. | 
 
 ## Methods
 

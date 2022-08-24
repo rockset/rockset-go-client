@@ -16,15 +16,15 @@ import (
 
 // XmlParams struct for XmlParams
 type XmlParams struct {
-	// tag until which xml is ignored
+	// Tag until which xml is ignored.
 	RootTag *string `json:"root_tag,omitempty"`
-	// encoding in which data source is encoded
+	// Encoding in which data source is encoded.
 	Encoding *string `json:"encoding,omitempty"`
-	// tags with which documents are identified
+	// Tags with which documents are identified.
 	DocTag *string `json:"doc_tag,omitempty"`
 	// tag used for the value when there are attributes in the element having no child
 	ValueTag *string `json:"value_tag,omitempty"`
-	// tag to differentiate between attributes and elements
+	// Tag to differentiate between attributes and elements.
 	AttributePrefix *string `json:"attribute_prefix,omitempty"`
 }
 

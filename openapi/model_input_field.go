@@ -16,13 +16,13 @@ import (
 
 // InputField struct for InputField
 type InputField struct {
-	// The name of a field, parsed as a SQL qualified name
+	// The name of a field, parsed as a SQL qualified name.
 	FieldName *string `json:"field_name,omitempty"`
-	// Define the behaviour if fieldName is missing or is null
+	// Define the behaviour if fieldName is missing or is null.
 	IfMissing *string `json:"if_missing,omitempty"`
-	// If true, then drop fieldName from the document
+	// If true, then drop fieldName from the document.
 	IsDrop *bool `json:"is_drop,omitempty"`
-	// Sql parameter name
+	// Sql parameter name.
 	Param *string `json:"param,omitempty"`
 }
 

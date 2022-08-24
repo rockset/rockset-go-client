@@ -4,11 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | Status of the Source&#39;s ingestion, one of: INITIALIZING, WATCHING, PROCESSING, COMPLETED, ERROR | [optional] 
-**Message** | Pointer to **string** | state message | [optional] 
-**LastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed | [optional] 
-**LastProcessedItem** | Pointer to **string** | last source item processed by ingester | [optional] 
-**TotalProcessedItems** | Pointer to **int64** | Total items processed of source | [optional] 
+**State** | Pointer to **string** | Status of the Source&#39;s ingestion. | [optional] 
+**Since** | Pointer to **string** | ISO-8601 date when state was triggered. | [optional] 
+**Message** | Pointer to **string** | State message. | [optional] 
+**LastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed. | [optional] 
+**LastProcessedItem** | Pointer to **string** | Last source item processed by ingester. | [optional] 
+**TotalProcessedItems** | Pointer to **int64** | Total items processed of source. | [optional] 
+**LastErrorAt** | Pointer to **string** | ISO-8601 date when last error occurred. | [optional] 
+**LastErrorItem** | Pointer to **string** | Last source item that errored. | [optional] 
+**LastErrorReason** | Pointer to **string** | Reason for the last error. | [optional] 
+**TotalErrorItems** | Pointer to **int64** | Total items that errored. | [optional] 
 
 ## Methods
 
@@ -53,6 +58,31 @@ SetState sets State field to given value.
 `func (o *Status) HasState() bool`
 
 HasState returns a boolean if a field has been set.
+
+### GetSince
+
+`func (o *Status) GetSince() string`
+
+GetSince returns the Since field if non-nil, zero value otherwise.
+
+### GetSinceOk
+
+`func (o *Status) GetSinceOk() (*string, bool)`
+
+GetSinceOk returns a tuple with the Since field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSince
+
+`func (o *Status) SetSince(v string)`
+
+SetSince sets Since field to given value.
+
+### HasSince
+
+`func (o *Status) HasSince() bool`
+
+HasSince returns a boolean if a field has been set.
 
 ### GetMessage
 
@@ -153,6 +183,106 @@ SetTotalProcessedItems sets TotalProcessedItems field to given value.
 `func (o *Status) HasTotalProcessedItems() bool`
 
 HasTotalProcessedItems returns a boolean if a field has been set.
+
+### GetLastErrorAt
+
+`func (o *Status) GetLastErrorAt() string`
+
+GetLastErrorAt returns the LastErrorAt field if non-nil, zero value otherwise.
+
+### GetLastErrorAtOk
+
+`func (o *Status) GetLastErrorAtOk() (*string, bool)`
+
+GetLastErrorAtOk returns a tuple with the LastErrorAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastErrorAt
+
+`func (o *Status) SetLastErrorAt(v string)`
+
+SetLastErrorAt sets LastErrorAt field to given value.
+
+### HasLastErrorAt
+
+`func (o *Status) HasLastErrorAt() bool`
+
+HasLastErrorAt returns a boolean if a field has been set.
+
+### GetLastErrorItem
+
+`func (o *Status) GetLastErrorItem() string`
+
+GetLastErrorItem returns the LastErrorItem field if non-nil, zero value otherwise.
+
+### GetLastErrorItemOk
+
+`func (o *Status) GetLastErrorItemOk() (*string, bool)`
+
+GetLastErrorItemOk returns a tuple with the LastErrorItem field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastErrorItem
+
+`func (o *Status) SetLastErrorItem(v string)`
+
+SetLastErrorItem sets LastErrorItem field to given value.
+
+### HasLastErrorItem
+
+`func (o *Status) HasLastErrorItem() bool`
+
+HasLastErrorItem returns a boolean if a field has been set.
+
+### GetLastErrorReason
+
+`func (o *Status) GetLastErrorReason() string`
+
+GetLastErrorReason returns the LastErrorReason field if non-nil, zero value otherwise.
+
+### GetLastErrorReasonOk
+
+`func (o *Status) GetLastErrorReasonOk() (*string, bool)`
+
+GetLastErrorReasonOk returns a tuple with the LastErrorReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastErrorReason
+
+`func (o *Status) SetLastErrorReason(v string)`
+
+SetLastErrorReason sets LastErrorReason field to given value.
+
+### HasLastErrorReason
+
+`func (o *Status) HasLastErrorReason() bool`
+
+HasLastErrorReason returns a boolean if a field has been set.
+
+### GetTotalErrorItems
+
+`func (o *Status) GetTotalErrorItems() int64`
+
+GetTotalErrorItems returns the TotalErrorItems field if non-nil, zero value otherwise.
+
+### GetTotalErrorItemsOk
+
+`func (o *Status) GetTotalErrorItemsOk() (*int64, bool)`
+
+GetTotalErrorItemsOk returns a tuple with the TotalErrorItems field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalErrorItems
+
+`func (o *Status) SetTotalErrorItems(v int64)`
+
+SetTotalErrorItems sets TotalErrorItems field to given value.
+
+### HasTotalErrorItems
+
+`func (o *Status) HasTotalErrorItems() bool`
+
+HasTotalErrorItems returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

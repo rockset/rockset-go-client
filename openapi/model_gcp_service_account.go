@@ -16,7 +16,7 @@ import (
 
 // GcpServiceAccount struct for GcpServiceAccount
 type GcpServiceAccount struct {
-	// Contents of JSON Service Account key file
+	// Contents of JSON Service Account key file.
 	ServiceAccountKeyFileJson string `json:"service_account_key_file_json"`
 }
 

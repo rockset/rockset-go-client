@@ -16,14 +16,16 @@ import (
 
 // PaginationInfo struct for PaginationInfo
 type PaginationInfo struct {
-	// Number of documents returned in this result set
+	// Number of documents returned in this result set.
 	CurrentPageDocCount *int64 `json:"current_page_doc_count,omitempty"`
 	// The doc offset that next_cursor starts at.
 	NextCursorOffset *int64 `json:"next_cursor_offset,omitempty"`
 	// Cursor used to retrieve the first set of documents.
 	StartCursor *string `json:"start_cursor,omitempty"`
-	// Cursor to use to get the list of documents
+	// Cursor to use to get the list of documents.
 	NextCursor *string `json:"next_cursor,omitempty"`
+	// Direct link to the next page of results.
+	NextPageLink *string `json:"next_page_link,omitempty"`
 }
 
 // NewPaginationInfo instantiates a new PaginationInfo object
@@ -171,6 +173,38 @@ func (o *PaginationInfo) SetNextCursor(v string) {
 	o.NextCursor = &v
 }
 
+// GetNextPageLink returns the NextPageLink field value if set, zero value otherwise.
+func (o *PaginationInfo) GetNextPageLink() string {
+	if o == nil || o.NextPageLink == nil {
+		var ret string
+		return ret
+	}
+	return *o.NextPageLink
+}
+
+// GetNextPageLinkOk returns a tuple with the NextPageLink field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaginationInfo) GetNextPageLinkOk() (*string, bool) {
+	if o == nil || o.NextPageLink == nil {
+		return nil, false
+	}
+	return o.NextPageLink, true
+}
+
+// HasNextPageLink returns a boolean if a field has been set.
+func (o *PaginationInfo) HasNextPageLink() bool {
+	if o != nil && o.NextPageLink != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNextPageLink gets a reference to the given string and assigns it to the NextPageLink field.
+func (o *PaginationInfo) SetNextPageLink(v string) {
+	o.NextPageLink = &v
+}
+
 func (o PaginationInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CurrentPageDocCount != nil {
@@ -184,6 +218,9 @@ func (o PaginationInfo) MarshalJSON() ([]byte, error) {
 	}
 	if o.NextCursor != nil {
 		toSerialize["next_cursor"] = o.NextCursor
+	}
+	if o.NextPageLink != nil {
+		toSerialize["next_page_link"] = o.NextPageLink
 	}
 	return json.Marshal(toSerialize)
 }

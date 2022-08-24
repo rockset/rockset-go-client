@@ -16,9 +16,9 @@ import (
 
 // SourceAzureServiceBus struct for SourceAzureServiceBus
 type SourceAzureServiceBus struct {
-	// name of the topic which rockset should ingest from
+	// Name of the topic which rockset should ingest from.
 	Topic *string `json:"topic,omitempty"`
-	// the subscription to read from the topic
+	// The subscription to read from the topic.
 	Subscription *string `json:"subscription,omitempty"`
 	Status *StatusAzureServiceBus `json:"status,omitempty"`
 }

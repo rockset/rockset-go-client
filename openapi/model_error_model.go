@@ -16,19 +16,19 @@ import (
 
 // ErrorModel Describes details about an error
 type ErrorModel struct {
-	// descriptive message about the error
+	// Descriptive message about the error.
 	Message *string `json:"message,omitempty"`
-	// category of the error
+	// Category of the error.
 	Type *string `json:"type,omitempty"`
-	// Line where the error happened (if applicable)
+	// Line where the error happened (if applicable).
 	Line *int32 `json:"line,omitempty"`
-	// Column where the error happened (if applicable)
+	// Column where the error happened (if applicable).
 	Column *int32 `json:"column,omitempty"`
-	// Internal trace ID to help with debugging
+	// Internal trace ID to help with debugging.
 	TraceId *string `json:"trace_id,omitempty"`
-	// ID of the error
+	// ID of the error.
 	ErrorId *string `json:"error_id,omitempty"`
-	// ID of the query (if applicable)
+	// ID of the query (if applicable).
 	QueryId *string `json:"query_id,omitempty"`
 }
 

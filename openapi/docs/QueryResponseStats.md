@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ElapsedTimeMs** | Pointer to **int64** | query time in milliseconds | [optional] 
-**ThrottledTimeMicros** | Pointer to **int64** | time query was throttled by admission control | [optional] 
+**ElapsedTimeMs** | Pointer to **int64** | Query time in milliseconds. | [optional] 
+**ThrottledTimeMicros** | Pointer to **int64** | Time query was throttled by admission control. | [optional] 
 
 ## Methods
 

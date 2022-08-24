@@ -17,25 +17,25 @@ import (
 // View struct for View
 type View struct {
 	Path *string `json:"path,omitempty"`
-	// name of the view
+	// Name of the view.
 	Name *string `json:"name,omitempty"`
-	// view description
+	// View description.
 	Description *string `json:"description,omitempty"`
-	// name of the workspace
+	// Name of the workspace.
 	Workspace *string `json:"workspace,omitempty"`
-	// email of the creator
+	// Email of the creator.
 	CreatorEmail *string `json:"creator_email,omitempty"`
-	// email of the owner
+	// Email of the owner, note: deprecated and will always be null.
 	OwnerEmail *string `json:"owner_email,omitempty"`
-	// SQL query of the view
+	// SQL query of the view.
 	QuerySql *string `json:"query_sql,omitempty"`
-	// list of entities referenced by view. An entity can be a view, alias or collection
+	// List of entities referenced by view. An entity can be a view, alias or collection.
 	Entities []string `json:"entities,omitempty"`
-	// state of the view
+	// State of the view.
 	State *string `json:"state,omitempty"`
-	// ISO-8601 date
+	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// ISO-8601 date
+	// ISO-8601 date.
 	ModifiedAt *string `json:"modified_at,omitempty"`
 }
 

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ScanStartTime** | Pointer to **string** | MongoDB scan start time | [optional] 
-**ScanEndTime** | Pointer to **string** | MongoDB scan end time | [optional] 
-**ScanRecordsProcessed** | Pointer to **int64** | Number of records inserted using scan | [optional] 
-**ScanTotalRecords** | Pointer to **int64** | Number of records in MongoDB table at time of scan | [optional] 
-**State** | Pointer to **string** | state of current ingest for this table | [optional] 
-**StreamLastInsertProcessedAt** | Pointer to **string** | ISO-8601 date when new insert from source was last processed | [optional] 
-**StreamLastUpdateProcessedAt** | Pointer to **string** | ISO-8601 date when update from source was last processed | [optional] 
-**StreamLastDeleteProcessedAt** | Pointer to **string** | ISO-8601 date when delete from source was last processed | [optional] 
-**StreamRecordsInserted** | Pointer to **int64** | Number of new records inserted using stream | [optional] 
-**StreamRecordsUpdated** | Pointer to **int64** | Number of new records updated using stream | [optional] 
-**StreamRecordsDeleted** | Pointer to **int64** | Number of new records deleted using stream | [optional] 
+**ScanStartTime** | Pointer to **string** | MongoDB scan start time. | [optional] 
+**ScanEndTime** | Pointer to **string** | MongoDB scan end time. | [optional] 
+**ScanRecordsProcessed** | Pointer to **int64** | Number of records inserted using scan. | [optional] 
+**ScanTotalRecords** | Pointer to **int64** | Number of records in MongoDB table at time of scan. | [optional] 
+**State** | Pointer to **string** | State of current ingest for this table. | [optional] 
+**StreamLastInsertProcessedAt** | Pointer to **string** | ISO-8601 date when new insert from source was last processed. | [optional] 
+**StreamLastUpdateProcessedAt** | Pointer to **string** | ISO-8601 date when update from source was last processed. | [optional] 
+**StreamLastDeleteProcessedAt** | Pointer to **string** | ISO-8601 date when delete from source was last processed. | [optional] 
+**StreamRecordsInserted** | Pointer to **int64** | Number of new records inserted using stream. | [optional] 
+**StreamRecordsUpdated** | Pointer to **int64** | Number of new records updated using stream. | [optional] 
+**StreamRecordsDeleted** | Pointer to **int64** | Number of new records deleted using stream. | [optional] 
 
 ## Methods
 

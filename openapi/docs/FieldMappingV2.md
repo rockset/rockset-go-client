@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | A user specified string that is a name for this mapping | [optional] 
+**Name** | Pointer to **string** | A user specified string that is a name for this mapping. | [optional] 
 **IsDropAllFields** | Pointer to **bool** | A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set | [optional] 
-**InputFields** | Pointer to [**[]InputField**](InputField.md) | A List of InputField for this mapping | [optional] 
+**InputFields** | Pointer to [**[]InputField**](InputField.md) | A List of InputField for this mapping. | [optional] 
 **OutputField** | Pointer to [**OutputField**](OutputField.md) |  | [optional] 
 
 ## Methods

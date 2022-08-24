@@ -16,15 +16,15 @@ import (
 
 // Workspace Workspaces are organizational containers for collections.
 type Workspace struct {
-	// ISO-8601 date of when workspace was created
+	// ISO-8601 date of when workspace was created.
 	CreatedAt *string `json:"created_at,omitempty"`
-	// email of user who created the workspace
+	// Email of user who created the workspace.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// descriptive label and unique identifier
+	// Descriptive label and unique identifier.
 	Name *string `json:"name,omitempty"`
-	// longer explanation for the workspace
+	// Longer explanation for the workspace.
 	Description *string `json:"description,omitempty"`
-	// number of collections that are immediate children of workspace
+	// Number of collections that are immediate children of workspace.
 	CollectionCount *int64 `json:"collection_count,omitempty"`
 }
 

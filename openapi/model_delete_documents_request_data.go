@@ -16,7 +16,7 @@ import (
 
 // DeleteDocumentsRequestData struct for DeleteDocumentsRequestData
 type DeleteDocumentsRequestData struct {
-	// unique document ID
+	// Unique document ID.
 	Id string `json:"_id"`
 }
 

@@ -16,19 +16,21 @@ import (
 
 // CreateIntegrationRequest struct for CreateIntegrationRequest
 type CreateIntegrationRequest struct {
-	// descriptive label
+	// Descriptive label.
 	Name string `json:"name"`
-	// longer explanation for the integration
+	// Longer explanation for the integration.
 	Description *string `json:"description,omitempty"`
 	S3 *S3Integration `json:"s3,omitempty"`
 	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
 	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
+	AzureServiceBus *AzureServiceBusIntegration `json:"azure_service_bus,omitempty"`
 	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
 	Segment *SegmentIntegration `json:"segment,omitempty"`
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
+	Snowflake *SnowflakeIntegration `json:"snowflake,omitempty"`
 }
 
 // NewCreateIntegrationRequest instantiates a new CreateIntegrationRequest object
@@ -265,6 +267,38 @@ func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegra
 	o.AzureBlobStorage = &v
 }
 
+// GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration {
+	if o == nil || o.AzureServiceBus == nil {
+		var ret AzureServiceBusIntegration
+		return ret
+	}
+	return *o.AzureServiceBus
+}
+
+// GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool) {
+	if o == nil || o.AzureServiceBus == nil {
+		return nil, false
+	}
+	return o.AzureServiceBus, true
+}
+
+// HasAzureServiceBus returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasAzureServiceBus() bool {
+	if o != nil && o.AzureServiceBus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureServiceBus gets a reference to the given AzureServiceBusIntegration and assigns it to the AzureServiceBus field.
+func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegration) {
+	o.AzureServiceBus = &v
+}
+
 // GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration {
 	if o == nil || o.AzureEventHubs == nil {
@@ -393,6 +427,38 @@ func (o *CreateIntegrationRequest) SetMongodb(v MongoDbIntegration) {
 	o.Mongodb = &v
 }
 
+// GetSnowflake returns the Snowflake field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetSnowflake() SnowflakeIntegration {
+	if o == nil || o.Snowflake == nil {
+		var ret SnowflakeIntegration
+		return ret
+	}
+	return *o.Snowflake
+}
+
+// GetSnowflakeOk returns a tuple with the Snowflake field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetSnowflakeOk() (*SnowflakeIntegration, bool) {
+	if o == nil || o.Snowflake == nil {
+		return nil, false
+	}
+	return o.Snowflake, true
+}
+
+// HasSnowflake returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasSnowflake() bool {
+	if o != nil && o.Snowflake != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSnowflake gets a reference to the given SnowflakeIntegration and assigns it to the Snowflake field.
+func (o *CreateIntegrationRequest) SetSnowflake(v SnowflakeIntegration) {
+	o.Snowflake = &v
+}
+
 func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -416,6 +482,9 @@ func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	if o.AzureBlobStorage != nil {
 		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
 	}
+	if o.AzureServiceBus != nil {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
+	}
 	if o.AzureEventHubs != nil {
 		toSerialize["azure_event_hubs"] = o.AzureEventHubs
 	}
@@ -427,6 +496,9 @@ func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Mongodb != nil {
 		toSerialize["mongodb"] = o.Mongodb
+	}
+	if o.Snowflake != nil {
+		toSerialize["snowflake"] = o.Snowflake
 	}
 	return json.Marshal(toSerialize)
 }

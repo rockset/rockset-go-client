@@ -16,13 +16,13 @@ import (
 
 // StatusKafka struct for StatusKafka
 type StatusKafka struct {
-	// State of the Kafka source
+	// State of the Kafka source.
 	State *string `json:"state,omitempty"`
-	// Time at which the last document was consumed from Kafka
+	// Time at which the last document was consumed from Kafka.
 	LastConsumedTime *string `json:"last_consumed_time,omitempty"`
-	// Number of documents consumed by this Kafka topic
+	// Number of documents consumed by this Kafka topic.
 	NumDocumentsProcessed *int64 `json:"num_documents_processed,omitempty"`
-	// Status info per partition
+	// Status info per partition.
 	KafkaPartitions []StatusKafkaPartition `json:"kafka_partitions,omitempty"`
 }
 

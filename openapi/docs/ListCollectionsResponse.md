@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Collection**](Collection.md) | list of all collections | [optional] 
+**Data** | Pointer to [**[]Collection**](Collection.md) | List of all collections. | [optional] 
 
 ## Methods
 

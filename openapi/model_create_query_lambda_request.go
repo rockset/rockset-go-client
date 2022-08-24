@@ -16,9 +16,9 @@ import (
 
 // CreateQueryLambdaRequest struct for CreateQueryLambdaRequest
 type CreateQueryLambdaRequest struct {
-	// Query Lambda name
+	// Query Lambda name.
 	Name string `json:"name"`
-	// optional description
+	// Optional description.
 	Description *string `json:"description,omitempty"`
 	Sql QueryLambdaSql `json:"sql"`
 }

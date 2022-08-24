@@ -12,16 +12,15 @@ package openapi
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // StatusAzureServiceBus struct for StatusAzureServiceBus
 type StatusAzureServiceBus struct {
-	// Service Bus first message processed time in ISO-8601 format
-	FirstProcessedAt *time.Time `json:"first_processed_at,omitempty"`
-	// Number of records processed
+	// Service Bus first message processed time in ISO-8601 format.
+	FirstProcessedAt *string `json:"first_processed_at,omitempty"`
+	// Number of records processed.
 	RecordsProcessed *int64 `json:"records_processed,omitempty"`
-	// Sessions processed
+	// Sessions processed.
 	Sessions *map[string]StatusAzureServiceBusSession `json:"sessions,omitempty"`
 }
 
@@ -43,9 +42,9 @@ func NewStatusAzureServiceBusWithDefaults() *StatusAzureServiceBus {
 }
 
 // GetFirstProcessedAt returns the FirstProcessedAt field value if set, zero value otherwise.
-func (o *StatusAzureServiceBus) GetFirstProcessedAt() time.Time {
+func (o *StatusAzureServiceBus) GetFirstProcessedAt() string {
 	if o == nil || o.FirstProcessedAt == nil {
-		var ret time.Time
+		var ret string
 		return ret
 	}
 	return *o.FirstProcessedAt
@@ -53,7 +52,7 @@ func (o *StatusAzureServiceBus) GetFirstProcessedAt() time.Time {
 
 // GetFirstProcessedAtOk returns a tuple with the FirstProcessedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusAzureServiceBus) GetFirstProcessedAtOk() (*time.Time, bool) {
+func (o *StatusAzureServiceBus) GetFirstProcessedAtOk() (*string, bool) {
 	if o == nil || o.FirstProcessedAt == nil {
 		return nil, false
 	}
@@ -69,8 +68,8 @@ func (o *StatusAzureServiceBus) HasFirstProcessedAt() bool {
 	return false
 }
 
-// SetFirstProcessedAt gets a reference to the given time.Time and assigns it to the FirstProcessedAt field.
-func (o *StatusAzureServiceBus) SetFirstProcessedAt(v time.Time) {
+// SetFirstProcessedAt gets a reference to the given string and assigns it to the FirstProcessedAt field.
+func (o *StatusAzureServiceBus) SetFirstProcessedAt(v string) {
 	o.FirstProcessedAt = &v
 }
 

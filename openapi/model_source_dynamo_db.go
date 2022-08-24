@@ -16,15 +16,15 @@ import (
 
 // SourceDynamoDb struct for SourceDynamoDb
 type SourceDynamoDb struct {
-	// AWS region name of DynamoDB table, by default us-west-2 is used
+	// AWS region name of DynamoDB table, by default us-west-2 is used.
 	AwsRegion *string `json:"aws_region,omitempty"`
-	// name of DynamoDB table containing data
+	// Name of DynamoDB table containing data.
 	TableName string `json:"table_name"`
 	CurrentStatus *StatusDynamoDbV2 `json:"current_status,omitempty"`
-	// Max RCU usage for scan
+	// Max RCU usage for scan.
 	Rcu *int64 `json:"rcu,omitempty"`
 	Status *StatusDynamoDb `json:"status,omitempty"`
-	// Whether to use DynamoDB Scan API for the initial scan
+	// Whether to use DynamoDB Scan API for the initial scan.
 	UseScanApi *bool `json:"use_scan_api,omitempty"`
 }
 

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Topic** | Pointer to **string** | name of the topic which rockset should ingest from | [optional] 
-**Subscription** | Pointer to **string** | the subscription to read from the topic | [optional] 
+**Topic** | Pointer to **string** | Name of the topic which rockset should ingest from. | [optional] 
+**Subscription** | Pointer to **string** | The subscription to read from the topic. | [optional] 
 **Status** | Pointer to [**StatusAzureServiceBus**](StatusAzureServiceBus.md) |  | [optional] 
 
 ## Methods

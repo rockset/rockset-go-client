@@ -1,6 +1,6 @@
 # \WorkspacesApi
 
-All URIs are relative to *https://api.rs2.usw2.rockset.com*
+All URIs are relative to *https://api.use1a1.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -219,7 +219,7 @@ No authorization required
 
 ## ListWorkspaces
 
-> ListWorkspacesResponse ListWorkspaces(ctx).FetchAcrossRegions(fetchAcrossRegions).Execute()
+> ListWorkspacesResponse ListWorkspaces(ctx).Execute()
 
 List Workspaces
 
@@ -238,11 +238,10 @@ import (
 )
 
 func main() {
-    fetchAcrossRegions := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WorkspacesApi.ListWorkspaces(context.Background()).FetchAcrossRegions(fetchAcrossRegions).Execute()
+    resp, r, err := apiClient.WorkspacesApi.ListWorkspaces(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `WorkspacesApi.ListWorkspaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -254,16 +253,12 @@ func main() {
 
 ### Path Parameters
 
-
+This endpoint does not need any parameter.
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListWorkspacesRequest struct via the builder pattern
 
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **fetchAcrossRegions** | **bool** |  | 
 
 ### Return type
 

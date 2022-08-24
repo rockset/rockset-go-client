@@ -17,9 +17,9 @@ import (
 // StatusDynamoDbV2 struct for StatusDynamoDbV2
 type StatusDynamoDbV2 struct {
 	InitialDumpCompletionPercentage *float64 `json:"initial_dump_completion_percentage,omitempty"`
-	// state of current ingest for this table
+	// State of current ingest for this table.
 	State *string `json:"state,omitempty"`
-	// ISO-8601 date when source was last processed
+	// ISO-8601 date when source was last processed.
 	StreamLastProcessedAt *string `json:"stream_last_processed_at,omitempty"`
 }
 

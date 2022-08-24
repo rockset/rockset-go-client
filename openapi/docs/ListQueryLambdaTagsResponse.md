@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]QueryLambdaTag**](QueryLambdaTag.md) | list of all tags associated with a Query Lambda | [optional] 
+**Data** | Pointer to [**[]QueryLambdaTag**](QueryLambdaTag.md) | List of all tags associated with a Query Lambda. | [optional] 
 
 ## Methods
 

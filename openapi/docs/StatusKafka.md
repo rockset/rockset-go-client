@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | State of the Kafka source | [optional] 
-**LastConsumedTime** | Pointer to **string** | Time at which the last document was consumed from Kafka | [optional] 
-**NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed by this Kafka topic | [optional] 
-**KafkaPartitions** | Pointer to [**[]StatusKafkaPartition**](StatusKafkaPartition.md) | Status info per partition | [optional] 
+**State** | Pointer to **string** | State of the Kafka source. | [optional] 
+**LastConsumedTime** | Pointer to **string** | Time at which the last document was consumed from Kafka. | [optional] 
+**NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed by this Kafka topic. | [optional] 
+**KafkaPartitions** | Pointer to [**[]StatusKafkaPartition**](StatusKafkaPartition.md) | Status info per partition. | [optional] 
 
 ## Methods
 

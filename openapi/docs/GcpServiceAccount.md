@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ServiceAccountKeyFileJson** | **string** | Contents of JSON Service Account key file | 
+**ServiceAccountKeyFileJson** | **string** | Contents of JSON Service Account key file. | 
 
 ## Methods
 

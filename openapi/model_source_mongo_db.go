@@ -16,9 +16,9 @@ import (
 
 // SourceMongoDb struct for SourceMongoDb
 type SourceMongoDb struct {
-	// MongoDB database name containing this collection
+	// MongoDB database name containing this collection.
 	DatabaseName string `json:"database_name"`
-	// MongoDB collection name
+	// MongoDB collection name.
 	CollectionName string `json:"collection_name"`
 	Status *StatusMongoDb `json:"status,omitempty"`
 }

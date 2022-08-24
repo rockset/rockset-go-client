@@ -24,11 +24,13 @@ docs/AddDocumentsResponse.md
 docs/Alias.md
 docs/AliasesApi.md
 docs/ApiKey.md
+docs/AsyncQueryOptions.md
 docs/AwsAccessKey.md
 docs/AwsRole.md
 docs/AzureBlobStorageIntegration.md
 docs/AzureEventHubsIntegration.md
 docs/AzureServiceBusIntegration.md
+docs/CancelQueryResponse.md
 docs/Cluster.md
 docs/Collection.md
 docs/CollectionStats.md
@@ -79,6 +81,7 @@ docs/GetAliasResponse.md
 docs/GetApiKeyResponse.md
 docs/GetCollectionResponse.md
 docs/GetIntegrationResponse.md
+docs/GetQueryResponse.md
 docs/GetViewResponse.md
 docs/GetVirtualInstanceResponse.md
 docs/GetWorkspaceResponse.md
@@ -92,6 +95,7 @@ docs/ListAliasesResponse.md
 docs/ListApiKeysResponse.md
 docs/ListCollectionsResponse.md
 docs/ListIntegrationsResponse.md
+docs/ListQueriesResponse.md
 docs/ListQueryLambdaTagsResponse.md
 docs/ListQueryLambdaVersionsResponse.md
 docs/ListQueryLambdasResponse.md
@@ -106,6 +110,7 @@ docs/Organization.md
 docs/OrganizationResponse.md
 docs/OrganizationsApi.md
 docs/OutputField.md
+docs/Pagination.md
 docs/PaginationInfo.md
 docs/PatchDocument.md
 docs/PatchDocumentsRequest.md
@@ -115,6 +120,7 @@ docs/Privilege.md
 docs/QueriesApi.md
 docs/QueryError.md
 docs/QueryFieldType.md
+docs/QueryInfo.md
 docs/QueryLambda.md
 docs/QueryLambdaSql.md
 docs/QueryLambdaStats.md
@@ -123,6 +129,7 @@ docs/QueryLambdaTagResponse.md
 docs/QueryLambdaVersion.md
 docs/QueryLambdaVersionResponse.md
 docs/QueryLambdasApi.md
+docs/QueryPaginationResponse.md
 docs/QueryParameter.md
 docs/QueryRequest.md
 docs/QueryRequestSql.md
@@ -131,7 +138,9 @@ docs/QueryResponseStats.md
 docs/Role.md
 docs/RoleResponse.md
 docs/S3Integration.md
+docs/SchemaRegistryConfig.md
 docs/SegmentIntegration.md
+docs/SnowflakeIntegration.md
 docs/Source.md
 docs/SourceAzureBlobStorage.md
 docs/SourceAzureEventHubs.md
@@ -143,7 +152,9 @@ docs/SourceKafka.md
 docs/SourceKinesis.md
 docs/SourceMongoDb.md
 docs/SourceS3.md
+docs/SourceSnowflake.md
 docs/SqlExpression.md
+docs/Stats.md
 docs/Status.md
 docs/StatusAzureEventHubs.md
 docs/StatusAzureEventHubsPartition.md
@@ -154,6 +165,7 @@ docs/StatusDynamoDbV2.md
 docs/StatusKafka.md
 docs/StatusKafkaPartition.md
 docs/StatusMongoDb.md
+docs/StatusSnowflake.md
 docs/UnsubscribePreference.md
 docs/UpdateAliasRequest.md
 docs/UpdateApiKeyRequest.md
@@ -183,11 +195,13 @@ model_add_documents_request.go
 model_add_documents_response.go
 model_alias.go
 model_api_key.go
+model_async_query_options.go
 model_aws_access_key.go
 model_aws_role.go
 model_azure_blob_storage_integration.go
 model_azure_event_hubs_integration.go
 model_azure_service_bus_integration.go
+model_cancel_query_response.go
 model_cluster.go
 model_collection.go
 model_collection_stats.go
@@ -235,6 +249,7 @@ model_get_alias_response.go
 model_get_api_key_response.go
 model_get_collection_response.go
 model_get_integration_response.go
+model_get_query_response.go
 model_get_view_response.go
 model_get_virtual_instance_response.go
 model_get_workspace_response.go
@@ -247,6 +262,7 @@ model_list_aliases_response.go
 model_list_api_keys_response.go
 model_list_collections_response.go
 model_list_integrations_response.go
+model_list_queries_response.go
 model_list_query_lambda_tags_response.go
 model_list_query_lambda_versions_response.go
 model_list_query_lambdas_response.go
@@ -260,6 +276,7 @@ model_mongo_db_integration.go
 model_organization.go
 model_organization_response.go
 model_output_field.go
+model_pagination.go
 model_pagination_info.go
 model_patch_document.go
 model_patch_documents_request.go
@@ -268,6 +285,7 @@ model_patch_operation.go
 model_privilege.go
 model_query_error.go
 model_query_field_type.go
+model_query_info.go
 model_query_lambda.go
 model_query_lambda_sql.go
 model_query_lambda_stats.go
@@ -275,6 +293,7 @@ model_query_lambda_tag.go
 model_query_lambda_tag_response.go
 model_query_lambda_version.go
 model_query_lambda_version_response.go
+model_query_pagination_response.go
 model_query_parameter.go
 model_query_request.go
 model_query_request_sql.go
@@ -283,7 +302,9 @@ model_query_response_stats.go
 model_role.go
 model_role_response.go
 model_s3_integration.go
+model_schema_registry_config.go
 model_segment_integration.go
+model_snowflake_integration.go
 model_source.go
 model_source_azure_blob_storage.go
 model_source_azure_event_hubs.go
@@ -295,7 +316,9 @@ model_source_kafka.go
 model_source_kinesis.go
 model_source_mongo_db.go
 model_source_s3.go
+model_source_snowflake.go
 model_sql_expression.go
+model_stats.go
 model_status.go
 model_status_azure_event_hubs.go
 model_status_azure_event_hubs_partition.go
@@ -306,6 +329,7 @@ model_status_dynamo_db_v2.go
 model_status_kafka.go
 model_status_kafka_partition.go
 model_status_mongo_db.go
+model_status_snowflake.go
 model_unsubscribe_preference.go
 model_update_alias_request.go
 model_update_api_key_request.go

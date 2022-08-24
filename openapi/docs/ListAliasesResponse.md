@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]Alias**](Alias.md) | list of all aliases | [optional] 
+**Data** | Pointer to [**[]Alias**](Alias.md) | List of all aliases. | [optional] 
 
 ## Methods
 

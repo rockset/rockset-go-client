@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | descriptive label and unique identifier | 
-**Description** | Pointer to **string** | longer explanation for the workspace | [optional] 
+**Name** | **string** | Descriptive label and unique identifier. | 
+**Description** | Pointer to **string** | Longer explanation for the workspace. | [optional] 
 
 ## Methods
 

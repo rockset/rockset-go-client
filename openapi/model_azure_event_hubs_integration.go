@@ -16,7 +16,7 @@ import (
 
 // AzureEventHubsIntegration struct for AzureEventHubsIntegration
 type AzureEventHubsIntegration struct {
-	// azure event hubs connection string
+	// Credentials for the Azure Event Hubs.
 	ConnectionString *string `json:"connection_string,omitempty"`
 }
 

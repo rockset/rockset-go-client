@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | unique identifier for the cluster | [optional] 
-**ClusterType** | Pointer to **string** | cluster type | [optional] 
-**AwsRegion** | Pointer to **string** | aws region | [optional] 
-**Domain** | Pointer to **string** | domain of org using cluster | [optional] 
-**TopLevelDomain** | Pointer to **string** | top level domain of org using cluster | [optional] 
-**ApiserverUrl** | Pointer to **string** | api server url for cluster | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the cluster. | [optional] 
+**ClusterType** | Pointer to **string** | Cluster type. | [optional] 
+**AwsRegion** | Pointer to **string** | Aws region. | [optional] 
+**Domain** | Pointer to **string** | Domain of org using cluster. | [optional] 
+**TopLevelDomain** | Pointer to **string** | Top level domain of org using cluster. | [optional] 
+**ApiserverUrl** | Pointer to **string** | Api server url for cluster. | [optional] 
 
 ## Methods
 

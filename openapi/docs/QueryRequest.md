@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Sql** | [**QueryRequestSql**](QueryRequestSql.md) |  | 
+**AsyncOptions** | Pointer to [**AsyncQueryOptions**](AsyncQueryOptions.md) |  | [optional] 
 
 ## Methods
 
@@ -44,6 +45,31 @@ and a boolean to check if the value has been set.
 
 SetSql sets Sql field to given value.
 
+
+### GetAsyncOptions
+
+`func (o *QueryRequest) GetAsyncOptions() AsyncQueryOptions`
+
+GetAsyncOptions returns the AsyncOptions field if non-nil, zero value otherwise.
+
+### GetAsyncOptionsOk
+
+`func (o *QueryRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool)`
+
+GetAsyncOptionsOk returns a tuple with the AsyncOptions field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAsyncOptions
+
+`func (o *QueryRequest) SetAsyncOptions(v AsyncQueryOptions)`
+
+SetAsyncOptions sets AsyncOptions field to given value.
+
+### HasAsyncOptions
+
+`func (o *QueryRequest) HasAsyncOptions() bool`
+
+HasAsyncOptions returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

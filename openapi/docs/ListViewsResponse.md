@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Data** | Pointer to [**[]View**](View.md) | list of all views | [optional] 
+**Data** | Pointer to [**[]View**](View.md) | List of all views. | [optional] 
 
 ## Methods
 

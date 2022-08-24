@@ -16,11 +16,11 @@ import (
 
 // CreateViewRequest struct for CreateViewRequest
 type CreateViewRequest struct {
-	// View name
+	// View name.
 	Name string `json:"name"`
-	// optional description
+	// Optional description.
 	Description *string `json:"description,omitempty"`
-	// SQL for this view
+	// SQL for this view.
 	Query string `json:"query"`
 }
 

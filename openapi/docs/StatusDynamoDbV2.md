@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **InitialDumpCompletionPercentage** | Pointer to **float64** |  | [optional] 
-**State** | Pointer to **string** | state of current ingest for this table | [optional] 
-**StreamLastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed | [optional] 
+**State** | Pointer to **string** | State of current ingest for this table. | [optional] 
+**StreamLastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed. | [optional] 
 
 ## Methods
 

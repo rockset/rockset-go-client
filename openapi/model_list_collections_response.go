@@ -16,7 +16,7 @@ import (
 
 // ListCollectionsResponse struct for ListCollectionsResponse
 type ListCollectionsResponse struct {
-	// list of all collections
+	// List of all collections.
 	Data []Collection `json:"data,omitempty"`
 }
 

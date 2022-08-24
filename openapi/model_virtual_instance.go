@@ -16,31 +16,41 @@ import (
 
 // VirtualInstance struct for VirtualInstance
 type VirtualInstance struct {
-	// virtual instance state
+	// Virtual instance name.
+	Name string `json:"name"`
+	// Virtual instance description.
+	Description *string `json:"description,omitempty"`
+	// Creator of requested virtual instance.
+	CreatedBy *string `json:"created_by,omitempty"`
+	// ISO-8601 date of when virtual instance was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+	// ISO-8601 date of when virtual instance was created.
+	ResumedAt *string `json:"resumed_at,omitempty"`
+	// Virtual instance state.
 	State *string `json:"state,omitempty"`
 	CurrentType *string `json:"current_type,omitempty"`
 	DesiredType *string `json:"desired_type,omitempty"`
-	// virtual instance current size
+	// Virtual instance current size.
 	CurrentSize *string `json:"current_size,omitempty"`
-	// virtual instance desired size
+	// Virtual instance desired size.
 	DesiredSize *string `json:"desired_size,omitempty"`
-	// ISO-8601 date of when virtual instance size was last updated
-	LastUpdated *string `json:"last_updated,omitempty"`
-	// estimated duration in minutes of last virtual instance size update
-	EstimatedSwitchDurationMinutes *int64 `json:"estimated_switch_duration_minutes,omitempty"`
 	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
+	DefaultVi *bool `json:"default_vi,omitempty"`
 	DefaultPodCount *int32 `json:"default_pod_count,omitempty"`
 	ScaledPodCount *int32 `json:"scaled_pod_count,omitempty"`
-	// unique identifier for virtual instance
+	// Unique identifier for virtual instance.
 	Id *string `json:"id,omitempty"`
+	// Virtual Instance RRN.
+	Rrn *string `json:"rrn,omitempty"`
 }
 
 // NewVirtualInstance instantiates a new VirtualInstance object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewVirtualInstance() *VirtualInstance {
+func NewVirtualInstance(name string) *VirtualInstance {
 	this := VirtualInstance{}
+	this.Name = name
 	return &this
 }
 
@@ -50,6 +60,158 @@ func NewVirtualInstance() *VirtualInstance {
 func NewVirtualInstanceWithDefaults() *VirtualInstance {
 	this := VirtualInstance{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *VirtualInstance) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *VirtualInstance) SetName(v string) {
+	o.Name = v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *VirtualInstance) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *VirtualInstance) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *VirtualInstance) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *VirtualInstance) GetCreatedBy() string {
+	if o == nil || o.CreatedBy == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetCreatedByOk() (*string, bool) {
+	if o == nil || o.CreatedBy == nil {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *VirtualInstance) HasCreatedBy() bool {
+	if o != nil && o.CreatedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *VirtualInstance) SetCreatedBy(v string) {
+	o.CreatedBy = &v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *VirtualInstance) GetCreatedAt() string {
+	if o == nil || o.CreatedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetCreatedAtOk() (*string, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *VirtualInstance) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
+func (o *VirtualInstance) SetCreatedAt(v string) {
+	o.CreatedAt = &v
+}
+
+// GetResumedAt returns the ResumedAt field value if set, zero value otherwise.
+func (o *VirtualInstance) GetResumedAt() string {
+	if o == nil || o.ResumedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.ResumedAt
+}
+
+// GetResumedAtOk returns a tuple with the ResumedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetResumedAtOk() (*string, bool) {
+	if o == nil || o.ResumedAt == nil {
+		return nil, false
+	}
+	return o.ResumedAt, true
+}
+
+// HasResumedAt returns a boolean if a field has been set.
+func (o *VirtualInstance) HasResumedAt() bool {
+	if o != nil && o.ResumedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResumedAt gets a reference to the given string and assigns it to the ResumedAt field.
+func (o *VirtualInstance) SetResumedAt(v string) {
+	o.ResumedAt = &v
 }
 
 // GetState returns the State field value if set, zero value otherwise.
@@ -212,70 +374,6 @@ func (o *VirtualInstance) SetDesiredSize(v string) {
 	o.DesiredSize = &v
 }
 
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *VirtualInstance) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
-		var ret string
-		return ret
-	}
-	return *o.LastUpdated
-}
-
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VirtualInstance) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
-		return nil, false
-	}
-	return o.LastUpdated, true
-}
-
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *VirtualInstance) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *VirtualInstance) SetLastUpdated(v string) {
-	o.LastUpdated = &v
-}
-
-// GetEstimatedSwitchDurationMinutes returns the EstimatedSwitchDurationMinutes field value if set, zero value otherwise.
-func (o *VirtualInstance) GetEstimatedSwitchDurationMinutes() int64 {
-	if o == nil || o.EstimatedSwitchDurationMinutes == nil {
-		var ret int64
-		return ret
-	}
-	return *o.EstimatedSwitchDurationMinutes
-}
-
-// GetEstimatedSwitchDurationMinutesOk returns a tuple with the EstimatedSwitchDurationMinutes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VirtualInstance) GetEstimatedSwitchDurationMinutesOk() (*int64, bool) {
-	if o == nil || o.EstimatedSwitchDurationMinutes == nil {
-		return nil, false
-	}
-	return o.EstimatedSwitchDurationMinutes, true
-}
-
-// HasEstimatedSwitchDurationMinutes returns a boolean if a field has been set.
-func (o *VirtualInstance) HasEstimatedSwitchDurationMinutes() bool {
-	if o != nil && o.EstimatedSwitchDurationMinutes != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEstimatedSwitchDurationMinutes gets a reference to the given int64 and assigns it to the EstimatedSwitchDurationMinutes field.
-func (o *VirtualInstance) SetEstimatedSwitchDurationMinutes(v int64) {
-	o.EstimatedSwitchDurationMinutes = &v
-}
-
 // GetMonitoringEnabled returns the MonitoringEnabled field value if set, zero value otherwise.
 func (o *VirtualInstance) GetMonitoringEnabled() bool {
 	if o == nil || o.MonitoringEnabled == nil {
@@ -306,6 +404,38 @@ func (o *VirtualInstance) HasMonitoringEnabled() bool {
 // SetMonitoringEnabled gets a reference to the given bool and assigns it to the MonitoringEnabled field.
 func (o *VirtualInstance) SetMonitoringEnabled(v bool) {
 	o.MonitoringEnabled = &v
+}
+
+// GetDefaultVi returns the DefaultVi field value if set, zero value otherwise.
+func (o *VirtualInstance) GetDefaultVi() bool {
+	if o == nil || o.DefaultVi == nil {
+		var ret bool
+		return ret
+	}
+	return *o.DefaultVi
+}
+
+// GetDefaultViOk returns a tuple with the DefaultVi field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetDefaultViOk() (*bool, bool) {
+	if o == nil || o.DefaultVi == nil {
+		return nil, false
+	}
+	return o.DefaultVi, true
+}
+
+// HasDefaultVi returns a boolean if a field has been set.
+func (o *VirtualInstance) HasDefaultVi() bool {
+	if o != nil && o.DefaultVi != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultVi gets a reference to the given bool and assigns it to the DefaultVi field.
+func (o *VirtualInstance) SetDefaultVi(v bool) {
+	o.DefaultVi = &v
 }
 
 // GetDefaultPodCount returns the DefaultPodCount field value if set, zero value otherwise.
@@ -404,8 +534,55 @@ func (o *VirtualInstance) SetId(v string) {
 	o.Id = &v
 }
 
+// GetRrn returns the Rrn field value if set, zero value otherwise.
+func (o *VirtualInstance) GetRrn() string {
+	if o == nil || o.Rrn == nil {
+		var ret string
+		return ret
+	}
+	return *o.Rrn
+}
+
+// GetRrnOk returns a tuple with the Rrn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetRrnOk() (*string, bool) {
+	if o == nil || o.Rrn == nil {
+		return nil, false
+	}
+	return o.Rrn, true
+}
+
+// HasRrn returns a boolean if a field has been set.
+func (o *VirtualInstance) HasRrn() bool {
+	if o != nil && o.Rrn != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRrn gets a reference to the given string and assigns it to the Rrn field.
+func (o *VirtualInstance) SetRrn(v string) {
+	o.Rrn = &v
+}
+
 func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.CreatedBy != nil {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if o.ResumedAt != nil {
+		toSerialize["resumed_at"] = o.ResumedAt
+	}
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
@@ -421,14 +598,11 @@ func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	if o.DesiredSize != nil {
 		toSerialize["desired_size"] = o.DesiredSize
 	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.EstimatedSwitchDurationMinutes != nil {
-		toSerialize["estimated_switch_duration_minutes"] = o.EstimatedSwitchDurationMinutes
-	}
 	if o.MonitoringEnabled != nil {
 		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
+	}
+	if o.DefaultVi != nil {
+		toSerialize["default_vi"] = o.DefaultVi
 	}
 	if o.DefaultPodCount != nil {
 		toSerialize["default_pod_count"] = o.DefaultPodCount
@@ -438,6 +612,9 @@ func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.Rrn != nil {
+		toSerialize["rrn"] = o.Rrn
 	}
 	return json.Marshal(toSerialize)
 }

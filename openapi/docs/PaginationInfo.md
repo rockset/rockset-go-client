@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CurrentPageDocCount** | Pointer to **int64** | Number of documents returned in this result set | [optional] 
+**CurrentPageDocCount** | Pointer to **int64** | Number of documents returned in this result set. | [optional] 
 **NextCursorOffset** | Pointer to **int64** | The doc offset that next_cursor starts at. | [optional] 
 **StartCursor** | Pointer to **string** | Cursor used to retrieve the first set of documents. | [optional] 
-**NextCursor** | Pointer to **string** | Cursor to use to get the list of documents | [optional] 
+**NextCursor** | Pointer to **string** | Cursor to use to get the list of documents. | [optional] 
+**NextPageLink** | Pointer to **string** | Direct link to the next page of results. | [optional] [readonly] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetNextCursor sets NextCursor field to given value.
 `func (o *PaginationInfo) HasNextCursor() bool`
 
 HasNextCursor returns a boolean if a field has been set.
+
+### GetNextPageLink
+
+`func (o *PaginationInfo) GetNextPageLink() string`
+
+GetNextPageLink returns the NextPageLink field if non-nil, zero value otherwise.
+
+### GetNextPageLinkOk
+
+`func (o *PaginationInfo) GetNextPageLinkOk() (*string, bool)`
+
+GetNextPageLinkOk returns a tuple with the NextPageLink field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextPageLink
+
+`func (o *PaginationInfo) SetNextPageLink(v string)`
+
+SetNextPageLink sets NextPageLink field to given value.
+
+### HasNextPageLink
+
+`func (o *PaginationInfo) HasNextPageLink() bool`
+
+HasNextPageLink returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

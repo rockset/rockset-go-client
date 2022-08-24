@@ -18,6 +18,7 @@ func (rc *RockClient) CreateRole(ctx context.Context, roleName string,
 	createReq := rc.CustomRolesApi.CreateRole(ctx)
 	b := openapi.NewCreateRoleRequest()
 	b.RoleName = &roleName
+	b.Privileges = []openapi.Privilege{}
 
 	var opts option.RoleOptions
 	for _, o := range options {

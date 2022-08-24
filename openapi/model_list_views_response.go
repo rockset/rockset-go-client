@@ -16,7 +16,7 @@ import (
 
 // ListViewsResponse struct for ListViewsResponse
 type ListViewsResponse struct {
-	// list of all views
+	// List of all views.
 	Data []View `json:"data,omitempty"`
 }
 

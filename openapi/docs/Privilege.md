@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | Pointer to **string** | The action allowed by this privilege. | [optional] 
 **ResourceName** | Pointer to **string** | The resources on which the action is allowed. Defaults to &#39;*All*&#39; if not specified. | [optional] 
-**Cluster** | Pointer to **string** | Cluster ID (&#x60;rs2&#x60; for us-west-2, &#x60;use1a1&#x60; for us-east-1) for which the action is allowed. Defaults to &#39;*All*&#39; if not specified. | [optional] 
+**Cluster** | Pointer to **string** | Cluster ID (&#x60;usw2a1&#x60; for us-west-2, &#x60;use1a1&#x60; for us-east-1, &#x60;euc1a1&#x60; for eu-central-1) for which the action is allowed. Defaults to &#39;*All*&#39; if not specified. | [optional] 
 
 ## Methods
 
