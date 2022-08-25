@@ -11,7 +11,7 @@ import (
 // RetryFunc is the function Retrier will call as long as it returns an error which is retryable.
 type RetryFunc func() (err error)
 
-// RetryCheck is the function Retrier will call until the RetryFunc returns false or and error.
+// RetryCheck is the function Retrier will call until the RetryFunc returns false or an error.
 type RetryCheck func() (retry bool, err error)
 
 // Retrier is the interface used by the RockClient convenience methods to retry an operation
