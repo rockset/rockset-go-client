@@ -2,6 +2,7 @@ package rockset_test
 
 import (
 	"context"
+	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 	"time"
@@ -50,7 +51,7 @@ func TestTemplate(t *testing.T) {
 	log.Debug().Str("org", org.GetDisplayName())
 }
 
-func TestWithAPIKey(t *testing.T) {
+func TestRockClient_withAPIKey(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
@@ -75,9 +76,26 @@ func TestWithAPIKey(t *testing.T) {
 	log.Debug().Str("org", org.GetDisplayName())
 }
 
-const use1a1 = "https://api.use1a1.rockset.com/"
+func TestRockClient_withoutAPIServer(t *testing.T) {
+	// this is messing with the environment
+	oldEnv, set := os.LookupEnv(rockset.APIServerEnvironmentVariableName)
+	if set {
+		defer func() {
+			if err := os.Setenv(rockset.APIServerEnvironmentVariableName, oldEnv); err != nil {
+				t.Errorf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
+			}
+		}()
+		err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
+		require.NoError(t, err)
+	}
 
-func TestWithAPIServer(t *testing.T) {
+	_, err := rockset.NewClient()
+	if assert.Error(t, err) {
+		assert.Equal(t, "you must specify an API server", err.Error())
+	}
+}
+
+func TestRockClient_withAPIServer(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
@@ -87,13 +105,13 @@ func TestWithAPIServer(t *testing.T) {
 	oldEnv := os.Getenv(rockset.APIServerEnvironmentVariableName)
 	defer func() {
 		if err := os.Setenv(rockset.APIServerEnvironmentVariableName, oldEnv); err != nil {
-			t.Logf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
+			t.Errorf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
 		}
 	}()
 	err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
 	require.NoError(t, err)
 
-	rc, err := rockset.NewClient(rockset.WithAPIServer(use1a1))
+	rc, err := rockset.NewClient(rockset.WithAPIServer("https://api.use1a1.rockset.com/"))
 	require.NoError(t, err)
 
 	org, err := rc.GetOrganization(ctx)
@@ -102,7 +120,7 @@ func TestWithAPIServer(t *testing.T) {
 	log.Debug().Str("org", org.GetDisplayName())
 }
 
-func TestRockClientWithAPIServerEnv(t *testing.T) {
+func TestRockClient_withAPIServerEnv(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
@@ -115,7 +133,7 @@ func TestRockClientWithAPIServerEnv(t *testing.T) {
 			t.Logf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
 		}
 	}()
-	err := os.Setenv(rockset.APIServerEnvironmentVariableName, use1a1)
+	err := os.Setenv(rockset.APIServerEnvironmentVariableName, "api.use1a1.rockset.com")
 	require.NoError(t, err)
 
 	rc, err := rockset.NewClient()

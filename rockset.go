@@ -16,9 +16,6 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
-// DefaultAPIServer is the default Rockset API server to use
-const DefaultAPIServer = "https://api.rs2.usw2.rockset.com"
-
 // APIKeyEnvironmentVariableName is the environment variable name for the API key
 const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY" //nolint
 
@@ -45,10 +42,12 @@ type RockClient struct {
 // NewClient creates a new Rockset client.
 //
 // Accessing the online database requires an API key and an API server to connect to,
-// which are provided by through the ROCKSET_APIKEY and ROCKSET_APISERVER environment variables.
-// If an API server isn't provided the DefaultAPIServer, is used.
+// which can be provided by through the ROCKSET_APIKEY and ROCKSET_APISERVER environment variables,
+//
 //	c, err := rockset.NewClient()
-// They can or explicitly using the WithAPIKey() and WithAPIServer() options.
+//
+// or they can be explicitly set using the WithAPIKey() and WithAPIServer() options.
+//
 //	c, err := rockset.NewClient(rockset.WithAPIKey("..."), rockset.WithAPIServer("..."))
 func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg := openapi.NewConfiguration()
@@ -69,19 +68,24 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}
 
 	if rc.APIServer == "" {
-		rc.APIServer = DefaultAPIServer
+		return nil, fmt.Errorf("you must specify an API server")
 	}
 
 	u, err := url.Parse(rc.APIServer)
 	if err != nil {
 		return nil, err
 	}
-	if u.Host == "" {
+
+	if u.Host != "" { // https:// was used
+		rc.APIServer = u.Host
+	} else if u.String() != "" { // plain hostname was used
+		rc.APIServer = u.String()
+	} else {
 		return nil, fmt.Errorf("%s is not a valid URL", rc.APIServer)
 	}
-	// we do not allow setting the scheme from the URL as we only support HTTPS
-	cfg.Host = u.Host
-	cfg.Scheme = "https"
+
+	cfg.Host = rc.APIServer
+	cfg.Scheme = "https" // we do not allow setting the scheme from the URL as we only support HTTPS
 
 	if rc.APIKey == "" {
 		return nil, errors.New("no API key provided")
