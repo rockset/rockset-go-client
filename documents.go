@@ -132,7 +132,7 @@ func (rc *RockClient) patchDocumentsRequest(ctx context.Context, ws, collection 
 	}
 
 	// workspace and collection do not need to be escaped as they can only contain alphanumeric or dash characters
-	u := fmt.Sprintf("%s/v1/orgs/self/ws/%s/collections/%s/docs", rc.RockConfig.APIServer, ws, collection)
+	u := fmt.Sprintf("https://%s/v1/orgs/self/ws/%s/collections/%s/docs", rc.RockConfig.APIServer, ws, collection)
 	req, err := http.NewRequestWithContext(ctx, http.MethodPatch, u, &payload)
 	if err != nil {
 		return nil, err
