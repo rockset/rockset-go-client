@@ -186,6 +186,7 @@ const (
 )
 
 // WithCollectionClusteringKey adds a clustering key. Can be specified multiple times.
+// Deprecated: use WithFieldMappingQuery() instead and with a CLUSTER BY clause.
 func WithCollectionClusteringKey(fieldName, fieldType string, keys []string) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		if o.ClusteringKey == nil {
