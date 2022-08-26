@@ -1,7 +1,16 @@
 package option
 
+type KeyState string
+
+const (
+	KeyActive    KeyState = "ACTIVE"
+	KeySuspended KeyState = "SUSPENDED"
+)
+
 type APIKeyOptions struct {
-	User *string
+	User   *string
+	State  *KeyState
+	Reveal bool
 }
 
 type APIKeyOption func(*APIKeyOptions)
@@ -10,6 +19,20 @@ type APIKeyOption func(*APIKeyOptions)
 func ForUser(username string) APIKeyOption {
 	return func(o *APIKeyOptions) {
 		o.User = &username
+	}
+}
+
+// RevealKey is used to retrieve the full API key.
+func RevealKey() APIKeyOption {
+	return func(o *APIKeyOptions) {
+		o.Reveal = true
+	}
+}
+
+// State is used to set the key state to either KeyActive or KeySuspended.
+func State(state KeyState) APIKeyOption {
+	return func(o *APIKeyOptions) {
+		o.State = &state
 	}
 }
 

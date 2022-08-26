@@ -17,6 +17,8 @@ type SuiteWorkspace struct {
 }
 
 func TestSuiteWorkspace(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
