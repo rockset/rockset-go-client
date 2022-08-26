@@ -55,7 +55,36 @@ func (rc *RockClient) WaitUntilCollectionDocuments(ctx context.Context, workspac
 	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
 }
 
+// WaitUntilWorkspaceAvailable waits until the workspace is available.
+func (rc *RockClient) WaitUntilWorkspaceAvailable(ctx context.Context, workspace string) error {
+	return rc.RetryWithCheck(ctx, rc.workspaceIsAvailable(ctx, workspace))
+}
+
 // TODO(pme) refactor viewIsGone() and collectionIsGone() to be DRY
+
+func (rc *RockClient) workspaceIsAvailable(ctx context.Context, workspace string) RetryCheck {
+	return func() (bool, error) {
+		_, err := rc.GetWorkspace(ctx, workspace)
+
+		if err == nil {
+			// the collection still exist, and we are done
+			return false, nil
+		}
+
+		var re Error
+		if errors.As(err, &re) {
+			if re.IsNotFoundError() {
+				// the view is no longer present
+				return true, nil
+			}
+			if re.Retryable() {
+				return true, nil
+			}
+		}
+
+		return false, err
+	}
+}
 
 // viewIsGone implements RetryFn to wait until the view is deleted
 func (rc *RockClient) viewIsGone(ctx context.Context, workspace, name string) RetryCheck {
