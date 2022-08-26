@@ -60,7 +60,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 		user = *opts.User
 	}
 
-	getReq := rc.APIKeysApi.GetApiKey(ctx, user, name)
+	getReq := rc.APIKeysApi.GetApiKey(ctx, user, name).Reveal(opts.Reveal)
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = getReq.Execute()
@@ -132,6 +132,44 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 
 	if err != nil {
 		return nil, err
+	}
+
+	return resp.GetData(), nil
+}
+
+// UpdateAPIKey updates the state of an API key.
+// An admin can update an api key for another user with option.ForUser().
+//
+// REST API documentation https://rockset.com/docs/rest-api/#updateapikey
+func (rc *RockClient) UpdateAPIKey(ctx context.Context, keyName string,
+	options ...option.APIKeyOption) (openapi.ApiKey, error) {
+	var err error
+	var resp *openapi.UpdateApiKeyResponse
+
+	opts := option.APIKeyOptions{}
+	for _, o := range options {
+		o(&opts)
+	}
+
+	user := self
+	if opts.User != nil {
+		user = *opts.User
+	}
+
+	updateReq := rc.APIKeysApi.UpdateApiKey(ctx, keyName, user)
+
+	if opts.State != nil {
+		state := string(*opts.State)
+		updateReq = updateReq.Body(openapi.UpdateApiKeyRequest{State: &state})
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = updateReq.Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.ApiKey{}, err
 	}
 
 	return resp.GetData(), nil
