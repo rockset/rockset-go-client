@@ -77,7 +77,7 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 }
 
 // CreateCollection is a convenience method to create a collection, which uses exponential backoff in case
-// the API call is ratelimted. It will overwite the request.Name field with the argument name.
+// the API call is ratelimted. It will overwrite the request.Name field with the argument name.
 func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
 	request *openapi.CreateCollectionRequest) (openapi.Collection, error) {
 	var err error
@@ -107,7 +107,7 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 // Not specifying a format will default to JSON.
 func (rc *RockClient) CreateS3Collection(ctx context.Context,
 	workspace, name, description, integration, bucket, pattern string,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
@@ -148,7 +148,7 @@ func (rc *RockClient) CreateS3Collection(ctx context.Context,
 
 func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	workspace, name, description, integration, region, stream string,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
@@ -188,7 +188,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 
 func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	workspace, name, description, integration, bucket, prefix string,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
@@ -228,7 +228,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 
 func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	workspace, name, description, integration, region, tableName string, maxRCU int64,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
@@ -269,7 +269,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	workspace, name, description, fileName string, fileSize int64,
 	fileUploadTime time.Time,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
@@ -306,28 +306,31 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	return resp.GetData(), nil
 }
 
-func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
-	workspace, name, description, integration, topic string,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+// CreateKafkaCollection creates a single collection from a Kafka integration. Requires using
+// option.WithKafkaSource() to configure the Kafka source options.
+//
+//  rc, err := rockset.NewClient()
+//  if err != nil { ... }
+//
+//  c, err := rc.CreateKafkaCollection(ctx, "workspace", "collection",
+//      option.WithCollectionRetention(time.Hour),
+//      option.WithKafkaSource("integration-name", "topic", option.KafkaStartingOffsetEarliest,
+//          option.WithJSONFormat(),
+//      ))
+//
+//  if err != nil { ... }
+//  if err = rc.WaitUntilCollectionReady(ctx, "workspace", "collection"); err != nil {
+//      ...
+//  }
+func (rc *RockClient) CreateKafkaCollection(ctx context.Context, workspace, name string,
+	options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
 	createParams := openapi.NewCreateCollectionRequest(name)
-	createParams.Description = &description
 
-	f := openapi.FormatParams{}
-	format(&f)
-
-	createParams.Sources = []openapi.Source{
-		{
-			IntegrationName: &integration,
-			Kafka: &openapi.SourceKafka{
-				KafkaTopicName: &topic,
-			},
-			FormatParams: &f,
-		},
-	}
+	createParams.Sources = []openapi.Source{}
 
 	for _, o := range options {
 		o(createParams)
@@ -347,7 +350,7 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context,
 
 func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	workspace, name, description, integration, database, collection string,
-	format Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 

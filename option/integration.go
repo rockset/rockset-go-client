@@ -1,6 +1,8 @@
 package option
 
-import "github.com/rockset/rockset-go-client/openapi"
+import (
+	"github.com/rockset/rockset-go-client/openapi"
+)
 
 type AWSCredentials struct {
 	*openapi.AwsAccessKey
@@ -83,14 +85,100 @@ func WithSegmentIntegrationDescription(desc string) SegmentIntegrationOption {
 	}
 }
 
+// KafkaFormat is the definition of the Kafka format
+type KafkaFormat string
+
+// String returns the string representation of the Kafka format
+func (f KafkaFormat) String() string {
+	return string(f)
+}
+
+const (
+	// KafkaFormatJSON is the JSON format for Kafka.
+	KafkaFormatJSON KafkaFormat = "JSON"
+	// KafkaFormatAVRO is the AVRO format for Kafka. If used, the option.WithKafkaSchemaRegistryConfig()
+	// must be used when creating the integration.
+	KafkaFormatAVRO KafkaFormat = "AVRO"
+)
+
 type KafkaIntegration struct {
 	Description *string
+	Config      openapi.KafkaIntegration
 }
+
 type KafkaIntegrationOption func(request *KafkaIntegration)
 
 func WithKafkaIntegrationDescription(desc string) KafkaIntegrationOption {
 	return func(o *KafkaIntegration) {
 		o.Description = &desc
+	}
+}
+
+func WithKafkaIntegrationTopic(topic string) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.KafkaTopicNames = append(o.Config.KafkaTopicNames, topic)
+	}
+}
+
+func WithKafkaConnectionString(s string) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.ConnectionString = &s
+	}
+}
+
+func WithKafkaIntegrationConfig(config openapi.KafkaIntegration) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config = config
+	}
+}
+
+func WithKafkaDataFormat(format KafkaFormat) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.KafkaDataFormat = openapi.PtrString(string(format))
+	}
+}
+
+func WithKafkaV3() KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.UseV3 = openapi.PtrBool(true)
+	}
+}
+
+func WithKafkaBootstrapServers(servers string) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.BootstrapServers = &servers
+	}
+}
+
+func WithKafkaSecurityConfig(apiKey, secret string) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.SecurityConfig = &openapi.KafkaV3SecurityConfig{
+			ApiKey: &apiKey,
+			Secret: &secret,
+		}
+	}
+}
+
+// WithKafkaSchemaRegistryConfig is required when the Kafka format is rockset.KafkaFormatJSON.
+// A Kafka integration without schema registry configured can only be used to ingest from topics
+// serving JSON messages.
+func WithKafkaSchemaRegistryConfig(url, apiKey, secret string) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		o.Config.SchemaRegistryConfig = &openapi.SchemaRegistryConfig{
+			Url:    &url,
+			Key:    &apiKey,
+			Secret: &secret,
+		}
+	}
+}
+
+func WithKafkaStatusByTopic(topic string, status openapi.StatusKafka) KafkaIntegrationOption {
+	return func(o *KafkaIntegration) {
+		if o.Config.SourceStatusByTopic == nil {
+			m := make(map[string]openapi.StatusKafka)
+			o.Config.SourceStatusByTopic = &m
+		}
+		(*o.Config.SourceStatusByTopic)[topic] = status
 	}
 }
 

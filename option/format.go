@@ -1,8 +1,7 @@
-package rockset
+package option
 
 import (
 	"github.com/rockset/rockset-go-client/openapi"
-	"github.com/rockset/rockset-go-client/option"
 )
 
 type Format func(params *openapi.FormatParams)
@@ -18,17 +17,17 @@ func (c ColumnType) String() string {
 }
 
 const (
-	ColumnTypeUnknown ColumnType = iota
-	ColumnTypeBoolean
-	ColumnTypeInteger
-	ColumnTypeFloat
-	ColumnTypeString
-	ColumnTypeTime
-	ColumnTypeDate
-	ColumnTypeDatetime
-	ColumnTypeTimestamp
-	ColumnTypeBool
-	ColumnTypeInt
+	ColumnTypeUnknown   ColumnType = iota
+	ColumnTypeBoolean   ColumnType = iota
+	ColumnTypeInteger   ColumnType = iota
+	ColumnTypeFloat     ColumnType = iota
+	ColumnTypeString    ColumnType = iota
+	ColumnTypeTime      ColumnType = iota
+	ColumnTypeDate      ColumnType = iota
+	ColumnTypeDatetime  ColumnType = iota
+	ColumnTypeTimestamp ColumnType = iota
+	ColumnTypeBool      ColumnType = iota
+	ColumnTypeInt       ColumnType = iota
 )
 
 // WithCSVFormat is used by the create collection calls, to set the format to CSV.
@@ -39,7 +38,7 @@ const (
 //     []ColumnType{ColumnTypeBoolean, ColumnTypeString},
 //     option.WithSeparator(";")
 //   )
-func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...option.CSV) Format {
+func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...CSV) Format {
 	types := make([]string, len(columnTypes))
 	for i, t := range columnTypes {
 		types[i] = t.String()
@@ -73,6 +72,7 @@ func WithXMLFormat(xml openapi.XmlParams) Format {
 	}
 }
 
+/*
 // KafkaFormat is the definition of the Kafka format
 type KafkaFormat string
 
@@ -87,3 +87,4 @@ const (
 	// KafkaFormatAVRO is the AVRO format for Kafka
 	KafkaFormatAVRO KafkaFormat = "AVRO"
 )
+*/

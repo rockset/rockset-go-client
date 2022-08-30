@@ -89,10 +89,11 @@ func (rc *RockClient) workspaceIsAvailable(ctx context.Context, workspace string
 // viewIsGone implements RetryFn to wait until the view is deleted
 func (rc *RockClient) viewIsGone(ctx context.Context, workspace, name string) RetryCheck {
 	return func() (bool, error) {
+		zl := zerolog.Ctx(ctx)
 		_, err := rc.GetView(ctx, workspace, name)
 
 		if err == nil {
-			// the collection still exist, retry
+			zl.Debug().Str("workspace", workspace).Str("view", name).Msg("view is still present")
 			return true, nil
 		}
 
@@ -113,10 +114,11 @@ func (rc *RockClient) viewIsGone(ctx context.Context, workspace, name string) Re
 
 func (rc *RockClient) collectionIsGone(ctx context.Context, workspace, name string) RetryCheck {
 	return func() (bool, error) {
+		zl := zerolog.Ctx(ctx)
 		_, err := rc.GetCollection(ctx, workspace, name)
 
 		if err == nil {
-			// the collection still exist, retry
+			zl.Debug().Str("workspace", workspace).Str("collection", name).Msg("collection is still present")
 			return true, nil
 		}
 
@@ -137,8 +139,7 @@ func (rc *RockClient) collectionIsGone(ctx context.Context, workspace, name stri
 
 func (rc *RockClient) collectionHasState(ctx context.Context, workspace, name, state string) RetryCheck {
 	return func() (bool, error) {
-		log := zerolog.Ctx(ctx)
-
+		zl := zerolog.Ctx(ctx)
 		c, err := rc.GetCollection(ctx, workspace, name)
 		if err != nil {
 			re := NewError(err)
@@ -149,8 +150,8 @@ func (rc *RockClient) collectionHasState(ctx context.Context, workspace, name, s
 			return false, err
 		}
 
-		log.Debug().Str("status", c.GetStatus()).Str("workspace", workspace).
-			Str("collection", name).Msg("collectionHasState()")
+		zl.Debug().Str("status", c.GetStatus()).Str("workspace", workspace).
+			Str("desired", c.GetStatus()).Str("collection", name).Msg("collectionHasState()")
 		if c.GetStatus() == state {
 			return false, nil
 		}
@@ -167,8 +168,7 @@ type docWaiter struct {
 func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name string, count int64) RetryCheck {
 	d.prevCount = -1
 	return func() (bool, error) {
-		log := zerolog.Ctx(ctx)
-
+		zl := zerolog.Ctx(ctx)
 		c, err := d.rc.GetCollection(ctx, workspace, name)
 		if err != nil {
 			re := NewError(err)
@@ -180,7 +180,7 @@ func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name st
 		}
 
 		current := c.Stats.GetDocCount()
-		log.Debug().Str("workspace", workspace).Int64("current", current).
+		zl.Debug().Str("workspace", workspace).Int64("current", current).
 			Int64("previous", d.prevCount).Str("collection", name).
 			Int64("count", count).Msg("collectionHasNewDocs()")
 

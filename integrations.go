@@ -261,7 +261,9 @@ func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connec
 	return resp.GetData(), nil
 }
 
-func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, topics []string, format KafkaFormat,
+// CreateKafkaIntegration create a new integration for a Kafka source.
+// If no format is specified, it defaults to JSON.
+func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string,
 	options ...option.KafkaIntegrationOption) (openapi.Integration, error) {
 	var err error
 	var resp *openapi.CreateIntegrationResponse
@@ -274,11 +276,8 @@ func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string, t
 		o(&opts)
 	}
 
-	f := format.String()
-	req.Kafka = &openapi.KafkaIntegration{
-		KafkaTopicNames: topics,
-		KafkaDataFormat: &f,
-	}
+	req.Kafka = &opts.Config
+
 	if opts.Description != nil {
 		req.Description = opts.Description
 	}
