@@ -18,16 +18,16 @@ func (c ColumnType) String() string {
 
 const (
 	ColumnTypeUnknown   ColumnType = iota
-	ColumnTypeBoolean   ColumnType = iota + 1
-	ColumnTypeInteger   ColumnType = iota + 2
-	ColumnTypeFloat     ColumnType = iota + 3
-	ColumnTypeString    ColumnType = iota + 4
-	ColumnTypeTime      ColumnType = iota + 5
-	ColumnTypeDate      ColumnType = iota + 6
-	ColumnTypeDatetime  ColumnType = iota + 7
-	ColumnTypeTimestamp ColumnType = iota + 8
-	ColumnTypeBool      ColumnType = iota + 9
-	ColumnTypeInt       ColumnType = iota + 10
+	ColumnTypeBoolean   ColumnType = iota
+	ColumnTypeInteger   ColumnType = iota
+	ColumnTypeFloat     ColumnType = iota
+	ColumnTypeString    ColumnType = iota
+	ColumnTypeTime      ColumnType = iota
+	ColumnTypeDate      ColumnType = iota
+	ColumnTypeDatetime  ColumnType = iota
+	ColumnTypeTimestamp ColumnType = iota
+	ColumnTypeBool      ColumnType = iota
+	ColumnTypeInt       ColumnType = iota
 )
 
 // WithCSVFormat is used by the create collection calls, to set the format to CSV.
