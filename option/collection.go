@@ -18,12 +18,69 @@ func WithWorkspace(name string) func(o *ListCollectionOptions) {
 	}
 }
 
+type KafkaSourceOption func(o *openapi.SourceKafka)
+
+type KafkaStartingOffset string
+
+const (
+	KafkaStartingOffsetEarliest KafkaStartingOffset = "EARLIEST"
+	KafkaStartingOffsetLatest   KafkaStartingOffset = "LATEST"
+)
+
+func WithKafkaSourceV3() KafkaSourceOption {
+	return func(o *openapi.SourceKafka) {
+		o.UseV3 = openapi.PtrBool(true)
+	}
+}
+
+func WithKafkaConsumerGroupID(id string) KafkaSourceOption {
+	return func(o *openapi.SourceKafka) {
+		o.ConsumerGroupId = &id
+	}
+}
+
 type CollectionOption func(o *openapi.CreateCollectionRequest)
+
+// WithCollectionDescription sets the description for the collection.
+func WithCollectionDescription(d string) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		o.Description = &d
+	}
+}
+
+func WithKafkaSource(IntegrationName, topic string, startingOffset KafkaStartingOffset, fmt Format,
+	options ...KafkaSourceOption) CollectionOption {
+	src := openapi.SourceKafka{
+		KafkaTopicName:    &topic,
+		OffsetResetPolicy: openapi.PtrString(string(startingOffset)),
+	}
+	for _, o := range options {
+		o(&src)
+	}
+
+	fp := openapi.FormatParams{}
+	fmt(&fp)
+
+	return func(o *openapi.CreateCollectionRequest) {
+		o.Sources = append(o.Sources, openapi.Source{
+			IntegrationName: &IntegrationName,
+			Kafka:           &src,
+			FormatParams:    &fp,
+		})
+	}
+}
 
 // WithCollectionRetention sets the retention in seconds for documents.
 func WithCollectionRetention(d time.Duration) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		s := int64(d.Seconds())
+		o.RetentionSecs = &s
+	}
+}
+
+// WithCollectionRetentionSeconds sets the retention in seconds for documents.
+func WithCollectionRetentionSeconds(s int64) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
 		o.RetentionSecs = &s
 	}
 }
@@ -54,6 +111,16 @@ func WithFieldMappingQuery(sql string) CollectionOption {
 func WithInsertOnly() CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		o.InsertOnly = openapi.PtrBool(true)
+	}
+}
+
+func WithEventTimeInfo(field, timeZone string, format EventTimeInfoFormat) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		o.EventTimeInfo = &openapi.EventTimeInfo{
+			Field:    field,
+			Format:   openapi.PtrString(string(format)),
+			TimeZone: &timeZone,
+		}
 	}
 }
 

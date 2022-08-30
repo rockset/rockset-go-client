@@ -32,10 +32,10 @@ func Example_s3() {
 	// create collection
 	c, err := rc.CreateS3Collection(ctx, "commons", "s3example", "created by go example code",
 		"s3exampleIntegration", "rockset-go-tests", "cities.csv",
-		rockset.WithCSVFormat(
+		option.WithCSVFormat(
 			[]string{"city", "country", "population", "visited"},
-			[]rockset.ColumnType{
-				rockset.ColumnTypeString, rockset.ColumnTypeString, rockset.ColumnTypeInteger, rockset.ColumnTypeBool,
+			[]option.ColumnType{
+				option.ColumnTypeString, option.ColumnTypeString, option.ColumnTypeInteger, option.ColumnTypeBool,
 			},
 			option.WithEncoding("UTF-8"),
 			option.WithEscapeChar("\\"),
