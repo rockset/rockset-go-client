@@ -21,9 +21,16 @@ const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
 
 // helper function to skip unless ROCKSET_APIKEY is set
 func skipUnlessIntegrationTest(t *testing.T) {
-	if os.Getenv(rockset.APIKeyEnvironmentVariableName) == "" {
-		t.Skipf("skipping as %s is not set", rockset.APIKeyEnvironmentVariableName)
+	_ = skipUnlessEnvSet(t, rockset.APIKeyEnvironmentVariableName)
+}
+
+func skipUnlessEnvSet(t *testing.T, envName string) string {
+	env := os.Getenv(envName)
+	if env == "" {
+		t.Skipf("skipping as %s is not set", envName)
 	}
+
+	return env
 }
 
 // helper function to create a context with a zerolog logger

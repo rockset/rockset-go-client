@@ -37,16 +37,16 @@ func TestSuiteKafkaCollection(t *testing.T) {
 }
 
 func (s *SuiteKafkaCollection) SetupSuite() {
+	apikey := skipUnlessEnvSet(s.T(), "CC_KEY")
+	secret := skipUnlessEnvSet(s.T(), "CC_SECRET")
+	bootstrap := skipUnlessEnvSet(s.T(), "CC_BOOTSTRAP_SERVER")
 	ctx := testCtx()
 
 	_, err := s.rc.CreateKafkaIntegration(ctx, s.name,
 		option.WithKafkaIntegrationDescription("created by go integration test"),
 		option.WithKafkaV3(),
-		option.WithKafkaBootstrapServers("pkc-pgq85.us-west-2.aws.confluent.cloud:9092"),
-		option.WithKafkaSecurityConfig(
-			"WBQARJNEZDTC57GS",
-			"/cY+gxgLAcVK0SCTuBbNxxm84U2148v/ZcaRsPwMB0KonRhhcg7drw8K9BzvSAzB",
-		),
+		option.WithKafkaBootstrapServers(bootstrap),
+		option.WithKafkaSecurityConfig(apikey, secret),
 	)
 	s.Require().NoError(err)
 }
