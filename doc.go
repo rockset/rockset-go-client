@@ -14,25 +14,24 @@
 //
 // If a zerolog logger is set in the context, the methods will log to it. E.g.
 //
-//   console := zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339}
-//   log := zerolog.New(console).Level(zerolog.TraceLevel).With().Timestamp().Logger()
-//   ctx := log.WithContext(context.Background())
+//	console := zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339}
+//	log := zerolog.New(console).Level(zerolog.TraceLevel).With().Timestamp().Logger()
+//	ctx := log.WithContext(context.Background())
 //
-//   rc, err := rockset.NewClient()
-//   if err != nil {
-//     log.Fatalf("failed to create RockClient: %v," err)
-//   }
+//	rc, err := rockset.NewClient()
+//	if err != nil {
+//	    log.Fatalf("failed to create RockClient: %v," err)
+//	}
 //
-//   wsName := "commons"
-//   ws, err := rc.GetWorkspace(ctx, wsName)
-//   if err != nil {
-//     log.Fatalf("failed to get workspace %s: %v", wsName, err)
-//   }
+//	wsName := "commons"
+//	ws, err := rc.GetWorkspace(ctx, wsName)
+//	if err != nil {
+//	    log.Fatalf("failed to get workspace %s: %v", wsName, err)
+//	}
 //
 // Example log output
 //
-//   2021-05-28T13:11:46-07:00 TRC api call curation d=467.371958ms
-//   2021-05-28T13:11:46-07:00 DBG total duration d=467.538875ms
-//   2021-05-28T13:11:46-07:00 DBG get workspace successful name=commons
-//
+//	2021-05-28T13:11:46-07:00 TRC api call curation d=467.371958ms
+//	2021-05-28T13:11:46-07:00 DBG total duration d=467.538875ms
+//	2021-05-28T13:11:46-07:00 DBG get workspace successful name=commons
 package rockset

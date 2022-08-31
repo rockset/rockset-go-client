@@ -9,8 +9,8 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// Example code to first create an S3 integration, then create a collection from the integration,
-// and finally clean up.
+// Example code to first create an S3 integration, then create a collection from the integration, and finally clean up.
+//
 //nolint:funlen
 func Example_s3() {
 	ctx := context.TODO()

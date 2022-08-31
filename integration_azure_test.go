@@ -7,16 +7,13 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/rocksettest"
 )
 
-var connectionString string
-
 func (s *IntegrationsSuite) TestAzureBlob() {
-	connectionString := rocksettest.SkipUnlessEnv(s.T(), "ROCKSET_AZURE_CONNECTION_STRING")
+	connectionString := skipUnlessEnvSet(s.T(), "ROCKSET_AZURE_CONNECTION_STRING")
 
 	name := "azuretest"
-	ctx := rocksettest.TestCtx()
+	ctx := testCtx()
 
 	rc, err := rockset.NewClient()
 	s.Require().NoError(err)
