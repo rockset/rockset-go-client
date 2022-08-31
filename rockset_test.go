@@ -2,12 +2,12 @@ package rockset_test
 
 import (
 	"context"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
 	"time"
 
 	"github.com/rs/zerolog"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"github.com/rockset/rockset-go-client"

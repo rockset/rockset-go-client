@@ -309,19 +309,19 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 // CreateKafkaCollection creates a single collection from a Kafka integration. Requires using
 // option.WithKafkaSource() to configure the Kafka source options.
 //
-//  rc, err := rockset.NewClient()
-//  if err != nil { ... }
+//	rc, err := rockset.NewClient()
+//	if err != nil { ... }
 //
-//  c, err := rc.CreateKafkaCollection(ctx, "workspace", "collection",
-//      option.WithCollectionRetention(time.Hour),
-//      option.WithKafkaSource("integration-name", "topic", option.KafkaStartingOffsetEarliest,
-//          option.WithJSONFormat(),
-//      ))
+//	c, err := rc.CreateKafkaCollection(ctx, "workspace", "collection",
+//	    option.WithCollectionRetention(time.Hour),
+//	    option.WithKafkaSource("integration-name", "topic", option.KafkaStartingOffsetEarliest,
+//	        option.WithJSONFormat(),
+//	    ))
 //
-//  if err != nil { ... }
-//  if err = rc.WaitUntilCollectionReady(ctx, "workspace", "collection"); err != nil {
-//      ...
-//  }
+//	if err != nil { ... }
+//	if err = rc.WaitUntilCollectionReady(ctx, "workspace", "collection"); err != nil {
+//	    ...
+//	}
 func (rc *RockClient) CreateKafkaCollection(ctx context.Context, workspace, name string,
 	options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error

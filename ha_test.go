@@ -81,7 +81,7 @@ func createMock(queryID string, delay time.Duration, err error) rockset.Querier 
 }
 
 func createMocks(queries []query) []rockset.Querier {
-	mocks := []rockset.Querier{}
+	var mocks []rockset.Querier
 	for _, q := range queries {
 		mocks = append(mocks, createMock(q.id, q.delay, q.err))
 	}
@@ -107,7 +107,6 @@ type query struct {
 
 func (m *mockQuerier) Query(ctx context.Context, query string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
-
 	args := m.Called(ctx, query, options)
 	return args.Get(0).(openapi.QueryResponse), args.Error(1)
 }

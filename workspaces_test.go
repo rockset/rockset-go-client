@@ -1,13 +1,13 @@
 package rockset_test
 
 import (
-	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 type SuiteWorkspace struct {

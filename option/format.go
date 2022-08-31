@@ -33,11 +33,11 @@ const (
 // WithCSVFormat is used by the create collection calls, to set the format to CSV.
 // The columnNames and columnTypes must be of equal length, and it takes a list of optional option.CSV options.
 //
-//   WithCSVFormat(
-//     []string{"foo", "bar"},
-//     []ColumnType{ColumnTypeBoolean, ColumnTypeString},
-//     option.WithSeparator(";")
-//   )
+//	WithCSVFormat(
+//	  []string{"foo", "bar"},
+//	  []ColumnType{ColumnTypeBoolean, ColumnTypeString},
+//	  option.WithSeparator(";")
+//	)
 func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...CSV) Format {
 	types := make([]string, len(columnTypes))
 	for i, t := range columnTypes {
