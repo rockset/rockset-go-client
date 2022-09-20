@@ -57,6 +57,13 @@ func WithCSVFormat(columnNames []string, columnTypes []ColumnType, options ...CS
 	}
 }
 
+// WithAutoFormat sets the format to auto-detect JSON, Parquet, XLS or PDF.
+func WithAutoFormat() Format {
+	return func(f *openapi.FormatParams) {
+		// sets nothing as it is the default behavior
+	}
+}
+
 // WithJSONFormat sets the format to JSON.
 func WithJSONFormat() Format {
 	return func(f *openapi.FormatParams) {
