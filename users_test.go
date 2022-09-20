@@ -17,7 +17,7 @@ type UserTestSuite struct {
 	email string
 }
 
-func TestSuiteUser(t *testing.T) {
+func TestUserTestSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
@@ -37,14 +37,14 @@ func (s *UserTestSuite) TearDownSuite() {
 	s.Require().NoError(err)
 }
 
-func (s *UserTestSuite) CreateUser() {
+func (s *UserTestSuite) TestCreateUser() {
 	ctx := testCtx()
 
-	_, err := s.rc.CreateUser(ctx, s.email, nil)
+	_, err := s.rc.CreateUser(ctx, s.email, []string{"read-only"})
 	s.Require().NoError(err)
 }
 
-func (s *UserTestSuite) GetCurrentUser() {
+func (s *UserTestSuite) TestGetCurrentUser() {
 	ctx := testCtx()
 
 	user, err := s.rc.GetCurrentUser(ctx)
@@ -52,7 +52,7 @@ func (s *UserTestSuite) GetCurrentUser() {
 	s.Assert().Equal(CIUser, user.Email)
 }
 
-func (s *UserTestSuite) GetUser() {
+func (s *UserTestSuite) TestGetUser() {
 	ctx := testCtx()
 
 	user, err := s.rc.GetUser(ctx, s.email)
@@ -60,7 +60,7 @@ func (s *UserTestSuite) GetUser() {
 	s.Assert().Equal(s.email, user.Email)
 }
 
-func (s *UserTestSuite) ListUsers() {
+func (s *UserTestSuite) TestListUsers() {
 	ctx := testCtx()
 
 	users, err := s.rc.ListUsers(ctx)
