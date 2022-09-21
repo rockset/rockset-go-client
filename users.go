@@ -71,6 +71,27 @@ func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) 
 	return *user, nil
 }
 
+// GetUser gets a user.
+//
+// REST API documentation https://docs.rockset.com/rest-api/#getuser
+func (rc *RockClient) GetUser(ctx context.Context, email string) (openapi.User, error) {
+	var err error
+	var user *openapi.User
+
+	q := rc.UsersApi.GetUser(ctx, email)
+
+	err = rc.Retry(ctx, func() error {
+		user, _, err = q.Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.User{}, err
+	}
+
+	return *user, nil
+}
+
 // ListUsers lists all users.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#listusers
