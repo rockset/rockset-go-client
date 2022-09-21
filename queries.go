@@ -19,7 +19,7 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 	rq.Sql.Parameters = []openapi.QueryParameter{}
 
 	for _, o := range options {
-		o(&rq.Sql)
+		o(rq)
 	}
 
 	err = rc.Retry(ctx, func() error {
@@ -47,7 +47,7 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	rq.Sql.Parameters = []openapi.QueryParameter{}
 
 	for _, o := range options {
-		o(&rq.Sql)
+		o(rq)
 	}
 
 	err = rc.Retry(ctx, func() error {
@@ -60,4 +60,72 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	}
 
 	return *r, nil
+}
+
+// GetQueryInfo retrieves the information about a query.
+func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi.QueryInfo, error) {
+	var err error
+	var response *openapi.GetQueryResponse
+
+	q := rc.QueriesApi.GetQuery(ctx, queryID)
+
+	err = rc.Retry(ctx, func() error {
+		response, _, err = q.Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.QueryInfo{}, err
+	}
+
+	return *response.Data, nil
+}
+
+// GetQueryResults retrieves the results of a completed async query.
+func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (openapi.QueryPaginationResponse, error) {
+	var err error
+	var response *openapi.QueryPaginationResponse
+
+	q := rc.QueriesApi.GetQueryResults(ctx, queryID)
+
+	err = rc.Retry(ctx, func() error {
+		response, _, err = q.Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.QueryPaginationResponse{}, err
+	}
+
+	return *response, nil
+}
+
+// ListActiveQueries lists all active queries.
+func (rc *RockClient) ListActiveQueries(ctx context.Context) ([]openapi.QueryInfo, error) {
+	var err error
+	var response *openapi.ListQueriesResponse
+
+	q := rc.QueriesApi.ListActiveQueries(ctx)
+
+	err = rc.Retry(ctx, func() error {
+		response, _, err = q.Execute()
+		return err
+	})
+
+	return response.Data, nil
+}
+
+// CancelQuery cancels a queued or running query.
+func (rc *RockClient) CancelQuery(ctx context.Context, queryID string) (openapi.QueryInfo, error) {
+	var err error
+	var response *openapi.CancelQueryResponse
+
+	q := rc.QueriesApi.CancelQuery(ctx, queryID)
+
+	err = rc.Retry(ctx, func() error {
+		response, _, err = q.Execute()
+		return err
+	})
+
+	return *response.Data, nil
 }
