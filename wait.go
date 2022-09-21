@@ -35,7 +35,7 @@ func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, al
 // WaitForQuery waits until queryID has either completed, errored, or been cancelled.
 func (rc *RockClient) WaitForQuery(ctx context.Context, queryID string) error {
 	// TODO should this only wait for COMPLETED and return an error for ERROR and CANCELLED?
-	return rc.RetryWithCheck(ctx, rc.queryHasStatus(ctx, queryID, []string{"COMPLETED", "ERROR", "CANCELLED"}))
+	return rc.RetryWithCheck(ctx, rc.queryHasStatus(ctx, queryID, []QueryState{QueryCompleted, QueryError, QueryCancelled}))
 }
 
 // WaitUntilCollectionReady waits until the collection is ready.
@@ -68,7 +68,7 @@ func (rc *RockClient) WaitUntilWorkspaceAvailable(ctx context.Context, workspace
 
 // TODO(pme) refactor viewIsGone() and collectionIsGone() to be DRY
 
-func (rc *RockClient) queryHasStatus(ctx context.Context, queryID string, statuses []string) RetryCheck {
+func (rc *RockClient) queryHasStatus(ctx context.Context, queryID string, statuses []QueryState) RetryCheck {
 	return func() (bool, error) {
 		res, err := rc.GetQueryInfo(ctx, queryID)
 		if err != nil {
@@ -76,7 +76,7 @@ func (rc *RockClient) queryHasStatus(ctx context.Context, queryID string, status
 		}
 
 		for _, s := range statuses {
-			if s == res.GetStatus() {
+			if string(s) == res.GetStatus() {
 				return false, nil
 			}
 		}

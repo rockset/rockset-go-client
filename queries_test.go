@@ -70,3 +70,10 @@ func (s *QueryTestSuite) TestCancelQuery() {
 	s.Require().NoError(err)
 	s.Require().Equal("CANCELLED", info.GetStatus())
 }
+
+func (s *QueryTestSuite) TestValidateQuery() {
+	ctx := testCtx()
+
+	_, err := s.rc.ValidateQuery(ctx, "SEL:ECT 1")
+	s.Require().NoError(err)
+}

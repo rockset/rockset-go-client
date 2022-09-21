@@ -7,6 +7,16 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+type QueryState string
+
+const (
+	QueryQueued    QueryState = "QUEUED"
+	QueryRunning   QueryState = "RUNNING"
+	QueryError     QueryState = "ERROR"
+	QueryCompleted QueryState = "COMPLETED"
+	QueryCancelled QueryState = "CANCELLED"
+)
+
 // Query executes a sql query with optional option.QueryOption
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
@@ -62,7 +72,7 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	return *r, nil
 }
 
-// GetQueryInfo retrieves the information about a query.
+// GetQueryInfo retrieves information about a query.
 func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi.QueryInfo, error) {
 	var err error
 	var response *openapi.GetQueryResponse
@@ -100,7 +110,7 @@ func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (open
 	return *response, nil
 }
 
-// ListActiveQueries lists all active queries.
+// ListActiveQueries lists all active queries, i.e. queued or running.
 func (rc *RockClient) ListActiveQueries(ctx context.Context) ([]openapi.QueryInfo, error) {
 	var err error
 	var response *openapi.ListQueriesResponse
