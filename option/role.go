@@ -50,6 +50,7 @@ func WithWorkspacePrivilege(action WorkspaceAction, workspace string, options ..
 		p := openapi.Privilege{
 			Action:       &a,
 			ResourceName: &workspace,
+			Cluster:      openapi.PtrString(AllClusters),
 		}
 
 		for _, opt := range options {
