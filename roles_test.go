@@ -35,7 +35,7 @@ func TestRoleTestSuite(t *testing.T) {
 	suite.Run(t, &RoleTestSuite{rc: rc})
 }
 
-func (s *RoleTestSuite) TestCreate() {
+func (s *RoleTestSuite) TestCreateRole() {
 	ctx := testCtx()
 
 	role, err := s.rc.CreateRole(ctx, s.name,
@@ -46,7 +46,7 @@ func (s *RoleTestSuite) TestCreate() {
 	s.Equal(s.name, role.GetRoleName())
 }
 
-func (s *RoleTestSuite) TestGet() {
+func (s *RoleTestSuite) TestGetRole() {
 	ctx := testCtx()
 
 	role, err := s.rc.GetRole(ctx, s.name)
@@ -54,7 +54,14 @@ func (s *RoleTestSuite) TestGet() {
 	s.Equal(s.name, role.GetRoleName())
 }
 
-func (s *RoleTestSuite) TestList() {
+func (s *RoleTestSuite) TestGetMissingRole() {
+	ctx := testCtx()
+
+	_, err := s.rc.GetRole(ctx, "non-existing-role")
+	s.Error(err)
+}
+
+func (s *RoleTestSuite) TestListRoles() {
 	ctx := testCtx()
 
 	roles, err := s.rc.ListRoles(ctx)
@@ -75,6 +82,7 @@ func (s *RoleTestSuite) TestUpdate() {
 
 	role, err := s.rc.UpdateRole(ctx, s.name,
 		option.WithGlobalPrivilege(option.ListRolesGlobal),
+		option.WithRoleDescription("go client test role with updated name"),
 		option.WithIntegrationPrivilege(option.CreateCollectionIntegration, "test"),
 		option.WithWorkspacePrivilege(option.QueryDataWs, "commons"),
 		option.WithWorkspacePrivilege(option.CreateViewWs, "commons", option.WithCluster("usw2a1")),
