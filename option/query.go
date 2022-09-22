@@ -38,7 +38,7 @@ func WithAsyncClientTimeout(timeout int64) QueryOption {
 	}
 }
 
-// WithAsyncTimeout maximum amount of time that the system will attempt to complete query execution before
+// WithAsyncTimeout maximum amount of time that Rockset will attempt to complete query execution before
 // aborting the query and returning an error.
 func WithAsyncTimeout(timeout int64) QueryOption {
 	return func(o *openapi.QueryRequest) {

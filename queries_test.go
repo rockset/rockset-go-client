@@ -74,6 +74,6 @@ func (s *QueryTestSuite) TestCancelQuery() {
 func (s *QueryTestSuite) TestValidateQuery() {
 	ctx := testCtx()
 
-	_, err := s.rc.ValidateQuery(ctx, "SEL:ECT 1")
+	_, err := s.rc.ValidateQuery(ctx, "SELECT 1")
 	s.Require().NoError(err)
 }
