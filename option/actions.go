@@ -58,6 +58,7 @@ const (
 	DeleteRoleGlobal
 	ListRolesGlobal
 	GrantRevokeRoleGlobal
+	CreateVirtualInstanceGlobal
 )
 
 var globalActions = map[string]GlobalAction{
@@ -85,6 +86,7 @@ var globalActions = map[string]GlobalAction{
 	"DELETE_ROLE_GLOBAL":           DeleteRoleGlobal,
 	"LIST_ROLES_GLOBAL":            ListRolesGlobal,
 	"GRANT_REVOKE_ROLE_GLOBAL":     GrantRevokeRoleGlobal,
+	"CREATE_VI_GLOBAL":             CreateVirtualInstanceGlobal,
 }
 
 // IntegrationAction is the type for actions that operate on integrations.
@@ -99,19 +101,14 @@ func GetIntegrationAction(action string) IntegrationAction {
 	return UnknownIntegrationAction
 }
 
-// IsIntegrationAction returns true if action is am IntegrationAction
+// IsIntegrationAction returns true if action is an IntegrationAction
 func IsIntegrationAction(action string) bool {
 	return GetIntegrationAction(action) != UnknownIntegrationAction
 }
 
 // String returns the string representation used for the REST API call
 func (a IntegrationAction) String() string {
-	for k, v := range integrationActions {
-		if v == a {
-			return k
-		}
-	}
-	return unknown
+	return actionName(integrationActions, a)
 }
 
 const (
@@ -137,19 +134,14 @@ func GetWorkspaceAction(action string) WorkspaceAction {
 	return UnknownWorkspaceAction
 }
 
-// IsWorkspaceAction returns true if action is am WorkspaceAction
+// IsWorkspaceAction returns true if action is an WorkspaceAction
 func IsWorkspaceAction(action string) bool {
 	return GetWorkspaceAction(action) != UnknownWorkspaceAction
 }
 
 // String returns the string representation used for the REST API call
 func (a WorkspaceAction) String() string {
-	for k, v := range wsActions {
-		if v == a {
-			return k
-		}
-	}
-	return unknown
+	return actionName(wsActions, a)
 }
 
 const (
@@ -185,4 +177,53 @@ var wsActions = map[string]WorkspaceAction{
 	"EXECUTE_QUERY_LAMBDA_WS": ExecuteQueryLambdaWs,
 	"CREATE_VIEW_WS":          CreateViewWs,
 	"DELETE_VIEW_WS":          DeleteViewWs,
+}
+
+// VirtualInstanceAction is the type for actions that operate on virtual instances.
+type VirtualInstanceAction int
+
+// GetVirtualInstanceAction returns the corresponding VirtualInstanceAction
+func GetVirtualInstanceAction(action string) VirtualInstanceAction {
+	if a, found := viActions[action]; found {
+		return a
+	}
+
+	return UnknownVirtualInstanceAction
+}
+
+// IsVirtualInstanceAction returns true if action is an VirtualInstanceAction
+func IsVirtualInstanceAction(action string) bool {
+	return GetVirtualInstanceAction(action) != UnknownVirtualInstanceAction
+}
+
+// String returns the string representation used for the REST API call
+func (a VirtualInstanceAction) String() string {
+	return actionName(viActions, a)
+}
+
+const (
+	UnknownVirtualInstanceAction VirtualInstanceAction = iota
+	AllVirtualInstanceAction
+	QueryVirtualInstanceAction
+	UpdateVirtualInstanceAction
+	SuspendResumeVirtualInstanceAction
+	DeleteVirtualInstanceAction
+)
+
+var viActions = map[string]VirtualInstanceAction{
+	"ALL_VI_ACTIONS":    AllVirtualInstanceAction,
+	"QUERY_VI":          QueryVirtualInstanceAction,
+	"UPDATE_VI":         UpdateVirtualInstanceAction,
+	"SUSPEND_RESUME_VI": SuspendResumeVirtualInstanceAction,
+	"DELETE_VI":         DeleteVirtualInstanceAction,
+}
+
+func actionName[T comparable](m map[string]T, a T) string {
+	for k, v := range m {
+		if v == a {
+			return k
+		}
+	}
+
+	return unknown
 }
