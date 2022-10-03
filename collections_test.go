@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/rs/zerolog"
@@ -9,6 +10,22 @@ import (
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 )
+
+type CollectionTestSuite struct {
+	suite.Suite
+	rc *rockset.RockClient
+}
+
+func TestCollectionTestSuite(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+	suite.Run(t, &CollectionTestSuite{})
+}
+
+func (s *CollectionTestSuite) SetupSuite() {
+	rc, err := rockset.NewClient()
+	s.NoError(err)
+	s.rc = rc
+}
 
 func TestRockClient_ListCollections_all(t *testing.T) {
 	skipUnlessIntegrationTest(t)

@@ -101,6 +101,15 @@ const (
 	KafkaFormatAVRO KafkaFormat = "AVRO"
 )
 
+// KafkaIntegrationTopicState is the definition of topic states for a Kafka integration.
+type KafkaIntegrationTopicState string
+
+const (
+	KafkaIntegrationActive    KafkaIntegrationTopicState = "ACTIVE"
+	KafkaIntegrationNoDocsYet KafkaIntegrationTopicState = "NO_DOCS_YET"
+	KafkaIntegrationDormant   KafkaIntegrationTopicState = "DORMANT"
+)
+
 type KafkaIntegration struct {
 	Description *string
 	Config      openapi.KafkaIntegration
@@ -114,6 +123,7 @@ func WithKafkaIntegrationDescription(desc string) KafkaIntegrationOption {
 	}
 }
 
+// WithKafkaIntegrationTopic adds a topic name to the integration. Can be specified multiple times.
 func WithKafkaIntegrationTopic(topic string) KafkaIntegrationOption {
 	return func(o *KafkaIntegration) {
 		o.Config.KafkaTopicNames = append(o.Config.KafkaTopicNames, topic)

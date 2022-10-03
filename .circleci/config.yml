@@ -36,7 +36,7 @@ jobs:
     steps:
       - checkout
       - run: go install github.com/mattn/goveralls@latest
-      - run: go test -v -cover -timeout 20m -race -coverprofile=cover.out
+      - run: go test -v -cover -timeout 20m -race -coverprofile=cover.out ./...
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   release:
     docker:
