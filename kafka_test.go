@@ -13,6 +13,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"testing"
 )
 
@@ -27,6 +28,7 @@ type ConnectorConfig struct {
 	TasksMax                    int    `json:"tasks.max"`
 	Topics                      string `json:"topics"`
 	RocksetTaskThreads          int    `json:"rockset.task.threads"`
+	RocksetApiKey               string `json:"rockset.apikey"`
 	RocksetApiserverURL         string `json:"rockset.apiserver.url"`
 	RocksetIntegrationKey       string `json:"rockset.integration.key"`
 	Format                      string `json:"format"`
@@ -161,7 +163,8 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 		TasksMax:                    2,
 		Topics:                      kc.topic,
 		RocksetTaskThreads:          2,
-		RocksetApiserverURL:         "https://api.usw2a1.rockset.com",
+		RocksetApiKey:               os.Getenv("ROCKSET_APIKEY"),
+		RocksetApiserverURL:         os.Getenv("ROCKSET_SERVER"),
 		RocksetIntegrationKey:       *i.Kafka.ConnectionString,
 		Format:                      string(option.KafkaFormatJSON),
 		KeyConverter:                "org.apache.kafka.connect.storage.StringConverter",
