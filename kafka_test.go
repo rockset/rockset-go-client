@@ -80,9 +80,14 @@ func waitForKafkaConnect(t *testing.T, url string) func() error {
 
 		t.Logf("body: %s", string(body))
 
-		var connectors []string
+		type info struct {
+			Version        string `json:"version"`
+			Commit         string `json:"commit"`
+			KafkaClusterID string `json:"kafka_cluster_id"`
+		}
+		var i info
 
-		if err = json.Unmarshal(body, &connectors); err != nil {
+		if err = json.Unmarshal(body, &i); err != nil {
 			return err
 		}
 
@@ -95,14 +100,14 @@ func environment(bootstrapServers, username, password string, format option.Kafk
 		"CONNECT_GROUP_ID=rockset",
 		"CONNECT_REST_ADVERTISED_HOST_NAME=rockset", // should be configurable
 		"CONNECT_CONFIG_STORAGE_TOPIC=connect_config",
-		"CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=1",
+		"CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3",
 		"CONNECT_OFFSET_STORAGE_TOPIC=connect_offset",
 		"OFFSET_FLUSH_INTERVAL_MS=10000",
 		"OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets",
-		"CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=1",
+		"CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=3",
 		"CONNECT_OFFSET_STORAGE_PARTITIONS=1",
 		"CONNECT_STATUS_STORAGE_TOPIC=connect_status",
-		"CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=1",
+		"CONNECT_STATUS_STORAGE_REPLICATION_FACTOR=3",
 	}
 
 	switch format {

@@ -34,7 +34,7 @@ func (rc *RockClient) WaitUntilKafkaIntegrationActive(ctx context.Context, integ
 			}
 		}
 
-		return allActive, nil
+		return allActive && len(*i.Kafka.SourceStatusByTopic) > 0, nil
 	})
 }
 
