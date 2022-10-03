@@ -47,6 +47,7 @@ func (s *CCKCTestSuite) TestKafka() {
 
 func (s *CCKCTestSuite) SetupSuite() {
 	var err error
+
 	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
 

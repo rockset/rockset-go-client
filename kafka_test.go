@@ -28,7 +28,6 @@ type ConnectorConfig struct {
 	TasksMax                    int    `json:"tasks.max"`
 	Topics                      string `json:"topics"`
 	RocksetTaskThreads          int    `json:"rockset.task.threads"`
-	RocksetApiKey               string `json:"rockset.apikey"`
 	RocksetApiserverURL         string `json:"rockset.apiserver.url"`
 	RocksetIntegrationKey       string `json:"rockset.integration.key"`
 	Format                      string `json:"format"`
@@ -55,7 +54,21 @@ func configureKafkaConnect(url, name string, cfg ConnectorConfig) error {
 	}
 
 	c := http.Client{}
-	_, err = c.Post(url, "application/json", bytes.NewReader(body))
+	resp, err := c.Post(url, "application/json", bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+
+	payload, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	log.Printf("payload: %s", string(payload))
+
+	if resp.StatusCode != http.StatusCreated {
+		return fmt.Errorf("bad response: %d", resp.StatusCode)
+	}
+
 	return err
 }
 
@@ -104,8 +117,8 @@ func environment(bootstrapServers, username, password string, format option.Kafk
 		"CONNECT_CONFIG_STORAGE_TOPIC=connect_config",
 		"CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR=3",
 		"CONNECT_OFFSET_STORAGE_TOPIC=connect_offset",
-		"OFFSET_FLUSH_INTERVAL_MS=10000",
-		"OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets",
+		"CONNECT_OFFSET_FLUSH_INTERVAL_MS=10000",
+		"CONNECT_OFFSET_STORAGE_FILE_FILENAME=/tmp/connect.offsets",
 		"CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR=3",
 		"CONNECT_OFFSET_STORAGE_PARTITIONS=1",
 		"CONNECT_STATUS_STORAGE_TOPIC=connect_status",
@@ -157,14 +170,15 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 		option.WithKafkaIntegrationTopic(kc.topic))
 	require.NoError(t, err)
 
+	u := fmt.Sprintf("https://%s", os.Getenv("ROCKSET_APISERVER"))
+
 	cc := ConnectorConfig{
 		Name:                        kc.integrationName,
 		ConnectorClass:              "rockset.RocksetSinkConnector",
 		TasksMax:                    2,
 		Topics:                      kc.topic,
 		RocksetTaskThreads:          2,
-		RocksetApiKey:               os.Getenv("ROCKSET_APIKEY"),
-		RocksetApiserverURL:         os.Getenv("ROCKSET_SERVER"),
+		RocksetApiserverURL:         u,
 		RocksetIntegrationKey:       *i.Kafka.ConnectionString,
 		Format:                      string(option.KafkaFormatJSON),
 		KeyConverter:                "org.apache.kafka.connect.storage.StringConverter",
