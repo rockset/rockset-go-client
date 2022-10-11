@@ -27,31 +27,21 @@ func (s *CollectionTestSuite) SetupSuite() {
 	s.rc = rc
 }
 
-func TestRockClient_ListCollections_all(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+func (s *CollectionTestSuite) TestListAllCollections(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	collections, err := rc.ListCollections(ctx)
+	collections, err := s.rc.ListCollections(ctx)
 	require.NoError(t, err)
 
 	log.Debug().Int("count", len(collections)).Msg("collections")
 }
 
-func TestRockClient_ListCollections_ws(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+func (s *CollectionTestSuite) TestListCollectionsInWorkspace(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	collections, err := rc.ListCollections(ctx, option.WithWorkspace("commons"))
+	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace("commons"))
 	require.NoError(t, err)
 
 	log.Debug().Int("count", len(collections)).Msg("collections")

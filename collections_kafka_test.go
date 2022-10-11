@@ -1,3 +1,5 @@
+// Test suite for self-managed kafka
+
 package rockset_test
 
 import (
@@ -27,9 +29,10 @@ type KafkaTestSuite struct {
 	kc         kafkaConfig
 }
 
-// Test creating an integration and collection for Confluent Cloud
+// Test creating an integration and collection for a self-managed kafka with local kafka-connect
 func TestKafkaSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	skipUnlessDocker(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
@@ -52,8 +55,6 @@ func (s *KafkaTestSuite) TestKafka() {
 }
 
 func (s *KafkaTestSuite) SetupSuite() {
-	//ctx := testCtx()
-
 	var err error
 	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
@@ -112,7 +113,6 @@ func (s *KafkaTestSuite) SetupSuite() {
 	})
 	s.Require().NoError(err, "could not start kafka")
 
-	//bootstrapServers := fmt.Sprintf("localhost:%s", s.kafka.GetPort("9093/tcp"))
 	bootstrapServers := "localhost:9093"
 	retryFn = func() error {
 		deliveryChan := make(chan kafka.Event)

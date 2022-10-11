@@ -1,3 +1,5 @@
+// Test suite for a pure Confluent Cloud setup
+
 package rockset_test
 
 import (

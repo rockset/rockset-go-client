@@ -1,4 +1,4 @@
-// test helpers for kafka and kafka-connect
+// Test helpers for kafka and kafka-connect
 
 package rockset_test
 
@@ -16,6 +16,52 @@ import (
 	"os"
 	"testing"
 )
+
+type kafkaConfig struct {
+	topic           string
+	integrationName string
+	workspace       string
+	collection      string
+}
+
+func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kafkaConfig) {
+	i, err := rc.CreateKafkaIntegration(ctx, kc.integrationName, option.WithKafkaDataFormat(option.KafkaFormatJSON),
+		option.WithKafkaIntegrationTopic(kc.topic))
+	require.NoError(t, err)
+
+	u := fmt.Sprintf("https://%s", os.Getenv("ROCKSET_APISERVER"))
+
+	cc := ConnectorConfig{
+		Name:                        kc.integrationName,
+		ConnectorClass:              "rockset.RocksetSinkConnector",
+		TasksMax:                    2,
+		Topics:                      kc.topic,
+		RocksetTaskThreads:          2,
+		RocksetApiserverURL:         u,
+		RocksetIntegrationKey:       *i.Kafka.ConnectionString,
+		Format:                      string(option.KafkaFormatJSON),
+		KeyConverter:                "org.apache.kafka.connect.storage.StringConverter",
+		ValueConverter:              "org.apache.kafka.connect.storage.StringConverter",
+		KeyConverterSchemasEnable:   false,
+		ValueConverterSchemasEnable: false,
+	}
+	err = configureKafkaConnect("http://localhost:8083/connectors", kc.integrationName, cc)
+	require.NoError(t, err)
+
+	t.Log("waiting for integration to be ready...")
+	err = rc.WaitUntilKafkaIntegrationActive(ctx, kc.integrationName)
+	require.NoError(t, err)
+
+	_, err = rc.CreateKafkaCollection(ctx, kc.workspace, kc.collection,
+		option.WithKafkaSource(kc.integrationName, kc.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat()))
+	require.NoError(t, err)
+
+	t.Log("waiting for collection to start receiving documents...")
+	err = rc.WaitUntilCollectionDocuments(ctx, kc.workspace, kc.collection, 1)
+	require.NoError(t, err)
+
+	t.Log("done")
+}
 
 type ConnectorRequest struct {
 	Name   string          `json:"name"`
@@ -160,50 +206,4 @@ func connectParams(prefix, bootstrapServers, username, password string) []string
 		fmt.Sprintf("CONNECT_%sREQUEST_TIMEOUT_MS=20000", prefix),
 		fmt.Sprintf("CONNECT_%sRETRY_BACKOFF_MS=500", prefix),
 	}
-}
-
-type kafkaConfig struct {
-	topic           string
-	integrationName string
-	workspace       string
-	collection      string
-}
-
-func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kafkaConfig) {
-	i, err := rc.CreateKafkaIntegration(ctx, kc.integrationName, option.WithKafkaDataFormat(option.KafkaFormatJSON),
-		option.WithKafkaIntegrationTopic(kc.topic))
-	require.NoError(t, err)
-
-	u := fmt.Sprintf("https://%s", os.Getenv("ROCKSET_APISERVER"))
-
-	cc := ConnectorConfig{
-		Name:                        kc.integrationName,
-		ConnectorClass:              "rockset.RocksetSinkConnector",
-		TasksMax:                    2,
-		Topics:                      kc.topic,
-		RocksetTaskThreads:          2,
-		RocksetApiserverURL:         u,
-		RocksetIntegrationKey:       *i.Kafka.ConnectionString,
-		Format:                      string(option.KafkaFormatJSON),
-		KeyConverter:                "org.apache.kafka.connect.storage.StringConverter",
-		ValueConverter:              "org.apache.kafka.connect.storage.StringConverter",
-		KeyConverterSchemasEnable:   false,
-		ValueConverterSchemasEnable: false,
-	}
-	err = configureKafkaConnect("http://localhost:8083/connectors", kc.integrationName, cc)
-	require.NoError(t, err)
-
-	t.Log("waiting for integration to be ready...")
-	err = rc.WaitUntilKafkaIntegrationActive(ctx, kc.integrationName)
-	require.NoError(t, err)
-
-	_, err = rc.CreateKafkaCollection(ctx, kc.workspace, kc.collection,
-		option.WithKafkaSource(kc.integrationName, kc.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat()))
-	require.NoError(t, err)
-
-	t.Log("waiting for collection to start receiving documents...")
-	err = rc.WaitUntilCollectionDocuments(ctx, kc.workspace, kc.collection, 1)
-	require.NoError(t, err)
-
-	t.Log("done")
 }

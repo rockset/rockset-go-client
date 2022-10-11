@@ -1,4 +1,5 @@
 // Test suite for Confluent Cloud with a local kafka-connect
+
 package rockset_test
 
 import (
