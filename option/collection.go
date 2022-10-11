@@ -21,7 +21,17 @@ func WithWorkspace(name string) func(o *ListCollectionOptions) {
 // WithCollectionRequest is used to pass a openapi.CreateCollectionRequest to a CreateCollection() call.
 func WithCollectionRequest(request openapi.CreateCollectionRequest) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
-		o = &request
+		// TODO this is not a good way of copying the request as if we add a new field
+		//   to the request, it won't get copied here
+		o.Name = request.Name
+		o.Description = request.Description
+		o.Sources = request.Sources
+		o.RetentionSecs = request.RetentionSecs
+		o.InsertOnly = request.InsertOnly
+		o.EventTimeInfo = request.EventTimeInfo
+		o.FieldMappings = request.FieldMappings
+		o.FieldMappingQuery = request.FieldMappingQuery
+		o.ClusteringKey = request.ClusteringKey
 	}
 }
 

@@ -82,13 +82,13 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 	var resp *openapi.CreateCollectionResponse
 
 	request := openapi.CreateCollectionRequest{}
+	request.Name = name
 
 	for _, o := range options {
 		o(&request)
 	}
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	request.Name = name
 
 	err = rc.Retry(ctx, func() error {
 		resp, _, err = createReq.Body(request).Execute()

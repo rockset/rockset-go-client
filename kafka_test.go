@@ -95,16 +95,20 @@ func waitForKafkaConnect(t *testing.T, url string) func() error {
 
 		t.Logf("body: %s", string(body))
 
-		type info struct {
-			Version        string `json:"version"`
-			Commit         string `json:"commit"`
-			KafkaClusterID string `json:"kafka_cluster_id"`
-		}
-		var i info
+		//type info struct {
+		//	Version        string `json:"version"`
+		//	Commit         string `json:"commit"`
+		//	KafkaClusterID string `json:"kafka_cluster_id"`
+		//}
+		//var i info
+
+		var i []string
 
 		if err = json.Unmarshal(body, &i); err != nil {
 			return err
 		}
+
+		t.Logf("%+v", i)
 
 		return nil
 	}

@@ -26,6 +26,12 @@ func (rc *RockClient) WaitUntilKafkaIntegrationActive(ctx context.Context, integ
 			return false, fmt.Errorf("not a kafka integration: %s", integration)
 		}
 
+		if i.Kafka.SourceStatusByTopic == nil {
+			// for v3 integrations this will be nil
+			zl.Trace().Bool("v3", i.Kafka.GetUseV3()).Msg("no topics found")
+			return false, nil
+		}
+
 		var allActive = true
 		for topic, status := range *i.Kafka.SourceStatusByTopic {
 			zl.Trace().Str("state", status.GetState()).Str("topic", topic).Send()

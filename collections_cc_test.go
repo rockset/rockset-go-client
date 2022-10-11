@@ -50,6 +50,9 @@ func (s *ConfluentCloudTestSuite) SetupSuite() {
 		option.WithKafkaSecurityConfig(apikey, secret),
 	)
 	s.Require().NoError(err)
+
+	err = s.rc.WaitUntilKafkaIntegrationActive(ctx, s.name)
+	s.Require().NoError(err)
 }
 
 func (s *ConfluentCloudTestSuite) TearDownSuite() {

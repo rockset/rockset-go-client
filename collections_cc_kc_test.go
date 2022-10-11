@@ -24,6 +24,7 @@ type CCKCTestSuite struct {
 // Test creating an integration and collection for Confluent Cloud with a local kafka-connect
 func TestCCKCSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	skipUnlessDocker(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
@@ -72,9 +73,10 @@ func (s *CCKCTestSuite) SetupSuite() {
 	s.Require().NoError(err, "could not start kafka connect")
 
 	s.dockerPool.MaxWait = 5 * time.Minute
-	err = s.dockerPool.Retry(waitForKafkaConnect(s.T(), "http://localhost:8083"))
+	err = s.dockerPool.Retry(waitForKafkaConnect(s.T(), "http://localhost:8083/connectors"))
 	s.Require().NoError(err, "could not start kafka connect")
 
+	s.T().Log("kafka connect running")
 }
 
 func (s *CCKCTestSuite) TearDownSuite() {

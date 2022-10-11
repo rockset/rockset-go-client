@@ -33,6 +33,14 @@ func skipUnlessEnvSet(t *testing.T, envName string) string {
 	return env
 }
 
+func skipUnlessDocker(t *testing.T) {
+	_, err := os.Stat("/var/run/docker.sock")
+	if os.IsNotExist(err) {
+		t.Skip("docker socket not present, skipping")
+	}
+	assert.NoError(t, err)
+}
+
 // helper function to create a context with a zerolog logger
 func testCtx() context.Context {
 	ctx := context.Background()
