@@ -18,31 +18,38 @@ type CollectionTestSuite struct {
 
 func TestCollectionTestSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
-	suite.Run(t, &CollectionTestSuite{})
-}
 
-func (s *CollectionTestSuite) SetupSuite() {
 	rc, err := rockset.NewClient()
-	s.NoError(err)
-	s.rc = rc
+	require.NoError(t, err)
+
+	suite.Run(t, &CollectionTestSuite{rc: rc})
 }
 
-func (s *CollectionTestSuite) TestListAllCollections(t *testing.T) {
+func (s *CollectionTestSuite) TestGetCollection() {
+	ctx := testCtx()
+
+	const cName = "_events"
+	collection, err := s.rc.GetCollection(ctx, "commons", cName)
+	s.NoError(err)
+	s.Assert().Equal(cName, collection.GetName())
+}
+
+func (s *CollectionTestSuite) TestListAllCollections() {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
 	collections, err := s.rc.ListCollections(ctx)
-	require.NoError(t, err)
+	s.NoError(err)
 
 	log.Debug().Int("count", len(collections)).Msg("collections")
 }
 
-func (s *CollectionTestSuite) TestListCollectionsInWorkspace(t *testing.T) {
+func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
 	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace("commons"))
-	require.NoError(t, err)
+	s.NoError(err)
 
 	log.Debug().Int("count", len(collections)).Msg("collections")
 }
