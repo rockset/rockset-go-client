@@ -8,6 +8,7 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+// GetCollection gets information about a collection.
 func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.GetCollectionResponse
@@ -26,6 +27,7 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 	return resp.GetData(), nil
 }
 
+// ListCollections lists all collections, or in a specific workspace is option.WithWorkspace() is used.
 func (rc *RockClient) ListCollections(ctx context.Context,
 	options ...option.ListCollectionOption) ([]openapi.Collection, error) {
 	var err error
@@ -62,6 +64,7 @@ func (rc *RockClient) ListCollections(ctx context.Context,
 	return resp.GetData(), nil
 }
 
+// DeleteCollection deletes  collection.
 func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name string) error {
 	deleteReq := rc.CollectionsApi.DeleteCollection(ctx, workspace, name)
 
@@ -74,8 +77,39 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 	return err
 }
 
-// CreateCollection is a convenience method to create a collection, which uses exponential backoff in case
-// the API call is ratelimted.
+// CreateCollection is used to create a collection from one or more sources:
+//  - DynamoDB (see CreateDynamoDBIntegration())
+//  - GCS (see CreateGCSIntegration())
+//  - Kafka (see CreateKafkaIntegration())
+//  - Kinesis (see CreateKinesisIntegration())
+//  - MongoDB (see CreateMongoDBIntegration())
+//  - S3 (see CreateS3Integration())
+//
+// It uses exponential backoff in case the API call is rate-limted.
+//
+// To create a collection from multiple sources, use:
+// 	 c, err := rc.CreateCollection(ctx, "commons", "example",
+//	   option.WithCollectionDescription("created by go example code"),
+//	   option.WithS3Source("s3-integration-name", "rockset-go-tests",
+//	     option.WithCSVFormat(
+//	       []string{"city", "country", "population", "visited"},
+//	       []option.ColumnType{
+//	         option.ColumnTypeString, option.ColumnTypeString, option.ColumnTypeInteger, option.ColumnTypeBool,
+//	       },
+//	       option.WithEncoding("UTF-8"),
+//	       option.WithEscapeChar("\\"),
+//	       option.WithQuoteChar(`"`),
+//	       option.WithSeparator(","),
+//	    ),
+//	    option.WithS3Prefix("cities.csv"),
+//	  ),
+//    option.WithKafkaSource("kafka-integration-name", "topic", option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
+//      option.WithKafkaSourceV3(),
+//    ),
+//    option.WithCollectionRetention(time.Hour),
+//    option.WithInsertOnly(),
+//	  option.WithFieldMappingQuery("SELECT * FROM _input"),
+//  )
 func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
 	options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
@@ -99,6 +133,29 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 	}
 
 	return resp.GetData(), nil
+}
+
+// CreateS3Collection creates an S3 collection from an existing S3 integration.
+// Not specifying a format will default to JSON.
+// Deprecated: use CreateCollection() with option.WithS3Source() instead.
+func (rc *RockClient) CreateS3Collection(ctx context.Context,
+	workspace, name, description, integration, bucket, pattern string,
+	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
+	var s3opts []option.S3SourceOption
+	if pattern != "" {
+		s3opts = append(s3opts, option.WithS3Pattern(pattern))
+	}
+
+	opts := []option.CollectionOption{
+		option.WithS3Source(integration, bucket, format, s3opts...),
+	}
+
+	if description != "" {
+		opts = append(opts, option.WithCollectionDescription(description))
+	}
+	opts = append(opts, options...)
+
+	return rc.CreateCollection(ctx, workspace, name, opts...)
 }
 
 func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
