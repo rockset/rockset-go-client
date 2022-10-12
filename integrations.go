@@ -2,7 +2,6 @@ package rockset
 
 import (
 	"context"
-
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )

@@ -18,6 +18,67 @@ func WithWorkspace(name string) func(o *ListCollectionOptions) {
 	}
 }
 
+// WithCollectionRequest is used to pass a openapi.CreateCollectionRequest to a CreateCollection() call.
+func WithCollectionRequest(request openapi.CreateCollectionRequest) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		// TODO this is not a good way of copying the request as if we add a new field
+		//   to the request, it won't get copied here
+		o.Name = request.Name
+		o.Description = request.Description
+		o.Sources = request.Sources
+		o.RetentionSecs = request.RetentionSecs
+		o.InsertOnly = request.InsertOnly
+		o.EventTimeInfo = request.EventTimeInfo
+		o.FieldMappings = request.FieldMappings
+		o.FieldMappingQuery = request.FieldMappingQuery
+		o.ClusteringKey = request.ClusteringKey
+	}
+}
+
+type S3SourceOption func(o *openapi.SourceS3)
+
+func WithS3Region(region string) S3SourceOption {
+	return func(o *openapi.SourceS3) {
+		o.Region = &region
+	}
+}
+
+// WithS3Prefix is used to pick the S3 prefix to ingest objects from.
+// Can't be used together with WithS3Pattern()
+func WithS3Prefix(prefix string) S3SourceOption {
+	return func(o *openapi.SourceS3) {
+		o.Prefix = &prefix
+	}
+}
+
+// WithS3Pattern is used to pick the S3 pattern to ingest objects from.
+// Can't be used together with WithS3Prefix()
+func WithS3Pattern(pattern string) S3SourceOption {
+	return func(o *openapi.SourceS3) {
+		o.Pattern = &pattern
+	}
+}
+
+func WithS3Source(IntegrationName, bucket string, fmt Format, options ...S3SourceOption) CollectionOption {
+	src := openapi.SourceS3{
+		Bucket: bucket,
+	}
+	for _, o := range options {
+		o(&src)
+	}
+
+	fp := openapi.FormatParams{}
+	fmt(&fp)
+
+	return func(o *openapi.CreateCollectionRequest) {
+		o.Sources = append(o.Sources, openapi.Source{
+			IntegrationName: &IntegrationName,
+			S3:              &src,
+			FormatParams:    &fp,
+		})
+	}
+}
+
 type KafkaSourceOption func(o *openapi.SourceKafka)
 
 type KafkaStartingOffset string

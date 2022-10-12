@@ -3,13 +3,46 @@ package rockset
 import (
 	"context"
 	"errors"
-
+	"fmt"
+	"github.com/rockset/rockset-go-client/option"
 	"github.com/rs/zerolog"
 )
 
 const (
 	collectionStatusREADY = "READY"
 )
+
+// WaitUntilKafkaIntegrationActive waits until all topics in a Kafka integration are in ACTIVE state.
+func (rc *RockClient) WaitUntilKafkaIntegrationActive(ctx context.Context, integration string) error {
+	return rc.RetryWithCheck(ctx, func() (bool, error) {
+		zl := zerolog.Ctx(ctx)
+
+		i, err := rc.GetIntegration(ctx, integration)
+		if err != nil {
+			return false, err
+		}
+
+		if i.Kafka == nil {
+			return false, fmt.Errorf("not a kafka integration: %s", integration)
+		}
+
+		if i.Kafka.SourceStatusByTopic == nil {
+			// for v3 integrations this will be nil
+			zl.Trace().Bool("v3", i.Kafka.GetUseV3()).Msg("no topics found")
+			return false, nil
+		}
+
+		var allActive = true
+		for topic, status := range *i.Kafka.SourceStatusByTopic {
+			zl.Trace().Str("state", status.GetState()).Str("topic", topic).Send()
+			if status.GetState() != string(option.KafkaIntegrationActive) {
+				allActive = false
+			}
+		}
+
+		return !allActive, nil
+	})
+}
 
 // WaitUntilAliasAvailable waits until the alias is available.
 func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, alias string) error {

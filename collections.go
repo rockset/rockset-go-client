@@ -4,8 +4,6 @@ import (
 	"context"
 	"time"
 
-	"github.com/rs/zerolog"
-
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -77,66 +75,23 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 }
 
 // CreateCollection is a convenience method to create a collection, which uses exponential backoff in case
-// the API call is ratelimted. It will overwrite the request.Name field with the argument name.
+// the API call is ratelimted.
 func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
-	request *openapi.CreateCollectionRequest) (openapi.Collection, error) {
+	options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
-	log := zerolog.Ctx(ctx)
 
-	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	if request.Name != name {
-		log.Warn().Str("request.Name", request.Name).Str("name", name).
-			Msg("name differs from request, using argument")
-	}
-
+	request := openapi.CreateCollectionRequest{}
 	request.Name = name
 
-	err = rc.Retry(ctx, func() error {
-		resp, _, err = createReq.Body(*request).Execute()
-		return err
-	})
-	if err != nil {
-		return openapi.Collection{}, err
+	for _, o := range options {
+		o(&request)
 	}
-
-	return resp.GetData(), nil
-}
-
-// CreateS3Collection creates an S3 collection from an existing S3 integration.
-// Not specifying a format will default to JSON.
-func (rc *RockClient) CreateS3Collection(ctx context.Context,
-	workspace, name, description, integration, bucket, pattern string,
-	format option.Format, options ...option.CollectionOption) (openapi.Collection, error) {
-	var err error
-	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
-	createParams.Description = &description
-
-	f := openapi.FormatParams{}
-	format(&f)
-
-	createParams.Sources = []openapi.Source{
-		{
-			IntegrationName: &integration,
-			S3: &openapi.SourceS3{
-				Pattern:  &pattern,
-				Bucket:   bucket,
-				Prefix:   nil,
-				Prefixes: nil,
-			},
-			FormatParams: &f,
-		},
-	}
-
-	for _, o := range options {
-		o(createParams)
-	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = createReq.Body(*createParams).Execute()
+		resp, _, err = createReq.Body(request).Execute()
 		return err
 	})
 	if err != nil {

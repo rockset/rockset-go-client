@@ -29,18 +29,21 @@ func Example_s3() {
 	}
 	fmt.Printf("integration created: %s\n", r.GetName())
 
-	// create collection
-	c, err := rc.CreateS3Collection(ctx, "commons", "s3example", "created by go example code",
-		"s3exampleIntegration", "rockset-go-tests", "cities.csv",
-		option.WithCSVFormat(
-			[]string{"city", "country", "population", "visited"},
-			[]option.ColumnType{
-				option.ColumnTypeString, option.ColumnTypeString, option.ColumnTypeInteger, option.ColumnTypeBool,
-			},
-			option.WithEncoding("UTF-8"),
-			option.WithEscapeChar("\\"),
-			option.WithQuoteChar(`"`),
-			option.WithSeparator(","),
+	// create an S3 collection
+	c, err := rc.CreateCollection(ctx, "commons", "s3example",
+		option.WithCollectionDescription("created by go example code"),
+		option.WithS3Source("s3exampleIntegration", "rockset-go-tests",
+			option.WithCSVFormat(
+				[]string{"city", "country", "population", "visited"},
+				[]option.ColumnType{
+					option.ColumnTypeString, option.ColumnTypeString, option.ColumnTypeInteger, option.ColumnTypeBool,
+				},
+				option.WithEncoding("UTF-8"),
+				option.WithEscapeChar("\\"),
+				option.WithQuoteChar(`"`),
+				option.WithSeparator(","),
+			),
+			option.WithS3Prefix("cities.csv"),
 		),
 		option.WithInsertOnly(),
 		option.WithFieldMappingQuery("SELECT * FROM _input"),

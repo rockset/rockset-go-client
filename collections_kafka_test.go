@@ -1,90 +1,211 @@
+// Test suite for self-managed kafka
+
 package rockset_test
 
 import (
-	"testing"
-	"time"
-
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
-
+	"errors"
+	"fmt"
+	"github.com/confluentinc/confluent-kafka-go/kafka"
+	"github.com/go-zookeeper/zk"
+	"github.com/ory/dockertest/v3"
+	"github.com/ory/dockertest/v3/docker"
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
+	"os"
+	"testing"
+	"time"
 )
 
-type SuiteKafkaCollection struct {
+type KafkaTestSuite struct {
 	suite.Suite
-	rc    *rockset.RockClient
-	name  string
-	ws    string
-	coll  string
-	topic string
+	rc         *rockset.RockClient
+	dockerPool *dockertest.Pool
+	zookeeper  *dockertest.Resource
+	kafka      *dockertest.Resource
+	connect    *dockertest.Resource
+	network    *docker.Network
+	kc         kafkaConfig
 }
 
-func TestSuiteKafkaCollection(t *testing.T) {
+// Test creating an integration and collection for a self-managed kafka with local kafka-connect
+func TestKafkaSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	skipUnlessDocker(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := SuiteKafkaCollection{
-		rc:    rc,
-		name:  "confluent-cloud-unit-test",
-		ws:    "tests",
-		coll:  "confluent-cloud-unit-test",
-		topic: "test_json",
+	s := KafkaTestSuite{
+		rc: rc,
+		kc: kafkaConfig{
+			topic:           "test_json",
+			integrationName: "go-test",
+			workspace:       "commons",
+			collection:      "kafka-test",
+		},
 	}
 	suite.Run(t, &s)
 }
 
-func (s *SuiteKafkaCollection) SetupSuite() {
-	apikey := skipUnlessEnvSet(s.T(), "CC_KEY")
-	secret := skipUnlessEnvSet(s.T(), "CC_SECRET")
-	bootstrap := skipUnlessEnvSet(s.T(), "CC_BOOTSTRAP_SERVER")
+func (s *KafkaTestSuite) TestKafka() {
 	ctx := testCtx()
-
-	_, err := s.rc.CreateKafkaIntegration(ctx, s.name,
-		option.WithKafkaIntegrationDescription("created by go integration test"),
-		option.WithKafkaV3(),
-		option.WithKafkaBootstrapServers(bootstrap),
-		option.WithKafkaSecurityConfig(apikey, secret),
-	)
-	s.Require().NoError(err)
+	testKafka(ctx, s.T(), s.rc, s.kc)
 }
 
-func (s *SuiteKafkaCollection) TearDownSuite() {
-	ctx := testCtx()
-
-	err := s.rc.DeleteIntegration(ctx, s.name)
+func (s *KafkaTestSuite) SetupSuite() {
+	var err error
+	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
+
+	err = s.dockerPool.Client.Ping()
+	s.Require().NoError(err)
+
+	s.network, err = s.dockerPool.Client.CreateNetwork(docker.CreateNetworkOptions{Name: "zookeeper_kafka_network"})
+	s.Require().NoError(err, "could not create a network to zookeeper and kafka")
+
+	s.zookeeper, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
+		Name:         "zookeeper-example",
+		Repository:   "wurstmeister/zookeeper",
+		Tag:          "3.4.6",
+		NetworkID:    s.network.ID,
+		Hostname:     "zookeeper",
+		ExposedPorts: []string{"2181"},
+	})
+	s.Require().NoError(err, "could not start zookeeper")
+
+	conn, _, err := zk.Connect([]string{fmt.Sprintf("127.0.0.1:%s", s.zookeeper.GetPort("2181/tcp"))}, 10*time.Second)
+	s.Require().NoError(err, "could not connect zookeeper")
+	defer conn.Close()
+
+	retryFn := func() error {
+		switch conn.State() {
+		case zk.StateHasSession, zk.StateConnected:
+			return nil
+		default:
+			return errors.New("not yet connected")
+		}
+	}
+
+	err = s.dockerPool.Retry(retryFn)
+	s.Require().NoError(err, "could not connect to zookeeper")
+
+	s.kafka, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
+		Name:       "kafka-example",
+		Repository: "wurstmeister/kafka",
+		Tag:        "2.13-2.8.1",
+		NetworkID:  s.network.ID,
+		Hostname:   "kafka",
+		Env: []string{
+			"KAFKA_CREATE_TOPICS=domain.test:1:1:compact",
+			"KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9092,OUTSIDE://localhost:9093",
+			"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT",
+			"KAFKA_LISTENERS=INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9093",
+			"KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181",
+			"KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE",
+			"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1",
+		},
+		PortBindings: map[docker.Port][]docker.PortBinding{
+			"9093/tcp": {{HostIP: "localhost", HostPort: "9093/tcp"}},
+		},
+		ExposedPorts: []string{"9093/tcp"},
+	})
+	s.Require().NoError(err, "could not start kafka")
+
+	bootstrapServers := "localhost:9093"
+	retryFn = func() error {
+		deliveryChan := make(chan kafka.Event)
+		producer, err := kafka.NewProducer(&kafka.ConfigMap{
+			"bootstrap.servers": bootstrapServers,
+			"acks":              "all",
+		})
+		if err != nil {
+			return err
+		}
+		defer producer.Close()
+
+		topic := "domain.test"
+		message := &kafka.Message{
+			Key: []byte("any-key"),
+			TopicPartition: kafka.TopicPartition{
+				Topic:     &topic,
+				Partition: kafka.PartitionAny,
+			},
+			Value: []byte("Hello World"),
+		}
+		if err = producer.Produce(message, deliveryChan); err != nil {
+			return err
+		}
+		s.T().Log("message produced")
+
+		e := <-deliveryChan
+		if e.(*kafka.Message).TopicPartition.Error != nil {
+			return e.(*kafka.Message).TopicPartition.Error
+		}
+		s.T().Log("message consumed")
+
+		return nil
+	}
+
+	err = s.dockerPool.Retry(retryFn)
+	s.Require().NoError(err, "could not connect to kafka")
+
+	// kafka connect
+
+	s.connect, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
+		Name:       "kafka-connect",
+		Repository: "rockset/kafka-connect",
+		Tag:        "1.4.2-5",
+		Hostname:   "connect",
+		Env: environment(os.Getenv("CC_BOOTSTRAP_SERVER"),
+			os.Getenv("CC_KEY"),
+			os.Getenv("CC_SECRET"),
+			option.KafkaFormatJSON),
+		PortBindings: map[docker.Port][]docker.PortBinding{
+			"9094/tcp": {{HostIP: "localhost", HostPort: "9094/tcp"}},
+			"8083/tcp": {{HostIP: "localhost", HostPort: "8083/tcp"}},
+		},
+		ExposedPorts: []string{"9094/tcp", "8083/tcp"},
+	})
+	s.Require().NoError(err, "could not start kafka connect")
+
+	s.dockerPool.MaxWait = 5 * time.Minute
+	err = s.dockerPool.Retry(waitForKafkaConnect(s.T(), "http://localhost:8083"))
+	s.Require().NoError(err, "could not start kafka connect")
+
+	s.T().Log("all containers running")
 }
 
-func (s *SuiteKafkaCollection) TestCreateJSONCollection() {
+func (s *KafkaTestSuite) TearDownSuite() {
 	ctx := testCtx()
+	var err error
 
-	_, err := s.rc.CreateKafkaCollection(ctx, s.ws, s.coll,
-		option.WithCollectionDescription("created by go integration test"),
-		option.WithCollectionRetention(time.Hour),
-		option.WithKafkaSource(s.name, s.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
-			option.WithKafkaSourceV3(),
-		),
-	)
+	if err = s.rc.DeleteCollection(ctx, s.kc.workspace, s.kc.collection); err == nil {
+		s.T().Logf("deleted collection %s.%s", s.kc.workspace, s.kc.collection)
+	}
+
+	err = s.rc.WaitUntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.name)
-	s.Require().NoError(err)
+	if err := s.rc.DeleteIntegration(ctx, s.kc.integrationName); err == nil {
+		s.T().Logf("deleted integration %s", s.kc.integrationName)
+	} else {
+		s.T().Logf("failed to delete integration %s: %v", s.kc.integrationName, err)
+	}
 
-	// TODO(pmenglund) this should write a document to kafka so we don't need a data generator
-	//  in Confluent Cloud
-	err = s.rc.WaitUntilCollectionDocuments(ctx, s.ws, s.coll, 1)
-	s.Require().NoError(err)
-}
+	err = s.dockerPool.Purge(s.connect)
+	s.Assert().NoError(err, "could not purge kafka connect")
 
-func (s *SuiteKafkaCollection) TestDeleteCollection() {
-	ctx := testCtx()
+	err = s.dockerPool.Purge(s.kafka)
+	s.Assert().NoError(err, "could not purge kafka")
 
-	err := s.rc.DeleteCollection(ctx, s.ws, s.name)
-	s.Require().NoError(err)
+	err = s.dockerPool.Purge(s.zookeeper)
+	s.Assert().NoError(err, "could not purge zookeeper")
 
-	err = s.rc.WaitUntilCollectionGone(ctx, s.ws, s.coll)
-	s.Require().NoError(err)
+	// sleep a little before removing the network so all containers have time to exit
+	time.Sleep(5 * time.Second)
+
+	err = s.dockerPool.Client.RemoveNetwork(s.network.ID)
+	s.Assert().NoError(err, "could not remove network")
 }

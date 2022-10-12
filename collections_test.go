@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/rs/zerolog"
@@ -10,32 +11,45 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-func TestRockClient_ListCollections_all(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+type CollectionTestSuite struct {
+	suite.Suite
+	rc *rockset.RockClient
+}
 
-	ctx := testCtx()
-	log := zerolog.Ctx(ctx)
+func TestCollectionTestSuite(t *testing.T) {
+	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	collections, err := rc.ListCollections(ctx)
-	require.NoError(t, err)
+	suite.Run(t, &CollectionTestSuite{rc: rc})
+}
+
+func (s *CollectionTestSuite) TestGetCollection() {
+	ctx := testCtx()
+
+	const cName = "_events"
+	collection, err := s.rc.GetCollection(ctx, "commons", cName)
+	s.NoError(err)
+	s.Assert().Equal(cName, collection.GetName())
+}
+
+func (s *CollectionTestSuite) TestListAllCollections() {
+	ctx := testCtx()
+	log := zerolog.Ctx(ctx)
+
+	collections, err := s.rc.ListCollections(ctx)
+	s.NoError(err)
 
 	log.Debug().Int("count", len(collections)).Msg("collections")
 }
 
-func TestRockClient_ListCollections_ws(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	collections, err := rc.ListCollections(ctx, option.WithWorkspace("commons"))
-	require.NoError(t, err)
+	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace("commons"))
+	s.NoError(err)
 
 	log.Debug().Int("count", len(collections)).Msg("collections")
 }
