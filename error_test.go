@@ -17,7 +17,7 @@ func TestError_IsNotFoundError(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	_, err = rc.GetCollection(ctx, "commons", "notfound")
+	_, err = rc.GetCollection(ctx, persistentWorkspace, "notfound")
 	require.Error(t, err)
 
 	var re rockset.Error

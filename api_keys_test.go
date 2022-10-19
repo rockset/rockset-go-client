@@ -24,10 +24,11 @@ func TestSuiteAPIKey(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := SuiteAPIKey{rc: rc, keyName: "integration"}
+	s := SuiteAPIKey{rc: rc, keyName: randomName(t, "key")}
 	suite.Run(t, &s)
 }
 
+// this role is persistent and should always exist
 const IntegrationTestRole = "integration-test"
 
 func (s *SuiteAPIKey) SetupSuite() {

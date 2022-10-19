@@ -8,6 +8,8 @@ import (
 	"testing"
 )
 
+// for anyone poking around in the code, rockset.sleep() only works for this test org as no sane person would want
+// to add a sleep in their query
 const slowQuery = `script {{{ import * as rockset from "/rockset"; export function delay(x) { rockset.sleep(x); return x; } }}} select _script.delay(2000, q) from unnest([1] as q)`
 
 type QueryTestSuite struct {
@@ -50,7 +52,7 @@ func (s *QueryTestSuite) TestAsyncQuery() {
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitForQuery(ctx, *resp.QueryId)
+	err = s.rc.WaitUntilQueryCompleted(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 
 	_, err = s.rc.GetQueryResults(ctx, *resp.QueryId)

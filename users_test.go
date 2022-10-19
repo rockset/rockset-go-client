@@ -1,10 +1,11 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/suite"
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 )
@@ -23,9 +24,10 @@ func TestUserTestSuite(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
+	name := randomName(t, "test")
 	s := UserTestSuite{
 		rc:    rc,
-		email: "pme+testuser@rockset.com",
+		email: fmt.Sprintf("pme+%s@rockset.com", name),
 	}
 	suite.Run(t, &s)
 }
@@ -40,7 +42,7 @@ func (s *UserTestSuite) TearDownSuite() {
 func (s *UserTestSuite) TestCreateUser() {
 	ctx := testCtx()
 
-	_, err := s.rc.CreateUser(ctx, s.email, []string{"read-only"})
+	_, err := s.rc.CreateUser(ctx, s.email, []string{rockset.ReadOnlyRole})
 	s.Require().NoError(err)
 }
 

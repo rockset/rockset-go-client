@@ -1,9 +1,9 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/require"
 	"testing"
 
+	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -16,8 +16,16 @@ type RoleTestSuite struct {
 	name string
 }
 
-func (s *RoleTestSuite) SetupSuite() {
-	s.name = "foobar"
+func TestRoleTestSuite(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	suite.Run(t, &RoleTestSuite{
+		rc:   rc,
+		name: randomName(t, "role"),
+	})
 }
 
 func (s *RoleTestSuite) TearDownSuite() {
@@ -26,21 +34,12 @@ func (s *RoleTestSuite) TearDownSuite() {
 	s.NoError(err)
 }
 
-func TestRoleTestSuite(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	suite.Run(t, &RoleTestSuite{rc: rc})
-}
-
 func (s *RoleTestSuite) TestCreateRole() {
 	ctx := testCtx()
 
 	role, err := s.rc.CreateRole(ctx, s.name,
-		option.WithRoleDescription("go client test role"),
-		option.WithWorkspacePrivilege(option.ListResourcesWs, "commons"),
+		option.WithRoleDescription(description()),
+		option.WithWorkspacePrivilege(option.ListResourcesWs, persistentWorkspace),
 	)
 	s.NoError(err)
 	s.Equal(s.name, role.GetRoleName())
@@ -74,7 +73,6 @@ func (s *RoleTestSuite) TestListRoles() {
 		}
 	}
 	s.True(found)
-
 }
 
 func (s *RoleTestSuite) TestUpdate() {

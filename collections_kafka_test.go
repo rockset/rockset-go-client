@@ -13,48 +13,53 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"os"
 	"testing"
 	"time"
 )
 
-type KafkaTestSuite struct {
+type KafkaIntegrationSuite struct {
 	suite.Suite
-	rc         *rockset.RockClient
-	dockerPool *dockertest.Pool
-	zookeeper  *dockertest.Resource
-	kafka      *dockertest.Resource
-	connect    *dockertest.Resource
-	network    *docker.Network
-	kc         kafkaConfig
+	rc               *rockset.RockClient
+	dockerPool       *dockertest.Pool
+	zookeeper        *dockertest.Resource
+	kafka            *dockertest.Resource
+	connect          *dockertest.Resource
+	network          *docker.Network
+	kc               kafkaConfig
+	bootstrapServers string
+	confluentKey     string
+	confluentSecret  string
 }
 
 // Test creating an integration and collection for a self-managed kafka with local kafka-connect
-func TestKafkaSuite(t *testing.T) {
+func TestKafkaIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := KafkaTestSuite{
+	s := KafkaIntegrationSuite{
 		rc: rc,
 		kc: kafkaConfig{
 			topic:           "test_json",
-			integrationName: "go-test",
-			workspace:       "commons",
-			collection:      "kafka-test",
+			integrationName: randomName(t, "kafka"),
+			workspace:       "acc",
+			collection:      randomName(t, "kafka"),
 		},
+		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
+		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
+		confluentSecret:  skipUnlessEnvSet(t, "CC_SECRET"),
 	}
 	suite.Run(t, &s)
 }
 
-func (s *KafkaTestSuite) TestKafka() {
+func (s *KafkaIntegrationSuite) TestKafka() {
 	ctx := testCtx()
 	testKafka(ctx, s.T(), s.rc, s.kc)
 }
 
-func (s *KafkaTestSuite) SetupSuite() {
+func (s *KafkaIntegrationSuite) SetupSuite() {
 	var err error
 	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
@@ -66,7 +71,6 @@ func (s *KafkaTestSuite) SetupSuite() {
 	s.Require().NoError(err, "could not create a network to zookeeper and kafka")
 
 	s.zookeeper, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
-		Name:         "zookeeper-example",
 		Repository:   "wurstmeister/zookeeper",
 		Tag:          "3.4.6",
 		NetworkID:    s.network.ID,
@@ -92,7 +96,6 @@ func (s *KafkaTestSuite) SetupSuite() {
 	s.Require().NoError(err, "could not connect to zookeeper")
 
 	s.kafka, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
-		Name:       "kafka-example",
 		Repository: "wurstmeister/kafka",
 		Tag:        "2.13-2.8.1",
 		NetworkID:  s.network.ID,
@@ -154,14 +157,10 @@ func (s *KafkaTestSuite) SetupSuite() {
 	// kafka connect
 
 	s.connect, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
-		Name:       "kafka-connect",
 		Repository: "rockset/kafka-connect",
 		Tag:        "1.4.2-5",
 		Hostname:   "connect",
-		Env: environment(os.Getenv("CC_BOOTSTRAP_SERVER"),
-			os.Getenv("CC_KEY"),
-			os.Getenv("CC_SECRET"),
-			option.KafkaFormatJSON),
+		Env:        environment(s.bootstrapServers, s.confluentKey, s.confluentSecret, option.KafkaFormatJSON),
 		PortBindings: map[docker.Port][]docker.PortBinding{
 			"9094/tcp": {{HostIP: "localhost", HostPort: "9094/tcp"}},
 			"8083/tcp": {{HostIP: "localhost", HostPort: "8083/tcp"}},
@@ -177,7 +176,7 @@ func (s *KafkaTestSuite) SetupSuite() {
 	s.T().Log("all containers running")
 }
 
-func (s *KafkaTestSuite) TearDownSuite() {
+func (s *KafkaIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
 	var err error
 
