@@ -47,7 +47,7 @@ func (rc *RockClient) WaitUntilKafkaIntegrationActive(ctx context.Context, integ
 // WaitUntilAliasAvailable waits until the alias is available.
 func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, alias string) error {
 	return rc.RetryWithCheck(ctx, func() (bool, error) {
-		_, _, err := rc.AliasesApi.GetAlias(ctx, workspace, alias).Execute()
+		_, err := rc.GetAlias(ctx, workspace, alias)
 
 		if err == nil {
 			return false, nil
@@ -97,8 +97,7 @@ func (rc *RockClient) WaitUntilCollectionHasNewDocuments(ctx context.Context, wo
 
 // WaitUntilCollectionHasDocuments waits until the collection has at least count documents
 func (rc *RockClient) WaitUntilCollectionHasDocuments(ctx context.Context, workspace, name string, count int64) error {
-	waiter := docWaiter{rc: rc}
-	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
+	return rc.RetryWithCheck(ctx, rc.collectionHasDocs(ctx, workspace, name, count))
 }
 
 // WaitUntilWorkspaceAvailable waits until the workspace is available.
@@ -259,10 +258,10 @@ func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name st
 	}
 }
 
-func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name string, count int64) RetryCheck {
+func (rc *RockClient) collectionHasDocs(ctx context.Context, workspace, name string, count int64) RetryCheck {
 	return func() (bool, error) {
 		zl := zerolog.Ctx(ctx)
-		c, err := d.rc.GetCollection(ctx, workspace, name)
+		c, err := rc.GetCollection(ctx, workspace, name)
 		if err != nil {
 			re := NewError(err)
 			if re.Retryable() {
@@ -273,9 +272,8 @@ func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name strin
 		}
 
 		current := c.Stats.GetDocCount()
-		zl.Debug().Str("workspace", workspace).Int64("current", current).
-			Int64("previous", d.prevCount).Str("collection", name).
-			Int64("count", count).Msg("collectionHasNewDocs()")
+		zl.Debug().Str("workspace", workspace).Int64("current", current).Str("collection", name).
+			Int64("count", count).Msg("collectionHasDocs()")
 
 		if current >= count {
 			return false, nil
