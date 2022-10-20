@@ -27,7 +27,7 @@ func TestRockClient_PatchDocuments(t *testing.T) {
 		structs.Map(doc{Foo: "foo"}),
 	}
 
-	res, err := rc.AddDocuments(ctx, "tests", "patch", docs)
+	res, err := rc.AddDocuments(ctx, persistentWorkspace, "patch", docs)
 	require.NoError(t, err)
 	require.Len(t, res, 1)
 
@@ -43,7 +43,7 @@ func TestRockClient_PatchDocuments(t *testing.T) {
 			},
 		},
 	}
-	res, err = rc.PatchDocuments(ctx, "tests", "patch", patches)
+	res, err = rc.PatchDocuments(ctx, persistentWorkspace, "patch", patches)
 	require.NoError(t, err)
 	require.Len(t, res, 1)
 	assert.Equal(t, "PATCHED", *res[0].Status)

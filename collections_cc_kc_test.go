@@ -3,51 +3,59 @@
 package rockset_test
 
 import (
+	"context"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
-	"os"
 	"testing"
 	"time"
 )
 
-type CCKCTestSuite struct {
+type ConfluentCloudWithKafkaConnectIntegrationSuite struct {
 	suite.Suite
-	rc         *rockset.RockClient
-	dockerPool *dockertest.Pool
-	connect    *dockertest.Resource
-	kc         kafkaConfig
+	rc               *rockset.RockClient
+	dockerPool       *dockertest.Pool
+	connect          *dockertest.Resource
+	kc               kafkaConfig
+	bootstrapServers string
+	confluentKey     string
+	confluentSecret  string
 }
 
 // Test creating an integration and collection for Confluent Cloud with a local kafka-connect
-func TestCCKCSuite(t *testing.T) {
+func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := CCKCTestSuite{
+	s := ConfluentCloudWithKafkaConnectIntegrationSuite{
 		rc: rc,
 		kc: kafkaConfig{
 			topic:           "test_json",
-			integrationName: "go-test",
-			workspace:       "commons",
-			collection:      "kafka-test",
+			integrationName: randomName(t, "cckc"),
+			workspace:       "acc",
+			collection:      randomName(t, "cckc"),
 		},
+		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
+		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
+		confluentSecret:  skipUnlessEnvSet(t, "CC_SECRET"),
 	}
 	suite.Run(t, &s)
 }
 
-func (s *CCKCTestSuite) TestKafka() {
+func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TestKafka() {
 	ctx := testCtx()
-	testKafka(ctx, s.T(), s.rc, s.kc)
+	c, cancel := context.WithTimeout(ctx, 5*time.Minute)
+	defer cancel()
+	testKafka(c, s.T(), s.rc, s.kc)
 }
 
-func (s *CCKCTestSuite) SetupSuite() {
+func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) SetupSuite() {
 	var err error
 
 	s.dockerPool, err = dockertest.NewPool("")
@@ -57,14 +65,11 @@ func (s *CCKCTestSuite) SetupSuite() {
 	s.Require().NoError(err)
 
 	s.connect, err = s.dockerPool.RunWithOptions(&dockertest.RunOptions{
-		Name:       "kafka-connect",
 		Repository: "rockset/kafka-connect",
-		Tag:        "1.4.2-5",
+		Tag:        "latest",
 		Hostname:   "connect",
-		Env: environment(os.Getenv("CC_BOOTSTRAP_SERVER"),
-			os.Getenv("CC_KEY"),
-			os.Getenv("CC_SECRET"),
-			option.KafkaFormatJSON),
+		Env:        environment(s.bootstrapServers, s.confluentKey, s.confluentSecret, option.KafkaFormatJSON),
+		// TODO don't use fixed host ports
 		PortBindings: map[docker.Port][]docker.PortBinding{
 			"9094/tcp": {{HostIP: "localhost", HostPort: "9094/tcp"}},
 			"8083/tcp": {{HostIP: "localhost", HostPort: "8083/tcp"}},
@@ -80,8 +85,13 @@ func (s *CCKCTestSuite) SetupSuite() {
 	s.T().Log("kafka connect running")
 }
 
-func (s *CCKCTestSuite) TearDownSuite() {
+func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
+
+	// TODO don't hardcode the URL
+	if err := deleteConnector("http://localhost:8083/connectors", s.kc.integrationName); err == nil {
+		s.T().Logf("deleted connector %s", s.kc.integrationName)
+	}
 
 	if err := s.rc.DeleteCollection(ctx, s.kc.workspace, s.kc.collection); err == nil {
 		s.T().Logf("deleted collection %s.%s", s.kc.workspace, s.kc.collection)

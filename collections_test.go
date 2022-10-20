@@ -4,7 +4,6 @@ import (
 	"github.com/stretchr/testify/suite"
 	"testing"
 
-	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/require"
 
 	"github.com/rockset/rockset-go-client"
@@ -28,28 +27,25 @@ func TestCollectionTestSuite(t *testing.T) {
 func (s *CollectionTestSuite) TestGetCollection() {
 	ctx := testCtx()
 
-	const cName = "_events"
-	collection, err := s.rc.GetCollection(ctx, "commons", cName)
+	collection, err := s.rc.GetCollection(ctx, persistentWorkspace, persistentCollection)
 	s.NoError(err)
-	s.Assert().Equal(cName, collection.GetName())
+	s.Assert().Equal(persistentCollection, collection.GetName())
 }
 
 func (s *CollectionTestSuite) TestListAllCollections() {
 	ctx := testCtx()
-	log := zerolog.Ctx(ctx)
 
 	collections, err := s.rc.ListCollections(ctx)
 	s.NoError(err)
 
-	log.Debug().Int("count", len(collections)).Msg("collections")
+	s.T().Logf("collections: %d", len(collections))
 }
 
 func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 	ctx := testCtx()
-	log := zerolog.Ctx(ctx)
 
-	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace("commons"))
+	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace(persistentWorkspace))
 	s.NoError(err)
 
-	log.Debug().Int("count", len(collections)).Msg("collections")
+	s.T().Logf("collections in %s: %d", persistentWorkspace, len(collections))
 }

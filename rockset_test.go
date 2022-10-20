@@ -2,7 +2,9 @@ package rockset_test
 
 import (
 	"context"
+	"fmt"
 	"os"
+	"strconv"
 	"testing"
 	"time"
 
@@ -43,11 +45,54 @@ func skipUnlessDocker(t *testing.T) {
 
 // helper function to create a context with a zerolog logger
 func testCtx() context.Context {
+	return testCtxWithLevel(zerolog.WarnLevel)
+}
+
+func testCtxWithLevel(lvl zerolog.Level) context.Context {
 	ctx := context.Background()
 	console := zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339}
-	log := zerolog.New(console).Level(zerolog.TraceLevel).With().Timestamp().Logger()
+	log := zerolog.New(console).Level(lvl).With().Timestamp().Logger()
 
 	return log.WithContext(ctx)
+}
+
+// these are used for testing when a persistent value is needed
+const buildNum = "CIRCLE_BUILD_NUM"
+const persistentWorkspace = "persistent"
+const persistentCollection = "snp"
+
+func description() string {
+	num, found := os.LookupEnv(buildNum)
+	if !found {
+		num = "dev"
+	}
+	return fmt.Sprintf("created by terraform integration test run %s", num)
+}
+
+func randomWorkspace(t *testing.T) string {
+	n, found := os.LookupEnv("CIRCLE_BUILD_NUM")
+	if !found {
+		return "go_dev"
+	}
+	num, err := strconv.ParseInt(n, 10, 64)
+	if err != nil {
+		t.Errorf("failed to convert %s to int: %v", n, err)
+	}
+
+	return fmt.Sprintf("go_%d", num)
+}
+
+func randomName(t *testing.T, prefix string) string {
+	n, found := os.LookupEnv(buildNum)
+	if !found {
+		return fmt.Sprintf("go_%s_dev", prefix)
+	}
+	num, err := strconv.ParseInt(n, 10, 64)
+	if err != nil {
+		t.Errorf("failed to convert %s to int: %v", n, err)
+	}
+
+	return fmt.Sprintf("go_%s_%d", prefix, num)
 }
 
 // TestTemplate is used as a copypasta for new tests

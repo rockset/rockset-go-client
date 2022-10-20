@@ -12,7 +12,9 @@ import (
 
 type IntegrationTestSuite struct {
 	suite.Suite
-	rc *rockset.RockClient
+	rc             *rockset.RockClient
+	s3Integration  string
+	gcsIntegration string
 }
 
 func TestIntegrationTestSuite(t *testing.T) {
@@ -21,15 +23,19 @@ func TestIntegrationTestSuite(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	suite.Run(t, &IntegrationTestSuite{rc: rc})
+	suite.Run(t, &IntegrationTestSuite{
+		rc:             rc,
+		s3Integration:  randomName(t, "s3"),
+		gcsIntegration: randomName(t, "gcs"),
+	})
 }
 
 func (s *IntegrationTestSuite) TearDown() {
 	ctx := testCtx()
 
 	// clean up any lingering integrations
-	_ = s.rc.DeleteIntegration(ctx, "s3test")
-	_ = s.rc.DeleteIntegration(ctx, "testGCSIntegration")
+	_ = s.rc.DeleteIntegration(ctx, s.s3Integration)
+	_ = s.rc.DeleteIntegration(ctx, s.gcsIntegration)
 }
 
 func (s *IntegrationTestSuite) TestGetIntegration() {
@@ -50,14 +56,13 @@ func (s *IntegrationTestSuite) TestListIntegrations() {
 
 func (s *IntegrationTestSuite) TestCreateS3Integration() {
 	ctx := testCtx()
-	const name = "s3test"
 
-	_, err := s.rc.CreateS3Integration(ctx, name,
+	_, err := s.rc.CreateS3Integration(ctx, s.s3Integration,
 		option.AWSRole("arn:aws:iam::469279130686:role/rockset-s3-integration"),
-		option.WithS3IntegrationDescription("test"))
+		option.WithS3IntegrationDescription(description()))
 	s.Require().NoError(err)
 
-	err = s.rc.DeleteIntegration(ctx, name)
+	err = s.rc.DeleteIntegration(ctx, s.s3Integration)
 	s.Require().NoError(err)
 }
 
@@ -65,12 +70,11 @@ func (s *IntegrationTestSuite) TestCreateGCSIntegration() {
 	saKeyFile := skipUnlessEnvSet(s.T(), "GCP_SA_KEY_JSON")
 
 	ctx := testCtx()
-	name := "testGCSIntegration"
 
-	_, err := s.rc.CreateGCSIntegration(ctx, name, saKeyFile,
-		option.WithGCSIntegrationDescription("created by rockset integration tests"))
+	_, err := s.rc.CreateGCSIntegration(ctx, s.gcsIntegration, saKeyFile,
+		option.WithGCSIntegrationDescription(description()))
 	s.Require().NoError(err)
 
-	err = s.rc.DeleteIntegration(ctx, name)
+	err = s.rc.DeleteIntegration(ctx, s.gcsIntegration)
 	s.Require().NoError(err)
 }

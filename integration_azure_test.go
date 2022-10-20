@@ -1,7 +1,7 @@
 package rockset_test
 
 import (
-	"errors"
+	"github.com/stretchr/testify/require"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -9,48 +9,49 @@ import (
 	"github.com/rockset/rockset-go-client"
 )
 
-func (s *IntegrationsSuite) TestAzureBlob() {
-	connectionString := skipUnlessEnvSet(s.T(), "ROCKSET_AZURE_CONNECTION_STRING")
-
-	name := "azuretest"
+func (s *AzureIntegrationsSuite) TestAzureBlob() {
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient()
+	_, err := s.rc.CreateAzureBlobStorageIntegration(ctx, s.integrationName, s.connectionString)
 	s.Require().NoError(err)
 
-	// get the integration
-	_, err = rc.GetIntegration(ctx, name)
-
-	if err != nil {
-		// check if it is missing
-		var re rockset.Error
-		if errors.As(err, &re) {
-			if !re.IsNotFoundError() {
-				s.Require().NoError(err)
-			}
-		}
-	} else {
-		// the integration exists, delete it
-		deleteReq := rc.IntegrationsApi.DeleteIntegration(ctx, name)
-		_, _, err = deleteReq.Execute()
-		s.Require().NoError(err)
-	}
-
-	// create a new integration
-	_, err = rc.CreateAzureBlobStorageIntegration(ctx, name, connectionString)
-	s.Require().NoError(err)
-
-	// list integrations and look for the newly created integration
-	integration, err := rc.GetIntegration(ctx, name)
+	integration, err := s.rc.GetIntegration(ctx, s.integrationName)
 	s.Require().NoError(err)
 	s.NotNil(integration)
+
+	err = s.rc.DeleteIntegration(ctx, s.integrationName)
+	s.Require().NoError(err)
 }
 
-type IntegrationsSuite struct {
+type AzureIntegrationsSuite struct {
 	suite.Suite
+	rc               *rockset.RockClient
+	integrationName  string
+	connectionString string
+}
+
+func (s *AzureIntegrationsSuite) TearDownSuite() {
+	ctx := testCtx()
+
+	// cleanup the integration if it is still around
+	_, err := s.rc.GetIntegration(ctx, s.integrationName)
+	if err == nil {
+		s.T().Logf("deleting lingering azure integration: %s", s.integrationName)
+		err = s.rc.DeleteIntegration(ctx, s.integrationName)
+		s.Require().NoError(err)
+	}
 }
 
 func TestAzureIntegrations(t *testing.T) {
-	s := new(IntegrationsSuite)
-	suite.Run(t, s)
+	connectionString := skipUnlessEnvSet(t, "AZURE_CONNECTION_STRING")
+
+	rc, err := rockset.NewClient()
+	require.NoError(t, err)
+
+	s := AzureIntegrationsSuite{
+		rc:               rc,
+		integrationName:  randomName(t, "azure"),
+		connectionString: connectionString,
+	}
+	suite.Run(t, &s)
 }

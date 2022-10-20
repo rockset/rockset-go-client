@@ -13,82 +13,85 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-type ConfluentCloudTestSuite struct {
+type ConfluentCloudIntegrationSuite struct {
 	suite.Suite
-	rc    *rockset.RockClient
-	name  string
-	ws    string
-	coll  string
-	topic string
+	rc               *rockset.RockClient
+	integrationName  string
+	ws               string
+	coll             string
+	topic            string
+	bootstrapServers string
+	confluentKey     string
+	confluentSecret  string
 }
 
 // Test creating an integration and collection for Confluent Cloud
-func TestConfluentCloudTestSuite(t *testing.T) {
+func TestConfluentCloudIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := ConfluentCloudTestSuite{
-		rc:    rc,
-		name:  "confluent-cloud-unit-test",
-		ws:    "tests",
-		coll:  "confluent-cloud-unit-test",
-		topic: "test_json",
+	s := ConfluentCloudIntegrationSuite{
+		rc:               rc,
+		integrationName:  randomName(t, "integration"),
+		ws:               "acc",
+		coll:             randomName(t, "cc"),
+		topic:            "test_json",
+		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
+		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
+		confluentSecret:  skipUnlessEnvSet(t, "CC_SECRET"),
 	}
 	suite.Run(t, &s)
 }
 
-func (s *ConfluentCloudTestSuite) SetupSuite() {
-	apikey := skipUnlessEnvSet(s.T(), "CC_KEY")
-	secret := skipUnlessEnvSet(s.T(), "CC_SECRET")
-	bootstrap := skipUnlessEnvSet(s.T(), "CC_BOOTSTRAP_SERVER")
+func (s *ConfluentCloudIntegrationSuite) SetupSuite() {
 	ctx := testCtx()
 
-	_, err := s.rc.CreateKafkaIntegration(ctx, s.name,
-		option.WithKafkaIntegrationDescription("created by go integration test"),
+	_, err := s.rc.CreateKafkaIntegration(ctx, s.integrationName,
+		option.WithKafkaIntegrationDescription(description()),
 		option.WithKafkaV3(),
-		option.WithKafkaBootstrapServers(bootstrap),
-		option.WithKafkaSecurityConfig(apikey, secret),
+		option.WithKafkaBootstrapServers(s.bootstrapServers),
+		option.WithKafkaSecurityConfig(s.confluentKey, s.confluentSecret),
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilKafkaIntegrationActive(ctx, s.name)
+	err = s.rc.WaitUntilKafkaIntegrationActive(ctx, s.integrationName)
 	s.Require().NoError(err)
 }
 
-func (s *ConfluentCloudTestSuite) TearDownSuite() {
+func (s *ConfluentCloudIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
 
-	err := s.rc.DeleteIntegration(ctx, s.name)
+	err := s.rc.DeleteIntegration(ctx, s.integrationName)
 	s.Require().NoError(err)
 }
 
-func (s *ConfluentCloudTestSuite) TestCreateJSONCollection() {
+func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {
 	ctx := testCtx()
 
 	_, err := s.rc.CreateKafkaCollection(ctx, s.ws, s.coll,
-		option.WithCollectionDescription("created by go integration test"),
+		option.WithCollectionDescription(description()),
 		option.WithCollectionRetention(time.Hour),
-		option.WithKafkaSource(s.name, s.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
+		option.WithKafkaSource(s.integrationName, s.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
 			option.WithKafkaSourceV3(),
 		),
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.name)
+	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 
 	// TODO(pmenglund) this should write a document to kafka so we don't need a data generator
 	//  in Confluent Cloud
-	err = s.rc.WaitUntilCollectionDocuments(ctx, s.ws, s.coll, 1)
+	err = s.rc.WaitUntilCollectionHasNewDocuments(ctx, s.ws, s.coll, 1)
 	s.Require().NoError(err)
 }
 
-func (s *ConfluentCloudTestSuite) TestDeleteCollection() {
+func (s *ConfluentCloudIntegrationSuite) TestDeleteCollection() {
 	ctx := testCtx()
 
-	err := s.rc.DeleteCollection(ctx, s.ws, s.name)
+	err := s.rc.DeleteCollection(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 
 	err = s.rc.WaitUntilCollectionGone(ctx, s.ws, s.coll)

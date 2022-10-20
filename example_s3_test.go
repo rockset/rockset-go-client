@@ -21,7 +21,7 @@ func Example_s3() {
 	}
 
 	// create integration
-	r, err := rc.CreateS3Integration(ctx, "s3exampleIntegration",
+	r, err := rc.CreateS3Integration(ctx, "exampleS3Integration",
 		option.AWSRole("arn:aws:iam::469279130686:role/rockset-s3-integration"),
 		option.WithS3IntegrationDescription("created by go example code"))
 	if err != nil {
@@ -30,9 +30,9 @@ func Example_s3() {
 	fmt.Printf("integration created: %s\n", r.GetName())
 
 	// create an S3 collection
-	c, err := rc.CreateCollection(ctx, "commons", "s3example",
+	c, err := rc.CreateCollection(ctx, "example", "fromS3",
 		option.WithCollectionDescription("created by go example code"),
-		option.WithS3Source("s3exampleIntegration", "rockset-go-tests",
+		option.WithS3Source("exampleS3Integration", "rockset-go-tests",
 			option.WithCSVFormat(
 				[]string{"city", "country", "population", "visited"},
 				[]option.ColumnType{
@@ -54,52 +54,52 @@ func Example_s3() {
 	fmt.Printf("collection created: %s\n", c.GetName())
 
 	// wait until collection is ready
-	err = rc.WaitUntilCollectionReady(ctx, "commons", "s3example")
+	err = rc.WaitUntilCollectionReady(ctx, "example", "fromS3")
 	if err != nil {
 		log.Fatalf("failed to wait for collection to be ready: %v", err)
 	}
 	fmt.Printf("collection ready: %s\n", c.GetName())
 
 	// wait until there are at least 3 new documents in the collection
-	err = rc.WaitUntilCollectionDocuments(ctx, "commons", "s3example", 3)
+	err = rc.WaitUntilCollectionHasDocuments(ctx, "example", "fromS3", 3)
 	if err != nil {
 		log.Fatalf("failed to wait for new documents: %v", err)
 	}
 
 	// get number of documents
-	collection, err := rc.GetCollection(ctx, "commons", "s3example")
+	collection, err := rc.GetCollection(ctx, "example", "fromS3")
 	if err != nil {
 		log.Fatalf("failed to get collection: %v", err)
 	}
 	fmt.Printf("collection documents: %d\n", collection.Stats.GetDocCount())
 
 	// delete the collection
-	err = rc.DeleteCollection(ctx, "commons", "s3example")
+	err = rc.DeleteCollection(ctx, "example", "fromS3")
 	if err != nil {
 		log.Fatalf("failed to delete collection: %v", err)
 	}
 	fmt.Printf("collection deleted: %s\n", c.GetName())
 
 	// wait until the collection is gone
-	err = rc.WaitUntilCollectionGone(ctx, "commons", "s3example")
+	err = rc.WaitUntilCollectionGone(ctx, "example", "fromS3")
 	if err != nil {
 		log.Fatalf("failed to wait for collection to be gone: %v", err)
 	}
 	fmt.Printf("collection gone: %s\n", c.GetName())
 
 	// delete integration
-	err = rc.DeleteIntegration(ctx, "s3exampleIntegration")
+	err = rc.DeleteIntegration(ctx, "exampleS3Integration")
 	if err != nil {
 		log.Fatalf("failed to delete integration: %v", err)
 	}
 	fmt.Printf("integration deleted: %s\n", r.GetName())
 
 	// Output:
-	// integration created: s3exampleIntegration
-	// collection created: s3example
-	// collection ready: s3example
+	// integration created: exampleS3Integration
+	// collection created: fromS3
+	// collection ready: fromS3
 	// collection documents: 3
-	// collection deleted: s3example
-	// collection gone: s3example
-	// integration deleted: s3exampleIntegration
+	// collection deleted: fromS3
+	// collection gone: fromS3
+	// integration deleted: exampleS3Integration
 }

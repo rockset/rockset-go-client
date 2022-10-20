@@ -26,7 +26,7 @@ type kafkaConfig struct {
 
 func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kafkaConfig) {
 	i, err := rc.CreateKafkaIntegration(ctx, kc.integrationName, option.WithKafkaDataFormat(option.KafkaFormatJSON),
-		option.WithKafkaIntegrationTopic(kc.topic))
+		option.WithKafkaIntegrationTopic(kc.topic), option.WithKafkaIntegrationDescription(description()))
 	require.NoError(t, err)
 
 	u := fmt.Sprintf("https://%s", os.Getenv("ROCKSET_APISERVER"))
@@ -45,7 +45,8 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 		KeyConverterSchemasEnable:   false,
 		ValueConverterSchemasEnable: false,
 	}
-	err = configureKafkaConnect("http://localhost:8083/connectors", kc.integrationName, cc)
+	// TODO don't hardcode the URL
+	err = createConnector("http://localhost:8083/connectors", kc.integrationName, cc)
 	require.NoError(t, err)
 
 	t.Log("waiting for integration to be ready...")
@@ -53,17 +54,18 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 	require.NoError(t, err)
 
 	_, err = rc.CreateKafkaCollection(ctx, kc.workspace, kc.collection,
-		option.WithKafkaSource(kc.integrationName, kc.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat()))
+		option.WithKafkaSource(kc.integrationName, kc.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat()),
+		option.WithCollectionDescription(description()))
 	require.NoError(t, err)
 
 	t.Log("waiting for collection to start receiving documents...")
-	err = rc.WaitUntilCollectionDocuments(ctx, kc.workspace, kc.collection, 1)
+	err = rc.WaitUntilCollectionHasNewDocuments(ctx, kc.workspace, kc.collection, 1)
 	require.NoError(t, err)
 
 	t.Log("done")
 }
 
-type ConnectorRequest struct {
+type CreateConnectorRequest struct {
 	Name   string          `json:"name"`
 	Config ConnectorConfig `json:"config"`
 }
@@ -89,8 +91,8 @@ func loggingCloser(c io.Closer) {
 	}
 }
 
-func configureKafkaConnect(url, name string, cfg ConnectorConfig) error {
-	r := ConnectorRequest{
+func createConnector(url, name string, cfg ConnectorConfig) error {
+	r := CreateConnectorRequest{
 		Name:   name,
 		Config: cfg,
 	}
@@ -109,13 +111,35 @@ func configureKafkaConnect(url, name string, cfg ConnectorConfig) error {
 	if err != nil {
 		return err
 	}
-	log.Printf("payload: %s", string(payload))
 
 	if resp.StatusCode != http.StatusCreated {
-		return fmt.Errorf("bad response: %d", resp.StatusCode)
+		return fmt.Errorf("unexpected response %d: %s", resp.StatusCode, string(payload))
 	}
 
 	return err
+}
+func deleteConnector(url, name string) error {
+	c := http.Client{}
+	r, err := http.NewRequest(http.MethodDelete, fmt.Sprintf("%s/%s", url, name), nil)
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.Do(r)
+	if err != nil {
+		return err
+	}
+
+	payload, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	if resp.StatusCode != http.StatusCreated {
+		return fmt.Errorf("unexpected response %d: %s", resp.StatusCode, string(payload))
+	}
+
+	return nil
 }
 
 func waitForKafkaConnect(t *testing.T, url string) func() error {
@@ -123,20 +147,17 @@ func waitForKafkaConnect(t *testing.T, url string) func() error {
 		c := http.Client{}
 		resp, err := c.Get(url)
 		if err != nil {
-			t.Logf("error getting %s: %v", url, err)
 			return err
 		}
 
 		body, err := io.ReadAll(resp.Body)
 		if err != nil {
-			t.Logf("error reading body: %v", err)
 			return err
 		}
 		defer loggingCloser(resp.Body)
 
 		if resp.StatusCode != 200 {
-			t.Logf("error: %v", err)
-			return fmt.Errorf("expected 200 got %d", resp.StatusCode)
+			return fmt.Errorf("expected 200 got %d: %s", resp.StatusCode, string(body))
 		}
 
 		t.Logf("body: %s", string(body))

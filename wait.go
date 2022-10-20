@@ -65,8 +65,8 @@ func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, al
 	})
 }
 
-// WaitForQuery waits until queryID has either completed, errored, or been cancelled.
-func (rc *RockClient) WaitForQuery(ctx context.Context, queryID string) error {
+// WaitUntilQueryCompleted waits until queryID has either completed, errored, or been cancelled.
+func (rc *RockClient) WaitUntilQueryCompleted(ctx context.Context, queryID string) error {
 	// TODO should this only wait for COMPLETED and return an error for ERROR and CANCELLED?
 	return rc.RetryWithCheck(ctx, rc.queryHasStatus(ctx, queryID, []QueryState{QueryCompleted, QueryError, QueryCancelled}))
 }
@@ -88,8 +88,15 @@ func (rc *RockClient) WaitUntilViewGone(ctx context.Context, workspace, name str
 	return rc.RetryWithCheck(ctx, rc.viewIsGone(ctx, workspace, name))
 }
 
-// WaitUntilCollectionDocuments waits until the collection has at least count new documents
-func (rc *RockClient) WaitUntilCollectionDocuments(ctx context.Context, workspace, name string, count int64) error {
+// WaitUntilCollectionHasNewDocuments waits until the collection has at least count new documents
+// (measured from when the method is called).
+func (rc *RockClient) WaitUntilCollectionHasNewDocuments(ctx context.Context, workspace, name string, count int64) error {
+	waiter := docWaiter{rc: rc}
+	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
+}
+
+// WaitUntilCollectionHasDocuments waits until the collection has at least count documents
+func (rc *RockClient) WaitUntilCollectionHasDocuments(ctx context.Context, workspace, name string, count int64) error {
 	waiter := docWaiter{rc: rc}
 	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
 }
@@ -245,6 +252,32 @@ func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name st
 		}
 
 		if current-d.prevCount >= count {
+			return false, nil
+		}
+
+		return true, nil
+	}
+}
+
+func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name string, count int64) RetryCheck {
+	return func() (bool, error) {
+		zl := zerolog.Ctx(ctx)
+		c, err := d.rc.GetCollection(ctx, workspace, name)
+		if err != nil {
+			re := NewError(err)
+			if re.Retryable() {
+				return true, nil
+			}
+
+			return false, err
+		}
+
+		current := c.Stats.GetDocCount()
+		zl.Debug().Str("workspace", workspace).Int64("current", current).
+			Int64("previous", d.prevCount).Str("collection", name).
+			Int64("count", count).Msg("collectionHasNewDocs()")
+
+		if current >= count {
 			return false, nil
 		}
 

@@ -7,6 +7,12 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+const (
+	ReadOnlyRole = "read-only"
+	MemberRole   = "member"
+	AdminRole    = "admin"
+)
+
 // CreateRole creates a new role
 //
 // REST API documentation https://docs.rockset.com/rest-api/#createrole
