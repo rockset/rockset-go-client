@@ -5,7 +5,7 @@ import (
 	"errors"
 	"github.com/rockset/rockset-go-client/fakes"
 	"github.com/rockset/rockset-go-client/openapi"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/suite"
 	"net/http"
 	"strings"
 	"testing"
@@ -22,7 +22,16 @@ func fakeError(code int) error {
 	}
 }
 
-func TestQueryHasStatus(t *testing.T) {
+type WaitSuite struct {
+	suite.Suite
+}
+
+func TestWaitSuite(t *testing.T) {
+	s := WaitSuite{}
+	suite.Run(t, &s)
+}
+
+func (s *WaitSuite) TestQueryHasStatus() {
 	ctx := context.TODO()
 
 	f := &fakes.FakeQueryInfoGetter{}
@@ -33,12 +42,11 @@ func TestQueryHasStatus(t *testing.T) {
 
 	fn := queryHasStatus(ctx, f, "id", []QueryState{QueryCompleted})
 	err := ExponentialRetry{MaxBackoff: time.Millisecond, WaitInterval: time.Microsecond}.RetryWithCheck(ctx, fn)
-	assert.NoError(t, err)
-
-	assert.Equal(t, 3, f.GetQueryInfoCallCount())
+	s.Require().NoError(err)
+	s.Assert().Equal(3, f.GetQueryInfoCallCount())
 }
 
-func TestQueryHasStatus_error(t *testing.T) {
+func (s *WaitSuite) TestQueryHasStatus_error() {
 	ctx := context.TODO()
 
 	f := &fakes.FakeQueryInfoGetter{}
@@ -47,11 +55,11 @@ func TestQueryHasStatus_error(t *testing.T) {
 
 	fn := queryHasStatus(ctx, f, "id", []QueryState{QueryCompleted})
 	err := ExponentialRetry{MaxBackoff: time.Millisecond, WaitInterval: time.Microsecond}.RetryWithCheck(ctx, fn)
-	assert.Error(t, err)
-	assert.Equal(t, 2, f.GetQueryInfoCallCount())
+	s.Assert().Error(err)
+	s.Assert().Equal(2, f.GetQueryInfoCallCount())
 }
 
-func TestCollectionHasState(t *testing.T) {
+func (s *WaitSuite) TestCollectionHasState() {
 	ctx := context.TODO()
 
 	f := &fakes.FakeCollectionGetter{}
@@ -62,12 +70,11 @@ func TestCollectionHasState(t *testing.T) {
 
 	fn := collectionHasState(ctx, f, "ws", "c", "foobar")
 	err := ExponentialRetry{MaxBackoff: time.Millisecond, WaitInterval: time.Microsecond}.RetryWithCheck(ctx, fn)
-	assert.NoError(t, err)
-
-	assert.Equal(t, 3, f.GetCollectionCallCount())
+	s.Require().NoError(err)
+	s.Assert().Equal(3, f.GetCollectionCallCount())
 }
 
-func TestCollectionHasNewDocs(t *testing.T) {
+func (s *WaitSuite) TestCollectionHasNewDocs() {
 	ctx := context.TODO()
 
 	f := &fakes.FakeCollectionGetter{}
@@ -80,7 +87,6 @@ func TestCollectionHasNewDocs(t *testing.T) {
 
 	fn := d.collectionHasNewDocs(ctx, "ws", "c", 30)
 	err := ExponentialRetry{MaxBackoff: time.Millisecond, WaitInterval: time.Microsecond}.RetryWithCheck(ctx, fn)
-	assert.NoError(t, err)
-
-	assert.Equal(t, 5, f.GetCollectionCallCount())
+	s.Require().NoError(err)
+	s.Assert().Equal(5, f.GetCollectionCallCount())
 }
