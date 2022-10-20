@@ -2,9 +2,13 @@ package rockset_test
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"github.com/rockset/rockset-go-client/openapi"
+	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -54,6 +58,16 @@ func testCtxWithLevel(lvl zerolog.Level) context.Context {
 	log := zerolog.New(console).Level(lvl).With().Timestamp().Logger()
 
 	return log.WithContext(ctx)
+}
+
+func fakeError(code int) error {
+	s := strings.Join(strings.Fields(http.StatusText(code)), "")
+	return rockset.Error{
+		ErrorModel: &openapi.ErrorModel{
+			Type: &s,
+		},
+		Cause: errors.New("fake error"),
+	}
 }
 
 // these are used for testing when a persistent value is needed

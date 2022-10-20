@@ -4,9 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/rs/zerolog"
 )
+
+//go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
 
 const (
 	collectionStatusREADY = "READY"
@@ -68,7 +71,7 @@ func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, al
 // WaitUntilQueryCompleted waits until queryID has either completed, errored, or been cancelled.
 func (rc *RockClient) WaitUntilQueryCompleted(ctx context.Context, queryID string) error {
 	// TODO should this only wait for COMPLETED and return an error for ERROR and CANCELLED?
-	return rc.RetryWithCheck(ctx, rc.queryHasStatus(ctx, queryID, []QueryState{QueryCompleted, QueryError, QueryCancelled}))
+	return rc.RetryWithCheck(ctx, queryHasStatus(ctx, rc, queryID, []QueryState{QueryCompleted, QueryError, QueryCancelled}))
 }
 
 // WaitUntilCollectionReady waits until the collection is ready.
@@ -107,9 +110,14 @@ func (rc *RockClient) WaitUntilWorkspaceAvailable(ctx context.Context, workspace
 
 // TODO(pme) refactor viewIsGone() and collectionIsGone() to be DRY
 
-func (rc *RockClient) queryHasStatus(ctx context.Context, queryID string, statuses []QueryState) RetryCheck {
+//counterfeiter:generate -o fakes . queryInfoGetter
+type queryInfoGetter interface {
+	GetQueryInfo(context.Context, string) (openapi.QueryInfo, error)
+}
+
+func queryHasStatus(ctx context.Context, getter queryInfoGetter, queryID string, statuses []QueryState) RetryCheck {
 	return func() (bool, error) {
-		res, err := rc.GetQueryInfo(ctx, queryID)
+		res, err := getter.GetQueryInfo(ctx, queryID)
 		if err != nil {
 			return false, err
 		}
@@ -196,6 +204,35 @@ func (rc *RockClient) collectionIsGone(ctx context.Context, workspace, name stri
 		}
 
 		return false, err
+	}
+}
+
+//counterfeiter:generate -o fakes . collectionGetter
+type collectionGetter interface {
+	GetCollection(context.Context, string, string) (openapi.Collection, error)
+}
+
+func collectionHasState(ctx context.Context, getter collectionGetter, workspace, name, state string) RetryCheck {
+	return func() (bool, error) {
+		zl := zerolog.Ctx(ctx)
+		c, err := getter.GetCollection(ctx, workspace, name)
+		if err != nil {
+			var re Error
+			if errors.As(err, &re) {
+				if re.Retryable() {
+					return true, nil
+				}
+			}
+			return false, err
+		}
+
+		zl.Debug().Str("status", c.GetStatus()).Str("workspace", workspace).
+			Str("desired", c.GetStatus()).Str("collection", name).Msg("collectionHasState()")
+		if c.GetStatus() == state {
+			return false, nil
+		}
+
+		return true, nil
 	}
 }
 

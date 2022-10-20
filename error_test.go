@@ -2,6 +2,7 @@ package rockset_test
 
 import (
 	"errors"
+	"github.com/stretchr/testify/assert"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -23,5 +24,13 @@ func TestError_IsNotFoundError(t *testing.T) {
 	var re rockset.Error
 	if errors.As(err, &re) {
 		require.True(t, re.IsNotFoundError())
+	}
+}
+
+func TestError_Retryable(t *testing.T) {
+	for _, status := range rockset.RetryableErrors {
+		var err rockset.Error
+		require.True(t, errors.As(fakeError(status), &err))
+		assert.True(t, err.Retryable())
 	}
 }
