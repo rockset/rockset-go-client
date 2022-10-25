@@ -70,9 +70,6 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	if opts.Size != nil {
 		req.NewSize = opts.Size
 	}
-	if opts.Type != nil {
-		req.NewType = opts.Type
-	}
 	if opts.MonitoringEnabled != nil {
 		req.MonitoringEnabled = opts.MonitoringEnabled
 	}

@@ -27,7 +27,6 @@ type CreateIntegrationRequest struct {
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
 	AzureServiceBus *AzureServiceBusIntegration `json:"azure_service_bus,omitempty"`
 	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
-	Segment *SegmentIntegration `json:"segment,omitempty"`
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
 	Snowflake *SnowflakeIntegration `json:"snowflake,omitempty"`
@@ -331,38 +330,6 @@ func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration
 	o.AzureEventHubs = &v
 }
 
-// GetSegment returns the Segment field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetSegment() SegmentIntegration {
-	if o == nil || o.Segment == nil {
-		var ret SegmentIntegration
-		return ret
-	}
-	return *o.Segment
-}
-
-// GetSegmentOk returns a tuple with the Segment field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetSegmentOk() (*SegmentIntegration, bool) {
-	if o == nil || o.Segment == nil {
-		return nil, false
-	}
-	return o.Segment, true
-}
-
-// HasSegment returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasSegment() bool {
-	if o != nil && o.Segment != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSegment gets a reference to the given SegmentIntegration and assigns it to the Segment field.
-func (o *CreateIntegrationRequest) SetSegment(v SegmentIntegration) {
-	o.Segment = &v
-}
-
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetKafka() KafkaIntegration {
 	if o == nil || o.Kafka == nil {
@@ -487,9 +454,6 @@ func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.AzureEventHubs != nil {
 		toSerialize["azure_event_hubs"] = o.AzureEventHubs
-	}
-	if o.Segment != nil {
-		toSerialize["segment"] = o.Segment
 	}
 	if o.Kafka != nil {
 		toSerialize["kafka"] = o.Kafka

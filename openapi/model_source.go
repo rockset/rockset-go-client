@@ -16,6 +16,8 @@ import (
 
 // Source Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
 type Source struct {
+	// Unique source identifier.
+	Id *string `json:"id,omitempty"`
 	// Name of integration to use.
 	IntegrationName *string `json:"integration_name,omitempty"`
 	S3 *SourceS3 `json:"s3,omitempty"`
@@ -48,6 +50,38 @@ func NewSource() *Source {
 func NewSourceWithDefaults() *Source {
 	this := Source{}
 	return &this
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Source) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Source) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Source) SetId(v string) {
+	o.Id = &v
 }
 
 // GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
@@ -500,6 +534,9 @@ func (o *Source) SetFormatParams(v FormatParams) {
 
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
+	}
 	if o.IntegrationName != nil {
 		toSerialize["integration_name"] = o.IntegrationName
 	}

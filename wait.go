@@ -98,7 +98,7 @@ func (rc *RockClient) WaitUntilCollectionHasNewDocuments(ctx context.Context, wo
 // WaitUntilCollectionHasDocuments waits until the collection has at least count documents
 func (rc *RockClient) WaitUntilCollectionHasDocuments(ctx context.Context, workspace, name string, count int64) error {
 	waiter := docWaiter{rc: rc}
-	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
+	return rc.RetryWithCheck(ctx, waiter.collectionHasDocs(ctx, workspace, name, count))
 }
 
 // WaitUntilWorkspaceAvailable waits until the workspace is available.

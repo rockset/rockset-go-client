@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | **string** | Query Lambda name. | 
 **Description** | Pointer to **string** | Optional description. | [optional] 
 **Sql** | [**QueryLambdaSql**](QueryLambdaSql.md) |  | 
+**IsPublic** | Pointer to **bool** |  | [optional] 
 
 ## Methods
 
@@ -91,6 +92,31 @@ and a boolean to check if the value has been set.
 
 SetSql sets Sql field to given value.
 
+
+### GetIsPublic
+
+`func (o *CreateQueryLambdaRequest) GetIsPublic() bool`
+
+GetIsPublic returns the IsPublic field if non-nil, zero value otherwise.
+
+### GetIsPublicOk
+
+`func (o *CreateQueryLambdaRequest) GetIsPublicOk() (*bool, bool)`
+
+GetIsPublicOk returns a tuple with the IsPublic field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsPublic
+
+`func (o *CreateQueryLambdaRequest) SetIsPublic(v bool)`
+
+SetIsPublic sets IsPublic field to given value.
+
+### HasIsPublic
+
+`func (o *CreateQueryLambdaRequest) HasIsPublic() bool`
+
+HasIsPublic returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

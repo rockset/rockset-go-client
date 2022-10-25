@@ -230,36 +230,6 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAcc
 	return resp.GetData(), nil
 }
 
-func (rc *RockClient) CreateSegmentIntegration(ctx context.Context, name, connectionString string,
-	options ...option.SegmentIntegrationOption) (openapi.Integration, error) {
-	var err error
-	var resp *openapi.CreateIntegrationResponse
-
-	q := rc.IntegrationsApi.CreateIntegration(ctx)
-	req := openapi.NewCreateIntegrationRequest(name)
-
-	opts := option.SegmentIntegration{}
-	for _, o := range options {
-		o(&opts)
-	}
-
-	req.Segment.ConnectionString = &connectionString
-	if opts.Description != nil {
-		req.Description = opts.Description
-	}
-
-	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
-	})
-
-	if err != nil {
-		return openapi.Integration{}, err
-	}
-
-	return resp.GetData(), nil
-}
-
 // CreateKafkaIntegration create a new integration for a Kafka source.
 // If no format is specified, it defaults to JSON.
 func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string,

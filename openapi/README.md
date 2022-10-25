@@ -136,6 +136,7 @@ Class | Method | HTTP request | Description
 *QueryLambdasApi* | [**ListQueryLambdaVersions**](docs/QueryLambdasApi.md#listquerylambdaversions) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | List Query Lambda Versions
 *QueryLambdasApi* | [**ListQueryLambdasInWorkspace**](docs/QueryLambdasApi.md#listquerylambdasinworkspace) | **Get** /v1/orgs/self/ws/{workspace}/lambdas | List Query Lambdas in Workspace
 *QueryLambdasApi* | [**UpdateQueryLambda**](docs/QueryLambdasApi.md#updatequerylambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | Update Query Lambda
+*SharedLambdasApi* | [**ExecutePublicQueryLambda**](docs/SharedLambdasApi.md#executepublicquerylambda) | **Get** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
 *UsersApi* | [**CreateUser**](docs/UsersApi.md#createuser) | **Post** /v1/orgs/self/users | Create User
 *UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /v1/orgs/self/users/{user} | Delete User
 *UsersApi* | [**GetCurrentUser**](docs/UsersApi.md#getcurrentuser) | **Get** /v1/orgs/self/users/self | Retrieve Current User
@@ -143,15 +144,26 @@ Class | Method | HTTP request | Description
 *UsersApi* | [**ListUnsubscribePreferences**](docs/UsersApi.md#listunsubscribepreferences) | **Get** /v1/orgs/self/users/self/preferences | Retrieve Notification Preferences
 *UsersApi* | [**ListUsers**](docs/UsersApi.md#listusers) | **Get** /v1/orgs/self/users | List Users
 *UsersApi* | [**UpdateUnsubscribePreferences**](docs/UsersApi.md#updateunsubscribepreferences) | **Post** /v1/orgs/self/users/self/preferences | Update Notification Preferences
+*UsersApi* | [**UpdateUser**](docs/UsersApi.md#updateuser) | **Post** /v1/orgs/self/users/{user} | Update User
 *ViewsApi* | [**CreateView**](docs/ViewsApi.md#createview) | **Post** /v1/orgs/self/ws/{workspace}/views | Create View
 *ViewsApi* | [**DeleteView**](docs/ViewsApi.md#deleteview) | **Delete** /v1/orgs/self/ws/{workspace}/views/{view} | Delete View
 *ViewsApi* | [**GetView**](docs/ViewsApi.md#getview) | **Get** /v1/orgs/self/ws/{workspace}/views/{view} | Retrieve View
 *ViewsApi* | [**ListViews**](docs/ViewsApi.md#listviews) | **Get** /v1/orgs/self/views | List Views
 *ViewsApi* | [**UpdateView**](docs/ViewsApi.md#updateview) | **Post** /v1/orgs/self/ws/{workspace}/views/{view} | Update View
 *ViewsApi* | [**WorkspaceViews**](docs/ViewsApi.md#workspaceviews) | **Get** /v1/orgs/self/ws/{workspace}/views | List Views in Workspace
+*VirtualInstancesApi* | [**CreateVirtualInstance**](docs/VirtualInstancesApi.md#createvirtualinstance) | **Post** /v1/orgs/self/virtualinstances | Create Virtual Instance
+*VirtualInstancesApi* | [**DeleteVirtualInstance**](docs/VirtualInstancesApi.md#deletevirtualinstance) | **Delete** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Delete Virtual Instance
+*VirtualInstancesApi* | [**GetCollectionMount**](docs/VirtualInstancesApi.md#getcollectionmount) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts/{collectionPath} | Get Collection Mount
 *VirtualInstancesApi* | [**GetVirtualInstance**](docs/VirtualInstancesApi.md#getvirtualinstance) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Retrieve Virtual Instance
+*VirtualInstancesApi* | [**GetVirtualInstanceQueries**](docs/VirtualInstancesApi.md#getvirtualinstancequeries) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | List Queries
+*VirtualInstancesApi* | [**ListCollectionMounts**](docs/VirtualInstancesApi.md#listcollectionmounts) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | List Collection Mounts
 *VirtualInstancesApi* | [**ListVirtualInstances**](docs/VirtualInstancesApi.md#listvirtualinstances) | **Get** /v1/orgs/self/virtualinstances | List Virtual Instances
+*VirtualInstancesApi* | [**MountCollection**](docs/VirtualInstancesApi.md#mountcollection) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | Mount Collection
+*VirtualInstancesApi* | [**QueryVirtualInstance**](docs/VirtualInstancesApi.md#queryvirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | Execute SQL Query
+*VirtualInstancesApi* | [**ResumeVirtualInstance**](docs/VirtualInstancesApi.md#resumevirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/resume | Resume Virtual Instance
 *VirtualInstancesApi* | [**SetVirtualInstance**](docs/VirtualInstancesApi.md#setvirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Update Virtual Instance
+*VirtualInstancesApi* | [**SuspendVirtualInstance**](docs/VirtualInstancesApi.md#suspendvirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/suspend | Suspend Virtual Instance
+*VirtualInstancesApi* | [**UnmountCollection**](docs/VirtualInstancesApi.md#unmountcollection) | **Delete** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts/{collectionPath} | Unmount Collection
 *WorkspacesApi* | [**CreateWorkspace**](docs/WorkspacesApi.md#createworkspace) | **Post** /v1/orgs/self/ws | Create Workspace
 *WorkspacesApi* | [**DeleteWorkspace**](docs/WorkspacesApi.md#deleteworkspace) | **Delete** /v1/orgs/self/ws/{workspace} | Delete Workspace
 *WorkspacesApi* | [**GetWorkspace**](docs/WorkspacesApi.md#getworkspace) | **Get** /v1/orgs/self/ws/{workspace} | Retrieve Workspace
@@ -173,11 +185,14 @@ Class | Method | HTTP request | Description
  - [CancelQueryResponse](docs/CancelQueryResponse.md)
  - [Cluster](docs/Cluster.md)
  - [Collection](docs/Collection.md)
+ - [CollectionMount](docs/CollectionMount.md)
+ - [CollectionMountResponse](docs/CollectionMountResponse.md)
  - [CollectionStats](docs/CollectionStats.md)
  - [CreateAliasRequest](docs/CreateAliasRequest.md)
  - [CreateAliasResponse](docs/CreateAliasResponse.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [CreateApiKeyResponse](docs/CreateApiKeyResponse.md)
+ - [CreateCollectionMountRequest](docs/CreateCollectionMountRequest.md)
  - [CreateCollectionRequest](docs/CreateCollectionRequest.md)
  - [CreateCollectionResponse](docs/CreateCollectionResponse.md)
  - [CreateIntegrationRequest](docs/CreateIntegrationRequest.md)
@@ -189,6 +204,8 @@ Class | Method | HTTP request | Description
  - [CreateUserResponse](docs/CreateUserResponse.md)
  - [CreateViewRequest](docs/CreateViewRequest.md)
  - [CreateViewResponse](docs/CreateViewResponse.md)
+ - [CreateVirtualInstanceRequest](docs/CreateVirtualInstanceRequest.md)
+ - [CreateVirtualInstanceResponse](docs/CreateVirtualInstanceResponse.md)
  - [CreateWorkspaceRequest](docs/CreateWorkspaceRequest.md)
  - [CreateWorkspaceResponse](docs/CreateWorkspaceResponse.md)
  - [CsvParams](docs/CsvParams.md)
@@ -202,6 +219,7 @@ Class | Method | HTTP request | Description
  - [DeleteQueryLambdaResponse](docs/DeleteQueryLambdaResponse.md)
  - [DeleteUserResponse](docs/DeleteUserResponse.md)
  - [DeleteViewResponse](docs/DeleteViewResponse.md)
+ - [DeleteVirtualInstanceResponse](docs/DeleteVirtualInstanceResponse.md)
  - [DeleteWorkspaceResponse](docs/DeleteWorkspaceResponse.md)
  - [DocumentStatus](docs/DocumentStatus.md)
  - [DynamodbIntegration](docs/DynamodbIntegration.md)
@@ -229,6 +247,7 @@ Class | Method | HTTP request | Description
  - [KinesisIntegration](docs/KinesisIntegration.md)
  - [ListAliasesResponse](docs/ListAliasesResponse.md)
  - [ListApiKeysResponse](docs/ListApiKeysResponse.md)
+ - [ListCollectionMountsResponse](docs/ListCollectionMountsResponse.md)
  - [ListCollectionsResponse](docs/ListCollectionsResponse.md)
  - [ListIntegrationsResponse](docs/ListIntegrationsResponse.md)
  - [ListQueriesResponse](docs/ListQueriesResponse.md)
@@ -268,11 +287,11 @@ Class | Method | HTTP request | Description
  - [QueryRequestSql](docs/QueryRequestSql.md)
  - [QueryResponse](docs/QueryResponse.md)
  - [QueryResponseStats](docs/QueryResponseStats.md)
+ - [ResumeVirtualInstanceResponse](docs/ResumeVirtualInstanceResponse.md)
  - [Role](docs/Role.md)
  - [RoleResponse](docs/RoleResponse.md)
  - [S3Integration](docs/S3Integration.md)
  - [SchemaRegistryConfig](docs/SchemaRegistryConfig.md)
- - [SegmentIntegration](docs/SegmentIntegration.md)
  - [SnowflakeIntegration](docs/SnowflakeIntegration.md)
  - [Source](docs/Source.md)
  - [SourceAzureBlobStorage](docs/SourceAzureBlobStorage.md)
@@ -299,6 +318,7 @@ Class | Method | HTTP request | Description
  - [StatusKafkaPartition](docs/StatusKafkaPartition.md)
  - [StatusMongoDb](docs/StatusMongoDb.md)
  - [StatusSnowflake](docs/StatusSnowflake.md)
+ - [SuspendVirtualInstanceResponse](docs/SuspendVirtualInstanceResponse.md)
  - [UnsubscribePreference](docs/UnsubscribePreference.md)
  - [UpdateAliasRequest](docs/UpdateAliasRequest.md)
  - [UpdateApiKeyRequest](docs/UpdateApiKeyRequest.md)
@@ -307,6 +327,7 @@ Class | Method | HTTP request | Description
  - [UpdateRoleRequest](docs/UpdateRoleRequest.md)
  - [UpdateUnsubscribePreferencesRequest](docs/UpdateUnsubscribePreferencesRequest.md)
  - [UpdateUnsubscribePreferencesResponse](docs/UpdateUnsubscribePreferencesResponse.md)
+ - [UpdateUserRequest](docs/UpdateUserRequest.md)
  - [UpdateViewRequest](docs/UpdateViewRequest.md)
  - [UpdateViewResponse](docs/UpdateViewResponse.md)
  - [UpdateVirtualInstanceRequest](docs/UpdateVirtualInstanceRequest.md)
@@ -315,6 +336,7 @@ Class | Method | HTTP request | Description
  - [ValidateQueryResponse](docs/ValidateQueryResponse.md)
  - [View](docs/View.md)
  - [VirtualInstance](docs/VirtualInstance.md)
+ - [VirtualInstanceStats](docs/VirtualInstanceStats.md)
  - [Workspace](docs/Workspace.md)
  - [XmlParams](docs/XmlParams.md)
 

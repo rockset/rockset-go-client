@@ -17,20 +17,18 @@ import (
 // CreateCollectionRequest struct for CreateCollectionRequest
 type CreateCollectionRequest struct {
 	// Unique identifier for collection, can contain alphanumeric or dash characters.
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// Text describing the collection.
 	Description *string `json:"description,omitempty"`
 	// List of sources from which to ingest data.
 	Sources []Source `json:"sources,omitempty"`
 	// Number of seconds after which data is purged, based on event time.
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
-	// If true disallows updates and deletes, but makes indexing more efficient.
-	InsertOnly *bool `json:"insert_only,omitempty"`
 	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
-	// List of mappings.
+	// Deprecated. List of mappings. Use field_mapping_query instead.
 	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
-	// DEPRECATED. List of clustering fields. Use CLUSTER BY clause in ingest transformation instead.
+	// Deprecated. List of clustering fields. Use CLUSTER BY clause in `field_mapping_query` instead.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 }
 
@@ -38,9 +36,8 @@ type CreateCollectionRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateCollectionRequest(name string) *CreateCollectionRequest {
+func NewCreateCollectionRequest() *CreateCollectionRequest {
 	this := CreateCollectionRequest{}
-	this.Name = name
 	return &this
 }
 
@@ -52,28 +49,36 @@ func NewCreateCollectionRequestWithDefaults() *CreateCollectionRequest {
 	return &this
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetName() string {
-	if o == nil {
+	if o == nil || o.Name == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *CreateCollectionRequest) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -170,38 +175,6 @@ func (o *CreateCollectionRequest) HasRetentionSecs() bool {
 // SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
 func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
 	o.RetentionSecs = &v
-}
-
-// GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetInsertOnly() bool {
-	if o == nil || o.InsertOnly == nil {
-		var ret bool
-		return ret
-	}
-	return *o.InsertOnly
-}
-
-// GetInsertOnlyOk returns a tuple with the InsertOnly field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetInsertOnlyOk() (*bool, bool) {
-	if o == nil || o.InsertOnly == nil {
-		return nil, false
-	}
-	return o.InsertOnly, true
-}
-
-// HasInsertOnly returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasInsertOnly() bool {
-	if o != nil && o.InsertOnly != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInsertOnly gets a reference to the given bool and assigns it to the InsertOnly field.
-func (o *CreateCollectionRequest) SetInsertOnly(v bool) {
-	o.InsertOnly = &v
 }
 
 // GetEventTimeInfo returns the EventTimeInfo field value if set, zero value otherwise.
@@ -334,7 +307,7 @@ func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
 
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {
@@ -345,9 +318,6 @@ func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RetentionSecs != nil {
 		toSerialize["retention_secs"] = o.RetentionSecs
-	}
-	if o.InsertOnly != nil {
-		toSerialize["insert_only"] = o.InsertOnly
 	}
 	if o.EventTimeInfo != nil {
 		toSerialize["event_time_info"] = o.EventTimeInfo

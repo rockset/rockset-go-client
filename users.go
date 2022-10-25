@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+	"github.com/rockset/rockset-go-client/option"
 
 	"github.com/rockset/rockset-go-client/openapi"
 )
@@ -28,6 +29,44 @@ func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []stri
 	}
 
 	return resp.GetData(), nil
+}
+
+// UpdateUser updates as existing user. Note that the user first and last name aren't visible for security reasons,
+// until the user hac accepted the invite, i.e. is in the ACTIVE state.
+//
+// REST API documentation https://docs.rockset.com/rest-api/#updateuser
+func (rc *RockClient) UpdateUser(ctx context.Context, email string, roles []string,
+	options ...option.UserOption) (openapi.User, error) {
+	var err error
+	var resp *openapi.User
+
+	q := rc.UsersApi.UpdateUser(ctx, email)
+	req := openapi.NewUpdateUserRequest()
+	req.Roles = roles
+
+	var opts option.UserOptions
+	for _, opt := range options {
+		opt(&opts)
+	}
+
+	if opts.FirstName != nil {
+		req.FirstName = opts.FirstName
+	}
+
+	if opts.LastName != nil {
+		req.LastName = opts.LastName
+	}
+
+	err = rc.Retry(ctx, func() error {
+		resp, _, err = q.Body(*req).Execute()
+		return err
+	})
+
+	if err != nil {
+		return openapi.User{}, err
+	}
+
+	return *resp, nil
 }
 
 // DeleteUser deletes a user.

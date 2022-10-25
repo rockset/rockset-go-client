@@ -17,8 +17,6 @@ import (
 // GetQueryResponse struct for GetQueryResponse
 type GetQueryResponse struct {
 	Data *QueryInfo `json:"data,omitempty"`
-	// If this was a write query, this is the log offset the query was written to.
-	LastOffset *string `json:"last_offset,omitempty"`
 }
 
 // NewGetQueryResponse instantiates a new GetQueryResponse object
@@ -70,45 +68,10 @@ func (o *GetQueryResponse) SetData(v QueryInfo) {
 	o.Data = &v
 }
 
-// GetLastOffset returns the LastOffset field value if set, zero value otherwise.
-func (o *GetQueryResponse) GetLastOffset() string {
-	if o == nil || o.LastOffset == nil {
-		var ret string
-		return ret
-	}
-	return *o.LastOffset
-}
-
-// GetLastOffsetOk returns a tuple with the LastOffset field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetQueryResponse) GetLastOffsetOk() (*string, bool) {
-	if o == nil || o.LastOffset == nil {
-		return nil, false
-	}
-	return o.LastOffset, true
-}
-
-// HasLastOffset returns a boolean if a field has been set.
-func (o *GetQueryResponse) HasLastOffset() bool {
-	if o != nil && o.LastOffset != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLastOffset gets a reference to the given string and assigns it to the LastOffset field.
-func (o *GetQueryResponse) SetLastOffset(v string) {
-	o.LastOffset = &v
-}
-
 func (o GetQueryResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Data != nil {
 		toSerialize["data"] = o.Data
-	}
-	if o.LastOffset != nil {
-		toSerialize["last_offset"] = o.LastOffset
 	}
 	return json.Marshal(toSerialize)
 }

@@ -3397,6 +3397,7 @@ func (r ApiUpdateQueryLambdaRequest) Body(body UpdateQueryLambdaRequest) ApiUpda
 	r.body = &body
 	return r
 }
+// Create a new Query Lambda if one does not exist already.
 func (r ApiUpdateQueryLambdaRequest) Create(create bool) ApiUpdateQueryLambdaRequest {
 	r.create = &create
 	return r

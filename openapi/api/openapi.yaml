@@ -25,6 +25,7 @@ tags:
 - name: Organizations
 - name: Queries
 - name: Query Lambdas
+- name: Shared Lambdas
 - name: Users
 - name: Views
 - name: Virtual Instances
@@ -1288,17 +1289,14 @@ paths:
         required: true
         schema:
           type: string
-      - in: query
+      - description: Cursor to current page. If unset, will default to the first page.
+        in: query
         name: cursor
         schema:
           type: string
-      - in: query
+      - description: Number of documents to fetch.
+        in: query
         name: docs
-        schema:
-          format: int32
-          type: integer
-      - in: query
-        name: offset
         schema:
           format: int32
           type: integer
@@ -2662,6 +2660,112 @@ paths:
       tags:
       - Users
       x-rename: get
+    post:
+      description: Update a user in an organization.
+      operationId: updateUser
+      parameters:
+      - description: email of the user to update
+        in: path
+        name: user
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+        description: JSON object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: user updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Update User
+      tags:
+      - Users
+      x-codegen-request-body-name: body
   /v1/orgs/self/users/{user}/apikeys:
     get:
       description: List API key metadata for any user in your organization.
@@ -3289,12 +3393,209 @@ paths:
       tags:
       - Virtual Instances
       x-rename: list
+    post:
+      description: '[beta] Create virtual instance'
+      operationId: createVirtualInstance
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVirtualInstanceRequest'
+        description: JSON object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVirtualInstanceResponse'
+          description: virtual instance created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Create Virtual Instance
+      tags:
+      - Virtual Instances
+      x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}:
+    delete:
+      description: '[beta] Delete a virtual instance.'
+      operationId: deleteVirtualInstance
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteVirtualInstanceResponse'
+          description: virtual instance deleted successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Delete Virtual Instance
+      tags:
+      - Virtual Instances
     get:
       description: Get details about a virtual instance.
       operationId: getVirtualInstance
       parameters:
-      - description: uuid of the virtual instance
+      - description: Virtual Instance RRN
         in: path
         name: virtualInstanceId
         required: true
@@ -3393,7 +3694,7 @@ paths:
       description: Update the properties of a virtual instance.
       operationId: setVirtualInstance
       parameters:
-      - description: uuid of the virtual instance
+      - description: Virtual Instance RRN
         in: path
         name: virtualInstanceId
         required: true
@@ -3495,6 +3796,822 @@ paths:
       tags:
       - Virtual Instances
       x-codegen-request-body-name: body
+  /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts:
+    get:
+      description: '[beta] List collection mounts for a particular VI.'
+      operationId: listCollectionMounts
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCollectionMountsResponse'
+          description: resource mounted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: List Collection Mounts
+      tags:
+      - Virtual Instances
+    post:
+      description: '[beta] Mount a collection to this virtual instance.'
+      operationId: mountCollection
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCollectionMountRequest'
+        description: JSON object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionMountResponse'
+          description: collection mounted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Mount Collection
+      tags:
+      - Virtual Instances
+      x-codegen-request-body-name: body
+  /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts/{collectionPath}:
+    delete:
+      description: '[beta] Unmount a collection from this virtual instance.'
+      operationId: unmountCollection
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: collectionPath
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionMountResponse'
+          description: collection unmounted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Unmount Collection
+      tags:
+      - Virtual Instances
+    get:
+      description: '[beta] Get a mount on this virtual instance.'
+      operationId: getCollectionMount
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: collectionPath
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionMountResponse'
+          description: collection unmounted
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Get Collection Mount
+      tags:
+      - Virtual Instances
+  /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries:
+    get:
+      description: '[beta] Lists actively queued and running queries for a particular
+        Virtual Instance.'
+      operationId: getVirtualInstanceQueries
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListQueriesResponse'
+          description: successfully fetched queries
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: List Queries
+      tags:
+      - Virtual Instances
+    post:
+      description: '[beta] Make a SQL query to Rockset.'
+      operationId: queryVirtualInstance
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QueryRequest'
+        description: JSON object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+          description: query executed successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Execute SQL Query
+      tags:
+      - Virtual Instances
+      x-codegen-request-body-name: body
+  /v1/orgs/self/virtualinstances/{virtualInstanceId}/resume:
+    post:
+      description: '[beta] Resume a virtual instance.'
+      operationId: resumeVirtualInstance
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeVirtualInstanceResponse'
+          description: virtual instance resumed successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Resume Virtual Instance
+      tags:
+      - Virtual Instances
+  /v1/orgs/self/virtualinstances/{virtualInstanceId}/suspend:
+    post:
+      description: '[beta] Suspend a virtual instance.'
+      operationId: suspendVirtualInstance
+      parameters:
+      - description: Virtual Instance RRN
+        in: path
+        name: virtualInstanceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuspendVirtualInstanceResponse'
+          description: virtual instance suspended successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Suspend Virtual Instance
+      tags:
+      - Virtual Instances
   /v1/orgs/self/ws:
     get:
       description: List all workspaces in an organization.
@@ -6138,7 +7255,8 @@ paths:
         required: true
         schema:
           type: string
-      - in: query
+      - description: Create a new Query Lambda if one does not exist already.
+        in: query
         name: create
         schema:
           type: boolean
@@ -6770,6 +7888,105 @@ paths:
       - Views
       x-rename: update
       x-codegen-request-body-name: body
+  /v1/public/shared_lambdas/{public_access_id}:
+    get:
+      description: Execute a public query lambda.
+      operationId: executePublicQueryLambda
+      parameters:
+      - description: public access ID of the query lambda
+        in: path
+        name: public_access_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueryResponse'
+          description: Query Lambda executed successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Execute a Public Query Lambda
+      tags:
+      - Shared Lambdas
 components:
   schemas:
     AddDocumentsRequest:
@@ -6878,7 +8095,7 @@ components:
         created_at: 2001-08-28T00:23:41Z
         state: ACTIVE
         expiry_time: 2001-08-28T00:23:41Z
-        created_by: test@example.com
+        created_by: test@rockset.com
         key: aB35kDjg*******************************
         last_access_time: 2001-08-28T00:23:41Z
       properties:
@@ -6909,7 +8126,7 @@ components:
           type: string
         created_by:
           description: Email of API key owner.
-          example: test@example.com
+          example: test@rockset.com
           type: string
         state:
           description: Current state of this key.
@@ -7218,6 +8435,7 @@ components:
                   last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
+          id: a1df483c-734e-485b-8005-f46386ef42f6
           mongodb:
             database_name: my_database
             collection_name: my_collection
@@ -7235,15 +8453,10 @@ components:
               state: SCANNING_TABLE
           status:
             last_processed_item: /path/to/some/object
-            last_error_at: 2019-01-15T21:48:23Z
-            total_error_items: 32849023
             last_processed_at: 2019-01-15T21:48:23Z
-            last_error_item: /path/to/some/object
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
-            last_error_reason: invalid format .docx
-            since: 2019-01-15T21:48:23Z
         - s3:
             bucket: s3://customer-account-info
             object_count_downloaded: 0
@@ -7365,6 +8578,7 @@ components:
                   last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
+          id: a1df483c-734e-485b-8005-f46386ef42f6
           mongodb:
             database_name: my_database
             collection_name: my_collection
@@ -7382,15 +8596,10 @@ components:
               state: SCANNING_TABLE
           status:
             last_processed_item: /path/to/some/object
-            last_error_at: 2019-01-15T21:48:23Z
-            total_error_items: 32849023
             last_processed_at: 2019-01-15T21:48:23Z
-            last_error_item: /path/to/some/object
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
-            last_error_reason: invalid format .docx
-            since: 2019-01-15T21:48:23Z
         insert_only: true
         created_at: 2001-08-28T00:23:41Z
         description: transactions from stores worldwide
@@ -7531,6 +8740,80 @@ components:
         insert_only:
           description: Whether the collection is insert only or not.
           type: boolean
+      type: object
+    CollectionMount:
+      example:
+        snapshot_expiration_time_millis: 864000000
+        collection_path: commons.foo
+        virtual_instance_id: 5ac23....
+        created_at: 2001-08-28T00:23:41Z
+        state: ACTIVE
+        id: 5ac23....
+        type: STATIC
+        virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+        rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        type:
+          description: Mount type.
+          enum:
+          - STATIC
+          - LIVE
+          example: STATIC
+          type: string
+        created_at:
+          description: ISO-8601 date.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        state:
+          description: Mount type.
+          enum:
+          - CREATING
+          - ACTIVE
+          - EXPIRED
+          - DELETING
+          example: ACTIVE
+          type: string
+        collection_path:
+          description: Collection path.
+          example: commons.foo
+          type: string
+        virtual_instance_id:
+          description: Virtual instance ID.
+          example: 5ac23....
+          type: string
+        virtual_instance_rrn:
+          description: Virtual Instance RRN.
+          example: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          type: string
+        id:
+          description: Mount ID.
+          example: 5ac23....
+          type: string
+        rrn:
+          description: Mount RRN.
+          example: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+          type: string
+        snapshot_expiration_time_millis:
+          description: Time in millis at which the snapshot expires.
+          example: 864000000
+          format: int64
+          type: integer
+      type: object
+    CollectionMountResponse:
+      example:
+        data:
+          snapshot_expiration_time_millis: 864000000
+          collection_path: commons.foo
+          virtual_instance_id: 5ac23....
+          created_at: 2001-08-28T00:23:41Z
+          state: ACTIVE
+          id: 5ac23....
+          type: STATIC
+          virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        data:
+          $ref: '#/components/schemas/CollectionMount'
       type: object
     CollectionStats:
       example:
@@ -7675,12 +8958,15 @@ components:
       example:
         role: role
         name: my-app
+        created_by: created_by
       properties:
         name:
           description: Name for this API key.
           example: my-app
           type: string
         role:
+          type: string
+        created_by:
           type: string
       required:
       - name
@@ -7693,12 +8979,31 @@ components:
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           expiry_time: 2001-08-28T00:23:41Z
-          created_by: test@example.com
+          created_by: test@rockset.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
       properties:
         data:
           $ref: '#/components/schemas/ApiKey'
+      type: object
+    CreateCollectionMountRequest:
+      example:
+        collection_paths: '[commons.foo, commons.bar]'
+        type: STATIC
+      properties:
+        type:
+          description: Mount type.
+          enum:
+          - STATIC
+          - LIVE
+          example: STATIC
+          type: string
+        collection_paths:
+          description: Collections to mount.
+          example: '[commons.foo, commons.bar]'
+          items:
+            type: string
+          type: array
       type: object
     CreateCollectionRequest:
       example:
@@ -7859,6 +9164,7 @@ components:
                   last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
+          id: a1df483c-734e-485b-8005-f46386ef42f6
           mongodb:
             database_name: my_database
             collection_name: my_collection
@@ -7876,15 +9182,10 @@ components:
               state: SCANNING_TABLE
           status:
             last_processed_item: /path/to/some/object
-            last_error_at: 2019-01-15T21:48:23Z
-            total_error_items: 32849023
             last_processed_at: 2019-01-15T21:48:23Z
-            last_error_item: /path/to/some/object
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
-            last_error_reason: invalid format .docx
-            since: 2019-01-15T21:48:23Z
         - s3:
             bucket: s3://customer-account-info
             object_count_downloaded: 0
@@ -8006,6 +9307,7 @@ components:
                   last_processed: 2022-08-23T00:13:41Z
               first_processed_at: 2021-08-28T00:23:41Z
               records_processed: 1000
+          id: a1df483c-734e-485b-8005-f46386ef42f6
           mongodb:
             database_name: my_database
             collection_name: my_collection
@@ -8023,16 +9325,10 @@ components:
               state: SCANNING_TABLE
           status:
             last_processed_item: /path/to/some/object
-            last_error_at: 2019-01-15T21:48:23Z
-            total_error_items: 32849023
             last_processed_at: 2019-01-15T21:48:23Z
-            last_error_item: /path/to/some/object
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
-            last_error_reason: invalid format .docx
-            since: 2019-01-15T21:48:23Z
-        insert_only: true
         event_time_info:
           field: timestamp
           format: seconds_since_epoch
@@ -8067,28 +9363,23 @@ components:
             time.
           example: 1000000
           format: int64
+          minimum: 1
           type: integer
-        insert_only:
-          description: If true disallows updates and deletes, but makes indexing more
-            efficient.
-          type: boolean
         event_time_info:
           $ref: '#/components/schemas/EventTimeInfo'
         field_mappings:
-          description: List of mappings.
+          description: Deprecated. List of mappings. Use field_mapping_query instead.
           items:
             $ref: '#/components/schemas/FieldMappingV2'
           type: array
         field_mapping_query:
           $ref: '#/components/schemas/FieldMappingQuery'
         clustering_key:
-          description: DEPRECATED. List of clustering fields. Use CLUSTER BY clause
-            in ingest transformation instead.
+          description: Deprecated. List of clustering fields. Use CLUSTER BY clause
+            in `field_mapping_query` instead.
           items:
             $ref: '#/components/schemas/FieldPartition'
           type: array
-      required:
-      - name
       type: object
     CreateCollectionResponse:
       example:
@@ -8235,6 +9526,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -8252,15 +9544,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -8382,6 +9669,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -8399,15 +9687,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -8499,33 +9782,11 @@ components:
             aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             aws_external_id: external id of aws
           username: username
-        azure_blob_storage:
-          connection_string: |-
-            BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
-            SharedAccessSignature=<KeyValue>
-        description: AWS account with event data for the data science team.
-        kinesis:
-          aws_access_key:
-            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
-            aws_secret_access_key: wJal....
-          aws_role:
-            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
-            aws_external_id: external id of aws
-        dynamodb:
-          s3_export_bucket_name: s3_export_bucket_name
-          aws_access_key:
-            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
-            aws_secret_access_key: wJal....
-          aws_role:
-            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
-            aws_external_id: external id of aws
         azure_event_hubs:
           connection_string: Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>
         gcs:
           gcp_service_account:
             service_account_key_file_json: service_account_key_file_json
-        segment:
-          connection_string: connection_string
         kafka:
           source_status_by_topic: '{"topic-a": "DORMANT"}'
           kafka_topic_names:
@@ -8543,10 +9804,30 @@ components:
           connection_string: connection_string
           use_v3: true
         name: event-logs
+        azure_blob_storage:
+          connection_string: |-
+            BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
+            SharedAccessSignature=<KeyValue>
         azure_service_bus:
           connection_string: Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>
+        description: AWS account with event data for the data science team.
+        kinesis:
+          aws_access_key:
+            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
+            aws_secret_access_key: wJal....
+          aws_role:
+            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+            aws_external_id: external id of aws
         mongodb:
           connection_uri: mongodb+srv://<username>:<password>@server.example.com/
+        dynamodb:
+          s3_export_bucket_name: s3_export_bucket_name
+          aws_access_key:
+            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
+            aws_secret_access_key: wJal....
+          aws_role:
+            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+            aws_external_id: external id of aws
       properties:
         name:
           description: Descriptive label.
@@ -8570,8 +9851,6 @@ components:
           $ref: '#/components/schemas/AzureServiceBusIntegration'
         azure_event_hubs:
           $ref: '#/components/schemas/AzureEventHubsIntegration'
-        segment:
-          $ref: '#/components/schemas/SegmentIntegration'
         kafka:
           $ref: '#/components/schemas/KafkaIntegration'
         mongodb:
@@ -8772,6 +10051,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -8789,15 +10069,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -8919,6 +10194,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -8936,15 +10212,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -9152,6 +10423,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -9169,15 +10441,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -9299,6 +10566,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -9316,15 +10584,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -9393,8 +10656,6 @@ components:
           gcs:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
-          segment:
-            connection_string: connection_string
           kafka:
             source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
@@ -9423,6 +10684,7 @@ components:
     CreateQueryLambdaRequest:
       example:
         name: myQueryLambda
+        is_public: true
         description: production version foo
         sql:
           default_parameters:
@@ -9444,6 +10706,8 @@ components:
           type: string
         sql:
           $ref: '#/components/schemas/QueryLambdaSql'
+        is_public:
+          type: boolean
       required:
       - name
       - sql
@@ -9563,6 +10827,72 @@ components:
         data:
           $ref: '#/components/schemas/View'
       type: object
+    CreateVirtualInstanceRequest:
+      example:
+        name: prod_vi
+        description: VI serving prod traffic
+        auto_suspend_seconds: 3600
+        type: LARGE
+      properties:
+        type:
+          description: Requested virtual instance type.
+          enum:
+          - FREE
+          - NANO
+          - SHARED
+          - MILLI
+          - XSMALL
+          - SMALL
+          - MEDIUM
+          - LARGE
+          - XLARGE
+          - XLARGE2
+          - XLARGE4
+          - XLARGE8
+          - XLARGE16
+          example: LARGE
+          type: string
+        name:
+          description: Unique identifier for virtual instance, can contain alphanumeric
+            or dash characters.
+          example: prod_vi
+          type: string
+        description:
+          description: Description of requested virtual instance.
+          example: VI serving prod traffic
+          type: string
+        auto_suspend_seconds:
+          description: Number of seconds without queries after which the VI is suspended
+          example: 3600
+          format: int32
+          type: integer
+      required:
+      - name
+      type: object
+    CreateVirtualInstanceResponse:
+      example:
+        data:
+          default_vi: true
+          description: VI for prod traffic
+          created_at: 2001-08-28T00:23:41Z
+          resumed_at: 2001-08-28T00:23:41Z
+          current_size: MEDIUM
+          created_by: hello@rockset.com
+          default_pod_count: 0
+          rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          scaled_pod_count: 6
+          monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
+          name: prod_vi
+          desired_size: MEDIUM
+          state: ACTIVE
+          id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
+      properties:
+        data:
+          $ref: '#/components/schemas/VirtualInstance'
+      type: object
     CreateWorkspaceRequest:
       example:
         name: event_logs
@@ -9671,7 +11001,7 @@ components:
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           expiry_time: 2001-08-28T00:23:41Z
-          created_by: test@example.com
+          created_by: test@rockset.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
       properties:
@@ -9823,6 +11153,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -9840,15 +11171,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -9970,6 +11296,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -9987,15 +11314,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -10315,6 +11637,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -10332,15 +11655,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -10462,6 +11780,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -10479,15 +11798,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -10695,6 +12009,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -10712,15 +12027,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -10842,6 +12152,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -10859,15 +12170,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -10936,8 +12242,6 @@ components:
           gcs:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
-          segment:
-            connection_string: connection_string
           kafka:
             source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
@@ -10971,6 +12275,7 @@ components:
           last_updated: 2001-08-28T00:23:41Z
           latest_version:
             workspace: commons
+            public_access_id: public_access_id
             collections:
             - collections
             - collections
@@ -11033,6 +12338,30 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/View'
+      type: object
+    DeleteVirtualInstanceResponse:
+      example:
+        data:
+          default_vi: true
+          description: VI for prod traffic
+          created_at: 2001-08-28T00:23:41Z
+          resumed_at: 2001-08-28T00:23:41Z
+          current_size: MEDIUM
+          created_by: hello@rockset.com
+          default_pod_count: 0
+          rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          scaled_pod_count: 6
+          monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
+          name: prod_vi
+          desired_size: MEDIUM
+          state: ACTIVE
+          id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
+      properties:
+        data:
+          $ref: '#/components/schemas/VirtualInstance'
       type: object
     DeleteWorkspaceResponse:
       example:
@@ -11388,7 +12717,7 @@ components:
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           expiry_time: 2001-08-28T00:23:41Z
-          created_by: test@example.com
+          created_by: test@rockset.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
       properties:
@@ -11540,6 +12869,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -11557,15 +12887,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -11687,6 +13012,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -11704,15 +13030,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -11973,6 +13294,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -11990,15 +13312,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -12120,6 +13437,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -12137,15 +13455,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -12353,6 +13666,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -12370,15 +13684,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -12500,6 +13809,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -12517,15 +13827,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -12594,8 +13899,6 @@ components:
           gcs:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
-          segment:
-            connection_string: connection_string
           kafka:
             source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
@@ -12623,7 +13926,6 @@ components:
       type: object
     GetQueryResponse:
       example:
-        last_offset: last_offset
         data:
           last_offset: last_offset
           executed_by: xyz@rockset.com
@@ -12648,10 +13950,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/QueryInfo'
-        last_offset:
-          description: If this was a write query, this is the log offset the query
-            was written to.
-          type: string
       type: object
     GetViewResponse:
       example:
@@ -12674,22 +13972,23 @@ components:
     GetVirtualInstanceResponse:
       example:
         data:
-          desired_type: FREE
           default_vi: true
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
           created_by: hello@rockset.com
-          current_type: FREE
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
           monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
           name: prod_vi
           desired_size: MEDIUM
           state: ACTIVE
           id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
       properties:
         data:
           $ref: '#/components/schemas/VirtualInstance'
@@ -12925,6 +14224,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -12942,15 +14242,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -13072,6 +14367,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -13089,15 +14385,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -13305,6 +14596,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -13322,15 +14614,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -13452,6 +14739,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -13469,15 +14757,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -13546,8 +14829,6 @@ components:
         gcs:
           gcp_service_account:
             service_account_key_file_json: service_account_key_file_json
-        segment:
-          connection_string: connection_string
         kafka:
           source_status_by_topic: '{"topic-a": "DORMANT"}'
           kafka_topic_names:
@@ -13604,8 +14885,6 @@ components:
           $ref: '#/components/schemas/AzureServiceBusIntegration'
         azure_event_hubs:
           $ref: '#/components/schemas/AzureEventHubsIntegration'
-        segment:
-          $ref: '#/components/schemas/SegmentIntegration'
         kafka:
           $ref: '#/components/schemas/KafkaIntegration'
         mongodb:
@@ -13731,7 +15010,7 @@ components:
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           expiry_time: 2001-08-28T00:23:41Z
-          created_by: test@example.com
+          created_by: test@rockset.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
         - role: read-only
@@ -13739,7 +15018,7 @@ components:
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           expiry_time: 2001-08-28T00:23:41Z
-          created_by: test@example.com
+          created_by: test@rockset.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
       properties:
@@ -13747,6 +15026,34 @@ components:
           description: List of API key objects.
           items:
             $ref: '#/components/schemas/ApiKey'
+          type: array
+      type: object
+    ListCollectionMountsResponse:
+      example:
+        data:
+        - snapshot_expiration_time_millis: 864000000
+          collection_path: commons.foo
+          virtual_instance_id: 5ac23....
+          created_at: 2001-08-28T00:23:41Z
+          state: ACTIVE
+          id: 5ac23....
+          type: STATIC
+          virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+        - snapshot_expiration_time_millis: 864000000
+          collection_path: commons.foo
+          virtual_instance_id: 5ac23....
+          created_at: 2001-08-28T00:23:41Z
+          state: ACTIVE
+          id: 5ac23....
+          type: STATIC
+          virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        data:
+          description: List of all collection mounts.
+          items:
+            $ref: '#/components/schemas/CollectionMount'
           type: array
       type: object
     ListCollectionsResponse:
@@ -13894,6 +15201,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -13911,15 +15219,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -14041,6 +15344,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -14058,15 +15362,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -14274,6 +15573,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -14291,15 +15591,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           - s3:
               bucket: s3://customer-account-info
               object_count_downloaded: 0
@@ -14421,6 +15716,7 @@ components:
                     last_processed: 2022-08-23T00:13:41Z
                 first_processed_at: 2021-08-28T00:23:41Z
                 records_processed: 1000
+            id: a1df483c-734e-485b-8005-f46386ef42f6
             mongodb:
               database_name: my_database
               collection_name: my_collection
@@ -14438,15 +15734,10 @@ components:
                 state: SCANNING_TABLE
             status:
               last_processed_item: /path/to/some/object
-              last_error_at: 2019-01-15T21:48:23Z
-              total_error_items: 32849023
               last_processed_at: 2019-01-15T21:48:23Z
-              last_error_item: /path/to/some/object
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
-              last_error_reason: invalid format .docx
-              since: 2019-01-15T21:48:23Z
           insert_only: true
           created_at: 2001-08-28T00:23:41Z
           description: transactions from stores worldwide
@@ -14710,6 +16001,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -14727,15 +16019,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -14857,6 +16144,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -14874,15 +16162,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -15090,6 +16373,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -15107,15 +16391,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -15237,6 +16516,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -15254,15 +16534,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -15331,8 +16606,6 @@ components:
           gcs:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
-          segment:
-            connection_string: connection_string
           kafka:
             source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
@@ -15542,6 +16815,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -15559,15 +16833,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -15689,6 +16958,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -15706,15 +16976,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -15922,6 +17187,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -15939,15 +17205,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             - s3:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 0
@@ -16069,6 +17330,7 @@ components:
                       last_processed: 2022-08-23T00:13:41Z
                   first_processed_at: 2021-08-28T00:23:41Z
                   records_processed: 1000
+              id: a1df483c-734e-485b-8005-f46386ef42f6
               mongodb:
                 database_name: my_database
                 collection_name: my_collection
@@ -16086,15 +17348,10 @@ components:
                   state: SCANNING_TABLE
               status:
                 last_processed_item: /path/to/some/object
-                last_error_at: 2019-01-15T21:48:23Z
-                total_error_items: 32849023
                 last_processed_at: 2019-01-15T21:48:23Z
-                last_error_item: /path/to/some/object
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
-                last_error_reason: invalid format .docx
-                since: 2019-01-15T21:48:23Z
             insert_only: true
             created_at: 2001-08-28T00:23:41Z
             description: transactions from stores worldwide
@@ -16163,8 +17420,6 @@ components:
           gcs:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
-          segment:
-            connection_string: connection_string
           kafka:
             source_status_by_topic: '{"topic-a": "DORMANT"}'
             kafka_topic_names:
@@ -16248,6 +17503,7 @@ components:
         - tag_name: production
           version:
             workspace: commons
+            public_access_id: public_access_id
             collections:
             - collections
             - collections
@@ -16274,6 +17530,7 @@ components:
         - tag_name: production
           version:
             workspace: commons
+            public_access_id: public_access_id
             collections:
             - collections
             - collections
@@ -16308,6 +17565,7 @@ components:
       example:
         data:
         - workspace: commons
+          public_access_id: public_access_id
           collections:
           - collections
           - collections
@@ -16332,6 +17590,7 @@ components:
               value: 85beb391
             query: SELECT 'Foo'
         - workspace: commons
+          public_access_id: public_access_id
           collections:
           - collections
           - collections
@@ -16370,6 +17629,7 @@ components:
           last_updated: 2001-08-28T00:23:41Z
           latest_version:
             workspace: commons
+            public_access_id: public_access_id
             collections:
             - collections
             - collections
@@ -16403,6 +17663,7 @@ components:
           last_updated: 2001-08-28T00:23:41Z
           latest_version:
             workspace: commons
+            public_access_id: public_access_id
             collections:
             - collections
             - collections
@@ -16541,38 +17802,40 @@ components:
     ListVirtualInstancesResponse:
       example:
         data:
-        - desired_type: FREE
-          default_vi: true
+        - default_vi: true
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
           created_by: hello@rockset.com
-          current_type: FREE
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
           monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
           name: prod_vi
           desired_size: MEDIUM
           state: ACTIVE
           id: 123e4567-e89b-12d3-a456-556642440000
-        - desired_type: FREE
-          default_vi: true
+          auto_suspend_seconds: 3600
+        - default_vi: true
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
           created_by: hello@rockset.com
-          current_type: FREE
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
           monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
           name: prod_vi
           desired_size: MEDIUM
           state: ACTIVE
           id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
       properties:
         data:
           description: List of all virtual instances.
@@ -16614,30 +17877,13 @@ components:
     Organization:
       description: An organization in Rockset is a container for users and collections.
       example:
-        deletionScheduledAt: deletionScheduledAt
         created_at: 2001-08-28T00:23:41Z
         external_id: <hash>
-        rockset_user: <id>
         id: rockset
+        rockset_user: <id>
         display_name: Rockset, Inc
         clusters: '[{ ... }]'
       properties:
-        deletionScheduledAt:
-          type: string
-        rockset_user:
-          description: Rockset's global AWS user.
-          example: <id>
-          type: string
-        external_id:
-          description: Organization's unique external ID within Rockset.
-          example: <hash>
-          type: string
-        clusters:
-          description: List of clusters associated with this org.
-          example: '[{ ... }]'
-          items:
-            $ref: '#/components/schemas/Cluster'
-          type: array
         id:
           description: Unique identifier for the organization.
           example: rockset
@@ -16650,15 +17896,28 @@ components:
           description: Name of the organization.
           example: Rockset, Inc
           type: string
+        external_id:
+          description: Organization's unique external ID within Rockset.
+          example: <hash>
+          type: string
+        rockset_user:
+          description: Rockset's global AWS user.
+          example: <id>
+          type: string
+        clusters:
+          description: List of clusters associated with this org.
+          example: '[{ ... }]'
+          items:
+            $ref: '#/components/schemas/Cluster'
+          type: array
       type: object
     OrganizationResponse:
       example:
         data:
-          deletionScheduledAt: deletionScheduledAt
           created_at: 2001-08-28T00:23:41Z
           external_id: <hash>
-          rockset_user: <id>
           id: rockset
+          rockset_user: <id>
           display_name: Rockset, Inc
           clusters: '[{ ... }]'
       properties:
@@ -17041,6 +18300,7 @@ components:
         last_updated: 2001-08-28T00:23:41Z
         latest_version:
           workspace: commons
+          public_access_id: public_access_id
           collections:
           - collections
           - collections
@@ -17151,6 +18411,7 @@ components:
         tag_name: production
         version:
           workspace: commons
+          public_access_id: public_access_id
           collections:
           - collections
           - collections
@@ -17188,6 +18449,7 @@ components:
           tag_name: production
           version:
             workspace: commons
+            public_access_id: public_access_id
             collections:
             - collections
             - collections
@@ -17218,6 +18480,7 @@ components:
     QueryLambdaVersion:
       example:
         workspace: commons
+        public_access_id: public_access_id
         collections:
         - collections
         - collections
@@ -17282,11 +18545,15 @@ components:
           type: string
         stats:
           $ref: '#/components/schemas/QueryLambdaStats'
+        public_access_id:
+          description: Public access ID associated with this QL version
+          type: string
       type: object
     QueryLambdaVersionResponse:
       example:
         data:
           workspace: commons
+          public_access_id: public_access_id
           collections:
           - collections
           - collections
@@ -17536,6 +18803,30 @@ components:
           format: int64
           type: integer
       type: object
+    ResumeVirtualInstanceResponse:
+      example:
+        data:
+          default_vi: true
+          description: VI for prod traffic
+          created_at: 2001-08-28T00:23:41Z
+          resumed_at: 2001-08-28T00:23:41Z
+          current_size: MEDIUM
+          created_by: hello@rockset.com
+          default_pod_count: 0
+          rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          scaled_pod_count: 6
+          monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
+          name: prod_vi
+          desired_size: MEDIUM
+          state: ACTIVE
+          id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
+      properties:
+        data:
+          $ref: '#/components/schemas/VirtualInstance'
+      type: object
     Role:
       example:
         role_name: read_write
@@ -17624,14 +18915,6 @@ components:
           type: string
         secret:
           description: The secure API password registry.
-          type: string
-      type: object
-    SegmentIntegration:
-      example:
-        connection_string: connection_string
-      properties:
-        connection_string:
-          description: Segment connection string.
           type: string
       type: object
     SnowflakeIntegration:
@@ -17808,6 +19091,7 @@ components:
                 last_processed: 2022-08-23T00:13:41Z
             first_processed_at: 2021-08-28T00:23:41Z
             records_processed: 1000
+        id: a1df483c-734e-485b-8005-f46386ef42f6
         mongodb:
           database_name: my_database
           collection_name: my_collection
@@ -17825,16 +19109,15 @@ components:
             state: SCANNING_TABLE
         status:
           last_processed_item: /path/to/some/object
-          last_error_at: 2019-01-15T21:48:23Z
-          total_error_items: 32849023
           last_processed_at: 2019-01-15T21:48:23Z
-          last_error_item: /path/to/some/object
           total_processed_items: 32849023
           state: INITIALIZING
           message: error 403 forbidden
-          last_error_reason: invalid format .docx
-          since: 2019-01-15T21:48:23Z
       properties:
+        id:
+          description: Unique source identifier.
+          example: a1df483c-734e-485b-8005-f46386ef42f6
+          type: string
         integration_name:
           description: Name of integration to use.
           example: aws-integration
@@ -18295,15 +19578,10 @@ components:
     Status:
       example:
         last_processed_item: /path/to/some/object
-        last_error_at: 2019-01-15T21:48:23Z
-        total_error_items: 32849023
         last_processed_at: 2019-01-15T21:48:23Z
-        last_error_item: /path/to/some/object
         total_processed_items: 32849023
         state: INITIALIZING
         message: error 403 forbidden
-        last_error_reason: invalid format .docx
-        since: 2019-01-15T21:48:23Z
       properties:
         state:
           description: Status of the Source's ingestion.
@@ -18314,10 +19592,6 @@ components:
           - COMPLETED
           - ERROR
           example: INITIALIZING
-          type: string
-        since:
-          description: ISO-8601 date when state was triggered.
-          example: 2019-01-15T21:48:23Z
           type: string
         message:
           description: State message.
@@ -18333,23 +19607,6 @@ components:
           type: string
         total_processed_items:
           description: Total items processed of source.
-          example: 32849023
-          format: int64
-          type: integer
-        last_error_at:
-          description: ISO-8601 date when last error occurred.
-          example: 2019-01-15T21:48:23Z
-          type: string
-        last_error_item:
-          description: Last source item that errored.
-          example: /path/to/some/object
-          type: string
-        last_error_reason:
-          description: Reason for the last error.
-          example: invalid format .docx
-          type: string
-        total_error_items:
-          description: Total items that errored.
           example: 32849023
           format: int64
           type: integer
@@ -18657,6 +19914,30 @@ components:
           example: EXPORTING_TO_S3
           type: string
       type: object
+    SuspendVirtualInstanceResponse:
+      example:
+        data:
+          default_vi: true
+          description: VI for prod traffic
+          created_at: 2001-08-28T00:23:41Z
+          resumed_at: 2001-08-28T00:23:41Z
+          current_size: MEDIUM
+          created_by: hello@rockset.com
+          default_pod_count: 0
+          rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          scaled_pod_count: 6
+          monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
+          name: prod_vi
+          desired_size: MEDIUM
+          state: ACTIVE
+          id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
+      properties:
+        data:
+          $ref: '#/components/schemas/VirtualInstance'
+      type: object
     UnsubscribePreference:
       description: Notification preferences for the user.
       example:
@@ -18707,7 +19988,7 @@ components:
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           expiry_time: 2001-08-28T00:23:41Z
-          created_by: test@example.com
+          created_by: test@rockset.com
           key: aB35kDjg*******************************
           last_access_time: 2001-08-28T00:23:41Z
       properties:
@@ -18716,6 +19997,7 @@ components:
       type: object
     UpdateQueryLambdaRequest:
       example:
+        is_public: true
         description: production version foo
         sql:
           default_parameters:
@@ -18733,6 +20015,8 @@ components:
           type: string
         sql:
           $ref: '#/components/schemas/QueryLambdaSql'
+        is_public:
+          type: boolean
       type: object
     UpdateRoleRequest:
       example:
@@ -18779,6 +20063,27 @@ components:
             $ref: '#/components/schemas/UnsubscribePreference'
           type: array
       type: object
+    UpdateUserRequest:
+      example:
+        roles: '["admin", "member", "read-only"]'
+        last_name: Doe
+        first_name: John
+      properties:
+        first_name:
+          description: User first name.
+          example: John
+          type: string
+        last_name:
+          description: User last name.
+          example: Doe
+          type: string
+        roles:
+          description: New list of roles for a given user.
+          example: '["admin", "member", "read-only"]'
+          items:
+            type: string
+          type: array
+      type: object
     UpdateViewRequest:
       example:
         query: SELECT * FROM foo
@@ -18815,11 +20120,12 @@ components:
       type: object
     UpdateVirtualInstanceRequest:
       example:
-        new_type: FREE
         monitoring_enabled: true
         new_size: LARGE
+        auto_suspend_enabled: true
         name: prod_vi
         description: VI for prod traffic
+        auto_suspend_seconds: 3600
       properties:
         new_size:
           description: Requested virtual instance size.
@@ -18827,6 +20133,7 @@ components:
           - FREE
           - NANO
           - SHARED
+          - MILLI
           - XSMALL
           - SMALL
           - MEDIUM
@@ -18838,21 +20145,6 @@ components:
           - XLARGE16
           example: LARGE
           type: string
-        new_type:
-          enum:
-          - FREE
-          - NANO
-          - SHARED
-          - XSMALL
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - XLARGE
-          - XLARGE2
-          - XLARGE4
-          - XLARGE8
-          - XLARGE16
-          type: string
         monitoring_enabled:
           type: boolean
         name:
@@ -18863,26 +20155,36 @@ components:
           description: New virtual instance description.
           example: VI for prod traffic
           type: string
+        auto_suspend_enabled:
+          description: Whether auto-suspend should be enabled for this Virtual Instance.
+          example: true
+          type: boolean
+        auto_suspend_seconds:
+          description: Number of seconds without queries after which the VI is suspended
+          example: 3600
+          format: int32
+          type: integer
       type: object
     UpdateVirtualInstanceResponse:
       example:
         data:
-          desired_type: FREE
           default_vi: true
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
           created_by: hello@rockset.com
-          current_type: FREE
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
           monitoring_enabled: true
+          stats:
+            last_queried_ms: 1535101119334
           name: prod_vi
           desired_size: MEDIUM
           state: ACTIVE
           id: 123e4567-e89b-12d3-a456-556642440000
+          auto_suspend_seconds: 3600
       properties:
         data:
           $ref: '#/components/schemas/VirtualInstance'
@@ -19012,22 +20314,23 @@ components:
       type: object
     VirtualInstance:
       example:
-        desired_type: FREE
         default_vi: true
         description: VI for prod traffic
         created_at: 2001-08-28T00:23:41Z
         resumed_at: 2001-08-28T00:23:41Z
         current_size: MEDIUM
         created_by: hello@rockset.com
-        current_type: FREE
         default_pod_count: 0
         rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
         scaled_pod_count: 6
         monitoring_enabled: true
+        stats:
+          last_queried_ms: 1535101119334
         name: prod_vi
         desired_size: MEDIUM
         state: ACTIVE
         id: 123e4567-e89b-12d3-a456-556642440000
+        auto_suspend_seconds: 3600
       properties:
         name:
           description: Virtual instance name.
@@ -19062,42 +20365,13 @@ components:
           - DELETED
           example: ACTIVE
           type: string
-        current_type:
-          enum:
-          - FREE
-          - NANO
-          - SHARED
-          - XSMALL
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - XLARGE
-          - XLARGE2
-          - XLARGE4
-          - XLARGE8
-          - XLARGE16
-          type: string
-        desired_type:
-          enum:
-          - FREE
-          - NANO
-          - SHARED
-          - XSMALL
-          - SMALL
-          - MEDIUM
-          - LARGE
-          - XLARGE
-          - XLARGE2
-          - XLARGE4
-          - XLARGE8
-          - XLARGE16
-          type: string
         current_size:
           description: Virtual instance current size.
           enum:
           - FREE
           - NANO
           - SHARED
+          - MILLI
           - XSMALL
           - SMALL
           - MEDIUM
@@ -19116,6 +20390,7 @@ components:
           - FREE
           - NANO
           - SHARED
+          - MILLI
           - XSMALL
           - SMALL
           - MEDIUM
@@ -19146,8 +20421,25 @@ components:
           description: Virtual Instance RRN.
           example: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           type: string
+        auto_suspend_seconds:
+          description: Number of seconds without queries after which the VI is suspended
+          example: 3600
+          format: int32
+          type: integer
+        stats:
+          $ref: '#/components/schemas/VirtualInstanceStats'
       required:
       - name
+      type: object
+    VirtualInstanceStats:
+      example:
+        last_queried_ms: 1535101119334
+      properties:
+        last_queried_ms:
+          description: Milliseconds since Unix epoch Jan 1, 1970.
+          example: 1535101119334
+          format: int64
+          type: integer
       type: object
     Workspace:
       description: Workspaces are organizational containers for collections.

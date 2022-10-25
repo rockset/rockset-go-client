@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Collections** | Pointer to **[]string** | Collections queried by underlying SQL query. | [optional] 
 **State** | Pointer to **string** | Status of this Query Lambda. | [optional] 
 **Stats** | Pointer to [**QueryLambdaStats**](QueryLambdaStats.md) |  | [optional] 
+**PublicAccessId** | Pointer to **string** | Public access ID associated with this QL version | [optional] 
 
 ## Methods
 
@@ -283,6 +284,31 @@ SetStats sets Stats field to given value.
 `func (o *QueryLambdaVersion) HasStats() bool`
 
 HasStats returns a boolean if a field has been set.
+
+### GetPublicAccessId
+
+`func (o *QueryLambdaVersion) GetPublicAccessId() string`
+
+GetPublicAccessId returns the PublicAccessId field if non-nil, zero value otherwise.
+
+### GetPublicAccessIdOk
+
+`func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool)`
+
+GetPublicAccessIdOk returns a tuple with the PublicAccessId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicAccessId
+
+`func (o *QueryLambdaVersion) SetPublicAccessId(v string)`
+
+SetPublicAccessId sets PublicAccessId field to given value.
+
+### HasPublicAccessId
+
+`func (o *QueryLambdaVersion) HasPublicAccessId() bool`
+
+HasPublicAccessId returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

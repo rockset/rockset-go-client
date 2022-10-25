@@ -34,7 +34,7 @@ import (
 
 func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    body := *openapiclient.NewCreateCollectionRequest("global-transactions") // CreateCollectionRequest | JSON object
+    body := *openapiclient.NewCreateCollectionRequest() // CreateCollectionRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

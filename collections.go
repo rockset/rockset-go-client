@@ -78,45 +78,45 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 }
 
 // CreateCollection is used to create a collection from one or more sources:
-//  - DynamoDB (see CreateDynamoDBIntegration())
-//  - GCS (see CreateGCSIntegration())
-//  - Kafka (see CreateKafkaIntegration())
-//  - Kinesis (see CreateKinesisIntegration())
-//  - MongoDB (see CreateMongoDBIntegration())
-//  - S3 (see CreateS3Integration())
+//   - DynamoDB (see CreateDynamoDBIntegration())
+//   - GCS (see CreateGCSIntegration())
+//   - Kafka (see CreateKafkaIntegration())
+//   - Kinesis (see CreateKinesisIntegration())
+//   - MongoDB (see CreateMongoDBIntegration())
+//   - S3 (see CreateS3Integration())
 //
 // It uses exponential backoff in case the API call is rate-limted.
 //
 // To create a collection from multiple sources, use:
-// 	 c, err := rc.CreateCollection(ctx, "commons", "example",
-//	   option.WithCollectionDescription("created by go example code"),
-//	   option.WithS3Source("s3-integration-name", "rockset-go-tests",
-//	     option.WithCSVFormat(
-//	       []string{"city", "country", "population", "visited"},
-//	       []option.ColumnType{
-//	         option.ColumnTypeString, option.ColumnTypeString, option.ColumnTypeInteger, option.ColumnTypeBool,
-//	       },
-//	       option.WithEncoding("UTF-8"),
-//	       option.WithEscapeChar("\\"),
-//	       option.WithQuoteChar(`"`),
-//	       option.WithSeparator(","),
-//	    ),
-//	    option.WithS3Prefix("cities.csv"),
-//	  ),
-//    option.WithKafkaSource("kafka-integration-name", "topic", option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
-//      option.WithKafkaSourceV3(),
-//    ),
-//    option.WithCollectionRetention(time.Hour),
-//    option.WithInsertOnly(),
-//	  option.WithFieldMappingQuery("SELECT * FROM _input"),
-//  )
+//
+//		 c, err := rc.CreateCollection(ctx, "commons", "example",
+//		   option.WithCollectionDescription("created by go example code"),
+//		   option.WithS3Source("s3-integration-name", "rockset-go-tests",
+//		     option.WithCSVFormat(
+//		       []string{"city", "country", "population", "visited"},
+//		       []option.ColumnType{
+//		         option.ColumnTypeString, option.ColumnTypeString, option.ColumnTypeInteger, option.ColumnTypeBool,
+//		       },
+//		       option.WithEncoding("UTF-8"),
+//		       option.WithEscapeChar("\\"),
+//		       option.WithQuoteChar(`"`),
+//		       option.WithSeparator(","),
+//		    ),
+//		    option.WithS3Prefix("cities.csv"),
+//		  ),
+//	   option.WithKafkaSource("kafka-integration-name", "topic", option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
+//	     option.WithKafkaSourceV3(),
+//	   ),
+//	   option.WithCollectionRetention(time.Hour),
+//		  option.WithFieldMappingQuery("SELECT * FROM _input"),
+//	 )
 func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name string,
 	options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var resp *openapi.CreateCollectionResponse
 
 	request := openapi.CreateCollectionRequest{}
-	request.Name = name
+	request.Name = &name
 
 	for _, o := range options {
 		o(&request)
@@ -165,7 +165,8 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams := openapi.NewCreateCollectionRequest()
+	createParams.Name = &name
 	createParams.Description = &description
 
 	f := openapi.FormatParams{}
@@ -205,7 +206,8 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams := openapi.NewCreateCollectionRequest()
+	createParams.Name = &name
 	createParams.Description = &description
 
 	f := openapi.FormatParams{}
@@ -245,7 +247,8 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams := openapi.NewCreateCollectionRequest()
+	createParams.Name = &name
 	createParams.Description = &description
 
 	f := openapi.FormatParams{}
@@ -286,7 +289,8 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams := openapi.NewCreateCollectionRequest()
+	createParams.Name = &name
 	createParams.Description = &description
 
 	f := openapi.FormatParams{}
@@ -340,7 +344,8 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context, workspace, name
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams := openapi.NewCreateCollectionRequest()
+	createParams.Name = &name
 
 	createParams.Sources = []openapi.Source{}
 
@@ -367,7 +372,8 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	var resp *openapi.CreateCollectionResponse
 
 	createReq := rc.CollectionsApi.CreateCollection(ctx, workspace)
-	createParams := openapi.NewCreateCollectionRequest(name)
+	createParams := openapi.NewCreateCollectionRequest()
+	createParams.Name = &name
 	createParams.Description = &description
 
 	f := openapi.FormatParams{}

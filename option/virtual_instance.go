@@ -3,7 +3,6 @@ package option
 // VirtualInstanceOptions contains the optional settings for a virtual instance.
 type VirtualInstanceOptions struct {
 	MonitoringEnabled *bool
-	Type              *string
 	Size              *string
 }
 
@@ -13,14 +12,6 @@ type VirtualInstanceOption func(*VirtualInstanceOptions)
 func WithVIMonitoring(enabled bool) VirtualInstanceOption {
 	return func(o *VirtualInstanceOptions) {
 		o.MonitoringEnabled = &enabled
-	}
-}
-
-// WithVIType is used to optionally set the virtual instance type.
-func WithVIType(t VirtualInstanceType) VirtualInstanceOption {
-	return func(o *VirtualInstanceOptions) {
-		s := t.String()
-		o.Type = &s
 	}
 }
 
@@ -34,25 +25,6 @@ func WithVISize(size VirtualInstanceSize) VirtualInstanceOption {
 
 // TODO: once the openapi-generator generates a custom type for each enum the below two types can be replaced
 // https://github.com/OpenAPITools/openapi-generator/issues/9567
-
-type VirtualInstanceType string
-
-func (t VirtualInstanceType) String() string {
-	return string(t)
-}
-
-const (
-	FreeType     VirtualInstanceType = "FREE"
-	SharedType   VirtualInstanceType = "SHARED"
-	SmallType    VirtualInstanceType = "SMALL"
-	MediumType   VirtualInstanceType = "MEDIUM"
-	LargeType    VirtualInstanceType = "LARGE"
-	XLargeType   VirtualInstanceType = "XLARGE"
-	XLarge2Type  VirtualInstanceType = "XLARGE2"
-	XLarge4Type  VirtualInstanceType = "XLARGE4"
-	XLarge8Type  VirtualInstanceType = "XLARGE8"
-	XLarge16Type VirtualInstanceType = "XLARGE16"
-)
 
 type VirtualInstanceSize string
 
