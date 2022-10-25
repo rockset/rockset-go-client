@@ -6,7 +6,6 @@ require (
 	github.com/confluentinc/confluent-kafka-go v1.9.2
 	github.com/fatih/structs v1.1.0
 	github.com/go-zookeeper/zk v1.0.3
-	github.com/k0kubun/pp/v3 v3.2.0
 	github.com/ory/dockertest/v3 v3.9.1
 	github.com/rs/zerolog v1.28.0
 	github.com/seborama/govcr v4.5.0+incompatible
@@ -45,7 +44,6 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.0 // indirect
 	golang.org/x/net v0.1.0 // indirect
 	golang.org/x/sys v0.1.0 // indirect
-	golang.org/x/text v0.4.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
