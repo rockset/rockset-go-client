@@ -3,8 +3,9 @@ package rockset_test
 import (
 	"context"
 	"fmt"
+	"math/rand"
 	"os"
-	"strconv"
+	"strings"
 	"testing"
 	"time"
 
@@ -60,6 +61,7 @@ func testCtxWithLevel(lvl zerolog.Level) context.Context {
 const buildNum = "CIRCLE_BUILD_NUM"
 const persistentWorkspace = "persistent"
 const persistentCollection = "snp"
+const persistentAlias = "getalias"
 
 func description() string {
 	num, found := os.LookupEnv(buildNum)
@@ -69,30 +71,35 @@ func description() string {
 	return fmt.Sprintf("created by terraform integration test run %s", num)
 }
 
-func randomWorkspace(t *testing.T) string {
-	n, found := os.LookupEnv("CIRCLE_BUILD_NUM")
-	if !found {
-		return "go_dev"
-	}
-	num, err := strconv.ParseInt(n, 10, 64)
-	if err != nil {
-		t.Errorf("failed to convert %s to int: %v", n, err)
-	}
+const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
-	return fmt.Sprintf("go_%d", num)
+var seededRand = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+// StringWithCharset creates a random string with length and charset
+func stringWithCharset(length int, charset string) string {
+	b := make([]byte, length)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(len(charset))]
+	}
+	return string(b)
 }
 
-func randomName(t *testing.T, prefix string) string {
-	n, found := os.LookupEnv(buildNum)
+// String creates a random string with length
+func randomString(length int) string {
+	return stringWithCharset(length, charset)
+}
+
+func randomName(prefix string) string {
+	num, found := os.LookupEnv(buildNum)
 	if !found {
-		return fmt.Sprintf("go_%s_dev", prefix)
-	}
-	num, err := strconv.ParseInt(n, 10, 64)
-	if err != nil {
-		t.Errorf("failed to convert %s to int: %v", n, err)
+		if user, found := os.LookupEnv("USER"); found {
+			num = strings.ToLower(user)
+		} else {
+			num = "dev"
+		}
 	}
 
-	return fmt.Sprintf("go_%s_%d", prefix, num)
+	return fmt.Sprintf("go_%s_%s_%s", num, prefix, randomString(6))
 }
 
 // TestTemplate is used as a copypasta for new tests

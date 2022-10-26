@@ -9,6 +9,13 @@ import (
 	"github.com/rockset/rockset-go-client"
 )
 
+type AzureIntegrationsSuite struct {
+	suite.Suite
+	rc               *rockset.RockClient
+	integrationName  string
+	connectionString string
+}
+
 func (s *AzureIntegrationsSuite) TestAzureBlob() {
 	ctx := testCtx()
 
@@ -21,13 +28,6 @@ func (s *AzureIntegrationsSuite) TestAzureBlob() {
 
 	err = s.rc.DeleteIntegration(ctx, s.integrationName)
 	s.Require().NoError(err)
-}
-
-type AzureIntegrationsSuite struct {
-	suite.Suite
-	rc               *rockset.RockClient
-	integrationName  string
-	connectionString string
 }
 
 func (s *AzureIntegrationsSuite) TearDownSuite() {
@@ -50,7 +50,7 @@ func TestAzureIntegrations(t *testing.T) {
 
 	s := AzureIntegrationsSuite{
 		rc:               rc,
-		integrationName:  randomName(t, "azure"),
+		integrationName:  randomName("azure"),
 		connectionString: connectionString,
 	}
 	suite.Run(t, &s)

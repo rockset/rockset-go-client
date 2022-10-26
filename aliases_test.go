@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,69 +11,73 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-func TestRockClient_GetAlias(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+type AliasIntegrationSuite struct {
+	suite.Suite
+	rc *rockset.RockClient
+}
 
-	ctx := testCtx()
+func TestAliasIntegrationSuite(t *testing.T) {
+	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	alias, err := rc.GetAlias(ctx, "commons", "getalias")
+	s := AliasIntegrationSuite{rc: rc}
+	suite.Run(t, &s)
+}
+
+func (s *AliasIntegrationSuite) TestGetAlias(t *testing.T) {
+	skipUnlessIntegrationTest(t)
+
+	ctx := testCtx()
+
+	alias, err := s.rc.GetAlias(ctx, persistentWorkspace, persistentAlias)
 	require.NoError(t, err)
 	assert.Equal(t, "pme@rockset.com", alias.GetCreatorEmail())
 }
 
-func TestRockClient_ListAliases(t *testing.T) {
+func (s *AliasIntegrationSuite) TestListAliases(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
 
-	aliases, err := rc.ListAliases(ctx)
+	aliases, err := s.rc.ListAliases(ctx)
 	require.NoError(t, err)
 	for _, a := range aliases {
 		t.Logf("workspace: %s", a.GetName())
 	}
 }
 
-func TestRockClient_ListAliasesForWorkspace(t *testing.T) {
+func (s *AliasIntegrationSuite) TestListAliasesForWorkspace(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
 
-	aliases, err := rc.ListAliases(ctx, option.WithAliasWorkspace("common"))
+	aliases, err := s.rc.ListAliases(ctx, option.WithAliasWorkspace(persistentWorkspace))
 	require.NoError(t, err)
 	for _, a := range aliases {
 		t.Logf("workspace: %s", a.GetName())
 	}
 }
 
-func TestRockClient_Aliases(t *testing.T) {
+func (s *AliasIntegrationSuite) TestAliases(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient()
+	alias := randomName("alias")
+
+	_, err := s.rc.CreateAlias(ctx, persistentWorkspace, alias, []string{"commons._events"})
 	require.NoError(t, err)
 
-	ws := "acc"
-	alias := randomName(t, "alias")
-
-	_, err = rc.CreateAlias(ctx, ws, alias, []string{"commons._events"})
-	require.NoError(t, err)
-
-	err = rc.WaitUntilAliasAvailable(ctx, ws, alias)
+	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, alias)
 	require.NoError(t, err)
 
 	// update
 
-	err = rc.WaitUntilAliasAvailable(ctx, ws, alias)
+	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, alias)
 	require.NoError(t, err)
 
-	err = rc.DeleteAlias(ctx, ws, alias)
+	err = s.rc.DeleteAlias(ctx, persistentWorkspace, alias)
 	require.NoError(t, err)
 }

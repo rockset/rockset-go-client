@@ -35,9 +35,9 @@ func TestConfluentCloudIntegrationSuite(t *testing.T) {
 
 	s := ConfluentCloudIntegrationSuite{
 		rc:               rc,
-		integrationName:  randomName(t, "integration"),
-		ws:               "acc",
-		coll:             randomName(t, "cc"),
+		integrationName:  randomName("integration"),
+		ws:               randomName("cc"),
+		coll:             randomName("cc"),
 		topic:            "test_json",
 		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
 		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
@@ -49,7 +49,10 @@ func TestConfluentCloudIntegrationSuite(t *testing.T) {
 func (s *ConfluentCloudIntegrationSuite) SetupSuite() {
 	ctx := testCtx()
 
-	_, err := s.rc.CreateKafkaIntegration(ctx, s.integrationName,
+	_, err := s.rc.CreateWorkspace(ctx, s.ws)
+	s.Require().NoError(err)
+
+	_, err = s.rc.CreateKafkaIntegration(ctx, s.integrationName,
 		option.WithKafkaIntegrationDescription(description()),
 		option.WithKafkaV3(),
 		option.WithKafkaBootstrapServers(s.bootstrapServers),
@@ -65,7 +68,10 @@ func (s *ConfluentCloudIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
 
 	err := s.rc.DeleteIntegration(ctx, s.integrationName)
-	s.Require().NoError(err)
+	s.NoError(err)
+
+	err = s.rc.DeleteWorkspace(ctx, s.ws)
+	s.NoError(err)
 }
 
 func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {

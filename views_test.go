@@ -28,7 +28,7 @@ func TestViewCRUD(t *testing.T) {
 	require.NoError(t, err)
 
 	ws := "acc"
-	name := randomName(t, "view")
+	name := randomName("view")
 	query := "select * from commons._events where _events.kind = 'COLLECTION'"
 	_, err = rc.CreateView(ctx, ws, name, query)
 	require.NoError(t, err)

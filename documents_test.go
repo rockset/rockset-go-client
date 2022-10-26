@@ -13,6 +13,7 @@ import (
 type DocumentIntegrationSuite struct {
 	suite.Suite
 	rc         *rockset.RockClient
+	ws         string
 	collection string
 	id         string
 }
@@ -25,7 +26,8 @@ func TestDocumentSuite(t *testing.T) {
 
 	s := DocumentIntegrationSuite{
 		rc:         rc,
-		collection: randomName(t, "docs"),
+		ws:         randomName("docs"),
+		collection: randomName("docs"),
 	}
 	suite.Run(t, &s)
 }
@@ -33,17 +35,26 @@ func TestDocumentSuite(t *testing.T) {
 func (s *DocumentIntegrationSuite) SetupSuite() {
 	ctx := testCtx()
 
-	// create a temporary write-api collection
-	_, err := s.rc.CreateCollection(ctx, persistentWorkspace, s.collection)
+	_, err := s.rc.CreateWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
-	err = s.rc.WaitUntilCollectionReady(ctx, persistentWorkspace, s.collection)
+
+	// create a temporary write-api collection
+	_, err = s.rc.CreateCollection(ctx, s.ws, s.collection)
+	s.Require().NoError(err)
+	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.collection)
 	s.Require().NoError(err)
 }
 
 func (s *DocumentIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
 
-	err := s.rc.DeleteCollection(ctx, persistentWorkspace, s.collection)
+	err := s.rc.DeleteCollection(ctx, s.ws, s.collection)
+	s.Require().NoError(err)
+
+	err = s.rc.WaitUntilCollectionGone(ctx, s.ws, s.collection)
+	s.Require().NoError(err)
+
+	err = s.rc.DeleteWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
 }
 
@@ -59,7 +70,7 @@ func (s *DocumentIntegrationSuite) TestAddDocument() {
 		structs.Map(doc{Foo: "foo"}),
 	}
 
-	res, err := s.rc.AddDocuments(ctx, persistentWorkspace, "patch", docs)
+	res, err := s.rc.AddDocuments(ctx, s.ws, "patch", docs)
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.id = res[0].GetId()
@@ -80,7 +91,7 @@ func (s *DocumentIntegrationSuite) TestPatchDocument() {
 			},
 		},
 	}
-	res, err := s.rc.PatchDocuments(ctx, persistentWorkspace, "patch", patches)
+	res, err := s.rc.PatchDocuments(ctx, s.ws, "patch", patches)
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.Assert().Equal("PATCHED", res[0].GetStatus())

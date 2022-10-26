@@ -12,38 +12,38 @@ import (
 // to add a sleep in their query
 const slowQuery = `script {{{ import * as rockset from "/rockset"; export function delay(x) { rockset.sleep(x); return x; } }}} select _script.delay(2000, q) from unnest([1] as q)`
 
-type QueryTestSuite struct {
+type QueryIntegrationSuite struct {
 	suite.Suite
 	rc *rockset.RockClient
 }
 
-func TestQueryTestSuite(t *testing.T) {
+func TestQueryIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := QueryTestSuite{
+	s := QueryIntegrationSuite{
 		rc: rc,
 	}
 	suite.Run(t, &s)
 }
 
-func (s *QueryTestSuite) TestQuery() {
+func (s *QueryIntegrationSuite) TestQuery() {
 	ctx := testCtx()
 
 	_, err := s.rc.Query(ctx, "SELECT 1")
 	s.Require().NoError(err)
 }
 
-func (s *QueryTestSuite) TestListQueries() {
+func (s *QueryIntegrationSuite) TestListQueries() {
 	ctx := testCtx()
 
 	_, err := s.rc.ListActiveQueries(ctx)
 	s.Require().NoError(err)
 }
 
-func (s *QueryTestSuite) TestAsyncQuery() {
+func (s *QueryIntegrationSuite) TestAsyncQuery() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
@@ -59,7 +59,7 @@ func (s *QueryTestSuite) TestAsyncQuery() {
 	s.Require().NoError(err)
 }
 
-func (s *QueryTestSuite) TestCancelQuery() {
+func (s *QueryIntegrationSuite) TestCancelQuery() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
@@ -73,7 +73,7 @@ func (s *QueryTestSuite) TestCancelQuery() {
 	s.Require().Equal("CANCELLED", info.GetStatus())
 }
 
-func (s *QueryTestSuite) TestValidateQuery() {
+func (s *QueryIntegrationSuite) TestValidateQuery() {
 	ctx := testCtx()
 
 	_, err := s.rc.ValidateQuery(ctx, "SELECT 1")

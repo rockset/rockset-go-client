@@ -25,8 +25,8 @@ func TestIntegrationTestSuite(t *testing.T) {
 
 	suite.Run(t, &IntegrationTestSuite{
 		rc:             rc,
-		s3Integration:  randomName(t, "s3"),
-		gcsIntegration: randomName(t, "gcs"),
+		s3Integration:  randomName("s3"),
+		gcsIntegration: randomName("gcs"),
 	})
 }
 

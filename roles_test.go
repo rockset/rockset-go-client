@@ -10,31 +10,31 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-type RoleTestSuite struct {
+type RoleIntegrationSuite struct {
 	suite.Suite
 	rc   *rockset.RockClient
 	name string
 }
 
-func TestRoleTestSuite(t *testing.T) {
+func TestRoleIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	suite.Run(t, &RoleTestSuite{
+	suite.Run(t, &RoleIntegrationSuite{
 		rc:   rc,
-		name: randomName(t, "role"),
+		name: randomName("role"),
 	})
 }
 
-func (s *RoleTestSuite) TearDownSuite() {
+func (s *RoleIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
 	err := s.rc.DeleteRole(ctx, s.name)
 	s.NoError(err)
 }
 
-func (s *RoleTestSuite) TestCreateRole() {
+func (s *RoleIntegrationSuite) TestCreateRole() {
 	ctx := testCtx()
 
 	role, err := s.rc.CreateRole(ctx, s.name,
@@ -45,7 +45,7 @@ func (s *RoleTestSuite) TestCreateRole() {
 	s.Equal(s.name, role.GetRoleName())
 }
 
-func (s *RoleTestSuite) TestGetRole() {
+func (s *RoleIntegrationSuite) TestGetRole() {
 	ctx := testCtx()
 
 	role, err := s.rc.GetRole(ctx, s.name)
@@ -53,14 +53,14 @@ func (s *RoleTestSuite) TestGetRole() {
 	s.Equal(s.name, role.GetRoleName())
 }
 
-func (s *RoleTestSuite) TestGetMissingRole() {
+func (s *RoleIntegrationSuite) TestGetMissingRole() {
 	ctx := testCtx()
 
 	_, err := s.rc.GetRole(ctx, "non-existing-role")
 	s.Error(err)
 }
 
-func (s *RoleTestSuite) TestListRoles() {
+func (s *RoleIntegrationSuite) TestListRoles() {
 	ctx := testCtx()
 
 	roles, err := s.rc.ListRoles(ctx)
@@ -75,7 +75,7 @@ func (s *RoleTestSuite) TestListRoles() {
 	s.True(found)
 }
 
-func (s *RoleTestSuite) TestUpdate() {
+func (s *RoleIntegrationSuite) TestUpdate() {
 	ctx := testCtx()
 
 	role, err := s.rc.UpdateRole(ctx, s.name,
