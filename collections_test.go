@@ -1,27 +1,48 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/dataset"
 	"github.com/rockset/rockset-go-client/option"
 )
 
 type CollectionTestSuite struct {
 	suite.Suite
-	rc *rockset.RockClient
+	rc          *rockset.RockClient
+	ws          string
+	collections []string
 }
 
-func TestCollectionTestSuite(t *testing.T) {
+func TestCollectionIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	suite.Run(t, &CollectionTestSuite{rc: rc})
+	suite.Run(t, &CollectionTestSuite{rc: rc,
+		ws: randomName("collection")})
+}
+
+func (s *CollectionTestSuite) SetupSuite() {
+	ctx := testCtx()
+	_, err := s.rc.CreateWorkspace(ctx, s.ws)
+	s.NoError(err)
+}
+
+func (s *CollectionTestSuite) TearDownSuite() {
+	ctx := testCtx()
+
+	for _, c := range s.collections {
+		err := s.rc.WaitUntilCollectionGone(ctx, s.ws, c)
+		s.Assert().NoError(err)
+	}
+	err := s.rc.DeleteWorkspace(ctx, s.ws)
+	s.NoError(err)
 }
 
 func (s *CollectionTestSuite) TestGetCollection() {
@@ -48,4 +69,37 @@ func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 	s.NoError(err)
 
 	s.T().Logf("collections in %s: %d", persistentWorkspace, len(collections))
+}
+
+func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
+	ctx := testCtx()
+	name := randomName("cities")
+	s.collections = append(s.collections, name)
+
+	_, err := s.rc.CreateCollection(ctx, s.ws, name,
+		option.WithSampleDataset(dataset.Cities))
+	s.Require().NoError(err)
+
+	err = s.rc.WaitUntilCollectionHasDocuments(ctx, s.ws, name, int64(145_658))
+	s.Assert().NoError(err)
+
+	err = s.rc.DeleteCollection(ctx, s.ws, name)
+	s.Assert().NoError(err)
+
+}
+
+func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
+	ctx := testCtx()
+	name := randomName("movies")
+	s.collections = append(s.collections, name)
+
+	_, err := s.rc.CreateCollection(ctx, s.ws, name,
+		option.WithSampleDatasetPattern("movies/*"))
+	s.Require().NoError(err)
+
+	err = s.rc.WaitUntilCollectionHasDocuments(ctx, s.ws, name, int64(2_830))
+	s.Assert().NoError(err)
+
+	err = s.rc.DeleteCollection(ctx, s.ws, name)
+	s.Assert().NoError(err)
 }
