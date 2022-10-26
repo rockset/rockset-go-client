@@ -23,7 +23,7 @@ func TestAliasIntegrationSuite(t *testing.T) {
 	require.NoError(t, err)
 
 	s := AliasIntegrationSuite{rc: rc}
-	suite.Run(s.T(), &s)
+	suite.Run(t, &s)
 }
 
 func (s *AliasIntegrationSuite) TestGetAlias() {
