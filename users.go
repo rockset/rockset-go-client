@@ -31,8 +31,8 @@ func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []stri
 	return resp.GetData(), nil
 }
 
-// UpdateUser updates as existing user. Note that the user first and last name aren't visible for security reasons,
-// until the user hac accepted the invite, i.e. is in the ACTIVE state.
+// UpdateUser updates as existing user. Note that the user first and last name aren't visible for privacy reasons,
+// until the user has accepted the invite, i.e. is in the ACTIVE state.
 //
 // REST API documentation https://docs.rockset.com/rest-api/#updateuser
 func (rc *RockClient) UpdateUser(ctx context.Context, email string, roles []string,
