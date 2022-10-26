@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**ListUnsubscribePreferences**](UsersApi.md#ListUnsubscribePreferences) | **Get** /v1/orgs/self/users/self/preferences | Retrieve Notification Preferences
 [**ListUsers**](UsersApi.md#ListUsers) | **Get** /v1/orgs/self/users | List Users
 [**UpdateUnsubscribePreferences**](UsersApi.md#UpdateUnsubscribePreferences) | **Post** /v1/orgs/self/users/self/preferences | Update Notification Preferences
+[**UpdateUser**](UsersApi.md#UpdateUser) | **Post** /v1/orgs/self/users/{user} | Update User
 
 
 
@@ -454,6 +455,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateUnsubscribePreferencesResponse**](UpdateUnsubscribePreferencesResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateUser
+
+> User UpdateUser(ctx, user).Body(body).Execute()
+
+Update User
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    user := "user_example" // string | email of the user to update
+    body := *openapiclient.NewUpdateUserRequest() // UpdateUserRequest | JSON object
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UsersApi.UpdateUser(context.Background(), user).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UsersApi.UpdateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateUser`: User
+    fmt.Fprintf(os.Stdout, "Response from `UsersApi.UpdateUser`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**user** | **string** | email of the user to update | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **body** | [**UpdateUserRequest**](UpdateUserRequest.md) | JSON object | 
+
+### Return type
+
+[**User**](User.md)
 
 ### Authorization
 

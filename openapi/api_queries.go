@@ -589,19 +589,16 @@ type ApiGetQueryResultsRequest struct {
 	queryId string
 	cursor *string
 	docs *int32
-	offset *int32
 }
 
+// Cursor to current page. If unset, will default to the first page.
 func (r ApiGetQueryResultsRequest) Cursor(cursor string) ApiGetQueryResultsRequest {
 	r.cursor = &cursor
 	return r
 }
+// Number of documents to fetch.
 func (r ApiGetQueryResultsRequest) Docs(docs int32) ApiGetQueryResultsRequest {
 	r.docs = &docs
-	return r
-}
-func (r ApiGetQueryResultsRequest) Offset(offset int32) ApiGetQueryResultsRequest {
-	r.offset = &offset
 	return r
 }
 
@@ -653,9 +650,6 @@ func (a *QueriesApiService) GetQueryResultsExecute(r ApiGetQueryResultsRequest) 
 	}
 	if r.docs != nil {
 		localVarQueryParams.Add("docs", parameterToString(*r.docs, ""))
-	}
-	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

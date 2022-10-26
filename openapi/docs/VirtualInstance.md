@@ -10,8 +10,6 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
 **ResumedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
 **State** | Pointer to **string** | Virtual instance state. | [optional] 
-**CurrentType** | Pointer to **string** |  | [optional] 
-**DesiredType** | Pointer to **string** |  | [optional] 
 **CurrentSize** | Pointer to **string** | Virtual instance current size. | [optional] [readonly] 
 **DesiredSize** | Pointer to **string** | Virtual instance desired size. | [optional] [readonly] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
@@ -20,6 +18,8 @@ Name | Type | Description | Notes
 **ScaledPodCount** | Pointer to **int32** |  | [optional] 
 **Id** | Pointer to **string** | Unique identifier for virtual instance. | [optional] 
 **Rrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
+**AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
+**Stats** | Pointer to [**VirtualInstanceStats**](VirtualInstanceStats.md) |  | [optional] 
 
 ## Methods
 
@@ -184,56 +184,6 @@ SetState sets State field to given value.
 `func (o *VirtualInstance) HasState() bool`
 
 HasState returns a boolean if a field has been set.
-
-### GetCurrentType
-
-`func (o *VirtualInstance) GetCurrentType() string`
-
-GetCurrentType returns the CurrentType field if non-nil, zero value otherwise.
-
-### GetCurrentTypeOk
-
-`func (o *VirtualInstance) GetCurrentTypeOk() (*string, bool)`
-
-GetCurrentTypeOk returns a tuple with the CurrentType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCurrentType
-
-`func (o *VirtualInstance) SetCurrentType(v string)`
-
-SetCurrentType sets CurrentType field to given value.
-
-### HasCurrentType
-
-`func (o *VirtualInstance) HasCurrentType() bool`
-
-HasCurrentType returns a boolean if a field has been set.
-
-### GetDesiredType
-
-`func (o *VirtualInstance) GetDesiredType() string`
-
-GetDesiredType returns the DesiredType field if non-nil, zero value otherwise.
-
-### GetDesiredTypeOk
-
-`func (o *VirtualInstance) GetDesiredTypeOk() (*string, bool)`
-
-GetDesiredTypeOk returns a tuple with the DesiredType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDesiredType
-
-`func (o *VirtualInstance) SetDesiredType(v string)`
-
-SetDesiredType sets DesiredType field to given value.
-
-### HasDesiredType
-
-`func (o *VirtualInstance) HasDesiredType() bool`
-
-HasDesiredType returns a boolean if a field has been set.
 
 ### GetCurrentSize
 
@@ -434,6 +384,56 @@ SetRrn sets Rrn field to given value.
 `func (o *VirtualInstance) HasRrn() bool`
 
 HasRrn returns a boolean if a field has been set.
+
+### GetAutoSuspendSeconds
+
+`func (o *VirtualInstance) GetAutoSuspendSeconds() int32`
+
+GetAutoSuspendSeconds returns the AutoSuspendSeconds field if non-nil, zero value otherwise.
+
+### GetAutoSuspendSecondsOk
+
+`func (o *VirtualInstance) GetAutoSuspendSecondsOk() (*int32, bool)`
+
+GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoSuspendSeconds
+
+`func (o *VirtualInstance) SetAutoSuspendSeconds(v int32)`
+
+SetAutoSuspendSeconds sets AutoSuspendSeconds field to given value.
+
+### HasAutoSuspendSeconds
+
+`func (o *VirtualInstance) HasAutoSuspendSeconds() bool`
+
+HasAutoSuspendSeconds returns a boolean if a field has been set.
+
+### GetStats
+
+`func (o *VirtualInstance) GetStats() VirtualInstanceStats`
+
+GetStats returns the Stats field if non-nil, zero value otherwise.
+
+### GetStatsOk
+
+`func (o *VirtualInstance) GetStatsOk() (*VirtualInstanceStats, bool)`
+
+GetStatsOk returns a tuple with the Stats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStats
+
+`func (o *VirtualInstance) SetStats(v VirtualInstanceStats)`
+
+SetStats sets Stats field to given value.
+
+### HasStats
+
+`func (o *VirtualInstance) HasStats() bool`
+
+HasStats returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

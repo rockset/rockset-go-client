@@ -155,7 +155,7 @@ No authorization required
 
 ## GetQueryResults
 
-> QueryPaginationResponse GetQueryResults(ctx, queryId).Cursor(cursor).Docs(docs).Offset(offset).Execute()
+> QueryPaginationResponse GetQueryResults(ctx, queryId).Cursor(cursor).Docs(docs).Execute()
 
 Retrieve Query Results Page
 
@@ -175,13 +175,12 @@ import (
 
 func main() {
     queryId := "queryId_example" // string | 
-    cursor := "cursor_example" // string |  (optional)
-    docs := int32(56) // int32 |  (optional)
-    offset := int32(56) // int32 |  (optional)
+    cursor := "cursor_example" // string | Cursor to current page. If unset, will default to the first page. (optional)
+    docs := int32(56) // int32 | Number of documents to fetch. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.QueriesApi.GetQueryResults(context.Background(), queryId).Cursor(cursor).Docs(docs).Offset(offset).Execute()
+    resp, r, err := apiClient.QueriesApi.GetQueryResults(context.Background(), queryId).Cursor(cursor).Docs(docs).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueriesApi.GetQueryResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,9 +206,8 @@ Other parameters are passed through a pointer to a apiGetQueryResultsRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **cursor** | **string** |  | 
- **docs** | **int32** |  | 
- **offset** | **int32** |  | 
+ **cursor** | **string** | Cursor to current page. If unset, will default to the first page. | 
+ **docs** | **int32** | Number of documents to fetch. | 
 
 ### Return type
 

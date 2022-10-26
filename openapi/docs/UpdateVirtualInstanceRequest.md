@@ -5,10 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NewSize** | Pointer to **string** | Requested virtual instance size. | [optional] 
-**NewType** | Pointer to **string** |  | [optional] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
 **Name** | Pointer to **string** | New virtual instance name. | [optional] 
 **Description** | Pointer to **string** | New virtual instance description. | [optional] 
+**AutoSuspendEnabled** | Pointer to **bool** | Whether auto-suspend should be enabled for this Virtual Instance. | [optional] 
+**AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
 
 ## Methods
 
@@ -53,31 +54,6 @@ SetNewSize sets NewSize field to given value.
 `func (o *UpdateVirtualInstanceRequest) HasNewSize() bool`
 
 HasNewSize returns a boolean if a field has been set.
-
-### GetNewType
-
-`func (o *UpdateVirtualInstanceRequest) GetNewType() string`
-
-GetNewType returns the NewType field if non-nil, zero value otherwise.
-
-### GetNewTypeOk
-
-`func (o *UpdateVirtualInstanceRequest) GetNewTypeOk() (*string, bool)`
-
-GetNewTypeOk returns a tuple with the NewType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNewType
-
-`func (o *UpdateVirtualInstanceRequest) SetNewType(v string)`
-
-SetNewType sets NewType field to given value.
-
-### HasNewType
-
-`func (o *UpdateVirtualInstanceRequest) HasNewType() bool`
-
-HasNewType returns a boolean if a field has been set.
 
 ### GetMonitoringEnabled
 
@@ -153,6 +129,56 @@ SetDescription sets Description field to given value.
 `func (o *UpdateVirtualInstanceRequest) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetAutoSuspendEnabled
+
+`func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabled() bool`
+
+GetAutoSuspendEnabled returns the AutoSuspendEnabled field if non-nil, zero value otherwise.
+
+### GetAutoSuspendEnabledOk
+
+`func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabledOk() (*bool, bool)`
+
+GetAutoSuspendEnabledOk returns a tuple with the AutoSuspendEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoSuspendEnabled
+
+`func (o *UpdateVirtualInstanceRequest) SetAutoSuspendEnabled(v bool)`
+
+SetAutoSuspendEnabled sets AutoSuspendEnabled field to given value.
+
+### HasAutoSuspendEnabled
+
+`func (o *UpdateVirtualInstanceRequest) HasAutoSuspendEnabled() bool`
+
+HasAutoSuspendEnabled returns a boolean if a field has been set.
+
+### GetAutoSuspendSeconds
+
+`func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSeconds() int32`
+
+GetAutoSuspendSeconds returns the AutoSuspendSeconds field if non-nil, zero value otherwise.
+
+### GetAutoSuspendSecondsOk
+
+`func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSecondsOk() (*int32, bool)`
+
+GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoSuspendSeconds
+
+`func (o *UpdateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32)`
+
+SetAutoSuspendSeconds sets AutoSuspendSeconds field to given value.
+
+### HasAutoSuspendSeconds
+
+`func (o *UpdateVirtualInstanceRequest) HasAutoSuspendSeconds() bool`
+
+HasAutoSuspendSeconds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -21,7 +21,7 @@ func TestRockClient_ListVirtualInstances(t *testing.T) {
 	assert.NotEmpty(t, vis)
 
 	for _, vi := range vis {
-		t.Logf("vi %s: %s %s %s", vi.GetId(), vi.GetState(), vi.GetCurrentType(), vi.GetCurrentSize())
+		t.Logf("vi %s: %s %s", vi.GetId(), vi.GetState(), vi.GetCurrentSize())
 		assert.Equal(t, "SMALL", vi.GetCurrentSize())
 		assert.Equal(t, "SMALL", vi.GetDesiredSize())
 	}

@@ -4,21 +4,20 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Unique identifier for collection, can contain alphanumeric or dash characters. | 
+**Name** | Pointer to **string** | Unique identifier for collection, can contain alphanumeric or dash characters. | [optional] 
 **Description** | Pointer to **string** | Text describing the collection. | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which to ingest data. | [optional] 
 **RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged, based on event time. | [optional] 
-**InsertOnly** | Pointer to **bool** | If true disallows updates and deletes, but makes indexing more efficient. | [optional] 
 **EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
-**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | List of mappings. | [optional] 
+**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | Deprecated. List of mappings. Use field_mapping_query instead. | [optional] 
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
-**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | DEPRECATED. List of clustering fields. Use CLUSTER BY clause in ingest transformation instead. | [optional] 
+**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | Deprecated. List of clustering fields. Use CLUSTER BY clause in &#x60;field_mapping_query&#x60; instead. | [optional] 
 
 ## Methods
 
 ### NewCreateCollectionRequest
 
-`func NewCreateCollectionRequest(name string, ) *CreateCollectionRequest`
+`func NewCreateCollectionRequest() *CreateCollectionRequest`
 
 NewCreateCollectionRequest instantiates a new CreateCollectionRequest object
 This constructor will assign default values to properties that have it defined,
@@ -52,6 +51,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *CreateCollectionRequest) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -127,31 +131,6 @@ SetRetentionSecs sets RetentionSecs field to given value.
 `func (o *CreateCollectionRequest) HasRetentionSecs() bool`
 
 HasRetentionSecs returns a boolean if a field has been set.
-
-### GetInsertOnly
-
-`func (o *CreateCollectionRequest) GetInsertOnly() bool`
-
-GetInsertOnly returns the InsertOnly field if non-nil, zero value otherwise.
-
-### GetInsertOnlyOk
-
-`func (o *CreateCollectionRequest) GetInsertOnlyOk() (*bool, bool)`
-
-GetInsertOnlyOk returns a tuple with the InsertOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInsertOnly
-
-`func (o *CreateCollectionRequest) SetInsertOnly(v bool)`
-
-SetInsertOnly sets InsertOnly field to given value.
-
-### HasInsertOnly
-
-`func (o *CreateCollectionRequest) HasInsertOnly() bool`
-
-HasInsertOnly returns a boolean if a field has been set.
 
 ### GetEventTimeInfo
 

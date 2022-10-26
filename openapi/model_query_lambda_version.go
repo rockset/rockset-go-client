@@ -34,6 +34,8 @@ type QueryLambdaVersion struct {
 	// Status of this Query Lambda.
 	State *string `json:"state,omitempty"`
 	Stats *QueryLambdaStats `json:"stats,omitempty"`
+	// Public access ID associated with this QL version
+	PublicAccessId *string `json:"public_access_id,omitempty"`
 }
 
 // NewQueryLambdaVersion instantiates a new QueryLambdaVersion object
@@ -373,6 +375,38 @@ func (o *QueryLambdaVersion) SetStats(v QueryLambdaStats) {
 	o.Stats = &v
 }
 
+// GetPublicAccessId returns the PublicAccessId field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetPublicAccessId() string {
+	if o == nil || o.PublicAccessId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PublicAccessId
+}
+
+// GetPublicAccessIdOk returns a tuple with the PublicAccessId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool) {
+	if o == nil || o.PublicAccessId == nil {
+		return nil, false
+	}
+	return o.PublicAccessId, true
+}
+
+// HasPublicAccessId returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasPublicAccessId() bool {
+	if o != nil && o.PublicAccessId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPublicAccessId gets a reference to the given string and assigns it to the PublicAccessId field.
+func (o *QueryLambdaVersion) SetPublicAccessId(v string) {
+	o.PublicAccessId = &v
+}
+
 func (o QueryLambdaVersion) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Workspace != nil {
@@ -404,6 +438,9 @@ func (o QueryLambdaVersion) MarshalJSON() ([]byte, error) {
 	}
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
+	}
+	if o.PublicAccessId != nil {
+		toSerialize["public_access_id"] = o.PublicAccessId
 	}
 	return json.Marshal(toSerialize)
 }

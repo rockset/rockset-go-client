@@ -28,8 +28,6 @@ type VirtualInstance struct {
 	ResumedAt *string `json:"resumed_at,omitempty"`
 	// Virtual instance state.
 	State *string `json:"state,omitempty"`
-	CurrentType *string `json:"current_type,omitempty"`
-	DesiredType *string `json:"desired_type,omitempty"`
 	// Virtual instance current size.
 	CurrentSize *string `json:"current_size,omitempty"`
 	// Virtual instance desired size.
@@ -42,6 +40,9 @@ type VirtualInstance struct {
 	Id *string `json:"id,omitempty"`
 	// Virtual Instance RRN.
 	Rrn *string `json:"rrn,omitempty"`
+	// Number of seconds without queries after which the VI is suspended
+	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
+	Stats *VirtualInstanceStats `json:"stats,omitempty"`
 }
 
 // NewVirtualInstance instantiates a new VirtualInstance object
@@ -244,70 +245,6 @@ func (o *VirtualInstance) HasState() bool {
 // SetState gets a reference to the given string and assigns it to the State field.
 func (o *VirtualInstance) SetState(v string) {
 	o.State = &v
-}
-
-// GetCurrentType returns the CurrentType field value if set, zero value otherwise.
-func (o *VirtualInstance) GetCurrentType() string {
-	if o == nil || o.CurrentType == nil {
-		var ret string
-		return ret
-	}
-	return *o.CurrentType
-}
-
-// GetCurrentTypeOk returns a tuple with the CurrentType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VirtualInstance) GetCurrentTypeOk() (*string, bool) {
-	if o == nil || o.CurrentType == nil {
-		return nil, false
-	}
-	return o.CurrentType, true
-}
-
-// HasCurrentType returns a boolean if a field has been set.
-func (o *VirtualInstance) HasCurrentType() bool {
-	if o != nil && o.CurrentType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrentType gets a reference to the given string and assigns it to the CurrentType field.
-func (o *VirtualInstance) SetCurrentType(v string) {
-	o.CurrentType = &v
-}
-
-// GetDesiredType returns the DesiredType field value if set, zero value otherwise.
-func (o *VirtualInstance) GetDesiredType() string {
-	if o == nil || o.DesiredType == nil {
-		var ret string
-		return ret
-	}
-	return *o.DesiredType
-}
-
-// GetDesiredTypeOk returns a tuple with the DesiredType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VirtualInstance) GetDesiredTypeOk() (*string, bool) {
-	if o == nil || o.DesiredType == nil {
-		return nil, false
-	}
-	return o.DesiredType, true
-}
-
-// HasDesiredType returns a boolean if a field has been set.
-func (o *VirtualInstance) HasDesiredType() bool {
-	if o != nil && o.DesiredType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDesiredType gets a reference to the given string and assigns it to the DesiredType field.
-func (o *VirtualInstance) SetDesiredType(v string) {
-	o.DesiredType = &v
 }
 
 // GetCurrentSize returns the CurrentSize field value if set, zero value otherwise.
@@ -566,6 +503,70 @@ func (o *VirtualInstance) SetRrn(v string) {
 	o.Rrn = &v
 }
 
+// GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
+func (o *VirtualInstance) GetAutoSuspendSeconds() int32 {
+	if o == nil || o.AutoSuspendSeconds == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AutoSuspendSeconds
+}
+
+// GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetAutoSuspendSecondsOk() (*int32, bool) {
+	if o == nil || o.AutoSuspendSeconds == nil {
+		return nil, false
+	}
+	return o.AutoSuspendSeconds, true
+}
+
+// HasAutoSuspendSeconds returns a boolean if a field has been set.
+func (o *VirtualInstance) HasAutoSuspendSeconds() bool {
+	if o != nil && o.AutoSuspendSeconds != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoSuspendSeconds gets a reference to the given int32 and assigns it to the AutoSuspendSeconds field.
+func (o *VirtualInstance) SetAutoSuspendSeconds(v int32) {
+	o.AutoSuspendSeconds = &v
+}
+
+// GetStats returns the Stats field value if set, zero value otherwise.
+func (o *VirtualInstance) GetStats() VirtualInstanceStats {
+	if o == nil || o.Stats == nil {
+		var ret VirtualInstanceStats
+		return ret
+	}
+	return *o.Stats
+}
+
+// GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetStatsOk() (*VirtualInstanceStats, bool) {
+	if o == nil || o.Stats == nil {
+		return nil, false
+	}
+	return o.Stats, true
+}
+
+// HasStats returns a boolean if a field has been set.
+func (o *VirtualInstance) HasStats() bool {
+	if o != nil && o.Stats != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStats gets a reference to the given VirtualInstanceStats and assigns it to the Stats field.
+func (o *VirtualInstance) SetStats(v VirtualInstanceStats) {
+	o.Stats = &v
+}
+
 func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -585,12 +586,6 @@ func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	}
 	if o.State != nil {
 		toSerialize["state"] = o.State
-	}
-	if o.CurrentType != nil {
-		toSerialize["current_type"] = o.CurrentType
-	}
-	if o.DesiredType != nil {
-		toSerialize["desired_type"] = o.DesiredType
 	}
 	if o.CurrentSize != nil {
 		toSerialize["current_size"] = o.CurrentSize
@@ -615,6 +610,12 @@ func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	}
 	if o.Rrn != nil {
 		toSerialize["rrn"] = o.Rrn
+	}
+	if o.AutoSuspendSeconds != nil {
+		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
+	}
+	if o.Stats != nil {
+		toSerialize["stats"] = o.Stats
 	}
 	return json.Marshal(toSerialize)
 }

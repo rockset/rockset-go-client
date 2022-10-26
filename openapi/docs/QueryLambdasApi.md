@@ -1002,7 +1002,7 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
     queryLambda := "queryLambda_example" // string | name of the Query Lambda
     body := *openapiclient.NewUpdateQueryLambdaRequest() // UpdateQueryLambdaRequest | JSON object
-    create := true // bool |  (optional)
+    create := true // bool | Create a new Query Lambda if one does not exist already. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1035,7 +1035,7 @@ Name | Type | Description  | Notes
 
 
  **body** | [**UpdateQueryLambdaRequest**](UpdateQueryLambdaRequest.md) | JSON object | 
- **create** | **bool** |  | 
+ **create** | **bool** | Create a new Query Lambda if one does not exist already. | 
 
 ### Return type
 

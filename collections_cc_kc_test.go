@@ -27,6 +27,7 @@ type ConfluentCloudWithKafkaConnectIntegrationSuite struct {
 
 // Test creating an integration and collection for Confluent Cloud with a local kafka-connect
 func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
+	t.Skip("skipping kafka tests - too flakey :(")
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
 

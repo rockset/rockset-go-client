@@ -4,7 +4,7 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
-// RoleOptions is used to hold optional workspace settings
+// RoleOptions is used to hold optional role settings
 type RoleOptions struct {
 	// Description of the role
 	Description *string

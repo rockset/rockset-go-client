@@ -45,7 +45,6 @@ func Example_s3() {
 			),
 			option.WithS3Prefix("cities.csv"),
 		),
-		option.WithInsertOnly(),
 		option.WithFieldMappingQuery("SELECT * FROM _input"),
 	)
 	if err != nil {

@@ -27,7 +27,6 @@ func WithCollectionRequest(request openapi.CreateCollectionRequest) CollectionOp
 		o.Description = request.Description
 		o.Sources = request.Sources
 		o.RetentionSecs = request.RetentionSecs
-		o.InsertOnly = request.InsertOnly
 		o.EventTimeInfo = request.EventTimeInfo
 		o.FieldMappings = request.FieldMappings
 		o.FieldMappingQuery = request.FieldMappingQuery
@@ -168,13 +167,6 @@ func WithFieldMappingQuery(sql string) CollectionOption {
 	}
 }
 
-// WithInsertOnly enables insert only for the collection
-func WithInsertOnly() CollectionOption {
-	return func(o *openapi.CreateCollectionRequest) {
-		o.InsertOnly = openapi.PtrBool(true)
-	}
-}
-
 func WithEventTimeInfo(field, timeZone string, format EventTimeInfoFormat) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		o.EventTimeInfo = &openapi.EventTimeInfo{
@@ -279,9 +271,3 @@ func WithCollectionFieldMapping(name string, dropAll bool, outputField OutputFie
 		o.FieldMappings = append(o.FieldMappings, mapping)
 	}
 }
-
-/*
-	TODO: what about these two
-	createParams.FieldSchemas
-	createParams.InvertedIndexGroupEncodingOptions
-*/

@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
 **AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
 **AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
-**Segment** | Pointer to [**SegmentIntegration**](SegmentIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
 **Snowflake** | Pointer to [**SnowflakeIntegration**](SnowflakeIntegration.md) |  | [optional] 
@@ -256,31 +255,6 @@ SetAzureEventHubs sets AzureEventHubs field to given value.
 `func (o *CreateIntegrationRequest) HasAzureEventHubs() bool`
 
 HasAzureEventHubs returns a boolean if a field has been set.
-
-### GetSegment
-
-`func (o *CreateIntegrationRequest) GetSegment() SegmentIntegration`
-
-GetSegment returns the Segment field if non-nil, zero value otherwise.
-
-### GetSegmentOk
-
-`func (o *CreateIntegrationRequest) GetSegmentOk() (*SegmentIntegration, bool)`
-
-GetSegmentOk returns a tuple with the Segment field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSegment
-
-`func (o *CreateIntegrationRequest) SetSegment(v SegmentIntegration)`
-
-SetSegment sets Segment field to given value.
-
-### HasSegment
-
-`func (o *CreateIntegrationRequest) HasSegment() bool`
-
-HasSegment returns a boolean if a field has been set.
 
 ### GetKafka
 

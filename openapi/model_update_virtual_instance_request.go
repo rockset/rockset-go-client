@@ -18,12 +18,15 @@ import (
 type UpdateVirtualInstanceRequest struct {
 	// Requested virtual instance size.
 	NewSize *string `json:"new_size,omitempty"`
-	NewType *string `json:"new_type,omitempty"`
 	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
 	// New virtual instance name.
 	Name *string `json:"name,omitempty"`
 	// New virtual instance description.
 	Description *string `json:"description,omitempty"`
+	// Whether auto-suspend should be enabled for this Virtual Instance.
+	AutoSuspendEnabled *bool `json:"auto_suspend_enabled,omitempty"`
+	// Number of seconds without queries after which the VI is suspended
+	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
 }
 
 // NewUpdateVirtualInstanceRequest instantiates a new UpdateVirtualInstanceRequest object
@@ -73,38 +76,6 @@ func (o *UpdateVirtualInstanceRequest) HasNewSize() bool {
 // SetNewSize gets a reference to the given string and assigns it to the NewSize field.
 func (o *UpdateVirtualInstanceRequest) SetNewSize(v string) {
 	o.NewSize = &v
-}
-
-// GetNewType returns the NewType field value if set, zero value otherwise.
-func (o *UpdateVirtualInstanceRequest) GetNewType() string {
-	if o == nil || o.NewType == nil {
-		var ret string
-		return ret
-	}
-	return *o.NewType
-}
-
-// GetNewTypeOk returns a tuple with the NewType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateVirtualInstanceRequest) GetNewTypeOk() (*string, bool) {
-	if o == nil || o.NewType == nil {
-		return nil, false
-	}
-	return o.NewType, true
-}
-
-// HasNewType returns a boolean if a field has been set.
-func (o *UpdateVirtualInstanceRequest) HasNewType() bool {
-	if o != nil && o.NewType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNewType gets a reference to the given string and assigns it to the NewType field.
-func (o *UpdateVirtualInstanceRequest) SetNewType(v string) {
-	o.NewType = &v
 }
 
 // GetMonitoringEnabled returns the MonitoringEnabled field value if set, zero value otherwise.
@@ -203,13 +174,74 @@ func (o *UpdateVirtualInstanceRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetAutoSuspendEnabled returns the AutoSuspendEnabled field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabled() bool {
+	if o == nil || o.AutoSuspendEnabled == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AutoSuspendEnabled
+}
+
+// GetAutoSuspendEnabledOk returns a tuple with the AutoSuspendEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabledOk() (*bool, bool) {
+	if o == nil || o.AutoSuspendEnabled == nil {
+		return nil, false
+	}
+	return o.AutoSuspendEnabled, true
+}
+
+// HasAutoSuspendEnabled returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasAutoSuspendEnabled() bool {
+	if o != nil && o.AutoSuspendEnabled != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoSuspendEnabled gets a reference to the given bool and assigns it to the AutoSuspendEnabled field.
+func (o *UpdateVirtualInstanceRequest) SetAutoSuspendEnabled(v bool) {
+	o.AutoSuspendEnabled = &v
+}
+
+// GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSeconds() int32 {
+	if o == nil || o.AutoSuspendSeconds == nil {
+		var ret int32
+		return ret
+	}
+	return *o.AutoSuspendSeconds
+}
+
+// GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSecondsOk() (*int32, bool) {
+	if o == nil || o.AutoSuspendSeconds == nil {
+		return nil, false
+	}
+	return o.AutoSuspendSeconds, true
+}
+
+// HasAutoSuspendSeconds returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasAutoSuspendSeconds() bool {
+	if o != nil && o.AutoSuspendSeconds != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoSuspendSeconds gets a reference to the given int32 and assigns it to the AutoSuspendSeconds field.
+func (o *UpdateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32) {
+	o.AutoSuspendSeconds = &v
+}
+
 func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.NewSize != nil {
 		toSerialize["new_size"] = o.NewSize
-	}
-	if o.NewType != nil {
-		toSerialize["new_type"] = o.NewType
 	}
 	if o.MonitoringEnabled != nil {
 		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
@@ -219,6 +251,12 @@ func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.AutoSuspendEnabled != nil {
+		toSerialize["auto_suspend_enabled"] = o.AutoSuspendEnabled
+	}
+	if o.AutoSuspendSeconds != nil {
+		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
 	}
 	return json.Marshal(toSerialize)
 }

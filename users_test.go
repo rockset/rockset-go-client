@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 const CIUser = "pme+circleci@rockset.com"
@@ -42,8 +43,9 @@ func (s *UserTestSuite) TearDownSuite() {
 func (s *UserTestSuite) TestCreateUser() {
 	ctx := testCtx()
 
-	_, err := s.rc.CreateUser(ctx, s.email, []string{rockset.ReadOnlyRole})
+	user, err := s.rc.CreateUser(ctx, s.email, []string{rockset.ReadOnlyRole})
 	s.Require().NoError(err)
+	s.Assert().Equal(s.email, user.GetEmail())
 }
 
 func (s *UserTestSuite) TestGetCurrentUser() {
@@ -51,7 +53,9 @@ func (s *UserTestSuite) TestGetCurrentUser() {
 
 	user, err := s.rc.GetCurrentUser(ctx)
 	s.Require().NoError(err)
-	s.Assert().Equal(CIUser, user.Email)
+	s.Assert().Equal(CIUser, user.GetEmail())
+	s.Assert().Equal("Martin", user.GetFirstName())
+	s.Assert().Equal("Englund", user.GetLastName())
 }
 
 func (s *UserTestSuite) TestGetUser() {
@@ -60,6 +64,7 @@ func (s *UserTestSuite) TestGetUser() {
 	user, err := s.rc.GetUser(ctx, s.email)
 	s.Require().NoError(err)
 	s.Assert().Equal(s.email, user.Email)
+	s.Assert().Equal("NEW", user.GetState())
 }
 
 func (s *UserTestSuite) TestListUsers() {
@@ -75,4 +80,15 @@ func (s *UserTestSuite) TestListUsers() {
 		}
 	}
 	s.Assert().True(found)
+}
+
+func (s *UserTestSuite) TestUpdateUser() {
+	ctx := testCtx()
+
+	_, err := s.rc.UpdateUser(ctx, s.email, []string{rockset.MemberRole},
+		option.WithUserFirstName("first"), option.WithUserLastName("last"))
+	s.Require().NoError(err)
+	// TODO: can't assert the fist and last name until the user hac accepted
+	// s.Assert().Equal("first", user.GetFirstName())
+	// s.Assert().Equal("last", user.GetLastName())
 }
