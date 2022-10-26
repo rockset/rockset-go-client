@@ -70,7 +70,7 @@ func (s *DocumentIntegrationSuite) TestAddDocument() {
 		structs.Map(doc{Foo: "foo"}),
 	}
 
-	res, err := s.rc.AddDocuments(ctx, s.ws, "patch", docs)
+	res, err := s.rc.AddDocuments(ctx, s.ws, s.collection, docs)
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.id = res[0].GetId()
@@ -91,7 +91,7 @@ func (s *DocumentIntegrationSuite) TestPatchDocument() {
 			},
 		},
 	}
-	res, err := s.rc.PatchDocuments(ctx, s.ws, "patch", patches)
+	res, err := s.rc.PatchDocuments(ctx, s.ws, s.collection, patches)
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.Assert().Equal("PATCHED", res[0].GetStatus())
@@ -102,7 +102,7 @@ func (s *DocumentIntegrationSuite) TestPatchDocument() {
 func (s *DocumentIntegrationSuite) TestRemoveDocument() {
 	ctx := testCtx()
 
-	res, err := s.rc.DeleteDocuments(ctx, "tests", "patch", []string{s.id})
+	res, err := s.rc.DeleteDocuments(ctx, s.ws, s.collection, []string{s.id})
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.Assert().Equal("DELETED", res[0].GetStatus())
