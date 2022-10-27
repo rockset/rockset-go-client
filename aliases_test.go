@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -10,69 +11,73 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-func TestRockClient_GetAlias(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
-	ctx := testCtx()
-
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	alias, err := rc.GetAlias(ctx, "commons", "getalias")
-	require.NoError(t, err)
-	assert.Equal(t, "pme@rockset.com", alias.GetCreatorEmail())
+type AliasIntegrationSuite struct {
+	suite.Suite
+	rc *rockset.RockClient
 }
 
-func TestRockClient_ListAliases(t *testing.T) {
+func TestAliasIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	ctx := testCtx()
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	aliases, err := rc.ListAliases(ctx)
-	require.NoError(t, err)
+	s := AliasIntegrationSuite{rc: rc}
+	suite.Run(t, &s)
+}
+
+func (s *AliasIntegrationSuite) TestGetAlias() {
+	skipUnlessIntegrationTest(s.T())
+
+	ctx := testCtx()
+
+	alias, err := s.rc.GetAlias(ctx, persistentWorkspace, persistentAlias)
+	require.NoError(s.T(), err)
+	assert.Equal(s.T(), "pme@rockset.com", alias.GetCreatorEmail())
+}
+
+func (s *AliasIntegrationSuite) TestListAliases() {
+	skipUnlessIntegrationTest(s.T())
+
+	ctx := testCtx()
+
+	aliases, err := s.rc.ListAliases(ctx)
+	require.NoError(s.T(), err)
 	for _, a := range aliases {
-		t.Logf("workspace: %s", a.GetName())
+		s.T().Logf("workspace: %s", a.GetName())
 	}
 }
 
-func TestRockClient_ListAliasesForWorkspace(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
+	skipUnlessIntegrationTest(s.T())
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
 
-	aliases, err := rc.ListAliases(ctx, option.WithAliasWorkspace("common"))
-	require.NoError(t, err)
+	aliases, err := s.rc.ListAliases(ctx, option.WithAliasWorkspace(persistentWorkspace))
+	require.NoError(s.T(), err)
 	for _, a := range aliases {
-		t.Logf("workspace: %s", a.GetName())
+		s.T().Logf("workspace: %s", a.GetName())
 	}
 }
 
-func TestRockClient_Aliases(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+func (s *AliasIntegrationSuite) TestAliases() {
+	skipUnlessIntegrationTest(s.T())
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	alias := randomName("alias")
 
-	ws := "acc"
-	alias := randomName(t, "alias")
+	_, err := s.rc.CreateAlias(ctx, persistentWorkspace, alias, []string{"commons._events"})
+	require.NoError(s.T(), err)
 
-	_, err = rc.CreateAlias(ctx, ws, alias, []string{"commons._events"})
-	require.NoError(t, err)
-
-	err = rc.WaitUntilAliasAvailable(ctx, ws, alias)
-	require.NoError(t, err)
+	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, alias)
+	require.NoError(s.T(), err)
 
 	// update
 
-	err = rc.WaitUntilAliasAvailable(ctx, ws, alias)
-	require.NoError(t, err)
+	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, alias)
+	require.NoError(s.T(), err)
 
-	err = rc.DeleteAlias(ctx, ws, alias)
-	require.NoError(t, err)
+	err = s.rc.DeleteAlias(ctx, persistentWorkspace, alias)
+	require.NoError(s.T(), err)
 }

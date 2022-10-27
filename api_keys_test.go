@@ -24,7 +24,7 @@ func TestSuiteAPIKey(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	s := SuiteAPIKey{rc: rc, keyName: randomName(t, "key")}
+	s := SuiteAPIKey{rc: rc, keyName: randomName("key")}
 	suite.Run(t, &s)
 }
 

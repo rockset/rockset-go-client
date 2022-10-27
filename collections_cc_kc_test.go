@@ -34,13 +34,15 @@ func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
+	name := randomName("cckc")
+
 	s := ConfluentCloudWithKafkaConnectIntegrationSuite{
 		rc: rc,
 		kc: kafkaConfig{
 			topic:           "test_json",
-			integrationName: randomName(t, "cckc"),
-			workspace:       "acc",
-			collection:      randomName(t, "cckc"),
+			integrationName: name,
+			workspace:       name,
+			collection:      name,
 		},
 		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
 		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
@@ -57,7 +59,11 @@ func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TestKafka() {
 }
 
 func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) SetupSuite() {
+	ctx := testCtx()
 	var err error
+
+	_, err = s.rc.CreateWorkspace(ctx, s.kc.workspace)
+	s.Require().NoError(err)
 
 	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
@@ -105,6 +111,10 @@ func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TearDownSuite() {
 		s.T().Logf("deleted integration %s", s.kc.integrationName)
 	} else {
 		s.T().Logf("failed to delete integration %s: %v", s.kc.integrationName, err)
+	}
+
+	if err = s.rc.DeleteWorkspace(ctx, s.kc.workspace); err != nil {
+		s.T().Logf("failed to delete workspace %s: %v", s.kc.workspace, err)
 	}
 
 	// TODO: delete topics

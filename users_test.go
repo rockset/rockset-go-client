@@ -2,6 +2,7 @@ package rockset_test
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -13,34 +14,35 @@ import (
 
 const CIUser = "pme+circleci@rockset.com"
 
-type UserTestSuite struct {
+type UserIntegrationSuite struct {
 	suite.Suite
 	rc    *rockset.RockClient
 	email string
 }
 
-func TestUserTestSuite(t *testing.T) {
+func TestUserIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)
 
-	name := randomName(t, "test")
-	s := UserTestSuite{
+	// we convert the email address to lowercase in Rockset, so must do it here or the test will fail
+	name := strings.ToLower(randomName("test"))
+	s := UserIntegrationSuite{
 		rc:    rc,
 		email: fmt.Sprintf("pme+%s@rockset.com", name),
 	}
 	suite.Run(t, &s)
 }
 
-func (s *UserTestSuite) TearDownSuite() {
+func (s *UserIntegrationSuite) TearDownSuite() {
 	ctx := testCtx()
 
 	err := s.rc.DeleteUser(ctx, s.email)
 	s.Require().NoError(err)
 }
 
-func (s *UserTestSuite) TestCreateUser() {
+func (s *UserIntegrationSuite) TestCreateUser() {
 	ctx := testCtx()
 
 	user, err := s.rc.CreateUser(ctx, s.email, []string{rockset.ReadOnlyRole})
@@ -48,7 +50,7 @@ func (s *UserTestSuite) TestCreateUser() {
 	s.Assert().Equal(s.email, user.GetEmail())
 }
 
-func (s *UserTestSuite) TestGetCurrentUser() {
+func (s *UserIntegrationSuite) TestGetCurrentUser() {
 	ctx := testCtx()
 
 	user, err := s.rc.GetCurrentUser(ctx)
@@ -58,7 +60,7 @@ func (s *UserTestSuite) TestGetCurrentUser() {
 	s.Assert().Equal("Englund", user.GetLastName())
 }
 
-func (s *UserTestSuite) TestGetUser() {
+func (s *UserIntegrationSuite) TestGetUser() {
 	ctx := testCtx()
 
 	user, err := s.rc.GetUser(ctx, s.email)
@@ -67,7 +69,7 @@ func (s *UserTestSuite) TestGetUser() {
 	s.Assert().Equal("NEW", user.GetState())
 }
 
-func (s *UserTestSuite) TestListUsers() {
+func (s *UserIntegrationSuite) TestListUsers() {
 	ctx := testCtx()
 
 	users, err := s.rc.ListUsers(ctx)
@@ -82,7 +84,7 @@ func (s *UserTestSuite) TestListUsers() {
 	s.Assert().True(found)
 }
 
-func (s *UserTestSuite) TestUpdateUser() {
+func (s *UserIntegrationSuite) TestUpdateUser() {
 	ctx := testCtx()
 
 	_, err := s.rc.UpdateUser(ctx, s.email, []string{rockset.MemberRole},

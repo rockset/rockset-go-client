@@ -15,7 +15,7 @@ func TestRockClient_CreateQueryLambda(t *testing.T) {
 
 	ctx := testCtx()
 	ws := "acc"
-	name := randomName(t, "ql")
+	name := randomName("ql")
 
 	rc, err := rockset.NewClient()
 	require.NoError(t, err)

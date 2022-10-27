@@ -44,9 +44,9 @@ func TestKafkaIntegrationSuite(t *testing.T) {
 		rc: rc,
 		kc: kafkaConfig{
 			topic:           "test_json",
-			integrationName: randomName(t, "kafka"),
-			workspace:       "acc",
-			collection:      randomName(t, "kafka"),
+			integrationName: randomName("kafka"),
+			workspace:       randomName("kafka"),
+			collection:      randomName("kafka"),
 		},
 		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
 		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
@@ -62,6 +62,9 @@ func (s *KafkaIntegrationSuite) TestKafka() {
 
 func (s *KafkaIntegrationSuite) SetupSuite() {
 	var err error
+	ctx := testCtx()
+
+	_, err = s.rc.CreateWorkspace(ctx, s.kc.workspace)
 	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
 
@@ -208,4 +211,7 @@ func (s *KafkaIntegrationSuite) TearDownSuite() {
 
 	err = s.dockerPool.Client.RemoveNetwork(s.network.ID)
 	s.Assert().NoError(err, "could not remove network")
+
+	err = s.rc.DeleteWorkspace(ctx, s.kc.workspace)
+	s.NoError(err, "could not remove workspace %s", s.kc.workspace)
 }
