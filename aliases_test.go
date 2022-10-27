@@ -19,10 +19,7 @@ type AliasIntegrationSuite struct {
 func TestAliasIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	s := AliasIntegrationSuite{rc: rc}
+	s := AliasIntegrationSuite{rc: testClient(t)}
 	suite.Run(t, &s)
 }
 

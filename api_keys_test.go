@@ -3,7 +3,6 @@ package rockset_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -21,10 +20,10 @@ type SuiteAPIKey struct {
 func TestSuiteAPIKey(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	s := SuiteAPIKey{rc: rc, keyName: randomName("key")}
+	s := SuiteAPIKey{
+		rc:      testClient(t),
+		keyName: randomName("key"),
+	}
 	suite.Run(t, &s)
 }
 

@@ -57,6 +57,12 @@ func testCtxWithLevel(lvl zerolog.Level) context.Context {
 	return log.WithContext(ctx)
 }
 
+func testClient(t *testing.T) *rockset.RockClient {
+	rc, err := rockset.NewClient(rockset.WithUserAgent("rockset-go-integration-tests"))
+	require.NoError(t, err)
+	return rc
+}
+
 // these are used for testing when a persistent value is needed
 const buildNum = "CIRCLE_BUILD_NUM"
 const persistentWorkspace = "persistent"
@@ -109,8 +115,7 @@ func TestTemplate(t *testing.T) {
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	rc := testClient(t)
 
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)
@@ -203,8 +208,7 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 	err := os.Setenv(rockset.APIServerEnvironmentVariableName, "api.use1a1.rockset.com")
 	require.NoError(t, err)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	rc := testClient(t)
 
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)
@@ -217,9 +221,8 @@ func TestRockClient_Ping(t *testing.T) {
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	rc := testClient(t)
 
-	err = rc.Ping(ctx)
+	err := rc.Ping(ctx)
 	require.NoError(t, err)
 }

@@ -3,7 +3,6 @@ package rockset_test
 import (
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"testing"
 )
@@ -20,11 +19,8 @@ type QueryIntegrationSuite struct {
 func TestQueryIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	s := QueryIntegrationSuite{
-		rc: rc,
+		rc: testClient(t),
 	}
 	suite.Run(t, &s)
 }

@@ -8,7 +8,6 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"testing"
 	"time"
@@ -31,13 +30,10 @@ func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	name := randomName("cckc")
 
 	s := ConfluentCloudWithKafkaConnectIntegrationSuite{
-		rc: rc,
+		rc: testClient(t),
 		kc: kafkaConfig{
 			topic:           "test_json",
 			integrationName: name,

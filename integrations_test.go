@@ -4,8 +4,6 @@ import (
 	"github.com/stretchr/testify/suite"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -20,11 +18,8 @@ type IntegrationTestSuite struct {
 func TestIntegrationTestSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	suite.Run(t, &IntegrationTestSuite{
-		rc:             rc,
+		rc:             testClient(t),
 		s3Integration:  randomName("s3"),
 		gcsIntegration: randomName("gcs"),
 	})

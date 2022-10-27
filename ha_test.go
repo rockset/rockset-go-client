@@ -29,8 +29,7 @@ func (s *HASuite) TestHA_Integration() {
 		rockset.WithAPIKey(apikey))
 	s.NoError(err)
 
-	rs2, err := rockset.NewClient()
-	s.NoError(err)
+	rs2 := testClient(s.T())
 
 	ha := rockset.NewHA(use1a1, rs2)
 	res, errs := ha.Query(ctx, "SELECT * FROM commons._events LIMIT 10")

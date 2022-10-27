@@ -3,7 +3,6 @@ package rockset_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -19,11 +18,8 @@ type RoleIntegrationSuite struct {
 func TestRoleIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	suite.Run(t, &RoleIntegrationSuite{
-		rc:   rc,
+		rc:   testClient(t),
 		name: randomName("role"),
 	})
 }

@@ -5,7 +5,6 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -23,13 +22,10 @@ type UserIntegrationSuite struct {
 func TestUserIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	// we convert the email address to lowercase in Rockset, so must do it here or the test will fail
 	name := strings.ToLower(randomName("test"))
 	s := UserIntegrationSuite{
-		rc:    rc,
+		rc:    testClient(t),
 		email: fmt.Sprintf("pme+%s@rockset.com", name),
 	}
 	suite.Run(t, &s)
