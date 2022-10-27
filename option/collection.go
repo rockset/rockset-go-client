@@ -3,6 +3,7 @@ package option
 import (
 	"time"
 
+	"github.com/rockset/rockset-go-client/dataset"
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
@@ -269,5 +270,31 @@ func WithCollectionFieldMapping(name string, dropAll bool, outputField OutputFie
 			o.FieldMappings = []openapi.FieldMappingV2{}
 		}
 		o.FieldMappings = append(o.FieldMappings, mapping)
+	}
+}
+
+// WithSampleDataset creates a new collection from the Rockset public datasets.
+func WithSampleDataset(ds dataset.Sample) CollectionOption {
+	pattern := dataset.Lookup(ds)
+	return func(o *openapi.CreateCollectionRequest) {
+		o.Sources = append(o.Sources, openapi.Source{
+			S3: &openapi.SourceS3{
+				Bucket:  dataset.RocksetPublicDatasets,
+				Pattern: &pattern,
+			},
+		})
+	}
+}
+
+// WithSampleDatasetPattern creates a new collection from the Rockset public datasets,
+// using pattern to select which file(s) to include in the collection.
+func WithSampleDatasetPattern(pattern string) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		o.Sources = append(o.Sources, openapi.Source{
+			S3: &openapi.SourceS3{
+				Bucket:  dataset.RocksetPublicDatasets,
+				Pattern: &pattern,
+			},
+		})
 	}
 }
