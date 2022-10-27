@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -30,11 +29,8 @@ func TestConfluentCloudIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	s := ConfluentCloudIntegrationSuite{
-		rc:               rc,
+		rc:               testClient(t),
 		integrationName:  randomName("integration"),
 		ws:               randomName("cc"),
 		coll:             randomName("cc"),

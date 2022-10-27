@@ -5,7 +5,6 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -13,10 +12,9 @@ func TestListViews(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	rc := testClient(t)
 
-	_, err = rc.ListViews(ctx, option.WithViewWorkspace(persistentWorkspace))
+	_, err := rc.ListViews(ctx, option.WithViewWorkspace(persistentWorkspace))
 	require.NoError(t, err)
 }
 
@@ -24,13 +22,12 @@ func TestViewCRUD(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	rc := testClient(t)
 
 	ws := "acc"
 	name := randomName("view")
 	query := "select * from commons._events where _events.kind = 'COLLECTION'"
-	_, err = rc.CreateView(ctx, ws, name, query)
+	_, err := rc.CreateView(ctx, ws, name, query)
 	require.NoError(t, err)
 
 	_, err = rc.UpdateView(ctx, ws, name, query, option.WithViewDescription(description()))

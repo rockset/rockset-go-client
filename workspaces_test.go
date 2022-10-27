@@ -3,7 +3,6 @@ package rockset_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -19,10 +18,10 @@ type SuiteWorkspace struct {
 func TestSuiteWorkspace(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	s := SuiteWorkspace{rc: rc, ws: "integration"}
+	s := SuiteWorkspace{
+		rc: testClient(t),
+		ws: "integration",
+	}
 	suite.Run(t, &s)
 }
 

@@ -3,7 +3,6 @@ package rockset_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -21,11 +20,7 @@ type CollectionTestSuite struct {
 func TestCollectionIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	suite.Run(t, &CollectionTestSuite{rc: rc,
-		ws: randomName("collection")})
+	suite.Run(t, &CollectionTestSuite{rc: testClient(t), ws: randomName("collection")})
 }
 
 func (s *CollectionTestSuite) SetupSuite() {

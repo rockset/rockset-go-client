@@ -11,7 +11,6 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 	"testing"
 	"time"
@@ -37,11 +36,8 @@ func TestKafkaIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	s := KafkaIntegrationSuite{
-		rc: rc,
+		rc: testClient(t),
 		kc: kafkaConfig{
 			topic:           "test_json",
 			integrationName: randomName("kafka"),

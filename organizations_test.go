@@ -5,8 +5,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	"github.com/rockset/rockset-go-client"
 )
 
 func TestRockClient_GetOrganization(t *testing.T) {
@@ -14,8 +12,7 @@ func TestRockClient_GetOrganization(t *testing.T) {
 
 	ctx := testCtx()
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
+	rc := testClient(t)
 
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)

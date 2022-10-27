@@ -13,11 +13,9 @@ func TestError_IsNotFoundError(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
 	ctx := testCtx()
+	rc := testClient(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
-	_, err = rc.GetCollection(ctx, persistentWorkspace, "notfound")
+	_, err := rc.GetCollection(ctx, persistentWorkspace, "notfound")
 	require.Error(t, err)
 
 	var re rockset.Error

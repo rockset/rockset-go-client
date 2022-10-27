@@ -1,7 +1,6 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/require"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -45,11 +44,8 @@ func (s *AzureIntegrationsSuite) TearDownSuite() {
 func TestAzureIntegrations(t *testing.T) {
 	connectionString := skipUnlessEnvSet(t, "AZURE_CONNECTION_STRING")
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	s := AzureIntegrationsSuite{
-		rc:               rc,
+		rc:               testClient(t),
 		integrationName:  randomName("azure"),
 		connectionString: connectionString,
 	}

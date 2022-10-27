@@ -5,8 +5,6 @@ import (
 	"testing"
 
 	"github.com/fatih/structs"
-	"github.com/stretchr/testify/require"
-
 	"github.com/rockset/rockset-go-client"
 )
 
@@ -21,11 +19,8 @@ type DocumentIntegrationSuite struct {
 func TestDocumentSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
-	rc, err := rockset.NewClient()
-	require.NoError(t, err)
-
 	s := DocumentIntegrationSuite{
-		rc:         rc,
+		rc:         testClient(t),
 		ws:         randomName("docs"),
 		collection: randomName("docs"),
 	}

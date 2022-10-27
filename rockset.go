@@ -16,11 +16,16 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
-// APIKeyEnvironmentVariableName is the environment variable name for the API key
-const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY" //nolint
-
-// APIServerEnvironmentVariableName is the environment variable name for the API server
-const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
+const (
+	// APIKeyEnvironmentVariableName is the environment variable name for the API key
+	APIKeyEnvironmentVariableName = "ROCKSET_APIKEY" //nolint
+	// APIServerEnvironmentVariableName is the environment variable name for the API server
+	APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
+	// DefaultUserAgent is the user agent string the Rockset go client will use for REST API calls.
+	DefaultUserAgent = "rockset-go-client"
+	// HeaderVersionName is the name of the HTTP header the go client sets which contains the client version used.
+	HeaderVersionName = "x-rockset-version"
+)
 
 // RockConfig contains the configurable options for the RockClient.
 type RockConfig struct {
@@ -51,8 +56,8 @@ type RockClient struct {
 //	c, err := rockset.NewClient(rockset.WithAPIKey("..."), rockset.WithAPIServer("..."))
 func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg := openapi.NewConfiguration()
-	cfg.UserAgent = "rockset-go-client"
-	cfg.AddDefaultHeader("x-rockset-version", Version)
+	cfg.UserAgent = DefaultUserAgent
+	cfg.AddDefaultHeader(HeaderVersionName, Version)
 	// TODO should the default http client be tuned?
 	cfg.HTTPClient = &http.Client{}
 
@@ -133,6 +138,14 @@ func WithRetry(r Retrier) RockOption {
 func WithHTTPDebug() RockOption {
 	return func(rc *RockConfig) {
 		rc.cfg.HTTPClient.Transport = &debugRoundTripper{http.DefaultTransport}
+	}
+}
+
+// WithUserAgent sets the user agent string. Used by the Rockset terraform provider.
+// If not set, it defaults to DefaultUserAgent.
+func WithUserAgent(name string) RockOption {
+	return func(rc *RockConfig) {
+		rc.cfg.UserAgent = name
 	}
 }
 
