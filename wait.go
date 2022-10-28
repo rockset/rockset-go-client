@@ -46,46 +46,61 @@ func (rc *RockClient) WaitUntilKafkaIntegrationActive(ctx context.Context, integ
 
 // WaitUntilAliasAvailable waits until the alias is available.
 func (rc *RockClient) WaitUntilAliasAvailable(ctx context.Context, workspace, alias string) error {
-	return rc.RetryWithCheck(ctx, func() (bool, error) {
-		_, _, err := rc.AliasesApi.GetAlias(ctx, workspace, alias).Execute()
+	return rc.RetryWithCheck(ctx, resourceIsAvailable(ctx, func(ctx context.Context) error {
+		_, err := rc.GetAlias(ctx, workspace, alias)
+		return err
+	}))
+}
 
-		if err == nil {
-			return false, nil
-		}
-
-		re := NewError(err)
-		if re.IsNotFoundError() {
-			return true, nil
-		}
-		if re.Retryable() {
-			return true, nil
-		}
-
-		return false, err
-	})
+// WaitUntilAliasGone waits until the alias is gone.
+func (rc *RockClient) WaitUntilAliasGone(ctx context.Context, workspace, alias string) error {
+	return rc.RetryWithCheck(ctx, resourceIsGone(ctx, func(ctx context.Context) error {
+		_, err := rc.GetAlias(ctx, workspace, alias)
+		return err
+	}))
 }
 
 // WaitUntilQueryCompleted waits until queryID has either completed, errored, or been cancelled.
 func (rc *RockClient) WaitUntilQueryCompleted(ctx context.Context, queryID string) error {
 	// TODO should this only wait for COMPLETED and return an error for ERROR and CANCELLED?
-	return rc.RetryWithCheck(ctx, rc.queryHasStatus(ctx, queryID, []QueryState{QueryCompleted, QueryError, QueryCancelled}))
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []QueryState{QueryCompleted, QueryError, QueryCancelled}, func(ctx context.Context) (QueryState, error) {
+		q, err := rc.GetQueryInfo(ctx, queryID)
+		return QueryState(q.GetStatus()), err
+	}))
 }
 
 // WaitUntilCollectionReady waits until the collection is ready.
 func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, name string) error {
-	return rc.RetryWithCheck(ctx, rc.collectionHasState(ctx, workspace, name, collectionStatusREADY))
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{collectionStatusREADY}, func(ctx context.Context) (string, error) {
+		c, err := rc.GetCollection(ctx, workspace, name)
+		return c.GetStatus(), err
+	}))
 }
 
 // WaitUntilCollectionGone waits until a collection marked for deletion is gone, i.e. GetCollection()
 // returns "not found".
 func (rc *RockClient) WaitUntilCollectionGone(ctx context.Context, workspace, name string) error {
-	return rc.RetryWithCheck(ctx, rc.collectionIsGone(ctx, workspace, name))
+	return rc.RetryWithCheck(ctx, resourceIsGone(ctx, func(ctx context.Context) error {
+		_, err := rc.GetCollection(ctx, workspace, name)
+		return err
+	}))
 }
 
 // WaitUntilViewGone waits until a view marked for deletion is gone, i.e. GetView()
 // returns "not found".
 func (rc *RockClient) WaitUntilViewGone(ctx context.Context, workspace, name string) error {
-	return rc.RetryWithCheck(ctx, rc.viewIsGone(ctx, workspace, name))
+	return rc.RetryWithCheck(ctx, resourceIsGone(ctx, func(ctx context.Context) error {
+		_, err := rc.GetView(ctx, workspace, name)
+		return err
+	}))
+}
+
+// WaitUntilWorkspaceAvailable waits until the workspace is available.
+func (rc *RockClient) WaitUntilWorkspaceAvailable(ctx context.Context, workspace string) error {
+	return rc.RetryWithCheck(ctx, resourceIsAvailable(ctx, func(ctx context.Context) error {
+		_, err := rc.GetWorkspace(ctx, workspace)
+		return err
+	}))
 }
 
 // WaitUntilCollectionHasNewDocuments waits until the collection has at least count new documents
@@ -101,73 +116,44 @@ func (rc *RockClient) WaitUntilCollectionHasDocuments(ctx context.Context, works
 	return rc.RetryWithCheck(ctx, waiter.collectionHasDocs(ctx, workspace, name, count))
 }
 
-// WaitUntilWorkspaceAvailable waits until the workspace is available.
-func (rc *RockClient) WaitUntilWorkspaceAvailable(ctx context.Context, workspace string) error {
-	return rc.RetryWithCheck(ctx, rc.workspaceIsAvailable(ctx, workspace))
-}
-
-// TODO(pme) refactor viewIsGone() and collectionIsGone() to be DRY
-
-func (rc *RockClient) queryHasStatus(ctx context.Context, queryID string, statuses []QueryState) RetryCheck {
+// resourceIsAvailable implements RetryFn to wait until the resource is present
+func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error) RetryCheck {
 	return func() (bool, error) {
-		res, err := rc.GetQueryInfo(ctx, queryID)
-		if err != nil {
-			return false, err
-		}
-
-		for _, s := range statuses {
-			if string(s) == res.GetStatus() {
-				return false, nil
-			}
-		}
-
-		return true, nil
-	}
-}
-
-func (rc *RockClient) workspaceIsAvailable(ctx context.Context, workspace string) RetryCheck {
-	return func() (bool, error) {
-		_, err := rc.GetWorkspace(ctx, workspace)
+		err := fn(ctx)
 
 		if err == nil {
-			// the collection still exist, and we are done
+			// the resource is present, done
 			return false, nil
 		}
 
 		var re Error
 		if errors.As(err, &re) {
 			if re.IsNotFoundError() {
-				// the view is no longer present
-				return true, nil
-			}
-			if re.Retryable() {
+				// the resource is not present, retry
 				return true, nil
 			}
 		}
 
+		// we got an error, stop
 		return false, err
 	}
 }
 
-// viewIsGone implements RetryFn to wait until the view is deleted
-func (rc *RockClient) viewIsGone(ctx context.Context, workspace, name string) RetryCheck {
+// resourceIsGone implements RetryFn to wait until the resource is gone
+func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) RetryCheck {
 	return func() (bool, error) {
-		zl := zerolog.Ctx(ctx)
-		_, err := rc.GetView(ctx, workspace, name)
+		err := fn(ctx)
 
 		if err == nil {
-			zl.Debug().Str("workspace", workspace).Str("view", name).Msg("view is still present")
+			// the resource is still present, retry the operation
 			return true, nil
 		}
 
 		var re Error
 		if errors.As(err, &re) {
 			if re.IsNotFoundError() {
-				// the view is no longer present
+				// the resource is no longer present
 				return false, nil
-			}
-			if re.Retryable() {
-				return true, nil
 			}
 		}
 
@@ -175,48 +161,18 @@ func (rc *RockClient) viewIsGone(ctx context.Context, workspace, name string) Re
 	}
 }
 
-func (rc *RockClient) collectionIsGone(ctx context.Context, workspace, name string) RetryCheck {
+// resourceHasState implements RetryFn to wait until the resource is has the desired state
+func resourceHasState[T comparable](ctx context.Context, states []T, fn func(ctx context.Context) (T, error)) RetryCheck {
 	return func() (bool, error) {
-		zl := zerolog.Ctx(ctx)
-		_, err := rc.GetCollection(ctx, workspace, name)
-
-		if err == nil {
-			zl.Debug().Str("workspace", workspace).Str("collection", name).Msg("collection is still present")
-			return true, nil
-		}
-
-		var re Error
-		if errors.As(err, &re) {
-			if re.IsNotFoundError() {
-				// the collection is gone
-				return false, nil
-			}
-			if re.Retryable() {
-				return true, nil
-			}
-		}
-
-		return false, err
-	}
-}
-
-func (rc *RockClient) collectionHasState(ctx context.Context, workspace, name, state string) RetryCheck {
-	return func() (bool, error) {
-		zl := zerolog.Ctx(ctx)
-		c, err := rc.GetCollection(ctx, workspace, name)
+		state, err := fn(ctx)
 		if err != nil {
-			re := NewError(err)
-			if re.Retryable() {
-				return true, nil
-			}
-
 			return false, err
 		}
 
-		zl.Debug().Str("status", c.GetStatus()).Str("workspace", workspace).
-			Str("desired", c.GetStatus()).Str("collection", name).Msg("collectionHasState()")
-		if c.GetStatus() == state {
-			return false, nil
+		for _, s := range states {
+			if state == s {
+				return false, nil
+			}
 		}
 
 		return true, nil
