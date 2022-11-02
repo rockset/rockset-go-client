@@ -91,8 +91,12 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 			return nil
 		}
 
-		// wrap the error so the caller can determine if it is a retryable error
-		err = NewError(err)
+		// if it isn't a RetryableError, wrap the error so the caller can determine if it is a retryable error
+		var re RetryableError
+		if !errors.As(err, &re) {
+			err = NewError(err)
+		}
+
 		if !checkFn(err) {
 			return err
 		}
