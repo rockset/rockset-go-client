@@ -130,12 +130,18 @@ func WithHTTPClient(c *http.Client) RockOption {
 // WithRetry sets the Retrier the RockClient uses to retry requests which return a Error that can be retried.
 // The errors which can be retried are configurable using the ExponentialRetry field RetryableErrorCheck.
 //
-//		r := rockset.ExponentialRetry{
-//	   RetryableErrorCheck: func(err error) bool {
-//	     return error.Is()
-//	   }
+//	er := rockset.ExponentialRetry{
+//		RetryableErrorCheck: func(err error) bool {
+//			return error.Is(err, io.ErrUnexpectedEOF)
 //		}
-//		rc, err := rockset.NewClient(rockset.WithRetry(r))
+//	}
+//	rc, err := rockset.NewClient(rockset.WithRetry(er))
+//	//handle error
+//	err = rc.Retry(ctx, func() error{
+//		// call that will be retried if it returns io.ErrUnexpectedEOF
+//	})
+//
+// This would retry all io.ErrUnexpectedEOF errors
 func WithRetry(r Retrier) RockOption {
 	return func(rc *RockConfig) {
 		rc.Retrier = r

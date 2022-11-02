@@ -3,13 +3,12 @@ package rockset_test
 import (
 	"errors"
 	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/stretchr/testify/suite"
 	"io"
 	"net/http"
 	"strings"
 	"testing"
 	"time"
-
-	"github.com/stretchr/testify/assert"
 
 	"github.com/rockset/rockset-go-client"
 )
@@ -23,7 +22,17 @@ func fakeError(code int) error {
 		Cause: errors.New(http.StatusText(code)),
 	}
 }
-func TestExponentialRetry_DefaultRetry(t *testing.T) {
+
+type ExponentialRetrySuite struct {
+	suite.Suite
+}
+
+func TestExponentialRetrySuite(t *testing.T) {
+
+	suite.Run(t, &ExponentialRetrySuite{})
+}
+
+func (s *ExponentialRetrySuite) TestDefaultRetry() {
 	ctx := testCtx()
 	var count int
 
@@ -38,10 +47,10 @@ func TestExponentialRetry_DefaultRetry(t *testing.T) {
 		return fakeError(http.StatusTooManyRequests)
 	})
 
-	assert.NoError(t, err)
+	s.Assert().NoError(err)
 }
 
-func TestExponentialRetry_DefaultRetryFailure(t *testing.T) {
+func (s *ExponentialRetrySuite) TestDefaultRetryWithFailure() {
 	ctx := testCtx()
 
 	err := rockset.ExponentialRetry{
@@ -51,15 +60,16 @@ func TestExponentialRetry_DefaultRetryFailure(t *testing.T) {
 		return errors.New("other error")
 	})
 
-	assert.Error(t, err)
+	s.Assert().Error(err)
 }
 
+// custom error that implements RetryableError
 type retryableErr struct{ err string }
 
 func (r retryableErr) Error() string   { return r.err }
 func (r retryableErr) Retryable() bool { return true }
 
-func TestExponentialRetry_DefaultRetryFn(t *testing.T) {
+func (s *ExponentialRetrySuite) TestDefaultRetryFn() {
 	ctx := testCtx()
 	var count int
 
@@ -75,10 +85,10 @@ func TestExponentialRetry_DefaultRetryFn(t *testing.T) {
 		return retryableErr{"retryable error"}
 	})
 
-	assert.NoError(t, err)
+	s.Assert().NoError(err)
 }
 
-func TestExponentialRetry_RetryFn(t *testing.T) {
+func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFn() {
 	ctx := testCtx()
 	var count int
 
@@ -96,10 +106,10 @@ func TestExponentialRetry_RetryFn(t *testing.T) {
 		return io.ErrUnexpectedEOF
 	})
 
-	assert.NoError(t, err)
+	s.Assert().NoError(err)
 }
 
-func TestExponentialRetry_RetryWithCheck(t *testing.T) {
+func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheck() {
 	ctx := testCtx()
 
 	var i int
@@ -115,5 +125,5 @@ func TestExponentialRetry_RetryWithCheck(t *testing.T) {
 		return false, nil
 	})
 
-	assert.NoError(t, err)
+	s.Assert().NoError(err)
 }
