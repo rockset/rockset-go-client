@@ -3,6 +3,7 @@ package rockset
 import (
 	"context"
 	"errors"
+	"math/rand"
 	"time"
 
 	"github.com/rs/zerolog"
@@ -41,6 +42,8 @@ type ExponentialRetry struct {
 	MaxBackoff time.Duration
 	// WaitInterval is the initial interval wait between consecutive calls
 	WaitInterval time.Duration
+	// Fraction of wait interval to use as jitter [0,1.0]
+	jitterFraction float64
 }
 
 // Retry retries retryFn until it returns false, or an error. Uses exponential backoff.
@@ -55,6 +58,10 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 	waitInterval := time.Second
 	if r.WaitInterval != 0 {
 		waitInterval = r.WaitInterval
+	}
+	jitterFraction := .05
+	if r.jitterFraction != 0 {
+		jitterFraction = r.jitterFraction
 	}
 
 	defer func() {
@@ -86,8 +93,11 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 			return ctx.Err()
 		case t := <-t.C:
 			log.Trace().Str("t", t.String()).Msg("wait time")
-			if waitInterval*2 > maxBackoff {
-				waitInterval *= 2
+			var jitter = time.Duration(jitterFraction*rand.Float64()) * waitInterval
+			waitInterval *= 2
+			waitInterval += jitter
+			if waitInterval > maxBackoff {
+				waitInterval = maxBackoff
 			}
 		}
 	}
@@ -106,6 +116,10 @@ func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck
 	waitInterval := time.Second
 	if r.WaitInterval != 0 {
 		waitInterval = r.WaitInterval
+	}
+	jitterFraction := .05
+	if r.jitterFraction != 0 {
+		jitterFraction = r.jitterFraction
 	}
 
 	defer func() {
@@ -134,8 +148,11 @@ func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck
 			return ctx.Err()
 		case t := <-t.C:
 			log.Trace().Str("t", t.String()).Msg("wait time")
-			if waitInterval < maxBackoff {
-				waitInterval *= 2
+			var jitter = time.Duration(jitterFraction*rand.Float64()) * waitInterval
+			waitInterval *= 2
+			waitInterval += jitter
+			if waitInterval > maxBackoff {
+				waitInterval = maxBackoff
 			}
 		}
 	}
