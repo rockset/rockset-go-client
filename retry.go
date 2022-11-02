@@ -146,7 +146,7 @@ func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck
 	for {
 		t1 := time.Now()
 		retry, err := checkFn()
-		log.Debug().Str("d", time.Since(t1).String()).Msg("call curation")
+		log.Debug().Str("d", time.Since(t1).String()).Msg("call duration")
 
 		if err != nil {
 			return err
