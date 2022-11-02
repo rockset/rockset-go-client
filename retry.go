@@ -24,6 +24,7 @@ type Retrier interface {
 	RetryWithCheck(ctx context.Context, checkFunc RetryCheck) error
 }
 
+// RetryableError is an error which can be retried
 type RetryableError interface {
 	error
 	Retryable() bool
@@ -46,13 +47,15 @@ type ExponentialRetry struct {
 	MaxBackoff time.Duration
 	// WaitInterval is the initial interval wait between consecutive calls
 	WaitInterval time.Duration
-	// Fraction of wait interval to use as jitter [0,1.0]
+	// JitterFraction is the fraction of wait interval to use as jitter [0,1.0]
 	JitterFraction float64
 	// RetryableErrorCheck is the function that determines if an error should be retried. If nil, it uses the RetryableError().
 	RetryableErrorCheck func(error) bool
 }
 
 // Retry retries retryFn until it returns false, or an error. Uses exponential backoff.
+// If the retryFn returns an error, it is wrapped in an Error, which implements RetryableError
+// so the RetryableErrorCheck can determine if it should retry the operation.
 func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 	t0 := time.Now()
 	log := zerolog.Ctx(ctx)
@@ -88,6 +91,8 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 			return nil
 		}
 
+		// wrap the error so the caller can determine if it is a retryable error
+		err = NewError(err)
 		if !checkFn(err) {
 			return err
 		}
