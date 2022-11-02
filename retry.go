@@ -24,13 +24,18 @@ type Retrier interface {
 	RetryWithCheck(ctx context.Context, checkFunc RetryCheck) error
 }
 
-// RetryableError returns true if err is a Rockset error that is retryable
-func RetryableError(err error) bool {
-	var re Error
+// RetryableError is an error which can be retried
+type RetryableError interface {
+	error
+	Retryable() bool
+}
+
+// DefaultRetryableErrorCheck returns true if err is an error that is retryable, i.e. implements RetryableError.
+// This function is used to determine which errors to retry for the convenience methods on the RockClient.
+func DefaultRetryableErrorCheck(err error) bool {
+	var re RetryableError
 	if errors.As(err, &re) {
-		if re.Retryable() {
-			return true
-		}
+		return re.Retryable()
 	}
 
 	return false
@@ -42,11 +47,15 @@ type ExponentialRetry struct {
 	MaxBackoff time.Duration
 	// WaitInterval is the initial interval wait between consecutive calls
 	WaitInterval time.Duration
-	// Fraction of wait interval to use as jitter [0,1.0]
-	jitterFraction float64
+	// JitterFraction is the fraction of wait interval to use as jitter [0,1.0]
+	JitterFraction float64
+	// RetryableErrorCheck is the function that determines if an error should be retried. If nil, it uses the RetryableError().
+	RetryableErrorCheck func(error) bool
 }
 
 // Retry retries retryFn until it returns false, or an error. Uses exponential backoff.
+// If the retryFn returns an error, it is wrapped in an Error, which implements RetryableError
+// so the RetryableErrorCheck can determine if it should retry the operation.
 func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 	t0 := time.Now()
 	log := zerolog.Ctx(ctx)
@@ -60,8 +69,12 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 		waitInterval = r.WaitInterval
 	}
 	jitterFraction := .05
-	if r.jitterFraction != 0 {
-		jitterFraction = r.jitterFraction
+	if r.JitterFraction != 0 {
+		jitterFraction = r.JitterFraction
+	}
+	checkFn := DefaultRetryableErrorCheck
+	if r.RetryableErrorCheck != nil {
+		checkFn = r.RetryableErrorCheck
 	}
 
 	defer func() {
@@ -78,10 +91,14 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 			return nil
 		}
 
-		// wrap the error in a rockset.Error so we can check if it is retryable
-		re := NewError(err)
-		if !re.Retryable() {
-			return re
+		// if it already isn't a RetryableError, wrap the error so the caller can determine if it is a retryable error
+		var re RetryableError
+		if !errors.As(err, &re) {
+			err = NewError(err)
+		}
+
+		if !checkFn(err) {
+			return err
 		}
 
 		t := time.NewTimer(waitInterval)
@@ -118,8 +135,8 @@ func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck
 		waitInterval = r.WaitInterval
 	}
 	jitterFraction := .05
-	if r.jitterFraction != 0 {
-		jitterFraction = r.jitterFraction
+	if r.JitterFraction != 0 {
+		jitterFraction = r.JitterFraction
 	}
 
 	defer func() {
@@ -129,7 +146,7 @@ func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck
 	for {
 		t1 := time.Now()
 		retry, err := checkFn()
-		log.Debug().Str("d", time.Since(t1).String()).Msg("call curation")
+		log.Debug().Str("d", time.Since(t1).String()).Msg("call duration")
 
 		if err != nil {
 			return err
