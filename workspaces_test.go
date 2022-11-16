@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -20,7 +21,7 @@ func TestSuiteWorkspace(t *testing.T) {
 
 	s := SuiteWorkspace{
 		rc: testClient(t),
-		ws: "integration",
+		ws: randomName("ws"),
 	}
 	suite.Run(t, &s)
 }
@@ -28,7 +29,7 @@ func TestSuiteWorkspace(t *testing.T) {
 func (s *SuiteWorkspace) SetupSuite() {
 	ctx := testCtx()
 	_, err := s.rc.CreateWorkspace(ctx, s.ws,
-		option.WithWorkspaceDescription("created by the go client test suite"))
+		option.WithWorkspaceDescription(description()))
 	s.Require().NoError(err)
 	err = s.rc.WaitUntilWorkspaceAvailable(ctx, s.ws)
 	s.Require().NoError(err)
@@ -45,6 +46,22 @@ func (s *SuiteWorkspace) TestGetWorkspace() {
 	ws, err := s.rc.GetWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
 	s.Require().Equal(s.ws, ws.GetName())
+}
+
+func (s *SuiteWorkspace) TestGetPersistentWorkspace() {
+	ctx := testCtx()
+	ws, err := s.rc.GetWorkspace(ctx, persistentWorkspace)
+	s.Require().NoError(err)
+	s.Require().Equal(persistentWorkspace, ws.GetName())
+}
+
+func (s *SuiteWorkspace) TestGetNonExistingWorkspace() {
+	ctx := testCtx()
+	_, err := s.rc.GetWorkspace(ctx, randomString(16))
+	s.Require().Error(err)
+	var re rockset.Error
+	s.Require().True(errors.As(err, &re))
+	s.Assert().True(re.IsNotFoundError())
 }
 
 func (s *SuiteWorkspace) TestListWorkspace() {

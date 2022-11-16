@@ -100,6 +100,7 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 		if !checkFn(err) {
 			return err
 		}
+		log.Debug().Err(err).Msg("retrying due to retryable error")
 
 		t := time.NewTimer(waitInterval)
 		select {
