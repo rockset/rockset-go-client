@@ -167,6 +167,8 @@ func TestRockClient_withoutAPIServer(t *testing.T) {
 	}
 }
 
+const USW2A1 = "api.usw2a1.rockset.com"
+
 func TestRockClient_withAPIServer(t *testing.T) {
 	skipUnlessIntegrationTest(t)
 
@@ -183,7 +185,7 @@ func TestRockClient_withAPIServer(t *testing.T) {
 	err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
 	require.NoError(t, err)
 
-	rc, err := rockset.NewClient(rockset.WithAPIServer("https://api.use1a1.rockset.com/"))
+	rc, err := rockset.NewClient(rockset.WithAPIServer(fmt.Sprintf("https://%s/", USW2A1)))
 	require.NoError(t, err)
 
 	org, err := rc.GetOrganization(ctx)
@@ -205,7 +207,7 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 			t.Logf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
 		}
 	}()
-	err := os.Setenv(rockset.APIServerEnvironmentVariableName, "api.use1a1.rockset.com")
+	err := os.Setenv(rockset.APIServerEnvironmentVariableName, USW2A1)
 	require.NoError(t, err)
 
 	rc := testClient(t)
