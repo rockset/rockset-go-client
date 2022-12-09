@@ -3,6 +3,7 @@ package rockset
 import (
 	"context"
 	"fmt"
+	"net/http"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -17,6 +18,7 @@ const LatestTag = "latest"
 func (rc *RockClient) CreateQueryLambda(ctx context.Context, workspace, name, sql string,
 	options ...option.CreateQueryLambdaOption) (openapi.QueryLambdaVersion, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.QueryLambdaVersionResponse
 
 	q := rc.QueryLambdasApi.CreateQueryLambda(ctx, workspace)
@@ -41,8 +43,9 @@ func (rc *RockClient) CreateQueryLambda(ctx context.Context, workspace, name, sq
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -57,12 +60,14 @@ func (rc *RockClient) CreateQueryLambda(ctx context.Context, workspace, name, sq
 // https://docs.rockset.com/rest-api/#deletequerylambda
 func (rc *RockClient) DeleteQueryLambda(ctx context.Context, workspace, name string) error {
 	var err error
+	var httpResp *http.Response
 
 	q := rc.QueryLambdasApi.DeleteQueryLambda(ctx, workspace, name)
 
 	err = rc.Retry(ctx, func() error {
-		_, _, err = q.Execute()
-		return err
+		_, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -78,6 +83,7 @@ func (rc *RockClient) DeleteQueryLambda(ctx context.Context, workspace, name str
 func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sql string,
 	options ...option.CreateQueryLambdaOption) (openapi.QueryLambdaVersion, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.QueryLambdaVersionResponse
 
 	q := rc.QueryLambdasApi.UpdateQueryLambda(ctx, workspace, name)
@@ -101,8 +107,9 @@ func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sq
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -118,6 +125,7 @@ func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sq
 func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name, version,
 	tag string) (openapi.QueryLambdaTag, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.QueryLambdaTagResponse
 
 	q := rc.QueryLambdasApi.CreateQueryLambdaTag(ctx, workspace, name)
@@ -127,8 +135,9 @@ func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name,
 	req.Version = version
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -143,11 +152,13 @@ func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name,
 // https://docs.rockset.com/rest-api/#deletequerylambdaversion
 func (rc *RockClient) DeleteQueryLambdaVersion(ctx context.Context, workspace, name, version string) error {
 	var err error
+	var httpResp *http.Response
 
 	q := rc.QueryLambdasApi.DeleteQueryLambdaVersion(ctx, workspace, name, version)
 	err = rc.Retry(ctx, func() error {
-		_, _, err = q.Execute()
-		return err
+		_, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -162,11 +173,13 @@ func (rc *RockClient) DeleteQueryLambdaVersion(ctx context.Context, workspace, n
 // https://docs.rockset.com/rest-api/#deletequerylambdatag
 func (rc *RockClient) DeleteQueryLambdaTag(ctx context.Context, workspace, name, tag string) error {
 	var err error
+	var httpResp *http.Response
 
 	q := rc.QueryLambdasApi.DeleteQueryLambdaTag(ctx, workspace, name, tag)
 	err = rc.Retry(ctx, func() error {
-		_, _, err = q.Execute()
-		return err
+		_, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -192,24 +205,28 @@ func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name st
 	}
 
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.QueryResponse
 	if req.Version != "" {
 		q := rc.QueryLambdasApi.ExecuteQueryLambda(ctx, workspace, name, req.Version)
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
-			return err
+			resp, httpResp, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	} else if req.Tag != "" {
 		q := rc.QueryLambdasApi.ExecuteQueryLambdaByTag(ctx, workspace, name, req.Tag)
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
-			return err
+			resp, httpResp, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	} else {
 		q := rc.QueryLambdasApi.ExecuteQueryLambdaByTag(ctx, workspace, name, LatestTag)
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
-			return err
+			resp, httpResp, err = q.Body(req.ExecuteQueryLambdaRequest).Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	}
 
@@ -224,12 +241,14 @@ func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name st
 func (rc *RockClient) GetQueryLambdaVersionByTag(ctx context.Context,
 	workspace, name, tag string) (openapi.QueryLambdaTag, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.QueryLambdaTagResponse
 
 	q := rc.QueryLambdasApi.GetQueryLambdaTagVersion(ctx, workspace, name, tag)
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
+		resp, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -243,12 +262,14 @@ func (rc *RockClient) GetQueryLambdaVersionByTag(ctx context.Context,
 func (rc *RockClient) GetQueryLambdaVersion(ctx context.Context,
 	workspace, name, version string) (openapi.QueryLambdaVersion, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.QueryLambdaVersionResponse
 
 	q := rc.QueryLambdasApi.GetQueryLambdaVersion(ctx, workspace, name, version)
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
+		resp, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -264,6 +285,7 @@ func (rc *RockClient) GetQueryLambdaVersion(ctx context.Context,
 func (rc *RockClient) ListQueryLambdas(ctx context.Context,
 	options ...option.ListQueryLambdaOption) ([]openapi.QueryLambda, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListQueryLambdasResponse
 
 	opts := option.ListQueryLambdaOptions{}
@@ -274,14 +296,16 @@ func (rc *RockClient) ListQueryLambdas(ctx context.Context,
 	if opts.Workspace == nil {
 		q := rc.QueryLambdasApi.ListAllQueryLambdas(ctx)
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Execute()
-			return err
+			resp, httpResp, err = q.Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	} else {
 		q := rc.QueryLambdasApi.ListQueryLambdasInWorkspace(ctx, *opts.Workspace)
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Execute()
-			return err
+			resp, httpResp, err = q.Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	}
 
@@ -296,12 +320,14 @@ func (rc *RockClient) ListQueryLambdas(ctx context.Context,
 func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 	workspace, name string) ([]openapi.QueryLambdaVersion, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListQueryLambdaVersionsResponse
 
 	q := rc.QueryLambdasApi.ListQueryLambdaVersions(ctx, workspace, name)
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
+		resp, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -315,12 +341,14 @@ func (rc *RockClient) ListQueryLambdaVersions(ctx context.Context,
 func (rc *RockClient) ListQueryLambdaTags(ctx context.Context, workspace,
 	queryLambda string) ([]openapi.QueryLambdaTag, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListQueryLambdaTagsResponse
 
 	q := rc.QueryLambdasApi.ListQueryLambdaTags(ctx, workspace, queryLambda)
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
+		resp, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {

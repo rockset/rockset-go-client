@@ -24,7 +24,7 @@ type Retrier interface {
 	RetryWithCheck(ctx context.Context, checkFunc RetryCheck) error
 }
 
-// RetryableError is an error which can be retried
+// RetryableError is an error which can be retried if Retryable() returns true.
 type RetryableError interface {
 	error
 	Retryable() bool
@@ -89,12 +89,6 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 		// no error, so no need to retry
 		if err == nil {
 			return nil
-		}
-
-		// if it already isn't a RetryableError, wrap the error so the caller can determine if it is a retryable error
-		var re RetryableError
-		if !errors.As(err, &re) {
-			err = NewError(err)
 		}
 
 		if !checkFn(err) {

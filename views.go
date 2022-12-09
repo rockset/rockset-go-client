@@ -16,8 +16,8 @@ import (
 func (rc *RockClient) CreateView(ctx context.Context, workspace, view, query string,
 	options ...option.ViewOption) (openapi.View, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.CreateViewResponse
-	var hr *http.Response
 
 	q := rc.ViewsApi.CreateView(ctx, workspace)
 	req := openapi.NewCreateViewRequest(view, query)
@@ -32,8 +32,9 @@ func (rc *RockClient) CreateView(ctx context.Context, workspace, view, query str
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, hr, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -41,7 +42,7 @@ func (rc *RockClient) CreateView(ctx context.Context, workspace, view, query str
 	}
 
 	log := zerolog.Ctx(ctx)
-	log.Trace().Str("status", hr.Status).Str("state", resp.Data.GetState()).Msg("view created")
+	log.Trace().Str("status", httpResp.Status).Str("state", resp.Data.GetState()).Msg("view created")
 
 	return resp.GetData(), nil
 }
@@ -52,8 +53,8 @@ func (rc *RockClient) CreateView(ctx context.Context, workspace, view, query str
 func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query string,
 	options ...option.ViewOption) (openapi.View, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.UpdateViewResponse
-	var hr *http.Response
 
 	q := rc.ViewsApi.UpdateView(ctx, workspace, view)
 	req := openapi.NewUpdateViewRequest(query)
@@ -68,8 +69,9 @@ func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query str
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, hr, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -77,7 +79,7 @@ func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query str
 	}
 
 	log := zerolog.Ctx(ctx)
-	log.Trace().Str("status", hr.Status).Msg("view updated")
+	log.Trace().Str("status", httpResp.Status).Msg("view updated")
 
 	return resp.GetData(), nil
 }
@@ -88,13 +90,14 @@ func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query str
 // REST API documentation https://docs.rockset.com/rest-api/#deleteview
 func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) error {
 	var err error
-	var hr *http.Response
+	var httpResp *http.Response
 
 	q := rc.ViewsApi.DeleteView(ctx, workspace, view)
 
 	err = rc.Retry(ctx, func() error {
-		_, hr, err = q.Execute()
-		return err
+		_, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -102,7 +105,7 @@ func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) er
 	}
 
 	log := zerolog.Ctx(ctx)
-	log.Trace().Str("status", hr.Status).Msg("view deleted")
+	log.Trace().Str("status", httpResp.Status).Msg("view deleted")
 
 	return nil
 }
@@ -112,6 +115,7 @@ func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) er
 // REST API documentation https://docs.rockset.com/rest-api/#listviews
 func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewOption) ([]openapi.View, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListViewsResponse
 
 	opts := option.ListViewOptions{}
@@ -123,15 +127,17 @@ func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewO
 		q := rc.ViewsApi.ListViews(ctx)
 
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Execute()
-			return err
+			resp, httpResp, err = q.Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	} else {
 		q := rc.ViewsApi.WorkspaceViews(ctx, opts.Workspace)
 
 		err = rc.Retry(ctx, func() error {
-			resp, _, err = q.Execute()
-			return err
+			resp, httpResp, err = q.Execute()
+
+			return NewErrorWithStatusCode(err, httpResp.StatusCode)
 		})
 	}
 
@@ -149,14 +155,16 @@ func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewO
 // REST API documentation https://docs.rockset.com/rest-api/#getview
 func (rc *RockClient) GetView(ctx context.Context, workspace, name string) (openapi.View, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.GetViewResponse
 	log := zerolog.Ctx(ctx)
 
 	q := rc.ViewsApi.GetView(ctx, workspace, name)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
+		resp, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {

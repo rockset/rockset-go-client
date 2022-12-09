@@ -19,7 +19,7 @@ func fakeError(code int) error {
 		ErrorModel: &openapi.ErrorModel{
 			Type: &t,
 		},
-		Cause: errors.New(http.StatusText(code)),
+		StatusCode: code,
 	}
 }
 

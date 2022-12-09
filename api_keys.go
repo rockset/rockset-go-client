@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -13,6 +14,7 @@ import (
 func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string,
 	options ...option.APIKeyRoleOption) (openapi.ApiKey, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.CreateApiKeyResponse
 
 	createReq := rc.APIKeysApi.CreateApiKey(ctx)
@@ -28,8 +30,9 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = createReq.Body(*b).Execute()
-		return err
+		resp, httpResp, err = createReq.Body(*b).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -48,6 +51,7 @@ const self = "self"
 func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 	options ...option.APIKeyOption) (openapi.ApiKey, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.GetApiKeyResponse
 
 	opts := option.APIKeyOptions{}
@@ -63,8 +67,9 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 	getReq := rc.APIKeysApi.GetApiKey(ctx, user, name).Reveal(opts.Reveal)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = getReq.Execute()
-		return err
+		resp, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -80,6 +85,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 // REST API documentation https://docs.rockset.com/rest-api/#deleteapikey
 func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options ...option.APIKeyOption) error {
 	var err error
+	var httpResp *http.Response
 
 	opts := option.APIKeyOptions{}
 	for _, o := range options {
@@ -94,8 +100,9 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 	getReq := rc.APIKeysApi.DeleteApiKey(ctx, keyName, user)
 
 	err = rc.Retry(ctx, func() error {
-		_, _, err = getReq.Execute()
-		return err
+		_, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -111,6 +118,7 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 // REST API documentation https://docs.rockset.com/rest-api/#listapikey
 func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyOption) ([]openapi.ApiKey, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListApiKeysResponse
 
 	opts := option.APIKeyOptions{}
@@ -126,8 +134,9 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 	getReq := rc.APIKeysApi.ListApiKeys(ctx, user)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = getReq.Execute()
-		return err
+		resp, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -144,6 +153,7 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 func (rc *RockClient) UpdateAPIKey(ctx context.Context, keyName string,
 	options ...option.APIKeyOption) (openapi.ApiKey, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.UpdateApiKeyResponse
 
 	opts := option.APIKeyOptions{}
@@ -164,8 +174,9 @@ func (rc *RockClient) UpdateAPIKey(ctx context.Context, keyName string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = updateReq.Execute()
-		return err
+		resp, httpResp, err = updateReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {

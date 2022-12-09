@@ -3,6 +3,7 @@ package rockset
 import (
 	"context"
 	"github.com/rockset/rockset-go-client/option"
+	"net/http"
 
 	"github.com/rockset/rockset-go-client/openapi"
 )
@@ -14,14 +15,16 @@ import (
 // REST API documentation https://docs.rockset.com/rest-api/#createuser
 func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []string) (openapi.User, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.CreateUserResponse
 
 	q := rc.UsersApi.CreateUser(ctx)
 	req := openapi.NewCreateUserRequest(email, roles)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -38,6 +41,7 @@ func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []stri
 func (rc *RockClient) UpdateUser(ctx context.Context, email string, roles []string,
 	options ...option.UserOption) (openapi.User, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.User
 
 	q := rc.UsersApi.UpdateUser(ctx, email)
@@ -58,8 +62,9 @@ func (rc *RockClient) UpdateUser(ctx context.Context, email string, roles []stri
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -74,12 +79,14 @@ func (rc *RockClient) UpdateUser(ctx context.Context, email string, roles []stri
 // REST API documentation https://docs.rockset.com/rest-api/#deleteuser
 func (rc *RockClient) DeleteUser(ctx context.Context, email string) error {
 	var err error
+	var httpResp *http.Response
 
 	q := rc.UsersApi.DeleteUser(ctx, email)
 
 	err = rc.Retry(ctx, func() error {
-		_, _, err = q.Execute()
-		return err
+		_, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -94,13 +101,15 @@ func (rc *RockClient) DeleteUser(ctx context.Context, email string) error {
 // REST API documentation https://docs.rockset.com/rest-api/#getcurrentuser
 func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) {
 	var err error
+	var httpResp *http.Response
 	var user *openapi.User
 
 	q := rc.UsersApi.GetCurrentUser(ctx)
 
 	err = rc.Retry(ctx, func() error {
-		user, _, err = q.Execute()
-		return err
+		user, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -115,13 +124,15 @@ func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) 
 // REST API documentation https://docs.rockset.com/rest-api/#getuser
 func (rc *RockClient) GetUser(ctx context.Context, email string) (openapi.User, error) {
 	var err error
+	var httpResp *http.Response
 	var user *openapi.User
 
 	q := rc.UsersApi.GetUser(ctx, email)
 
 	err = rc.Retry(ctx, func() error {
-		user, _, err = q.Execute()
-		return err
+		user, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -136,13 +147,15 @@ func (rc *RockClient) GetUser(ctx context.Context, email string) (openapi.User, 
 // REST API documentation https://docs.rockset.com/rest-api/#listusers
 func (rc *RockClient) ListUsers(ctx context.Context) ([]openapi.User, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListUsersResponse
 
 	q := rc.UsersApi.ListUsers(ctx)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Execute()
-		return err
+		resp, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {

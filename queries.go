@@ -2,9 +2,9 @@ package rockset
 
 import (
 	"context"
-
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
+	"net/http"
 )
 
 type QueryState string
@@ -21,6 +21,7 @@ const (
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
 	var err error
+	var httpResp *http.Response
 	var response *openapi.QueryResponse
 
 	q := rc.QueriesApi.Query(ctx)
@@ -33,8 +34,9 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		response, _, err = q.Body(*rq).Execute()
-		return err
+		response, httpResp, err = q.Body(*rq).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -48,6 +50,7 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.ValidateQueryResponse, error) {
 	var err error
+	var httpResp *http.Response
 	var r *openapi.ValidateQueryResponse
 
 	q := rc.QueriesApi.Validate(ctx)
@@ -61,8 +64,9 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		r, _, err = q.Body(*rq).Execute()
-		return err
+		r, httpResp, err = q.Body(*rq).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -75,13 +79,15 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 // GetQueryInfo retrieves information about a query.
 func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi.QueryInfo, error) {
 	var err error
+	var httpResp *http.Response
 	var response *openapi.GetQueryResponse
 
 	q := rc.QueriesApi.GetQuery(ctx, queryID)
 
 	err = rc.Retry(ctx, func() error {
-		response, _, err = q.Execute()
-		return err
+		response, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -94,13 +100,15 @@ func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi
 // GetQueryResults retrieves the results of a completed async query.
 func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (openapi.QueryPaginationResponse, error) {
 	var err error
+	var httpResp *http.Response
 	var response *openapi.QueryPaginationResponse
 
 	q := rc.QueriesApi.GetQueryResults(ctx, queryID)
 
 	err = rc.Retry(ctx, func() error {
-		response, _, err = q.Execute()
-		return err
+		response, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -113,13 +121,15 @@ func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (open
 // ListActiveQueries lists all active queries, i.e. queued or running.
 func (rc *RockClient) ListActiveQueries(ctx context.Context) ([]openapi.QueryInfo, error) {
 	var err error
+	var httpResp *http.Response
 	var response *openapi.ListQueriesResponse
 
 	q := rc.QueriesApi.ListActiveQueries(ctx)
 
 	err = rc.Retry(ctx, func() error {
-		response, _, err = q.Execute()
-		return err
+		response, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	return response.Data, nil
@@ -128,13 +138,15 @@ func (rc *RockClient) ListActiveQueries(ctx context.Context) ([]openapi.QueryInf
 // CancelQuery cancels a queued or running query.
 func (rc *RockClient) CancelQuery(ctx context.Context, queryID string) (openapi.QueryInfo, error) {
 	var err error
+	var httpResp *http.Response
 	var response *openapi.CancelQueryResponse
 
 	q := rc.QueriesApi.CancelQuery(ctx, queryID)
 
 	err = rc.Retry(ctx, func() error {
-		response, _, err = q.Execute()
-		return err
+		response, httpResp, err = q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	return *response.Data, nil
