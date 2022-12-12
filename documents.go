@@ -21,6 +21,7 @@ import (
 func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection string,
 	docs []interface{}) ([]openapi.DocumentStatus, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.AddDocumentsResponse
 
 	log := zerolog.Ctx(ctx)
@@ -36,8 +37,9 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 	req := openapi.NewAddDocumentsRequest(payload)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -82,7 +84,8 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 
 	err = rc.Retry(ctx, func() error {
 		resp, err = rc.RockConfig.cfg.HTTPClient.Do(req)
-		return err
+
+		return NewErrorWithStatusCode(err, resp.StatusCode)
 	})
 	if err != nil {
 		return nil, err
@@ -160,6 +163,7 @@ func closeAndLog(ctx context.Context, c io.Closer) {
 func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection string,
 	docIDs []string) ([]openapi.DocumentStatus, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.DeleteDocumentsResponse
 
 	log := zerolog.Ctx(ctx)
@@ -173,8 +177,9 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 	req := openapi.NewDeleteDocumentsRequest(ids)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = q.Body(*req).Execute()
-		return err
+		resp, httpResp, err = q.Body(*req).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {

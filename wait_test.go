@@ -29,8 +29,7 @@ func (s *WaitTestSuite) TestResourceIsAvailable() {
 
 		switch counter {
 		case 0:
-			t := statusWithoutSpace(http.StatusNotFound)
-			return Error{ErrorModel: &openapi.ErrorModel{Type: &t}, Cause: fmt.Errorf("resource not present")}
+			return Error{ErrorModel: &openapi.ErrorModel{}, StatusCode: http.StatusNotFound, Cause: fmt.Errorf("resource not present")}
 		case 1:
 			return nil
 		default:
@@ -62,8 +61,7 @@ func (s *WaitTestSuite) TestResourceIsGone() {
 		case 0:
 			return nil
 		case 1:
-			t := statusWithoutSpace(http.StatusNotFound)
-			return Error{ErrorModel: &openapi.ErrorModel{Type: &t}, Cause: fmt.Errorf("resource not present")}
+			return Error{ErrorModel: &openapi.ErrorModel{}, StatusCode: http.StatusNotFound, Cause: fmt.Errorf("resource not present")}
 		default:
 			return fmt.Errorf("fail")
 		}

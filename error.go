@@ -2,10 +2,8 @@ package rockset
 
 import (
 	"errors"
-	"net/http"
-	"strings"
-
 	"github.com/rockset/rockset-go-client/openapi"
+	"net/http"
 )
 
 // Error is an error returned by the Rockset REST API.
@@ -14,6 +12,8 @@ type Error struct {
 	*openapi.ErrorModel
 	// Cause is the underlying cause of the error
 	Cause error
+	// StatusCode is the HTTP status code from the REST API call.
+	StatusCode int
 }
 
 // NewError wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError
@@ -28,6 +28,18 @@ func NewError(err error) Error {
 	}
 
 	return re
+}
+
+// NewErrorWithStatusCode wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError,
+// and can be retried if code is in RetryableErrors. If err is nil, NewErrorWithStatusCode() returns nil.
+func NewErrorWithStatusCode(err error, code int) error {
+	if err == nil {
+		return nil
+	}
+
+	e := NewError(err)
+	e.StatusCode = code
+	return e
 }
 
 // Unwrap returns the cause of the Error
@@ -50,7 +62,7 @@ func (e Error) RateLimited() bool {
 		return false
 	}
 
-	return e.GetType() == statusWithoutSpace(http.StatusTooManyRequests)
+	return e.StatusCode == http.StatusTooManyRequests
 }
 
 // IsNotFoundError returns true when the error is from an underlying 404 response from the Rockset REST API.
@@ -59,7 +71,7 @@ func (e Error) IsNotFoundError() bool {
 		return false
 	}
 
-	return e.GetType() == statusWithoutSpace(http.StatusNotFound)
+	return e.StatusCode == http.StatusNotFound
 }
 
 // RetryableErrors are the errors which will cause the operation to be retried
@@ -76,15 +88,10 @@ func (e Error) Retryable() bool {
 	}
 
 	for _, t := range RetryableErrors {
-		if statusWithoutSpace(t) == e.GetType() {
+		if t == e.StatusCode {
 			return true
 		}
 	}
 
 	return false
-}
-
-// strips space from http status codes as the openapi.ErrorModel Type field doesn't have spaces
-func statusWithoutSpace(code int) string {
-	return strings.Join(strings.Fields(http.StatusText(code)), "")
 }

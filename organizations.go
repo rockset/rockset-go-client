@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/rs/zerolog"
 
@@ -11,13 +12,15 @@ import (
 // GetOrganization gets the current organization.
 func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.OrganizationResponse
 	log := zerolog.Ctx(ctx)
 	getReq := rc.OrganizationsApi.GetOrganization(ctx)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = getReq.Execute()
-		return err
+		resp, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {

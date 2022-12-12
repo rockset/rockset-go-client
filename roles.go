@@ -2,6 +2,7 @@ package rockset
 
 import (
 	"context"
+	"net/http"
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -19,6 +20,7 @@ const (
 func (rc *RockClient) CreateRole(ctx context.Context, roleName string,
 	options ...option.RoleOption) (openapi.Role, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.RoleResponse
 
 	createReq := rc.CustomRolesApi.CreateRole(ctx)
@@ -39,8 +41,9 @@ func (rc *RockClient) CreateRole(ctx context.Context, roleName string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = createReq.Body(*b).Execute()
-		return err
+		resp, httpResp, err = createReq.Body(*b).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -56,6 +59,7 @@ func (rc *RockClient) CreateRole(ctx context.Context, roleName string,
 func (rc *RockClient) UpdateRole(ctx context.Context, roleName string,
 	options ...option.RoleOption) (openapi.Role, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.RoleResponse
 
 	createReq := rc.CustomRolesApi.UpdateRole(ctx, roleName)
@@ -74,8 +78,9 @@ func (rc *RockClient) UpdateRole(ctx context.Context, roleName string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = createReq.Body(*b).Execute()
-		return err
+		resp, httpResp, err = createReq.Body(*b).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -90,12 +95,14 @@ func (rc *RockClient) UpdateRole(ctx context.Context, roleName string,
 // REST API documentation https://docs.rockset.com/rest-api/#deleterole
 func (rc *RockClient) DeleteRole(ctx context.Context, roleName string) error {
 	var err error
+	var httpResp *http.Response
 
 	getReq := rc.CustomRolesApi.DeleteRole(ctx, roleName)
 
 	err = rc.Retry(ctx, func() error {
-		_, _, err = getReq.Execute()
-		return err
+		_, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -110,13 +117,15 @@ func (rc *RockClient) DeleteRole(ctx context.Context, roleName string) error {
 // REST API documentation https://docs.rockset.com/rest-api/#getrole
 func (rc *RockClient) GetRole(ctx context.Context, roleName string) (openapi.Role, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.RoleResponse
 
 	getReq := rc.CustomRolesApi.GetRole(ctx, roleName)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = getReq.Execute()
-		return err
+		resp, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
@@ -131,13 +140,15 @@ func (rc *RockClient) GetRole(ctx context.Context, roleName string) (openapi.Rol
 // REST API documentation https://docs.rockset.com/rest-api/#listroles
 func (rc *RockClient) ListRoles(ctx context.Context) ([]openapi.Role, error) {
 	var err error
+	var httpResp *http.Response
 	var resp *openapi.ListRolesResponse
 
 	getReq := rc.CustomRolesApi.ListRoles(ctx)
 
 	err = rc.Retry(ctx, func() error {
-		resp, _, err = getReq.Execute()
-		return err
+		resp, httpResp, err = getReq.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp.StatusCode)
 	})
 
 	if err != nil {
