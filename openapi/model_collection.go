@@ -44,6 +44,7 @@ type Collection struct {
 	ReadOnly *bool `json:"read_only,omitempty"`
 	// Whether the collection is insert only or not.
 	InsertOnly *bool `json:"insert_only,omitempty"`
+	BulkStats []BulkStats `json:"bulk_stats,omitempty"`
 }
 
 // NewCollection instantiates a new Collection object
@@ -543,6 +544,38 @@ func (o *Collection) SetInsertOnly(v bool) {
 	o.InsertOnly = &v
 }
 
+// GetBulkStats returns the BulkStats field value if set, zero value otherwise.
+func (o *Collection) GetBulkStats() []BulkStats {
+	if o == nil || o.BulkStats == nil {
+		var ret []BulkStats
+		return ret
+	}
+	return o.BulkStats
+}
+
+// GetBulkStatsOk returns a tuple with the BulkStats field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetBulkStatsOk() ([]BulkStats, bool) {
+	if o == nil || o.BulkStats == nil {
+		return nil, false
+	}
+	return o.BulkStats, true
+}
+
+// HasBulkStats returns a boolean if a field has been set.
+func (o *Collection) HasBulkStats() bool {
+	if o != nil && o.BulkStats != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBulkStats gets a reference to the given []BulkStats and assigns it to the BulkStats field.
+func (o *Collection) SetBulkStats(v []BulkStats) {
+	o.BulkStats = v
+}
+
 func (o Collection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
@@ -589,6 +622,9 @@ func (o Collection) MarshalJSON() ([]byte, error) {
 	}
 	if o.InsertOnly != nil {
 		toSerialize["insert_only"] = o.InsertOnly
+	}
+	if o.BulkStats != nil {
+		toSerialize["bulk_stats"] = o.BulkStats
 	}
 	return json.Marshal(toSerialize)
 }

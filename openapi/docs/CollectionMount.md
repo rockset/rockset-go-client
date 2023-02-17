@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | Mount ID. | [optional] 
 **Rrn** | Pointer to **string** | Mount RRN. | [optional] 
 **SnapshotExpirationTimeMillis** | Pointer to **int64** | Time in millis at which the snapshot expires. | [optional] 
+**Stats** | Pointer to [**CollectionMountStats**](CollectionMountStats.md) |  | [optional] 
 
 ## Methods
 
@@ -257,6 +258,31 @@ SetSnapshotExpirationTimeMillis sets SnapshotExpirationTimeMillis field to given
 `func (o *CollectionMount) HasSnapshotExpirationTimeMillis() bool`
 
 HasSnapshotExpirationTimeMillis returns a boolean if a field has been set.
+
+### GetStats
+
+`func (o *CollectionMount) GetStats() CollectionMountStats`
+
+GetStats returns the Stats field if non-nil, zero value otherwise.
+
+### GetStatsOk
+
+`func (o *CollectionMount) GetStatsOk() (*CollectionMountStats, bool)`
+
+GetStatsOk returns a tuple with the Stats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStats
+
+`func (o *CollectionMount) SetStats(v CollectionMountStats)`
+
+SetStats sets Stats field to given value.
+
+### HasStats
+
+`func (o *CollectionMount) HasStats() bool`
+
+HasStats returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

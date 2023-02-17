@@ -502,7 +502,7 @@ No authorization required
 
 ## MountCollection
 
-> CollectionMountResponse MountCollection(ctx, virtualInstanceId).Body(body).Execute()
+> CreateCollectionMountsResponse MountCollection(ctx, virtualInstanceId).Body(body).Execute()
 
 Mount Collection
 
@@ -531,7 +531,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `VirtualInstancesApi.MountCollection``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `MountCollection`: CollectionMountResponse
+    // response from `MountCollection`: CreateCollectionMountsResponse
     fmt.Fprintf(os.Stdout, "Response from `VirtualInstancesApi.MountCollection`: %v\n", resp)
 }
 ```
@@ -556,7 +556,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CollectionMountResponse**](CollectionMountResponse.md)
+[**CreateCollectionMountsResponse**](CreateCollectionMountsResponse.md)
 
 ### Authorization
 

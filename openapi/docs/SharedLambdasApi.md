@@ -4,13 +4,13 @@ All URIs are relative to *https://api.use1a1.rockset.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ExecutePublicQueryLambda**](SharedLambdasApi.md#ExecutePublicQueryLambda) | **Get** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
+[**ExecutePublicQueryLambdaWithParams**](SharedLambdasApi.md#ExecutePublicQueryLambdaWithParams) | **Post** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
 
 
 
-## ExecutePublicQueryLambda
+## ExecutePublicQueryLambdaWithParams
 
-> QueryResponse ExecutePublicQueryLambda(ctx, publicAccessId).Execute()
+> QueryResponse ExecutePublicQueryLambdaWithParams(ctx, publicAccessId).Body(body).Execute()
 
 Execute a Public Query Lambda
 
@@ -30,16 +30,17 @@ import (
 
 func main() {
     publicAccessId := "publicAccessId_example" // string | public access ID of the query lambda
+    body := *openapiclient.NewExecutePublicQueryLambdaRequest() // ExecutePublicQueryLambdaRequest | JSON object (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SharedLambdasApi.ExecutePublicQueryLambda(context.Background(), publicAccessId).Execute()
+    resp, r, err := apiClient.SharedLambdasApi.ExecutePublicQueryLambdaWithParams(context.Background(), publicAccessId).Body(body).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SharedLambdasApi.ExecutePublicQueryLambda``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SharedLambdasApi.ExecutePublicQueryLambdaWithParams``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ExecutePublicQueryLambda`: QueryResponse
-    fmt.Fprintf(os.Stdout, "Response from `SharedLambdasApi.ExecutePublicQueryLambda`: %v\n", resp)
+    // response from `ExecutePublicQueryLambdaWithParams`: QueryResponse
+    fmt.Fprintf(os.Stdout, "Response from `SharedLambdasApi.ExecutePublicQueryLambdaWithParams`: %v\n", resp)
 }
 ```
 
@@ -53,12 +54,13 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiExecutePublicQueryLambdaRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiExecutePublicQueryLambdaWithParamsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **body** | [**ExecutePublicQueryLambdaRequest**](ExecutePublicQueryLambdaRequest.md) | JSON object | 
 
 ### Return type
 
@@ -70,7 +72,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

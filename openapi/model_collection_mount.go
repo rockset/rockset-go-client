@@ -34,6 +34,7 @@ type CollectionMount struct {
 	Rrn *string `json:"rrn,omitempty"`
 	// Time in millis at which the snapshot expires.
 	SnapshotExpirationTimeMillis *int64 `json:"snapshot_expiration_time_millis,omitempty"`
+	Stats *CollectionMountStats `json:"stats,omitempty"`
 }
 
 // NewCollectionMount instantiates a new CollectionMount object
@@ -341,6 +342,38 @@ func (o *CollectionMount) SetSnapshotExpirationTimeMillis(v int64) {
 	o.SnapshotExpirationTimeMillis = &v
 }
 
+// GetStats returns the Stats field value if set, zero value otherwise.
+func (o *CollectionMount) GetStats() CollectionMountStats {
+	if o == nil || o.Stats == nil {
+		var ret CollectionMountStats
+		return ret
+	}
+	return *o.Stats
+}
+
+// GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CollectionMount) GetStatsOk() (*CollectionMountStats, bool) {
+	if o == nil || o.Stats == nil {
+		return nil, false
+	}
+	return o.Stats, true
+}
+
+// HasStats returns a boolean if a field has been set.
+func (o *CollectionMount) HasStats() bool {
+	if o != nil && o.Stats != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStats gets a reference to the given CollectionMountStats and assigns it to the Stats field.
+func (o *CollectionMount) SetStats(v CollectionMountStats) {
+	o.Stats = &v
+}
+
 func (o CollectionMount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Type != nil {
@@ -369,6 +402,9 @@ func (o CollectionMount) MarshalJSON() ([]byte, error) {
 	}
 	if o.SnapshotExpirationTimeMillis != nil {
 		toSerialize["snapshot_expiration_time_millis"] = o.SnapshotExpirationTimeMillis
+	}
+	if o.Stats != nil {
+		toSerialize["stats"] = o.Stats
 	}
 	return json.Marshal(toSerialize)
 }

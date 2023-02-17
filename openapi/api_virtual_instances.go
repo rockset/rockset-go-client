@@ -142,8 +142,8 @@ type VirtualInstancesApi interface {
 	MountCollection(ctx context.Context, virtualInstanceId string) ApiMountCollectionRequest
 
 	// MountCollectionExecute executes the request
-	//  @return CollectionMountResponse
-	MountCollectionExecute(r ApiMountCollectionRequest) (*CollectionMountResponse, *http.Response, error)
+	//  @return CreateCollectionMountsResponse
+	MountCollectionExecute(r ApiMountCollectionRequest) (*CreateCollectionMountsResponse, *http.Response, error)
 
 	/*
 	QueryVirtualInstance Execute SQL Query
@@ -1876,7 +1876,7 @@ func (r ApiMountCollectionRequest) Body(body CreateCollectionMountRequest) ApiMo
 	return r
 }
 
-func (r ApiMountCollectionRequest) Execute() (*CollectionMountResponse, *http.Response, error) {
+func (r ApiMountCollectionRequest) Execute() (*CreateCollectionMountsResponse, *http.Response, error) {
 	return r.ApiService.MountCollectionExecute(r)
 }
 
@@ -1898,13 +1898,13 @@ func (a *VirtualInstancesApiService) MountCollection(ctx context.Context, virtua
 }
 
 // Execute executes the request
-//  @return CollectionMountResponse
-func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollectionRequest) (*CollectionMountResponse, *http.Response, error) {
+//  @return CreateCollectionMountsResponse
+func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollectionRequest) (*CreateCollectionMountsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CollectionMountResponse
+		localVarReturnValue  *CreateCollectionMountsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.MountCollection")

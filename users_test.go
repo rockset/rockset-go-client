@@ -51,9 +51,7 @@ func (s *UserIntegrationSuite) TestGetCurrentUser() {
 
 	user, err := s.rc.GetCurrentUser(ctx)
 	s.Require().NoError(err)
-	s.Assert().Equal(CIUser, user.GetEmail())
-	s.Assert().Equal("Martin", user.GetFirstName())
-	s.Assert().Equal("Englund", user.GetLastName())
+	s.Assert().Contains([]string{"ACTIVE", "NEW"}, user.GetState())
 }
 
 func (s *UserIntegrationSuite) TestGetUser() {

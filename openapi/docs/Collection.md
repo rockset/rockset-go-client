@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **Aliases** | Pointer to [**[]Alias**](Alias.md) | List of aliases for a collection. | [optional] 
 **ReadOnly** | Pointer to **bool** | Whether the collection is read-only or not. | [optional] 
 **InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not. | [optional] 
+**BulkStats** | Pointer to [**[]BulkStats**](BulkStats.md) |  | [optional] 
 
 ## Methods
 
@@ -413,6 +414,31 @@ SetInsertOnly sets InsertOnly field to given value.
 `func (o *Collection) HasInsertOnly() bool`
 
 HasInsertOnly returns a boolean if a field has been set.
+
+### GetBulkStats
+
+`func (o *Collection) GetBulkStats() []BulkStats`
+
+GetBulkStats returns the BulkStats field if non-nil, zero value otherwise.
+
+### GetBulkStatsOk
+
+`func (o *Collection) GetBulkStatsOk() (*[]BulkStats, bool)`
+
+GetBulkStatsOk returns a tuple with the BulkStats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBulkStats
+
+`func (o *Collection) SetBulkStats(v []BulkStats)`
+
+SetBulkStats sets BulkStats field to given value.
+
+### HasBulkStats
+
+`func (o *Collection) HasBulkStats() bool`
+
+HasBulkStats returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
