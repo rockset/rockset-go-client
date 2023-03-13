@@ -1,25 +1,55 @@
 package option
 
+import "time"
+
 // VirtualInstanceOptions contains the optional settings for a virtual instance.
 type VirtualInstanceOptions struct {
-	MonitoringEnabled *bool
-	Size              *string
+	Description          *string
+	MonitoringEnabled    *bool
+	Size                 *string
+	MountRefreshInterval *time.Duration
+	AutoSuspend          *time.Duration
 }
 
 type VirtualInstanceOption func(*VirtualInstanceOptions)
 
-// WithVIMonitoring is used to optionally set the virtual instance monitoring.
+// WithVIMonitoring is used to optionally set the virtual instance monitoring, which can only be done
+// when updating the instance, not during creation.
 func WithVIMonitoring(enabled bool) VirtualInstanceOption {
 	return func(o *VirtualInstanceOptions) {
 		o.MonitoringEnabled = &enabled
 	}
 }
 
-// WithVISize is used to optionally set the virtual instance size.
-func WithVISize(size VirtualInstanceSize) VirtualInstanceOption {
+// WithMountRefreshInterval is used to optionally set the mount refresh interval. Setting it to 0 means
+// it will be a continuous refresh, but then WithContinuousMountRefresh should be used instead. Not specifying
+// a mount refresh interval will make it never refresh, and should only be used for static collections.
+func WithMountRefreshInterval(interval time.Duration) VirtualInstanceOption {
 	return func(o *VirtualInstanceOptions) {
-		s := size.String()
-		o.Size = &s
+		o.MountRefreshInterval = &interval
+	}
+}
+
+// WithContinuousMountRefresh is used to set the mount refresh interval to a continuous refresh.
+func WithContinuousMountRefresh() VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		var zero time.Duration
+		o.MountRefreshInterval = &zero
+	}
+}
+
+// WithAutoSuspend duration without queries after which the virtual instance is suspended. Minimum time is 15 minutes.
+func WithAutoSuspend(d time.Duration) VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		o.AutoSuspend = &d
+	}
+}
+
+// WithVirtualInstanceSize is used to optionally set the virtual instance size.
+func WithVirtualInstanceSize(size VirtualInstanceSize) VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		t := size.String()
+		o.Size = &t
 	}
 }
 
@@ -33,14 +63,16 @@ func (t VirtualInstanceSize) String() string {
 }
 
 const (
-	FreeSize     VirtualInstanceSize = "FREE"
-	SharedSize   VirtualInstanceSize = "SHARED"
-	SmallSize    VirtualInstanceSize = "SMALL"
-	MediumSize   VirtualInstanceSize = "MEDIUM"
-	LargeSize    VirtualInstanceSize = "LARGE"
-	XLargeSize   VirtualInstanceSize = "XLARGE"
-	XLarge2Size  VirtualInstanceSize = "XLARGE2"
-	XLarge4Size  VirtualInstanceSize = "XLARGE4"
-	XLarge8Size  VirtualInstanceSize = "XLARGE8"
-	XLarge16Size VirtualInstanceSize = "XLARGE16"
+	SizeFree     VirtualInstanceSize = "FREE"
+	SizeNano     VirtualInstanceSize = "NANO"
+	SizeShared   VirtualInstanceSize = "SHARED"
+	SizeMilli    VirtualInstanceSize = "MILLI"
+	SizeSmall    VirtualInstanceSize = "SMALL"
+	SizeMedium   VirtualInstanceSize = "MEDIUM"
+	SizeLarge    VirtualInstanceSize = "LARGE"
+	SizeXLarge   VirtualInstanceSize = "XLARGE"
+	SizeXLarge2  VirtualInstanceSize = "XLARGE2"
+	SizeXLarge4  VirtualInstanceSize = "XLARGE4"
+	SizeXLarge8  VirtualInstanceSize = "XLARGE8"
+	SizeXLarge16 VirtualInstanceSize = "XLARGE16"
 )

@@ -22,19 +22,22 @@ func WithVersion(version string) QueryLambdaOption {
 	}
 }
 
-func WithRowLimit2(limit int32) QueryLambdaOption {
+// WithQueryLambdaRowLimit sets the maximum number of rows to retrieve.
+func WithQueryLambdaRowLimit(limit int32) QueryLambdaOption {
 	return func(o *ExecuteQueryLambdaRequest) {
 		o.DefaultRowLimit = &limit
 	}
 }
 
-func WithWarnings2() QueryLambdaOption {
+// WithQueryLambdaWarnings enables warnings.
+func WithQueryLambdaWarnings() QueryLambdaOption {
 	return func(o *ExecuteQueryLambdaRequest) {
 		o.GenerateWarnings = openapi.PtrBool(true)
 	}
 }
 
-func WithParameter2(name, valueType, value string) QueryLambdaOption {
+// WithQueryLambdaParameter sets a query lambda parameter.
+func WithQueryLambdaParameter(name, valueType, value string) QueryLambdaOption {
 	return func(o *ExecuteQueryLambdaRequest) {
 		o.Parameters = append(o.Parameters, openapi.QueryParameter{
 			Name:  name,

@@ -39,6 +39,8 @@ func (s *SuiteWorkspace) TearDownSuite() {
 	ctx := testCtx()
 	err := s.rc.DeleteWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
+	err = s.rc.WaitUntilWorkspaceGone(ctx, s.ws)
+	s.Require().NoError(err)
 }
 
 func (s *SuiteWorkspace) TestGetWorkspace() {
