@@ -36,7 +36,7 @@ func (s *IntegrationTestSuite) TearDown() {
 func (s *IntegrationTestSuite) TestGetIntegration() {
 	ctx := testCtx()
 
-	const iName = "confluent-cloud"
+	const iName = "acc-kafka-integration"
 	integration, err := s.rc.GetIntegration(ctx, iName)
 	s.NoError(err)
 	s.Assert().Equal(iName, integration.GetName())
