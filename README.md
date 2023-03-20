@@ -73,3 +73,10 @@ Feel free to log issues against this client through GitHub.
 ## License
 
 The Rockset Go Client is licensed under the [Apache 2.0 License](https://github.com/rockset/rockset-go-client/blob/master/LICENSE)
+
+## Cutting a New Release 
+
+- Update the version in `version.go`
+- Run `generate.sh`
+- Push and merge branch
+- Run `git tag v{version_number}` on master
