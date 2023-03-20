@@ -136,7 +136,7 @@ Class | Method | HTTP request | Description
 *QueryLambdasApi* | [**ListQueryLambdaVersions**](docs/QueryLambdasApi.md#listquerylambdaversions) | **Get** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | List Query Lambda Versions
 *QueryLambdasApi* | [**ListQueryLambdasInWorkspace**](docs/QueryLambdasApi.md#listquerylambdasinworkspace) | **Get** /v1/orgs/self/ws/{workspace}/lambdas | List Query Lambdas in Workspace
 *QueryLambdasApi* | [**UpdateQueryLambda**](docs/QueryLambdasApi.md#updatequerylambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | Update Query Lambda
-*SharedLambdasApi* | [**ExecutePublicQueryLambda**](docs/SharedLambdasApi.md#executepublicquerylambda) | **Get** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
+*SharedLambdasApi* | [**ExecutePublicQueryLambdaWithParams**](docs/SharedLambdasApi.md#executepublicquerylambdawithparams) | **Post** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
 *UsersApi* | [**CreateUser**](docs/UsersApi.md#createuser) | **Post** /v1/orgs/self/users | Create User
 *UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /v1/orgs/self/users/{user} | Delete User
 *UsersApi* | [**GetCurrentUser**](docs/UsersApi.md#getcurrentuser) | **Get** /v1/orgs/self/users/self | Retrieve Current User
@@ -182,17 +182,20 @@ Class | Method | HTTP request | Description
  - [AzureBlobStorageIntegration](docs/AzureBlobStorageIntegration.md)
  - [AzureEventHubsIntegration](docs/AzureEventHubsIntegration.md)
  - [AzureServiceBusIntegration](docs/AzureServiceBusIntegration.md)
+ - [BulkStats](docs/BulkStats.md)
  - [CancelQueryResponse](docs/CancelQueryResponse.md)
  - [Cluster](docs/Cluster.md)
  - [Collection](docs/Collection.md)
  - [CollectionMount](docs/CollectionMount.md)
  - [CollectionMountResponse](docs/CollectionMountResponse.md)
+ - [CollectionMountStats](docs/CollectionMountStats.md)
  - [CollectionStats](docs/CollectionStats.md)
  - [CreateAliasRequest](docs/CreateAliasRequest.md)
  - [CreateAliasResponse](docs/CreateAliasResponse.md)
  - [CreateApiKeyRequest](docs/CreateApiKeyRequest.md)
  - [CreateApiKeyResponse](docs/CreateApiKeyResponse.md)
  - [CreateCollectionMountRequest](docs/CreateCollectionMountRequest.md)
+ - [CreateCollectionMountsResponse](docs/CreateCollectionMountsResponse.md)
  - [CreateCollectionRequest](docs/CreateCollectionRequest.md)
  - [CreateCollectionResponse](docs/CreateCollectionResponse.md)
  - [CreateIntegrationRequest](docs/CreateIntegrationRequest.md)
@@ -225,6 +228,7 @@ Class | Method | HTTP request | Description
  - [DynamodbIntegration](docs/DynamodbIntegration.md)
  - [ErrorModel](docs/ErrorModel.md)
  - [EventTimeInfo](docs/EventTimeInfo.md)
+ - [ExecutePublicQueryLambdaRequest](docs/ExecutePublicQueryLambdaRequest.md)
  - [ExecuteQueryLambdaRequest](docs/ExecuteQueryLambdaRequest.md)
  - [FieldMappingQuery](docs/FieldMappingQuery.md)
  - [FieldMappingV2](docs/FieldMappingV2.md)

@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **SourceStatusByTopic** | Pointer to [**map[string]StatusKafka**](StatusKafka.md) | The status of the Kafka source by topic. | [optional] [readonly] 
 **KafkaDataFormat** | Pointer to **string** | The format of the Kafka topics being tailed. | [optional] 
 **ConnectionString** | Pointer to **string** | Kafka connection string. | [optional] 
+**AwsRole** | Pointer to [**AwsRole**](AwsRole.md) |  | [optional] 
 **UseV3** | Pointer to **bool** |  | [optional] 
 **BootstrapServers** | Pointer to **string** | The Kafka bootstrap server url(s). Required only for V3 integration. | [optional] 
 **SecurityConfig** | Pointer to [**KafkaV3SecurityConfig**](KafkaV3SecurityConfig.md) |  | [optional] 
@@ -131,6 +132,31 @@ SetConnectionString sets ConnectionString field to given value.
 `func (o *KafkaIntegration) HasConnectionString() bool`
 
 HasConnectionString returns a boolean if a field has been set.
+
+### GetAwsRole
+
+`func (o *KafkaIntegration) GetAwsRole() AwsRole`
+
+GetAwsRole returns the AwsRole field if non-nil, zero value otherwise.
+
+### GetAwsRoleOk
+
+`func (o *KafkaIntegration) GetAwsRoleOk() (*AwsRole, bool)`
+
+GetAwsRoleOk returns a tuple with the AwsRole field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAwsRole
+
+`func (o *KafkaIntegration) SetAwsRole(v AwsRole)`
+
+SetAwsRole sets AwsRole field to given value.
+
+### HasAwsRole
+
+`func (o *KafkaIntegration) HasAwsRole() bool`
+
+HasAwsRole returns a boolean if a field has been set.
 
 ### GetUseV3
 

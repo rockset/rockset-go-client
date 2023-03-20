@@ -24,6 +24,7 @@ type KafkaIntegration struct {
 	KafkaDataFormat *string `json:"kafka_data_format,omitempty"`
 	// Kafka connection string.
 	ConnectionString *string `json:"connection_string,omitempty"`
+	AwsRole *AwsRole `json:"aws_role,omitempty"`
 	UseV3 *bool `json:"use_v3,omitempty"`
 	// The Kafka bootstrap server url(s). Required only for V3 integration.
 	BootstrapServers *string `json:"bootstrap_servers,omitempty"`
@@ -176,6 +177,38 @@ func (o *KafkaIntegration) SetConnectionString(v string) {
 	o.ConnectionString = &v
 }
 
+// GetAwsRole returns the AwsRole field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetAwsRole() AwsRole {
+	if o == nil || o.AwsRole == nil {
+		var ret AwsRole
+		return ret
+	}
+	return *o.AwsRole
+}
+
+// GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetAwsRoleOk() (*AwsRole, bool) {
+	if o == nil || o.AwsRole == nil {
+		return nil, false
+	}
+	return o.AwsRole, true
+}
+
+// HasAwsRole returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasAwsRole() bool {
+	if o != nil && o.AwsRole != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAwsRole gets a reference to the given AwsRole and assigns it to the AwsRole field.
+func (o *KafkaIntegration) SetAwsRole(v AwsRole) {
+	o.AwsRole = &v
+}
+
 // GetUseV3 returns the UseV3 field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetUseV3() bool {
 	if o == nil || o.UseV3 == nil {
@@ -317,6 +350,9 @@ func (o KafkaIntegration) MarshalJSON() ([]byte, error) {
 	}
 	if o.ConnectionString != nil {
 		toSerialize["connection_string"] = o.ConnectionString
+	}
+	if o.AwsRole != nil {
+		toSerialize["aws_role"] = o.AwsRole
 	}
 	if o.UseV3 != nil {
 		toSerialize["use_v3"] = o.UseV3

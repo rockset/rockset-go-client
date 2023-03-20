@@ -26,6 +26,8 @@ type Status struct {
 	LastProcessedItem *string `json:"last_processed_item,omitempty"`
 	// Total items processed of source.
 	TotalProcessedItems *int64 `json:"total_processed_items,omitempty"`
+	// Size in bytes detected for the source at collection initialization. This size can be 0 or null for event stream sources.
+	DetectedSizeBytes *int64 `json:"detected_size_bytes,omitempty"`
 }
 
 // NewStatus instantiates a new Status object
@@ -205,6 +207,38 @@ func (o *Status) SetTotalProcessedItems(v int64) {
 	o.TotalProcessedItems = &v
 }
 
+// GetDetectedSizeBytes returns the DetectedSizeBytes field value if set, zero value otherwise.
+func (o *Status) GetDetectedSizeBytes() int64 {
+	if o == nil || o.DetectedSizeBytes == nil {
+		var ret int64
+		return ret
+	}
+	return *o.DetectedSizeBytes
+}
+
+// GetDetectedSizeBytesOk returns a tuple with the DetectedSizeBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetDetectedSizeBytesOk() (*int64, bool) {
+	if o == nil || o.DetectedSizeBytes == nil {
+		return nil, false
+	}
+	return o.DetectedSizeBytes, true
+}
+
+// HasDetectedSizeBytes returns a boolean if a field has been set.
+func (o *Status) HasDetectedSizeBytes() bool {
+	if o != nil && o.DetectedSizeBytes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDetectedSizeBytes gets a reference to the given int64 and assigns it to the DetectedSizeBytes field.
+func (o *Status) SetDetectedSizeBytes(v int64) {
+	o.DetectedSizeBytes = &v
+}
+
 func (o Status) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.State != nil {
@@ -221,6 +255,9 @@ func (o Status) MarshalJSON() ([]byte, error) {
 	}
 	if o.TotalProcessedItems != nil {
 		toSerialize["total_processed_items"] = o.TotalProcessedItems
+	}
+	if o.DetectedSizeBytes != nil {
+		toSerialize["detected_size_bytes"] = o.DetectedSizeBytes
 	}
 	return json.Marshal(toSerialize)
 }

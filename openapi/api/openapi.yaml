@@ -2765,6 +2765,7 @@ paths:
       summary: Update User
       tags:
       - Users
+      x-rename: update
       x-codegen-request-body-name: body
   /v1/orgs/self/users/{user}/apikeys:
     get:
@@ -3491,6 +3492,7 @@ paths:
       summary: Create Virtual Instance
       tags:
       - Virtual Instances
+      x-rename: create
       x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}:
     delete:
@@ -3591,6 +3593,7 @@ paths:
       summary: Delete Virtual Instance
       tags:
       - Virtual Instances
+      x-rename: delete
     get:
       description: Get details about a virtual instance.
       operationId: getVirtualInstance
@@ -3795,6 +3798,7 @@ paths:
       summary: Update Virtual Instance
       tags:
       - Virtual Instances
+      x-rename: update
       x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts:
     get:
@@ -3917,7 +3921,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CollectionMountResponse'
+                $ref: '#/components/schemas/CreateCollectionMountsResponse'
           description: collection mounted
         "400":
           content:
@@ -5992,6 +5996,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: content too large
         "415":
           content:
             application/json:
@@ -6105,6 +6115,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "413":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: content too large
         "415":
           content:
             application/json:
@@ -7889,9 +7905,9 @@ paths:
       x-rename: update
       x-codegen-request-body-name: body
   /v1/public/shared_lambdas/{public_access_id}:
-    get:
-      description: Execute a public query lambda.
-      operationId: executePublicQueryLambda
+    post:
+      description: Execute a public query lambda (full version).
+      operationId: executePublicQueryLambdaWithParams
       parameters:
       - description: public access ID of the query lambda
         in: path
@@ -7899,6 +7915,13 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExecutePublicQueryLambdaRequest'
+        description: JSON object
+        required: false
       responses:
         "200":
           content:
@@ -7987,6 +8010,7 @@ paths:
       summary: Execute a Public Query Lambda
       tags:
       - Shared Lambdas
+      x-codegen-request-body-name: body
 components:
   schemas:
     AddDocumentsRequest:
@@ -8235,6 +8259,93 @@ components:
       required:
       - connection_string
       type: object
+    BulkStats:
+      example:
+        index_compute_ms: 100000
+        indexing_stage_done_at: 2001-08-28T00:23:41Z
+        data_downloaded_bytes: 10000000
+        data_indexed_bytes: 8000000
+        total_index_size_bytes: 10000000
+        data_indexed_throughput_bytes: 800000.5
+        downloading_stage_done_at: 2001-08-28T00:23:41Z
+        started_at: 2001-08-28T00:23:41Z
+        provisioning_stage_done_at: 2001-08-28T00:23:41Z
+        download_compute_ms: 50000
+        documents_downloaded: 10000
+        initializing_stage_done_at: 2001-08-28T00:23:41Z
+        finalizing_stage_done_at: 2001-08-28T00:23:41Z
+      properties:
+        started_at:
+          description: ISO-8601 date of when the bulk ingest was started.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        initializing_stage_done_at:
+          description: ISO-8601 date of when the initializing stage was completed.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        downloading_stage_done_at:
+          description: ISO-8601 date of when the downloading stage was completed.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        provisioning_stage_done_at:
+          description: ISO-8601 date of when the provisioning stage was completed.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        indexing_stage_done_at:
+          description: ISO-8601 date of when the indexing stage was completed.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        finalizing_stage_done_at:
+          description: ISO-8601 date of when the finalizing stage was completed.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        documents_downloaded:
+          description: Number of documents downloaded from source during an ongoing
+            or completed bulk ingest. This includes documents that are dropped and
+            reingested.
+          example: 10000
+          format: int64
+          type: integer
+        data_downloaded_bytes:
+          description: Size in bytes of documents downloaded from source during an
+            ongoing or completed bulk ingest. This includes documents that are dropped
+            and reingested.
+          example: 10000000
+          format: int64
+          type: integer
+        download_compute_ms:
+          description: Bulk ingest compute units in milliseconds used for downloading
+            documents.
+          example: 50000
+          format: int64
+          type: integer
+        data_indexed_bytes:
+          description: Size in bytes of documents indexed. This is the total size
+            of documents after transformations and dropping before indexes are built.
+          example: 8000000
+          format: int64
+          type: integer
+        index_compute_ms:
+          description: Bulk ingest compute units in milliseconds used for indexing
+            documents.
+          example: 100000
+          format: int64
+          type: integer
+        total_index_size_bytes:
+          description: Total size of indexes after the completed bulk ingest. This
+            is the same as collection size.
+          example: 10000000
+          format: int64
+          type: integer
+        data_indexed_throughput_bytes:
+          description: Throughput of documents indexed in the last minute measured
+            in bytes/s. This is based off the data_indexed_bytes size. Throughput
+            during the download stage is shown on a per-source granularity in the
+            sources field of the Collection response.
+          example: 800000.5
+          format: double
+          type: number
+      type: object
     CancelQueryResponse:
       example:
         data:
@@ -8454,6 +8565,7 @@ components:
           status:
             last_processed_item: /path/to/some/object
             last_processed_at: 2019-01-15T21:48:23Z
+            detected_size_bytes: 7
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
@@ -8597,6 +8709,7 @@ components:
           status:
             last_processed_item: /path/to/some/object
             last_processed_at: 2019-01-15T21:48:23Z
+            detected_size_bytes: 7
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
@@ -8652,7 +8765,7 @@ components:
           purged_doc_count: 2145
           range_index_size: 123456
           purged_doc_size: 123456
-          bulk_bytes_inserted: 7
+          bulk_bytes_inserted: 1
           fill_progress: 0.6
           bytes_overwritten: 123456
           bytes_inserted: 123456
@@ -8662,6 +8775,33 @@ components:
           row_index_size: 123456
           bulk_bytes_overwritten: 1
         read_only: true
+        bulk_stats:
+        - index_compute_ms: 100000
+          indexing_stage_done_at: 2001-08-28T00:23:41Z
+          data_downloaded_bytes: 10000000
+          data_indexed_bytes: 8000000
+          total_index_size_bytes: 10000000
+          data_indexed_throughput_bytes: 800000.5
+          downloading_stage_done_at: 2001-08-28T00:23:41Z
+          started_at: 2001-08-28T00:23:41Z
+          provisioning_stage_done_at: 2001-08-28T00:23:41Z
+          download_compute_ms: 50000
+          documents_downloaded: 10000
+          initializing_stage_done_at: 2001-08-28T00:23:41Z
+          finalizing_stage_done_at: 2001-08-28T00:23:41Z
+        - index_compute_ms: 100000
+          indexing_stage_done_at: 2001-08-28T00:23:41Z
+          data_downloaded_bytes: 10000000
+          data_indexed_bytes: 8000000
+          total_index_size_bytes: 10000000
+          data_indexed_throughput_bytes: 800000.5
+          downloading_stage_done_at: 2001-08-28T00:23:41Z
+          started_at: 2001-08-28T00:23:41Z
+          provisioning_stage_done_at: 2001-08-28T00:23:41Z
+          download_compute_ms: 50000
+          documents_downloaded: 10000
+          initializing_stage_done_at: 2001-08-28T00:23:41Z
+          finalizing_stage_done_at: 2001-08-28T00:23:41Z
         retention_secs: 2592000
         name: global-transactions
         status: READY
@@ -8740,11 +8880,17 @@ components:
         insert_only:
           description: Whether the collection is insert only or not.
           type: boolean
+        bulk_stats:
+          items:
+            $ref: '#/components/schemas/BulkStats'
+          type: array
       type: object
     CollectionMount:
       example:
         snapshot_expiration_time_millis: 864000000
         collection_path: commons.foo
+        stats:
+          last_queried_ms: 1535101119334
         virtual_instance_id: 5ac23....
         created_at: 2001-08-28T00:23:41Z
         state: ACTIVE
@@ -8798,12 +8944,16 @@ components:
           example: 864000000
           format: int64
           type: integer
+        stats:
+          $ref: '#/components/schemas/CollectionMountStats'
       type: object
     CollectionMountResponse:
       example:
         data:
           snapshot_expiration_time_millis: 864000000
           collection_path: commons.foo
+          stats:
+            last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -8815,6 +8965,16 @@ components:
         data:
           $ref: '#/components/schemas/CollectionMount'
       type: object
+    CollectionMountStats:
+      example:
+        last_queried_ms: 1535101119334
+      properties:
+        last_queried_ms:
+          description: Milliseconds since Unix epoch Jan 1, 1970.
+          example: 1535101119334
+          format: int64
+          type: integer
+      type: object
     CollectionStats:
       example:
         doc_count: 2145
@@ -8824,7 +8984,7 @@ components:
         purged_doc_count: 2145
         range_index_size: 123456
         purged_doc_size: 123456
-        bulk_bytes_inserted: 7
+        bulk_bytes_inserted: 1
         fill_progress: 0.6
         bytes_overwritten: 123456
         bytes_inserted: 123456
@@ -8988,7 +9148,7 @@ components:
       type: object
     CreateCollectionMountRequest:
       example:
-        collection_paths: '[commons.foo, commons.bar]'
+        collection_paths: '["commons.foo", "commons.bar"]'
         type: STATIC
       properties:
         type:
@@ -9000,9 +9160,41 @@ components:
           type: string
         collection_paths:
           description: Collections to mount.
-          example: '[commons.foo, commons.bar]'
+          example: '["commons.foo", "commons.bar"]'
           items:
             type: string
+          type: array
+      type: object
+    CreateCollectionMountsResponse:
+      example:
+        data:
+        - snapshot_expiration_time_millis: 864000000
+          collection_path: commons.foo
+          stats:
+            last_queried_ms: 1535101119334
+          virtual_instance_id: 5ac23....
+          created_at: 2001-08-28T00:23:41Z
+          state: ACTIVE
+          id: 5ac23....
+          type: STATIC
+          virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+        - snapshot_expiration_time_millis: 864000000
+          collection_path: commons.foo
+          stats:
+            last_queried_ms: 1535101119334
+          virtual_instance_id: 5ac23....
+          created_at: 2001-08-28T00:23:41Z
+          state: ACTIVE
+          id: 5ac23....
+          type: STATIC
+          virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        data:
+          description: Mounts created.
+          items:
+            $ref: '#/components/schemas/CollectionMount'
           type: array
       type: object
     CreateCollectionRequest:
@@ -9183,6 +9375,7 @@ components:
           status:
             last_processed_item: /path/to/some/object
             last_processed_at: 2019-01-15T21:48:23Z
+            detected_size_bytes: 7
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
@@ -9326,6 +9519,7 @@ components:
           status:
             last_processed_item: /path/to/some/object
             last_processed_at: 2019-01-15T21:48:23Z
+            detected_size_bytes: 7
             total_processed_items: 32849023
             state: INITIALIZING
             message: error 403 forbidden
@@ -9545,6 +9739,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -9688,6 +9883,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -9743,7 +9939,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -9753,6 +9949,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -9800,6 +10023,9 @@ components:
             api_key: api_key
             secret: secret
           kafka_data_format: JSON
+          aws_role:
+            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+            aws_external_id: external id of aws
           bootstrap_servers: localhost:9092
           connection_string: connection_string
           use_v3: true
@@ -10070,6 +10296,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -10213,6 +10440,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -10268,7 +10496,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -10278,6 +10506,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -10442,6 +10697,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -10585,6 +10841,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -10640,7 +10897,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -10650,6 +10907,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -10669,6 +10953,9 @@ components:
               api_key: api_key
               secret: secret
             kafka_data_format: JSON
+            aws_role:
+              aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+              aws_external_id: external id of aws
             bootstrap_servers: localhost:9092
             connection_string: connection_string
             use_v3: true
@@ -10758,6 +11045,8 @@ components:
     CreateUserRequest:
       example:
         roles: '["admin", "member", "read-only"]'
+        last_name: Doe
+        first_name: John
         email: hello@rockset.com
       properties:
         email:
@@ -10770,6 +11059,14 @@ components:
           items:
             type: string
           type: array
+        first_name:
+          description: User first name.
+          example: John
+          type: string
+        last_name:
+          description: User last name.
+          example: Doe
+          type: string
       required:
       - email
       - roles
@@ -10841,7 +11138,6 @@ components:
           - NANO
           - SHARED
           - MILLI
-          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -11172,6 +11468,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -11315,6 +11612,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -11370,7 +11668,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -11380,6 +11678,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -11656,6 +11981,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -11799,6 +12125,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -11854,7 +12181,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -11864,6 +12191,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -12028,6 +12382,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -12171,6 +12526,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -12226,7 +12582,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -12236,6 +12592,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -12255,6 +12638,9 @@ components:
               api_key: api_key
               secret: secret
             kafka_data_format: JSON
+            aws_role:
+              aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+              aws_external_id: external id of aws
             bootstrap_servers: localhost:9092
             connection_string: connection_string
             use_v3: true
@@ -12467,11 +12853,12 @@ components:
           - NOT_READY
           - FORBIDDEN
           - QUERY_TIMEOUT
-          - ROLE_NOT_FOUND
           - CONNECTION_ERROR
+          - CONTENTTOOLARGE
           - CREATING
           - BADREQUEST
           - SERVICEUNAVAILABLE
+          - CONFLICT
           - RATELIMITEXCEEDED
           - QUERY_CANCELLED
           - CLIENT_CONNECTION_ERROR
@@ -12516,6 +12903,31 @@ components:
           type: string
       required:
       - field
+      type: object
+    ExecutePublicQueryLambdaRequest:
+      example:
+        generate_warnings: true
+        default_row_limit: 0
+        parameters:
+        - name: _id
+          type: string
+          value: 85beb391
+        - name: _id
+          type: string
+          value: 85beb391
+      properties:
+        parameters:
+          description: List of named parameters.
+          items:
+            $ref: '#/components/schemas/QueryParameter'
+          type: array
+        default_row_limit:
+          description: Row limit to use if no limit specified in the SQL query text.
+          format: int32
+          type: integer
+        generate_warnings:
+          description: Whether to generate warnings.
+          type: boolean
       type: object
     ExecuteQueryLambdaRequest:
       example:
@@ -12888,6 +13300,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -13031,6 +13444,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -13086,7 +13500,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -13096,6 +13510,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -13313,6 +13754,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -13456,6 +13898,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -13511,7 +13954,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -13521,6 +13964,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -13685,6 +14155,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -13828,6 +14299,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -13883,7 +14355,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -13893,6 +14365,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -13912,6 +14411,9 @@ components:
               api_key: api_key
               secret: secret
             kafka_data_format: JSON
+            aws_role:
+              aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+              aws_external_id: external id of aws
             bootstrap_servers: localhost:9092
             connection_string: connection_string
             use_v3: true
@@ -14243,6 +14745,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -14386,6 +14889,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -14441,7 +14945,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -14451,6 +14955,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -14615,6 +15146,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -14758,6 +15290,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -14813,7 +15346,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -14823,6 +15356,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -14842,6 +15402,9 @@ components:
             api_key: api_key
             secret: secret
           kafka_data_format: JSON
+          aws_role:
+            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+            aws_external_id: external id of aws
           bootstrap_servers: localhost:9092
           connection_string: connection_string
           use_v3: true
@@ -14914,6 +15477,9 @@ components:
           api_key: api_key
           secret: secret
         kafka_data_format: JSON
+        aws_role:
+          aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+          aws_external_id: external id of aws
         bootstrap_servers: localhost:9092
         connection_string: connection_string
         use_v3: true
@@ -14941,6 +15507,8 @@ components:
         connection_string:
           description: Kafka connection string.
           type: string
+        aws_role:
+          $ref: '#/components/schemas/AwsRole'
         use_v3:
           type: boolean
         bootstrap_servers:
@@ -15033,6 +15601,8 @@ components:
         data:
         - snapshot_expiration_time_millis: 864000000
           collection_path: commons.foo
+          stats:
+            last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -15042,6 +15612,8 @@ components:
           rrn: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
         - snapshot_expiration_time_millis: 864000000
           collection_path: commons.foo
+          stats:
+            last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
@@ -15220,6 +15792,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -15363,6 +15936,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -15418,7 +15992,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -15428,6 +16002,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -15592,6 +16193,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -15735,6 +16337,7 @@ components:
             status:
               last_processed_item: /path/to/some/object
               last_processed_at: 2019-01-15T21:48:23Z
+              detected_size_bytes: 7
               total_processed_items: 32849023
               state: INITIALIZING
               message: error 403 forbidden
@@ -15790,7 +16393,7 @@ components:
             purged_doc_count: 2145
             range_index_size: 123456
             purged_doc_size: 123456
-            bulk_bytes_inserted: 7
+            bulk_bytes_inserted: 1
             fill_progress: 0.6
             bytes_overwritten: 123456
             bytes_inserted: 123456
@@ -15800,6 +16403,33 @@ components:
             row_index_size: 123456
             bulk_bytes_overwritten: 1
           read_only: true
+          bulk_stats:
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
+          - index_compute_ms: 100000
+            indexing_stage_done_at: 2001-08-28T00:23:41Z
+            data_downloaded_bytes: 10000000
+            data_indexed_bytes: 8000000
+            total_index_size_bytes: 10000000
+            data_indexed_throughput_bytes: 800000.5
+            downloading_stage_done_at: 2001-08-28T00:23:41Z
+            started_at: 2001-08-28T00:23:41Z
+            provisioning_stage_done_at: 2001-08-28T00:23:41Z
+            download_compute_ms: 50000
+            documents_downloaded: 10000
+            initializing_stage_done_at: 2001-08-28T00:23:41Z
+            finalizing_stage_done_at: 2001-08-28T00:23:41Z
           retention_secs: 2592000
           name: global-transactions
           status: READY
@@ -16020,6 +16650,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -16163,6 +16794,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -16218,7 +16850,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -16228,6 +16860,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -16392,6 +17051,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -16535,6 +17195,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -16590,7 +17251,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -16600,6 +17261,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -16619,6 +17307,9 @@ components:
               api_key: api_key
               secret: secret
             kafka_data_format: JSON
+            aws_role:
+              aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+              aws_external_id: external id of aws
             bootstrap_servers: localhost:9092
             connection_string: connection_string
             use_v3: true
@@ -16834,6 +17525,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -16977,6 +17669,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -17032,7 +17725,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -17042,6 +17735,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -17206,6 +17926,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -17349,6 +18070,7 @@ components:
               status:
                 last_processed_item: /path/to/some/object
                 last_processed_at: 2019-01-15T21:48:23Z
+                detected_size_bytes: 7
                 total_processed_items: 32849023
                 state: INITIALIZING
                 message: error 403 forbidden
@@ -17404,7 +18126,7 @@ components:
               purged_doc_count: 2145
               range_index_size: 123456
               purged_doc_size: 123456
-              bulk_bytes_inserted: 7
+              bulk_bytes_inserted: 1
               fill_progress: 0.6
               bytes_overwritten: 123456
               bytes_inserted: 123456
@@ -17414,6 +18136,33 @@ components:
               row_index_size: 123456
               bulk_bytes_overwritten: 1
             read_only: true
+            bulk_stats:
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
+            - index_compute_ms: 100000
+              indexing_stage_done_at: 2001-08-28T00:23:41Z
+              data_downloaded_bytes: 10000000
+              data_indexed_bytes: 8000000
+              total_index_size_bytes: 10000000
+              data_indexed_throughput_bytes: 800000.5
+              downloading_stage_done_at: 2001-08-28T00:23:41Z
+              started_at: 2001-08-28T00:23:41Z
+              provisioning_stage_done_at: 2001-08-28T00:23:41Z
+              download_compute_ms: 50000
+              documents_downloaded: 10000
+              initializing_stage_done_at: 2001-08-28T00:23:41Z
+              finalizing_stage_done_at: 2001-08-28T00:23:41Z
             retention_secs: 2592000
             name: global-transactions
             status: READY
@@ -17433,6 +18182,9 @@ components:
               api_key: api_key
               secret: secret
             kafka_data_format: JSON
+            aws_role:
+              aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+              aws_external_id: external id of aws
             bootstrap_servers: localhost:9092
             connection_string: connection_string
             use_v3: true
@@ -18637,7 +19389,7 @@ components:
           client_timeout_ms: 1
           timeout_ms: 5
         sql:
-          generate_warnings: true
+          generate_warnings: false
           query: SELECT * FROM foo where _id = :_id
           initial_paginate_response_doc_count: 6
           paginate: true
@@ -18659,7 +19411,7 @@ components:
       type: object
     QueryRequestSql:
       example:
-        generate_warnings: true
+        generate_warnings: false
         query: SELECT * FROM foo where _id = :_id
         initial_paginate_response_doc_count: 6
         paginate: true
@@ -18679,6 +19431,7 @@ components:
         generate_warnings:
           description: Flag to enable warnings. Warnings can help debug query issues
             but negatively affect performance.
+          example: false
           type: boolean
         parameters:
           description: List of named parameters.
@@ -19110,6 +19863,7 @@ components:
         status:
           last_processed_item: /path/to/some/object
           last_processed_at: 2019-01-15T21:48:23Z
+          detected_size_bytes: 7
           total_processed_items: 32849023
           state: INITIALIZING
           message: error 403 forbidden
@@ -19579,6 +20333,7 @@ components:
       example:
         last_processed_item: /path/to/some/object
         last_processed_at: 2019-01-15T21:48:23Z
+        detected_size_bytes: 7
         total_processed_items: 32849023
         state: INITIALIZING
         message: error 403 forbidden
@@ -19608,6 +20363,11 @@ components:
         total_processed_items:
           description: Total items processed of source.
           example: 32849023
+          format: int64
+          type: integer
+        detected_size_bytes:
+          description: Size in bytes detected for the source at collection initialization.
+            This size can be 0 or null for event stream sources.
           format: int64
           type: integer
       type: object
@@ -20134,7 +20894,6 @@ components:
           - NANO
           - SHARED
           - MILLI
-          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -20372,7 +21131,6 @@ components:
           - NANO
           - SHARED
           - MILLI
-          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -20391,7 +21149,6 @@ components:
           - NANO
           - SHARED
           - MILLI
-          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE

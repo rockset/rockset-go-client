@@ -27,46 +27,52 @@ var (
 type SharedLambdasApi interface {
 
 	/*
-	ExecutePublicQueryLambda Execute a Public Query Lambda
+	ExecutePublicQueryLambdaWithParams Execute a Public Query Lambda
 
-	Execute a public query lambda.
+	Execute a public query lambda (full version).
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param publicAccessId public access ID of the query lambda
-	 @return ApiExecutePublicQueryLambdaRequest
+	 @return ApiExecutePublicQueryLambdaWithParamsRequest
 	*/
-	ExecutePublicQueryLambda(ctx context.Context, publicAccessId string) ApiExecutePublicQueryLambdaRequest
+	ExecutePublicQueryLambdaWithParams(ctx context.Context, publicAccessId string) ApiExecutePublicQueryLambdaWithParamsRequest
 
-	// ExecutePublicQueryLambdaExecute executes the request
+	// ExecutePublicQueryLambdaWithParamsExecute executes the request
 	//  @return QueryResponse
-	ExecutePublicQueryLambdaExecute(r ApiExecutePublicQueryLambdaRequest) (*QueryResponse, *http.Response, error)
+	ExecutePublicQueryLambdaWithParamsExecute(r ApiExecutePublicQueryLambdaWithParamsRequest) (*QueryResponse, *http.Response, error)
 }
 
 // SharedLambdasApiService SharedLambdasApi service
 type SharedLambdasApiService service
 
-type ApiExecutePublicQueryLambdaRequest struct {
+type ApiExecutePublicQueryLambdaWithParamsRequest struct {
 	ctx context.Context
 	ApiService SharedLambdasApi
 	publicAccessId string
+	body *ExecutePublicQueryLambdaRequest
 }
 
+// JSON object
+func (r ApiExecutePublicQueryLambdaWithParamsRequest) Body(body ExecutePublicQueryLambdaRequest) ApiExecutePublicQueryLambdaWithParamsRequest {
+	r.body = &body
+	return r
+}
 
-func (r ApiExecutePublicQueryLambdaRequest) Execute() (*QueryResponse, *http.Response, error) {
-	return r.ApiService.ExecutePublicQueryLambdaExecute(r)
+func (r ApiExecutePublicQueryLambdaWithParamsRequest) Execute() (*QueryResponse, *http.Response, error) {
+	return r.ApiService.ExecutePublicQueryLambdaWithParamsExecute(r)
 }
 
 /*
-ExecutePublicQueryLambda Execute a Public Query Lambda
+ExecutePublicQueryLambdaWithParams Execute a Public Query Lambda
 
-Execute a public query lambda.
+Execute a public query lambda (full version).
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param publicAccessId public access ID of the query lambda
- @return ApiExecutePublicQueryLambdaRequest
+ @return ApiExecutePublicQueryLambdaWithParamsRequest
 */
-func (a *SharedLambdasApiService) ExecutePublicQueryLambda(ctx context.Context, publicAccessId string) ApiExecutePublicQueryLambdaRequest {
-	return ApiExecutePublicQueryLambdaRequest{
+func (a *SharedLambdasApiService) ExecutePublicQueryLambdaWithParams(ctx context.Context, publicAccessId string) ApiExecutePublicQueryLambdaWithParamsRequest {
+	return ApiExecutePublicQueryLambdaWithParamsRequest{
 		ApiService: a,
 		ctx: ctx,
 		publicAccessId: publicAccessId,
@@ -75,15 +81,15 @@ func (a *SharedLambdasApiService) ExecutePublicQueryLambda(ctx context.Context, 
 
 // Execute executes the request
 //  @return QueryResponse
-func (a *SharedLambdasApiService) ExecutePublicQueryLambdaExecute(r ApiExecutePublicQueryLambdaRequest) (*QueryResponse, *http.Response, error) {
+func (a *SharedLambdasApiService) ExecutePublicQueryLambdaWithParamsExecute(r ApiExecutePublicQueryLambdaWithParamsRequest) (*QueryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 		localVarReturnValue  *QueryResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SharedLambdasApiService.ExecutePublicQueryLambda")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SharedLambdasApiService.ExecutePublicQueryLambdaWithParams")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -96,7 +102,7 @@ func (a *SharedLambdasApiService) ExecutePublicQueryLambdaExecute(r ApiExecutePu
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -112,6 +118,8 @@ func (a *SharedLambdasApiService) ExecutePublicQueryLambdaExecute(r ApiExecutePu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

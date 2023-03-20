@@ -4,7 +4,7 @@ set -e
 
 VERSION=$(grep --only-match "[0-9]*\.[0-9]*\.[0-9]*" version.go)
 
-rm -rf openapi
+rm -rf openapi/*
 
 docker run --rm \
     -v "${PWD}:/rockset" openapitools/openapi-generator-cli:v5.4.0 generate \
