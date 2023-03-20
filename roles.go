@@ -43,7 +43,7 @@ func (rc *RockClient) CreateRole(ctx context.Context, roleName string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*b).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -80,7 +80,7 @@ func (rc *RockClient) UpdateRole(ctx context.Context, roleName string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*b).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -102,7 +102,7 @@ func (rc *RockClient) DeleteRole(ctx context.Context, roleName string) error {
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -125,7 +125,7 @@ func (rc *RockClient) GetRole(ctx context.Context, roleName string) (openapi.Rol
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -148,7 +148,7 @@ func (rc *RockClient) ListRoles(ctx context.Context) ([]openapi.Role, error) {
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

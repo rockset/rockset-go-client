@@ -20,7 +20,7 @@ func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

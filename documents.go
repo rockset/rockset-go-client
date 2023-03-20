@@ -39,7 +39,7 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -85,7 +85,7 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 	err = rc.Retry(ctx, func() error {
 		resp, err = rc.RockConfig.cfg.HTTPClient.Do(req)
 
-		return NewErrorWithStatusCode(err, resp.StatusCode)
+		return NewErrorWithStatusCode(err, resp)
 	})
 	if err != nil {
 		return nil, err
@@ -179,7 +179,7 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

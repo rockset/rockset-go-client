@@ -23,7 +23,7 @@ func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (opena
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -46,7 +46,7 @@ func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.Virtu
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -83,7 +83,7 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

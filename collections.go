@@ -19,7 +19,7 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -48,7 +48,7 @@ func (rc *RockClient) ListCollections(ctx context.Context,
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = listReq.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp.StatusCode)
+			return NewErrorWithStatusCode(err, httpResp)
 		})
 	} else {
 		listWsReq := rc.CollectionsApi.WorkspaceCollections(ctx, *opts.Workspace)
@@ -56,7 +56,7 @@ func (rc *RockClient) ListCollections(ctx context.Context,
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = listWsReq.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp.StatusCode)
+			return NewErrorWithStatusCode(err, httpResp)
 		})
 	}
 
@@ -74,7 +74,7 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 	err := rc.Retry(ctx, func() error {
 		_, httpResp, err := deleteReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	return err
@@ -131,7 +131,7 @@ func (rc *RockClient) CreateCollection(ctx context.Context, workspace, name stri
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(request).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 	if err != nil {
 		return openapi.Collection{}, err
@@ -196,7 +196,7 @@ func (rc *RockClient) CreateKinesisCollection(ctx context.Context,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*createParams).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -239,7 +239,7 @@ func (rc *RockClient) CreateGCSCollection(ctx context.Context,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*createParams).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -282,7 +282,7 @@ func (rc *RockClient) CreateDynamoDBCollection(ctx context.Context,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*createParams).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -326,7 +326,7 @@ func (rc *RockClient) CreateFileUploadCollection(ctx context.Context,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*createParams).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 	if err != nil {
 		return openapi.Collection{}, err
@@ -370,7 +370,7 @@ func (rc *RockClient) CreateKafkaCollection(ctx context.Context, workspace, name
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*createParams).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -413,7 +413,7 @@ func (rc *RockClient) CreateMongoDBCollection(ctx context.Context,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*createParams).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 	if err != nil {
 		return openapi.Collection{}, err

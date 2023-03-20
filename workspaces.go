@@ -34,7 +34,7 @@ func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -58,7 +58,7 @@ func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (opena
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -84,7 +84,7 @@ func (rc *RockClient) ListWorkspaces(ctx context.Context) ([]openapi.Workspace, 
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -106,7 +106,7 @@ func (rc *RockClient) DeleteWorkspace(ctx context.Context, name string) error {
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

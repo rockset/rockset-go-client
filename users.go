@@ -24,7 +24,7 @@ func (rc *RockClient) CreateUser(ctx context.Context, email string, roles []stri
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -64,7 +64,7 @@ func (rc *RockClient) UpdateUser(ctx context.Context, email string, roles []stri
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -86,7 +86,7 @@ func (rc *RockClient) DeleteUser(ctx context.Context, email string) error {
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -109,7 +109,7 @@ func (rc *RockClient) GetCurrentUser(ctx context.Context) (openapi.User, error) 
 	err = rc.Retry(ctx, func() error {
 		user, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -132,7 +132,7 @@ func (rc *RockClient) GetUser(ctx context.Context, email string) (openapi.User, 
 	err = rc.Retry(ctx, func() error {
 		user, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -155,7 +155,7 @@ func (rc *RockClient) ListUsers(ctx context.Context) ([]openapi.User, error) {
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

@@ -34,7 +34,7 @@ func (rc *RockClient) CreateView(ctx context.Context, workspace, view, query str
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -71,7 +71,7 @@ func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query str
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -97,7 +97,7 @@ func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) er
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -129,7 +129,7 @@ func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewO
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp.StatusCode)
+			return NewErrorWithStatusCode(err, httpResp)
 		})
 	} else {
 		q := rc.ViewsApi.WorkspaceViews(ctx, opts.Workspace)
@@ -137,7 +137,7 @@ func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewO
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp.StatusCode)
+			return NewErrorWithStatusCode(err, httpResp)
 		})
 	}
 
@@ -164,7 +164,7 @@ func (rc *RockClient) GetView(ctx context.Context, workspace, name string) (open
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
