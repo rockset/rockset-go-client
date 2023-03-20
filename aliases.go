@@ -38,7 +38,7 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -58,8 +58,9 @@ func (rc *RockClient) DeleteAlias(ctx context.Context, workspace, alias string) 
 	q := rc.AliasesApi.DeleteAlias(ctx, workspace, alias)
 
 	err := rc.Retry(ctx, func() error {
-		_, _, err := q.Execute()
-		return err
+		_, httpResp, err := q.Execute()
+
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	log.Debug().Str("alias", alias).Msg("alias deleted")
@@ -80,7 +81,7 @@ func (rc *RockClient) GetAlias(ctx context.Context, workspace, alias string) (op
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -112,14 +113,14 @@ func (rc *RockClient) ListAliases(ctx context.Context, options ...option.ListAli
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp.StatusCode)
+			return NewErrorWithStatusCode(err, httpResp)
 		})
 	} else {
 		q := rc.AliasesApi.WorkspaceAliases(ctx, opts.Workspace)
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp.StatusCode)
+			return NewErrorWithStatusCode(err, httpResp)
 		})
 	}
 
@@ -155,7 +156,7 @@ func (rc *RockClient) UpdateAlias(ctx context.Context, workspace, alias string, 
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

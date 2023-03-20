@@ -36,7 +36,7 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Body(*rq).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -66,7 +66,7 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	err = rc.Retry(ctx, func() error {
 		r, httpResp, err = q.Body(*rq).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -87,7 +87,7 @@ func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -108,7 +108,7 @@ func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (open
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -129,7 +129,7 @@ func (rc *RockClient) ListActiveQueries(ctx context.Context) ([]openapi.QueryInf
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	return response.Data, nil
@@ -146,7 +146,7 @@ func (rc *RockClient) CancelQuery(ctx context.Context, queryID string) (openapi.
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	return *response.Data, nil

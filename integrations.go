@@ -16,7 +16,7 @@ func (rc *RockClient) GetIntegration(ctx context.Context, name string) (openapi.
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = req.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 	if err != nil {
 		return openapi.Integration{}, err
@@ -34,7 +34,7 @@ func (rc *RockClient) ListIntegrations(ctx context.Context) ([]openapi.Integrati
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = req.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (rc *RockClient) DeleteIntegration(ctx context.Context, name string) error 
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = req.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	return err
@@ -74,7 +74,7 @@ func (rc *RockClient) CreateAzureBlobStorageIntegration(ctx context.Context, nam
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -116,7 +116,7 @@ func (rc *RockClient) CreateS3Integration(ctx context.Context, name string, cred
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -156,7 +156,7 @@ func (rc *RockClient) CreateKinesisIntegration(ctx context.Context, name string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -201,7 +201,7 @@ func (rc *RockClient) CreateDynamoDBIntegration(ctx context.Context, name string
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -237,7 +237,7 @@ func (rc *RockClient) CreateGCSIntegration(ctx context.Context, name, serviceAcc
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -272,7 +272,7 @@ func (rc *RockClient) CreateKafkaIntegration(ctx context.Context, name string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -306,7 +306,7 @@ func (rc *RockClient) CreateMongoDBIntegration(ctx context.Context, name, connec
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp.StatusCode)
+		return NewErrorWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

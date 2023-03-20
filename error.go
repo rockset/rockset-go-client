@@ -31,14 +31,17 @@ func NewError(err error) Error {
 }
 
 // NewErrorWithStatusCode wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError,
-// and can be retried if code is in RetryableErrors. If err is nil, NewErrorWithStatusCode() returns nil.
-func NewErrorWithStatusCode(err error, code int) error {
+// and can be retried if the HTTP response StatusCode is in RetryableErrors. If err is nil, NewErrorWithStatusCode() returns nil.
+func NewErrorWithStatusCode(err error, response *http.Response) error {
 	if err == nil {
 		return nil
 	}
 
 	e := NewError(err)
-	e.StatusCode = code
+	if response != nil {
+		e.StatusCode = response.StatusCode
+	}
+
 	return e
 }
 
