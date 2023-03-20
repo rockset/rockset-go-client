@@ -79,5 +79,6 @@ The Rockset Go Client is licensed under the [Apache 2.0 License](https://github.
 - Update the version in `version.go`
 - Run `generate.sh`
   - If you run into issues with this script, try running `git submodule update --init`
+- Run `go mod tidy`
 - Push and merge branch
 - Run `git tag v{version_number}` on master
