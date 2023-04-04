@@ -17,6 +17,7 @@ type RoleIntegrationSuite struct {
 
 func TestRoleIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	suite.Run(t, &RoleIntegrationSuite{
 		rc:   testClient(t),

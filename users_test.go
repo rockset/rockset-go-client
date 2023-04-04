@@ -21,6 +21,7 @@ type UserIntegrationSuite struct {
 
 func TestUserIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	// we convert the email address to lowercase in Rockset, so must do it here or the test will fail
 	name := strings.ToLower(randomName("test"))

@@ -35,6 +35,7 @@ func TestKafkaIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
+	t.Parallel()
 
 	s := KafkaIntegrationSuite{
 		rc: testClient(t),

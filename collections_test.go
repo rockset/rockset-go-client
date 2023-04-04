@@ -19,6 +19,7 @@ type CollectionTestSuite struct {
 
 func TestCollectionIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	suite.Run(t, &CollectionTestSuite{rc: testClient(t), ws: randomName("collection")})
 }

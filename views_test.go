@@ -10,6 +10,7 @@ import (
 
 func TestListViews(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 	rc := testClient(t)
@@ -20,6 +21,7 @@ func TestListViews(t *testing.T) {
 
 func TestViewCRUD(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 	rc := testClient(t)

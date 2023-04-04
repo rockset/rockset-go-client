@@ -28,6 +28,7 @@ type ConfluentCloudIntegrationSuite struct {
 func TestConfluentCloudIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	s := ConfluentCloudIntegrationSuite{
 		rc:               testClient(t),

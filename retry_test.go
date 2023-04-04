@@ -28,6 +28,7 @@ type ExponentialRetrySuite struct {
 }
 
 func TestExponentialRetrySuite(t *testing.T) {
+	t.Parallel()
 
 	suite.Run(t, &ExponentialRetrySuite{})
 }

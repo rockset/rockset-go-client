@@ -18,6 +18,7 @@ type QueryIntegrationSuite struct {
 
 func TestQueryIntegration(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	s := QueryIntegrationSuite{
 		rc: testClient(t),

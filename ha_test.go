@@ -116,12 +116,10 @@ type HASuite struct {
 }
 
 func TestHaSuite(t *testing.T) {
+	t.Parallel()
+
 	s := new(HASuite)
 	suite.Run(t, s)
-}
-
-func (s *HASuite) SetupTest() {
-
 }
 
 func (s *HASuite) SetupSuite() {

@@ -19,6 +19,7 @@ type SuiteAPIKey struct {
 
 func TestSuiteAPIKey(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	s := SuiteAPIKey{
 		rc:      testClient(t),

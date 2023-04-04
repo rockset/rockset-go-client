@@ -43,6 +43,7 @@ func (s *AzureIntegrationsSuite) TearDownSuite() {
 
 func TestAzureIntegrations(t *testing.T) {
 	connectionString := skipUnlessEnvSet(t, "AZURE_CONNECTION_STRING")
+	t.Parallel()
 
 	s := AzureIntegrationsSuite{
 		rc:               testClient(t),

@@ -9,6 +9,7 @@ import (
 
 func TestRockClient_ListVirtualInstances(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 	rc := testClient(t)

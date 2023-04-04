@@ -17,6 +17,7 @@ type IntegrationTestSuite struct {
 
 func TestIntegrationTestSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	suite.Run(t, &IntegrationTestSuite{
 		rc:             testClient(t),

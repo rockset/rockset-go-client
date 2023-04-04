@@ -11,6 +11,7 @@ import (
 
 func TestRockClient_CreateQueryLambda(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 	ws := "acc"
@@ -43,6 +44,7 @@ const (
 
 func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 
@@ -55,6 +57,7 @@ func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
 
 func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 
@@ -67,6 +70,7 @@ func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
 
 func TestRockClient_ListQueryLambdas(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 	rc := testClient(t)
@@ -81,6 +85,7 @@ func TestRockClient_ListQueryLambdas(t *testing.T) {
 
 func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 
@@ -96,6 +101,7 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 
 func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 
@@ -111,6 +117,7 @@ func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
 
 func TestRockClient_ListQueryLambdaTags(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 

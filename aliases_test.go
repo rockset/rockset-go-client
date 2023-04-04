@@ -18,6 +18,7 @@ type AliasIntegrationSuite struct {
 
 func TestAliasIntegrationSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	s := AliasIntegrationSuite{rc: testClient(t)}
 	suite.Run(t, &s)

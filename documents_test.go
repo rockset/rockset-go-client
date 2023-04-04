@@ -18,6 +18,7 @@ type DocumentIntegrationSuite struct {
 
 func TestDocumentSuite(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	s := DocumentIntegrationSuite{
 		rc:         testClient(t),

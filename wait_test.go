@@ -16,6 +16,8 @@ type WaitTestSuite struct {
 }
 
 func TestWaitSuite(t *testing.T) {
+	t.Parallel()
+
 	s := WaitTestSuite{}
 	suite.Run(t, &s)
 }

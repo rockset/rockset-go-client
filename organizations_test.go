@@ -9,6 +9,7 @@ import (
 
 func TestRockClient_GetOrganization(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 

@@ -18,6 +18,7 @@ type SuiteWorkspace struct {
 
 func TestSuiteWorkspace(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	s := SuiteWorkspace{
 		rc: testClient(t),

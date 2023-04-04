@@ -29,6 +29,7 @@ func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
 	skipUnlessIntegrationTest(t)
 	skipUnlessDocker(t)
+	t.Parallel()
 
 	name := randomName("cckc")
 

@@ -13,6 +13,7 @@ import (
 
 func TestError_IsNotFoundError(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	t.Parallel()
 
 	ctx := testCtx()
 	rc := testClient(t)
@@ -27,6 +28,8 @@ func TestError_IsNotFoundError(t *testing.T) {
 }
 
 func TestError_NilHTTPResponse(t *testing.T) {
+	t.Parallel()
+
 	err := rockset.NewErrorWithStatusCode(errors.New("test error"), nil)
 
 	var re rockset.Error
