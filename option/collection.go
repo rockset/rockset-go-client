@@ -159,8 +159,22 @@ func WithDynamoDBMaxRCU(maxRCU int64) CollectionOption {
 	}
 }
 
-// WithFieldMappingQuery sets the field mapping query
+// WithFieldMappingQuery sets the field mapping query.
+// Deprecated: use WithIngestTransformation instead.
 func WithFieldMappingQuery(sql string) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		o.FieldMappingQuery = &openapi.FieldMappingQuery{
+			Sql: &sql,
+		}
+	}
+}
+
+// WithIngestTransformation lets you run a [SQL query] over the data from your source and only persists the output
+// of that query to the collection. This gives you the power of SQL to drop, rename, or combine fields,
+// filter out incoming rows, and even aggregate incoming documents in real-time with rollups.
+//
+// [SQL query]: https://rockset.com/docs/ingest-transformation/
+func WithIngestTransformation(sql string) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		o.FieldMappingQuery = &openapi.FieldMappingQuery{
 			Sql: &sql,
@@ -186,6 +200,7 @@ const (
 )
 
 // WithCollectionClusteringKey adds a clustering key. Can be specified multiple times.
+// Deprecated: use WithFieldMappingQuery() instead and with a CLUSTER BY clause.
 func WithCollectionClusteringKey(fieldName, fieldType string, keys []string) CollectionOption {
 	return func(o *openapi.CreateCollectionRequest) {
 		if o.ClusteringKey == nil {
