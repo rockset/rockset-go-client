@@ -45,7 +45,7 @@ func Example_s3() {
 			),
 			option.WithS3Prefix("cities.csv"),
 		),
-		option.WithFieldMappingQuery("SELECT * FROM _input"),
+		option.WithIngestTransformation("SELECT * FROM _input"),
 	)
 	if err != nil {
 		log.Fatalf("failed to create collection: %v", err)
