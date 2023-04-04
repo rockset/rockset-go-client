@@ -32,7 +32,7 @@ jobs:
       - run: go vet ./...
   test:
     docker:
-      - image: cimg/go:1.19
+      - image: cimg/go:1.20
     steps:
       - checkout
       - run: go install github.com/mattn/goveralls@latest
@@ -40,7 +40,7 @@ jobs:
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   release:
     docker:
-      - image: cimg/go:1.19
+      - image: cimg/go:1.20
     steps:
       - checkout
       - run: go mod download
