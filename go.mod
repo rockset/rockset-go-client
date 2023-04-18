@@ -7,7 +7,7 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/go-zookeeper/zk v1.0.3
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/rs/zerolog v1.29.0
+	github.com/rs/zerolog v1.29.1
 	github.com/seborama/govcr v4.5.0+incompatible
 	github.com/stretchr/testify v1.8.2
 	golang.org/x/oauth2 v0.7.0
