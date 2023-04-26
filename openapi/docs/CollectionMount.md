@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **VirtualInstanceRrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
 **Id** | Pointer to **string** | Mount ID. | [optional] 
 **Rrn** | Pointer to **string** | Mount RRN. | [optional] 
+**LastRefreshTimeMillis** | Pointer to **int64** | Unix timestamp of most recent refresh. Not applicable for live mounts. | [optional] 
 **SnapshotExpirationTimeMillis** | Pointer to **int64** | Time in millis at which the snapshot expires. | [optional] 
 **Stats** | Pointer to [**CollectionMountStats**](CollectionMountStats.md) |  | [optional] 
 
@@ -233,6 +234,31 @@ SetRrn sets Rrn field to given value.
 `func (o *CollectionMount) HasRrn() bool`
 
 HasRrn returns a boolean if a field has been set.
+
+### GetLastRefreshTimeMillis
+
+`func (o *CollectionMount) GetLastRefreshTimeMillis() int64`
+
+GetLastRefreshTimeMillis returns the LastRefreshTimeMillis field if non-nil, zero value otherwise.
+
+### GetLastRefreshTimeMillisOk
+
+`func (o *CollectionMount) GetLastRefreshTimeMillisOk() (*int64, bool)`
+
+GetLastRefreshTimeMillisOk returns a tuple with the LastRefreshTimeMillis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastRefreshTimeMillis
+
+`func (o *CollectionMount) SetLastRefreshTimeMillis(v int64)`
+
+SetLastRefreshTimeMillis sets LastRefreshTimeMillis field to given value.
+
+### HasLastRefreshTimeMillis
+
+`func (o *CollectionMount) HasLastRefreshTimeMillis() bool`
+
+HasLastRefreshTimeMillis returns a boolean if a field has been set.
 
 ### GetSnapshotExpirationTimeMillis
 

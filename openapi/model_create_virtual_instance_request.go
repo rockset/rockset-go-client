@@ -24,6 +24,8 @@ type CreateVirtualInstanceRequest struct {
 	Description *string `json:"description,omitempty"`
 	// Number of seconds without queries after which the VI is suspended
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
+	// Number of seconds between data refreshes for mounts on this Virtual Instance
+	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
 }
 
 // NewCreateVirtualInstanceRequest instantiates a new CreateVirtualInstanceRequest object
@@ -164,6 +166,38 @@ func (o *CreateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32) {
 	o.AutoSuspendSeconds = &v
 }
 
+// GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
+func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
+	if o == nil || o.MountRefreshIntervalSeconds == nil {
+		var ret int32
+		return ret
+	}
+	return *o.MountRefreshIntervalSeconds
+}
+
+// GetMountRefreshIntervalSecondsOk returns a tuple with the MountRefreshIntervalSeconds field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSecondsOk() (*int32, bool) {
+	if o == nil || o.MountRefreshIntervalSeconds == nil {
+		return nil, false
+	}
+	return o.MountRefreshIntervalSeconds, true
+}
+
+// HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
+func (o *CreateVirtualInstanceRequest) HasMountRefreshIntervalSeconds() bool {
+	if o != nil && o.MountRefreshIntervalSeconds != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMountRefreshIntervalSeconds gets a reference to the given int32 and assigns it to the MountRefreshIntervalSeconds field.
+func (o *CreateVirtualInstanceRequest) SetMountRefreshIntervalSeconds(v int32) {
+	o.MountRefreshIntervalSeconds = &v
+}
+
 func (o CreateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Type != nil {
@@ -177,6 +211,9 @@ func (o CreateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.AutoSuspendSeconds != nil {
 		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
+	}
+	if o.MountRefreshIntervalSeconds != nil {
+		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
 	}
 	return json.Marshal(toSerialize)
 }

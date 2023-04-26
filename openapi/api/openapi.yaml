@@ -1300,6 +1300,12 @@ paths:
         schema:
           format: int32
           type: integer
+      - description: Offset from the cursor of the first document to be returned
+        in: query
+        name: offset
+        schema:
+          format: int32
+          type: integer
       responses:
         "200":
           content:
@@ -8261,9 +8267,11 @@ components:
       type: object
     BulkStats:
       example:
+        transformation_compute_ms: 50000
         index_compute_ms: 100000
         indexing_stage_done_at: 2001-08-28T00:23:41Z
         data_downloaded_bytes: 10000000
+        pre_index_size_bytes: 8000000
         data_indexed_bytes: 8000000
         total_index_size_bytes: 10000000
         data_indexed_throughput_bytes: 800000.5
@@ -8317,6 +8325,19 @@ components:
           description: Bulk ingest compute units in milliseconds used for downloading
             documents.
           example: 50000
+          format: int64
+          type: integer
+        transformation_compute_ms:
+          description: Bulk ingest compute units in milliseconds used for ingest transformation.
+          example: 50000
+          format: int64
+          type: integer
+        pre_index_size_bytes:
+          description: Size in bytes of documents before being indexed. This is the
+            total size of documents after decompression, transformations, and dropping.
+            This is equal to data_indexed_bytes after the indexing stage is done unless
+            there are retries during indexing the data.
+          example: 8000000
           format: int64
           type: integer
         data_indexed_bytes:
@@ -8776,9 +8797,11 @@ components:
           bulk_bytes_overwritten: 1
         read_only: true
         bulk_stats:
-        - index_compute_ms: 100000
+        - transformation_compute_ms: 50000
+          index_compute_ms: 100000
           indexing_stage_done_at: 2001-08-28T00:23:41Z
           data_downloaded_bytes: 10000000
+          pre_index_size_bytes: 8000000
           data_indexed_bytes: 8000000
           total_index_size_bytes: 10000000
           data_indexed_throughput_bytes: 800000.5
@@ -8789,9 +8812,11 @@ components:
           documents_downloaded: 10000
           initializing_stage_done_at: 2001-08-28T00:23:41Z
           finalizing_stage_done_at: 2001-08-28T00:23:41Z
-        - index_compute_ms: 100000
+        - transformation_compute_ms: 50000
+          index_compute_ms: 100000
           indexing_stage_done_at: 2001-08-28T00:23:41Z
           data_downloaded_bytes: 10000000
+          pre_index_size_bytes: 8000000
           data_indexed_bytes: 8000000
           total_index_size_bytes: 10000000
           data_indexed_throughput_bytes: 800000.5
@@ -8892,6 +8917,7 @@ components:
         stats:
           last_queried_ms: 1535101119334
         virtual_instance_id: 5ac23....
+        last_refresh_time_millis: 123123764
         created_at: 2001-08-28T00:23:41Z
         state: ACTIVE
         id: 5ac23....
@@ -8915,6 +8941,7 @@ components:
           enum:
           - CREATING
           - ACTIVE
+          - REFRESHING
           - EXPIRED
           - DELETING
           example: ACTIVE
@@ -8939,6 +8966,12 @@ components:
           description: Mount RRN.
           example: rrn:mnt:use1a1:123e4567-e89b-12d3-a456-556642440000
           type: string
+        last_refresh_time_millis:
+          description: Unix timestamp of most recent refresh. Not applicable for live
+            mounts.
+          example: 123123764
+          format: int64
+          type: integer
         snapshot_expiration_time_millis:
           description: Time in millis at which the snapshot expires.
           example: 864000000
@@ -8955,6 +8988,7 @@ components:
           stats:
             last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
+          last_refresh_time_millis: 123123764
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           id: 5ac23....
@@ -9173,6 +9207,7 @@ components:
           stats:
             last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
+          last_refresh_time_millis: 123123764
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           id: 5ac23....
@@ -9184,6 +9219,7 @@ components:
           stats:
             last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
+          last_refresh_time_millis: 123123764
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           id: 5ac23....
@@ -9527,6 +9563,7 @@ components:
           field: timestamp
           format: seconds_since_epoch
           time_zone: UTC
+        storage_compression_type: LZ4
         retention_secs: 1000000
         name: global-transactions
         description: transactions from stores worldwide
@@ -9574,6 +9611,12 @@ components:
           items:
             $ref: '#/components/schemas/FieldPartition'
           type: array
+        storage_compression_type:
+          description: RocksDB storage compression type.
+          enum:
+          - LZ4
+          - ZSTD
+          type: string
       type: object
     CreateCollectionResponse:
       example:
@@ -9950,9 +9993,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -9963,9 +10008,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -10507,9 +10554,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -10520,9 +10569,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -10908,9 +10959,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -10921,9 +10974,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -11126,6 +11181,7 @@ components:
       type: object
     CreateVirtualInstanceRequest:
       example:
+        mount_refresh_interval_seconds: 3600
         name: prod_vi
         description: VI serving prod traffic
         auto_suspend_seconds: 3600
@@ -11162,6 +11218,12 @@ components:
           example: 3600
           format: int32
           type: integer
+        mount_refresh_interval_seconds:
+          description: Number of seconds between data refreshes for mounts on this
+            Virtual Instance
+          example: 3600
+          format: int32
+          type: integer
       required:
       - name
       type: object
@@ -11169,6 +11231,7 @@ components:
       example:
         data:
           default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -11679,9 +11742,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -11692,9 +11757,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -12192,9 +12259,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -12205,9 +12274,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -12593,9 +12664,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -12606,9 +12679,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -12729,6 +12804,7 @@ components:
       example:
         data:
           default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -13511,9 +13587,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -13524,9 +13602,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -13965,9 +14045,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -13978,9 +14060,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -14366,9 +14450,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -14379,9 +14465,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -14475,6 +14563,7 @@ components:
       example:
         data:
           default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -14956,9 +15045,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -14969,9 +15060,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -15357,9 +15450,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -15370,9 +15465,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -15604,6 +15701,7 @@ components:
           stats:
             last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
+          last_refresh_time_millis: 123123764
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           id: 5ac23....
@@ -15615,6 +15713,7 @@ components:
           stats:
             last_queried_ms: 1535101119334
           virtual_instance_id: 5ac23....
+          last_refresh_time_millis: 123123764
           created_at: 2001-08-28T00:23:41Z
           state: ACTIVE
           id: 5ac23....
@@ -16003,9 +16102,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -16016,9 +16117,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -16404,9 +16507,11 @@ components:
             bulk_bytes_overwritten: 1
           read_only: true
           bulk_stats:
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -16417,9 +16522,11 @@ components:
             documents_downloaded: 10000
             initializing_stage_done_at: 2001-08-28T00:23:41Z
             finalizing_stage_done_at: 2001-08-28T00:23:41Z
-          - index_compute_ms: 100000
+          - transformation_compute_ms: 50000
+            index_compute_ms: 100000
             indexing_stage_done_at: 2001-08-28T00:23:41Z
             data_downloaded_bytes: 10000000
+            pre_index_size_bytes: 8000000
             data_indexed_bytes: 8000000
             total_index_size_bytes: 10000000
             data_indexed_throughput_bytes: 800000.5
@@ -16861,9 +16968,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -16874,9 +16983,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -17262,9 +17373,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -17275,9 +17388,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -17736,9 +17851,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -17749,9 +17866,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -18137,9 +18256,11 @@ components:
               bulk_bytes_overwritten: 1
             read_only: true
             bulk_stats:
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -18150,9 +18271,11 @@ components:
               documents_downloaded: 10000
               initializing_stage_done_at: 2001-08-28T00:23:41Z
               finalizing_stage_done_at: 2001-08-28T00:23:41Z
-            - index_compute_ms: 100000
+            - transformation_compute_ms: 50000
+              index_compute_ms: 100000
               indexing_stage_done_at: 2001-08-28T00:23:41Z
               data_downloaded_bytes: 10000000
+              pre_index_size_bytes: 8000000
               data_indexed_bytes: 8000000
               total_index_size_bytes: 10000000
               data_indexed_throughput_bytes: 800000.5
@@ -18555,6 +18678,7 @@ components:
       example:
         data:
         - default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -18572,6 +18696,7 @@ components:
           id: 123e4567-e89b-12d3-a456-556642440000
           auto_suspend_seconds: 3600
         - default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -18920,6 +19045,8 @@ components:
           - CREATE_QUERY_LAMBDA_WS
           - DELETE_QUERY_LAMBDA_WS
           - EXECUTE_QUERY_LAMBDA_WS
+          - CREATE_SCHEDULED_LAMBDA_WS
+          - DELETE_SCHEDULED_LAMBDA_WS
           - CREATE_VIEW_WS
           - DELETE_VIEW_WS
           - ALL_VI_ACTIONS
@@ -19392,7 +19519,6 @@ components:
           generate_warnings: false
           query: SELECT * FROM foo where _id = :_id
           initial_paginate_response_doc_count: 6
-          paginate: true
           default_row_limit: 0
           parameters:
           - name: _id
@@ -19414,7 +19540,6 @@ components:
         generate_warnings: false
         query: SELECT * FROM foo where _id = :_id
         initial_paginate_response_doc_count: 6
-        paginate: true
         default_row_limit: 0
         parameters:
         - name: _id
@@ -19443,10 +19568,6 @@ components:
             this default.
           format: int32
           type: integer
-        paginate:
-          description: Flag to paginate and store the results of this query for later
-            / sequential retrieval.
-          type: boolean
         initial_paginate_response_doc_count:
           description: Number of documents to return in addition to paginating for
             this query call. Only relevant if `paginate` flag is also set.
@@ -19560,6 +19681,7 @@ components:
       example:
         data:
           default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -20678,6 +20800,7 @@ components:
       example:
         data:
           default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -20883,6 +21006,7 @@ components:
         monitoring_enabled: true
         new_size: LARGE
         auto_suspend_enabled: true
+        mount_refresh_interval_seconds: 3600
         name: prod_vi
         description: VI for prod traffic
         auto_suspend_seconds: 3600
@@ -20923,11 +21047,18 @@ components:
           example: 3600
           format: int32
           type: integer
+        mount_refresh_interval_seconds:
+          description: Number of seconds between data refreshes for mounts on this
+            Virtual Instance
+          example: 3600
+          format: int32
+          type: integer
       type: object
     UpdateVirtualInstanceResponse:
       example:
         data:
           default_vi: true
+          mount_refresh_interval_seconds: 3600
           description: VI for prod traffic
           created_at: 2001-08-28T00:23:41Z
           resumed_at: 2001-08-28T00:23:41Z
@@ -21074,6 +21205,7 @@ components:
     VirtualInstance:
       example:
         default_vi: true
+        mount_refresh_interval_seconds: 3600
         description: VI for prod traffic
         created_at: 2001-08-28T00:23:41Z
         resumed_at: 2001-08-28T00:23:41Z
@@ -21180,6 +21312,12 @@ components:
           type: string
         auto_suspend_seconds:
           description: Number of seconds without queries after which the VI is suspended
+          example: 3600
+          format: int32
+          type: integer
+        mount_refresh_interval_seconds:
+          description: Number of seconds between data refreshes for mounts on this
+            Virtual Instance
           example: 3600
           format: int32
           type: integer

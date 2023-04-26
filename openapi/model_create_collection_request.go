@@ -30,6 +30,8 @@ type CreateCollectionRequest struct {
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// Deprecated. List of clustering fields. Use CLUSTER BY clause in `field_mapping_query` instead.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
+	// RocksDB storage compression type.
+	StorageCompressionType *string `json:"storage_compression_type,omitempty"`
 }
 
 // NewCreateCollectionRequest instantiates a new CreateCollectionRequest object
@@ -305,6 +307,38 @@ func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
 	o.ClusteringKey = v
 }
 
+// GetStorageCompressionType returns the StorageCompressionType field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetStorageCompressionType() string {
+	if o == nil || o.StorageCompressionType == nil {
+		var ret string
+		return ret
+	}
+	return *o.StorageCompressionType
+}
+
+// GetStorageCompressionTypeOk returns a tuple with the StorageCompressionType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCollectionRequest) GetStorageCompressionTypeOk() (*string, bool) {
+	if o == nil || o.StorageCompressionType == nil {
+		return nil, false
+	}
+	return o.StorageCompressionType, true
+}
+
+// HasStorageCompressionType returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasStorageCompressionType() bool {
+	if o != nil && o.StorageCompressionType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageCompressionType gets a reference to the given string and assigns it to the StorageCompressionType field.
+func (o *CreateCollectionRequest) SetStorageCompressionType(v string) {
+	o.StorageCompressionType = &v
+}
+
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -330,6 +364,9 @@ func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.ClusteringKey != nil {
 		toSerialize["clustering_key"] = o.ClusteringKey
+	}
+	if o.StorageCompressionType != nil {
+		toSerialize["storage_compression_type"] = o.StorageCompressionType
 	}
 	return json.Marshal(toSerialize)
 }

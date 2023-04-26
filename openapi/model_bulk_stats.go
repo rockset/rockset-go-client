@@ -34,6 +34,10 @@ type BulkStats struct {
 	DataDownloadedBytes *int64 `json:"data_downloaded_bytes,omitempty"`
 	// Bulk ingest compute units in milliseconds used for downloading documents.
 	DownloadComputeMs *int64 `json:"download_compute_ms,omitempty"`
+	// Bulk ingest compute units in milliseconds used for ingest transformation.
+	TransformationComputeMs *int64 `json:"transformation_compute_ms,omitempty"`
+	// Size in bytes of documents before being indexed. This is the total size of documents after decompression, transformations, and dropping. This is equal to data_indexed_bytes after the indexing stage is done unless there are retries during indexing the data.
+	PreIndexSizeBytes *int64 `json:"pre_index_size_bytes,omitempty"`
 	// Size in bytes of documents indexed. This is the total size of documents after transformations and dropping before indexes are built.
 	DataIndexedBytes *int64 `json:"data_indexed_bytes,omitempty"`
 	// Bulk ingest compute units in milliseconds used for indexing documents.
@@ -349,6 +353,70 @@ func (o *BulkStats) SetDownloadComputeMs(v int64) {
 	o.DownloadComputeMs = &v
 }
 
+// GetTransformationComputeMs returns the TransformationComputeMs field value if set, zero value otherwise.
+func (o *BulkStats) GetTransformationComputeMs() int64 {
+	if o == nil || o.TransformationComputeMs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TransformationComputeMs
+}
+
+// GetTransformationComputeMsOk returns a tuple with the TransformationComputeMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkStats) GetTransformationComputeMsOk() (*int64, bool) {
+	if o == nil || o.TransformationComputeMs == nil {
+		return nil, false
+	}
+	return o.TransformationComputeMs, true
+}
+
+// HasTransformationComputeMs returns a boolean if a field has been set.
+func (o *BulkStats) HasTransformationComputeMs() bool {
+	if o != nil && o.TransformationComputeMs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTransformationComputeMs gets a reference to the given int64 and assigns it to the TransformationComputeMs field.
+func (o *BulkStats) SetTransformationComputeMs(v int64) {
+	o.TransformationComputeMs = &v
+}
+
+// GetPreIndexSizeBytes returns the PreIndexSizeBytes field value if set, zero value otherwise.
+func (o *BulkStats) GetPreIndexSizeBytes() int64 {
+	if o == nil || o.PreIndexSizeBytes == nil {
+		var ret int64
+		return ret
+	}
+	return *o.PreIndexSizeBytes
+}
+
+// GetPreIndexSizeBytesOk returns a tuple with the PreIndexSizeBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BulkStats) GetPreIndexSizeBytesOk() (*int64, bool) {
+	if o == nil || o.PreIndexSizeBytes == nil {
+		return nil, false
+	}
+	return o.PreIndexSizeBytes, true
+}
+
+// HasPreIndexSizeBytes returns a boolean if a field has been set.
+func (o *BulkStats) HasPreIndexSizeBytes() bool {
+	if o != nil && o.PreIndexSizeBytes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPreIndexSizeBytes gets a reference to the given int64 and assigns it to the PreIndexSizeBytes field.
+func (o *BulkStats) SetPreIndexSizeBytes(v int64) {
+	o.PreIndexSizeBytes = &v
+}
+
 // GetDataIndexedBytes returns the DataIndexedBytes field value if set, zero value otherwise.
 func (o *BulkStats) GetDataIndexedBytes() int64 {
 	if o == nil || o.DataIndexedBytes == nil {
@@ -505,6 +573,12 @@ func (o BulkStats) MarshalJSON() ([]byte, error) {
 	}
 	if o.DownloadComputeMs != nil {
 		toSerialize["download_compute_ms"] = o.DownloadComputeMs
+	}
+	if o.TransformationComputeMs != nil {
+		toSerialize["transformation_compute_ms"] = o.TransformationComputeMs
+	}
+	if o.PreIndexSizeBytes != nil {
+		toSerialize["pre_index_size_bytes"] = o.PreIndexSizeBytes
 	}
 	if o.DataIndexedBytes != nil {
 		toSerialize["data_indexed_bytes"] = o.DataIndexedBytes

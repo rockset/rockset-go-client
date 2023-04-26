@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | New virtual instance description. | [optional] 
 **AutoSuspendEnabled** | Pointer to **bool** | Whether auto-suspend should be enabled for this Virtual Instance. | [optional] 
 **AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
+**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
 
 ## Methods
 
@@ -179,6 +180,31 @@ SetAutoSuspendSeconds sets AutoSuspendSeconds field to given value.
 `func (o *UpdateVirtualInstanceRequest) HasAutoSuspendSeconds() bool`
 
 HasAutoSuspendSeconds returns a boolean if a field has been set.
+
+### GetMountRefreshIntervalSeconds
+
+`func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32`
+
+GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field if non-nil, zero value otherwise.
+
+### GetMountRefreshIntervalSecondsOk
+
+`func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSecondsOk() (*int32, bool)`
+
+GetMountRefreshIntervalSecondsOk returns a tuple with the MountRefreshIntervalSeconds field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMountRefreshIntervalSeconds
+
+`func (o *UpdateVirtualInstanceRequest) SetMountRefreshIntervalSeconds(v int32)`
+
+SetMountRefreshIntervalSeconds sets MountRefreshIntervalSeconds field to given value.
+
+### HasMountRefreshIntervalSeconds
+
+`func (o *UpdateVirtualInstanceRequest) HasMountRefreshIntervalSeconds() bool`
+
+HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
