@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **GenerateWarnings** | Pointer to **bool** | Flag to enable warnings. Warnings can help debug query issues but negatively affect performance. | [optional] 
 **Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use. Limits specified in the query text will override this default. | [optional] 
-**Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
 **InitialPaginateResponseDocCount** | Pointer to **int32** | Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
 
 ## Methods
@@ -124,31 +123,6 @@ SetDefaultRowLimit sets DefaultRowLimit field to given value.
 `func (o *QueryRequestSql) HasDefaultRowLimit() bool`
 
 HasDefaultRowLimit returns a boolean if a field has been set.
-
-### GetPaginate
-
-`func (o *QueryRequestSql) GetPaginate() bool`
-
-GetPaginate returns the Paginate field if non-nil, zero value otherwise.
-
-### GetPaginateOk
-
-`func (o *QueryRequestSql) GetPaginateOk() (*bool, bool)`
-
-GetPaginateOk returns a tuple with the Paginate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPaginate
-
-`func (o *QueryRequestSql) SetPaginate(v bool)`
-
-SetPaginate sets Paginate field to given value.
-
-### HasPaginate
-
-`func (o *QueryRequestSql) HasPaginate() bool`
-
-HasPaginate returns a boolean if a field has been set.
 
 ### GetInitialPaginateResponseDocCount
 

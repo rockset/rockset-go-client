@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **DocumentsDownloaded** | Pointer to **int64** | Number of documents downloaded from source during an ongoing or completed bulk ingest. This includes documents that are dropped and reingested. | [optional] 
 **DataDownloadedBytes** | Pointer to **int64** | Size in bytes of documents downloaded from source during an ongoing or completed bulk ingest. This includes documents that are dropped and reingested. | [optional] 
 **DownloadComputeMs** | Pointer to **int64** | Bulk ingest compute units in milliseconds used for downloading documents. | [optional] 
+**TransformationComputeMs** | Pointer to **int64** | Bulk ingest compute units in milliseconds used for ingest transformation. | [optional] 
+**PreIndexSizeBytes** | Pointer to **int64** | Size in bytes of documents before being indexed. This is the total size of documents after decompression, transformations, and dropping. This is equal to data_indexed_bytes after the indexing stage is done unless there are retries during indexing the data. | [optional] 
 **DataIndexedBytes** | Pointer to **int64** | Size in bytes of documents indexed. This is the total size of documents after transformations and dropping before indexes are built. | [optional] 
 **IndexComputeMs** | Pointer to **int64** | Bulk ingest compute units in milliseconds used for indexing documents. | [optional] 
 **TotalIndexSizeBytes** | Pointer to **int64** | Total size of indexes after the completed bulk ingest. This is the same as collection size. | [optional] 
@@ -261,6 +263,56 @@ SetDownloadComputeMs sets DownloadComputeMs field to given value.
 `func (o *BulkStats) HasDownloadComputeMs() bool`
 
 HasDownloadComputeMs returns a boolean if a field has been set.
+
+### GetTransformationComputeMs
+
+`func (o *BulkStats) GetTransformationComputeMs() int64`
+
+GetTransformationComputeMs returns the TransformationComputeMs field if non-nil, zero value otherwise.
+
+### GetTransformationComputeMsOk
+
+`func (o *BulkStats) GetTransformationComputeMsOk() (*int64, bool)`
+
+GetTransformationComputeMsOk returns a tuple with the TransformationComputeMs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTransformationComputeMs
+
+`func (o *BulkStats) SetTransformationComputeMs(v int64)`
+
+SetTransformationComputeMs sets TransformationComputeMs field to given value.
+
+### HasTransformationComputeMs
+
+`func (o *BulkStats) HasTransformationComputeMs() bool`
+
+HasTransformationComputeMs returns a boolean if a field has been set.
+
+### GetPreIndexSizeBytes
+
+`func (o *BulkStats) GetPreIndexSizeBytes() int64`
+
+GetPreIndexSizeBytes returns the PreIndexSizeBytes field if non-nil, zero value otherwise.
+
+### GetPreIndexSizeBytesOk
+
+`func (o *BulkStats) GetPreIndexSizeBytesOk() (*int64, bool)`
+
+GetPreIndexSizeBytesOk returns a tuple with the PreIndexSizeBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPreIndexSizeBytes
+
+`func (o *BulkStats) SetPreIndexSizeBytes(v int64)`
+
+SetPreIndexSizeBytes sets PreIndexSizeBytes field to given value.
+
+### HasPreIndexSizeBytes
+
+`func (o *BulkStats) HasPreIndexSizeBytes() bool`
+
+HasPreIndexSizeBytes returns a boolean if a field has been set.
 
 ### GetDataIndexedBytes
 

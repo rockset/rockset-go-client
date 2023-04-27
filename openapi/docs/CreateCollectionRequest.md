@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | Deprecated. List of mappings. Use field_mapping_query instead. | [optional] 
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | Deprecated. List of clustering fields. Use CLUSTER BY clause in &#x60;field_mapping_query&#x60; instead. | [optional] 
+**StorageCompressionType** | Pointer to **string** | RocksDB storage compression type. | [optional] 
 
 ## Methods
 
@@ -231,6 +232,31 @@ SetClusteringKey sets ClusteringKey field to given value.
 `func (o *CreateCollectionRequest) HasClusteringKey() bool`
 
 HasClusteringKey returns a boolean if a field has been set.
+
+### GetStorageCompressionType
+
+`func (o *CreateCollectionRequest) GetStorageCompressionType() string`
+
+GetStorageCompressionType returns the StorageCompressionType field if non-nil, zero value otherwise.
+
+### GetStorageCompressionTypeOk
+
+`func (o *CreateCollectionRequest) GetStorageCompressionTypeOk() (*string, bool)`
+
+GetStorageCompressionTypeOk returns a tuple with the StorageCompressionType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStorageCompressionType
+
+`func (o *CreateCollectionRequest) SetStorageCompressionType(v string)`
+
+SetStorageCompressionType sets StorageCompressionType field to given value.
+
+### HasStorageCompressionType
+
+`func (o *CreateCollectionRequest) HasStorageCompressionType() bool`
+
+HasStorageCompressionType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

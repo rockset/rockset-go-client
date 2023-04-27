@@ -24,8 +24,6 @@ type QueryRequestSql struct {
 	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Row limit to use. Limits specified in the query text will override this default.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
-	// Flag to paginate and store the results of this query for later / sequential retrieval.
-	Paginate *bool `json:"paginate,omitempty"`
 	// Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
 }
@@ -168,38 +166,6 @@ func (o *QueryRequestSql) SetDefaultRowLimit(v int32) {
 	o.DefaultRowLimit = &v
 }
 
-// GetPaginate returns the Paginate field value if set, zero value otherwise.
-func (o *QueryRequestSql) GetPaginate() bool {
-	if o == nil || o.Paginate == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Paginate
-}
-
-// GetPaginateOk returns a tuple with the Paginate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetPaginateOk() (*bool, bool) {
-	if o == nil || o.Paginate == nil {
-		return nil, false
-	}
-	return o.Paginate, true
-}
-
-// HasPaginate returns a boolean if a field has been set.
-func (o *QueryRequestSql) HasPaginate() bool {
-	if o != nil && o.Paginate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPaginate gets a reference to the given bool and assigns it to the Paginate field.
-func (o *QueryRequestSql) SetPaginate(v bool) {
-	o.Paginate = &v
-}
-
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
 func (o *QueryRequestSql) GetInitialPaginateResponseDocCount() int32 {
 	if o == nil || o.InitialPaginateResponseDocCount == nil {
@@ -245,9 +211,6 @@ func (o QueryRequestSql) MarshalJSON() ([]byte, error) {
 	}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.Paginate != nil {
-		toSerialize["paginate"] = o.Paginate
 	}
 	if o.InitialPaginateResponseDocCount != nil {
 		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount

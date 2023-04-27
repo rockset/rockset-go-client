@@ -32,6 +32,8 @@ type CollectionMount struct {
 	Id *string `json:"id,omitempty"`
 	// Mount RRN.
 	Rrn *string `json:"rrn,omitempty"`
+	// Unix timestamp of most recent refresh. Not applicable for live mounts.
+	LastRefreshTimeMillis *int64 `json:"last_refresh_time_millis,omitempty"`
 	// Time in millis at which the snapshot expires.
 	SnapshotExpirationTimeMillis *int64 `json:"snapshot_expiration_time_millis,omitempty"`
 	Stats *CollectionMountStats `json:"stats,omitempty"`
@@ -310,6 +312,38 @@ func (o *CollectionMount) SetRrn(v string) {
 	o.Rrn = &v
 }
 
+// GetLastRefreshTimeMillis returns the LastRefreshTimeMillis field value if set, zero value otherwise.
+func (o *CollectionMount) GetLastRefreshTimeMillis() int64 {
+	if o == nil || o.LastRefreshTimeMillis == nil {
+		var ret int64
+		return ret
+	}
+	return *o.LastRefreshTimeMillis
+}
+
+// GetLastRefreshTimeMillisOk returns a tuple with the LastRefreshTimeMillis field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CollectionMount) GetLastRefreshTimeMillisOk() (*int64, bool) {
+	if o == nil || o.LastRefreshTimeMillis == nil {
+		return nil, false
+	}
+	return o.LastRefreshTimeMillis, true
+}
+
+// HasLastRefreshTimeMillis returns a boolean if a field has been set.
+func (o *CollectionMount) HasLastRefreshTimeMillis() bool {
+	if o != nil && o.LastRefreshTimeMillis != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastRefreshTimeMillis gets a reference to the given int64 and assigns it to the LastRefreshTimeMillis field.
+func (o *CollectionMount) SetLastRefreshTimeMillis(v int64) {
+	o.LastRefreshTimeMillis = &v
+}
+
 // GetSnapshotExpirationTimeMillis returns the SnapshotExpirationTimeMillis field value if set, zero value otherwise.
 func (o *CollectionMount) GetSnapshotExpirationTimeMillis() int64 {
 	if o == nil || o.SnapshotExpirationTimeMillis == nil {
@@ -399,6 +433,9 @@ func (o CollectionMount) MarshalJSON() ([]byte, error) {
 	}
 	if o.Rrn != nil {
 		toSerialize["rrn"] = o.Rrn
+	}
+	if o.LastRefreshTimeMillis != nil {
+		toSerialize["last_refresh_time_millis"] = o.LastRefreshTimeMillis
 	}
 	if o.SnapshotExpirationTimeMillis != nil {
 		toSerialize["snapshot_expiration_time_millis"] = o.SnapshotExpirationTimeMillis
