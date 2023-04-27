@@ -4,21 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | Unique source identifier. | [optional] 
-**IntegrationName** | Pointer to **string** | Name of integration to use. | [optional] 
-**S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
-**Kinesis** | Pointer to [**SourceKinesis**](SourceKinesis.md) |  | [optional] 
-**Gcs** | Pointer to [**SourceGcs**](SourceGcs.md) |  | [optional] 
 **AzureBlobStorage** | Pointer to [**SourceAzureBlobStorage**](SourceAzureBlobStorage.md) |  | [optional] 
-**AzureServiceBus** | Pointer to [**SourceAzureServiceBus**](SourceAzureServiceBus.md) |  | [optional] 
 **AzureEventHubs** | Pointer to [**SourceAzureEventHubs**](SourceAzureEventHubs.md) |  | [optional] 
+**AzureServiceBus** | Pointer to [**SourceAzureServiceBus**](SourceAzureServiceBus.md) |  | [optional] 
 **Dynamodb** | Pointer to [**SourceDynamoDb**](SourceDynamoDb.md) |  | [optional] 
 **FileUpload** | Pointer to [**SourceFileUpload**](SourceFileUpload.md) |  | [optional] 
+**FormatParams** | Pointer to [**FormatParams**](FormatParams.md) |  | [optional] 
+**Gcs** | Pointer to [**SourceGcs**](SourceGcs.md) |  | [optional] 
+**Id** | Pointer to **string** | Unique source identifier. | [optional] 
+**IntegrationName** | Pointer to **string** | Name of integration to use. | [optional] 
 **Kafka** | Pointer to [**SourceKafka**](SourceKafka.md) |  | [optional] 
+**Kinesis** | Pointer to [**SourceKinesis**](SourceKinesis.md) |  | [optional] 
 **Mongodb** | Pointer to [**SourceMongoDb**](SourceMongoDb.md) |  | [optional] 
+**S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
 **Snowflake** | Pointer to [**SourceSnowflake**](SourceSnowflake.md) |  | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
-**FormatParams** | Pointer to [**FormatParams**](FormatParams.md) |  | [optional] 
 
 ## Methods
 
@@ -38,131 +38,6 @@ will change when the set of required properties is changed
 NewSourceWithDefaults instantiates a new Source object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetId
-
-`func (o *Source) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *Source) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *Source) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *Source) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetIntegrationName
-
-`func (o *Source) GetIntegrationName() string`
-
-GetIntegrationName returns the IntegrationName field if non-nil, zero value otherwise.
-
-### GetIntegrationNameOk
-
-`func (o *Source) GetIntegrationNameOk() (*string, bool)`
-
-GetIntegrationNameOk returns a tuple with the IntegrationName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetIntegrationName
-
-`func (o *Source) SetIntegrationName(v string)`
-
-SetIntegrationName sets IntegrationName field to given value.
-
-### HasIntegrationName
-
-`func (o *Source) HasIntegrationName() bool`
-
-HasIntegrationName returns a boolean if a field has been set.
-
-### GetS3
-
-`func (o *Source) GetS3() SourceS3`
-
-GetS3 returns the S3 field if non-nil, zero value otherwise.
-
-### GetS3Ok
-
-`func (o *Source) GetS3Ok() (*SourceS3, bool)`
-
-GetS3Ok returns a tuple with the S3 field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetS3
-
-`func (o *Source) SetS3(v SourceS3)`
-
-SetS3 sets S3 field to given value.
-
-### HasS3
-
-`func (o *Source) HasS3() bool`
-
-HasS3 returns a boolean if a field has been set.
-
-### GetKinesis
-
-`func (o *Source) GetKinesis() SourceKinesis`
-
-GetKinesis returns the Kinesis field if non-nil, zero value otherwise.
-
-### GetKinesisOk
-
-`func (o *Source) GetKinesisOk() (*SourceKinesis, bool)`
-
-GetKinesisOk returns a tuple with the Kinesis field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKinesis
-
-`func (o *Source) SetKinesis(v SourceKinesis)`
-
-SetKinesis sets Kinesis field to given value.
-
-### HasKinesis
-
-`func (o *Source) HasKinesis() bool`
-
-HasKinesis returns a boolean if a field has been set.
-
-### GetGcs
-
-`func (o *Source) GetGcs() SourceGcs`
-
-GetGcs returns the Gcs field if non-nil, zero value otherwise.
-
-### GetGcsOk
-
-`func (o *Source) GetGcsOk() (*SourceGcs, bool)`
-
-GetGcsOk returns a tuple with the Gcs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGcs
-
-`func (o *Source) SetGcs(v SourceGcs)`
-
-SetGcs sets Gcs field to given value.
-
-### HasGcs
-
-`func (o *Source) HasGcs() bool`
-
-HasGcs returns a boolean if a field has been set.
 
 ### GetAzureBlobStorage
 
@@ -189,31 +64,6 @@ SetAzureBlobStorage sets AzureBlobStorage field to given value.
 
 HasAzureBlobStorage returns a boolean if a field has been set.
 
-### GetAzureServiceBus
-
-`func (o *Source) GetAzureServiceBus() SourceAzureServiceBus`
-
-GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
-
-### GetAzureServiceBusOk
-
-`func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool)`
-
-GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureServiceBus
-
-`func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus)`
-
-SetAzureServiceBus sets AzureServiceBus field to given value.
-
-### HasAzureServiceBus
-
-`func (o *Source) HasAzureServiceBus() bool`
-
-HasAzureServiceBus returns a boolean if a field has been set.
-
 ### GetAzureEventHubs
 
 `func (o *Source) GetAzureEventHubs() SourceAzureEventHubs`
@@ -238,6 +88,31 @@ SetAzureEventHubs sets AzureEventHubs field to given value.
 `func (o *Source) HasAzureEventHubs() bool`
 
 HasAzureEventHubs returns a boolean if a field has been set.
+
+### GetAzureServiceBus
+
+`func (o *Source) GetAzureServiceBus() SourceAzureServiceBus`
+
+GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
+
+### GetAzureServiceBusOk
+
+`func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool)`
+
+GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureServiceBus
+
+`func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus)`
+
+SetAzureServiceBus sets AzureServiceBus field to given value.
+
+### HasAzureServiceBus
+
+`func (o *Source) HasAzureServiceBus() bool`
+
+HasAzureServiceBus returns a boolean if a field has been set.
 
 ### GetDynamodb
 
@@ -289,6 +164,106 @@ SetFileUpload sets FileUpload field to given value.
 
 HasFileUpload returns a boolean if a field has been set.
 
+### GetFormatParams
+
+`func (o *Source) GetFormatParams() FormatParams`
+
+GetFormatParams returns the FormatParams field if non-nil, zero value otherwise.
+
+### GetFormatParamsOk
+
+`func (o *Source) GetFormatParamsOk() (*FormatParams, bool)`
+
+GetFormatParamsOk returns a tuple with the FormatParams field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFormatParams
+
+`func (o *Source) SetFormatParams(v FormatParams)`
+
+SetFormatParams sets FormatParams field to given value.
+
+### HasFormatParams
+
+`func (o *Source) HasFormatParams() bool`
+
+HasFormatParams returns a boolean if a field has been set.
+
+### GetGcs
+
+`func (o *Source) GetGcs() SourceGcs`
+
+GetGcs returns the Gcs field if non-nil, zero value otherwise.
+
+### GetGcsOk
+
+`func (o *Source) GetGcsOk() (*SourceGcs, bool)`
+
+GetGcsOk returns a tuple with the Gcs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGcs
+
+`func (o *Source) SetGcs(v SourceGcs)`
+
+SetGcs sets Gcs field to given value.
+
+### HasGcs
+
+`func (o *Source) HasGcs() bool`
+
+HasGcs returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *Source) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Source) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Source) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Source) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetIntegrationName
+
+`func (o *Source) GetIntegrationName() string`
+
+GetIntegrationName returns the IntegrationName field if non-nil, zero value otherwise.
+
+### GetIntegrationNameOk
+
+`func (o *Source) GetIntegrationNameOk() (*string, bool)`
+
+GetIntegrationNameOk returns a tuple with the IntegrationName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIntegrationName
+
+`func (o *Source) SetIntegrationName(v string)`
+
+SetIntegrationName sets IntegrationName field to given value.
+
+### HasIntegrationName
+
+`func (o *Source) HasIntegrationName() bool`
+
+HasIntegrationName returns a boolean if a field has been set.
+
 ### GetKafka
 
 `func (o *Source) GetKafka() SourceKafka`
@@ -314,6 +289,31 @@ SetKafka sets Kafka field to given value.
 
 HasKafka returns a boolean if a field has been set.
 
+### GetKinesis
+
+`func (o *Source) GetKinesis() SourceKinesis`
+
+GetKinesis returns the Kinesis field if non-nil, zero value otherwise.
+
+### GetKinesisOk
+
+`func (o *Source) GetKinesisOk() (*SourceKinesis, bool)`
+
+GetKinesisOk returns a tuple with the Kinesis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKinesis
+
+`func (o *Source) SetKinesis(v SourceKinesis)`
+
+SetKinesis sets Kinesis field to given value.
+
+### HasKinesis
+
+`func (o *Source) HasKinesis() bool`
+
+HasKinesis returns a boolean if a field has been set.
+
 ### GetMongodb
 
 `func (o *Source) GetMongodb() SourceMongoDb`
@@ -338,6 +338,31 @@ SetMongodb sets Mongodb field to given value.
 `func (o *Source) HasMongodb() bool`
 
 HasMongodb returns a boolean if a field has been set.
+
+### GetS3
+
+`func (o *Source) GetS3() SourceS3`
+
+GetS3 returns the S3 field if non-nil, zero value otherwise.
+
+### GetS3Ok
+
+`func (o *Source) GetS3Ok() (*SourceS3, bool)`
+
+GetS3Ok returns a tuple with the S3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetS3
+
+`func (o *Source) SetS3(v SourceS3)`
+
+SetS3 sets S3 field to given value.
+
+### HasS3
+
+`func (o *Source) HasS3() bool`
+
+HasS3 returns a boolean if a field has been set.
 
 ### GetSnowflake
 
@@ -388,31 +413,6 @@ SetStatus sets Status field to given value.
 `func (o *Source) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
-
-### GetFormatParams
-
-`func (o *Source) GetFormatParams() FormatParams`
-
-GetFormatParams returns the FormatParams field if non-nil, zero value otherwise.
-
-### GetFormatParamsOk
-
-`func (o *Source) GetFormatParamsOk() (*FormatParams, bool)`
-
-GetFormatParamsOk returns a tuple with the FormatParams field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFormatParams
-
-`func (o *Source) SetFormatParams(v FormatParams)`
-
-SetFormatParams sets FormatParams field to given value.
-
-### HasFormatParams
-
-`func (o *Source) HasFormatParams() bool`
-
-HasFormatParams returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

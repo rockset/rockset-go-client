@@ -16,28 +16,28 @@ import (
 
 // StatusMongoDb struct for StatusMongoDb
 type StatusMongoDb struct {
-	// MongoDB scan start time.
-	ScanStartTime *string `json:"scan_start_time,omitempty"`
 	// MongoDB scan end time.
 	ScanEndTime *string `json:"scan_end_time,omitempty"`
 	// Number of records inserted using scan.
 	ScanRecordsProcessed *int64 `json:"scan_records_processed,omitempty"`
+	// MongoDB scan start time.
+	ScanStartTime *string `json:"scan_start_time,omitempty"`
 	// Number of records in MongoDB table at time of scan.
 	ScanTotalRecords *int64 `json:"scan_total_records,omitempty"`
 	// State of current ingest for this table.
 	State *string `json:"state,omitempty"`
+	// ISO-8601 date when delete from source was last processed.
+	StreamLastDeleteProcessedAt *string `json:"stream_last_delete_processed_at,omitempty"`
 	// ISO-8601 date when new insert from source was last processed.
 	StreamLastInsertProcessedAt *string `json:"stream_last_insert_processed_at,omitempty"`
 	// ISO-8601 date when update from source was last processed.
 	StreamLastUpdateProcessedAt *string `json:"stream_last_update_processed_at,omitempty"`
-	// ISO-8601 date when delete from source was last processed.
-	StreamLastDeleteProcessedAt *string `json:"stream_last_delete_processed_at,omitempty"`
+	// Number of new records deleted using stream.
+	StreamRecordsDeleted *int64 `json:"stream_records_deleted,omitempty"`
 	// Number of new records inserted using stream.
 	StreamRecordsInserted *int64 `json:"stream_records_inserted,omitempty"`
 	// Number of new records updated using stream.
 	StreamRecordsUpdated *int64 `json:"stream_records_updated,omitempty"`
-	// Number of new records deleted using stream.
-	StreamRecordsDeleted *int64 `json:"stream_records_deleted,omitempty"`
 }
 
 // NewStatusMongoDb instantiates a new StatusMongoDb object
@@ -55,38 +55,6 @@ func NewStatusMongoDb() *StatusMongoDb {
 func NewStatusMongoDbWithDefaults() *StatusMongoDb {
 	this := StatusMongoDb{}
 	return &this
-}
-
-// GetScanStartTime returns the ScanStartTime field value if set, zero value otherwise.
-func (o *StatusMongoDb) GetScanStartTime() string {
-	if o == nil || o.ScanStartTime == nil {
-		var ret string
-		return ret
-	}
-	return *o.ScanStartTime
-}
-
-// GetScanStartTimeOk returns a tuple with the ScanStartTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatusMongoDb) GetScanStartTimeOk() (*string, bool) {
-	if o == nil || o.ScanStartTime == nil {
-		return nil, false
-	}
-	return o.ScanStartTime, true
-}
-
-// HasScanStartTime returns a boolean if a field has been set.
-func (o *StatusMongoDb) HasScanStartTime() bool {
-	if o != nil && o.ScanStartTime != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetScanStartTime gets a reference to the given string and assigns it to the ScanStartTime field.
-func (o *StatusMongoDb) SetScanStartTime(v string) {
-	o.ScanStartTime = &v
 }
 
 // GetScanEndTime returns the ScanEndTime field value if set, zero value otherwise.
@@ -153,6 +121,38 @@ func (o *StatusMongoDb) SetScanRecordsProcessed(v int64) {
 	o.ScanRecordsProcessed = &v
 }
 
+// GetScanStartTime returns the ScanStartTime field value if set, zero value otherwise.
+func (o *StatusMongoDb) GetScanStartTime() string {
+	if o == nil || o.ScanStartTime == nil {
+		var ret string
+		return ret
+	}
+	return *o.ScanStartTime
+}
+
+// GetScanStartTimeOk returns a tuple with the ScanStartTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatusMongoDb) GetScanStartTimeOk() (*string, bool) {
+	if o == nil || o.ScanStartTime == nil {
+		return nil, false
+	}
+	return o.ScanStartTime, true
+}
+
+// HasScanStartTime returns a boolean if a field has been set.
+func (o *StatusMongoDb) HasScanStartTime() bool {
+	if o != nil && o.ScanStartTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScanStartTime gets a reference to the given string and assigns it to the ScanStartTime field.
+func (o *StatusMongoDb) SetScanStartTime(v string) {
+	o.ScanStartTime = &v
+}
+
 // GetScanTotalRecords returns the ScanTotalRecords field value if set, zero value otherwise.
 func (o *StatusMongoDb) GetScanTotalRecords() int64 {
 	if o == nil || o.ScanTotalRecords == nil {
@@ -215,6 +215,38 @@ func (o *StatusMongoDb) HasState() bool {
 // SetState gets a reference to the given string and assigns it to the State field.
 func (o *StatusMongoDb) SetState(v string) {
 	o.State = &v
+}
+
+// GetStreamLastDeleteProcessedAt returns the StreamLastDeleteProcessedAt field value if set, zero value otherwise.
+func (o *StatusMongoDb) GetStreamLastDeleteProcessedAt() string {
+	if o == nil || o.StreamLastDeleteProcessedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.StreamLastDeleteProcessedAt
+}
+
+// GetStreamLastDeleteProcessedAtOk returns a tuple with the StreamLastDeleteProcessedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatusMongoDb) GetStreamLastDeleteProcessedAtOk() (*string, bool) {
+	if o == nil || o.StreamLastDeleteProcessedAt == nil {
+		return nil, false
+	}
+	return o.StreamLastDeleteProcessedAt, true
+}
+
+// HasStreamLastDeleteProcessedAt returns a boolean if a field has been set.
+func (o *StatusMongoDb) HasStreamLastDeleteProcessedAt() bool {
+	if o != nil && o.StreamLastDeleteProcessedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStreamLastDeleteProcessedAt gets a reference to the given string and assigns it to the StreamLastDeleteProcessedAt field.
+func (o *StatusMongoDb) SetStreamLastDeleteProcessedAt(v string) {
+	o.StreamLastDeleteProcessedAt = &v
 }
 
 // GetStreamLastInsertProcessedAt returns the StreamLastInsertProcessedAt field value if set, zero value otherwise.
@@ -281,36 +313,36 @@ func (o *StatusMongoDb) SetStreamLastUpdateProcessedAt(v string) {
 	o.StreamLastUpdateProcessedAt = &v
 }
 
-// GetStreamLastDeleteProcessedAt returns the StreamLastDeleteProcessedAt field value if set, zero value otherwise.
-func (o *StatusMongoDb) GetStreamLastDeleteProcessedAt() string {
-	if o == nil || o.StreamLastDeleteProcessedAt == nil {
-		var ret string
+// GetStreamRecordsDeleted returns the StreamRecordsDeleted field value if set, zero value otherwise.
+func (o *StatusMongoDb) GetStreamRecordsDeleted() int64 {
+	if o == nil || o.StreamRecordsDeleted == nil {
+		var ret int64
 		return ret
 	}
-	return *o.StreamLastDeleteProcessedAt
+	return *o.StreamRecordsDeleted
 }
 
-// GetStreamLastDeleteProcessedAtOk returns a tuple with the StreamLastDeleteProcessedAt field value if set, nil otherwise
+// GetStreamRecordsDeletedOk returns a tuple with the StreamRecordsDeleted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusMongoDb) GetStreamLastDeleteProcessedAtOk() (*string, bool) {
-	if o == nil || o.StreamLastDeleteProcessedAt == nil {
+func (o *StatusMongoDb) GetStreamRecordsDeletedOk() (*int64, bool) {
+	if o == nil || o.StreamRecordsDeleted == nil {
 		return nil, false
 	}
-	return o.StreamLastDeleteProcessedAt, true
+	return o.StreamRecordsDeleted, true
 }
 
-// HasStreamLastDeleteProcessedAt returns a boolean if a field has been set.
-func (o *StatusMongoDb) HasStreamLastDeleteProcessedAt() bool {
-	if o != nil && o.StreamLastDeleteProcessedAt != nil {
+// HasStreamRecordsDeleted returns a boolean if a field has been set.
+func (o *StatusMongoDb) HasStreamRecordsDeleted() bool {
+	if o != nil && o.StreamRecordsDeleted != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetStreamLastDeleteProcessedAt gets a reference to the given string and assigns it to the StreamLastDeleteProcessedAt field.
-func (o *StatusMongoDb) SetStreamLastDeleteProcessedAt(v string) {
-	o.StreamLastDeleteProcessedAt = &v
+// SetStreamRecordsDeleted gets a reference to the given int64 and assigns it to the StreamRecordsDeleted field.
+func (o *StatusMongoDb) SetStreamRecordsDeleted(v int64) {
+	o.StreamRecordsDeleted = &v
 }
 
 // GetStreamRecordsInserted returns the StreamRecordsInserted field value if set, zero value otherwise.
@@ -377,48 +409,16 @@ func (o *StatusMongoDb) SetStreamRecordsUpdated(v int64) {
 	o.StreamRecordsUpdated = &v
 }
 
-// GetStreamRecordsDeleted returns the StreamRecordsDeleted field value if set, zero value otherwise.
-func (o *StatusMongoDb) GetStreamRecordsDeleted() int64 {
-	if o == nil || o.StreamRecordsDeleted == nil {
-		var ret int64
-		return ret
-	}
-	return *o.StreamRecordsDeleted
-}
-
-// GetStreamRecordsDeletedOk returns a tuple with the StreamRecordsDeleted field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatusMongoDb) GetStreamRecordsDeletedOk() (*int64, bool) {
-	if o == nil || o.StreamRecordsDeleted == nil {
-		return nil, false
-	}
-	return o.StreamRecordsDeleted, true
-}
-
-// HasStreamRecordsDeleted returns a boolean if a field has been set.
-func (o *StatusMongoDb) HasStreamRecordsDeleted() bool {
-	if o != nil && o.StreamRecordsDeleted != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStreamRecordsDeleted gets a reference to the given int64 and assigns it to the StreamRecordsDeleted field.
-func (o *StatusMongoDb) SetStreamRecordsDeleted(v int64) {
-	o.StreamRecordsDeleted = &v
-}
-
 func (o StatusMongoDb) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ScanStartTime != nil {
-		toSerialize["scan_start_time"] = o.ScanStartTime
-	}
 	if o.ScanEndTime != nil {
 		toSerialize["scan_end_time"] = o.ScanEndTime
 	}
 	if o.ScanRecordsProcessed != nil {
 		toSerialize["scan_records_processed"] = o.ScanRecordsProcessed
+	}
+	if o.ScanStartTime != nil {
+		toSerialize["scan_start_time"] = o.ScanStartTime
 	}
 	if o.ScanTotalRecords != nil {
 		toSerialize["scan_total_records"] = o.ScanTotalRecords
@@ -426,23 +426,23 @@ func (o StatusMongoDb) MarshalJSON() ([]byte, error) {
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
+	if o.StreamLastDeleteProcessedAt != nil {
+		toSerialize["stream_last_delete_processed_at"] = o.StreamLastDeleteProcessedAt
+	}
 	if o.StreamLastInsertProcessedAt != nil {
 		toSerialize["stream_last_insert_processed_at"] = o.StreamLastInsertProcessedAt
 	}
 	if o.StreamLastUpdateProcessedAt != nil {
 		toSerialize["stream_last_update_processed_at"] = o.StreamLastUpdateProcessedAt
 	}
-	if o.StreamLastDeleteProcessedAt != nil {
-		toSerialize["stream_last_delete_processed_at"] = o.StreamLastDeleteProcessedAt
+	if o.StreamRecordsDeleted != nil {
+		toSerialize["stream_records_deleted"] = o.StreamRecordsDeleted
 	}
 	if o.StreamRecordsInserted != nil {
 		toSerialize["stream_records_inserted"] = o.StreamRecordsInserted
 	}
 	if o.StreamRecordsUpdated != nil {
 		toSerialize["stream_records_updated"] = o.StreamRecordsUpdated
-	}
-	if o.StreamRecordsDeleted != nil {
-		toSerialize["stream_records_deleted"] = o.StreamRecordsDeleted
 	}
 	return json.Marshal(toSerialize)
 }

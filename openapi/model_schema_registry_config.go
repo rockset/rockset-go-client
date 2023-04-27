@@ -16,12 +16,12 @@ import (
 
 // SchemaRegistryConfig struct for SchemaRegistryConfig
 type SchemaRegistryConfig struct {
-	// Schema registry URL.
-	Url *string `json:"url,omitempty"`
 	// The secure API key for schema registry.
 	Key *string `json:"key,omitempty"`
 	// The secure API password registry.
 	Secret *string `json:"secret,omitempty"`
+	// Schema registry URL.
+	Url *string `json:"url,omitempty"`
 }
 
 // NewSchemaRegistryConfig instantiates a new SchemaRegistryConfig object
@@ -39,38 +39,6 @@ func NewSchemaRegistryConfig() *SchemaRegistryConfig {
 func NewSchemaRegistryConfigWithDefaults() *SchemaRegistryConfig {
 	this := SchemaRegistryConfig{}
 	return &this
-}
-
-// GetUrl returns the Url field value if set, zero value otherwise.
-func (o *SchemaRegistryConfig) GetUrl() string {
-	if o == nil || o.Url == nil {
-		var ret string
-		return ret
-	}
-	return *o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SchemaRegistryConfig) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
-		return nil, false
-	}
-	return o.Url, true
-}
-
-// HasUrl returns a boolean if a field has been set.
-func (o *SchemaRegistryConfig) HasUrl() bool {
-	if o != nil && o.Url != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *SchemaRegistryConfig) SetUrl(v string) {
-	o.Url = &v
 }
 
 // GetKey returns the Key field value if set, zero value otherwise.
@@ -137,16 +105,48 @@ func (o *SchemaRegistryConfig) SetSecret(v string) {
 	o.Secret = &v
 }
 
+// GetUrl returns the Url field value if set, zero value otherwise.
+func (o *SchemaRegistryConfig) GetUrl() string {
+	if o == nil || o.Url == nil {
+		var ret string
+		return ret
+	}
+	return *o.Url
+}
+
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SchemaRegistryConfig) GetUrlOk() (*string, bool) {
+	if o == nil || o.Url == nil {
+		return nil, false
+	}
+	return o.Url, true
+}
+
+// HasUrl returns a boolean if a field has been set.
+func (o *SchemaRegistryConfig) HasUrl() bool {
+	if o != nil && o.Url != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
+func (o *SchemaRegistryConfig) SetUrl(v string) {
+	o.Url = &v
+}
+
 func (o SchemaRegistryConfig) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
 	if o.Key != nil {
 		toSerialize["key"] = o.Key
 	}
 	if o.Secret != nil {
 		toSerialize["secret"] = o.Secret
+	}
+	if o.Url != nil {
+		toSerialize["url"] = o.Url
 	}
 	return json.Marshal(toSerialize)
 }

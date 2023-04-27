@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RoleName** | Pointer to **string** | Unique identifier for the role. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date of when the role was created. | [optional] 
+**CreatedBy** | Pointer to **string** | Email of the user who created the role. | [optional] 
 **Description** | Pointer to **string** | Description for the role. | [optional] 
 **OwnerEmail** | Pointer to **string** | Email of the user who currently owns the role. | [optional] 
-**CreatedBy** | Pointer to **string** | Email of the user who created the role. | [optional] 
 **Privileges** | Pointer to [**[]Privilege**](Privilege.md) | List of privileges associated with the role. | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date of when the role was created. | [optional] 
+**RoleName** | Pointer to **string** | Unique identifier for the role. | [optional] 
 
 ## Methods
 
@@ -30,30 +30,55 @@ NewRoleWithDefaults instantiates a new Role object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetRoleName
+### GetCreatedAt
 
-`func (o *Role) GetRoleName() string`
+`func (o *Role) GetCreatedAt() string`
 
-GetRoleName returns the RoleName field if non-nil, zero value otherwise.
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
-### GetRoleNameOk
+### GetCreatedAtOk
 
-`func (o *Role) GetRoleNameOk() (*string, bool)`
+`func (o *Role) GetCreatedAtOk() (*string, bool)`
 
-GetRoleNameOk returns a tuple with the RoleName field if it's non-nil, zero value otherwise
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRoleName
+### SetCreatedAt
 
-`func (o *Role) SetRoleName(v string)`
+`func (o *Role) SetCreatedAt(v string)`
 
-SetRoleName sets RoleName field to given value.
+SetCreatedAt sets CreatedAt field to given value.
 
-### HasRoleName
+### HasCreatedAt
 
-`func (o *Role) HasRoleName() bool`
+`func (o *Role) HasCreatedAt() bool`
 
-HasRoleName returns a boolean if a field has been set.
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetCreatedBy
+
+`func (o *Role) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *Role) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *Role) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *Role) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -105,31 +130,6 @@ SetOwnerEmail sets OwnerEmail field to given value.
 
 HasOwnerEmail returns a boolean if a field has been set.
 
-### GetCreatedBy
-
-`func (o *Role) GetCreatedBy() string`
-
-GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
-
-### GetCreatedByOk
-
-`func (o *Role) GetCreatedByOk() (*string, bool)`
-
-GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedBy
-
-`func (o *Role) SetCreatedBy(v string)`
-
-SetCreatedBy sets CreatedBy field to given value.
-
-### HasCreatedBy
-
-`func (o *Role) HasCreatedBy() bool`
-
-HasCreatedBy returns a boolean if a field has been set.
-
 ### GetPrivileges
 
 `func (o *Role) GetPrivileges() []Privilege`
@@ -155,30 +155,30 @@ SetPrivileges sets Privileges field to given value.
 
 HasPrivileges returns a boolean if a field has been set.
 
-### GetCreatedAt
+### GetRoleName
 
-`func (o *Role) GetCreatedAt() string`
+`func (o *Role) GetRoleName() string`
 
-GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+GetRoleName returns the RoleName field if non-nil, zero value otherwise.
 
-### GetCreatedAtOk
+### GetRoleNameOk
 
-`func (o *Role) GetCreatedAtOk() (*string, bool)`
+`func (o *Role) GetRoleNameOk() (*string, bool)`
 
-GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+GetRoleNameOk returns a tuple with the RoleName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedAt
+### SetRoleName
 
-`func (o *Role) SetCreatedAt(v string)`
+`func (o *Role) SetRoleName(v string)`
 
-SetCreatedAt sets CreatedAt field to given value.
+SetRoleName sets RoleName field to given value.
 
-### HasCreatedAt
+### HasRoleName
 
-`func (o *Role) HasCreatedAt() bool`
+`func (o *Role) HasRoleName() bool`
 
-HasCreatedAt returns a boolean if a field has been set.
+HasRoleName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

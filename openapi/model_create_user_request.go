@@ -18,12 +18,12 @@ import (
 type CreateUserRequest struct {
 	// User email, must be unique.
 	Email string `json:"email"`
-	// List of roles for a given user.
-	Roles []string `json:"roles"`
 	// User first name.
 	FirstName *string `json:"first_name,omitempty"`
 	// User last name.
 	LastName *string `json:"last_name,omitempty"`
+	// List of roles for a given user.
+	Roles []string `json:"roles"`
 }
 
 // NewCreateUserRequest instantiates a new CreateUserRequest object
@@ -67,30 +67,6 @@ func (o *CreateUserRequest) GetEmailOk() (*string, bool) {
 // SetEmail sets field value
 func (o *CreateUserRequest) SetEmail(v string) {
 	o.Email = v
-}
-
-// GetRoles returns the Roles field value
-func (o *CreateUserRequest) GetRoles() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Roles
-}
-
-// GetRolesOk returns a tuple with the Roles field value
-// and a boolean to check if the value has been set.
-func (o *CreateUserRequest) GetRolesOk() ([]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Roles, true
-}
-
-// SetRoles sets field value
-func (o *CreateUserRequest) SetRoles(v []string) {
-	o.Roles = v
 }
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
@@ -157,19 +133,43 @@ func (o *CreateUserRequest) SetLastName(v string) {
 	o.LastName = &v
 }
 
+// GetRoles returns the Roles field value
+func (o *CreateUserRequest) GetRoles() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.Roles
+}
+
+// GetRolesOk returns a tuple with the Roles field value
+// and a boolean to check if the value has been set.
+func (o *CreateUserRequest) GetRolesOk() ([]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Roles, true
+}
+
+// SetRoles sets field value
+func (o *CreateUserRequest) SetRoles(v []string) {
+	o.Roles = v
+}
+
 func (o CreateUserRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["roles"] = o.Roles
 	}
 	if o.FirstName != nil {
 		toSerialize["first_name"] = o.FirstName
 	}
 	if o.LastName != nil {
 		toSerialize["last_name"] = o.LastName
+	}
+	if true {
+		toSerialize["roles"] = o.Roles
 	}
 	return json.Marshal(toSerialize)
 }

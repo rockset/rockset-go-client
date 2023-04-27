@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Json** | Pointer to **bool** | Source data is in json format. | [optional] 
-**Csv** | Pointer to [**CsvParams**](CsvParams.md) |  | [optional] 
-**Xml** | Pointer to [**XmlParams**](XmlParams.md) |  | [optional] 
-**MysqlDms** | Pointer to **bool** |  | [optional] 
-**PostgresDms** | Pointer to **bool** |  | [optional] 
-**MssqlDms** | Pointer to **bool** |  | [optional] 
-**OracleDms** | Pointer to **bool** |  | [optional] 
 **Avro** | Pointer to **map[string]interface{}** |  | [optional] 
+**Csv** | Pointer to [**CsvParams**](CsvParams.md) |  | [optional] 
+**Json** | Pointer to **bool** | Source data is in json format. | [optional] 
+**MssqlDms** | Pointer to **bool** |  | [optional] 
+**MysqlDms** | Pointer to **bool** |  | [optional] 
+**OracleDms** | Pointer to **bool** |  | [optional] 
+**PostgresDms** | Pointer to **bool** |  | [optional] 
+**Xml** | Pointer to [**XmlParams**](XmlParams.md) |  | [optional] 
 
 ## Methods
 
@@ -32,30 +32,30 @@ NewFormatParamsWithDefaults instantiates a new FormatParams object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetJson
+### GetAvro
 
-`func (o *FormatParams) GetJson() bool`
+`func (o *FormatParams) GetAvro() map[string]interface{}`
 
-GetJson returns the Json field if non-nil, zero value otherwise.
+GetAvro returns the Avro field if non-nil, zero value otherwise.
 
-### GetJsonOk
+### GetAvroOk
 
-`func (o *FormatParams) GetJsonOk() (*bool, bool)`
+`func (o *FormatParams) GetAvroOk() (*map[string]interface{}, bool)`
 
-GetJsonOk returns a tuple with the Json field if it's non-nil, zero value otherwise
+GetAvroOk returns a tuple with the Avro field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetJson
+### SetAvro
 
-`func (o *FormatParams) SetJson(v bool)`
+`func (o *FormatParams) SetAvro(v map[string]interface{})`
 
-SetJson sets Json field to given value.
+SetAvro sets Avro field to given value.
 
-### HasJson
+### HasAvro
 
-`func (o *FormatParams) HasJson() bool`
+`func (o *FormatParams) HasAvro() bool`
 
-HasJson returns a boolean if a field has been set.
+HasAvro returns a boolean if a field has been set.
 
 ### GetCsv
 
@@ -82,80 +82,30 @@ SetCsv sets Csv field to given value.
 
 HasCsv returns a boolean if a field has been set.
 
-### GetXml
+### GetJson
 
-`func (o *FormatParams) GetXml() XmlParams`
+`func (o *FormatParams) GetJson() bool`
 
-GetXml returns the Xml field if non-nil, zero value otherwise.
+GetJson returns the Json field if non-nil, zero value otherwise.
 
-### GetXmlOk
+### GetJsonOk
 
-`func (o *FormatParams) GetXmlOk() (*XmlParams, bool)`
+`func (o *FormatParams) GetJsonOk() (*bool, bool)`
 
-GetXmlOk returns a tuple with the Xml field if it's non-nil, zero value otherwise
+GetJsonOk returns a tuple with the Json field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetXml
+### SetJson
 
-`func (o *FormatParams) SetXml(v XmlParams)`
+`func (o *FormatParams) SetJson(v bool)`
 
-SetXml sets Xml field to given value.
+SetJson sets Json field to given value.
 
-### HasXml
+### HasJson
 
-`func (o *FormatParams) HasXml() bool`
+`func (o *FormatParams) HasJson() bool`
 
-HasXml returns a boolean if a field has been set.
-
-### GetMysqlDms
-
-`func (o *FormatParams) GetMysqlDms() bool`
-
-GetMysqlDms returns the MysqlDms field if non-nil, zero value otherwise.
-
-### GetMysqlDmsOk
-
-`func (o *FormatParams) GetMysqlDmsOk() (*bool, bool)`
-
-GetMysqlDmsOk returns a tuple with the MysqlDms field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMysqlDms
-
-`func (o *FormatParams) SetMysqlDms(v bool)`
-
-SetMysqlDms sets MysqlDms field to given value.
-
-### HasMysqlDms
-
-`func (o *FormatParams) HasMysqlDms() bool`
-
-HasMysqlDms returns a boolean if a field has been set.
-
-### GetPostgresDms
-
-`func (o *FormatParams) GetPostgresDms() bool`
-
-GetPostgresDms returns the PostgresDms field if non-nil, zero value otherwise.
-
-### GetPostgresDmsOk
-
-`func (o *FormatParams) GetPostgresDmsOk() (*bool, bool)`
-
-GetPostgresDmsOk returns a tuple with the PostgresDms field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPostgresDms
-
-`func (o *FormatParams) SetPostgresDms(v bool)`
-
-SetPostgresDms sets PostgresDms field to given value.
-
-### HasPostgresDms
-
-`func (o *FormatParams) HasPostgresDms() bool`
-
-HasPostgresDms returns a boolean if a field has been set.
+HasJson returns a boolean if a field has been set.
 
 ### GetMssqlDms
 
@@ -182,6 +132,31 @@ SetMssqlDms sets MssqlDms field to given value.
 
 HasMssqlDms returns a boolean if a field has been set.
 
+### GetMysqlDms
+
+`func (o *FormatParams) GetMysqlDms() bool`
+
+GetMysqlDms returns the MysqlDms field if non-nil, zero value otherwise.
+
+### GetMysqlDmsOk
+
+`func (o *FormatParams) GetMysqlDmsOk() (*bool, bool)`
+
+GetMysqlDmsOk returns a tuple with the MysqlDms field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMysqlDms
+
+`func (o *FormatParams) SetMysqlDms(v bool)`
+
+SetMysqlDms sets MysqlDms field to given value.
+
+### HasMysqlDms
+
+`func (o *FormatParams) HasMysqlDms() bool`
+
+HasMysqlDms returns a boolean if a field has been set.
+
 ### GetOracleDms
 
 `func (o *FormatParams) GetOracleDms() bool`
@@ -207,30 +182,55 @@ SetOracleDms sets OracleDms field to given value.
 
 HasOracleDms returns a boolean if a field has been set.
 
-### GetAvro
+### GetPostgresDms
 
-`func (o *FormatParams) GetAvro() map[string]interface{}`
+`func (o *FormatParams) GetPostgresDms() bool`
 
-GetAvro returns the Avro field if non-nil, zero value otherwise.
+GetPostgresDms returns the PostgresDms field if non-nil, zero value otherwise.
 
-### GetAvroOk
+### GetPostgresDmsOk
 
-`func (o *FormatParams) GetAvroOk() (*map[string]interface{}, bool)`
+`func (o *FormatParams) GetPostgresDmsOk() (*bool, bool)`
 
-GetAvroOk returns a tuple with the Avro field if it's non-nil, zero value otherwise
+GetPostgresDmsOk returns a tuple with the PostgresDms field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAvro
+### SetPostgresDms
 
-`func (o *FormatParams) SetAvro(v map[string]interface{})`
+`func (o *FormatParams) SetPostgresDms(v bool)`
 
-SetAvro sets Avro field to given value.
+SetPostgresDms sets PostgresDms field to given value.
 
-### HasAvro
+### HasPostgresDms
 
-`func (o *FormatParams) HasAvro() bool`
+`func (o *FormatParams) HasPostgresDms() bool`
 
-HasAvro returns a boolean if a field has been set.
+HasPostgresDms returns a boolean if a field has been set.
+
+### GetXml
+
+`func (o *FormatParams) GetXml() XmlParams`
+
+GetXml returns the Xml field if non-nil, zero value otherwise.
+
+### GetXmlOk
+
+`func (o *FormatParams) GetXmlOk() (*XmlParams, bool)`
+
+GetXmlOk returns a tuple with the Xml field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetXml
+
+`func (o *FormatParams) SetXml(v XmlParams)`
+
+SetXml sets Xml field to given value.
+
+### HasXml
+
+`func (o *FormatParams) HasXml() bool`
+
+HasXml returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

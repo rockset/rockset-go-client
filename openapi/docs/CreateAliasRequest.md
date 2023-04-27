@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Alias name. | 
-**Description** | Pointer to **string** | Optional description. | [optional] 
 **Collections** | **[]string** | List of fully qualified collection names referenced by alias. | 
+**Description** | Pointer to **string** | Optional description. | [optional] 
+**Name** | **string** | Alias name. | 
 
 ## Methods
 
 ### NewCreateAliasRequest
 
-`func NewCreateAliasRequest(name string, collections []string, ) *CreateAliasRequest`
+`func NewCreateAliasRequest(collections []string, name string, ) *CreateAliasRequest`
 
 NewCreateAliasRequest instantiates a new CreateAliasRequest object
 This constructor will assign default values to properties that have it defined,
@@ -27,24 +27,24 @@ NewCreateAliasRequestWithDefaults instantiates a new CreateAliasRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetCollections
 
-`func (o *CreateAliasRequest) GetName() string`
+`func (o *CreateAliasRequest) GetCollections() []string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCollections returns the Collections field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCollectionsOk
 
-`func (o *CreateAliasRequest) GetNameOk() (*string, bool)`
+`func (o *CreateAliasRequest) GetCollectionsOk() (*[]string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCollections
 
-`func (o *CreateAliasRequest) SetName(v string)`
+`func (o *CreateAliasRequest) SetCollections(v []string)`
 
-SetName sets Name field to given value.
+SetCollections sets Collections field to given value.
 
 
 ### GetDescription
@@ -72,24 +72,24 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetCollections
+### GetName
 
-`func (o *CreateAliasRequest) GetCollections() []string`
+`func (o *CreateAliasRequest) GetName() string`
 
-GetCollections returns the Collections field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetCollectionsOk
+### GetNameOk
 
-`func (o *CreateAliasRequest) GetCollectionsOk() (*[]string, bool)`
+`func (o *CreateAliasRequest) GetNameOk() (*string, bool)`
 
-GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCollections
+### SetName
 
-`func (o *CreateAliasRequest) SetCollections(v []string)`
+`func (o *CreateAliasRequest) SetName(v string)`
 
-SetCollections sets Collections field to given value.
+SetName sets Name field to given value.
 
 
 

@@ -16,26 +16,26 @@ import (
 
 // QueryLambdaVersion struct for QueryLambdaVersion
 type QueryLambdaVersion struct {
-	// Workspace of this Query Lambda.
-	Workspace *string `json:"workspace,omitempty"`
-	// User that created this Query Lambda.
-	CreatedBy *string `json:"created_by,omitempty"`
-	// ISO-8601 date of when Query Lambda was created.
-	CreatedAt *string `json:"created_at,omitempty"`
-	// Query Lambda name.
-	Name *string `json:"name,omitempty"`
-	// Query Lambda version.
-	Version *string `json:"version,omitempty"`
-	// Optional description.
-	Description *string `json:"description,omitempty"`
-	Sql *QueryLambdaSql `json:"sql,omitempty"`
 	// Collections queried by underlying SQL query.
 	Collections []string `json:"collections,omitempty"`
+	// ISO-8601 date of when Query Lambda was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+	// User that created this Query Lambda.
+	CreatedBy *string `json:"created_by,omitempty"`
+	// Optional description.
+	Description *string `json:"description,omitempty"`
+	// Query Lambda name.
+	Name *string `json:"name,omitempty"`
+	// Public access ID associated with this QL version
+	PublicAccessId *string `json:"public_access_id,omitempty"`
+	Sql *QueryLambdaSql `json:"sql,omitempty"`
 	// Status of this Query Lambda.
 	State *string `json:"state,omitempty"`
 	Stats *QueryLambdaStats `json:"stats,omitempty"`
-	// Public access ID associated with this QL version
-	PublicAccessId *string `json:"public_access_id,omitempty"`
+	// Query Lambda version.
+	Version *string `json:"version,omitempty"`
+	// Workspace of this Query Lambda.
+	Workspace *string `json:"workspace,omitempty"`
 }
 
 // NewQueryLambdaVersion instantiates a new QueryLambdaVersion object
@@ -55,68 +55,36 @@ func NewQueryLambdaVersionWithDefaults() *QueryLambdaVersion {
 	return &this
 }
 
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *QueryLambdaVersion) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
-		var ret string
+// GetCollections returns the Collections field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetCollections() []string {
+	if o == nil || o.Collections == nil {
+		var ret []string
 		return ret
 	}
-	return *o.Workspace
+	return o.Collections
 }
 
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+func (o *QueryLambdaVersion) GetCollectionsOk() ([]string, bool) {
+	if o == nil || o.Collections == nil {
 		return nil, false
 	}
-	return o.Workspace, true
+	return o.Collections, true
 }
 
-// HasWorkspace returns a boolean if a field has been set.
-func (o *QueryLambdaVersion) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+// HasCollections returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasCollections() bool {
+	if o != nil && o.Collections != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *QueryLambdaVersion) SetWorkspace(v string) {
-	o.Workspace = &v
-}
-
-// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
-func (o *QueryLambdaVersion) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
-		var ret string
-		return ret
-	}
-	return *o.CreatedBy
-}
-
-// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
-		return nil, false
-	}
-	return o.CreatedBy, true
-}
-
-// HasCreatedBy returns a boolean if a field has been set.
-func (o *QueryLambdaVersion) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
-func (o *QueryLambdaVersion) SetCreatedBy(v string) {
-	o.CreatedBy = &v
+// SetCollections gets a reference to the given []string and assigns it to the Collections field.
+func (o *QueryLambdaVersion) SetCollections(v []string) {
+	o.Collections = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -151,68 +119,36 @@ func (o *QueryLambdaVersion) SetCreatedAt(v string) {
 	o.CreatedAt = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *QueryLambdaVersion) GetName() string {
-	if o == nil || o.Name == nil {
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetCreatedBy() string {
+	if o == nil || o.CreatedBy == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+	return *o.CreatedBy
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+func (o *QueryLambdaVersion) GetCreatedByOk() (*string, bool) {
+	if o == nil || o.CreatedBy == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.CreatedBy, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *QueryLambdaVersion) HasName() bool {
-	if o != nil && o.Name != nil {
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasCreatedBy() bool {
+	if o != nil && o.CreatedBy != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *QueryLambdaVersion) SetName(v string) {
-	o.Name = &v
-}
-
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *QueryLambdaVersion) GetVersion() string {
-	if o == nil || o.Version == nil {
-		var ret string
-		return ret
-	}
-	return *o.Version
-}
-
-// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
-		return nil, false
-	}
-	return o.Version, true
-}
-
-// HasVersion returns a boolean if a field has been set.
-func (o *QueryLambdaVersion) HasVersion() bool {
-	if o != nil && o.Version != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVersion gets a reference to the given string and assigns it to the Version field.
-func (o *QueryLambdaVersion) SetVersion(v string) {
-	o.Version = &v
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *QueryLambdaVersion) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -247,6 +183,70 @@ func (o *QueryLambdaVersion) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryLambdaVersion) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *QueryLambdaVersion) SetName(v string) {
+	o.Name = &v
+}
+
+// GetPublicAccessId returns the PublicAccessId field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetPublicAccessId() string {
+	if o == nil || o.PublicAccessId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PublicAccessId
+}
+
+// GetPublicAccessIdOk returns a tuple with the PublicAccessId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool) {
+	if o == nil || o.PublicAccessId == nil {
+		return nil, false
+	}
+	return o.PublicAccessId, true
+}
+
+// HasPublicAccessId returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasPublicAccessId() bool {
+	if o != nil && o.PublicAccessId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPublicAccessId gets a reference to the given string and assigns it to the PublicAccessId field.
+func (o *QueryLambdaVersion) SetPublicAccessId(v string) {
+	o.PublicAccessId = &v
+}
+
 // GetSql returns the Sql field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetSql() QueryLambdaSql {
 	if o == nil || o.Sql == nil {
@@ -277,38 +277,6 @@ func (o *QueryLambdaVersion) HasSql() bool {
 // SetSql gets a reference to the given QueryLambdaSql and assigns it to the Sql field.
 func (o *QueryLambdaVersion) SetSql(v QueryLambdaSql) {
 	o.Sql = &v
-}
-
-// GetCollections returns the Collections field value if set, zero value otherwise.
-func (o *QueryLambdaVersion) GetCollections() []string {
-	if o == nil || o.Collections == nil {
-		var ret []string
-		return ret
-	}
-	return o.Collections
-}
-
-// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetCollectionsOk() ([]string, bool) {
-	if o == nil || o.Collections == nil {
-		return nil, false
-	}
-	return o.Collections, true
-}
-
-// HasCollections returns a boolean if a field has been set.
-func (o *QueryLambdaVersion) HasCollections() bool {
-	if o != nil && o.Collections != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCollections gets a reference to the given []string and assigns it to the Collections field.
-func (o *QueryLambdaVersion) SetCollections(v []string) {
-	o.Collections = v
 }
 
 // GetState returns the State field value if set, zero value otherwise.
@@ -375,63 +343,92 @@ func (o *QueryLambdaVersion) SetStats(v QueryLambdaStats) {
 	o.Stats = &v
 }
 
-// GetPublicAccessId returns the PublicAccessId field value if set, zero value otherwise.
-func (o *QueryLambdaVersion) GetPublicAccessId() string {
-	if o == nil || o.PublicAccessId == nil {
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetVersion() string {
+	if o == nil || o.Version == nil {
 		var ret string
 		return ret
 	}
-	return *o.PublicAccessId
+	return *o.Version
 }
 
-// GetPublicAccessIdOk returns a tuple with the PublicAccessId field value if set, nil otherwise
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool) {
-	if o == nil || o.PublicAccessId == nil {
+func (o *QueryLambdaVersion) GetVersionOk() (*string, bool) {
+	if o == nil || o.Version == nil {
 		return nil, false
 	}
-	return o.PublicAccessId, true
+	return o.Version, true
 }
 
-// HasPublicAccessId returns a boolean if a field has been set.
-func (o *QueryLambdaVersion) HasPublicAccessId() bool {
-	if o != nil && o.PublicAccessId != nil {
+// HasVersion returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasVersion() bool {
+	if o != nil && o.Version != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPublicAccessId gets a reference to the given string and assigns it to the PublicAccessId field.
-func (o *QueryLambdaVersion) SetPublicAccessId(v string) {
-	o.PublicAccessId = &v
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *QueryLambdaVersion) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetWorkspace returns the Workspace field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetWorkspace() string {
+	if o == nil || o.Workspace == nil {
+		var ret string
+		return ret
+	}
+	return *o.Workspace
+}
+
+// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryLambdaVersion) GetWorkspaceOk() (*string, bool) {
+	if o == nil || o.Workspace == nil {
+		return nil, false
+	}
+	return o.Workspace, true
+}
+
+// HasWorkspace returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasWorkspace() bool {
+	if o != nil && o.Workspace != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
+func (o *QueryLambdaVersion) SetWorkspace(v string) {
+	o.Workspace = &v
 }
 
 func (o QueryLambdaVersion) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
+	if o.Collections != nil {
+		toSerialize["collections"] = o.Collections
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
+	if o.CreatedBy != nil {
+		toSerialize["created_by"] = o.CreatedBy
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.PublicAccessId != nil {
+		toSerialize["public_access_id"] = o.PublicAccessId
+	}
 	if o.Sql != nil {
 		toSerialize["sql"] = o.Sql
-	}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
 	}
 	if o.State != nil {
 		toSerialize["state"] = o.State
@@ -439,8 +436,11 @@ func (o QueryLambdaVersion) MarshalJSON() ([]byte, error) {
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
 	}
-	if o.PublicAccessId != nil {
-		toSerialize["public_access_id"] = o.PublicAccessId
+	if o.Version != nil {
+		toSerialize["version"] = o.Version
+	}
+	if o.Workspace != nil {
+		toSerialize["workspace"] = o.Workspace
 	}
 	return json.Marshal(toSerialize)
 }

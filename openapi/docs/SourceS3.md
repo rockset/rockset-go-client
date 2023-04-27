@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
-**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
-**Region** | Pointer to **string** | AWS region containing source bucket. | [optional] 
 **Bucket** | **string** | Address of S3 bucket containing data. | 
-**Prefixes** | **[]string** | List of prefixes to paths from which data should be ingested. | [readonly] 
+**ObjectBytesDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
 **ObjectCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
 **ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
-**ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
-**ObjectBytesDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
+**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
+**Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
+**Prefixes** | **[]string** | List of prefixes to paths from which data should be ingested. | [readonly] 
+**Region** | Pointer to **string** | AWS region containing source bucket. | [optional] 
 
 ## Methods
 
@@ -32,81 +32,6 @@ will change when the set of required properties is changed
 NewSourceS3WithDefaults instantiates a new SourceS3 object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetPrefix
-
-`func (o *SourceS3) GetPrefix() string`
-
-GetPrefix returns the Prefix field if non-nil, zero value otherwise.
-
-### GetPrefixOk
-
-`func (o *SourceS3) GetPrefixOk() (*string, bool)`
-
-GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrefix
-
-`func (o *SourceS3) SetPrefix(v string)`
-
-SetPrefix sets Prefix field to given value.
-
-### HasPrefix
-
-`func (o *SourceS3) HasPrefix() bool`
-
-HasPrefix returns a boolean if a field has been set.
-
-### GetPattern
-
-`func (o *SourceS3) GetPattern() string`
-
-GetPattern returns the Pattern field if non-nil, zero value otherwise.
-
-### GetPatternOk
-
-`func (o *SourceS3) GetPatternOk() (*string, bool)`
-
-GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPattern
-
-`func (o *SourceS3) SetPattern(v string)`
-
-SetPattern sets Pattern field to given value.
-
-### HasPattern
-
-`func (o *SourceS3) HasPattern() bool`
-
-HasPattern returns a boolean if a field has been set.
-
-### GetRegion
-
-`func (o *SourceS3) GetRegion() string`
-
-GetRegion returns the Region field if non-nil, zero value otherwise.
-
-### GetRegionOk
-
-`func (o *SourceS3) GetRegionOk() (*string, bool)`
-
-GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRegion
-
-`func (o *SourceS3) SetRegion(v string)`
-
-SetRegion sets Region field to given value.
-
-### HasRegion
-
-`func (o *SourceS3) HasRegion() bool`
-
-HasRegion returns a boolean if a field has been set.
 
 ### GetBucket
 
@@ -128,25 +53,55 @@ and a boolean to check if the value has been set.
 SetBucket sets Bucket field to given value.
 
 
-### GetPrefixes
+### GetObjectBytesDownloaded
 
-`func (o *SourceS3) GetPrefixes() []string`
+`func (o *SourceS3) GetObjectBytesDownloaded() int64`
 
-GetPrefixes returns the Prefixes field if non-nil, zero value otherwise.
+GetObjectBytesDownloaded returns the ObjectBytesDownloaded field if non-nil, zero value otherwise.
 
-### GetPrefixesOk
+### GetObjectBytesDownloadedOk
 
-`func (o *SourceS3) GetPrefixesOk() (*[]string, bool)`
+`func (o *SourceS3) GetObjectBytesDownloadedOk() (*int64, bool)`
 
-GetPrefixesOk returns a tuple with the Prefixes field if it's non-nil, zero value otherwise
+GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPrefixes
+### SetObjectBytesDownloaded
 
-`func (o *SourceS3) SetPrefixes(v []string)`
+`func (o *SourceS3) SetObjectBytesDownloaded(v int64)`
 
-SetPrefixes sets Prefixes field to given value.
+SetObjectBytesDownloaded sets ObjectBytesDownloaded field to given value.
 
+### HasObjectBytesDownloaded
+
+`func (o *SourceS3) HasObjectBytesDownloaded() bool`
+
+HasObjectBytesDownloaded returns a boolean if a field has been set.
+
+### GetObjectBytesTotal
+
+`func (o *SourceS3) GetObjectBytesTotal() int64`
+
+GetObjectBytesTotal returns the ObjectBytesTotal field if non-nil, zero value otherwise.
+
+### GetObjectBytesTotalOk
+
+`func (o *SourceS3) GetObjectBytesTotalOk() (*int64, bool)`
+
+GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetObjectBytesTotal
+
+`func (o *SourceS3) SetObjectBytesTotal(v int64)`
+
+SetObjectBytesTotal sets ObjectBytesTotal field to given value.
+
+### HasObjectBytesTotal
+
+`func (o *SourceS3) HasObjectBytesTotal() bool`
+
+HasObjectBytesTotal returns a boolean if a field has been set.
 
 ### GetObjectCountDownloaded
 
@@ -198,55 +153,100 @@ SetObjectCountTotal sets ObjectCountTotal field to given value.
 
 HasObjectCountTotal returns a boolean if a field has been set.
 
-### GetObjectBytesTotal
+### GetPattern
 
-`func (o *SourceS3) GetObjectBytesTotal() int64`
+`func (o *SourceS3) GetPattern() string`
 
-GetObjectBytesTotal returns the ObjectBytesTotal field if non-nil, zero value otherwise.
+GetPattern returns the Pattern field if non-nil, zero value otherwise.
 
-### GetObjectBytesTotalOk
+### GetPatternOk
 
-`func (o *SourceS3) GetObjectBytesTotalOk() (*int64, bool)`
+`func (o *SourceS3) GetPatternOk() (*string, bool)`
 
-GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field if it's non-nil, zero value otherwise
+GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObjectBytesTotal
+### SetPattern
 
-`func (o *SourceS3) SetObjectBytesTotal(v int64)`
+`func (o *SourceS3) SetPattern(v string)`
 
-SetObjectBytesTotal sets ObjectBytesTotal field to given value.
+SetPattern sets Pattern field to given value.
 
-### HasObjectBytesTotal
+### HasPattern
 
-`func (o *SourceS3) HasObjectBytesTotal() bool`
+`func (o *SourceS3) HasPattern() bool`
 
-HasObjectBytesTotal returns a boolean if a field has been set.
+HasPattern returns a boolean if a field has been set.
 
-### GetObjectBytesDownloaded
+### GetPrefix
 
-`func (o *SourceS3) GetObjectBytesDownloaded() int64`
+`func (o *SourceS3) GetPrefix() string`
 
-GetObjectBytesDownloaded returns the ObjectBytesDownloaded field if non-nil, zero value otherwise.
+GetPrefix returns the Prefix field if non-nil, zero value otherwise.
 
-### GetObjectBytesDownloadedOk
+### GetPrefixOk
 
-`func (o *SourceS3) GetObjectBytesDownloadedOk() (*int64, bool)`
+`func (o *SourceS3) GetPrefixOk() (*string, bool)`
 
-GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field if it's non-nil, zero value otherwise
+GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObjectBytesDownloaded
+### SetPrefix
 
-`func (o *SourceS3) SetObjectBytesDownloaded(v int64)`
+`func (o *SourceS3) SetPrefix(v string)`
 
-SetObjectBytesDownloaded sets ObjectBytesDownloaded field to given value.
+SetPrefix sets Prefix field to given value.
 
-### HasObjectBytesDownloaded
+### HasPrefix
 
-`func (o *SourceS3) HasObjectBytesDownloaded() bool`
+`func (o *SourceS3) HasPrefix() bool`
 
-HasObjectBytesDownloaded returns a boolean if a field has been set.
+HasPrefix returns a boolean if a field has been set.
+
+### GetPrefixes
+
+`func (o *SourceS3) GetPrefixes() []string`
+
+GetPrefixes returns the Prefixes field if non-nil, zero value otherwise.
+
+### GetPrefixesOk
+
+`func (o *SourceS3) GetPrefixesOk() (*[]string, bool)`
+
+GetPrefixesOk returns a tuple with the Prefixes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrefixes
+
+`func (o *SourceS3) SetPrefixes(v []string)`
+
+SetPrefixes sets Prefixes field to given value.
+
+
+### GetRegion
+
+`func (o *SourceS3) GetRegion() string`
+
+GetRegion returns the Region field if non-nil, zero value otherwise.
+
+### GetRegionOk
+
+`func (o *SourceS3) GetRegionOk() (*string, bool)`
+
+GetRegionOk returns a tuple with the Region field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegion
+
+`func (o *SourceS3) SetRegion(v string)`
+
+SetRegion sets Region field to given value.
+
+### HasRegion
+
+`func (o *SourceS3) HasRegion() bool`
+
+HasRegion returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

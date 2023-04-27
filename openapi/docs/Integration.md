@@ -4,28 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Descriptive label and unique identifier. | 
-**Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
-**CreatedBy** | **string** | Email of user who created the integration. | 
-**OwnerEmail** | Pointer to **string** | User that owns this integration. | [optional] 
+**AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
+**AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
+**AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
+**Collections** | Pointer to [**[]Collection**](Collection.md) | List of collections that use the integration. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
-**S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
-**Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
+**CreatedBy** | **string** | Email of user who created the integration. | 
+**Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
-**AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
-**AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
-**AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
+**Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
+**Name** | **string** | Descriptive label and unique identifier. | 
+**OwnerEmail** | Pointer to **string** | User that owns this integration. | [optional] 
+**S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
 **Snowflake** | Pointer to [**SnowflakeIntegration**](SnowflakeIntegration.md) |  | [optional] 
-**Collections** | Pointer to [**[]Collection**](Collection.md) | List of collections that use the integration. | [optional] 
 
 ## Methods
 
 ### NewIntegration
 
-`func NewIntegration(name string, createdBy string, ) *Integration`
+`func NewIntegration(createdBy string, name string, ) *Integration`
 
 NewIntegration instantiates a new Integration object
 This constructor will assign default values to properties that have it defined,
@@ -40,95 +40,105 @@ NewIntegrationWithDefaults instantiates a new Integration object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetAzureBlobStorage
 
-`func (o *Integration) GetName() string`
+`func (o *Integration) GetAzureBlobStorage() AzureBlobStorageIntegration`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetAzureBlobStorageOk
 
-`func (o *Integration) GetNameOk() (*string, bool)`
+`func (o *Integration) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetAzureBlobStorage
 
-`func (o *Integration) SetName(v string)`
+`func (o *Integration) SetAzureBlobStorage(v AzureBlobStorageIntegration)`
 
-SetName sets Name field to given value.
+SetAzureBlobStorage sets AzureBlobStorage field to given value.
 
+### HasAzureBlobStorage
 
-### GetDescription
+`func (o *Integration) HasAzureBlobStorage() bool`
 
-`func (o *Integration) GetDescription() string`
+HasAzureBlobStorage returns a boolean if a field has been set.
 
-GetDescription returns the Description field if non-nil, zero value otherwise.
+### GetAzureEventHubs
 
-### GetDescriptionOk
+`func (o *Integration) GetAzureEventHubs() AzureEventHubsIntegration`
 
-`func (o *Integration) GetDescriptionOk() (*string, bool)`
+GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
 
-GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+### GetAzureEventHubsOk
+
+`func (o *Integration) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool)`
+
+GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDescription
+### SetAzureEventHubs
 
-`func (o *Integration) SetDescription(v string)`
+`func (o *Integration) SetAzureEventHubs(v AzureEventHubsIntegration)`
 
-SetDescription sets Description field to given value.
+SetAzureEventHubs sets AzureEventHubs field to given value.
 
-### HasDescription
+### HasAzureEventHubs
 
-`func (o *Integration) HasDescription() bool`
+`func (o *Integration) HasAzureEventHubs() bool`
 
-HasDescription returns a boolean if a field has been set.
+HasAzureEventHubs returns a boolean if a field has been set.
 
-### GetCreatedBy
+### GetAzureServiceBus
 
-`func (o *Integration) GetCreatedBy() string`
+`func (o *Integration) GetAzureServiceBus() AzureServiceBusIntegration`
 
-GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
 
-### GetCreatedByOk
+### GetAzureServiceBusOk
 
-`func (o *Integration) GetCreatedByOk() (*string, bool)`
+`func (o *Integration) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)`
 
-GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreatedBy
+### SetAzureServiceBus
 
-`func (o *Integration) SetCreatedBy(v string)`
+`func (o *Integration) SetAzureServiceBus(v AzureServiceBusIntegration)`
 
-SetCreatedBy sets CreatedBy field to given value.
+SetAzureServiceBus sets AzureServiceBus field to given value.
 
+### HasAzureServiceBus
 
-### GetOwnerEmail
+`func (o *Integration) HasAzureServiceBus() bool`
 
-`func (o *Integration) GetOwnerEmail() string`
+HasAzureServiceBus returns a boolean if a field has been set.
 
-GetOwnerEmail returns the OwnerEmail field if non-nil, zero value otherwise.
+### GetCollections
 
-### GetOwnerEmailOk
+`func (o *Integration) GetCollections() []Collection`
 
-`func (o *Integration) GetOwnerEmailOk() (*string, bool)`
+GetCollections returns the Collections field if non-nil, zero value otherwise.
 
-GetOwnerEmailOk returns a tuple with the OwnerEmail field if it's non-nil, zero value otherwise
+### GetCollectionsOk
+
+`func (o *Integration) GetCollectionsOk() (*[]Collection, bool)`
+
+GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetOwnerEmail
+### SetCollections
 
-`func (o *Integration) SetOwnerEmail(v string)`
+`func (o *Integration) SetCollections(v []Collection)`
 
-SetOwnerEmail sets OwnerEmail field to given value.
+SetCollections sets Collections field to given value.
 
-### HasOwnerEmail
+### HasCollections
 
-`func (o *Integration) HasOwnerEmail() bool`
+`func (o *Integration) HasCollections() bool`
 
-HasOwnerEmail returns a boolean if a field has been set.
+HasCollections returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -155,55 +165,50 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### GetS3
+### GetCreatedBy
 
-`func (o *Integration) GetS3() S3Integration`
+`func (o *Integration) GetCreatedBy() string`
 
-GetS3 returns the S3 field if non-nil, zero value otherwise.
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
-### GetS3Ok
+### GetCreatedByOk
 
-`func (o *Integration) GetS3Ok() (*S3Integration, bool)`
+`func (o *Integration) GetCreatedByOk() (*string, bool)`
 
-GetS3Ok returns a tuple with the S3 field if it's non-nil, zero value otherwise
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetS3
+### SetCreatedBy
 
-`func (o *Integration) SetS3(v S3Integration)`
+`func (o *Integration) SetCreatedBy(v string)`
 
-SetS3 sets S3 field to given value.
+SetCreatedBy sets CreatedBy field to given value.
 
-### HasS3
 
-`func (o *Integration) HasS3() bool`
+### GetDescription
 
-HasS3 returns a boolean if a field has been set.
+`func (o *Integration) GetDescription() string`
 
-### GetKinesis
+GetDescription returns the Description field if non-nil, zero value otherwise.
 
-`func (o *Integration) GetKinesis() KinesisIntegration`
+### GetDescriptionOk
 
-GetKinesis returns the Kinesis field if non-nil, zero value otherwise.
+`func (o *Integration) GetDescriptionOk() (*string, bool)`
 
-### GetKinesisOk
-
-`func (o *Integration) GetKinesisOk() (*KinesisIntegration, bool)`
-
-GetKinesisOk returns a tuple with the Kinesis field if it's non-nil, zero value otherwise
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetKinesis
+### SetDescription
 
-`func (o *Integration) SetKinesis(v KinesisIntegration)`
+`func (o *Integration) SetDescription(v string)`
 
-SetKinesis sets Kinesis field to given value.
+SetDescription sets Description field to given value.
 
-### HasKinesis
+### HasDescription
 
-`func (o *Integration) HasKinesis() bool`
+`func (o *Integration) HasDescription() bool`
 
-HasKinesis returns a boolean if a field has been set.
+HasDescription returns a boolean if a field has been set.
 
 ### GetDynamodb
 
@@ -255,81 +260,6 @@ SetGcs sets Gcs field to given value.
 
 HasGcs returns a boolean if a field has been set.
 
-### GetAzureBlobStorage
-
-`func (o *Integration) GetAzureBlobStorage() AzureBlobStorageIntegration`
-
-GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
-
-### GetAzureBlobStorageOk
-
-`func (o *Integration) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool)`
-
-GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureBlobStorage
-
-`func (o *Integration) SetAzureBlobStorage(v AzureBlobStorageIntegration)`
-
-SetAzureBlobStorage sets AzureBlobStorage field to given value.
-
-### HasAzureBlobStorage
-
-`func (o *Integration) HasAzureBlobStorage() bool`
-
-HasAzureBlobStorage returns a boolean if a field has been set.
-
-### GetAzureServiceBus
-
-`func (o *Integration) GetAzureServiceBus() AzureServiceBusIntegration`
-
-GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
-
-### GetAzureServiceBusOk
-
-`func (o *Integration) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)`
-
-GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureServiceBus
-
-`func (o *Integration) SetAzureServiceBus(v AzureServiceBusIntegration)`
-
-SetAzureServiceBus sets AzureServiceBus field to given value.
-
-### HasAzureServiceBus
-
-`func (o *Integration) HasAzureServiceBus() bool`
-
-HasAzureServiceBus returns a boolean if a field has been set.
-
-### GetAzureEventHubs
-
-`func (o *Integration) GetAzureEventHubs() AzureEventHubsIntegration`
-
-GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
-
-### GetAzureEventHubsOk
-
-`func (o *Integration) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool)`
-
-GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureEventHubs
-
-`func (o *Integration) SetAzureEventHubs(v AzureEventHubsIntegration)`
-
-SetAzureEventHubs sets AzureEventHubs field to given value.
-
-### HasAzureEventHubs
-
-`func (o *Integration) HasAzureEventHubs() bool`
-
-HasAzureEventHubs returns a boolean if a field has been set.
-
 ### GetKafka
 
 `func (o *Integration) GetKafka() KafkaIntegration`
@@ -354,6 +284,31 @@ SetKafka sets Kafka field to given value.
 `func (o *Integration) HasKafka() bool`
 
 HasKafka returns a boolean if a field has been set.
+
+### GetKinesis
+
+`func (o *Integration) GetKinesis() KinesisIntegration`
+
+GetKinesis returns the Kinesis field if non-nil, zero value otherwise.
+
+### GetKinesisOk
+
+`func (o *Integration) GetKinesisOk() (*KinesisIntegration, bool)`
+
+GetKinesisOk returns a tuple with the Kinesis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKinesis
+
+`func (o *Integration) SetKinesis(v KinesisIntegration)`
+
+SetKinesis sets Kinesis field to given value.
+
+### HasKinesis
+
+`func (o *Integration) HasKinesis() bool`
+
+HasKinesis returns a boolean if a field has been set.
 
 ### GetMongodb
 
@@ -380,6 +335,76 @@ SetMongodb sets Mongodb field to given value.
 
 HasMongodb returns a boolean if a field has been set.
 
+### GetName
+
+`func (o *Integration) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Integration) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Integration) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetOwnerEmail
+
+`func (o *Integration) GetOwnerEmail() string`
+
+GetOwnerEmail returns the OwnerEmail field if non-nil, zero value otherwise.
+
+### GetOwnerEmailOk
+
+`func (o *Integration) GetOwnerEmailOk() (*string, bool)`
+
+GetOwnerEmailOk returns a tuple with the OwnerEmail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOwnerEmail
+
+`func (o *Integration) SetOwnerEmail(v string)`
+
+SetOwnerEmail sets OwnerEmail field to given value.
+
+### HasOwnerEmail
+
+`func (o *Integration) HasOwnerEmail() bool`
+
+HasOwnerEmail returns a boolean if a field has been set.
+
+### GetS3
+
+`func (o *Integration) GetS3() S3Integration`
+
+GetS3 returns the S3 field if non-nil, zero value otherwise.
+
+### GetS3Ok
+
+`func (o *Integration) GetS3Ok() (*S3Integration, bool)`
+
+GetS3Ok returns a tuple with the S3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetS3
+
+`func (o *Integration) SetS3(v S3Integration)`
+
+SetS3 sets S3 field to given value.
+
+### HasS3
+
+`func (o *Integration) HasS3() bool`
+
+HasS3 returns a boolean if a field has been set.
+
 ### GetSnowflake
 
 `func (o *Integration) GetSnowflake() SnowflakeIntegration`
@@ -404,31 +429,6 @@ SetSnowflake sets Snowflake field to given value.
 `func (o *Integration) HasSnowflake() bool`
 
 HasSnowflake returns a boolean if a field has been set.
-
-### GetCollections
-
-`func (o *Integration) GetCollections() []Collection`
-
-GetCollections returns the Collections field if non-nil, zero value otherwise.
-
-### GetCollectionsOk
-
-`func (o *Integration) GetCollectionsOk() (*[]Collection, bool)`
-
-GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCollections
-
-`func (o *Integration) SetCollections(v []Collection)`
-
-SetCollections sets Collections field to given value.
-
-### HasCollections
-
-`func (o *Integration) HasCollections() bool`
-
-HasCollections returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

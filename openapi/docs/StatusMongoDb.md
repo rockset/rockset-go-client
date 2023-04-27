@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ScanStartTime** | Pointer to **string** | MongoDB scan start time. | [optional] 
 **ScanEndTime** | Pointer to **string** | MongoDB scan end time. | [optional] 
 **ScanRecordsProcessed** | Pointer to **int64** | Number of records inserted using scan. | [optional] 
+**ScanStartTime** | Pointer to **string** | MongoDB scan start time. | [optional] 
 **ScanTotalRecords** | Pointer to **int64** | Number of records in MongoDB table at time of scan. | [optional] 
 **State** | Pointer to **string** | State of current ingest for this table. | [optional] 
+**StreamLastDeleteProcessedAt** | Pointer to **string** | ISO-8601 date when delete from source was last processed. | [optional] 
 **StreamLastInsertProcessedAt** | Pointer to **string** | ISO-8601 date when new insert from source was last processed. | [optional] 
 **StreamLastUpdateProcessedAt** | Pointer to **string** | ISO-8601 date when update from source was last processed. | [optional] 
-**StreamLastDeleteProcessedAt** | Pointer to **string** | ISO-8601 date when delete from source was last processed. | [optional] 
+**StreamRecordsDeleted** | Pointer to **int64** | Number of new records deleted using stream. | [optional] 
 **StreamRecordsInserted** | Pointer to **int64** | Number of new records inserted using stream. | [optional] 
 **StreamRecordsUpdated** | Pointer to **int64** | Number of new records updated using stream. | [optional] 
-**StreamRecordsDeleted** | Pointer to **int64** | Number of new records deleted using stream. | [optional] 
 
 ## Methods
 
@@ -34,31 +34,6 @@ will change when the set of required properties is changed
 NewStatusMongoDbWithDefaults instantiates a new StatusMongoDb object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetScanStartTime
-
-`func (o *StatusMongoDb) GetScanStartTime() string`
-
-GetScanStartTime returns the ScanStartTime field if non-nil, zero value otherwise.
-
-### GetScanStartTimeOk
-
-`func (o *StatusMongoDb) GetScanStartTimeOk() (*string, bool)`
-
-GetScanStartTimeOk returns a tuple with the ScanStartTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetScanStartTime
-
-`func (o *StatusMongoDb) SetScanStartTime(v string)`
-
-SetScanStartTime sets ScanStartTime field to given value.
-
-### HasScanStartTime
-
-`func (o *StatusMongoDb) HasScanStartTime() bool`
-
-HasScanStartTime returns a boolean if a field has been set.
 
 ### GetScanEndTime
 
@@ -110,6 +85,31 @@ SetScanRecordsProcessed sets ScanRecordsProcessed field to given value.
 
 HasScanRecordsProcessed returns a boolean if a field has been set.
 
+### GetScanStartTime
+
+`func (o *StatusMongoDb) GetScanStartTime() string`
+
+GetScanStartTime returns the ScanStartTime field if non-nil, zero value otherwise.
+
+### GetScanStartTimeOk
+
+`func (o *StatusMongoDb) GetScanStartTimeOk() (*string, bool)`
+
+GetScanStartTimeOk returns a tuple with the ScanStartTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScanStartTime
+
+`func (o *StatusMongoDb) SetScanStartTime(v string)`
+
+SetScanStartTime sets ScanStartTime field to given value.
+
+### HasScanStartTime
+
+`func (o *StatusMongoDb) HasScanStartTime() bool`
+
+HasScanStartTime returns a boolean if a field has been set.
+
 ### GetScanTotalRecords
 
 `func (o *StatusMongoDb) GetScanTotalRecords() int64`
@@ -159,6 +159,31 @@ SetState sets State field to given value.
 `func (o *StatusMongoDb) HasState() bool`
 
 HasState returns a boolean if a field has been set.
+
+### GetStreamLastDeleteProcessedAt
+
+`func (o *StatusMongoDb) GetStreamLastDeleteProcessedAt() string`
+
+GetStreamLastDeleteProcessedAt returns the StreamLastDeleteProcessedAt field if non-nil, zero value otherwise.
+
+### GetStreamLastDeleteProcessedAtOk
+
+`func (o *StatusMongoDb) GetStreamLastDeleteProcessedAtOk() (*string, bool)`
+
+GetStreamLastDeleteProcessedAtOk returns a tuple with the StreamLastDeleteProcessedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStreamLastDeleteProcessedAt
+
+`func (o *StatusMongoDb) SetStreamLastDeleteProcessedAt(v string)`
+
+SetStreamLastDeleteProcessedAt sets StreamLastDeleteProcessedAt field to given value.
+
+### HasStreamLastDeleteProcessedAt
+
+`func (o *StatusMongoDb) HasStreamLastDeleteProcessedAt() bool`
+
+HasStreamLastDeleteProcessedAt returns a boolean if a field has been set.
 
 ### GetStreamLastInsertProcessedAt
 
@@ -210,30 +235,30 @@ SetStreamLastUpdateProcessedAt sets StreamLastUpdateProcessedAt field to given v
 
 HasStreamLastUpdateProcessedAt returns a boolean if a field has been set.
 
-### GetStreamLastDeleteProcessedAt
+### GetStreamRecordsDeleted
 
-`func (o *StatusMongoDb) GetStreamLastDeleteProcessedAt() string`
+`func (o *StatusMongoDb) GetStreamRecordsDeleted() int64`
 
-GetStreamLastDeleteProcessedAt returns the StreamLastDeleteProcessedAt field if non-nil, zero value otherwise.
+GetStreamRecordsDeleted returns the StreamRecordsDeleted field if non-nil, zero value otherwise.
 
-### GetStreamLastDeleteProcessedAtOk
+### GetStreamRecordsDeletedOk
 
-`func (o *StatusMongoDb) GetStreamLastDeleteProcessedAtOk() (*string, bool)`
+`func (o *StatusMongoDb) GetStreamRecordsDeletedOk() (*int64, bool)`
 
-GetStreamLastDeleteProcessedAtOk returns a tuple with the StreamLastDeleteProcessedAt field if it's non-nil, zero value otherwise
+GetStreamRecordsDeletedOk returns a tuple with the StreamRecordsDeleted field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStreamLastDeleteProcessedAt
+### SetStreamRecordsDeleted
 
-`func (o *StatusMongoDb) SetStreamLastDeleteProcessedAt(v string)`
+`func (o *StatusMongoDb) SetStreamRecordsDeleted(v int64)`
 
-SetStreamLastDeleteProcessedAt sets StreamLastDeleteProcessedAt field to given value.
+SetStreamRecordsDeleted sets StreamRecordsDeleted field to given value.
 
-### HasStreamLastDeleteProcessedAt
+### HasStreamRecordsDeleted
 
-`func (o *StatusMongoDb) HasStreamLastDeleteProcessedAt() bool`
+`func (o *StatusMongoDb) HasStreamRecordsDeleted() bool`
 
-HasStreamLastDeleteProcessedAt returns a boolean if a field has been set.
+HasStreamRecordsDeleted returns a boolean if a field has been set.
 
 ### GetStreamRecordsInserted
 
@@ -284,31 +309,6 @@ SetStreamRecordsUpdated sets StreamRecordsUpdated field to given value.
 `func (o *StatusMongoDb) HasStreamRecordsUpdated() bool`
 
 HasStreamRecordsUpdated returns a boolean if a field has been set.
-
-### GetStreamRecordsDeleted
-
-`func (o *StatusMongoDb) GetStreamRecordsDeleted() int64`
-
-GetStreamRecordsDeleted returns the StreamRecordsDeleted field if non-nil, zero value otherwise.
-
-### GetStreamRecordsDeletedOk
-
-`func (o *StatusMongoDb) GetStreamRecordsDeletedOk() (*int64, bool)`
-
-GetStreamRecordsDeletedOk returns a tuple with the StreamRecordsDeleted field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStreamRecordsDeleted
-
-`func (o *StatusMongoDb) SetStreamRecordsDeleted(v int64)`
-
-SetStreamRecordsDeleted sets StreamRecordsDeleted field to given value.
-
-### HasStreamRecordsDeleted
-
-`func (o *StatusMongoDb) HasStreamRecordsDeleted() bool`
-
-HasStreamRecordsDeleted returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

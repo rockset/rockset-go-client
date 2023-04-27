@@ -16,18 +16,18 @@ import (
 
 // Organization An organization in Rockset is a container for users and collections.
 type Organization struct {
-	// Unique identifier for the organization.
-	Id *string `json:"id,omitempty"`
+	// List of clusters associated with this org.
+	Clusters []Cluster `json:"clusters,omitempty"`
 	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
 	// Name of the organization.
 	DisplayName *string `json:"display_name,omitempty"`
 	// Organization's unique external ID within Rockset.
 	ExternalId *string `json:"external_id,omitempty"`
+	// Unique identifier for the organization.
+	Id *string `json:"id,omitempty"`
 	// Rockset's global AWS user.
 	RocksetUser *string `json:"rockset_user,omitempty"`
-	// List of clusters associated with this org.
-	Clusters []Cluster `json:"clusters,omitempty"`
 }
 
 // NewOrganization instantiates a new Organization object
@@ -47,36 +47,36 @@ func NewOrganizationWithDefaults() *Organization {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *Organization) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
+// GetClusters returns the Clusters field value if set, zero value otherwise.
+func (o *Organization) GetClusters() []Cluster {
+	if o == nil || o.Clusters == nil {
+		var ret []Cluster
 		return ret
 	}
-	return *o.Id
+	return o.Clusters
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetClustersOk returns a tuple with the Clusters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Organization) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+func (o *Organization) GetClustersOk() ([]Cluster, bool) {
+	if o == nil || o.Clusters == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return o.Clusters, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *Organization) HasId() bool {
-	if o != nil && o.Id != nil {
+// HasClusters returns a boolean if a field has been set.
+func (o *Organization) HasClusters() bool {
+	if o != nil && o.Clusters != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Organization) SetId(v string) {
-	o.Id = &v
+// SetClusters gets a reference to the given []Cluster and assigns it to the Clusters field.
+func (o *Organization) SetClusters(v []Cluster) {
+	o.Clusters = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -175,6 +175,38 @@ func (o *Organization) SetExternalId(v string) {
 	o.ExternalId = &v
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Organization) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Organization) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Organization) SetId(v string) {
+	o.Id = &v
+}
+
 // GetRocksetUser returns the RocksetUser field value if set, zero value otherwise.
 func (o *Organization) GetRocksetUser() string {
 	if o == nil || o.RocksetUser == nil {
@@ -207,42 +239,10 @@ func (o *Organization) SetRocksetUser(v string) {
 	o.RocksetUser = &v
 }
 
-// GetClusters returns the Clusters field value if set, zero value otherwise.
-func (o *Organization) GetClusters() []Cluster {
-	if o == nil || o.Clusters == nil {
-		var ret []Cluster
-		return ret
-	}
-	return o.Clusters
-}
-
-// GetClustersOk returns a tuple with the Clusters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Organization) GetClustersOk() ([]Cluster, bool) {
-	if o == nil || o.Clusters == nil {
-		return nil, false
-	}
-	return o.Clusters, true
-}
-
-// HasClusters returns a boolean if a field has been set.
-func (o *Organization) HasClusters() bool {
-	if o != nil && o.Clusters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClusters gets a reference to the given []Cluster and assigns it to the Clusters field.
-func (o *Organization) SetClusters(v []Cluster) {
-	o.Clusters = v
-}
-
 func (o Organization) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.Clusters != nil {
+		toSerialize["clusters"] = o.Clusters
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
@@ -253,11 +253,11 @@ func (o Organization) MarshalJSON() ([]byte, error) {
 	if o.ExternalId != nil {
 		toSerialize["external_id"] = o.ExternalId
 	}
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
+	}
 	if o.RocksetUser != nil {
 		toSerialize["rockset_user"] = o.RocksetUser
-	}
-	if o.Clusters != nil {
-		toSerialize["clusters"] = o.Clusters
 	}
 	return json.Marshal(toSerialize)
 }

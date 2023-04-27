@@ -16,11 +16,11 @@ import (
 
 // QueryPaginationResponse struct for QueryPaginationResponse
 type QueryPaginationResponse struct {
+	Pagination *PaginationInfo `json:"pagination,omitempty"`
 	// List of documents returned by the query.
 	Results []map[string]interface{} `json:"results,omitempty"`
 	// Total documents returned by the query.
 	ResultsTotalDocCount *int64 `json:"results_total_doc_count,omitempty"`
-	Pagination *PaginationInfo `json:"pagination,omitempty"`
 }
 
 // NewQueryPaginationResponse instantiates a new QueryPaginationResponse object
@@ -38,6 +38,38 @@ func NewQueryPaginationResponse() *QueryPaginationResponse {
 func NewQueryPaginationResponseWithDefaults() *QueryPaginationResponse {
 	this := QueryPaginationResponse{}
 	return &this
+}
+
+// GetPagination returns the Pagination field value if set, zero value otherwise.
+func (o *QueryPaginationResponse) GetPagination() PaginationInfo {
+	if o == nil || o.Pagination == nil {
+		var ret PaginationInfo
+		return ret
+	}
+	return *o.Pagination
+}
+
+// GetPaginationOk returns a tuple with the Pagination field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryPaginationResponse) GetPaginationOk() (*PaginationInfo, bool) {
+	if o == nil || o.Pagination == nil {
+		return nil, false
+	}
+	return o.Pagination, true
+}
+
+// HasPagination returns a boolean if a field has been set.
+func (o *QueryPaginationResponse) HasPagination() bool {
+	if o != nil && o.Pagination != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPagination gets a reference to the given PaginationInfo and assigns it to the Pagination field.
+func (o *QueryPaginationResponse) SetPagination(v PaginationInfo) {
+	o.Pagination = &v
 }
 
 // GetResults returns the Results field value if set, zero value otherwise.
@@ -104,48 +136,16 @@ func (o *QueryPaginationResponse) SetResultsTotalDocCount(v int64) {
 	o.ResultsTotalDocCount = &v
 }
 
-// GetPagination returns the Pagination field value if set, zero value otherwise.
-func (o *QueryPaginationResponse) GetPagination() PaginationInfo {
-	if o == nil || o.Pagination == nil {
-		var ret PaginationInfo
-		return ret
-	}
-	return *o.Pagination
-}
-
-// GetPaginationOk returns a tuple with the Pagination field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryPaginationResponse) GetPaginationOk() (*PaginationInfo, bool) {
-	if o == nil || o.Pagination == nil {
-		return nil, false
-	}
-	return o.Pagination, true
-}
-
-// HasPagination returns a boolean if a field has been set.
-func (o *QueryPaginationResponse) HasPagination() bool {
-	if o != nil && o.Pagination != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPagination gets a reference to the given PaginationInfo and assigns it to the Pagination field.
-func (o *QueryPaginationResponse) SetPagination(v PaginationInfo) {
-	o.Pagination = &v
-}
-
 func (o QueryPaginationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Pagination != nil {
+		toSerialize["pagination"] = o.Pagination
+	}
 	if o.Results != nil {
 		toSerialize["results"] = o.Results
 	}
 	if o.ResultsTotalDocCount != nil {
 		toSerialize["results_total_doc_count"] = o.ResultsTotalDocCount
-	}
-	if o.Pagination != nil {
-		toSerialize["pagination"] = o.Pagination
 	}
 	return json.Marshal(toSerialize)
 }

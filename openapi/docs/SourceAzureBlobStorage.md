@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Container** | Pointer to **string** | Name of Azure blob Storage container you want to ingest from. | [optional] 
-**Prefix** | Pointer to **string** | Prefix that selects blobs to ingest. | [optional] 
-**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
+**BlobBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
 **BlobCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
 **BlobCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
-**BlobBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
+**Container** | Pointer to **string** | Name of Azure blob Storage container you want to ingest from. | [optional] 
+**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
+**Prefix** | Pointer to **string** | Prefix that selects blobs to ingest. | [optional] 
 
 ## Methods
 
@@ -30,80 +30,30 @@ NewSourceAzureBlobStorageWithDefaults instantiates a new SourceAzureBlobStorage 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetContainer
+### GetBlobBytesTotal
 
-`func (o *SourceAzureBlobStorage) GetContainer() string`
+`func (o *SourceAzureBlobStorage) GetBlobBytesTotal() int64`
 
-GetContainer returns the Container field if non-nil, zero value otherwise.
+GetBlobBytesTotal returns the BlobBytesTotal field if non-nil, zero value otherwise.
 
-### GetContainerOk
+### GetBlobBytesTotalOk
 
-`func (o *SourceAzureBlobStorage) GetContainerOk() (*string, bool)`
+`func (o *SourceAzureBlobStorage) GetBlobBytesTotalOk() (*int64, bool)`
 
-GetContainerOk returns a tuple with the Container field if it's non-nil, zero value otherwise
+GetBlobBytesTotalOk returns a tuple with the BlobBytesTotal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContainer
+### SetBlobBytesTotal
 
-`func (o *SourceAzureBlobStorage) SetContainer(v string)`
+`func (o *SourceAzureBlobStorage) SetBlobBytesTotal(v int64)`
 
-SetContainer sets Container field to given value.
+SetBlobBytesTotal sets BlobBytesTotal field to given value.
 
-### HasContainer
+### HasBlobBytesTotal
 
-`func (o *SourceAzureBlobStorage) HasContainer() bool`
+`func (o *SourceAzureBlobStorage) HasBlobBytesTotal() bool`
 
-HasContainer returns a boolean if a field has been set.
-
-### GetPrefix
-
-`func (o *SourceAzureBlobStorage) GetPrefix() string`
-
-GetPrefix returns the Prefix field if non-nil, zero value otherwise.
-
-### GetPrefixOk
-
-`func (o *SourceAzureBlobStorage) GetPrefixOk() (*string, bool)`
-
-GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPrefix
-
-`func (o *SourceAzureBlobStorage) SetPrefix(v string)`
-
-SetPrefix sets Prefix field to given value.
-
-### HasPrefix
-
-`func (o *SourceAzureBlobStorage) HasPrefix() bool`
-
-HasPrefix returns a boolean if a field has been set.
-
-### GetPattern
-
-`func (o *SourceAzureBlobStorage) GetPattern() string`
-
-GetPattern returns the Pattern field if non-nil, zero value otherwise.
-
-### GetPatternOk
-
-`func (o *SourceAzureBlobStorage) GetPatternOk() (*string, bool)`
-
-GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPattern
-
-`func (o *SourceAzureBlobStorage) SetPattern(v string)`
-
-SetPattern sets Pattern field to given value.
-
-### HasPattern
-
-`func (o *SourceAzureBlobStorage) HasPattern() bool`
-
-HasPattern returns a boolean if a field has been set.
+HasBlobBytesTotal returns a boolean if a field has been set.
 
 ### GetBlobCountDownloaded
 
@@ -155,30 +105,80 @@ SetBlobCountTotal sets BlobCountTotal field to given value.
 
 HasBlobCountTotal returns a boolean if a field has been set.
 
-### GetBlobBytesTotal
+### GetContainer
 
-`func (o *SourceAzureBlobStorage) GetBlobBytesTotal() int64`
+`func (o *SourceAzureBlobStorage) GetContainer() string`
 
-GetBlobBytesTotal returns the BlobBytesTotal field if non-nil, zero value otherwise.
+GetContainer returns the Container field if non-nil, zero value otherwise.
 
-### GetBlobBytesTotalOk
+### GetContainerOk
 
-`func (o *SourceAzureBlobStorage) GetBlobBytesTotalOk() (*int64, bool)`
+`func (o *SourceAzureBlobStorage) GetContainerOk() (*string, bool)`
 
-GetBlobBytesTotalOk returns a tuple with the BlobBytesTotal field if it's non-nil, zero value otherwise
+GetContainerOk returns a tuple with the Container field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBlobBytesTotal
+### SetContainer
 
-`func (o *SourceAzureBlobStorage) SetBlobBytesTotal(v int64)`
+`func (o *SourceAzureBlobStorage) SetContainer(v string)`
 
-SetBlobBytesTotal sets BlobBytesTotal field to given value.
+SetContainer sets Container field to given value.
 
-### HasBlobBytesTotal
+### HasContainer
 
-`func (o *SourceAzureBlobStorage) HasBlobBytesTotal() bool`
+`func (o *SourceAzureBlobStorage) HasContainer() bool`
 
-HasBlobBytesTotal returns a boolean if a field has been set.
+HasContainer returns a boolean if a field has been set.
+
+### GetPattern
+
+`func (o *SourceAzureBlobStorage) GetPattern() string`
+
+GetPattern returns the Pattern field if non-nil, zero value otherwise.
+
+### GetPatternOk
+
+`func (o *SourceAzureBlobStorage) GetPatternOk() (*string, bool)`
+
+GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPattern
+
+`func (o *SourceAzureBlobStorage) SetPattern(v string)`
+
+SetPattern sets Pattern field to given value.
+
+### HasPattern
+
+`func (o *SourceAzureBlobStorage) HasPattern() bool`
+
+HasPattern returns a boolean if a field has been set.
+
+### GetPrefix
+
+`func (o *SourceAzureBlobStorage) GetPrefix() string`
+
+GetPrefix returns the Prefix field if non-nil, zero value otherwise.
+
+### GetPrefixOk
+
+`func (o *SourceAzureBlobStorage) GetPrefixOk() (*string, bool)`
+
+GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPrefix
+
+`func (o *SourceAzureBlobStorage) SetPrefix(v string)`
+
+SetPrefix sets Prefix field to given value.
+
+### HasPrefix
+
+`func (o *SourceAzureBlobStorage) HasPrefix() bool`
+
+HasPrefix returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

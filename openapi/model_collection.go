@@ -16,35 +16,35 @@ import (
 
 // Collection struct for Collection
 type Collection struct {
+	// List of aliases for a collection.
+	Aliases []Alias `json:"aliases,omitempty"`
+	BulkStats []BulkStats `json:"bulk_stats,omitempty"`
+	// List of clustering fields for a collection.
+	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
 	// Email of user who created the collection.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// Unique identifer for collection, can contain alphanumeric or dash characters.
-	Name *string `json:"name,omitempty"`
 	// Text describing the collection.
 	Description *string `json:"description,omitempty"`
-	// Name of the workspace that the collection is in.
-	Workspace *string `json:"workspace,omitempty"`
-	// Current status of collection.
-	Status *string `json:"status,omitempty"`
+	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
+	// List of mappings applied on all documents in a collection.
+	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
+	// Whether the collection is insert only or not.
+	InsertOnly *bool `json:"insert_only,omitempty"`
+	// Unique identifer for collection, can contain alphanumeric or dash characters.
+	Name *string `json:"name,omitempty"`
+	// Whether the collection is read-only or not.
+	ReadOnly *bool `json:"read_only,omitempty"`
+	// Number of seconds after which data is purged based on event time.
+	RetentionSecs *int64 `json:"retention_secs,omitempty"`
 	// List of sources from which collection ingests.
 	Sources []Source `json:"sources,omitempty"`
 	Stats *CollectionStats `json:"stats,omitempty"`
-	// Number of seconds after which data is purged based on event time.
-	RetentionSecs *int64 `json:"retention_secs,omitempty"`
-	// List of mappings applied on all documents in a collection.
-	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
-	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
-	// List of clustering fields for a collection.
-	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
-	// List of aliases for a collection.
-	Aliases []Alias `json:"aliases,omitempty"`
-	// Whether the collection is read-only or not.
-	ReadOnly *bool `json:"read_only,omitempty"`
-	// Whether the collection is insert only or not.
-	InsertOnly *bool `json:"insert_only,omitempty"`
-	BulkStats []BulkStats `json:"bulk_stats,omitempty"`
+	// Current status of collection.
+	Status *string `json:"status,omitempty"`
+	// Name of the workspace that the collection is in.
+	Workspace *string `json:"workspace,omitempty"`
 }
 
 // NewCollection instantiates a new Collection object
@@ -62,6 +62,102 @@ func NewCollection() *Collection {
 func NewCollectionWithDefaults() *Collection {
 	this := Collection{}
 	return &this
+}
+
+// GetAliases returns the Aliases field value if set, zero value otherwise.
+func (o *Collection) GetAliases() []Alias {
+	if o == nil || o.Aliases == nil {
+		var ret []Alias
+		return ret
+	}
+	return o.Aliases
+}
+
+// GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetAliasesOk() ([]Alias, bool) {
+	if o == nil || o.Aliases == nil {
+		return nil, false
+	}
+	return o.Aliases, true
+}
+
+// HasAliases returns a boolean if a field has been set.
+func (o *Collection) HasAliases() bool {
+	if o != nil && o.Aliases != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAliases gets a reference to the given []Alias and assigns it to the Aliases field.
+func (o *Collection) SetAliases(v []Alias) {
+	o.Aliases = v
+}
+
+// GetBulkStats returns the BulkStats field value if set, zero value otherwise.
+func (o *Collection) GetBulkStats() []BulkStats {
+	if o == nil || o.BulkStats == nil {
+		var ret []BulkStats
+		return ret
+	}
+	return o.BulkStats
+}
+
+// GetBulkStatsOk returns a tuple with the BulkStats field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetBulkStatsOk() ([]BulkStats, bool) {
+	if o == nil || o.BulkStats == nil {
+		return nil, false
+	}
+	return o.BulkStats, true
+}
+
+// HasBulkStats returns a boolean if a field has been set.
+func (o *Collection) HasBulkStats() bool {
+	if o != nil && o.BulkStats != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBulkStats gets a reference to the given []BulkStats and assigns it to the BulkStats field.
+func (o *Collection) SetBulkStats(v []BulkStats) {
+	o.BulkStats = v
+}
+
+// GetClusteringKey returns the ClusteringKey field value if set, zero value otherwise.
+func (o *Collection) GetClusteringKey() []FieldPartition {
+	if o == nil || o.ClusteringKey == nil {
+		var ret []FieldPartition
+		return ret
+	}
+	return o.ClusteringKey
+}
+
+// GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetClusteringKeyOk() ([]FieldPartition, bool) {
+	if o == nil || o.ClusteringKey == nil {
+		return nil, false
+	}
+	return o.ClusteringKey, true
+}
+
+// HasClusteringKey returns a boolean if a field has been set.
+func (o *Collection) HasClusteringKey() bool {
+	if o != nil && o.ClusteringKey != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClusteringKey gets a reference to the given []FieldPartition and assigns it to the ClusteringKey field.
+func (o *Collection) SetClusteringKey(v []FieldPartition) {
+	o.ClusteringKey = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -128,38 +224,6 @@ func (o *Collection) SetCreatedBy(v string) {
 	o.CreatedBy = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *Collection) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *Collection) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Collection) SetName(v string) {
-	o.Name = &v
-}
-
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Collection) GetDescription() string {
 	if o == nil || o.Description == nil {
@@ -192,68 +256,196 @@ func (o *Collection) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *Collection) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
-		var ret string
+// GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
+func (o *Collection) GetFieldMappingQuery() FieldMappingQuery {
+	if o == nil || o.FieldMappingQuery == nil {
+		var ret FieldMappingQuery
 		return ret
 	}
-	return *o.Workspace
+	return *o.FieldMappingQuery
 }
 
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool) {
+	if o == nil || o.FieldMappingQuery == nil {
 		return nil, false
 	}
-	return o.Workspace, true
+	return o.FieldMappingQuery, true
 }
 
-// HasWorkspace returns a boolean if a field has been set.
-func (o *Collection) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+// HasFieldMappingQuery returns a boolean if a field has been set.
+func (o *Collection) HasFieldMappingQuery() bool {
+	if o != nil && o.FieldMappingQuery != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *Collection) SetWorkspace(v string) {
-	o.Workspace = &v
+// SetFieldMappingQuery gets a reference to the given FieldMappingQuery and assigns it to the FieldMappingQuery field.
+func (o *Collection) SetFieldMappingQuery(v FieldMappingQuery) {
+	o.FieldMappingQuery = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *Collection) GetStatus() string {
-	if o == nil || o.Status == nil {
-		var ret string
+// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise.
+func (o *Collection) GetFieldMappings() []FieldMappingV2 {
+	if o == nil || o.FieldMappings == nil {
+		var ret []FieldMappingV2
 		return ret
 	}
-	return *o.Status
+	return o.FieldMappings
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+func (o *Collection) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
+	if o == nil || o.FieldMappings == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return o.FieldMappings, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *Collection) HasStatus() bool {
-	if o != nil && o.Status != nil {
+// HasFieldMappings returns a boolean if a field has been set.
+func (o *Collection) HasFieldMappings() bool {
+	if o != nil && o.FieldMappings != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *Collection) SetStatus(v string) {
-	o.Status = &v
+// SetFieldMappings gets a reference to the given []FieldMappingV2 and assigns it to the FieldMappings field.
+func (o *Collection) SetFieldMappings(v []FieldMappingV2) {
+	o.FieldMappings = v
+}
+
+// GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
+func (o *Collection) GetInsertOnly() bool {
+	if o == nil || o.InsertOnly == nil {
+		var ret bool
+		return ret
+	}
+	return *o.InsertOnly
+}
+
+// GetInsertOnlyOk returns a tuple with the InsertOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetInsertOnlyOk() (*bool, bool) {
+	if o == nil || o.InsertOnly == nil {
+		return nil, false
+	}
+	return o.InsertOnly, true
+}
+
+// HasInsertOnly returns a boolean if a field has been set.
+func (o *Collection) HasInsertOnly() bool {
+	if o != nil && o.InsertOnly != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInsertOnly gets a reference to the given bool and assigns it to the InsertOnly field.
+func (o *Collection) SetInsertOnly(v bool) {
+	o.InsertOnly = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Collection) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Collection) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Collection) SetName(v string) {
+	o.Name = &v
+}
+
+// GetReadOnly returns the ReadOnly field value if set, zero value otherwise.
+func (o *Collection) GetReadOnly() bool {
+	if o == nil || o.ReadOnly == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ReadOnly
+}
+
+// GetReadOnlyOk returns a tuple with the ReadOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetReadOnlyOk() (*bool, bool) {
+	if o == nil || o.ReadOnly == nil {
+		return nil, false
+	}
+	return o.ReadOnly, true
+}
+
+// HasReadOnly returns a boolean if a field has been set.
+func (o *Collection) HasReadOnly() bool {
+	if o != nil && o.ReadOnly != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReadOnly gets a reference to the given bool and assigns it to the ReadOnly field.
+func (o *Collection) SetReadOnly(v bool) {
+	o.ReadOnly = &v
+}
+
+// GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
+func (o *Collection) GetRetentionSecs() int64 {
+	if o == nil || o.RetentionSecs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.RetentionSecs
+}
+
+// GetRetentionSecsOk returns a tuple with the RetentionSecs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetRetentionSecsOk() (*int64, bool) {
+	if o == nil || o.RetentionSecs == nil {
+		return nil, false
+	}
+	return o.RetentionSecs, true
+}
+
+// HasRetentionSecs returns a boolean if a field has been set.
+func (o *Collection) HasRetentionSecs() bool {
+	if o != nil && o.RetentionSecs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
+func (o *Collection) SetRetentionSecs(v int64) {
+	o.RetentionSecs = &v
 }
 
 // GetSources returns the Sources field value if set, zero value otherwise.
@@ -320,281 +512,107 @@ func (o *Collection) SetStats(v CollectionStats) {
 	o.Stats = &v
 }
 
-// GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
-func (o *Collection) GetRetentionSecs() int64 {
-	if o == nil || o.RetentionSecs == nil {
-		var ret int64
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *Collection) GetStatus() string {
+	if o == nil || o.Status == nil {
+		var ret string
 		return ret
 	}
-	return *o.RetentionSecs
+	return *o.Status
 }
 
-// GetRetentionSecsOk returns a tuple with the RetentionSecs field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetRetentionSecsOk() (*int64, bool) {
-	if o == nil || o.RetentionSecs == nil {
+func (o *Collection) GetStatusOk() (*string, bool) {
+	if o == nil || o.Status == nil {
 		return nil, false
 	}
-	return o.RetentionSecs, true
+	return o.Status, true
 }
 
-// HasRetentionSecs returns a boolean if a field has been set.
-func (o *Collection) HasRetentionSecs() bool {
-	if o != nil && o.RetentionSecs != nil {
+// HasStatus returns a boolean if a field has been set.
+func (o *Collection) HasStatus() bool {
+	if o != nil && o.Status != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
-func (o *Collection) SetRetentionSecs(v int64) {
-	o.RetentionSecs = &v
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *Collection) SetStatus(v string) {
+	o.Status = &v
 }
 
-// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise.
-func (o *Collection) GetFieldMappings() []FieldMappingV2 {
-	if o == nil || o.FieldMappings == nil {
-		var ret []FieldMappingV2
+// GetWorkspace returns the Workspace field value if set, zero value otherwise.
+func (o *Collection) GetWorkspace() string {
+	if o == nil || o.Workspace == nil {
+		var ret string
 		return ret
 	}
-	return o.FieldMappings
+	return *o.Workspace
 }
 
-// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
+// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Collection) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
-	if o == nil || o.FieldMappings == nil {
+func (o *Collection) GetWorkspaceOk() (*string, bool) {
+	if o == nil || o.Workspace == nil {
 		return nil, false
 	}
-	return o.FieldMappings, true
+	return o.Workspace, true
 }
 
-// HasFieldMappings returns a boolean if a field has been set.
-func (o *Collection) HasFieldMappings() bool {
-	if o != nil && o.FieldMappings != nil {
+// HasWorkspace returns a boolean if a field has been set.
+func (o *Collection) HasWorkspace() bool {
+	if o != nil && o.Workspace != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFieldMappings gets a reference to the given []FieldMappingV2 and assigns it to the FieldMappings field.
-func (o *Collection) SetFieldMappings(v []FieldMappingV2) {
-	o.FieldMappings = v
-}
-
-// GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
-func (o *Collection) GetFieldMappingQuery() FieldMappingQuery {
-	if o == nil || o.FieldMappingQuery == nil {
-		var ret FieldMappingQuery
-		return ret
-	}
-	return *o.FieldMappingQuery
-}
-
-// GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool) {
-	if o == nil || o.FieldMappingQuery == nil {
-		return nil, false
-	}
-	return o.FieldMappingQuery, true
-}
-
-// HasFieldMappingQuery returns a boolean if a field has been set.
-func (o *Collection) HasFieldMappingQuery() bool {
-	if o != nil && o.FieldMappingQuery != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFieldMappingQuery gets a reference to the given FieldMappingQuery and assigns it to the FieldMappingQuery field.
-func (o *Collection) SetFieldMappingQuery(v FieldMappingQuery) {
-	o.FieldMappingQuery = &v
-}
-
-// GetClusteringKey returns the ClusteringKey field value if set, zero value otherwise.
-func (o *Collection) GetClusteringKey() []FieldPartition {
-	if o == nil || o.ClusteringKey == nil {
-		var ret []FieldPartition
-		return ret
-	}
-	return o.ClusteringKey
-}
-
-// GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetClusteringKeyOk() ([]FieldPartition, bool) {
-	if o == nil || o.ClusteringKey == nil {
-		return nil, false
-	}
-	return o.ClusteringKey, true
-}
-
-// HasClusteringKey returns a boolean if a field has been set.
-func (o *Collection) HasClusteringKey() bool {
-	if o != nil && o.ClusteringKey != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClusteringKey gets a reference to the given []FieldPartition and assigns it to the ClusteringKey field.
-func (o *Collection) SetClusteringKey(v []FieldPartition) {
-	o.ClusteringKey = v
-}
-
-// GetAliases returns the Aliases field value if set, zero value otherwise.
-func (o *Collection) GetAliases() []Alias {
-	if o == nil || o.Aliases == nil {
-		var ret []Alias
-		return ret
-	}
-	return o.Aliases
-}
-
-// GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetAliasesOk() ([]Alias, bool) {
-	if o == nil || o.Aliases == nil {
-		return nil, false
-	}
-	return o.Aliases, true
-}
-
-// HasAliases returns a boolean if a field has been set.
-func (o *Collection) HasAliases() bool {
-	if o != nil && o.Aliases != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAliases gets a reference to the given []Alias and assigns it to the Aliases field.
-func (o *Collection) SetAliases(v []Alias) {
-	o.Aliases = v
-}
-
-// GetReadOnly returns the ReadOnly field value if set, zero value otherwise.
-func (o *Collection) GetReadOnly() bool {
-	if o == nil || o.ReadOnly == nil {
-		var ret bool
-		return ret
-	}
-	return *o.ReadOnly
-}
-
-// GetReadOnlyOk returns a tuple with the ReadOnly field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetReadOnlyOk() (*bool, bool) {
-	if o == nil || o.ReadOnly == nil {
-		return nil, false
-	}
-	return o.ReadOnly, true
-}
-
-// HasReadOnly returns a boolean if a field has been set.
-func (o *Collection) HasReadOnly() bool {
-	if o != nil && o.ReadOnly != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetReadOnly gets a reference to the given bool and assigns it to the ReadOnly field.
-func (o *Collection) SetReadOnly(v bool) {
-	o.ReadOnly = &v
-}
-
-// GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
-func (o *Collection) GetInsertOnly() bool {
-	if o == nil || o.InsertOnly == nil {
-		var ret bool
-		return ret
-	}
-	return *o.InsertOnly
-}
-
-// GetInsertOnlyOk returns a tuple with the InsertOnly field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetInsertOnlyOk() (*bool, bool) {
-	if o == nil || o.InsertOnly == nil {
-		return nil, false
-	}
-	return o.InsertOnly, true
-}
-
-// HasInsertOnly returns a boolean if a field has been set.
-func (o *Collection) HasInsertOnly() bool {
-	if o != nil && o.InsertOnly != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInsertOnly gets a reference to the given bool and assigns it to the InsertOnly field.
-func (o *Collection) SetInsertOnly(v bool) {
-	o.InsertOnly = &v
-}
-
-// GetBulkStats returns the BulkStats field value if set, zero value otherwise.
-func (o *Collection) GetBulkStats() []BulkStats {
-	if o == nil || o.BulkStats == nil {
-		var ret []BulkStats
-		return ret
-	}
-	return o.BulkStats
-}
-
-// GetBulkStatsOk returns a tuple with the BulkStats field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Collection) GetBulkStatsOk() ([]BulkStats, bool) {
-	if o == nil || o.BulkStats == nil {
-		return nil, false
-	}
-	return o.BulkStats, true
-}
-
-// HasBulkStats returns a boolean if a field has been set.
-func (o *Collection) HasBulkStats() bool {
-	if o != nil && o.BulkStats != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetBulkStats gets a reference to the given []BulkStats and assigns it to the BulkStats field.
-func (o *Collection) SetBulkStats(v []BulkStats) {
-	o.BulkStats = v
+// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
+func (o *Collection) SetWorkspace(v string) {
+	o.Workspace = &v
 }
 
 func (o Collection) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Aliases != nil {
+		toSerialize["aliases"] = o.Aliases
+	}
+	if o.BulkStats != nil {
+		toSerialize["bulk_stats"] = o.BulkStats
+	}
+	if o.ClusteringKey != nil {
+		toSerialize["clustering_key"] = o.ClusteringKey
+	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if o.CreatedBy != nil {
 		toSerialize["created_by"] = o.CreatedBy
 	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	if o.FieldMappingQuery != nil {
+		toSerialize["field_mapping_query"] = o.FieldMappingQuery
 	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	if o.FieldMappings != nil {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if o.InsertOnly != nil {
+		toSerialize["insert_only"] = o.InsertOnly
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.ReadOnly != nil {
+		toSerialize["read_only"] = o.ReadOnly
+	}
+	if o.RetentionSecs != nil {
+		toSerialize["retention_secs"] = o.RetentionSecs
 	}
 	if o.Sources != nil {
 		toSerialize["sources"] = o.Sources
@@ -602,29 +620,11 @@ func (o Collection) MarshalJSON() ([]byte, error) {
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
 	}
-	if o.RetentionSecs != nil {
-		toSerialize["retention_secs"] = o.RetentionSecs
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
-	if o.FieldMappings != nil {
-		toSerialize["field_mappings"] = o.FieldMappings
-	}
-	if o.FieldMappingQuery != nil {
-		toSerialize["field_mapping_query"] = o.FieldMappingQuery
-	}
-	if o.ClusteringKey != nil {
-		toSerialize["clustering_key"] = o.ClusteringKey
-	}
-	if o.Aliases != nil {
-		toSerialize["aliases"] = o.Aliases
-	}
-	if o.ReadOnly != nil {
-		toSerialize["read_only"] = o.ReadOnly
-	}
-	if o.InsertOnly != nil {
-		toSerialize["insert_only"] = o.InsertOnly
-	}
-	if o.BulkStats != nil {
-		toSerialize["bulk_stats"] = o.BulkStats
+	if o.Workspace != nil {
+		toSerialize["workspace"] = o.Workspace
 	}
 	return json.Marshal(toSerialize)
 }

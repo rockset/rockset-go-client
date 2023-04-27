@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | Unique identifier for the cluster. | [optional] 
-**ClusterType** | Pointer to **string** | Cluster type. | [optional] 
-**AwsRegion** | Pointer to **string** | Aws region. | [optional] 
-**Domain** | Pointer to **string** | Domain of org using cluster. | [optional] 
-**TopLevelDomain** | Pointer to **string** | Top level domain of org using cluster. | [optional] 
 **ApiserverUrl** | Pointer to **string** | Api server url for cluster. | [optional] 
+**AwsRegion** | Pointer to **string** | Aws region. | [optional] 
+**ClusterType** | Pointer to **string** | Cluster type. | [optional] 
+**Domain** | Pointer to **string** | Domain of org using cluster. | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the cluster. | [optional] 
+**TopLevelDomain** | Pointer to **string** | Top level domain of org using cluster. | [optional] 
 
 ## Methods
 
@@ -30,55 +30,30 @@ NewClusterWithDefaults instantiates a new Cluster object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetApiserverUrl
 
-`func (o *Cluster) GetId() string`
+`func (o *Cluster) GetApiserverUrl() string`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetApiserverUrl returns the ApiserverUrl field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetApiserverUrlOk
 
-`func (o *Cluster) GetIdOk() (*string, bool)`
+`func (o *Cluster) GetApiserverUrlOk() (*string, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetApiserverUrlOk returns a tuple with the ApiserverUrl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetApiserverUrl
 
-`func (o *Cluster) SetId(v string)`
+`func (o *Cluster) SetApiserverUrl(v string)`
 
-SetId sets Id field to given value.
+SetApiserverUrl sets ApiserverUrl field to given value.
 
-### HasId
+### HasApiserverUrl
 
-`func (o *Cluster) HasId() bool`
+`func (o *Cluster) HasApiserverUrl() bool`
 
-HasId returns a boolean if a field has been set.
-
-### GetClusterType
-
-`func (o *Cluster) GetClusterType() string`
-
-GetClusterType returns the ClusterType field if non-nil, zero value otherwise.
-
-### GetClusterTypeOk
-
-`func (o *Cluster) GetClusterTypeOk() (*string, bool)`
-
-GetClusterTypeOk returns a tuple with the ClusterType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClusterType
-
-`func (o *Cluster) SetClusterType(v string)`
-
-SetClusterType sets ClusterType field to given value.
-
-### HasClusterType
-
-`func (o *Cluster) HasClusterType() bool`
-
-HasClusterType returns a boolean if a field has been set.
+HasApiserverUrl returns a boolean if a field has been set.
 
 ### GetAwsRegion
 
@@ -105,6 +80,31 @@ SetAwsRegion sets AwsRegion field to given value.
 
 HasAwsRegion returns a boolean if a field has been set.
 
+### GetClusterType
+
+`func (o *Cluster) GetClusterType() string`
+
+GetClusterType returns the ClusterType field if non-nil, zero value otherwise.
+
+### GetClusterTypeOk
+
+`func (o *Cluster) GetClusterTypeOk() (*string, bool)`
+
+GetClusterTypeOk returns a tuple with the ClusterType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusterType
+
+`func (o *Cluster) SetClusterType(v string)`
+
+SetClusterType sets ClusterType field to given value.
+
+### HasClusterType
+
+`func (o *Cluster) HasClusterType() bool`
+
+HasClusterType returns a boolean if a field has been set.
+
 ### GetDomain
 
 `func (o *Cluster) GetDomain() string`
@@ -130,6 +130,31 @@ SetDomain sets Domain field to given value.
 
 HasDomain returns a boolean if a field has been set.
 
+### GetId
+
+`func (o *Cluster) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Cluster) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Cluster) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Cluster) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
 ### GetTopLevelDomain
 
 `func (o *Cluster) GetTopLevelDomain() string`
@@ -154,31 +179,6 @@ SetTopLevelDomain sets TopLevelDomain field to given value.
 `func (o *Cluster) HasTopLevelDomain() bool`
 
 HasTopLevelDomain returns a boolean if a field has been set.
-
-### GetApiserverUrl
-
-`func (o *Cluster) GetApiserverUrl() string`
-
-GetApiserverUrl returns the ApiserverUrl field if non-nil, zero value otherwise.
-
-### GetApiserverUrlOk
-
-`func (o *Cluster) GetApiserverUrlOk() (*string, bool)`
-
-GetApiserverUrlOk returns a tuple with the ApiserverUrl field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetApiserverUrl
-
-`func (o *Cluster) SetApiserverUrl(v string)`
-
-SetApiserverUrl sets ApiserverUrl field to given value.
-
-### HasApiserverUrl
-
-`func (o *Cluster) HasApiserverUrl() bool`
-
-HasApiserverUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

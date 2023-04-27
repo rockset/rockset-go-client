@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AwsRegion** | Pointer to **string** | AWS region name of DynamoDB table, by default us-west-2 is used. | [optional] 
-**TableName** | **string** | Name of DynamoDB table containing data. | 
 **CurrentStatus** | Pointer to [**StatusDynamoDbV2**](StatusDynamoDbV2.md) |  | [optional] 
 **Rcu** | Pointer to **int64** | Max RCU usage for scan. | [optional] 
 **Status** | Pointer to [**StatusDynamoDb**](StatusDynamoDb.md) |  | [optional] 
+**TableName** | **string** | Name of DynamoDB table containing data. | 
 **UseScanApi** | Pointer to **bool** | Whether to use DynamoDB Scan API for the initial scan. | [optional] 
 
 ## Methods
@@ -54,26 +54,6 @@ SetAwsRegion sets AwsRegion field to given value.
 `func (o *SourceDynamoDb) HasAwsRegion() bool`
 
 HasAwsRegion returns a boolean if a field has been set.
-
-### GetTableName
-
-`func (o *SourceDynamoDb) GetTableName() string`
-
-GetTableName returns the TableName field if non-nil, zero value otherwise.
-
-### GetTableNameOk
-
-`func (o *SourceDynamoDb) GetTableNameOk() (*string, bool)`
-
-GetTableNameOk returns a tuple with the TableName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTableName
-
-`func (o *SourceDynamoDb) SetTableName(v string)`
-
-SetTableName sets TableName field to given value.
-
 
 ### GetCurrentStatus
 
@@ -149,6 +129,26 @@ SetStatus sets Status field to given value.
 `func (o *SourceDynamoDb) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetTableName
+
+`func (o *SourceDynamoDb) GetTableName() string`
+
+GetTableName returns the TableName field if non-nil, zero value otherwise.
+
+### GetTableNameOk
+
+`func (o *SourceDynamoDb) GetTableNameOk() (*string, bool)`
+
+GetTableNameOk returns a tuple with the TableName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTableName
+
+`func (o *SourceDynamoDb) SetTableName(v string)`
+
+SetTableName sets TableName field to given value.
+
 
 ### GetUseScanApi
 

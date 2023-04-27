@@ -35,7 +35,7 @@ import (
 
 func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    body := *openapiclient.NewCreateAliasRequest("aliasName", []string{"Collections_example"}) // CreateAliasRequest | JSON object
+    body := *openapiclient.NewCreateAliasRequest([]string{"Collections_example"}, "aliasName") // CreateAliasRequest | JSON object
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | Mount type. | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
-**State** | Pointer to **string** | Mount type. | [optional] 
 **CollectionPath** | Pointer to **string** | Collection path. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**Id** | Pointer to **string** | Mount ID. | [optional] 
+**LastRefreshTimeMillis** | Pointer to **int64** | Unix timestamp of most recent refresh. Not applicable for live mounts. | [optional] 
+**Rrn** | Pointer to **string** | Mount RRN. | [optional] 
+**SnapshotExpirationTimeMillis** | Pointer to **int64** | Time in millis at which the snapshot expires. | [optional] 
+**State** | Pointer to **string** | Mount type. | [optional] 
+**Stats** | Pointer to [**CollectionMountStats**](CollectionMountStats.md) |  | [optional] 
+**Type** | Pointer to **string** | Mount type. | [optional] 
 **VirtualInstanceId** | Pointer to **string** | Virtual instance ID. | [optional] 
 **VirtualInstanceRrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
-**Id** | Pointer to **string** | Mount ID. | [optional] 
-**Rrn** | Pointer to **string** | Mount RRN. | [optional] 
-**LastRefreshTimeMillis** | Pointer to **int64** | Unix timestamp of most recent refresh. Not applicable for live mounts. | [optional] 
-**SnapshotExpirationTimeMillis** | Pointer to **int64** | Time in millis at which the snapshot expires. | [optional] 
-**Stats** | Pointer to [**CollectionMountStats**](CollectionMountStats.md) |  | [optional] 
 
 ## Methods
 
@@ -35,30 +35,30 @@ NewCollectionMountWithDefaults instantiates a new CollectionMount object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetType
+### GetCollectionPath
 
-`func (o *CollectionMount) GetType() string`
+`func (o *CollectionMount) GetCollectionPath() string`
 
-GetType returns the Type field if non-nil, zero value otherwise.
+GetCollectionPath returns the CollectionPath field if non-nil, zero value otherwise.
 
-### GetTypeOk
+### GetCollectionPathOk
 
-`func (o *CollectionMount) GetTypeOk() (*string, bool)`
+`func (o *CollectionMount) GetCollectionPathOk() (*string, bool)`
 
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+GetCollectionPathOk returns a tuple with the CollectionPath field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetType
+### SetCollectionPath
 
-`func (o *CollectionMount) SetType(v string)`
+`func (o *CollectionMount) SetCollectionPath(v string)`
 
-SetType sets Type field to given value.
+SetCollectionPath sets CollectionPath field to given value.
 
-### HasType
+### HasCollectionPath
 
-`func (o *CollectionMount) HasType() bool`
+`func (o *CollectionMount) HasCollectionPath() bool`
 
-HasType returns a boolean if a field has been set.
+HasCollectionPath returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -85,6 +85,106 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
+### GetId
+
+`func (o *CollectionMount) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *CollectionMount) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *CollectionMount) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *CollectionMount) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetLastRefreshTimeMillis
+
+`func (o *CollectionMount) GetLastRefreshTimeMillis() int64`
+
+GetLastRefreshTimeMillis returns the LastRefreshTimeMillis field if non-nil, zero value otherwise.
+
+### GetLastRefreshTimeMillisOk
+
+`func (o *CollectionMount) GetLastRefreshTimeMillisOk() (*int64, bool)`
+
+GetLastRefreshTimeMillisOk returns a tuple with the LastRefreshTimeMillis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastRefreshTimeMillis
+
+`func (o *CollectionMount) SetLastRefreshTimeMillis(v int64)`
+
+SetLastRefreshTimeMillis sets LastRefreshTimeMillis field to given value.
+
+### HasLastRefreshTimeMillis
+
+`func (o *CollectionMount) HasLastRefreshTimeMillis() bool`
+
+HasLastRefreshTimeMillis returns a boolean if a field has been set.
+
+### GetRrn
+
+`func (o *CollectionMount) GetRrn() string`
+
+GetRrn returns the Rrn field if non-nil, zero value otherwise.
+
+### GetRrnOk
+
+`func (o *CollectionMount) GetRrnOk() (*string, bool)`
+
+GetRrnOk returns a tuple with the Rrn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRrn
+
+`func (o *CollectionMount) SetRrn(v string)`
+
+SetRrn sets Rrn field to given value.
+
+### HasRrn
+
+`func (o *CollectionMount) HasRrn() bool`
+
+HasRrn returns a boolean if a field has been set.
+
+### GetSnapshotExpirationTimeMillis
+
+`func (o *CollectionMount) GetSnapshotExpirationTimeMillis() int64`
+
+GetSnapshotExpirationTimeMillis returns the SnapshotExpirationTimeMillis field if non-nil, zero value otherwise.
+
+### GetSnapshotExpirationTimeMillisOk
+
+`func (o *CollectionMount) GetSnapshotExpirationTimeMillisOk() (*int64, bool)`
+
+GetSnapshotExpirationTimeMillisOk returns a tuple with the SnapshotExpirationTimeMillis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSnapshotExpirationTimeMillis
+
+`func (o *CollectionMount) SetSnapshotExpirationTimeMillis(v int64)`
+
+SetSnapshotExpirationTimeMillis sets SnapshotExpirationTimeMillis field to given value.
+
+### HasSnapshotExpirationTimeMillis
+
+`func (o *CollectionMount) HasSnapshotExpirationTimeMillis() bool`
+
+HasSnapshotExpirationTimeMillis returns a boolean if a field has been set.
+
 ### GetState
 
 `func (o *CollectionMount) GetState() string`
@@ -110,30 +210,55 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
-### GetCollectionPath
+### GetStats
 
-`func (o *CollectionMount) GetCollectionPath() string`
+`func (o *CollectionMount) GetStats() CollectionMountStats`
 
-GetCollectionPath returns the CollectionPath field if non-nil, zero value otherwise.
+GetStats returns the Stats field if non-nil, zero value otherwise.
 
-### GetCollectionPathOk
+### GetStatsOk
 
-`func (o *CollectionMount) GetCollectionPathOk() (*string, bool)`
+`func (o *CollectionMount) GetStatsOk() (*CollectionMountStats, bool)`
 
-GetCollectionPathOk returns a tuple with the CollectionPath field if it's non-nil, zero value otherwise
+GetStatsOk returns a tuple with the Stats field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCollectionPath
+### SetStats
 
-`func (o *CollectionMount) SetCollectionPath(v string)`
+`func (o *CollectionMount) SetStats(v CollectionMountStats)`
 
-SetCollectionPath sets CollectionPath field to given value.
+SetStats sets Stats field to given value.
 
-### HasCollectionPath
+### HasStats
 
-`func (o *CollectionMount) HasCollectionPath() bool`
+`func (o *CollectionMount) HasStats() bool`
 
-HasCollectionPath returns a boolean if a field has been set.
+HasStats returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *CollectionMount) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *CollectionMount) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *CollectionMount) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *CollectionMount) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetVirtualInstanceId
 
@@ -184,131 +309,6 @@ SetVirtualInstanceRrn sets VirtualInstanceRrn field to given value.
 `func (o *CollectionMount) HasVirtualInstanceRrn() bool`
 
 HasVirtualInstanceRrn returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *CollectionMount) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *CollectionMount) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *CollectionMount) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *CollectionMount) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetRrn
-
-`func (o *CollectionMount) GetRrn() string`
-
-GetRrn returns the Rrn field if non-nil, zero value otherwise.
-
-### GetRrnOk
-
-`func (o *CollectionMount) GetRrnOk() (*string, bool)`
-
-GetRrnOk returns a tuple with the Rrn field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRrn
-
-`func (o *CollectionMount) SetRrn(v string)`
-
-SetRrn sets Rrn field to given value.
-
-### HasRrn
-
-`func (o *CollectionMount) HasRrn() bool`
-
-HasRrn returns a boolean if a field has been set.
-
-### GetLastRefreshTimeMillis
-
-`func (o *CollectionMount) GetLastRefreshTimeMillis() int64`
-
-GetLastRefreshTimeMillis returns the LastRefreshTimeMillis field if non-nil, zero value otherwise.
-
-### GetLastRefreshTimeMillisOk
-
-`func (o *CollectionMount) GetLastRefreshTimeMillisOk() (*int64, bool)`
-
-GetLastRefreshTimeMillisOk returns a tuple with the LastRefreshTimeMillis field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLastRefreshTimeMillis
-
-`func (o *CollectionMount) SetLastRefreshTimeMillis(v int64)`
-
-SetLastRefreshTimeMillis sets LastRefreshTimeMillis field to given value.
-
-### HasLastRefreshTimeMillis
-
-`func (o *CollectionMount) HasLastRefreshTimeMillis() bool`
-
-HasLastRefreshTimeMillis returns a boolean if a field has been set.
-
-### GetSnapshotExpirationTimeMillis
-
-`func (o *CollectionMount) GetSnapshotExpirationTimeMillis() int64`
-
-GetSnapshotExpirationTimeMillis returns the SnapshotExpirationTimeMillis field if non-nil, zero value otherwise.
-
-### GetSnapshotExpirationTimeMillisOk
-
-`func (o *CollectionMount) GetSnapshotExpirationTimeMillisOk() (*int64, bool)`
-
-GetSnapshotExpirationTimeMillisOk returns a tuple with the SnapshotExpirationTimeMillis field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSnapshotExpirationTimeMillis
-
-`func (o *CollectionMount) SetSnapshotExpirationTimeMillis(v int64)`
-
-SetSnapshotExpirationTimeMillis sets SnapshotExpirationTimeMillis field to given value.
-
-### HasSnapshotExpirationTimeMillis
-
-`func (o *CollectionMount) HasSnapshotExpirationTimeMillis() bool`
-
-HasSnapshotExpirationTimeMillis returns a boolean if a field has been set.
-
-### GetStats
-
-`func (o *CollectionMount) GetStats() CollectionMountStats`
-
-GetStats returns the Stats field if non-nil, zero value otherwise.
-
-### GetStatsOk
-
-`func (o *CollectionMount) GetStatsOk() (*CollectionMountStats, bool)`
-
-GetStatsOk returns a tuple with the Stats field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStats
-
-`func (o *CollectionMount) SetStats(v CollectionMountStats)`
-
-SetStats sets Stats field to given value.
-
-### HasStats
-
-`func (o *CollectionMount) HasStats() bool`
-
-HasStats returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

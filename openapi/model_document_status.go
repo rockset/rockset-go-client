@@ -18,13 +18,13 @@ import (
 type DocumentStatus struct {
 	// Collection name.
 	Collection *string `json:"_collection,omitempty"`
-	Error *ErrorModel `json:"error,omitempty"`
 	// Unique document ID.
 	Id *string `json:"_id,omitempty"`
-	// Status of the document.
-	Status *string `json:"status,omitempty"`
+	Error *ErrorModel `json:"error,omitempty"`
 	// Unique id used to represent each patch request.
 	PatchId *string `json:"patch_id,omitempty"`
+	// Status of the document.
+	Status *string `json:"status,omitempty"`
 }
 
 // NewDocumentStatus instantiates a new DocumentStatus object
@@ -76,38 +76,6 @@ func (o *DocumentStatus) SetCollection(v string) {
 	o.Collection = &v
 }
 
-// GetError returns the Error field value if set, zero value otherwise.
-func (o *DocumentStatus) GetError() ErrorModel {
-	if o == nil || o.Error == nil {
-		var ret ErrorModel
-		return ret
-	}
-	return *o.Error
-}
-
-// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DocumentStatus) GetErrorOk() (*ErrorModel, bool) {
-	if o == nil || o.Error == nil {
-		return nil, false
-	}
-	return o.Error, true
-}
-
-// HasError returns a boolean if a field has been set.
-func (o *DocumentStatus) HasError() bool {
-	if o != nil && o.Error != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetError gets a reference to the given ErrorModel and assigns it to the Error field.
-func (o *DocumentStatus) SetError(v ErrorModel) {
-	o.Error = &v
-}
-
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DocumentStatus) GetId() string {
 	if o == nil || o.Id == nil {
@@ -140,36 +108,36 @@ func (o *DocumentStatus) SetId(v string) {
 	o.Id = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *DocumentStatus) GetStatus() string {
-	if o == nil || o.Status == nil {
-		var ret string
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *DocumentStatus) GetError() ErrorModel {
+	if o == nil || o.Error == nil {
+		var ret ErrorModel
 		return ret
 	}
-	return *o.Status
+	return *o.Error
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DocumentStatus) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+func (o *DocumentStatus) GetErrorOk() (*ErrorModel, bool) {
+	if o == nil || o.Error == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return o.Error, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *DocumentStatus) HasStatus() bool {
-	if o != nil && o.Status != nil {
+// HasError returns a boolean if a field has been set.
+func (o *DocumentStatus) HasError() bool {
+	if o != nil && o.Error != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *DocumentStatus) SetStatus(v string) {
-	o.Status = &v
+// SetError gets a reference to the given ErrorModel and assigns it to the Error field.
+func (o *DocumentStatus) SetError(v ErrorModel) {
+	o.Error = &v
 }
 
 // GetPatchId returns the PatchId field value if set, zero value otherwise.
@@ -204,22 +172,54 @@ func (o *DocumentStatus) SetPatchId(v string) {
 	o.PatchId = &v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *DocumentStatus) GetStatus() string {
+	if o == nil || o.Status == nil {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DocumentStatus) GetStatusOk() (*string, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *DocumentStatus) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *DocumentStatus) SetStatus(v string) {
+	o.Status = &v
+}
+
 func (o DocumentStatus) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Collection != nil {
 		toSerialize["_collection"] = o.Collection
 	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
-	}
 	if o.Id != nil {
 		toSerialize["_id"] = o.Id
 	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	if o.PatchId != nil {
 		toSerialize["patch_id"] = o.PatchId
+	}
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

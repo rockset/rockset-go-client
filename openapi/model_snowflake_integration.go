@@ -16,33 +16,33 @@ import (
 
 // SnowflakeIntegration struct for SnowflakeIntegration
 type SnowflakeIntegration struct {
-	// Snowflake browser url.
-	SnowflakeUrl string `json:"snowflake_url"`
-	// Snowflake database username.
-	Username string `json:"username"`
-	// Snowflake database password.
-	Password string `json:"password"`
-	// Snowflake user role. If unspecified, will use the default user role.
-	UserRole *string `json:"user_role,omitempty"`
-	AwsRole *AwsRole `json:"aws_role,omitempty"`
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
+	AwsRole *AwsRole `json:"aws_role,omitempty"`
 	// default snowflake data warehouse name for query execution. Warehouse name can be overridden in the collection.
 	DefaultWarehouse string `json:"default_warehouse"`
+	// Snowflake database password.
+	Password string `json:"password"`
 	// S3 path used for running 'COPY INTO' command on snowflake table.
 	S3ExportPath string `json:"s3_export_path"`
+	// Snowflake browser url.
+	SnowflakeUrl string `json:"snowflake_url"`
+	// Snowflake user role. If unspecified, will use the default user role.
+	UserRole *string `json:"user_role,omitempty"`
+	// Snowflake database username.
+	Username string `json:"username"`
 }
 
 // NewSnowflakeIntegration instantiates a new SnowflakeIntegration object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSnowflakeIntegration(snowflakeUrl string, username string, password string, defaultWarehouse string, s3ExportPath string) *SnowflakeIntegration {
+func NewSnowflakeIntegration(defaultWarehouse string, password string, s3ExportPath string, snowflakeUrl string, username string) *SnowflakeIntegration {
 	this := SnowflakeIntegration{}
+	this.DefaultWarehouse = defaultWarehouse
+	this.Password = password
+	this.S3ExportPath = s3ExportPath
 	this.SnowflakeUrl = snowflakeUrl
 	this.Username = username
-	this.Password = password
-	this.DefaultWarehouse = defaultWarehouse
-	this.S3ExportPath = s3ExportPath
 	return &this
 }
 
@@ -52,142 +52,6 @@ func NewSnowflakeIntegration(snowflakeUrl string, username string, password stri
 func NewSnowflakeIntegrationWithDefaults() *SnowflakeIntegration {
 	this := SnowflakeIntegration{}
 	return &this
-}
-
-// GetSnowflakeUrl returns the SnowflakeUrl field value
-func (o *SnowflakeIntegration) GetSnowflakeUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SnowflakeUrl
-}
-
-// GetSnowflakeUrlOk returns a tuple with the SnowflakeUrl field value
-// and a boolean to check if the value has been set.
-func (o *SnowflakeIntegration) GetSnowflakeUrlOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.SnowflakeUrl, true
-}
-
-// SetSnowflakeUrl sets field value
-func (o *SnowflakeIntegration) SetSnowflakeUrl(v string) {
-	o.SnowflakeUrl = v
-}
-
-// GetUsername returns the Username field value
-func (o *SnowflakeIntegration) GetUsername() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Username
-}
-
-// GetUsernameOk returns a tuple with the Username field value
-// and a boolean to check if the value has been set.
-func (o *SnowflakeIntegration) GetUsernameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Username, true
-}
-
-// SetUsername sets field value
-func (o *SnowflakeIntegration) SetUsername(v string) {
-	o.Username = v
-}
-
-// GetPassword returns the Password field value
-func (o *SnowflakeIntegration) GetPassword() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Password
-}
-
-// GetPasswordOk returns a tuple with the Password field value
-// and a boolean to check if the value has been set.
-func (o *SnowflakeIntegration) GetPasswordOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Password, true
-}
-
-// SetPassword sets field value
-func (o *SnowflakeIntegration) SetPassword(v string) {
-	o.Password = v
-}
-
-// GetUserRole returns the UserRole field value if set, zero value otherwise.
-func (o *SnowflakeIntegration) GetUserRole() string {
-	if o == nil || o.UserRole == nil {
-		var ret string
-		return ret
-	}
-	return *o.UserRole
-}
-
-// GetUserRoleOk returns a tuple with the UserRole field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SnowflakeIntegration) GetUserRoleOk() (*string, bool) {
-	if o == nil || o.UserRole == nil {
-		return nil, false
-	}
-	return o.UserRole, true
-}
-
-// HasUserRole returns a boolean if a field has been set.
-func (o *SnowflakeIntegration) HasUserRole() bool {
-	if o != nil && o.UserRole != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserRole gets a reference to the given string and assigns it to the UserRole field.
-func (o *SnowflakeIntegration) SetUserRole(v string) {
-	o.UserRole = &v
-}
-
-// GetAwsRole returns the AwsRole field value if set, zero value otherwise.
-func (o *SnowflakeIntegration) GetAwsRole() AwsRole {
-	if o == nil || o.AwsRole == nil {
-		var ret AwsRole
-		return ret
-	}
-	return *o.AwsRole
-}
-
-// GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SnowflakeIntegration) GetAwsRoleOk() (*AwsRole, bool) {
-	if o == nil || o.AwsRole == nil {
-		return nil, false
-	}
-	return o.AwsRole, true
-}
-
-// HasAwsRole returns a boolean if a field has been set.
-func (o *SnowflakeIntegration) HasAwsRole() bool {
-	if o != nil && o.AwsRole != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAwsRole gets a reference to the given AwsRole and assigns it to the AwsRole field.
-func (o *SnowflakeIntegration) SetAwsRole(v AwsRole) {
-	o.AwsRole = &v
 }
 
 // GetAwsAccessKey returns the AwsAccessKey field value if set, zero value otherwise.
@@ -222,6 +86,38 @@ func (o *SnowflakeIntegration) SetAwsAccessKey(v AwsAccessKey) {
 	o.AwsAccessKey = &v
 }
 
+// GetAwsRole returns the AwsRole field value if set, zero value otherwise.
+func (o *SnowflakeIntegration) GetAwsRole() AwsRole {
+	if o == nil || o.AwsRole == nil {
+		var ret AwsRole
+		return ret
+	}
+	return *o.AwsRole
+}
+
+// GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SnowflakeIntegration) GetAwsRoleOk() (*AwsRole, bool) {
+	if o == nil || o.AwsRole == nil {
+		return nil, false
+	}
+	return o.AwsRole, true
+}
+
+// HasAwsRole returns a boolean if a field has been set.
+func (o *SnowflakeIntegration) HasAwsRole() bool {
+	if o != nil && o.AwsRole != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAwsRole gets a reference to the given AwsRole and assigns it to the AwsRole field.
+func (o *SnowflakeIntegration) SetAwsRole(v AwsRole) {
+	o.AwsRole = &v
+}
+
 // GetDefaultWarehouse returns the DefaultWarehouse field value
 func (o *SnowflakeIntegration) GetDefaultWarehouse() string {
 	if o == nil {
@@ -244,6 +140,30 @@ func (o *SnowflakeIntegration) GetDefaultWarehouseOk() (*string, bool) {
 // SetDefaultWarehouse sets field value
 func (o *SnowflakeIntegration) SetDefaultWarehouse(v string) {
 	o.DefaultWarehouse = v
+}
+
+// GetPassword returns the Password field value
+func (o *SnowflakeIntegration) GetPassword() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Password
+}
+
+// GetPasswordOk returns a tuple with the Password field value
+// and a boolean to check if the value has been set.
+func (o *SnowflakeIntegration) GetPasswordOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Password, true
+}
+
+// SetPassword sets field value
+func (o *SnowflakeIntegration) SetPassword(v string) {
+	o.Password = v
 }
 
 // GetS3ExportPath returns the S3ExportPath field value
@@ -270,31 +190,111 @@ func (o *SnowflakeIntegration) SetS3ExportPath(v string) {
 	o.S3ExportPath = v
 }
 
+// GetSnowflakeUrl returns the SnowflakeUrl field value
+func (o *SnowflakeIntegration) GetSnowflakeUrl() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SnowflakeUrl
+}
+
+// GetSnowflakeUrlOk returns a tuple with the SnowflakeUrl field value
+// and a boolean to check if the value has been set.
+func (o *SnowflakeIntegration) GetSnowflakeUrlOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.SnowflakeUrl, true
+}
+
+// SetSnowflakeUrl sets field value
+func (o *SnowflakeIntegration) SetSnowflakeUrl(v string) {
+	o.SnowflakeUrl = v
+}
+
+// GetUserRole returns the UserRole field value if set, zero value otherwise.
+func (o *SnowflakeIntegration) GetUserRole() string {
+	if o == nil || o.UserRole == nil {
+		var ret string
+		return ret
+	}
+	return *o.UserRole
+}
+
+// GetUserRoleOk returns a tuple with the UserRole field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SnowflakeIntegration) GetUserRoleOk() (*string, bool) {
+	if o == nil || o.UserRole == nil {
+		return nil, false
+	}
+	return o.UserRole, true
+}
+
+// HasUserRole returns a boolean if a field has been set.
+func (o *SnowflakeIntegration) HasUserRole() bool {
+	if o != nil && o.UserRole != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserRole gets a reference to the given string and assigns it to the UserRole field.
+func (o *SnowflakeIntegration) SetUserRole(v string) {
+	o.UserRole = &v
+}
+
+// GetUsername returns the Username field value
+func (o *SnowflakeIntegration) GetUsername() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Username
+}
+
+// GetUsernameOk returns a tuple with the Username field value
+// and a boolean to check if the value has been set.
+func (o *SnowflakeIntegration) GetUsernameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Username, true
+}
+
+// SetUsername sets field value
+func (o *SnowflakeIntegration) SetUsername(v string) {
+	o.Username = v
+}
+
 func (o SnowflakeIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["snowflake_url"] = o.SnowflakeUrl
-	}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if true {
-		toSerialize["password"] = o.Password
-	}
-	if o.UserRole != nil {
-		toSerialize["user_role"] = o.UserRole
+	if o.AwsAccessKey != nil {
+		toSerialize["aws_access_key"] = o.AwsAccessKey
 	}
 	if o.AwsRole != nil {
 		toSerialize["aws_role"] = o.AwsRole
-	}
-	if o.AwsAccessKey != nil {
-		toSerialize["aws_access_key"] = o.AwsAccessKey
 	}
 	if true {
 		toSerialize["default_warehouse"] = o.DefaultWarehouse
 	}
 	if true {
+		toSerialize["password"] = o.Password
+	}
+	if true {
 		toSerialize["s3_export_path"] = o.S3ExportPath
+	}
+	if true {
+		toSerialize["snowflake_url"] = o.SnowflakeUrl
+	}
+	if o.UserRole != nil {
+		toSerialize["user_role"] = o.UserRole
+	}
+	if true {
+		toSerialize["username"] = o.Username
 	}
 	return json.Marshal(toSerialize)
 }

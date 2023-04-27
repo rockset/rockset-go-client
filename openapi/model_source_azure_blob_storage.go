@@ -16,15 +16,15 @@ import (
 
 // SourceAzureBlobStorage struct for SourceAzureBlobStorage
 type SourceAzureBlobStorage struct {
-	// Name of Azure blob Storage container you want to ingest from.
-	Container *string `json:"container,omitempty"`
-	// Prefix that selects blobs to ingest.
-	Prefix *string `json:"prefix,omitempty"`
-	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
-	Pattern *string `json:"pattern,omitempty"`
+	BlobBytesTotal *int64 `json:"blob_bytes_total,omitempty"`
 	BlobCountDownloaded *int64 `json:"blob_count_downloaded,omitempty"`
 	BlobCountTotal *int64 `json:"blob_count_total,omitempty"`
-	BlobBytesTotal *int64 `json:"blob_bytes_total,omitempty"`
+	// Name of Azure blob Storage container you want to ingest from.
+	Container *string `json:"container,omitempty"`
+	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
+	Pattern *string `json:"pattern,omitempty"`
+	// Prefix that selects blobs to ingest.
+	Prefix *string `json:"prefix,omitempty"`
 }
 
 // NewSourceAzureBlobStorage instantiates a new SourceAzureBlobStorage object
@@ -44,100 +44,36 @@ func NewSourceAzureBlobStorageWithDefaults() *SourceAzureBlobStorage {
 	return &this
 }
 
-// GetContainer returns the Container field value if set, zero value otherwise.
-func (o *SourceAzureBlobStorage) GetContainer() string {
-	if o == nil || o.Container == nil {
-		var ret string
+// GetBlobBytesTotal returns the BlobBytesTotal field value if set, zero value otherwise.
+func (o *SourceAzureBlobStorage) GetBlobBytesTotal() int64 {
+	if o == nil || o.BlobBytesTotal == nil {
+		var ret int64
 		return ret
 	}
-	return *o.Container
+	return *o.BlobBytesTotal
 }
 
-// GetContainerOk returns a tuple with the Container field value if set, nil otherwise
+// GetBlobBytesTotalOk returns a tuple with the BlobBytesTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceAzureBlobStorage) GetContainerOk() (*string, bool) {
-	if o == nil || o.Container == nil {
+func (o *SourceAzureBlobStorage) GetBlobBytesTotalOk() (*int64, bool) {
+	if o == nil || o.BlobBytesTotal == nil {
 		return nil, false
 	}
-	return o.Container, true
+	return o.BlobBytesTotal, true
 }
 
-// HasContainer returns a boolean if a field has been set.
-func (o *SourceAzureBlobStorage) HasContainer() bool {
-	if o != nil && o.Container != nil {
+// HasBlobBytesTotal returns a boolean if a field has been set.
+func (o *SourceAzureBlobStorage) HasBlobBytesTotal() bool {
+	if o != nil && o.BlobBytesTotal != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetContainer gets a reference to the given string and assigns it to the Container field.
-func (o *SourceAzureBlobStorage) SetContainer(v string) {
-	o.Container = &v
-}
-
-// GetPrefix returns the Prefix field value if set, zero value otherwise.
-func (o *SourceAzureBlobStorage) GetPrefix() string {
-	if o == nil || o.Prefix == nil {
-		var ret string
-		return ret
-	}
-	return *o.Prefix
-}
-
-// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceAzureBlobStorage) GetPrefixOk() (*string, bool) {
-	if o == nil || o.Prefix == nil {
-		return nil, false
-	}
-	return o.Prefix, true
-}
-
-// HasPrefix returns a boolean if a field has been set.
-func (o *SourceAzureBlobStorage) HasPrefix() bool {
-	if o != nil && o.Prefix != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
-func (o *SourceAzureBlobStorage) SetPrefix(v string) {
-	o.Prefix = &v
-}
-
-// GetPattern returns the Pattern field value if set, zero value otherwise.
-func (o *SourceAzureBlobStorage) GetPattern() string {
-	if o == nil || o.Pattern == nil {
-		var ret string
-		return ret
-	}
-	return *o.Pattern
-}
-
-// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceAzureBlobStorage) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
-		return nil, false
-	}
-	return o.Pattern, true
-}
-
-// HasPattern returns a boolean if a field has been set.
-func (o *SourceAzureBlobStorage) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPattern gets a reference to the given string and assigns it to the Pattern field.
-func (o *SourceAzureBlobStorage) SetPattern(v string) {
-	o.Pattern = &v
+// SetBlobBytesTotal gets a reference to the given int64 and assigns it to the BlobBytesTotal field.
+func (o *SourceAzureBlobStorage) SetBlobBytesTotal(v int64) {
+	o.BlobBytesTotal = &v
 }
 
 // GetBlobCountDownloaded returns the BlobCountDownloaded field value if set, zero value otherwise.
@@ -204,48 +140,106 @@ func (o *SourceAzureBlobStorage) SetBlobCountTotal(v int64) {
 	o.BlobCountTotal = &v
 }
 
-// GetBlobBytesTotal returns the BlobBytesTotal field value if set, zero value otherwise.
-func (o *SourceAzureBlobStorage) GetBlobBytesTotal() int64 {
-	if o == nil || o.BlobBytesTotal == nil {
-		var ret int64
+// GetContainer returns the Container field value if set, zero value otherwise.
+func (o *SourceAzureBlobStorage) GetContainer() string {
+	if o == nil || o.Container == nil {
+		var ret string
 		return ret
 	}
-	return *o.BlobBytesTotal
+	return *o.Container
 }
 
-// GetBlobBytesTotalOk returns a tuple with the BlobBytesTotal field value if set, nil otherwise
+// GetContainerOk returns a tuple with the Container field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceAzureBlobStorage) GetBlobBytesTotalOk() (*int64, bool) {
-	if o == nil || o.BlobBytesTotal == nil {
+func (o *SourceAzureBlobStorage) GetContainerOk() (*string, bool) {
+	if o == nil || o.Container == nil {
 		return nil, false
 	}
-	return o.BlobBytesTotal, true
+	return o.Container, true
 }
 
-// HasBlobBytesTotal returns a boolean if a field has been set.
-func (o *SourceAzureBlobStorage) HasBlobBytesTotal() bool {
-	if o != nil && o.BlobBytesTotal != nil {
+// HasContainer returns a boolean if a field has been set.
+func (o *SourceAzureBlobStorage) HasContainer() bool {
+	if o != nil && o.Container != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetBlobBytesTotal gets a reference to the given int64 and assigns it to the BlobBytesTotal field.
-func (o *SourceAzureBlobStorage) SetBlobBytesTotal(v int64) {
-	o.BlobBytesTotal = &v
+// SetContainer gets a reference to the given string and assigns it to the Container field.
+func (o *SourceAzureBlobStorage) SetContainer(v string) {
+	o.Container = &v
+}
+
+// GetPattern returns the Pattern field value if set, zero value otherwise.
+func (o *SourceAzureBlobStorage) GetPattern() string {
+	if o == nil || o.Pattern == nil {
+		var ret string
+		return ret
+	}
+	return *o.Pattern
+}
+
+// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceAzureBlobStorage) GetPatternOk() (*string, bool) {
+	if o == nil || o.Pattern == nil {
+		return nil, false
+	}
+	return o.Pattern, true
+}
+
+// HasPattern returns a boolean if a field has been set.
+func (o *SourceAzureBlobStorage) HasPattern() bool {
+	if o != nil && o.Pattern != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPattern gets a reference to the given string and assigns it to the Pattern field.
+func (o *SourceAzureBlobStorage) SetPattern(v string) {
+	o.Pattern = &v
+}
+
+// GetPrefix returns the Prefix field value if set, zero value otherwise.
+func (o *SourceAzureBlobStorage) GetPrefix() string {
+	if o == nil || o.Prefix == nil {
+		var ret string
+		return ret
+	}
+	return *o.Prefix
+}
+
+// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceAzureBlobStorage) GetPrefixOk() (*string, bool) {
+	if o == nil || o.Prefix == nil {
+		return nil, false
+	}
+	return o.Prefix, true
+}
+
+// HasPrefix returns a boolean if a field has been set.
+func (o *SourceAzureBlobStorage) HasPrefix() bool {
+	if o != nil && o.Prefix != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
+func (o *SourceAzureBlobStorage) SetPrefix(v string) {
+	o.Prefix = &v
 }
 
 func (o SourceAzureBlobStorage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Container != nil {
-		toSerialize["container"] = o.Container
-	}
-	if o.Prefix != nil {
-		toSerialize["prefix"] = o.Prefix
-	}
-	if o.Pattern != nil {
-		toSerialize["pattern"] = o.Pattern
+	if o.BlobBytesTotal != nil {
+		toSerialize["blob_bytes_total"] = o.BlobBytesTotal
 	}
 	if o.BlobCountDownloaded != nil {
 		toSerialize["blob_count_downloaded"] = o.BlobCountDownloaded
@@ -253,8 +247,14 @@ func (o SourceAzureBlobStorage) MarshalJSON() ([]byte, error) {
 	if o.BlobCountTotal != nil {
 		toSerialize["blob_count_total"] = o.BlobCountTotal
 	}
-	if o.BlobBytesTotal != nil {
-		toSerialize["blob_bytes_total"] = o.BlobBytesTotal
+	if o.Container != nil {
+		toSerialize["container"] = o.Container
+	}
+	if o.Pattern != nil {
+		toSerialize["pattern"] = o.Pattern
+	}
+	if o.Prefix != nil {
+		toSerialize["prefix"] = o.Prefix
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | Unique identifier for the organization. | [optional] 
+**Clusters** | Pointer to [**[]Cluster**](Cluster.md) | List of clusters associated with this org. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
 **DisplayName** | Pointer to **string** | Name of the organization. | [optional] 
 **ExternalId** | Pointer to **string** | Organization&#39;s unique external ID within Rockset. | [optional] 
+**Id** | Pointer to **string** | Unique identifier for the organization. | [optional] 
 **RocksetUser** | Pointer to **string** | Rockset&#39;s global AWS user. | [optional] 
-**Clusters** | Pointer to [**[]Cluster**](Cluster.md) | List of clusters associated with this org. | [optional] 
 
 ## Methods
 
@@ -30,30 +30,30 @@ NewOrganizationWithDefaults instantiates a new Organization object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetId
+### GetClusters
 
-`func (o *Organization) GetId() string`
+`func (o *Organization) GetClusters() []Cluster`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetClusters returns the Clusters field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetClustersOk
 
-`func (o *Organization) GetIdOk() (*string, bool)`
+`func (o *Organization) GetClustersOk() (*[]Cluster, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetClustersOk returns a tuple with the Clusters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetClusters
 
-`func (o *Organization) SetId(v string)`
+`func (o *Organization) SetClusters(v []Cluster)`
 
-SetId sets Id field to given value.
+SetClusters sets Clusters field to given value.
 
-### HasId
+### HasClusters
 
-`func (o *Organization) HasId() bool`
+`func (o *Organization) HasClusters() bool`
 
-HasId returns a boolean if a field has been set.
+HasClusters returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -130,6 +130,31 @@ SetExternalId sets ExternalId field to given value.
 
 HasExternalId returns a boolean if a field has been set.
 
+### GetId
+
+`func (o *Organization) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *Organization) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *Organization) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *Organization) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
 ### GetRocksetUser
 
 `func (o *Organization) GetRocksetUser() string`
@@ -154,31 +179,6 @@ SetRocksetUser sets RocksetUser field to given value.
 `func (o *Organization) HasRocksetUser() bool`
 
 HasRocksetUser returns a boolean if a field has been set.
-
-### GetClusters
-
-`func (o *Organization) GetClusters() []Cluster`
-
-GetClusters returns the Clusters field if non-nil, zero value otherwise.
-
-### GetClustersOk
-
-`func (o *Organization) GetClustersOk() (*[]Cluster, bool)`
-
-GetClustersOk returns a tuple with the Clusters field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClusters
-
-`func (o *Organization) SetClusters(v []Cluster)`
-
-SetClusters sets Clusters field to given value.
-
-### HasClusters
-
-`func (o *Organization) HasClusters() bool`
-
-HasClusters returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

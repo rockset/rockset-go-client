@@ -20,11 +20,11 @@ type SourceSnowflake struct {
 	Database string `json:"database"`
 	// Name of the snowflake database schema.
 	Schema string `json:"schema"`
+	Status *StatusSnowflake `json:"status,omitempty"`
 	// Name of the snowflake table.
 	TableName string `json:"table_name"`
 	// Name of the data warehouse to be used.
 	Warehouse *string `json:"warehouse,omitempty"`
-	Status *StatusSnowflake `json:"status,omitempty"`
 }
 
 // NewSourceSnowflake instantiates a new SourceSnowflake object
@@ -95,6 +95,38 @@ func (o *SourceSnowflake) SetSchema(v string) {
 	o.Schema = v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *SourceSnowflake) GetStatus() StatusSnowflake {
+	if o == nil || o.Status == nil {
+		var ret StatusSnowflake
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceSnowflake) GetStatusOk() (*StatusSnowflake, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *SourceSnowflake) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given StatusSnowflake and assigns it to the Status field.
+func (o *SourceSnowflake) SetStatus(v StatusSnowflake) {
+	o.Status = &v
+}
+
 // GetTableName returns the TableName field value
 func (o *SourceSnowflake) GetTableName() string {
 	if o == nil {
@@ -151,38 +183,6 @@ func (o *SourceSnowflake) SetWarehouse(v string) {
 	o.Warehouse = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *SourceSnowflake) GetStatus() StatusSnowflake {
-	if o == nil || o.Status == nil {
-		var ret StatusSnowflake
-		return ret
-	}
-	return *o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceSnowflake) GetStatusOk() (*StatusSnowflake, bool) {
-	if o == nil || o.Status == nil {
-		return nil, false
-	}
-	return o.Status, true
-}
-
-// HasStatus returns a boolean if a field has been set.
-func (o *SourceSnowflake) HasStatus() bool {
-	if o != nil && o.Status != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given StatusSnowflake and assigns it to the Status field.
-func (o *SourceSnowflake) SetStatus(v StatusSnowflake) {
-	o.Status = &v
-}
-
 func (o SourceSnowflake) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -191,14 +191,14 @@ func (o SourceSnowflake) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["schema"] = o.Schema
 	}
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
+	}
 	if true {
 		toSerialize["table_name"] = o.TableName
 	}
 	if o.Warehouse != nil {
 		toSerialize["warehouse"] = o.Warehouse
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

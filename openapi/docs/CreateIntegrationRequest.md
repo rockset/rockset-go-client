@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | Descriptive label. | 
+**AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
+**AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
+**AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
 **Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
-**S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
-**Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
-**AzureBlobStorage** | Pointer to [**AzureBlobStorageIntegration**](AzureBlobStorageIntegration.md) |  | [optional] 
-**AzureServiceBus** | Pointer to [**AzureServiceBusIntegration**](AzureServiceBusIntegration.md) |  | [optional] 
-**AzureEventHubs** | Pointer to [**AzureEventHubsIntegration**](AzureEventHubsIntegration.md) |  | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
+**Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
+**Name** | **string** | Descriptive label. | 
+**S3** | Pointer to [**S3Integration**](S3Integration.md) |  | [optional] 
 **Snowflake** | Pointer to [**SnowflakeIntegration**](SnowflakeIntegration.md) |  | [optional] 
 
 ## Methods
@@ -36,25 +36,80 @@ NewCreateIntegrationRequestWithDefaults instantiates a new CreateIntegrationRequ
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetAzureBlobStorage
 
-`func (o *CreateIntegrationRequest) GetName() string`
+`func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetAzureBlobStorageOk
 
-`func (o *CreateIntegrationRequest) GetNameOk() (*string, bool)`
+`func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetAzureBlobStorage
 
-`func (o *CreateIntegrationRequest) SetName(v string)`
+`func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegration)`
 
-SetName sets Name field to given value.
+SetAzureBlobStorage sets AzureBlobStorage field to given value.
 
+### HasAzureBlobStorage
+
+`func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool`
+
+HasAzureBlobStorage returns a boolean if a field has been set.
+
+### GetAzureEventHubs
+
+`func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration`
+
+GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
+
+### GetAzureEventHubsOk
+
+`func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool)`
+
+GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureEventHubs
+
+`func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration)`
+
+SetAzureEventHubs sets AzureEventHubs field to given value.
+
+### HasAzureEventHubs
+
+`func (o *CreateIntegrationRequest) HasAzureEventHubs() bool`
+
+HasAzureEventHubs returns a boolean if a field has been set.
+
+### GetAzureServiceBus
+
+`func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration`
+
+GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
+
+### GetAzureServiceBusOk
+
+`func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)`
+
+GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAzureServiceBus
+
+`func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegration)`
+
+SetAzureServiceBus sets AzureServiceBus field to given value.
+
+### HasAzureServiceBus
+
+`func (o *CreateIntegrationRequest) HasAzureServiceBus() bool`
+
+HasAzureServiceBus returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -80,56 +135,6 @@ SetDescription sets Description field to given value.
 `func (o *CreateIntegrationRequest) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
-
-### GetS3
-
-`func (o *CreateIntegrationRequest) GetS3() S3Integration`
-
-GetS3 returns the S3 field if non-nil, zero value otherwise.
-
-### GetS3Ok
-
-`func (o *CreateIntegrationRequest) GetS3Ok() (*S3Integration, bool)`
-
-GetS3Ok returns a tuple with the S3 field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetS3
-
-`func (o *CreateIntegrationRequest) SetS3(v S3Integration)`
-
-SetS3 sets S3 field to given value.
-
-### HasS3
-
-`func (o *CreateIntegrationRequest) HasS3() bool`
-
-HasS3 returns a boolean if a field has been set.
-
-### GetKinesis
-
-`func (o *CreateIntegrationRequest) GetKinesis() KinesisIntegration`
-
-GetKinesis returns the Kinesis field if non-nil, zero value otherwise.
-
-### GetKinesisOk
-
-`func (o *CreateIntegrationRequest) GetKinesisOk() (*KinesisIntegration, bool)`
-
-GetKinesisOk returns a tuple with the Kinesis field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKinesis
-
-`func (o *CreateIntegrationRequest) SetKinesis(v KinesisIntegration)`
-
-SetKinesis sets Kinesis field to given value.
-
-### HasKinesis
-
-`func (o *CreateIntegrationRequest) HasKinesis() bool`
-
-HasKinesis returns a boolean if a field has been set.
 
 ### GetDynamodb
 
@@ -181,81 +186,6 @@ SetGcs sets Gcs field to given value.
 
 HasGcs returns a boolean if a field has been set.
 
-### GetAzureBlobStorage
-
-`func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration`
-
-GetAzureBlobStorage returns the AzureBlobStorage field if non-nil, zero value otherwise.
-
-### GetAzureBlobStorageOk
-
-`func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool)`
-
-GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureBlobStorage
-
-`func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegration)`
-
-SetAzureBlobStorage sets AzureBlobStorage field to given value.
-
-### HasAzureBlobStorage
-
-`func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool`
-
-HasAzureBlobStorage returns a boolean if a field has been set.
-
-### GetAzureServiceBus
-
-`func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration`
-
-GetAzureServiceBus returns the AzureServiceBus field if non-nil, zero value otherwise.
-
-### GetAzureServiceBusOk
-
-`func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)`
-
-GetAzureServiceBusOk returns a tuple with the AzureServiceBus field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureServiceBus
-
-`func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegration)`
-
-SetAzureServiceBus sets AzureServiceBus field to given value.
-
-### HasAzureServiceBus
-
-`func (o *CreateIntegrationRequest) HasAzureServiceBus() bool`
-
-HasAzureServiceBus returns a boolean if a field has been set.
-
-### GetAzureEventHubs
-
-`func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration`
-
-GetAzureEventHubs returns the AzureEventHubs field if non-nil, zero value otherwise.
-
-### GetAzureEventHubsOk
-
-`func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool)`
-
-GetAzureEventHubsOk returns a tuple with the AzureEventHubs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAzureEventHubs
-
-`func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration)`
-
-SetAzureEventHubs sets AzureEventHubs field to given value.
-
-### HasAzureEventHubs
-
-`func (o *CreateIntegrationRequest) HasAzureEventHubs() bool`
-
-HasAzureEventHubs returns a boolean if a field has been set.
-
 ### GetKafka
 
 `func (o *CreateIntegrationRequest) GetKafka() KafkaIntegration`
@@ -281,6 +211,31 @@ SetKafka sets Kafka field to given value.
 
 HasKafka returns a boolean if a field has been set.
 
+### GetKinesis
+
+`func (o *CreateIntegrationRequest) GetKinesis() KinesisIntegration`
+
+GetKinesis returns the Kinesis field if non-nil, zero value otherwise.
+
+### GetKinesisOk
+
+`func (o *CreateIntegrationRequest) GetKinesisOk() (*KinesisIntegration, bool)`
+
+GetKinesisOk returns a tuple with the Kinesis field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetKinesis
+
+`func (o *CreateIntegrationRequest) SetKinesis(v KinesisIntegration)`
+
+SetKinesis sets Kinesis field to given value.
+
+### HasKinesis
+
+`func (o *CreateIntegrationRequest) HasKinesis() bool`
+
+HasKinesis returns a boolean if a field has been set.
+
 ### GetMongodb
 
 `func (o *CreateIntegrationRequest) GetMongodb() MongoDbIntegration`
@@ -305,6 +260,51 @@ SetMongodb sets Mongodb field to given value.
 `func (o *CreateIntegrationRequest) HasMongodb() bool`
 
 HasMongodb returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *CreateIntegrationRequest) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *CreateIntegrationRequest) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *CreateIntegrationRequest) SetName(v string)`
+
+SetName sets Name field to given value.
+
+
+### GetS3
+
+`func (o *CreateIntegrationRequest) GetS3() S3Integration`
+
+GetS3 returns the S3 field if non-nil, zero value otherwise.
+
+### GetS3Ok
+
+`func (o *CreateIntegrationRequest) GetS3Ok() (*S3Integration, bool)`
+
+GetS3Ok returns a tuple with the S3 field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetS3
+
+`func (o *CreateIntegrationRequest) SetS3(v S3Integration)`
+
+SetS3 sets S3 field to given value.
+
+### HasS3
+
+`func (o *CreateIntegrationRequest) HasS3() bool`
+
+HasS3 returns a boolean if a field has been set.
 
 ### GetSnowflake
 

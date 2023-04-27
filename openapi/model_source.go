@@ -16,23 +16,23 @@ import (
 
 // Source Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
 type Source struct {
+	AzureBlobStorage *SourceAzureBlobStorage `json:"azure_blob_storage,omitempty"`
+	AzureEventHubs *SourceAzureEventHubs `json:"azure_event_hubs,omitempty"`
+	AzureServiceBus *SourceAzureServiceBus `json:"azure_service_bus,omitempty"`
+	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
+	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
+	FormatParams *FormatParams `json:"format_params,omitempty"`
+	Gcs *SourceGcs `json:"gcs,omitempty"`
 	// Unique source identifier.
 	Id *string `json:"id,omitempty"`
 	// Name of integration to use.
 	IntegrationName *string `json:"integration_name,omitempty"`
-	S3 *SourceS3 `json:"s3,omitempty"`
-	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
-	Gcs *SourceGcs `json:"gcs,omitempty"`
-	AzureBlobStorage *SourceAzureBlobStorage `json:"azure_blob_storage,omitempty"`
-	AzureServiceBus *SourceAzureServiceBus `json:"azure_service_bus,omitempty"`
-	AzureEventHubs *SourceAzureEventHubs `json:"azure_event_hubs,omitempty"`
-	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
-	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
 	Kafka *SourceKafka `json:"kafka,omitempty"`
+	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
 	Mongodb *SourceMongoDb `json:"mongodb,omitempty"`
+	S3 *SourceS3 `json:"s3,omitempty"`
 	Snowflake *SourceSnowflake `json:"snowflake,omitempty"`
 	Status *Status `json:"status,omitempty"`
-	FormatParams *FormatParams `json:"format_params,omitempty"`
 }
 
 // NewSource instantiates a new Source object
@@ -50,166 +50,6 @@ func NewSource() *Source {
 func NewSourceWithDefaults() *Source {
 	this := Source{}
 	return &this
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *Source) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *Source) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Source) SetId(v string) {
-	o.Id = &v
-}
-
-// GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
-func (o *Source) GetIntegrationName() string {
-	if o == nil || o.IntegrationName == nil {
-		var ret string
-		return ret
-	}
-	return *o.IntegrationName
-}
-
-// GetIntegrationNameOk returns a tuple with the IntegrationName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetIntegrationNameOk() (*string, bool) {
-	if o == nil || o.IntegrationName == nil {
-		return nil, false
-	}
-	return o.IntegrationName, true
-}
-
-// HasIntegrationName returns a boolean if a field has been set.
-func (o *Source) HasIntegrationName() bool {
-	if o != nil && o.IntegrationName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIntegrationName gets a reference to the given string and assigns it to the IntegrationName field.
-func (o *Source) SetIntegrationName(v string) {
-	o.IntegrationName = &v
-}
-
-// GetS3 returns the S3 field value if set, zero value otherwise.
-func (o *Source) GetS3() SourceS3 {
-	if o == nil || o.S3 == nil {
-		var ret SourceS3
-		return ret
-	}
-	return *o.S3
-}
-
-// GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetS3Ok() (*SourceS3, bool) {
-	if o == nil || o.S3 == nil {
-		return nil, false
-	}
-	return o.S3, true
-}
-
-// HasS3 returns a boolean if a field has been set.
-func (o *Source) HasS3() bool {
-	if o != nil && o.S3 != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetS3 gets a reference to the given SourceS3 and assigns it to the S3 field.
-func (o *Source) SetS3(v SourceS3) {
-	o.S3 = &v
-}
-
-// GetKinesis returns the Kinesis field value if set, zero value otherwise.
-func (o *Source) GetKinesis() SourceKinesis {
-	if o == nil || o.Kinesis == nil {
-		var ret SourceKinesis
-		return ret
-	}
-	return *o.Kinesis
-}
-
-// GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetKinesisOk() (*SourceKinesis, bool) {
-	if o == nil || o.Kinesis == nil {
-		return nil, false
-	}
-	return o.Kinesis, true
-}
-
-// HasKinesis returns a boolean if a field has been set.
-func (o *Source) HasKinesis() bool {
-	if o != nil && o.Kinesis != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKinesis gets a reference to the given SourceKinesis and assigns it to the Kinesis field.
-func (o *Source) SetKinesis(v SourceKinesis) {
-	o.Kinesis = &v
-}
-
-// GetGcs returns the Gcs field value if set, zero value otherwise.
-func (o *Source) GetGcs() SourceGcs {
-	if o == nil || o.Gcs == nil {
-		var ret SourceGcs
-		return ret
-	}
-	return *o.Gcs
-}
-
-// GetGcsOk returns a tuple with the Gcs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetGcsOk() (*SourceGcs, bool) {
-	if o == nil || o.Gcs == nil {
-		return nil, false
-	}
-	return o.Gcs, true
-}
-
-// HasGcs returns a boolean if a field has been set.
-func (o *Source) HasGcs() bool {
-	if o != nil && o.Gcs != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGcs gets a reference to the given SourceGcs and assigns it to the Gcs field.
-func (o *Source) SetGcs(v SourceGcs) {
-	o.Gcs = &v
 }
 
 // GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
@@ -244,38 +84,6 @@ func (o *Source) SetAzureBlobStorage(v SourceAzureBlobStorage) {
 	o.AzureBlobStorage = &v
 }
 
-// GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
-func (o *Source) GetAzureServiceBus() SourceAzureServiceBus {
-	if o == nil || o.AzureServiceBus == nil {
-		var ret SourceAzureServiceBus
-		return ret
-	}
-	return *o.AzureServiceBus
-}
-
-// GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool) {
-	if o == nil || o.AzureServiceBus == nil {
-		return nil, false
-	}
-	return o.AzureServiceBus, true
-}
-
-// HasAzureServiceBus returns a boolean if a field has been set.
-func (o *Source) HasAzureServiceBus() bool {
-	if o != nil && o.AzureServiceBus != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAzureServiceBus gets a reference to the given SourceAzureServiceBus and assigns it to the AzureServiceBus field.
-func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus) {
-	o.AzureServiceBus = &v
-}
-
 // GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
 func (o *Source) GetAzureEventHubs() SourceAzureEventHubs {
 	if o == nil || o.AzureEventHubs == nil {
@@ -306,6 +114,38 @@ func (o *Source) HasAzureEventHubs() bool {
 // SetAzureEventHubs gets a reference to the given SourceAzureEventHubs and assigns it to the AzureEventHubs field.
 func (o *Source) SetAzureEventHubs(v SourceAzureEventHubs) {
 	o.AzureEventHubs = &v
+}
+
+// GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
+func (o *Source) GetAzureServiceBus() SourceAzureServiceBus {
+	if o == nil || o.AzureServiceBus == nil {
+		var ret SourceAzureServiceBus
+		return ret
+	}
+	return *o.AzureServiceBus
+}
+
+// GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool) {
+	if o == nil || o.AzureServiceBus == nil {
+		return nil, false
+	}
+	return o.AzureServiceBus, true
+}
+
+// HasAzureServiceBus returns a boolean if a field has been set.
+func (o *Source) HasAzureServiceBus() bool {
+	if o != nil && o.AzureServiceBus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureServiceBus gets a reference to the given SourceAzureServiceBus and assigns it to the AzureServiceBus field.
+func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus) {
+	o.AzureServiceBus = &v
 }
 
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
@@ -372,6 +212,134 @@ func (o *Source) SetFileUpload(v SourceFileUpload) {
 	o.FileUpload = &v
 }
 
+// GetFormatParams returns the FormatParams field value if set, zero value otherwise.
+func (o *Source) GetFormatParams() FormatParams {
+	if o == nil || o.FormatParams == nil {
+		var ret FormatParams
+		return ret
+	}
+	return *o.FormatParams
+}
+
+// GetFormatParamsOk returns a tuple with the FormatParams field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetFormatParamsOk() (*FormatParams, bool) {
+	if o == nil || o.FormatParams == nil {
+		return nil, false
+	}
+	return o.FormatParams, true
+}
+
+// HasFormatParams returns a boolean if a field has been set.
+func (o *Source) HasFormatParams() bool {
+	if o != nil && o.FormatParams != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFormatParams gets a reference to the given FormatParams and assigns it to the FormatParams field.
+func (o *Source) SetFormatParams(v FormatParams) {
+	o.FormatParams = &v
+}
+
+// GetGcs returns the Gcs field value if set, zero value otherwise.
+func (o *Source) GetGcs() SourceGcs {
+	if o == nil || o.Gcs == nil {
+		var ret SourceGcs
+		return ret
+	}
+	return *o.Gcs
+}
+
+// GetGcsOk returns a tuple with the Gcs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetGcsOk() (*SourceGcs, bool) {
+	if o == nil || o.Gcs == nil {
+		return nil, false
+	}
+	return o.Gcs, true
+}
+
+// HasGcs returns a boolean if a field has been set.
+func (o *Source) HasGcs() bool {
+	if o != nil && o.Gcs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGcs gets a reference to the given SourceGcs and assigns it to the Gcs field.
+func (o *Source) SetGcs(v SourceGcs) {
+	o.Gcs = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Source) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Source) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Source) SetId(v string) {
+	o.Id = &v
+}
+
+// GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
+func (o *Source) GetIntegrationName() string {
+	if o == nil || o.IntegrationName == nil {
+		var ret string
+		return ret
+	}
+	return *o.IntegrationName
+}
+
+// GetIntegrationNameOk returns a tuple with the IntegrationName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetIntegrationNameOk() (*string, bool) {
+	if o == nil || o.IntegrationName == nil {
+		return nil, false
+	}
+	return o.IntegrationName, true
+}
+
+// HasIntegrationName returns a boolean if a field has been set.
+func (o *Source) HasIntegrationName() bool {
+	if o != nil && o.IntegrationName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationName gets a reference to the given string and assigns it to the IntegrationName field.
+func (o *Source) SetIntegrationName(v string) {
+	o.IntegrationName = &v
+}
+
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *Source) GetKafka() SourceKafka {
 	if o == nil || o.Kafka == nil {
@@ -404,6 +372,38 @@ func (o *Source) SetKafka(v SourceKafka) {
 	o.Kafka = &v
 }
 
+// GetKinesis returns the Kinesis field value if set, zero value otherwise.
+func (o *Source) GetKinesis() SourceKinesis {
+	if o == nil || o.Kinesis == nil {
+		var ret SourceKinesis
+		return ret
+	}
+	return *o.Kinesis
+}
+
+// GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetKinesisOk() (*SourceKinesis, bool) {
+	if o == nil || o.Kinesis == nil {
+		return nil, false
+	}
+	return o.Kinesis, true
+}
+
+// HasKinesis returns a boolean if a field has been set.
+func (o *Source) HasKinesis() bool {
+	if o != nil && o.Kinesis != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKinesis gets a reference to the given SourceKinesis and assigns it to the Kinesis field.
+func (o *Source) SetKinesis(v SourceKinesis) {
+	o.Kinesis = &v
+}
+
 // GetMongodb returns the Mongodb field value if set, zero value otherwise.
 func (o *Source) GetMongodb() SourceMongoDb {
 	if o == nil || o.Mongodb == nil {
@@ -434,6 +434,38 @@ func (o *Source) HasMongodb() bool {
 // SetMongodb gets a reference to the given SourceMongoDb and assigns it to the Mongodb field.
 func (o *Source) SetMongodb(v SourceMongoDb) {
 	o.Mongodb = &v
+}
+
+// GetS3 returns the S3 field value if set, zero value otherwise.
+func (o *Source) GetS3() SourceS3 {
+	if o == nil || o.S3 == nil {
+		var ret SourceS3
+		return ret
+	}
+	return *o.S3
+}
+
+// GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetS3Ok() (*SourceS3, bool) {
+	if o == nil || o.S3 == nil {
+		return nil, false
+	}
+	return o.S3, true
+}
+
+// HasS3 returns a boolean if a field has been set.
+func (o *Source) HasS3() bool {
+	if o != nil && o.S3 != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetS3 gets a reference to the given SourceS3 and assigns it to the S3 field.
+func (o *Source) SetS3(v SourceS3) {
+	o.S3 = &v
 }
 
 // GetSnowflake returns the Snowflake field value if set, zero value otherwise.
@@ -500,63 +532,16 @@ func (o *Source) SetStatus(v Status) {
 	o.Status = &v
 }
 
-// GetFormatParams returns the FormatParams field value if set, zero value otherwise.
-func (o *Source) GetFormatParams() FormatParams {
-	if o == nil || o.FormatParams == nil {
-		var ret FormatParams
-		return ret
-	}
-	return *o.FormatParams
-}
-
-// GetFormatParamsOk returns a tuple with the FormatParams field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Source) GetFormatParamsOk() (*FormatParams, bool) {
-	if o == nil || o.FormatParams == nil {
-		return nil, false
-	}
-	return o.FormatParams, true
-}
-
-// HasFormatParams returns a boolean if a field has been set.
-func (o *Source) HasFormatParams() bool {
-	if o != nil && o.FormatParams != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFormatParams gets a reference to the given FormatParams and assigns it to the FormatParams field.
-func (o *Source) SetFormatParams(v FormatParams) {
-	o.FormatParams = &v
-}
-
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.IntegrationName != nil {
-		toSerialize["integration_name"] = o.IntegrationName
-	}
-	if o.S3 != nil {
-		toSerialize["s3"] = o.S3
-	}
-	if o.Kinesis != nil {
-		toSerialize["kinesis"] = o.Kinesis
-	}
-	if o.Gcs != nil {
-		toSerialize["gcs"] = o.Gcs
-	}
 	if o.AzureBlobStorage != nil {
 		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
 	}
-	if o.AzureServiceBus != nil {
-		toSerialize["azure_service_bus"] = o.AzureServiceBus
-	}
 	if o.AzureEventHubs != nil {
 		toSerialize["azure_event_hubs"] = o.AzureEventHubs
+	}
+	if o.AzureServiceBus != nil {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
 	}
 	if o.Dynamodb != nil {
 		toSerialize["dynamodb"] = o.Dynamodb
@@ -564,20 +549,35 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	if o.FileUpload != nil {
 		toSerialize["file_upload"] = o.FileUpload
 	}
+	if o.FormatParams != nil {
+		toSerialize["format_params"] = o.FormatParams
+	}
+	if o.Gcs != nil {
+		toSerialize["gcs"] = o.Gcs
+	}
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
+	}
+	if o.IntegrationName != nil {
+		toSerialize["integration_name"] = o.IntegrationName
+	}
 	if o.Kafka != nil {
 		toSerialize["kafka"] = o.Kafka
 	}
+	if o.Kinesis != nil {
+		toSerialize["kinesis"] = o.Kinesis
+	}
 	if o.Mongodb != nil {
 		toSerialize["mongodb"] = o.Mongodb
+	}
+	if o.S3 != nil {
+		toSerialize["s3"] = o.S3
 	}
 	if o.Snowflake != nil {
 		toSerialize["snowflake"] = o.Snowflake
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
-	}
-	if o.FormatParams != nil {
-		toSerialize["format_params"] = o.FormatParams
 	}
 	return json.Marshal(toSerialize)
 }

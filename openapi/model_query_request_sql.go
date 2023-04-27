@@ -16,16 +16,16 @@ import (
 
 // QueryRequestSql struct for QueryRequestSql
 type QueryRequestSql struct {
-	// SQL query string.
-	Query string `json:"query"`
-	// Flag to enable warnings. Warnings can help debug query issues but negatively affect performance.
-	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
-	// List of named parameters.
-	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Row limit to use. Limits specified in the query text will override this default.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
+	// Flag to enable warnings. Warnings can help debug query issues but negatively affect performance.
+	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
 	// Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
+	// List of named parameters.
+	Parameters []QueryParameter `json:"parameters,omitempty"`
+	// SQL query string.
+	Query string `json:"query"`
 }
 
 // NewQueryRequestSql instantiates a new QueryRequestSql object
@@ -44,94 +44,6 @@ func NewQueryRequestSql(query string) *QueryRequestSql {
 func NewQueryRequestSqlWithDefaults() *QueryRequestSql {
 	this := QueryRequestSql{}
 	return &this
-}
-
-// GetQuery returns the Query field value
-func (o *QueryRequestSql) GetQuery() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Query
-}
-
-// GetQueryOk returns a tuple with the Query field value
-// and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetQueryOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Query, true
-}
-
-// SetQuery sets field value
-func (o *QueryRequestSql) SetQuery(v string) {
-	o.Query = v
-}
-
-// GetGenerateWarnings returns the GenerateWarnings field value if set, zero value otherwise.
-func (o *QueryRequestSql) GetGenerateWarnings() bool {
-	if o == nil || o.GenerateWarnings == nil {
-		var ret bool
-		return ret
-	}
-	return *o.GenerateWarnings
-}
-
-// GetGenerateWarningsOk returns a tuple with the GenerateWarnings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetGenerateWarningsOk() (*bool, bool) {
-	if o == nil || o.GenerateWarnings == nil {
-		return nil, false
-	}
-	return o.GenerateWarnings, true
-}
-
-// HasGenerateWarnings returns a boolean if a field has been set.
-func (o *QueryRequestSql) HasGenerateWarnings() bool {
-	if o != nil && o.GenerateWarnings != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGenerateWarnings gets a reference to the given bool and assigns it to the GenerateWarnings field.
-func (o *QueryRequestSql) SetGenerateWarnings(v bool) {
-	o.GenerateWarnings = &v
-}
-
-// GetParameters returns the Parameters field value if set, zero value otherwise.
-func (o *QueryRequestSql) GetParameters() []QueryParameter {
-	if o == nil || o.Parameters == nil {
-		var ret []QueryParameter
-		return ret
-	}
-	return o.Parameters
-}
-
-// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.Parameters == nil {
-		return nil, false
-	}
-	return o.Parameters, true
-}
-
-// HasParameters returns a boolean if a field has been set.
-func (o *QueryRequestSql) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
-func (o *QueryRequestSql) SetParameters(v []QueryParameter) {
-	o.Parameters = v
 }
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
@@ -166,6 +78,38 @@ func (o *QueryRequestSql) SetDefaultRowLimit(v int32) {
 	o.DefaultRowLimit = &v
 }
 
+// GetGenerateWarnings returns the GenerateWarnings field value if set, zero value otherwise.
+func (o *QueryRequestSql) GetGenerateWarnings() bool {
+	if o == nil || o.GenerateWarnings == nil {
+		var ret bool
+		return ret
+	}
+	return *o.GenerateWarnings
+}
+
+// GetGenerateWarningsOk returns a tuple with the GenerateWarnings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryRequestSql) GetGenerateWarningsOk() (*bool, bool) {
+	if o == nil || o.GenerateWarnings == nil {
+		return nil, false
+	}
+	return o.GenerateWarnings, true
+}
+
+// HasGenerateWarnings returns a boolean if a field has been set.
+func (o *QueryRequestSql) HasGenerateWarnings() bool {
+	if o != nil && o.GenerateWarnings != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGenerateWarnings gets a reference to the given bool and assigns it to the GenerateWarnings field.
+func (o *QueryRequestSql) SetGenerateWarnings(v bool) {
+	o.GenerateWarnings = &v
+}
+
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
 func (o *QueryRequestSql) GetInitialPaginateResponseDocCount() int32 {
 	if o == nil || o.InitialPaginateResponseDocCount == nil {
@@ -198,22 +142,78 @@ func (o *QueryRequestSql) SetInitialPaginateResponseDocCount(v int32) {
 	o.InitialPaginateResponseDocCount = &v
 }
 
+// GetParameters returns the Parameters field value if set, zero value otherwise.
+func (o *QueryRequestSql) GetParameters() []QueryParameter {
+	if o == nil || o.Parameters == nil {
+		var ret []QueryParameter
+		return ret
+	}
+	return o.Parameters
+}
+
+// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryRequestSql) GetParametersOk() ([]QueryParameter, bool) {
+	if o == nil || o.Parameters == nil {
+		return nil, false
+	}
+	return o.Parameters, true
+}
+
+// HasParameters returns a boolean if a field has been set.
+func (o *QueryRequestSql) HasParameters() bool {
+	if o != nil && o.Parameters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
+func (o *QueryRequestSql) SetParameters(v []QueryParameter) {
+	o.Parameters = v
+}
+
+// GetQuery returns the Query field value
+func (o *QueryRequestSql) GetQuery() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Query
+}
+
+// GetQueryOk returns a tuple with the Query field value
+// and a boolean to check if the value has been set.
+func (o *QueryRequestSql) GetQueryOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Query, true
+}
+
+// SetQuery sets field value
+func (o *QueryRequestSql) SetQuery(v string) {
+	o.Query = v
+}
+
 func (o QueryRequestSql) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["query"] = o.Query
+	if o.DefaultRowLimit != nil {
+		toSerialize["default_row_limit"] = o.DefaultRowLimit
 	}
 	if o.GenerateWarnings != nil {
 		toSerialize["generate_warnings"] = o.GenerateWarnings
 	}
+	if o.InitialPaginateResponseDocCount != nil {
+		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
+	}
 	if o.Parameters != nil {
 		toSerialize["parameters"] = o.Parameters
 	}
-	if o.DefaultRowLimit != nil {
-		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.InitialPaginateResponseDocCount != nil {
-		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
+	if true {
+		toSerialize["query"] = o.Query
 	}
 	return json.Marshal(toSerialize)
 }

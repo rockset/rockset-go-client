@@ -29,7 +29,6 @@ func WithCollectionRequest(request openapi.CreateCollectionRequest) CollectionOp
 		o.Sources = request.Sources
 		o.RetentionSecs = request.RetentionSecs
 		o.EventTimeInfo = request.EventTimeInfo
-		o.FieldMappings = request.FieldMappings
 		o.FieldMappingQuery = request.FieldMappingQuery
 		o.ClusteringKey = request.ClusteringKey
 	}
@@ -280,11 +279,6 @@ func WithCollectionFieldMapping(name string, dropAll bool, outputField OutputFie
 			}
 			mapping.InputFields = inputs
 		}
-
-		if o.FieldMappings == nil {
-			o.FieldMappings = []openapi.FieldMappingV2{}
-		}
-		o.FieldMappings = append(o.FieldMappings, mapping)
 	}
 }
 

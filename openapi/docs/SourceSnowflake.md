@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Database** | **string** | Name of the snowflake database. | 
 **Schema** | **string** | Name of the snowflake database schema. | 
+**Status** | Pointer to [**StatusSnowflake**](StatusSnowflake.md) |  | [optional] 
 **TableName** | **string** | Name of the snowflake table. | 
 **Warehouse** | Pointer to **string** | Name of the data warehouse to be used. | [optional] 
-**Status** | Pointer to [**StatusSnowflake**](StatusSnowflake.md) |  | [optional] 
 
 ## Methods
 
@@ -69,6 +69,31 @@ and a boolean to check if the value has been set.
 SetSchema sets Schema field to given value.
 
 
+### GetStatus
+
+`func (o *SourceSnowflake) GetStatus() StatusSnowflake`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *SourceSnowflake) GetStatusOk() (*StatusSnowflake, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *SourceSnowflake) SetStatus(v StatusSnowflake)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *SourceSnowflake) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
 ### GetTableName
 
 `func (o *SourceSnowflake) GetTableName() string`
@@ -113,31 +138,6 @@ SetWarehouse sets Warehouse field to given value.
 `func (o *SourceSnowflake) HasWarehouse() bool`
 
 HasWarehouse returns a boolean if a field has been set.
-
-### GetStatus
-
-`func (o *SourceSnowflake) GetStatus() StatusSnowflake`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *SourceSnowflake) GetStatusOk() (*StatusSnowflake, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *SourceSnowflake) SetStatus(v StatusSnowflake)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *SourceSnowflake) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -16,18 +16,18 @@ import (
 
 // Status struct for Status
 type Status struct {
-	// Status of the Source's ingestion.
-	State *string `json:"state,omitempty"`
-	// State message.
-	Message *string `json:"message,omitempty"`
+	// Size in bytes detected for the source at collection initialization. This size can be 0 or null for event stream sources.
+	DetectedSizeBytes *int64 `json:"detected_size_bytes,omitempty"`
 	// ISO-8601 date when source was last processed.
 	LastProcessedAt *string `json:"last_processed_at,omitempty"`
 	// Last source item processed by ingester.
 	LastProcessedItem *string `json:"last_processed_item,omitempty"`
+	// State message.
+	Message *string `json:"message,omitempty"`
+	// Status of the Source's ingestion.
+	State *string `json:"state,omitempty"`
 	// Total items processed of source.
 	TotalProcessedItems *int64 `json:"total_processed_items,omitempty"`
-	// Size in bytes detected for the source at collection initialization. This size can be 0 or null for event stream sources.
-	DetectedSizeBytes *int64 `json:"detected_size_bytes,omitempty"`
 }
 
 // NewStatus instantiates a new Status object
@@ -47,68 +47,36 @@ func NewStatusWithDefaults() *Status {
 	return &this
 }
 
-// GetState returns the State field value if set, zero value otherwise.
-func (o *Status) GetState() string {
-	if o == nil || o.State == nil {
-		var ret string
+// GetDetectedSizeBytes returns the DetectedSizeBytes field value if set, zero value otherwise.
+func (o *Status) GetDetectedSizeBytes() int64 {
+	if o == nil || o.DetectedSizeBytes == nil {
+		var ret int64
 		return ret
 	}
-	return *o.State
+	return *o.DetectedSizeBytes
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetDetectedSizeBytesOk returns a tuple with the DetectedSizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Status) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+func (o *Status) GetDetectedSizeBytesOk() (*int64, bool) {
+	if o == nil || o.DetectedSizeBytes == nil {
 		return nil, false
 	}
-	return o.State, true
+	return o.DetectedSizeBytes, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *Status) HasState() bool {
-	if o != nil && o.State != nil {
+// HasDetectedSizeBytes returns a boolean if a field has been set.
+func (o *Status) HasDetectedSizeBytes() bool {
+	if o != nil && o.DetectedSizeBytes != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetState gets a reference to the given string and assigns it to the State field.
-func (o *Status) SetState(v string) {
-	o.State = &v
-}
-
-// GetMessage returns the Message field value if set, zero value otherwise.
-func (o *Status) GetMessage() string {
-	if o == nil || o.Message == nil {
-		var ret string
-		return ret
-	}
-	return *o.Message
-}
-
-// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Status) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
-		return nil, false
-	}
-	return o.Message, true
-}
-
-// HasMessage returns a boolean if a field has been set.
-func (o *Status) HasMessage() bool {
-	if o != nil && o.Message != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMessage gets a reference to the given string and assigns it to the Message field.
-func (o *Status) SetMessage(v string) {
-	o.Message = &v
+// SetDetectedSizeBytes gets a reference to the given int64 and assigns it to the DetectedSizeBytes field.
+func (o *Status) SetDetectedSizeBytes(v int64) {
+	o.DetectedSizeBytes = &v
 }
 
 // GetLastProcessedAt returns the LastProcessedAt field value if set, zero value otherwise.
@@ -175,6 +143,70 @@ func (o *Status) SetLastProcessedItem(v string) {
 	o.LastProcessedItem = &v
 }
 
+// GetMessage returns the Message field value if set, zero value otherwise.
+func (o *Status) GetMessage() string {
+	if o == nil || o.Message == nil {
+		var ret string
+		return ret
+	}
+	return *o.Message
+}
+
+// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetMessageOk() (*string, bool) {
+	if o == nil || o.Message == nil {
+		return nil, false
+	}
+	return o.Message, true
+}
+
+// HasMessage returns a boolean if a field has been set.
+func (o *Status) HasMessage() bool {
+	if o != nil && o.Message != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMessage gets a reference to the given string and assigns it to the Message field.
+func (o *Status) SetMessage(v string) {
+	o.Message = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *Status) GetState() string {
+	if o == nil || o.State == nil {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Status) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *Status) HasState() bool {
+	if o != nil && o.State != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *Status) SetState(v string) {
+	o.State = &v
+}
+
 // GetTotalProcessedItems returns the TotalProcessedItems field value if set, zero value otherwise.
 func (o *Status) GetTotalProcessedItems() int64 {
 	if o == nil || o.TotalProcessedItems == nil {
@@ -207,45 +239,10 @@ func (o *Status) SetTotalProcessedItems(v int64) {
 	o.TotalProcessedItems = &v
 }
 
-// GetDetectedSizeBytes returns the DetectedSizeBytes field value if set, zero value otherwise.
-func (o *Status) GetDetectedSizeBytes() int64 {
-	if o == nil || o.DetectedSizeBytes == nil {
-		var ret int64
-		return ret
-	}
-	return *o.DetectedSizeBytes
-}
-
-// GetDetectedSizeBytesOk returns a tuple with the DetectedSizeBytes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Status) GetDetectedSizeBytesOk() (*int64, bool) {
-	if o == nil || o.DetectedSizeBytes == nil {
-		return nil, false
-	}
-	return o.DetectedSizeBytes, true
-}
-
-// HasDetectedSizeBytes returns a boolean if a field has been set.
-func (o *Status) HasDetectedSizeBytes() bool {
-	if o != nil && o.DetectedSizeBytes != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDetectedSizeBytes gets a reference to the given int64 and assigns it to the DetectedSizeBytes field.
-func (o *Status) SetDetectedSizeBytes(v int64) {
-	o.DetectedSizeBytes = &v
-}
-
 func (o Status) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
+	if o.DetectedSizeBytes != nil {
+		toSerialize["detected_size_bytes"] = o.DetectedSizeBytes
 	}
 	if o.LastProcessedAt != nil {
 		toSerialize["last_processed_at"] = o.LastProcessedAt
@@ -253,11 +250,14 @@ func (o Status) MarshalJSON() ([]byte, error) {
 	if o.LastProcessedItem != nil {
 		toSerialize["last_processed_item"] = o.LastProcessedItem
 	}
+	if o.Message != nil {
+		toSerialize["message"] = o.Message
+	}
+	if o.State != nil {
+		toSerialize["state"] = o.State
+	}
 	if o.TotalProcessedItems != nil {
 		toSerialize["total_processed_items"] = o.TotalProcessedItems
-	}
-	if o.DetectedSizeBytes != nil {
-		toSerialize["detected_size_bytes"] = o.DetectedSizeBytes
 	}
 	return json.Marshal(toSerialize)
 }

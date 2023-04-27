@@ -5,19 +5,19 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | Date that API key was created (ISO-8601 format). | [optional] 
-**Name** | **string** | Name of the API key. | 
+**CreatedBy** | Pointer to **string** | Email of API key owner. | [optional] 
+**ExpiryTime** | Pointer to **string** | The expiration date of this API key. | [optional] 
 **Key** | **string** | API key string of 64 alphanumeric characters. | 
 **LastAccessTime** | Pointer to **string** | Date that API key was most recently used (ISO-8601 format). | [optional] 
-**ExpiryTime** | Pointer to **string** | The expiration date of this API key. | [optional] 
+**Name** | **string** | Name of the API key. | 
 **Role** | Pointer to **string** | Role specifying access control. If not specified, API key will have access to all of the associated user&#39;s roles. | [optional] 
-**CreatedBy** | Pointer to **string** | Email of API key owner. | [optional] 
 **State** | Pointer to **string** | Current state of this key. | [optional] 
 
 ## Methods
 
 ### NewApiKey
 
-`func NewApiKey(name string, key string, ) *ApiKey`
+`func NewApiKey(key string, name string, ) *ApiKey`
 
 NewApiKey instantiates a new ApiKey object
 This constructor will assign default values to properties that have it defined,
@@ -57,25 +57,55 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### GetName
+### GetCreatedBy
 
-`func (o *ApiKey) GetName() string`
+`func (o *ApiKey) GetCreatedBy() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCreatedByOk
 
-`func (o *ApiKey) GetNameOk() (*string, bool)`
+`func (o *ApiKey) GetCreatedByOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCreatedBy
 
-`func (o *ApiKey) SetName(v string)`
+`func (o *ApiKey) SetCreatedBy(v string)`
 
-SetName sets Name field to given value.
+SetCreatedBy sets CreatedBy field to given value.
 
+### HasCreatedBy
+
+`func (o *ApiKey) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
+
+### GetExpiryTime
+
+`func (o *ApiKey) GetExpiryTime() string`
+
+GetExpiryTime returns the ExpiryTime field if non-nil, zero value otherwise.
+
+### GetExpiryTimeOk
+
+`func (o *ApiKey) GetExpiryTimeOk() (*string, bool)`
+
+GetExpiryTimeOk returns a tuple with the ExpiryTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpiryTime
+
+`func (o *ApiKey) SetExpiryTime(v string)`
+
+SetExpiryTime sets ExpiryTime field to given value.
+
+### HasExpiryTime
+
+`func (o *ApiKey) HasExpiryTime() bool`
+
+HasExpiryTime returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -122,30 +152,25 @@ SetLastAccessTime sets LastAccessTime field to given value.
 
 HasLastAccessTime returns a boolean if a field has been set.
 
-### GetExpiryTime
+### GetName
 
-`func (o *ApiKey) GetExpiryTime() string`
+`func (o *ApiKey) GetName() string`
 
-GetExpiryTime returns the ExpiryTime field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetExpiryTimeOk
+### GetNameOk
 
-`func (o *ApiKey) GetExpiryTimeOk() (*string, bool)`
+`func (o *ApiKey) GetNameOk() (*string, bool)`
 
-GetExpiryTimeOk returns a tuple with the ExpiryTime field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetExpiryTime
+### SetName
 
-`func (o *ApiKey) SetExpiryTime(v string)`
+`func (o *ApiKey) SetName(v string)`
 
-SetExpiryTime sets ExpiryTime field to given value.
+SetName sets Name field to given value.
 
-### HasExpiryTime
-
-`func (o *ApiKey) HasExpiryTime() bool`
-
-HasExpiryTime returns a boolean if a field has been set.
 
 ### GetRole
 
@@ -171,31 +196,6 @@ SetRole sets Role field to given value.
 `func (o *ApiKey) HasRole() bool`
 
 HasRole returns a boolean if a field has been set.
-
-### GetCreatedBy
-
-`func (o *ApiKey) GetCreatedBy() string`
-
-GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
-
-### GetCreatedByOk
-
-`func (o *ApiKey) GetCreatedByOk() (*string, bool)`
-
-GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedBy
-
-`func (o *ApiKey) SetCreatedBy(v string)`
-
-SetCreatedBy sets CreatedBy field to given value.
-
-### HasCreatedBy
-
-`func (o *ApiKey) HasCreatedBy() bool`
-
-HasCreatedBy returns a boolean if a field has been set.
 
 ### GetState
 

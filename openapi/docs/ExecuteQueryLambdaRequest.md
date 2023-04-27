@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
+**AsyncOptions** | Pointer to [**AsyncQueryOptions**](AsyncQueryOptions.md) |  | [optional] 
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the SQL query text. | [optional] 
 **GenerateWarnings** | Pointer to **bool** | Whether to generate warnings. | [optional] 
-**Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
 **InitialPaginateResponseDocCount** | Pointer to **int32** | Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
-**AsyncOptions** | Pointer to [**AsyncQueryOptions**](AsyncQueryOptions.md) |  | [optional] 
+**Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
+**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 **VirtualInstanceId** | Pointer to **string** | Virtual instance on which to run the query. | [optional] 
 
 ## Methods
@@ -31,30 +31,30 @@ NewExecuteQueryLambdaRequestWithDefaults instantiates a new ExecuteQueryLambdaRe
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetParameters
+### GetAsyncOptions
 
-`func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter`
+`func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions`
 
-GetParameters returns the Parameters field if non-nil, zero value otherwise.
+GetAsyncOptions returns the AsyncOptions field if non-nil, zero value otherwise.
 
-### GetParametersOk
+### GetAsyncOptionsOk
 
-`func (o *ExecuteQueryLambdaRequest) GetParametersOk() (*[]QueryParameter, bool)`
+`func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool)`
 
-GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
+GetAsyncOptionsOk returns a tuple with the AsyncOptions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetParameters
+### SetAsyncOptions
 
-`func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter)`
+`func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions)`
 
-SetParameters sets Parameters field to given value.
+SetAsyncOptions sets AsyncOptions field to given value.
 
-### HasParameters
+### HasAsyncOptions
 
-`func (o *ExecuteQueryLambdaRequest) HasParameters() bool`
+`func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool`
 
-HasParameters returns a boolean if a field has been set.
+HasAsyncOptions returns a boolean if a field has been set.
 
 ### GetDefaultRowLimit
 
@@ -106,31 +106,6 @@ SetGenerateWarnings sets GenerateWarnings field to given value.
 
 HasGenerateWarnings returns a boolean if a field has been set.
 
-### GetPaginate
-
-`func (o *ExecuteQueryLambdaRequest) GetPaginate() bool`
-
-GetPaginate returns the Paginate field if non-nil, zero value otherwise.
-
-### GetPaginateOk
-
-`func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool)`
-
-GetPaginateOk returns a tuple with the Paginate field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPaginate
-
-`func (o *ExecuteQueryLambdaRequest) SetPaginate(v bool)`
-
-SetPaginate sets Paginate field to given value.
-
-### HasPaginate
-
-`func (o *ExecuteQueryLambdaRequest) HasPaginate() bool`
-
-HasPaginate returns a boolean if a field has been set.
-
 ### GetInitialPaginateResponseDocCount
 
 `func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCount() int32`
@@ -156,30 +131,55 @@ SetInitialPaginateResponseDocCount sets InitialPaginateResponseDocCount field to
 
 HasInitialPaginateResponseDocCount returns a boolean if a field has been set.
 
-### GetAsyncOptions
+### GetPaginate
 
-`func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions`
+`func (o *ExecuteQueryLambdaRequest) GetPaginate() bool`
 
-GetAsyncOptions returns the AsyncOptions field if non-nil, zero value otherwise.
+GetPaginate returns the Paginate field if non-nil, zero value otherwise.
 
-### GetAsyncOptionsOk
+### GetPaginateOk
 
-`func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool)`
+`func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool)`
 
-GetAsyncOptionsOk returns a tuple with the AsyncOptions field if it's non-nil, zero value otherwise
+GetPaginateOk returns a tuple with the Paginate field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAsyncOptions
+### SetPaginate
 
-`func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions)`
+`func (o *ExecuteQueryLambdaRequest) SetPaginate(v bool)`
 
-SetAsyncOptions sets AsyncOptions field to given value.
+SetPaginate sets Paginate field to given value.
 
-### HasAsyncOptions
+### HasPaginate
 
-`func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool`
+`func (o *ExecuteQueryLambdaRequest) HasPaginate() bool`
 
-HasAsyncOptions returns a boolean if a field has been set.
+HasPaginate returns a boolean if a field has been set.
+
+### GetParameters
+
+`func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter`
+
+GetParameters returns the Parameters field if non-nil, zero value otherwise.
+
+### GetParametersOk
+
+`func (o *ExecuteQueryLambdaRequest) GetParametersOk() (*[]QueryParameter, bool)`
+
+GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParameters
+
+`func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter)`
+
+SetParameters sets Parameters field to given value.
+
+### HasParameters
+
+`func (o *ExecuteQueryLambdaRequest) HasParameters() bool`
+
+HasParameters returns a boolean if a field has been set.
 
 ### GetVirtualInstanceId
 

@@ -16,14 +16,14 @@ import (
 
 // StatusKafka struct for StatusKafka
 type StatusKafka struct {
-	// State of the Kafka source.
-	State *string `json:"state,omitempty"`
+	// Status info per partition.
+	KafkaPartitions []StatusKafkaPartition `json:"kafka_partitions,omitempty"`
 	// Time at which the last document was consumed from Kafka.
 	LastConsumedTime *string `json:"last_consumed_time,omitempty"`
 	// Number of documents consumed by this Kafka topic.
 	NumDocumentsProcessed *int64 `json:"num_documents_processed,omitempty"`
-	// Status info per partition.
-	KafkaPartitions []StatusKafkaPartition `json:"kafka_partitions,omitempty"`
+	// State of the Kafka source.
+	State *string `json:"state,omitempty"`
 }
 
 // NewStatusKafka instantiates a new StatusKafka object
@@ -43,36 +43,36 @@ func NewStatusKafkaWithDefaults() *StatusKafka {
 	return &this
 }
 
-// GetState returns the State field value if set, zero value otherwise.
-func (o *StatusKafka) GetState() string {
-	if o == nil || o.State == nil {
-		var ret string
+// GetKafkaPartitions returns the KafkaPartitions field value if set, zero value otherwise.
+func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition {
+	if o == nil || o.KafkaPartitions == nil {
+		var ret []StatusKafkaPartition
 		return ret
 	}
-	return *o.State
+	return o.KafkaPartitions
 }
 
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusKafka) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+func (o *StatusKafka) GetKafkaPartitionsOk() ([]StatusKafkaPartition, bool) {
+	if o == nil || o.KafkaPartitions == nil {
 		return nil, false
 	}
-	return o.State, true
+	return o.KafkaPartitions, true
 }
 
-// HasState returns a boolean if a field has been set.
-func (o *StatusKafka) HasState() bool {
-	if o != nil && o.State != nil {
+// HasKafkaPartitions returns a boolean if a field has been set.
+func (o *StatusKafka) HasKafkaPartitions() bool {
+	if o != nil && o.KafkaPartitions != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetState gets a reference to the given string and assigns it to the State field.
-func (o *StatusKafka) SetState(v string) {
-	o.State = &v
+// SetKafkaPartitions gets a reference to the given []StatusKafkaPartition and assigns it to the KafkaPartitions field.
+func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition) {
+	o.KafkaPartitions = v
 }
 
 // GetLastConsumedTime returns the LastConsumedTime field value if set, zero value otherwise.
@@ -139,42 +139,42 @@ func (o *StatusKafka) SetNumDocumentsProcessed(v int64) {
 	o.NumDocumentsProcessed = &v
 }
 
-// GetKafkaPartitions returns the KafkaPartitions field value if set, zero value otherwise.
-func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition {
-	if o == nil || o.KafkaPartitions == nil {
-		var ret []StatusKafkaPartition
+// GetState returns the State field value if set, zero value otherwise.
+func (o *StatusKafka) GetState() string {
+	if o == nil || o.State == nil {
+		var ret string
 		return ret
 	}
-	return o.KafkaPartitions
+	return *o.State
 }
 
-// GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field value if set, nil otherwise
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusKafka) GetKafkaPartitionsOk() ([]StatusKafkaPartition, bool) {
-	if o == nil || o.KafkaPartitions == nil {
+func (o *StatusKafka) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
 		return nil, false
 	}
-	return o.KafkaPartitions, true
+	return o.State, true
 }
 
-// HasKafkaPartitions returns a boolean if a field has been set.
-func (o *StatusKafka) HasKafkaPartitions() bool {
-	if o != nil && o.KafkaPartitions != nil {
+// HasState returns a boolean if a field has been set.
+func (o *StatusKafka) HasState() bool {
+	if o != nil && o.State != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetKafkaPartitions gets a reference to the given []StatusKafkaPartition and assigns it to the KafkaPartitions field.
-func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition) {
-	o.KafkaPartitions = v
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *StatusKafka) SetState(v string) {
+	o.State = &v
 }
 
 func (o StatusKafka) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	if o.KafkaPartitions != nil {
+		toSerialize["kafka_partitions"] = o.KafkaPartitions
 	}
 	if o.LastConsumedTime != nil {
 		toSerialize["last_consumed_time"] = o.LastConsumedTime
@@ -182,8 +182,8 @@ func (o StatusKafka) MarshalJSON() ([]byte, error) {
 	if o.NumDocumentsProcessed != nil {
 		toSerialize["num_documents_processed"] = o.NumDocumentsProcessed
 	}
-	if o.KafkaPartitions != nil {
-		toSerialize["kafka_partitions"] = o.KafkaPartitions
+	if o.State != nil {
+		toSerialize["state"] = o.State
 	}
 	return json.Marshal(toSerialize)
 }

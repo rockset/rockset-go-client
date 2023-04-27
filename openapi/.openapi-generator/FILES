@@ -183,6 +183,7 @@ docs/UnsubscribePreference.md
 docs/UpdateAliasRequest.md
 docs/UpdateApiKeyRequest.md
 docs/UpdateApiKeyResponse.md
+docs/UpdateCollectionRequest.md
 docs/UpdateQueryLambdaRequest.md
 docs/UpdateRoleRequest.md
 docs/UpdateUnsubscribePreferencesRequest.md
@@ -361,6 +362,7 @@ model_unsubscribe_preference.go
 model_update_alias_request.go
 model_update_api_key_request.go
 model_update_api_key_response.go
+model_update_collection_request.go
 model_update_query_lambda_request.go
 model_update_role_request.go
 model_update_unsubscribe_preferences_request.go

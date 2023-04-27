@@ -16,27 +16,27 @@ import (
 
 // View struct for View
 type View struct {
-	Path *string `json:"path,omitempty"`
-	// Name of the view.
-	Name *string `json:"name,omitempty"`
-	// View description.
-	Description *string `json:"description,omitempty"`
-	// Name of the workspace.
-	Workspace *string `json:"workspace,omitempty"`
-	// Email of the creator.
-	CreatorEmail *string `json:"creator_email,omitempty"`
-	// Email of the owner, note: deprecated and will always be null.
-	OwnerEmail *string `json:"owner_email,omitempty"`
-	// SQL query of the view.
-	QuerySql *string `json:"query_sql,omitempty"`
-	// List of entities referenced by view. An entity can be a view, alias or collection.
-	Entities []string `json:"entities,omitempty"`
-	// State of the view.
-	State *string `json:"state,omitempty"`
 	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
+	// Email of the creator.
+	CreatorEmail *string `json:"creator_email,omitempty"`
+	// View description.
+	Description *string `json:"description,omitempty"`
+	// List of entities referenced by view. An entity can be a view, alias or collection.
+	Entities []string `json:"entities,omitempty"`
 	// ISO-8601 date.
 	ModifiedAt *string `json:"modified_at,omitempty"`
+	// Name of the view.
+	Name *string `json:"name,omitempty"`
+	// Email of the owner, note: deprecated and will always be null.
+	OwnerEmail *string `json:"owner_email,omitempty"`
+	Path *string `json:"path,omitempty"`
+	// SQL query of the view.
+	QuerySql *string `json:"query_sql,omitempty"`
+	// State of the view.
+	State *string `json:"state,omitempty"`
+	// Name of the workspace.
+	Workspace *string `json:"workspace,omitempty"`
 }
 
 // NewView instantiates a new View object
@@ -54,294 +54,6 @@ func NewView() *View {
 func NewViewWithDefaults() *View {
 	this := View{}
 	return &this
-}
-
-// GetPath returns the Path field value if set, zero value otherwise.
-func (o *View) GetPath() string {
-	if o == nil || o.Path == nil {
-		var ret string
-		return ret
-	}
-	return *o.Path
-}
-
-// GetPathOk returns a tuple with the Path field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
-		return nil, false
-	}
-	return o.Path, true
-}
-
-// HasPath returns a boolean if a field has been set.
-func (o *View) HasPath() bool {
-	if o != nil && o.Path != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPath gets a reference to the given string and assigns it to the Path field.
-func (o *View) SetPath(v string) {
-	o.Path = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *View) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *View) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *View) SetName(v string) {
-	o.Name = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *View) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *View) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *View) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *View) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
-		var ret string
-		return ret
-	}
-	return *o.Workspace
-}
-
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
-		return nil, false
-	}
-	return o.Workspace, true
-}
-
-// HasWorkspace returns a boolean if a field has been set.
-func (o *View) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *View) SetWorkspace(v string) {
-	o.Workspace = &v
-}
-
-// GetCreatorEmail returns the CreatorEmail field value if set, zero value otherwise.
-func (o *View) GetCreatorEmail() string {
-	if o == nil || o.CreatorEmail == nil {
-		var ret string
-		return ret
-	}
-	return *o.CreatorEmail
-}
-
-// GetCreatorEmailOk returns a tuple with the CreatorEmail field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetCreatorEmailOk() (*string, bool) {
-	if o == nil || o.CreatorEmail == nil {
-		return nil, false
-	}
-	return o.CreatorEmail, true
-}
-
-// HasCreatorEmail returns a boolean if a field has been set.
-func (o *View) HasCreatorEmail() bool {
-	if o != nil && o.CreatorEmail != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatorEmail gets a reference to the given string and assigns it to the CreatorEmail field.
-func (o *View) SetCreatorEmail(v string) {
-	o.CreatorEmail = &v
-}
-
-// GetOwnerEmail returns the OwnerEmail field value if set, zero value otherwise.
-func (o *View) GetOwnerEmail() string {
-	if o == nil || o.OwnerEmail == nil {
-		var ret string
-		return ret
-	}
-	return *o.OwnerEmail
-}
-
-// GetOwnerEmailOk returns a tuple with the OwnerEmail field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetOwnerEmailOk() (*string, bool) {
-	if o == nil || o.OwnerEmail == nil {
-		return nil, false
-	}
-	return o.OwnerEmail, true
-}
-
-// HasOwnerEmail returns a boolean if a field has been set.
-func (o *View) HasOwnerEmail() bool {
-	if o != nil && o.OwnerEmail != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetOwnerEmail gets a reference to the given string and assigns it to the OwnerEmail field.
-func (o *View) SetOwnerEmail(v string) {
-	o.OwnerEmail = &v
-}
-
-// GetQuerySql returns the QuerySql field value if set, zero value otherwise.
-func (o *View) GetQuerySql() string {
-	if o == nil || o.QuerySql == nil {
-		var ret string
-		return ret
-	}
-	return *o.QuerySql
-}
-
-// GetQuerySqlOk returns a tuple with the QuerySql field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetQuerySqlOk() (*string, bool) {
-	if o == nil || o.QuerySql == nil {
-		return nil, false
-	}
-	return o.QuerySql, true
-}
-
-// HasQuerySql returns a boolean if a field has been set.
-func (o *View) HasQuerySql() bool {
-	if o != nil && o.QuerySql != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetQuerySql gets a reference to the given string and assigns it to the QuerySql field.
-func (o *View) SetQuerySql(v string) {
-	o.QuerySql = &v
-}
-
-// GetEntities returns the Entities field value if set, zero value otherwise.
-func (o *View) GetEntities() []string {
-	if o == nil || o.Entities == nil {
-		var ret []string
-		return ret
-	}
-	return o.Entities
-}
-
-// GetEntitiesOk returns a tuple with the Entities field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetEntitiesOk() ([]string, bool) {
-	if o == nil || o.Entities == nil {
-		return nil, false
-	}
-	return o.Entities, true
-}
-
-// HasEntities returns a boolean if a field has been set.
-func (o *View) HasEntities() bool {
-	if o != nil && o.Entities != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEntities gets a reference to the given []string and assigns it to the Entities field.
-func (o *View) SetEntities(v []string) {
-	o.Entities = v
-}
-
-// GetState returns the State field value if set, zero value otherwise.
-func (o *View) GetState() string {
-	if o == nil || o.State == nil {
-		var ret string
-		return ret
-	}
-	return *o.State
-}
-
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *View) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
-		return nil, false
-	}
-	return o.State, true
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *View) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given string and assigns it to the State field.
-func (o *View) SetState(v string) {
-	o.State = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -376,6 +88,102 @@ func (o *View) SetCreatedAt(v string) {
 	o.CreatedAt = &v
 }
 
+// GetCreatorEmail returns the CreatorEmail field value if set, zero value otherwise.
+func (o *View) GetCreatorEmail() string {
+	if o == nil || o.CreatorEmail == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatorEmail
+}
+
+// GetCreatorEmailOk returns a tuple with the CreatorEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetCreatorEmailOk() (*string, bool) {
+	if o == nil || o.CreatorEmail == nil {
+		return nil, false
+	}
+	return o.CreatorEmail, true
+}
+
+// HasCreatorEmail returns a boolean if a field has been set.
+func (o *View) HasCreatorEmail() bool {
+	if o != nil && o.CreatorEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorEmail gets a reference to the given string and assigns it to the CreatorEmail field.
+func (o *View) SetCreatorEmail(v string) {
+	o.CreatorEmail = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *View) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *View) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *View) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetEntities returns the Entities field value if set, zero value otherwise.
+func (o *View) GetEntities() []string {
+	if o == nil || o.Entities == nil {
+		var ret []string
+		return ret
+	}
+	return o.Entities
+}
+
+// GetEntitiesOk returns a tuple with the Entities field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetEntitiesOk() ([]string, bool) {
+	if o == nil || o.Entities == nil {
+		return nil, false
+	}
+	return o.Entities, true
+}
+
+// HasEntities returns a boolean if a field has been set.
+func (o *View) HasEntities() bool {
+	if o != nil && o.Entities != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEntities gets a reference to the given []string and assigns it to the Entities field.
+func (o *View) SetEntities(v []string) {
+	o.Entities = v
+}
+
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
 func (o *View) GetModifiedAt() string {
 	if o == nil || o.ModifiedAt == nil {
@@ -408,40 +216,232 @@ func (o *View) SetModifiedAt(v string) {
 	o.ModifiedAt = &v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *View) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *View) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *View) SetName(v string) {
+	o.Name = &v
+}
+
+// GetOwnerEmail returns the OwnerEmail field value if set, zero value otherwise.
+func (o *View) GetOwnerEmail() string {
+	if o == nil || o.OwnerEmail == nil {
+		var ret string
+		return ret
+	}
+	return *o.OwnerEmail
+}
+
+// GetOwnerEmailOk returns a tuple with the OwnerEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetOwnerEmailOk() (*string, bool) {
+	if o == nil || o.OwnerEmail == nil {
+		return nil, false
+	}
+	return o.OwnerEmail, true
+}
+
+// HasOwnerEmail returns a boolean if a field has been set.
+func (o *View) HasOwnerEmail() bool {
+	if o != nil && o.OwnerEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOwnerEmail gets a reference to the given string and assigns it to the OwnerEmail field.
+func (o *View) SetOwnerEmail(v string) {
+	o.OwnerEmail = &v
+}
+
+// GetPath returns the Path field value if set, zero value otherwise.
+func (o *View) GetPath() string {
+	if o == nil || o.Path == nil {
+		var ret string
+		return ret
+	}
+	return *o.Path
+}
+
+// GetPathOk returns a tuple with the Path field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetPathOk() (*string, bool) {
+	if o == nil || o.Path == nil {
+		return nil, false
+	}
+	return o.Path, true
+}
+
+// HasPath returns a boolean if a field has been set.
+func (o *View) HasPath() bool {
+	if o != nil && o.Path != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPath gets a reference to the given string and assigns it to the Path field.
+func (o *View) SetPath(v string) {
+	o.Path = &v
+}
+
+// GetQuerySql returns the QuerySql field value if set, zero value otherwise.
+func (o *View) GetQuerySql() string {
+	if o == nil || o.QuerySql == nil {
+		var ret string
+		return ret
+	}
+	return *o.QuerySql
+}
+
+// GetQuerySqlOk returns a tuple with the QuerySql field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetQuerySqlOk() (*string, bool) {
+	if o == nil || o.QuerySql == nil {
+		return nil, false
+	}
+	return o.QuerySql, true
+}
+
+// HasQuerySql returns a boolean if a field has been set.
+func (o *View) HasQuerySql() bool {
+	if o != nil && o.QuerySql != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQuerySql gets a reference to the given string and assigns it to the QuerySql field.
+func (o *View) SetQuerySql(v string) {
+	o.QuerySql = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *View) GetState() string {
+	if o == nil || o.State == nil {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *View) HasState() bool {
+	if o != nil && o.State != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *View) SetState(v string) {
+	o.State = &v
+}
+
+// GetWorkspace returns the Workspace field value if set, zero value otherwise.
+func (o *View) GetWorkspace() string {
+	if o == nil || o.Workspace == nil {
+		var ret string
+		return ret
+	}
+	return *o.Workspace
+}
+
+// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *View) GetWorkspaceOk() (*string, bool) {
+	if o == nil || o.Workspace == nil {
+		return nil, false
+	}
+	return o.Workspace, true
+}
+
+// HasWorkspace returns a boolean if a field has been set.
+func (o *View) HasWorkspace() bool {
+	if o != nil && o.Workspace != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
+func (o *View) SetWorkspace(v string) {
+	o.Workspace = &v
+}
+
 func (o View) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
 	}
 	if o.CreatorEmail != nil {
 		toSerialize["creator_email"] = o.CreatorEmail
 	}
-	if o.OwnerEmail != nil {
-		toSerialize["owner_email"] = o.OwnerEmail
-	}
-	if o.QuerySql != nil {
-		toSerialize["query_sql"] = o.QuerySql
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	if o.Entities != nil {
 		toSerialize["entities"] = o.Entities
 	}
+	if o.ModifiedAt != nil {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.OwnerEmail != nil {
+		toSerialize["owner_email"] = o.OwnerEmail
+	}
+	if o.Path != nil {
+		toSerialize["path"] = o.Path
+	}
+	if o.QuerySql != nil {
+		toSerialize["query_sql"] = o.QuerySql
+	}
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.ModifiedAt != nil {
-		toSerialize["modified_at"] = o.ModifiedAt
+	if o.Workspace != nil {
+		toSerialize["workspace"] = o.Workspace
 	}
 	return json.Marshal(toSerialize)
 }

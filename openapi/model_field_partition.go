@@ -18,10 +18,10 @@ import (
 type FieldPartition struct {
 	// The name of a field, parsed as a SQL qualified name.
 	FieldName *string `json:"field_name,omitempty"`
-	// The type of partitions on a field.
-	Type *string `json:"type,omitempty"`
 	// The values for partitioning of a field. Unneeded if the partition type is AUTO.
 	Keys []string `json:"keys,omitempty"`
+	// The type of partitions on a field.
+	Type *string `json:"type,omitempty"`
 }
 
 // NewFieldPartition instantiates a new FieldPartition object
@@ -73,38 +73,6 @@ func (o *FieldPartition) SetFieldName(v string) {
 	o.FieldName = &v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *FieldPartition) GetType() string {
-	if o == nil || o.Type == nil {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FieldPartition) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *FieldPartition) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *FieldPartition) SetType(v string) {
-	o.Type = &v
-}
-
 // GetKeys returns the Keys field value if set, zero value otherwise.
 func (o *FieldPartition) GetKeys() []string {
 	if o == nil || o.Keys == nil {
@@ -137,16 +105,48 @@ func (o *FieldPartition) SetKeys(v []string) {
 	o.Keys = v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *FieldPartition) GetType() string {
+	if o == nil || o.Type == nil {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FieldPartition) GetTypeOk() (*string, bool) {
+	if o == nil || o.Type == nil {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *FieldPartition) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *FieldPartition) SetType(v string) {
+	o.Type = &v
+}
+
 func (o FieldPartition) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FieldName != nil {
 		toSerialize["field_name"] = o.FieldName
 	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
 	if o.Keys != nil {
 		toSerialize["keys"] = o.Keys
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
 }

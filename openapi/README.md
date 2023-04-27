@@ -102,6 +102,7 @@ Class | Method | HTTP request | Description
 *CollectionsApi* | [**DeleteCollection**](docs/CollectionsApi.md#deletecollection) | **Delete** /v1/orgs/self/ws/{workspace}/collections/{collection} | Delete Collection
 *CollectionsApi* | [**GetCollection**](docs/CollectionsApi.md#getcollection) | **Get** /v1/orgs/self/ws/{workspace}/collections/{collection} | Retrieve Collection
 *CollectionsApi* | [**ListCollections**](docs/CollectionsApi.md#listcollections) | **Get** /v1/orgs/self/collections | List Collections
+*CollectionsApi* | [**UpdateCollection**](docs/CollectionsApi.md#updatecollection) | **Put** /v1/orgs/self/ws/{workspace}/collections/{collection} | Update Collection
 *CollectionsApi* | [**WorkspaceCollections**](docs/CollectionsApi.md#workspacecollections) | **Get** /v1/orgs/self/ws/{workspace}/collections | List Collections in Workspace
 *CustomRolesApi* | [**CreateRole**](docs/CustomRolesApi.md#createrole) | **Post** /v1/orgs/self/roles | Create a Role
 *CustomRolesApi* | [**DeleteRole**](docs/CustomRolesApi.md#deleterole) | **Delete** /v1/orgs/self/roles/{roleName} | Delete a Role
@@ -327,6 +328,7 @@ Class | Method | HTTP request | Description
  - [UpdateAliasRequest](docs/UpdateAliasRequest.md)
  - [UpdateApiKeyRequest](docs/UpdateApiKeyRequest.md)
  - [UpdateApiKeyResponse](docs/UpdateApiKeyResponse.md)
+ - [UpdateCollectionRequest](docs/UpdateCollectionRequest.md)
  - [UpdateQueryLambdaRequest](docs/UpdateQueryLambdaRequest.md)
  - [UpdateRoleRequest](docs/UpdateRoleRequest.md)
  - [UpdateUnsubscribePreferencesRequest](docs/UpdateUnsubscribePreferencesRequest.md)

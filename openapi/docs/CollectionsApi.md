@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteCollection**](CollectionsApi.md#DeleteCollection) | **Delete** /v1/orgs/self/ws/{workspace}/collections/{collection} | Delete Collection
 [**GetCollection**](CollectionsApi.md#GetCollection) | **Get** /v1/orgs/self/ws/{workspace}/collections/{collection} | Retrieve Collection
 [**ListCollections**](CollectionsApi.md#ListCollections) | **Get** /v1/orgs/self/collections | List Collections
+[**UpdateCollection**](CollectionsApi.md#UpdateCollection) | **Put** /v1/orgs/self/ws/{workspace}/collections/{collection} | Update Collection
 [**WorkspaceCollections**](CollectionsApi.md#WorkspaceCollections) | **Get** /v1/orgs/self/ws/{workspace}/collections | List Collections in Workspace
 
 
@@ -284,6 +285,81 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateCollection
+
+> GetCollectionResponse UpdateCollection(ctx, workspace, collection).Body(body).Execute()
+
+Update Collection
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    workspace := "workspace_example" // string | name of the workspace (default to "commons")
+    collection := "collection_example" // string | name of the collection
+    body := *openapiclient.NewUpdateCollectionRequest() // UpdateCollectionRequest | JSON object
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.UpdateCollection(context.Background(), workspace, collection).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.UpdateCollection``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateCollection`: GetCollectionResponse
+    fmt.Fprintf(os.Stdout, "Response from `CollectionsApi.UpdateCollection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
+**collection** | **string** | name of the collection | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateCollectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **body** | [**UpdateCollectionRequest**](UpdateCollectionRequest.md) | JSON object | 
+
+### Return type
+
+[**GetCollectionResponse**](GetCollectionResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

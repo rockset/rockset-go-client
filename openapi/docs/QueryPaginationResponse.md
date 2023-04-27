@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Pagination** | Pointer to [**PaginationInfo**](PaginationInfo.md) |  | [optional] 
 **Results** | Pointer to **[]map[string]interface{}** | List of documents returned by the query. | [optional] 
 **ResultsTotalDocCount** | Pointer to **int64** | Total documents returned by the query. | [optional] 
-**Pagination** | Pointer to [**PaginationInfo**](PaginationInfo.md) |  | [optional] 
 
 ## Methods
 
@@ -26,6 +26,31 @@ will change when the set of required properties is changed
 NewQueryPaginationResponseWithDefaults instantiates a new QueryPaginationResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetPagination
+
+`func (o *QueryPaginationResponse) GetPagination() PaginationInfo`
+
+GetPagination returns the Pagination field if non-nil, zero value otherwise.
+
+### GetPaginationOk
+
+`func (o *QueryPaginationResponse) GetPaginationOk() (*PaginationInfo, bool)`
+
+GetPaginationOk returns a tuple with the Pagination field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPagination
+
+`func (o *QueryPaginationResponse) SetPagination(v PaginationInfo)`
+
+SetPagination sets Pagination field to given value.
+
+### HasPagination
+
+`func (o *QueryPaginationResponse) HasPagination() bool`
+
+HasPagination returns a boolean if a field has been set.
 
 ### GetResults
 
@@ -76,31 +101,6 @@ SetResultsTotalDocCount sets ResultsTotalDocCount field to given value.
 `func (o *QueryPaginationResponse) HasResultsTotalDocCount() bool`
 
 HasResultsTotalDocCount returns a boolean if a field has been set.
-
-### GetPagination
-
-`func (o *QueryPaginationResponse) GetPagination() PaginationInfo`
-
-GetPagination returns the Pagination field if non-nil, zero value otherwise.
-
-### GetPaginationOk
-
-`func (o *QueryPaginationResponse) GetPaginationOk() (*PaginationInfo, bool)`
-
-GetPaginationOk returns a tuple with the Pagination field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPagination
-
-`func (o *QueryPaginationResponse) SetPagination(v PaginationInfo)`
-
-SetPagination sets Pagination field to given value.
-
-### HasPagination
-
-`func (o *QueryPaginationResponse) HasPagination() bool`
-
-HasPagination returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

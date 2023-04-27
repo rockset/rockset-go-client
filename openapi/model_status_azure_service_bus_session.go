@@ -16,10 +16,10 @@ import (
 
 // StatusAzureServiceBusSession struct for StatusAzureServiceBusSession
 type StatusAzureServiceBusSession struct {
-	// The last processed sequence number within this session.
-	SequenceNumber *int64 `json:"sequence_number,omitempty"`
 	// Most recent ISO-8601 date when a message from this session was processed.
 	LastProcessed *string `json:"last_processed,omitempty"`
+	// The last processed sequence number within this session.
+	SequenceNumber *int64 `json:"sequence_number,omitempty"`
 }
 
 // NewStatusAzureServiceBusSession instantiates a new StatusAzureServiceBusSession object
@@ -37,38 +37,6 @@ func NewStatusAzureServiceBusSession() *StatusAzureServiceBusSession {
 func NewStatusAzureServiceBusSessionWithDefaults() *StatusAzureServiceBusSession {
 	this := StatusAzureServiceBusSession{}
 	return &this
-}
-
-// GetSequenceNumber returns the SequenceNumber field value if set, zero value otherwise.
-func (o *StatusAzureServiceBusSession) GetSequenceNumber() int64 {
-	if o == nil || o.SequenceNumber == nil {
-		var ret int64
-		return ret
-	}
-	return *o.SequenceNumber
-}
-
-// GetSequenceNumberOk returns a tuple with the SequenceNumber field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatusAzureServiceBusSession) GetSequenceNumberOk() (*int64, bool) {
-	if o == nil || o.SequenceNumber == nil {
-		return nil, false
-	}
-	return o.SequenceNumber, true
-}
-
-// HasSequenceNumber returns a boolean if a field has been set.
-func (o *StatusAzureServiceBusSession) HasSequenceNumber() bool {
-	if o != nil && o.SequenceNumber != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSequenceNumber gets a reference to the given int64 and assigns it to the SequenceNumber field.
-func (o *StatusAzureServiceBusSession) SetSequenceNumber(v int64) {
-	o.SequenceNumber = &v
 }
 
 // GetLastProcessed returns the LastProcessed field value if set, zero value otherwise.
@@ -103,13 +71,45 @@ func (o *StatusAzureServiceBusSession) SetLastProcessed(v string) {
 	o.LastProcessed = &v
 }
 
+// GetSequenceNumber returns the SequenceNumber field value if set, zero value otherwise.
+func (o *StatusAzureServiceBusSession) GetSequenceNumber() int64 {
+	if o == nil || o.SequenceNumber == nil {
+		var ret int64
+		return ret
+	}
+	return *o.SequenceNumber
+}
+
+// GetSequenceNumberOk returns a tuple with the SequenceNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatusAzureServiceBusSession) GetSequenceNumberOk() (*int64, bool) {
+	if o == nil || o.SequenceNumber == nil {
+		return nil, false
+	}
+	return o.SequenceNumber, true
+}
+
+// HasSequenceNumber returns a boolean if a field has been set.
+func (o *StatusAzureServiceBusSession) HasSequenceNumber() bool {
+	if o != nil && o.SequenceNumber != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSequenceNumber gets a reference to the given int64 and assigns it to the SequenceNumber field.
+func (o *StatusAzureServiceBusSession) SetSequenceNumber(v int64) {
+	o.SequenceNumber = &v
+}
+
 func (o StatusAzureServiceBusSession) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SequenceNumber != nil {
-		toSerialize["sequence_number"] = o.SequenceNumber
-	}
 	if o.LastProcessed != nil {
 		toSerialize["last_processed"] = o.LastProcessed
+	}
+	if o.SequenceNumber != nil {
+		toSerialize["sequence_number"] = o.SequenceNumber
 	}
 	return json.Marshal(toSerialize)
 }

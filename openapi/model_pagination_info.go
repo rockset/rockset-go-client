@@ -18,14 +18,14 @@ import (
 type PaginationInfo struct {
 	// Number of documents returned in this result set.
 	CurrentPageDocCount *int64 `json:"current_page_doc_count,omitempty"`
-	// The doc offset that next_cursor starts at.
-	NextCursorOffset *int64 `json:"next_cursor_offset,omitempty"`
-	// Cursor used to retrieve the first set of documents.
-	StartCursor *string `json:"start_cursor,omitempty"`
 	// Cursor to use to get the list of documents.
 	NextCursor *string `json:"next_cursor,omitempty"`
+	// The doc offset that next_cursor starts at.
+	NextCursorOffset *int64 `json:"next_cursor_offset,omitempty"`
 	// Direct link to the next page of results.
 	NextPageLink *string `json:"next_page_link,omitempty"`
+	// Cursor used to retrieve the first set of documents.
+	StartCursor *string `json:"start_cursor,omitempty"`
 }
 
 // NewPaginationInfo instantiates a new PaginationInfo object
@@ -77,70 +77,6 @@ func (o *PaginationInfo) SetCurrentPageDocCount(v int64) {
 	o.CurrentPageDocCount = &v
 }
 
-// GetNextCursorOffset returns the NextCursorOffset field value if set, zero value otherwise.
-func (o *PaginationInfo) GetNextCursorOffset() int64 {
-	if o == nil || o.NextCursorOffset == nil {
-		var ret int64
-		return ret
-	}
-	return *o.NextCursorOffset
-}
-
-// GetNextCursorOffsetOk returns a tuple with the NextCursorOffset field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaginationInfo) GetNextCursorOffsetOk() (*int64, bool) {
-	if o == nil || o.NextCursorOffset == nil {
-		return nil, false
-	}
-	return o.NextCursorOffset, true
-}
-
-// HasNextCursorOffset returns a boolean if a field has been set.
-func (o *PaginationInfo) HasNextCursorOffset() bool {
-	if o != nil && o.NextCursorOffset != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNextCursorOffset gets a reference to the given int64 and assigns it to the NextCursorOffset field.
-func (o *PaginationInfo) SetNextCursorOffset(v int64) {
-	o.NextCursorOffset = &v
-}
-
-// GetStartCursor returns the StartCursor field value if set, zero value otherwise.
-func (o *PaginationInfo) GetStartCursor() string {
-	if o == nil || o.StartCursor == nil {
-		var ret string
-		return ret
-	}
-	return *o.StartCursor
-}
-
-// GetStartCursorOk returns a tuple with the StartCursor field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaginationInfo) GetStartCursorOk() (*string, bool) {
-	if o == nil || o.StartCursor == nil {
-		return nil, false
-	}
-	return o.StartCursor, true
-}
-
-// HasStartCursor returns a boolean if a field has been set.
-func (o *PaginationInfo) HasStartCursor() bool {
-	if o != nil && o.StartCursor != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStartCursor gets a reference to the given string and assigns it to the StartCursor field.
-func (o *PaginationInfo) SetStartCursor(v string) {
-	o.StartCursor = &v
-}
-
 // GetNextCursor returns the NextCursor field value if set, zero value otherwise.
 func (o *PaginationInfo) GetNextCursor() string {
 	if o == nil || o.NextCursor == nil {
@@ -171,6 +107,38 @@ func (o *PaginationInfo) HasNextCursor() bool {
 // SetNextCursor gets a reference to the given string and assigns it to the NextCursor field.
 func (o *PaginationInfo) SetNextCursor(v string) {
 	o.NextCursor = &v
+}
+
+// GetNextCursorOffset returns the NextCursorOffset field value if set, zero value otherwise.
+func (o *PaginationInfo) GetNextCursorOffset() int64 {
+	if o == nil || o.NextCursorOffset == nil {
+		var ret int64
+		return ret
+	}
+	return *o.NextCursorOffset
+}
+
+// GetNextCursorOffsetOk returns a tuple with the NextCursorOffset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaginationInfo) GetNextCursorOffsetOk() (*int64, bool) {
+	if o == nil || o.NextCursorOffset == nil {
+		return nil, false
+	}
+	return o.NextCursorOffset, true
+}
+
+// HasNextCursorOffset returns a boolean if a field has been set.
+func (o *PaginationInfo) HasNextCursorOffset() bool {
+	if o != nil && o.NextCursorOffset != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNextCursorOffset gets a reference to the given int64 and assigns it to the NextCursorOffset field.
+func (o *PaginationInfo) SetNextCursorOffset(v int64) {
+	o.NextCursorOffset = &v
 }
 
 // GetNextPageLink returns the NextPageLink field value if set, zero value otherwise.
@@ -205,22 +173,54 @@ func (o *PaginationInfo) SetNextPageLink(v string) {
 	o.NextPageLink = &v
 }
 
+// GetStartCursor returns the StartCursor field value if set, zero value otherwise.
+func (o *PaginationInfo) GetStartCursor() string {
+	if o == nil || o.StartCursor == nil {
+		var ret string
+		return ret
+	}
+	return *o.StartCursor
+}
+
+// GetStartCursorOk returns a tuple with the StartCursor field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaginationInfo) GetStartCursorOk() (*string, bool) {
+	if o == nil || o.StartCursor == nil {
+		return nil, false
+	}
+	return o.StartCursor, true
+}
+
+// HasStartCursor returns a boolean if a field has been set.
+func (o *PaginationInfo) HasStartCursor() bool {
+	if o != nil && o.StartCursor != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStartCursor gets a reference to the given string and assigns it to the StartCursor field.
+func (o *PaginationInfo) SetStartCursor(v string) {
+	o.StartCursor = &v
+}
+
 func (o PaginationInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CurrentPageDocCount != nil {
 		toSerialize["current_page_doc_count"] = o.CurrentPageDocCount
 	}
-	if o.NextCursorOffset != nil {
-		toSerialize["next_cursor_offset"] = o.NextCursorOffset
-	}
-	if o.StartCursor != nil {
-		toSerialize["start_cursor"] = o.StartCursor
-	}
 	if o.NextCursor != nil {
 		toSerialize["next_cursor"] = o.NextCursor
 	}
+	if o.NextCursorOffset != nil {
+		toSerialize["next_cursor_offset"] = o.NextCursorOffset
+	}
 	if o.NextPageLink != nil {
 		toSerialize["next_page_link"] = o.NextPageLink
+	}
+	if o.StartCursor != nil {
+		toSerialize["start_cursor"] = o.StartCursor
 	}
 	return json.Marshal(toSerialize)
 }

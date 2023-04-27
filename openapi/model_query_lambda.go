@@ -16,19 +16,19 @@ import (
 
 // QueryLambda struct for QueryLambda
 type QueryLambda struct {
-	// Workspace of this Query Lambda.
-	Workspace *string `json:"workspace,omitempty"`
-	// User that created this Query Lambda.
-	LastUpdatedBy *string `json:"last_updated_by,omitempty"`
+	// Collections/aliases queried by underlying SQL query.
+	Collections []string `json:"collections,omitempty"`
 	// ISO-8601 date of when Query Lambda was last updated.
 	LastUpdated *string `json:"last_updated,omitempty"`
+	// User that created this Query Lambda.
+	LastUpdatedBy *string `json:"last_updated_by,omitempty"`
+	LatestVersion *QueryLambdaVersion `json:"latest_version,omitempty"`
 	// Query Lambda name.
 	Name *string `json:"name,omitempty"`
 	// Number of Query Lambda versions.
 	VersionCount *int32 `json:"version_count,omitempty"`
-	// Collections/aliases queried by underlying SQL query.
-	Collections []string `json:"collections,omitempty"`
-	LatestVersion *QueryLambdaVersion `json:"latest_version,omitempty"`
+	// Workspace of this Query Lambda.
+	Workspace *string `json:"workspace,omitempty"`
 }
 
 // NewQueryLambda instantiates a new QueryLambda object
@@ -48,36 +48,68 @@ func NewQueryLambdaWithDefaults() *QueryLambda {
 	return &this
 }
 
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *QueryLambda) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
-		var ret string
+// GetCollections returns the Collections field value if set, zero value otherwise.
+func (o *QueryLambda) GetCollections() []string {
+	if o == nil || o.Collections == nil {
+		var ret []string
 		return ret
 	}
-	return *o.Workspace
+	return o.Collections
 }
 
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambda) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+func (o *QueryLambda) GetCollectionsOk() ([]string, bool) {
+	if o == nil || o.Collections == nil {
 		return nil, false
 	}
-	return o.Workspace, true
+	return o.Collections, true
 }
 
-// HasWorkspace returns a boolean if a field has been set.
-func (o *QueryLambda) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+// HasCollections returns a boolean if a field has been set.
+func (o *QueryLambda) HasCollections() bool {
+	if o != nil && o.Collections != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *QueryLambda) SetWorkspace(v string) {
-	o.Workspace = &v
+// SetCollections gets a reference to the given []string and assigns it to the Collections field.
+func (o *QueryLambda) SetCollections(v []string) {
+	o.Collections = v
+}
+
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *QueryLambda) GetLastUpdated() string {
+	if o == nil || o.LastUpdated == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryLambda) GetLastUpdatedOk() (*string, bool) {
+	if o == nil || o.LastUpdated == nil {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *QueryLambda) HasLastUpdated() bool {
+	if o != nil && o.LastUpdated != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
+func (o *QueryLambda) SetLastUpdated(v string) {
+	o.LastUpdated = &v
 }
 
 // GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
@@ -112,36 +144,36 @@ func (o *QueryLambda) SetLastUpdatedBy(v string) {
 	o.LastUpdatedBy = &v
 }
 
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *QueryLambda) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
-		var ret string
+// GetLatestVersion returns the LatestVersion field value if set, zero value otherwise.
+func (o *QueryLambda) GetLatestVersion() QueryLambdaVersion {
+	if o == nil || o.LatestVersion == nil {
+		var ret QueryLambdaVersion
 		return ret
 	}
-	return *o.LastUpdated
+	return *o.LatestVersion
 }
 
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// GetLatestVersionOk returns a tuple with the LatestVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambda) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+func (o *QueryLambda) GetLatestVersionOk() (*QueryLambdaVersion, bool) {
+	if o == nil || o.LatestVersion == nil {
 		return nil, false
 	}
-	return o.LastUpdated, true
+	return o.LatestVersion, true
 }
 
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *QueryLambda) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+// HasLatestVersion returns a boolean if a field has been set.
+func (o *QueryLambda) HasLatestVersion() bool {
+	if o != nil && o.LatestVersion != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *QueryLambda) SetLastUpdated(v string) {
-	o.LastUpdated = &v
+// SetLatestVersion gets a reference to the given QueryLambdaVersion and assigns it to the LatestVersion field.
+func (o *QueryLambda) SetLatestVersion(v QueryLambdaVersion) {
+	o.LatestVersion = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -208,80 +240,51 @@ func (o *QueryLambda) SetVersionCount(v int32) {
 	o.VersionCount = &v
 }
 
-// GetCollections returns the Collections field value if set, zero value otherwise.
-func (o *QueryLambda) GetCollections() []string {
-	if o == nil || o.Collections == nil {
-		var ret []string
+// GetWorkspace returns the Workspace field value if set, zero value otherwise.
+func (o *QueryLambda) GetWorkspace() string {
+	if o == nil || o.Workspace == nil {
+		var ret string
 		return ret
 	}
-	return o.Collections
+	return *o.Workspace
 }
 
-// GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
+// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *QueryLambda) GetCollectionsOk() ([]string, bool) {
-	if o == nil || o.Collections == nil {
+func (o *QueryLambda) GetWorkspaceOk() (*string, bool) {
+	if o == nil || o.Workspace == nil {
 		return nil, false
 	}
-	return o.Collections, true
+	return o.Workspace, true
 }
 
-// HasCollections returns a boolean if a field has been set.
-func (o *QueryLambda) HasCollections() bool {
-	if o != nil && o.Collections != nil {
+// HasWorkspace returns a boolean if a field has been set.
+func (o *QueryLambda) HasWorkspace() bool {
+	if o != nil && o.Workspace != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCollections gets a reference to the given []string and assigns it to the Collections field.
-func (o *QueryLambda) SetCollections(v []string) {
-	o.Collections = v
-}
-
-// GetLatestVersion returns the LatestVersion field value if set, zero value otherwise.
-func (o *QueryLambda) GetLatestVersion() QueryLambdaVersion {
-	if o == nil || o.LatestVersion == nil {
-		var ret QueryLambdaVersion
-		return ret
-	}
-	return *o.LatestVersion
-}
-
-// GetLatestVersionOk returns a tuple with the LatestVersion field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryLambda) GetLatestVersionOk() (*QueryLambdaVersion, bool) {
-	if o == nil || o.LatestVersion == nil {
-		return nil, false
-	}
-	return o.LatestVersion, true
-}
-
-// HasLatestVersion returns a boolean if a field has been set.
-func (o *QueryLambda) HasLatestVersion() bool {
-	if o != nil && o.LatestVersion != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLatestVersion gets a reference to the given QueryLambdaVersion and assigns it to the LatestVersion field.
-func (o *QueryLambda) SetLatestVersion(v QueryLambdaVersion) {
-	o.LatestVersion = &v
+// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
+func (o *QueryLambda) SetWorkspace(v string) {
+	o.Workspace = &v
 }
 
 func (o QueryLambda) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	if o.Collections != nil {
+		toSerialize["collections"] = o.Collections
+	}
+	if o.LastUpdated != nil {
+		toSerialize["last_updated"] = o.LastUpdated
 	}
 	if o.LastUpdatedBy != nil {
 		toSerialize["last_updated_by"] = o.LastUpdatedBy
 	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	if o.LatestVersion != nil {
+		toSerialize["latest_version"] = o.LatestVersion
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
@@ -289,11 +292,8 @@ func (o QueryLambda) MarshalJSON() ([]byte, error) {
 	if o.VersionCount != nil {
 		toSerialize["version_count"] = o.VersionCount
 	}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.LatestVersion != nil {
-		toSerialize["latest_version"] = o.LatestVersion
+	if o.Workspace != nil {
+		toSerialize["workspace"] = o.Workspace
 	}
 	return json.Marshal(toSerialize)
 }

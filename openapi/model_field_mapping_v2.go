@@ -16,12 +16,12 @@ import (
 
 // FieldMappingV2 struct for FieldMappingV2
 type FieldMappingV2 struct {
-	// A user specified string that is a name for this mapping.
-	Name *string `json:"name,omitempty"`
-	// A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set
-	IsDropAllFields *bool `json:"is_drop_all_fields,omitempty"`
 	// A List of InputField for this mapping.
 	InputFields []InputField `json:"input_fields,omitempty"`
+	// A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set
+	IsDropAllFields *bool `json:"is_drop_all_fields,omitempty"`
+	// A user specified string that is a name for this mapping.
+	Name *string `json:"name,omitempty"`
 	OutputField *OutputField `json:"output_field,omitempty"`
 }
 
@@ -42,36 +42,36 @@ func NewFieldMappingV2WithDefaults() *FieldMappingV2 {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *FieldMappingV2) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
+// GetInputFields returns the InputFields field value if set, zero value otherwise.
+func (o *FieldMappingV2) GetInputFields() []InputField {
+	if o == nil || o.InputFields == nil {
+		var ret []InputField
 		return ret
 	}
-	return *o.Name
+	return o.InputFields
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FieldMappingV2) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+func (o *FieldMappingV2) GetInputFieldsOk() ([]InputField, bool) {
+	if o == nil || o.InputFields == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.InputFields, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *FieldMappingV2) HasName() bool {
-	if o != nil && o.Name != nil {
+// HasInputFields returns a boolean if a field has been set.
+func (o *FieldMappingV2) HasInputFields() bool {
+	if o != nil && o.InputFields != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *FieldMappingV2) SetName(v string) {
-	o.Name = &v
+// SetInputFields gets a reference to the given []InputField and assigns it to the InputFields field.
+func (o *FieldMappingV2) SetInputFields(v []InputField) {
+	o.InputFields = v
 }
 
 // GetIsDropAllFields returns the IsDropAllFields field value if set, zero value otherwise.
@@ -106,36 +106,36 @@ func (o *FieldMappingV2) SetIsDropAllFields(v bool) {
 	o.IsDropAllFields = &v
 }
 
-// GetInputFields returns the InputFields field value if set, zero value otherwise.
-func (o *FieldMappingV2) GetInputFields() []InputField {
-	if o == nil || o.InputFields == nil {
-		var ret []InputField
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *FieldMappingV2) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
 		return ret
 	}
-	return o.InputFields
+	return *o.Name
 }
 
-// GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FieldMappingV2) GetInputFieldsOk() ([]InputField, bool) {
-	if o == nil || o.InputFields == nil {
+func (o *FieldMappingV2) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
-	return o.InputFields, true
+	return o.Name, true
 }
 
-// HasInputFields returns a boolean if a field has been set.
-func (o *FieldMappingV2) HasInputFields() bool {
-	if o != nil && o.InputFields != nil {
+// HasName returns a boolean if a field has been set.
+func (o *FieldMappingV2) HasName() bool {
+	if o != nil && o.Name != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetInputFields gets a reference to the given []InputField and assigns it to the InputFields field.
-func (o *FieldMappingV2) SetInputFields(v []InputField) {
-	o.InputFields = v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *FieldMappingV2) SetName(v string) {
+	o.Name = &v
 }
 
 // GetOutputField returns the OutputField field value if set, zero value otherwise.
@@ -172,14 +172,14 @@ func (o *FieldMappingV2) SetOutputField(v OutputField) {
 
 func (o FieldMappingV2) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	if o.InputFields != nil {
+		toSerialize["input_fields"] = o.InputFields
 	}
 	if o.IsDropAllFields != nil {
 		toSerialize["is_drop_all_fields"] = o.IsDropAllFields
 	}
-	if o.InputFields != nil {
-		toSerialize["input_fields"] = o.InputFields
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
 	}
 	if o.OutputField != nil {
 		toSerialize["output_field"] = o.OutputField

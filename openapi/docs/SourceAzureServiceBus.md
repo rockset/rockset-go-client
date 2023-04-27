@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Topic** | Pointer to **string** | Name of the topic which rockset should ingest from. | [optional] 
-**Subscription** | Pointer to **string** | The subscription to read from the topic. | [optional] 
 **Status** | Pointer to [**StatusAzureServiceBus**](StatusAzureServiceBus.md) |  | [optional] 
+**Subscription** | Pointer to **string** | The subscription to read from the topic. | [optional] 
+**Topic** | Pointer to **string** | Name of the topic which rockset should ingest from. | [optional] 
 
 ## Methods
 
@@ -27,30 +27,30 @@ NewSourceAzureServiceBusWithDefaults instantiates a new SourceAzureServiceBus ob
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetTopic
+### GetStatus
 
-`func (o *SourceAzureServiceBus) GetTopic() string`
+`func (o *SourceAzureServiceBus) GetStatus() StatusAzureServiceBus`
 
-GetTopic returns the Topic field if non-nil, zero value otherwise.
+GetStatus returns the Status field if non-nil, zero value otherwise.
 
-### GetTopicOk
+### GetStatusOk
 
-`func (o *SourceAzureServiceBus) GetTopicOk() (*string, bool)`
+`func (o *SourceAzureServiceBus) GetStatusOk() (*StatusAzureServiceBus, bool)`
 
-GetTopicOk returns a tuple with the Topic field if it's non-nil, zero value otherwise
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTopic
+### SetStatus
 
-`func (o *SourceAzureServiceBus) SetTopic(v string)`
+`func (o *SourceAzureServiceBus) SetStatus(v StatusAzureServiceBus)`
 
-SetTopic sets Topic field to given value.
+SetStatus sets Status field to given value.
 
-### HasTopic
+### HasStatus
 
-`func (o *SourceAzureServiceBus) HasTopic() bool`
+`func (o *SourceAzureServiceBus) HasStatus() bool`
 
-HasTopic returns a boolean if a field has been set.
+HasStatus returns a boolean if a field has been set.
 
 ### GetSubscription
 
@@ -77,30 +77,30 @@ SetSubscription sets Subscription field to given value.
 
 HasSubscription returns a boolean if a field has been set.
 
-### GetStatus
+### GetTopic
 
-`func (o *SourceAzureServiceBus) GetStatus() StatusAzureServiceBus`
+`func (o *SourceAzureServiceBus) GetTopic() string`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetTopic returns the Topic field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetTopicOk
 
-`func (o *SourceAzureServiceBus) GetStatusOk() (*StatusAzureServiceBus, bool)`
+`func (o *SourceAzureServiceBus) GetTopicOk() (*string, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetTopicOk returns a tuple with the Topic field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetTopic
 
-`func (o *SourceAzureServiceBus) SetStatus(v StatusAzureServiceBus)`
+`func (o *SourceAzureServiceBus) SetTopic(v string)`
 
-SetStatus sets Status field to given value.
+SetTopic sets Topic field to given value.
 
-### HasStatus
+### HasTopic
 
-`func (o *SourceAzureServiceBus) HasStatus() bool`
+`func (o *SourceAzureServiceBus) HasTopic() bool`
 
-HasStatus returns a boolean if a field has been set.
+HasTopic returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

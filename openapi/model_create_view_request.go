@@ -16,10 +16,10 @@ import (
 
 // CreateViewRequest struct for CreateViewRequest
 type CreateViewRequest struct {
-	// View name.
-	Name string `json:"name"`
 	// Optional description.
 	Description *string `json:"description,omitempty"`
+	// View name.
+	Name string `json:"name"`
 	// SQL for this view.
 	Query string `json:"query"`
 }
@@ -41,30 +41,6 @@ func NewCreateViewRequest(name string, query string) *CreateViewRequest {
 func NewCreateViewRequestWithDefaults() *CreateViewRequest {
 	this := CreateViewRequest{}
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *CreateViewRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *CreateViewRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *CreateViewRequest) SetName(v string) {
-	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -99,6 +75,30 @@ func (o *CreateViewRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetName returns the Name field value
+func (o *CreateViewRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateViewRequest) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateViewRequest) SetName(v string) {
+	o.Name = v
+}
+
 // GetQuery returns the Query field value
 func (o *CreateViewRequest) GetQuery() string {
 	if o == nil {
@@ -125,11 +125,11 @@ func (o *CreateViewRequest) SetQuery(v string) {
 
 func (o CreateViewRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if true {
+		toSerialize["name"] = o.Name
 	}
 	if true {
 		toSerialize["query"] = o.Query

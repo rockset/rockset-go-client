@@ -24,7 +24,7 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 	var resp *openapi.CreateAliasResponse
 
 	q := rc.AliasesApi.CreateAlias(ctx, workspace)
-	req := openapi.NewCreateAliasRequest(alias, collections)
+	req := openapi.NewCreateAliasRequest(collections, alias)
 
 	opts := option.AliasOptions{}
 	for _, o := range options {

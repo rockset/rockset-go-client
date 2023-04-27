@@ -4,17 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Workspace** | Pointer to **string** | Workspace of this Query Lambda. | [optional] 
-**CreatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
-**CreatedAt** | Pointer to **string** | ISO-8601 date of when Query Lambda was created. | [optional] 
-**Name** | Pointer to **string** | Query Lambda name. | [optional] 
-**Version** | Pointer to **string** | Query Lambda version. | [optional] 
-**Description** | Pointer to **string** | Optional description. | [optional] 
-**Sql** | Pointer to [**QueryLambdaSql**](QueryLambdaSql.md) |  | [optional] 
 **Collections** | Pointer to **[]string** | Collections queried by underlying SQL query. | [optional] 
+**CreatedAt** | Pointer to **string** | ISO-8601 date of when Query Lambda was created. | [optional] 
+**CreatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
+**Description** | Pointer to **string** | Optional description. | [optional] 
+**Name** | Pointer to **string** | Query Lambda name. | [optional] 
+**PublicAccessId** | Pointer to **string** | Public access ID associated with this QL version | [optional] 
+**Sql** | Pointer to [**QueryLambdaSql**](QueryLambdaSql.md) |  | [optional] 
 **State** | Pointer to **string** | Status of this Query Lambda. | [optional] 
 **Stats** | Pointer to [**QueryLambdaStats**](QueryLambdaStats.md) |  | [optional] 
-**PublicAccessId** | Pointer to **string** | Public access ID associated with this QL version | [optional] 
+**Version** | Pointer to **string** | Query Lambda version. | [optional] 
+**Workspace** | Pointer to **string** | Workspace of this Query Lambda. | [optional] 
 
 ## Methods
 
@@ -35,55 +35,30 @@ NewQueryLambdaVersionWithDefaults instantiates a new QueryLambdaVersion object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetWorkspace
+### GetCollections
 
-`func (o *QueryLambdaVersion) GetWorkspace() string`
+`func (o *QueryLambdaVersion) GetCollections() []string`
 
-GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
+GetCollections returns the Collections field if non-nil, zero value otherwise.
 
-### GetWorkspaceOk
+### GetCollectionsOk
 
-`func (o *QueryLambdaVersion) GetWorkspaceOk() (*string, bool)`
+`func (o *QueryLambdaVersion) GetCollectionsOk() (*[]string, bool)`
 
-GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
+GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWorkspace
+### SetCollections
 
-`func (o *QueryLambdaVersion) SetWorkspace(v string)`
+`func (o *QueryLambdaVersion) SetCollections(v []string)`
 
-SetWorkspace sets Workspace field to given value.
+SetCollections sets Collections field to given value.
 
-### HasWorkspace
+### HasCollections
 
-`func (o *QueryLambdaVersion) HasWorkspace() bool`
+`func (o *QueryLambdaVersion) HasCollections() bool`
 
-HasWorkspace returns a boolean if a field has been set.
-
-### GetCreatedBy
-
-`func (o *QueryLambdaVersion) GetCreatedBy() string`
-
-GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
-
-### GetCreatedByOk
-
-`func (o *QueryLambdaVersion) GetCreatedByOk() (*string, bool)`
-
-GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedBy
-
-`func (o *QueryLambdaVersion) SetCreatedBy(v string)`
-
-SetCreatedBy sets CreatedBy field to given value.
-
-### HasCreatedBy
-
-`func (o *QueryLambdaVersion) HasCreatedBy() bool`
-
-HasCreatedBy returns a boolean if a field has been set.
+HasCollections returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -110,55 +85,30 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### GetName
+### GetCreatedBy
 
-`func (o *QueryLambdaVersion) GetName() string`
+`func (o *QueryLambdaVersion) GetCreatedBy() string`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetCreatedByOk
 
-`func (o *QueryLambdaVersion) GetNameOk() (*string, bool)`
+`func (o *QueryLambdaVersion) GetCreatedByOk() (*string, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetCreatedBy
 
-`func (o *QueryLambdaVersion) SetName(v string)`
+`func (o *QueryLambdaVersion) SetCreatedBy(v string)`
 
-SetName sets Name field to given value.
+SetCreatedBy sets CreatedBy field to given value.
 
-### HasName
+### HasCreatedBy
 
-`func (o *QueryLambdaVersion) HasName() bool`
+`func (o *QueryLambdaVersion) HasCreatedBy() bool`
 
-HasName returns a boolean if a field has been set.
-
-### GetVersion
-
-`func (o *QueryLambdaVersion) GetVersion() string`
-
-GetVersion returns the Version field if non-nil, zero value otherwise.
-
-### GetVersionOk
-
-`func (o *QueryLambdaVersion) GetVersionOk() (*string, bool)`
-
-GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVersion
-
-`func (o *QueryLambdaVersion) SetVersion(v string)`
-
-SetVersion sets Version field to given value.
-
-### HasVersion
-
-`func (o *QueryLambdaVersion) HasVersion() bool`
-
-HasVersion returns a boolean if a field has been set.
+HasCreatedBy returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -185,6 +135,56 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
+### GetName
+
+`func (o *QueryLambdaVersion) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *QueryLambdaVersion) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *QueryLambdaVersion) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *QueryLambdaVersion) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetPublicAccessId
+
+`func (o *QueryLambdaVersion) GetPublicAccessId() string`
+
+GetPublicAccessId returns the PublicAccessId field if non-nil, zero value otherwise.
+
+### GetPublicAccessIdOk
+
+`func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool)`
+
+GetPublicAccessIdOk returns a tuple with the PublicAccessId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicAccessId
+
+`func (o *QueryLambdaVersion) SetPublicAccessId(v string)`
+
+SetPublicAccessId sets PublicAccessId field to given value.
+
+### HasPublicAccessId
+
+`func (o *QueryLambdaVersion) HasPublicAccessId() bool`
+
+HasPublicAccessId returns a boolean if a field has been set.
+
 ### GetSql
 
 `func (o *QueryLambdaVersion) GetSql() QueryLambdaSql`
@@ -209,31 +209,6 @@ SetSql sets Sql field to given value.
 `func (o *QueryLambdaVersion) HasSql() bool`
 
 HasSql returns a boolean if a field has been set.
-
-### GetCollections
-
-`func (o *QueryLambdaVersion) GetCollections() []string`
-
-GetCollections returns the Collections field if non-nil, zero value otherwise.
-
-### GetCollectionsOk
-
-`func (o *QueryLambdaVersion) GetCollectionsOk() (*[]string, bool)`
-
-GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCollections
-
-`func (o *QueryLambdaVersion) SetCollections(v []string)`
-
-SetCollections sets Collections field to given value.
-
-### HasCollections
-
-`func (o *QueryLambdaVersion) HasCollections() bool`
-
-HasCollections returns a boolean if a field has been set.
 
 ### GetState
 
@@ -285,30 +260,55 @@ SetStats sets Stats field to given value.
 
 HasStats returns a boolean if a field has been set.
 
-### GetPublicAccessId
+### GetVersion
 
-`func (o *QueryLambdaVersion) GetPublicAccessId() string`
+`func (o *QueryLambdaVersion) GetVersion() string`
 
-GetPublicAccessId returns the PublicAccessId field if non-nil, zero value otherwise.
+GetVersion returns the Version field if non-nil, zero value otherwise.
 
-### GetPublicAccessIdOk
+### GetVersionOk
 
-`func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool)`
+`func (o *QueryLambdaVersion) GetVersionOk() (*string, bool)`
 
-GetPublicAccessIdOk returns a tuple with the PublicAccessId field if it's non-nil, zero value otherwise
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublicAccessId
+### SetVersion
 
-`func (o *QueryLambdaVersion) SetPublicAccessId(v string)`
+`func (o *QueryLambdaVersion) SetVersion(v string)`
 
-SetPublicAccessId sets PublicAccessId field to given value.
+SetVersion sets Version field to given value.
 
-### HasPublicAccessId
+### HasVersion
 
-`func (o *QueryLambdaVersion) HasPublicAccessId() bool`
+`func (o *QueryLambdaVersion) HasVersion() bool`
 
-HasPublicAccessId returns a boolean if a field has been set.
+HasVersion returns a boolean if a field has been set.
+
+### GetWorkspace
+
+`func (o *QueryLambdaVersion) GetWorkspace() string`
+
+GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
+
+### GetWorkspaceOk
+
+`func (o *QueryLambdaVersion) GetWorkspaceOk() (*string, bool)`
+
+GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWorkspace
+
+`func (o *QueryLambdaVersion) SetWorkspace(v string)`
+
+SetWorkspace sets Workspace field to given value.
+
+### HasWorkspace
+
+`func (o *QueryLambdaVersion) HasWorkspace() bool`
+
+HasWorkspace returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

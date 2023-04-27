@@ -16,10 +16,10 @@ import (
 
 // UpdateAliasRequest struct for UpdateAliasRequest
 type UpdateAliasRequest struct {
-	// Optional description.
-	Description *string `json:"description,omitempty"`
 	// List of fully qualified collection names referenced by alias.
 	Collections []string `json:"collections"`
+	// Optional description.
+	Description *string `json:"description,omitempty"`
 }
 
 // NewUpdateAliasRequest instantiates a new UpdateAliasRequest object
@@ -38,6 +38,30 @@ func NewUpdateAliasRequest(collections []string) *UpdateAliasRequest {
 func NewUpdateAliasRequestWithDefaults() *UpdateAliasRequest {
 	this := UpdateAliasRequest{}
 	return &this
+}
+
+// GetCollections returns the Collections field value
+func (o *UpdateAliasRequest) GetCollections() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.Collections
+}
+
+// GetCollectionsOk returns a tuple with the Collections field value
+// and a boolean to check if the value has been set.
+func (o *UpdateAliasRequest) GetCollectionsOk() ([]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Collections, true
+}
+
+// SetCollections sets field value
+func (o *UpdateAliasRequest) SetCollections(v []string) {
+	o.Collections = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -72,37 +96,13 @@ func (o *UpdateAliasRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetCollections returns the Collections field value
-func (o *UpdateAliasRequest) GetCollections() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.Collections
-}
-
-// GetCollectionsOk returns a tuple with the Collections field value
-// and a boolean to check if the value has been set.
-func (o *UpdateAliasRequest) GetCollectionsOk() ([]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Collections, true
-}
-
-// SetCollections sets field value
-func (o *UpdateAliasRequest) SetCollections(v []string) {
-	o.Collections = v
-}
-
 func (o UpdateAliasRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
 	if true {
 		toSerialize["collections"] = o.Collections
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

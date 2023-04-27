@@ -4,22 +4,22 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Aliases** | Pointer to [**[]Alias**](Alias.md) | List of aliases for a collection. | [optional] 
+**BulkStats** | Pointer to [**[]BulkStats**](BulkStats.md) |  | [optional] 
+**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | List of clustering fields for a collection. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
 **CreatedBy** | Pointer to **string** | Email of user who created the collection. | [optional] 
-**Name** | Pointer to **string** | Unique identifer for collection, can contain alphanumeric or dash characters. | [optional] 
 **Description** | Pointer to **string** | Text describing the collection. | [optional] 
-**Workspace** | Pointer to **string** | Name of the workspace that the collection is in. | [optional] 
-**Status** | Pointer to **string** | Current status of collection. | [optional] 
+**FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
+**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | List of mappings applied on all documents in a collection. | [optional] 
+**InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not. | [optional] 
+**Name** | Pointer to **string** | Unique identifer for collection, can contain alphanumeric or dash characters. | [optional] 
+**ReadOnly** | Pointer to **bool** | Whether the collection is read-only or not. | [optional] 
+**RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged based on event time. | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which collection ingests. | [optional] 
 **Stats** | Pointer to [**CollectionStats**](CollectionStats.md) |  | [optional] 
-**RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged based on event time. | [optional] 
-**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | List of mappings applied on all documents in a collection. | [optional] 
-**FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
-**ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | List of clustering fields for a collection. | [optional] 
-**Aliases** | Pointer to [**[]Alias**](Alias.md) | List of aliases for a collection. | [optional] 
-**ReadOnly** | Pointer to **bool** | Whether the collection is read-only or not. | [optional] 
-**InsertOnly** | Pointer to **bool** | Whether the collection is insert only or not. | [optional] 
-**BulkStats** | Pointer to [**[]BulkStats**](BulkStats.md) |  | [optional] 
+**Status** | Pointer to **string** | Current status of collection. | [optional] 
+**Workspace** | Pointer to **string** | Name of the workspace that the collection is in. | [optional] 
 
 ## Methods
 
@@ -39,6 +39,81 @@ will change when the set of required properties is changed
 NewCollectionWithDefaults instantiates a new Collection object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAliases
+
+`func (o *Collection) GetAliases() []Alias`
+
+GetAliases returns the Aliases field if non-nil, zero value otherwise.
+
+### GetAliasesOk
+
+`func (o *Collection) GetAliasesOk() (*[]Alias, bool)`
+
+GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAliases
+
+`func (o *Collection) SetAliases(v []Alias)`
+
+SetAliases sets Aliases field to given value.
+
+### HasAliases
+
+`func (o *Collection) HasAliases() bool`
+
+HasAliases returns a boolean if a field has been set.
+
+### GetBulkStats
+
+`func (o *Collection) GetBulkStats() []BulkStats`
+
+GetBulkStats returns the BulkStats field if non-nil, zero value otherwise.
+
+### GetBulkStatsOk
+
+`func (o *Collection) GetBulkStatsOk() (*[]BulkStats, bool)`
+
+GetBulkStatsOk returns a tuple with the BulkStats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBulkStats
+
+`func (o *Collection) SetBulkStats(v []BulkStats)`
+
+SetBulkStats sets BulkStats field to given value.
+
+### HasBulkStats
+
+`func (o *Collection) HasBulkStats() bool`
+
+HasBulkStats returns a boolean if a field has been set.
+
+### GetClusteringKey
+
+`func (o *Collection) GetClusteringKey() []FieldPartition`
+
+GetClusteringKey returns the ClusteringKey field if non-nil, zero value otherwise.
+
+### GetClusteringKeyOk
+
+`func (o *Collection) GetClusteringKeyOk() (*[]FieldPartition, bool)`
+
+GetClusteringKeyOk returns a tuple with the ClusteringKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClusteringKey
+
+`func (o *Collection) SetClusteringKey(v []FieldPartition)`
+
+SetClusteringKey sets ClusteringKey field to given value.
+
+### HasClusteringKey
+
+`func (o *Collection) HasClusteringKey() bool`
+
+HasClusteringKey returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -90,31 +165,6 @@ SetCreatedBy sets CreatedBy field to given value.
 
 HasCreatedBy returns a boolean if a field has been set.
 
-### GetName
-
-`func (o *Collection) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *Collection) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *Collection) SetName(v string)`
-
-SetName sets Name field to given value.
-
-### HasName
-
-`func (o *Collection) HasName() bool`
-
-HasName returns a boolean if a field has been set.
-
 ### GetDescription
 
 `func (o *Collection) GetDescription() string`
@@ -140,55 +190,155 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetWorkspace
+### GetFieldMappingQuery
 
-`func (o *Collection) GetWorkspace() string`
+`func (o *Collection) GetFieldMappingQuery() FieldMappingQuery`
 
-GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
+GetFieldMappingQuery returns the FieldMappingQuery field if non-nil, zero value otherwise.
 
-### GetWorkspaceOk
+### GetFieldMappingQueryOk
 
-`func (o *Collection) GetWorkspaceOk() (*string, bool)`
+`func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool)`
 
-GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
+GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWorkspace
+### SetFieldMappingQuery
 
-`func (o *Collection) SetWorkspace(v string)`
+`func (o *Collection) SetFieldMappingQuery(v FieldMappingQuery)`
 
-SetWorkspace sets Workspace field to given value.
+SetFieldMappingQuery sets FieldMappingQuery field to given value.
 
-### HasWorkspace
+### HasFieldMappingQuery
 
-`func (o *Collection) HasWorkspace() bool`
+`func (o *Collection) HasFieldMappingQuery() bool`
 
-HasWorkspace returns a boolean if a field has been set.
+HasFieldMappingQuery returns a boolean if a field has been set.
 
-### GetStatus
+### GetFieldMappings
 
-`func (o *Collection) GetStatus() string`
+`func (o *Collection) GetFieldMappings() []FieldMappingV2`
 
-GetStatus returns the Status field if non-nil, zero value otherwise.
+GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
 
-### GetStatusOk
+### GetFieldMappingsOk
 
-`func (o *Collection) GetStatusOk() (*string, bool)`
+`func (o *Collection) GetFieldMappingsOk() (*[]FieldMappingV2, bool)`
 
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetStatus
+### SetFieldMappings
 
-`func (o *Collection) SetStatus(v string)`
+`func (o *Collection) SetFieldMappings(v []FieldMappingV2)`
 
-SetStatus sets Status field to given value.
+SetFieldMappings sets FieldMappings field to given value.
 
-### HasStatus
+### HasFieldMappings
 
-`func (o *Collection) HasStatus() bool`
+`func (o *Collection) HasFieldMappings() bool`
 
-HasStatus returns a boolean if a field has been set.
+HasFieldMappings returns a boolean if a field has been set.
+
+### GetInsertOnly
+
+`func (o *Collection) GetInsertOnly() bool`
+
+GetInsertOnly returns the InsertOnly field if non-nil, zero value otherwise.
+
+### GetInsertOnlyOk
+
+`func (o *Collection) GetInsertOnlyOk() (*bool, bool)`
+
+GetInsertOnlyOk returns a tuple with the InsertOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInsertOnly
+
+`func (o *Collection) SetInsertOnly(v bool)`
+
+SetInsertOnly sets InsertOnly field to given value.
+
+### HasInsertOnly
+
+`func (o *Collection) HasInsertOnly() bool`
+
+HasInsertOnly returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *Collection) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *Collection) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *Collection) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *Collection) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetReadOnly
+
+`func (o *Collection) GetReadOnly() bool`
+
+GetReadOnly returns the ReadOnly field if non-nil, zero value otherwise.
+
+### GetReadOnlyOk
+
+`func (o *Collection) GetReadOnlyOk() (*bool, bool)`
+
+GetReadOnlyOk returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReadOnly
+
+`func (o *Collection) SetReadOnly(v bool)`
+
+SetReadOnly sets ReadOnly field to given value.
+
+### HasReadOnly
+
+`func (o *Collection) HasReadOnly() bool`
+
+HasReadOnly returns a boolean if a field has been set.
+
+### GetRetentionSecs
+
+`func (o *Collection) GetRetentionSecs() int64`
+
+GetRetentionSecs returns the RetentionSecs field if non-nil, zero value otherwise.
+
+### GetRetentionSecsOk
+
+`func (o *Collection) GetRetentionSecsOk() (*int64, bool)`
+
+GetRetentionSecsOk returns a tuple with the RetentionSecs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRetentionSecs
+
+`func (o *Collection) SetRetentionSecs(v int64)`
+
+SetRetentionSecs sets RetentionSecs field to given value.
+
+### HasRetentionSecs
+
+`func (o *Collection) HasRetentionSecs() bool`
+
+HasRetentionSecs returns a boolean if a field has been set.
 
 ### GetSources
 
@@ -240,205 +390,55 @@ SetStats sets Stats field to given value.
 
 HasStats returns a boolean if a field has been set.
 
-### GetRetentionSecs
+### GetStatus
 
-`func (o *Collection) GetRetentionSecs() int64`
+`func (o *Collection) GetStatus() string`
 
-GetRetentionSecs returns the RetentionSecs field if non-nil, zero value otherwise.
+GetStatus returns the Status field if non-nil, zero value otherwise.
 
-### GetRetentionSecsOk
+### GetStatusOk
 
-`func (o *Collection) GetRetentionSecsOk() (*int64, bool)`
+`func (o *Collection) GetStatusOk() (*string, bool)`
 
-GetRetentionSecsOk returns a tuple with the RetentionSecs field if it's non-nil, zero value otherwise
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRetentionSecs
+### SetStatus
 
-`func (o *Collection) SetRetentionSecs(v int64)`
+`func (o *Collection) SetStatus(v string)`
 
-SetRetentionSecs sets RetentionSecs field to given value.
+SetStatus sets Status field to given value.
 
-### HasRetentionSecs
+### HasStatus
 
-`func (o *Collection) HasRetentionSecs() bool`
+`func (o *Collection) HasStatus() bool`
 
-HasRetentionSecs returns a boolean if a field has been set.
+HasStatus returns a boolean if a field has been set.
 
-### GetFieldMappings
+### GetWorkspace
 
-`func (o *Collection) GetFieldMappings() []FieldMappingV2`
+`func (o *Collection) GetWorkspace() string`
 
-GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
+GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
 
-### GetFieldMappingsOk
+### GetWorkspaceOk
 
-`func (o *Collection) GetFieldMappingsOk() (*[]FieldMappingV2, bool)`
+`func (o *Collection) GetWorkspaceOk() (*string, bool)`
 
-GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
+GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFieldMappings
+### SetWorkspace
 
-`func (o *Collection) SetFieldMappings(v []FieldMappingV2)`
+`func (o *Collection) SetWorkspace(v string)`
 
-SetFieldMappings sets FieldMappings field to given value.
+SetWorkspace sets Workspace field to given value.
 
-### HasFieldMappings
+### HasWorkspace
 
-`func (o *Collection) HasFieldMappings() bool`
+`func (o *Collection) HasWorkspace() bool`
 
-HasFieldMappings returns a boolean if a field has been set.
-
-### GetFieldMappingQuery
-
-`func (o *Collection) GetFieldMappingQuery() FieldMappingQuery`
-
-GetFieldMappingQuery returns the FieldMappingQuery field if non-nil, zero value otherwise.
-
-### GetFieldMappingQueryOk
-
-`func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool)`
-
-GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFieldMappingQuery
-
-`func (o *Collection) SetFieldMappingQuery(v FieldMappingQuery)`
-
-SetFieldMappingQuery sets FieldMappingQuery field to given value.
-
-### HasFieldMappingQuery
-
-`func (o *Collection) HasFieldMappingQuery() bool`
-
-HasFieldMappingQuery returns a boolean if a field has been set.
-
-### GetClusteringKey
-
-`func (o *Collection) GetClusteringKey() []FieldPartition`
-
-GetClusteringKey returns the ClusteringKey field if non-nil, zero value otherwise.
-
-### GetClusteringKeyOk
-
-`func (o *Collection) GetClusteringKeyOk() (*[]FieldPartition, bool)`
-
-GetClusteringKeyOk returns a tuple with the ClusteringKey field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClusteringKey
-
-`func (o *Collection) SetClusteringKey(v []FieldPartition)`
-
-SetClusteringKey sets ClusteringKey field to given value.
-
-### HasClusteringKey
-
-`func (o *Collection) HasClusteringKey() bool`
-
-HasClusteringKey returns a boolean if a field has been set.
-
-### GetAliases
-
-`func (o *Collection) GetAliases() []Alias`
-
-GetAliases returns the Aliases field if non-nil, zero value otherwise.
-
-### GetAliasesOk
-
-`func (o *Collection) GetAliasesOk() (*[]Alias, bool)`
-
-GetAliasesOk returns a tuple with the Aliases field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAliases
-
-`func (o *Collection) SetAliases(v []Alias)`
-
-SetAliases sets Aliases field to given value.
-
-### HasAliases
-
-`func (o *Collection) HasAliases() bool`
-
-HasAliases returns a boolean if a field has been set.
-
-### GetReadOnly
-
-`func (o *Collection) GetReadOnly() bool`
-
-GetReadOnly returns the ReadOnly field if non-nil, zero value otherwise.
-
-### GetReadOnlyOk
-
-`func (o *Collection) GetReadOnlyOk() (*bool, bool)`
-
-GetReadOnlyOk returns a tuple with the ReadOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetReadOnly
-
-`func (o *Collection) SetReadOnly(v bool)`
-
-SetReadOnly sets ReadOnly field to given value.
-
-### HasReadOnly
-
-`func (o *Collection) HasReadOnly() bool`
-
-HasReadOnly returns a boolean if a field has been set.
-
-### GetInsertOnly
-
-`func (o *Collection) GetInsertOnly() bool`
-
-GetInsertOnly returns the InsertOnly field if non-nil, zero value otherwise.
-
-### GetInsertOnlyOk
-
-`func (o *Collection) GetInsertOnlyOk() (*bool, bool)`
-
-GetInsertOnlyOk returns a tuple with the InsertOnly field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInsertOnly
-
-`func (o *Collection) SetInsertOnly(v bool)`
-
-SetInsertOnly sets InsertOnly field to given value.
-
-### HasInsertOnly
-
-`func (o *Collection) HasInsertOnly() bool`
-
-HasInsertOnly returns a boolean if a field has been set.
-
-### GetBulkStats
-
-`func (o *Collection) GetBulkStats() []BulkStats`
-
-GetBulkStats returns the BulkStats field if non-nil, zero value otherwise.
-
-### GetBulkStatsOk
-
-`func (o *Collection) GetBulkStatsOk() (*[]BulkStats, bool)`
-
-GetBulkStatsOk returns a tuple with the BulkStats field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBulkStats
-
-`func (o *Collection) SetBulkStats(v []BulkStats)`
-
-SetBulkStats sets BulkStats field to given value.
-
-### HasBulkStats
-
-`func (o *Collection) HasBulkStats() bool`
-
-HasBulkStats returns a boolean if a field has been set.
+HasWorkspace returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

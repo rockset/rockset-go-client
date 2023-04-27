@@ -18,10 +18,10 @@ import (
 type AsyncQueryOptions struct {
 	// The maximum amount of time that the client is willing to wait for the query to complete. If the query is not complete by this timeout, a response will be returned with a `query_id` that can be used to check the status of the query and retrieve results once the query has completed.
 	ClientTimeoutMs *int64 `json:"client_timeout_ms,omitempty"`
-	// The maximum amount of time that the system will attempt to complete query execution before aborting the query and returning an error.
-	TimeoutMs *int64 `json:"timeout_ms,omitempty"`
 	// The maximum number of results you will receive as a client. If the query exceeds this limit, the remaining results can be requested using a returned pagination cursor. In addition, there is a maximum response size of 100MiB so fewer than `max_results` may be returned.
 	MaxInitialResults *int64 `json:"max_initial_results,omitempty"`
+	// The maximum amount of time that the system will attempt to complete query execution before aborting the query and returning an error.
+	TimeoutMs *int64 `json:"timeout_ms,omitempty"`
 }
 
 // NewAsyncQueryOptions instantiates a new AsyncQueryOptions object
@@ -73,38 +73,6 @@ func (o *AsyncQueryOptions) SetClientTimeoutMs(v int64) {
 	o.ClientTimeoutMs = &v
 }
 
-// GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
-func (o *AsyncQueryOptions) GetTimeoutMs() int64 {
-	if o == nil || o.TimeoutMs == nil {
-		var ret int64
-		return ret
-	}
-	return *o.TimeoutMs
-}
-
-// GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AsyncQueryOptions) GetTimeoutMsOk() (*int64, bool) {
-	if o == nil || o.TimeoutMs == nil {
-		return nil, false
-	}
-	return o.TimeoutMs, true
-}
-
-// HasTimeoutMs returns a boolean if a field has been set.
-func (o *AsyncQueryOptions) HasTimeoutMs() bool {
-	if o != nil && o.TimeoutMs != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTimeoutMs gets a reference to the given int64 and assigns it to the TimeoutMs field.
-func (o *AsyncQueryOptions) SetTimeoutMs(v int64) {
-	o.TimeoutMs = &v
-}
-
 // GetMaxInitialResults returns the MaxInitialResults field value if set, zero value otherwise.
 func (o *AsyncQueryOptions) GetMaxInitialResults() int64 {
 	if o == nil || o.MaxInitialResults == nil {
@@ -137,16 +105,48 @@ func (o *AsyncQueryOptions) SetMaxInitialResults(v int64) {
 	o.MaxInitialResults = &v
 }
 
+// GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
+func (o *AsyncQueryOptions) GetTimeoutMs() int64 {
+	if o == nil || o.TimeoutMs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TimeoutMs
+}
+
+// GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AsyncQueryOptions) GetTimeoutMsOk() (*int64, bool) {
+	if o == nil || o.TimeoutMs == nil {
+		return nil, false
+	}
+	return o.TimeoutMs, true
+}
+
+// HasTimeoutMs returns a boolean if a field has been set.
+func (o *AsyncQueryOptions) HasTimeoutMs() bool {
+	if o != nil && o.TimeoutMs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeoutMs gets a reference to the given int64 and assigns it to the TimeoutMs field.
+func (o *AsyncQueryOptions) SetTimeoutMs(v int64) {
+	o.TimeoutMs = &v
+}
+
 func (o AsyncQueryOptions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ClientTimeoutMs != nil {
 		toSerialize["client_timeout_ms"] = o.ClientTimeoutMs
 	}
-	if o.TimeoutMs != nil {
-		toSerialize["timeout_ms"] = o.TimeoutMs
-	}
 	if o.MaxInitialResults != nil {
 		toSerialize["max_initial_results"] = o.MaxInitialResults
+	}
+	if o.TimeoutMs != nil {
+		toSerialize["timeout_ms"] = o.TimeoutMs
 	}
 	return json.Marshal(toSerialize)
 }

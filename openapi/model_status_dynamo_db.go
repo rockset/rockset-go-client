@@ -16,12 +16,12 @@ import (
 
 // StatusDynamoDb struct for StatusDynamoDb
 type StatusDynamoDb struct {
-	// DynamoDB scan start time.
-	ScanStartTime *string `json:"scan_start_time,omitempty"`
 	// DynamoDb scan end time.
 	ScanEndTime *string `json:"scan_end_time,omitempty"`
 	// Number of records inserted using scan.
 	ScanRecordsProcessed *int64 `json:"scan_records_processed,omitempty"`
+	// DynamoDB scan start time.
+	ScanStartTime *string `json:"scan_start_time,omitempty"`
 	// Number of records in DynamoDB table at time of scan.
 	ScanTotalRecords *int64 `json:"scan_total_records,omitempty"`
 	// State of current ingest for this table.
@@ -45,38 +45,6 @@ func NewStatusDynamoDb() *StatusDynamoDb {
 func NewStatusDynamoDbWithDefaults() *StatusDynamoDb {
 	this := StatusDynamoDb{}
 	return &this
-}
-
-// GetScanStartTime returns the ScanStartTime field value if set, zero value otherwise.
-func (o *StatusDynamoDb) GetScanStartTime() string {
-	if o == nil || o.ScanStartTime == nil {
-		var ret string
-		return ret
-	}
-	return *o.ScanStartTime
-}
-
-// GetScanStartTimeOk returns a tuple with the ScanStartTime field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatusDynamoDb) GetScanStartTimeOk() (*string, bool) {
-	if o == nil || o.ScanStartTime == nil {
-		return nil, false
-	}
-	return o.ScanStartTime, true
-}
-
-// HasScanStartTime returns a boolean if a field has been set.
-func (o *StatusDynamoDb) HasScanStartTime() bool {
-	if o != nil && o.ScanStartTime != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetScanStartTime gets a reference to the given string and assigns it to the ScanStartTime field.
-func (o *StatusDynamoDb) SetScanStartTime(v string) {
-	o.ScanStartTime = &v
 }
 
 // GetScanEndTime returns the ScanEndTime field value if set, zero value otherwise.
@@ -141,6 +109,38 @@ func (o *StatusDynamoDb) HasScanRecordsProcessed() bool {
 // SetScanRecordsProcessed gets a reference to the given int64 and assigns it to the ScanRecordsProcessed field.
 func (o *StatusDynamoDb) SetScanRecordsProcessed(v int64) {
 	o.ScanRecordsProcessed = &v
+}
+
+// GetScanStartTime returns the ScanStartTime field value if set, zero value otherwise.
+func (o *StatusDynamoDb) GetScanStartTime() string {
+	if o == nil || o.ScanStartTime == nil {
+		var ret string
+		return ret
+	}
+	return *o.ScanStartTime
+}
+
+// GetScanStartTimeOk returns a tuple with the ScanStartTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatusDynamoDb) GetScanStartTimeOk() (*string, bool) {
+	if o == nil || o.ScanStartTime == nil {
+		return nil, false
+	}
+	return o.ScanStartTime, true
+}
+
+// HasScanStartTime returns a boolean if a field has been set.
+func (o *StatusDynamoDb) HasScanStartTime() bool {
+	if o != nil && o.ScanStartTime != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScanStartTime gets a reference to the given string and assigns it to the ScanStartTime field.
+func (o *StatusDynamoDb) SetScanStartTime(v string) {
+	o.ScanStartTime = &v
 }
 
 // GetScanTotalRecords returns the ScanTotalRecords field value if set, zero value otherwise.
@@ -241,14 +241,14 @@ func (o *StatusDynamoDb) SetStreamLastProcessedAt(v string) {
 
 func (o StatusDynamoDb) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ScanStartTime != nil {
-		toSerialize["scan_start_time"] = o.ScanStartTime
-	}
 	if o.ScanEndTime != nil {
 		toSerialize["scan_end_time"] = o.ScanEndTime
 	}
 	if o.ScanRecordsProcessed != nil {
 		toSerialize["scan_records_processed"] = o.ScanRecordsProcessed
+	}
+	if o.ScanStartTime != nil {
+		toSerialize["scan_start_time"] = o.ScanStartTime
 	}
 	if o.ScanTotalRecords != nil {
 		toSerialize["scan_total_records"] = o.ScanTotalRecords

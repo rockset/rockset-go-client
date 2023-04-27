@@ -16,10 +16,10 @@ import (
 
 // AwsRole struct for AwsRole
 type AwsRole struct {
-	// ARN of rockset-role created in your account.
-	AwsRoleArn string `json:"aws_role_arn"`
 	// External id used for integration.
 	AwsExternalId *string `json:"aws_external_id,omitempty"`
+	// ARN of rockset-role created in your account.
+	AwsRoleArn string `json:"aws_role_arn"`
 }
 
 // NewAwsRole instantiates a new AwsRole object
@@ -38,30 +38,6 @@ func NewAwsRole(awsRoleArn string) *AwsRole {
 func NewAwsRoleWithDefaults() *AwsRole {
 	this := AwsRole{}
 	return &this
-}
-
-// GetAwsRoleArn returns the AwsRoleArn field value
-func (o *AwsRole) GetAwsRoleArn() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AwsRoleArn
-}
-
-// GetAwsRoleArnOk returns a tuple with the AwsRoleArn field value
-// and a boolean to check if the value has been set.
-func (o *AwsRole) GetAwsRoleArnOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.AwsRoleArn, true
-}
-
-// SetAwsRoleArn sets field value
-func (o *AwsRole) SetAwsRoleArn(v string) {
-	o.AwsRoleArn = v
 }
 
 // GetAwsExternalId returns the AwsExternalId field value if set, zero value otherwise.
@@ -96,13 +72,37 @@ func (o *AwsRole) SetAwsExternalId(v string) {
 	o.AwsExternalId = &v
 }
 
+// GetAwsRoleArn returns the AwsRoleArn field value
+func (o *AwsRole) GetAwsRoleArn() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.AwsRoleArn
+}
+
+// GetAwsRoleArnOk returns a tuple with the AwsRoleArn field value
+// and a boolean to check if the value has been set.
+func (o *AwsRole) GetAwsRoleArnOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.AwsRoleArn, true
+}
+
+// SetAwsRoleArn sets field value
+func (o *AwsRole) SetAwsRoleArn(v string) {
+	o.AwsRoleArn = v
+}
+
 func (o AwsRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["aws_role_arn"] = o.AwsRoleArn
-	}
 	if o.AwsExternalId != nil {
 		toSerialize["aws_external_id"] = o.AwsExternalId
+	}
+	if true {
+		toSerialize["aws_role_arn"] = o.AwsRoleArn
 	}
 	return json.Marshal(toSerialize)
 }
