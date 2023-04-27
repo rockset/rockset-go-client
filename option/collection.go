@@ -307,3 +307,21 @@ func WithSampleDatasetPattern(pattern string) CollectionOption {
 		})
 	}
 }
+
+// StorageCompressionType defined the RocksDB storage compression types.
+type StorageCompressionType string
+
+func (s StorageCompressionType) String() string { return string(s) }
+
+const (
+	StorageCompressionLZ4  = "LZ4"
+	StorageCompressionZSTD = "ZSTD"
+)
+
+// WithStorageCompressionType sets the RocksDB storage compression type.
+func WithStorageCompressionType(compressionType StorageCompressionType) CollectionOption {
+	return func(o *openapi.CreateCollectionRequest) {
+		t := compressionType.String()
+		o.StorageCompressionType = &t
+	}
+}

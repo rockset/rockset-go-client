@@ -26,16 +26,28 @@ func TestCollectionIntegrationSuite(t *testing.T) {
 func (s *CollectionTestSuite) SetupSuite() {
 	ctx := testCtx()
 	_, err := s.rc.CreateWorkspace(ctx, s.ws)
-	s.NoError(err)
+	s.Require().NoError(err)
+
+	err = s.rc.WaitUntilWorkspaceAvailable(ctx, s.ws)
+	s.Require().NoError(err)
 }
 
 func (s *CollectionTestSuite) TearDownSuite() {
 	ctx := testCtx()
+	var deleted []string
 
 	for _, c := range s.collections {
-		err := s.rc.WaitUntilCollectionGone(ctx, s.ws, c)
-		s.Assert().NoError(err)
+		err := s.rc.DeleteCollection(ctx, s.ws, c)
+		if s.NoError(err) {
+			deleted = append(deleted, c)
+		}
 	}
+
+	for _, c := range deleted {
+		err := s.rc.WaitUntilCollectionGone(ctx, s.ws, c)
+		s.NoError(err)
+	}
+
 	err := s.rc.DeleteWorkspace(ctx, s.ws)
 	s.NoError(err)
 }
@@ -45,7 +57,7 @@ func (s *CollectionTestSuite) TestGetCollection() {
 
 	collection, err := s.rc.GetCollection(ctx, persistentWorkspace, persistentCollection)
 	s.NoError(err)
-	s.Assert().Equal(persistentCollection, collection.GetName())
+	s.Equal(persistentCollection, collection.GetName())
 }
 
 func (s *CollectionTestSuite) TestListAllCollections() {
@@ -69,32 +81,50 @@ func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
 	ctx := testCtx()
 	name := randomName("cities")
-	s.collections = append(s.collections, name)
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
 		option.WithSampleDataset(dataset.Cities))
 	s.Require().NoError(err)
+	s.collections = append(s.collections, name)
 
 	err = s.rc.WaitUntilCollectionHasDocuments(ctx, s.ws, name, int64(145_658))
-	s.Assert().NoError(err)
-
-	err = s.rc.DeleteCollection(ctx, s.ws, name)
-	s.Assert().NoError(err)
-
+	s.NoError(err)
 }
 
 func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
 	ctx := testCtx()
 	name := randomName("movies")
-	s.collections = append(s.collections, name)
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
+		option.WithStorageCompressionType(option.StorageCompressionLZ4),
 		option.WithSampleDatasetPattern("movies/*"))
 	s.Require().NoError(err)
+	s.collections = append(s.collections, name)
 
 	err = s.rc.WaitUntilCollectionHasDocuments(ctx, s.ws, name, int64(2_830))
-	s.Assert().NoError(err)
+	s.NoError(err)
+}
 
-	err = s.rc.DeleteCollection(ctx, s.ws, name)
-	s.Assert().NoError(err)
+func (s *CollectionTestSuite) TestUpdateCollection() {
+	ctx := testCtx()
+	name := randomName("update")
+
+	_, err := s.rc.CreateCollection(ctx, s.ws, name,
+		option.WithStorageCompressionType(option.StorageCompressionZSTD),
+		option.WithCollectionDescription("initial"),
+		option.WithIngestTransformation("SELECT * FROM _input"))
+	s.Require().NoError(err)
+	s.collections = append(s.collections, name)
+
+	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, name)
+	s.Require().NoError(err)
+
+	_, err = s.rc.UpdateCollection(ctx, s.ws, name,
+		option.WithStorageCompressionType(option.StorageCompressionLZ4))
+	s.Error(err)
+
+	_, err = s.rc.UpdateCollection(ctx, s.ws, name,
+		option.WithCollectionDescription("updated"),
+		option.WithIngestTransformation("SELECT * FROM _input WHERE _input.foo != 'bar'"))
+	s.NoError(err)
 }

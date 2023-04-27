@@ -2,6 +2,8 @@ package rockset
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -67,7 +69,7 @@ func (rc *RockClient) ListCollections(ctx context.Context,
 	return resp.GetData(), nil
 }
 
-// DeleteCollection deletes  collection.
+// DeleteCollection deletes a collection.
 func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name string) error {
 	deleteReq := rc.CollectionsApi.DeleteCollection(ctx, workspace, name)
 
@@ -78,6 +80,63 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 	})
 
 	return err
+}
+
+// UpdateCollection updates a collection. Only the option.WithCollectionDescription and
+// option.WithIngestTransformation can be used, and any other option will return an error.
+func (rc *RockClient) UpdateCollection(ctx context.Context, workspace, name string, options ...option.CollectionOption) (openapi.Collection, error) {
+	var err error
+	var httpResp *http.Response
+	var resp *openapi.GetCollectionResponse
+
+	// this reuses the CreateCollectionRequest to avoid having to create separate options for UpdateCollection
+	var r openapi.CreateCollectionRequest
+	for _, o := range options {
+		o(&r)
+	}
+
+	request := openapi.UpdateCollectionRequest{}
+	if r.Description != nil {
+		request.Description = r.Description
+	}
+	if r.FieldMappingQuery != nil {
+		request.FieldMappingQuery = r.FieldMappingQuery
+	}
+	var errs []error
+	if r.ClusteringKey != nil {
+		errs = append(errs, fmt.Errorf("unsupported update attribute: %s", "ClusteringKey"))
+	}
+	if r.EventTimeInfo != nil {
+		errs = append(errs, fmt.Errorf("unsupported update attribute: %s", "EventTimeInfo"))
+	}
+	if r.Name != nil {
+		errs = append(errs, fmt.Errorf("unsupported update attribute: %s", "Name"))
+	}
+	if r.RetentionSecs != nil {
+		errs = append(errs, fmt.Errorf("unsupported update attribute: %s", "RetentionSecs"))
+	}
+	if r.Sources != nil {
+		errs = append(errs, fmt.Errorf("unsupported update attribute: %s", "Sources"))
+	}
+	if r.StorageCompressionType != nil {
+		errs = append(errs, fmt.Errorf("unsupported update attribute: %s", "StorageCompressionType"))
+	}
+	if len(errs) > 0 {
+		return openapi.Collection{}, errors.Join(errs...)
+	}
+
+	updateReq := rc.CollectionsApi.UpdateCollection(ctx, workspace, name)
+
+	err = rc.Retry(ctx, func() error {
+		resp, httpResp, err = updateReq.Body(request).Execute()
+
+		return NewErrorWithStatusCode(err, httpResp)
+	})
+	if err != nil {
+		return openapi.Collection{}, err
+	}
+
+	return resp.GetData(), nil
 }
 
 // CreateCollection is used to create a collection from one or more sources:
