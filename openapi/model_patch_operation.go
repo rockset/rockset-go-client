@@ -16,14 +16,14 @@ import (
 
 // PatchOperation struct for PatchOperation
 type PatchOperation struct {
+	// [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) referencing a location in the target document. Required for `COPY` and `MOVE` operations.
+	From *string `json:"from,omitempty"`
 	// [JSON Patch operation](https://datatracker.ietf.org/doc/html/rfc6902#page-4) to be performed in this patch. Case insensitive.
 	Op string `json:"op"`
 	// [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) referencing a location in the target document where the operation is performed
 	Path string `json:"path"`
 	// Value used in the patch operation. Required for `ADD`, `REPLACE`, `TEST`, and `INCREMENT` operations.
 	Value map[string]interface{} `json:"value,omitempty"`
-	// [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) referencing a location in the target document. Required for `COPY` and `MOVE` operations.
-	From *string `json:"from,omitempty"`
 }
 
 // NewPatchOperation instantiates a new PatchOperation object
@@ -43,6 +43,38 @@ func NewPatchOperation(op string, path string) *PatchOperation {
 func NewPatchOperationWithDefaults() *PatchOperation {
 	this := PatchOperation{}
 	return &this
+}
+
+// GetFrom returns the From field value if set, zero value otherwise.
+func (o *PatchOperation) GetFrom() string {
+	if o == nil || o.From == nil {
+		var ret string
+		return ret
+	}
+	return *o.From
+}
+
+// GetFromOk returns a tuple with the From field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchOperation) GetFromOk() (*string, bool) {
+	if o == nil || o.From == nil {
+		return nil, false
+	}
+	return o.From, true
+}
+
+// HasFrom returns a boolean if a field has been set.
+func (o *PatchOperation) HasFrom() bool {
+	if o != nil && o.From != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFrom gets a reference to the given string and assigns it to the From field.
+func (o *PatchOperation) SetFrom(v string) {
+	o.From = &v
 }
 
 // GetOp returns the Op field value
@@ -125,40 +157,11 @@ func (o *PatchOperation) SetValue(v map[string]interface{}) {
 	o.Value = v
 }
 
-// GetFrom returns the From field value if set, zero value otherwise.
-func (o *PatchOperation) GetFrom() string {
-	if o == nil || o.From == nil {
-		var ret string
-		return ret
-	}
-	return *o.From
-}
-
-// GetFromOk returns a tuple with the From field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PatchOperation) GetFromOk() (*string, bool) {
-	if o == nil || o.From == nil {
-		return nil, false
-	}
-	return o.From, true
-}
-
-// HasFrom returns a boolean if a field has been set.
-func (o *PatchOperation) HasFrom() bool {
-	if o != nil && o.From != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFrom gets a reference to the given string and assigns it to the From field.
-func (o *PatchOperation) SetFrom(v string) {
-	o.From = &v
-}
-
 func (o PatchOperation) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.From != nil {
+		toSerialize["from"] = o.From
+	}
 	if true {
 		toSerialize["op"] = o.Op
 	}
@@ -167,9 +170,6 @@ func (o PatchOperation) MarshalJSON() ([]byte, error) {
 	}
 	if o.Value != nil {
 		toSerialize["value"] = o.Value
-	}
-	if o.From != nil {
-		toSerialize["from"] = o.From
 	}
 	return json.Marshal(toSerialize)
 }

@@ -18,14 +18,14 @@ import (
 type SourceGcs struct {
 	// Name of GCS bucket you want to ingest from.
 	Bucket *string `json:"bucket,omitempty"`
-	// Prefix that selects keys to ingest.
-	Prefix *string `json:"prefix,omitempty"`
-	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
-	Pattern *string `json:"pattern,omitempty"`
+	ObjectBytesDownloaded *int64 `json:"object_bytes_downloaded,omitempty"`
+	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
 	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
-	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
-	ObjectBytesDownloaded *int64 `json:"object_bytes_downloaded,omitempty"`
+	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
+	Pattern *string `json:"pattern,omitempty"`
+	// Prefix that selects keys to ingest.
+	Prefix *string `json:"prefix,omitempty"`
 }
 
 // NewSourceGcs instantiates a new SourceGcs object
@@ -77,68 +77,68 @@ func (o *SourceGcs) SetBucket(v string) {
 	o.Bucket = &v
 }
 
-// GetPrefix returns the Prefix field value if set, zero value otherwise.
-func (o *SourceGcs) GetPrefix() string {
-	if o == nil || o.Prefix == nil {
-		var ret string
+// GetObjectBytesDownloaded returns the ObjectBytesDownloaded field value if set, zero value otherwise.
+func (o *SourceGcs) GetObjectBytesDownloaded() int64 {
+	if o == nil || o.ObjectBytesDownloaded == nil {
+		var ret int64
 		return ret
 	}
-	return *o.Prefix
+	return *o.ObjectBytesDownloaded
 }
 
-// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
+// GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceGcs) GetPrefixOk() (*string, bool) {
-	if o == nil || o.Prefix == nil {
+func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool) {
+	if o == nil || o.ObjectBytesDownloaded == nil {
 		return nil, false
 	}
-	return o.Prefix, true
+	return o.ObjectBytesDownloaded, true
 }
 
-// HasPrefix returns a boolean if a field has been set.
-func (o *SourceGcs) HasPrefix() bool {
-	if o != nil && o.Prefix != nil {
+// HasObjectBytesDownloaded returns a boolean if a field has been set.
+func (o *SourceGcs) HasObjectBytesDownloaded() bool {
+	if o != nil && o.ObjectBytesDownloaded != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
-func (o *SourceGcs) SetPrefix(v string) {
-	o.Prefix = &v
+// SetObjectBytesDownloaded gets a reference to the given int64 and assigns it to the ObjectBytesDownloaded field.
+func (o *SourceGcs) SetObjectBytesDownloaded(v int64) {
+	o.ObjectBytesDownloaded = &v
 }
 
-// GetPattern returns the Pattern field value if set, zero value otherwise.
-func (o *SourceGcs) GetPattern() string {
-	if o == nil || o.Pattern == nil {
-		var ret string
+// GetObjectBytesTotal returns the ObjectBytesTotal field value if set, zero value otherwise.
+func (o *SourceGcs) GetObjectBytesTotal() int64 {
+	if o == nil || o.ObjectBytesTotal == nil {
+		var ret int64
 		return ret
 	}
-	return *o.Pattern
+	return *o.ObjectBytesTotal
 }
 
-// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
+// GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceGcs) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
+func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool) {
+	if o == nil || o.ObjectBytesTotal == nil {
 		return nil, false
 	}
-	return o.Pattern, true
+	return o.ObjectBytesTotal, true
 }
 
-// HasPattern returns a boolean if a field has been set.
-func (o *SourceGcs) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
+// HasObjectBytesTotal returns a boolean if a field has been set.
+func (o *SourceGcs) HasObjectBytesTotal() bool {
+	if o != nil && o.ObjectBytesTotal != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPattern gets a reference to the given string and assigns it to the Pattern field.
-func (o *SourceGcs) SetPattern(v string) {
-	o.Pattern = &v
+// SetObjectBytesTotal gets a reference to the given int64 and assigns it to the ObjectBytesTotal field.
+func (o *SourceGcs) SetObjectBytesTotal(v int64) {
+	o.ObjectBytesTotal = &v
 }
 
 // GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
@@ -205,68 +205,68 @@ func (o *SourceGcs) SetObjectCountTotal(v int64) {
 	o.ObjectCountTotal = &v
 }
 
-// GetObjectBytesTotal returns the ObjectBytesTotal field value if set, zero value otherwise.
-func (o *SourceGcs) GetObjectBytesTotal() int64 {
-	if o == nil || o.ObjectBytesTotal == nil {
-		var ret int64
+// GetPattern returns the Pattern field value if set, zero value otherwise.
+func (o *SourceGcs) GetPattern() string {
+	if o == nil || o.Pattern == nil {
+		var ret string
 		return ret
 	}
-	return *o.ObjectBytesTotal
+	return *o.Pattern
 }
 
-// GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field value if set, nil otherwise
+// GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool) {
-	if o == nil || o.ObjectBytesTotal == nil {
+func (o *SourceGcs) GetPatternOk() (*string, bool) {
+	if o == nil || o.Pattern == nil {
 		return nil, false
 	}
-	return o.ObjectBytesTotal, true
+	return o.Pattern, true
 }
 
-// HasObjectBytesTotal returns a boolean if a field has been set.
-func (o *SourceGcs) HasObjectBytesTotal() bool {
-	if o != nil && o.ObjectBytesTotal != nil {
+// HasPattern returns a boolean if a field has been set.
+func (o *SourceGcs) HasPattern() bool {
+	if o != nil && o.Pattern != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetObjectBytesTotal gets a reference to the given int64 and assigns it to the ObjectBytesTotal field.
-func (o *SourceGcs) SetObjectBytesTotal(v int64) {
-	o.ObjectBytesTotal = &v
+// SetPattern gets a reference to the given string and assigns it to the Pattern field.
+func (o *SourceGcs) SetPattern(v string) {
+	o.Pattern = &v
 }
 
-// GetObjectBytesDownloaded returns the ObjectBytesDownloaded field value if set, zero value otherwise.
-func (o *SourceGcs) GetObjectBytesDownloaded() int64 {
-	if o == nil || o.ObjectBytesDownloaded == nil {
-		var ret int64
+// GetPrefix returns the Prefix field value if set, zero value otherwise.
+func (o *SourceGcs) GetPrefix() string {
+	if o == nil || o.Prefix == nil {
+		var ret string
 		return ret
 	}
-	return *o.ObjectBytesDownloaded
+	return *o.Prefix
 }
 
-// GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field value if set, nil otherwise
+// GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool) {
-	if o == nil || o.ObjectBytesDownloaded == nil {
+func (o *SourceGcs) GetPrefixOk() (*string, bool) {
+	if o == nil || o.Prefix == nil {
 		return nil, false
 	}
-	return o.ObjectBytesDownloaded, true
+	return o.Prefix, true
 }
 
-// HasObjectBytesDownloaded returns a boolean if a field has been set.
-func (o *SourceGcs) HasObjectBytesDownloaded() bool {
-	if o != nil && o.ObjectBytesDownloaded != nil {
+// HasPrefix returns a boolean if a field has been set.
+func (o *SourceGcs) HasPrefix() bool {
+	if o != nil && o.Prefix != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetObjectBytesDownloaded gets a reference to the given int64 and assigns it to the ObjectBytesDownloaded field.
-func (o *SourceGcs) SetObjectBytesDownloaded(v int64) {
-	o.ObjectBytesDownloaded = &v
+// SetPrefix gets a reference to the given string and assigns it to the Prefix field.
+func (o *SourceGcs) SetPrefix(v string) {
+	o.Prefix = &v
 }
 
 func (o SourceGcs) MarshalJSON() ([]byte, error) {
@@ -274,11 +274,11 @@ func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	if o.Bucket != nil {
 		toSerialize["bucket"] = o.Bucket
 	}
-	if o.Prefix != nil {
-		toSerialize["prefix"] = o.Prefix
+	if o.ObjectBytesDownloaded != nil {
+		toSerialize["object_bytes_downloaded"] = o.ObjectBytesDownloaded
 	}
-	if o.Pattern != nil {
-		toSerialize["pattern"] = o.Pattern
+	if o.ObjectBytesTotal != nil {
+		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
 	}
 	if o.ObjectCountDownloaded != nil {
 		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded
@@ -286,11 +286,11 @@ func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	if o.ObjectCountTotal != nil {
 		toSerialize["object_count_total"] = o.ObjectCountTotal
 	}
-	if o.ObjectBytesTotal != nil {
-		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
+	if o.Pattern != nil {
+		toSerialize["pattern"] = o.Pattern
 	}
-	if o.ObjectBytesDownloaded != nil {
-		toSerialize["object_bytes_downloaded"] = o.ObjectBytesDownloaded
+	if o.Prefix != nil {
+		toSerialize["prefix"] = o.Prefix
 	}
 	return json.Marshal(toSerialize)
 }

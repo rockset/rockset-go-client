@@ -4,15 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DatabaseName** | **string** | MongoDB database name containing this collection. | 
 **CollectionName** | **string** | MongoDB collection name. | 
+**DatabaseName** | **string** | MongoDB database name containing this collection. | 
+**RetrieveFullDocument** | Pointer to **bool** | Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations. Selecting this option will increase load on your upstream MongoDB database. | [optional] 
 **Status** | Pointer to [**StatusMongoDb**](StatusMongoDb.md) |  | [optional] 
 
 ## Methods
 
 ### NewSourceMongoDb
 
-`func NewSourceMongoDb(databaseName string, collectionName string, ) *SourceMongoDb`
+`func NewSourceMongoDb(collectionName string, databaseName string, ) *SourceMongoDb`
 
 NewSourceMongoDb instantiates a new SourceMongoDb object
 This constructor will assign default values to properties that have it defined,
@@ -26,6 +27,26 @@ will change when the set of required properties is changed
 NewSourceMongoDbWithDefaults instantiates a new SourceMongoDb object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCollectionName
+
+`func (o *SourceMongoDb) GetCollectionName() string`
+
+GetCollectionName returns the CollectionName field if non-nil, zero value otherwise.
+
+### GetCollectionNameOk
+
+`func (o *SourceMongoDb) GetCollectionNameOk() (*string, bool)`
+
+GetCollectionNameOk returns a tuple with the CollectionName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollectionName
+
+`func (o *SourceMongoDb) SetCollectionName(v string)`
+
+SetCollectionName sets CollectionName field to given value.
+
 
 ### GetDatabaseName
 
@@ -47,25 +68,30 @@ and a boolean to check if the value has been set.
 SetDatabaseName sets DatabaseName field to given value.
 
 
-### GetCollectionName
+### GetRetrieveFullDocument
 
-`func (o *SourceMongoDb) GetCollectionName() string`
+`func (o *SourceMongoDb) GetRetrieveFullDocument() bool`
 
-GetCollectionName returns the CollectionName field if non-nil, zero value otherwise.
+GetRetrieveFullDocument returns the RetrieveFullDocument field if non-nil, zero value otherwise.
 
-### GetCollectionNameOk
+### GetRetrieveFullDocumentOk
 
-`func (o *SourceMongoDb) GetCollectionNameOk() (*string, bool)`
+`func (o *SourceMongoDb) GetRetrieveFullDocumentOk() (*bool, bool)`
 
-GetCollectionNameOk returns a tuple with the CollectionName field if it's non-nil, zero value otherwise
+GetRetrieveFullDocumentOk returns a tuple with the RetrieveFullDocument field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCollectionName
+### SetRetrieveFullDocument
 
-`func (o *SourceMongoDb) SetCollectionName(v string)`
+`func (o *SourceMongoDb) SetRetrieveFullDocument(v bool)`
 
-SetCollectionName sets CollectionName field to given value.
+SetRetrieveFullDocument sets RetrieveFullDocument field to given value.
 
+### HasRetrieveFullDocument
+
+`func (o *SourceMongoDb) HasRetrieveFullDocument() bool`
+
+HasRetrieveFullDocument returns a boolean if a field has been set.
 
 ### GetStatus
 

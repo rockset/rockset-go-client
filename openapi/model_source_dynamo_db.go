@@ -18,12 +18,12 @@ import (
 type SourceDynamoDb struct {
 	// AWS region name of DynamoDB table, by default us-west-2 is used.
 	AwsRegion *string `json:"aws_region,omitempty"`
-	// Name of DynamoDB table containing data.
-	TableName string `json:"table_name"`
 	CurrentStatus *StatusDynamoDbV2 `json:"current_status,omitempty"`
 	// Max RCU usage for scan.
 	Rcu *int64 `json:"rcu,omitempty"`
 	Status *StatusDynamoDb `json:"status,omitempty"`
+	// Name of DynamoDB table containing data.
+	TableName string `json:"table_name"`
 	// Whether to use DynamoDB Scan API for the initial scan.
 	UseScanApi *bool `json:"use_scan_api,omitempty"`
 }
@@ -76,30 +76,6 @@ func (o *SourceDynamoDb) HasAwsRegion() bool {
 // SetAwsRegion gets a reference to the given string and assigns it to the AwsRegion field.
 func (o *SourceDynamoDb) SetAwsRegion(v string) {
 	o.AwsRegion = &v
-}
-
-// GetTableName returns the TableName field value
-func (o *SourceDynamoDb) GetTableName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.TableName
-}
-
-// GetTableNameOk returns a tuple with the TableName field value
-// and a boolean to check if the value has been set.
-func (o *SourceDynamoDb) GetTableNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.TableName, true
-}
-
-// SetTableName sets field value
-func (o *SourceDynamoDb) SetTableName(v string) {
-	o.TableName = v
 }
 
 // GetCurrentStatus returns the CurrentStatus field value if set, zero value otherwise.
@@ -198,6 +174,30 @@ func (o *SourceDynamoDb) SetStatus(v StatusDynamoDb) {
 	o.Status = &v
 }
 
+// GetTableName returns the TableName field value
+func (o *SourceDynamoDb) GetTableName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.TableName
+}
+
+// GetTableNameOk returns a tuple with the TableName field value
+// and a boolean to check if the value has been set.
+func (o *SourceDynamoDb) GetTableNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.TableName, true
+}
+
+// SetTableName sets field value
+func (o *SourceDynamoDb) SetTableName(v string) {
+	o.TableName = v
+}
+
 // GetUseScanApi returns the UseScanApi field value if set, zero value otherwise.
 func (o *SourceDynamoDb) GetUseScanApi() bool {
 	if o == nil || o.UseScanApi == nil {
@@ -235,9 +235,6 @@ func (o SourceDynamoDb) MarshalJSON() ([]byte, error) {
 	if o.AwsRegion != nil {
 		toSerialize["aws_region"] = o.AwsRegion
 	}
-	if true {
-		toSerialize["table_name"] = o.TableName
-	}
 	if o.CurrentStatus != nil {
 		toSerialize["current_status"] = o.CurrentStatus
 	}
@@ -246,6 +243,9 @@ func (o SourceDynamoDb) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if true {
+		toSerialize["table_name"] = o.TableName
 	}
 	if o.UseScanApi != nil {
 		toSerialize["use_scan_api"] = o.UseScanApi

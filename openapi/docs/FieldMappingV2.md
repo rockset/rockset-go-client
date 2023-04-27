@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | A user specified string that is a name for this mapping. | [optional] 
-**IsDropAllFields** | Pointer to **bool** | A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set | [optional] 
 **InputFields** | Pointer to [**[]InputField**](InputField.md) | A List of InputField for this mapping. | [optional] 
+**IsDropAllFields** | Pointer to **bool** | A boolean that determines whether to drop all fields in this document. If set, input and output fields should not be set | [optional] 
+**Name** | Pointer to **string** | A user specified string that is a name for this mapping. | [optional] 
 **OutputField** | Pointer to [**OutputField**](OutputField.md) |  | [optional] 
 
 ## Methods
@@ -28,30 +28,30 @@ NewFieldMappingV2WithDefaults instantiates a new FieldMappingV2 object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetInputFields
 
-`func (o *FieldMappingV2) GetName() string`
+`func (o *FieldMappingV2) GetInputFields() []InputField`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetInputFields returns the InputFields field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetInputFieldsOk
 
-`func (o *FieldMappingV2) GetNameOk() (*string, bool)`
+`func (o *FieldMappingV2) GetInputFieldsOk() (*[]InputField, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetInputFieldsOk returns a tuple with the InputFields field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetInputFields
 
-`func (o *FieldMappingV2) SetName(v string)`
+`func (o *FieldMappingV2) SetInputFields(v []InputField)`
 
-SetName sets Name field to given value.
+SetInputFields sets InputFields field to given value.
 
-### HasName
+### HasInputFields
 
-`func (o *FieldMappingV2) HasName() bool`
+`func (o *FieldMappingV2) HasInputFields() bool`
 
-HasName returns a boolean if a field has been set.
+HasInputFields returns a boolean if a field has been set.
 
 ### GetIsDropAllFields
 
@@ -78,30 +78,30 @@ SetIsDropAllFields sets IsDropAllFields field to given value.
 
 HasIsDropAllFields returns a boolean if a field has been set.
 
-### GetInputFields
+### GetName
 
-`func (o *FieldMappingV2) GetInputFields() []InputField`
+`func (o *FieldMappingV2) GetName() string`
 
-GetInputFields returns the InputFields field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetInputFieldsOk
+### GetNameOk
 
-`func (o *FieldMappingV2) GetInputFieldsOk() (*[]InputField, bool)`
+`func (o *FieldMappingV2) GetNameOk() (*string, bool)`
 
-GetInputFieldsOk returns a tuple with the InputFields field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetInputFields
+### SetName
 
-`func (o *FieldMappingV2) SetInputFields(v []InputField)`
+`func (o *FieldMappingV2) SetName(v string)`
 
-SetInputFields sets InputFields field to given value.
+SetName sets Name field to given value.
 
-### HasInputFields
+### HasName
 
-`func (o *FieldMappingV2) HasInputFields() bool`
+`func (o *FieldMappingV2) HasName() bool`
 
-HasInputFields returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
 
 ### GetOutputField
 

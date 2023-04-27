@@ -16,20 +16,20 @@ import (
 
 // KafkaIntegration struct for KafkaIntegration
 type KafkaIntegration struct {
-	// Kafka topics to tail.
-	KafkaTopicNames []string `json:"kafka_topic_names,omitempty"`
-	// The status of the Kafka source by topic.
-	SourceStatusByTopic *map[string]StatusKafka `json:"source_status_by_topic,omitempty"`
-	// The format of the Kafka topics being tailed.
-	KafkaDataFormat *string `json:"kafka_data_format,omitempty"`
-	// Kafka connection string.
-	ConnectionString *string `json:"connection_string,omitempty"`
 	AwsRole *AwsRole `json:"aws_role,omitempty"`
-	UseV3 *bool `json:"use_v3,omitempty"`
 	// The Kafka bootstrap server url(s). Required only for V3 integration.
 	BootstrapServers *string `json:"bootstrap_servers,omitempty"`
-	SecurityConfig *KafkaV3SecurityConfig `json:"security_config,omitempty"`
+	// Kafka connection string.
+	ConnectionString *string `json:"connection_string,omitempty"`
+	// The format of the Kafka topics being tailed.
+	KafkaDataFormat *string `json:"kafka_data_format,omitempty"`
+	// Kafka topics to tail.
+	KafkaTopicNames []string `json:"kafka_topic_names,omitempty"`
 	SchemaRegistryConfig *SchemaRegistryConfig `json:"schema_registry_config,omitempty"`
+	SecurityConfig *KafkaV3SecurityConfig `json:"security_config,omitempty"`
+	// The status of the Kafka source by topic.
+	SourceStatusByTopic *map[string]StatusKafka `json:"source_status_by_topic,omitempty"`
+	UseV3 *bool `json:"use_v3,omitempty"`
 }
 
 // NewKafkaIntegration instantiates a new KafkaIntegration object
@@ -47,134 +47,6 @@ func NewKafkaIntegration() *KafkaIntegration {
 func NewKafkaIntegrationWithDefaults() *KafkaIntegration {
 	this := KafkaIntegration{}
 	return &this
-}
-
-// GetKafkaTopicNames returns the KafkaTopicNames field value if set, zero value otherwise.
-func (o *KafkaIntegration) GetKafkaTopicNames() []string {
-	if o == nil || o.KafkaTopicNames == nil {
-		var ret []string
-		return ret
-	}
-	return o.KafkaTopicNames
-}
-
-// GetKafkaTopicNamesOk returns a tuple with the KafkaTopicNames field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetKafkaTopicNamesOk() ([]string, bool) {
-	if o == nil || o.KafkaTopicNames == nil {
-		return nil, false
-	}
-	return o.KafkaTopicNames, true
-}
-
-// HasKafkaTopicNames returns a boolean if a field has been set.
-func (o *KafkaIntegration) HasKafkaTopicNames() bool {
-	if o != nil && o.KafkaTopicNames != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKafkaTopicNames gets a reference to the given []string and assigns it to the KafkaTopicNames field.
-func (o *KafkaIntegration) SetKafkaTopicNames(v []string) {
-	o.KafkaTopicNames = v
-}
-
-// GetSourceStatusByTopic returns the SourceStatusByTopic field value if set, zero value otherwise.
-func (o *KafkaIntegration) GetSourceStatusByTopic() map[string]StatusKafka {
-	if o == nil || o.SourceStatusByTopic == nil {
-		var ret map[string]StatusKafka
-		return ret
-	}
-	return *o.SourceStatusByTopic
-}
-
-// GetSourceStatusByTopicOk returns a tuple with the SourceStatusByTopic field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetSourceStatusByTopicOk() (*map[string]StatusKafka, bool) {
-	if o == nil || o.SourceStatusByTopic == nil {
-		return nil, false
-	}
-	return o.SourceStatusByTopic, true
-}
-
-// HasSourceStatusByTopic returns a boolean if a field has been set.
-func (o *KafkaIntegration) HasSourceStatusByTopic() bool {
-	if o != nil && o.SourceStatusByTopic != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSourceStatusByTopic gets a reference to the given map[string]StatusKafka and assigns it to the SourceStatusByTopic field.
-func (o *KafkaIntegration) SetSourceStatusByTopic(v map[string]StatusKafka) {
-	o.SourceStatusByTopic = &v
-}
-
-// GetKafkaDataFormat returns the KafkaDataFormat field value if set, zero value otherwise.
-func (o *KafkaIntegration) GetKafkaDataFormat() string {
-	if o == nil || o.KafkaDataFormat == nil {
-		var ret string
-		return ret
-	}
-	return *o.KafkaDataFormat
-}
-
-// GetKafkaDataFormatOk returns a tuple with the KafkaDataFormat field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetKafkaDataFormatOk() (*string, bool) {
-	if o == nil || o.KafkaDataFormat == nil {
-		return nil, false
-	}
-	return o.KafkaDataFormat, true
-}
-
-// HasKafkaDataFormat returns a boolean if a field has been set.
-func (o *KafkaIntegration) HasKafkaDataFormat() bool {
-	if o != nil && o.KafkaDataFormat != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKafkaDataFormat gets a reference to the given string and assigns it to the KafkaDataFormat field.
-func (o *KafkaIntegration) SetKafkaDataFormat(v string) {
-	o.KafkaDataFormat = &v
-}
-
-// GetConnectionString returns the ConnectionString field value if set, zero value otherwise.
-func (o *KafkaIntegration) GetConnectionString() string {
-	if o == nil || o.ConnectionString == nil {
-		var ret string
-		return ret
-	}
-	return *o.ConnectionString
-}
-
-// GetConnectionStringOk returns a tuple with the ConnectionString field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetConnectionStringOk() (*string, bool) {
-	if o == nil || o.ConnectionString == nil {
-		return nil, false
-	}
-	return o.ConnectionString, true
-}
-
-// HasConnectionString returns a boolean if a field has been set.
-func (o *KafkaIntegration) HasConnectionString() bool {
-	if o != nil && o.ConnectionString != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetConnectionString gets a reference to the given string and assigns it to the ConnectionString field.
-func (o *KafkaIntegration) SetConnectionString(v string) {
-	o.ConnectionString = &v
 }
 
 // GetAwsRole returns the AwsRole field value if set, zero value otherwise.
@@ -209,38 +81,6 @@ func (o *KafkaIntegration) SetAwsRole(v AwsRole) {
 	o.AwsRole = &v
 }
 
-// GetUseV3 returns the UseV3 field value if set, zero value otherwise.
-func (o *KafkaIntegration) GetUseV3() bool {
-	if o == nil || o.UseV3 == nil {
-		var ret bool
-		return ret
-	}
-	return *o.UseV3
-}
-
-// GetUseV3Ok returns a tuple with the UseV3 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetUseV3Ok() (*bool, bool) {
-	if o == nil || o.UseV3 == nil {
-		return nil, false
-	}
-	return o.UseV3, true
-}
-
-// HasUseV3 returns a boolean if a field has been set.
-func (o *KafkaIntegration) HasUseV3() bool {
-	if o != nil && o.UseV3 != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUseV3 gets a reference to the given bool and assigns it to the UseV3 field.
-func (o *KafkaIntegration) SetUseV3(v bool) {
-	o.UseV3 = &v
-}
-
 // GetBootstrapServers returns the BootstrapServers field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetBootstrapServers() string {
 	if o == nil || o.BootstrapServers == nil {
@@ -273,36 +113,100 @@ func (o *KafkaIntegration) SetBootstrapServers(v string) {
 	o.BootstrapServers = &v
 }
 
-// GetSecurityConfig returns the SecurityConfig field value if set, zero value otherwise.
-func (o *KafkaIntegration) GetSecurityConfig() KafkaV3SecurityConfig {
-	if o == nil || o.SecurityConfig == nil {
-		var ret KafkaV3SecurityConfig
+// GetConnectionString returns the ConnectionString field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetConnectionString() string {
+	if o == nil || o.ConnectionString == nil {
+		var ret string
 		return ret
 	}
-	return *o.SecurityConfig
+	return *o.ConnectionString
 }
 
-// GetSecurityConfigOk returns a tuple with the SecurityConfig field value if set, nil otherwise
+// GetConnectionStringOk returns a tuple with the ConnectionString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KafkaIntegration) GetSecurityConfigOk() (*KafkaV3SecurityConfig, bool) {
-	if o == nil || o.SecurityConfig == nil {
+func (o *KafkaIntegration) GetConnectionStringOk() (*string, bool) {
+	if o == nil || o.ConnectionString == nil {
 		return nil, false
 	}
-	return o.SecurityConfig, true
+	return o.ConnectionString, true
 }
 
-// HasSecurityConfig returns a boolean if a field has been set.
-func (o *KafkaIntegration) HasSecurityConfig() bool {
-	if o != nil && o.SecurityConfig != nil {
+// HasConnectionString returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasConnectionString() bool {
+	if o != nil && o.ConnectionString != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSecurityConfig gets a reference to the given KafkaV3SecurityConfig and assigns it to the SecurityConfig field.
-func (o *KafkaIntegration) SetSecurityConfig(v KafkaV3SecurityConfig) {
-	o.SecurityConfig = &v
+// SetConnectionString gets a reference to the given string and assigns it to the ConnectionString field.
+func (o *KafkaIntegration) SetConnectionString(v string) {
+	o.ConnectionString = &v
+}
+
+// GetKafkaDataFormat returns the KafkaDataFormat field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetKafkaDataFormat() string {
+	if o == nil || o.KafkaDataFormat == nil {
+		var ret string
+		return ret
+	}
+	return *o.KafkaDataFormat
+}
+
+// GetKafkaDataFormatOk returns a tuple with the KafkaDataFormat field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetKafkaDataFormatOk() (*string, bool) {
+	if o == nil || o.KafkaDataFormat == nil {
+		return nil, false
+	}
+	return o.KafkaDataFormat, true
+}
+
+// HasKafkaDataFormat returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasKafkaDataFormat() bool {
+	if o != nil && o.KafkaDataFormat != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKafkaDataFormat gets a reference to the given string and assigns it to the KafkaDataFormat field.
+func (o *KafkaIntegration) SetKafkaDataFormat(v string) {
+	o.KafkaDataFormat = &v
+}
+
+// GetKafkaTopicNames returns the KafkaTopicNames field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetKafkaTopicNames() []string {
+	if o == nil || o.KafkaTopicNames == nil {
+		var ret []string
+		return ret
+	}
+	return o.KafkaTopicNames
+}
+
+// GetKafkaTopicNamesOk returns a tuple with the KafkaTopicNames field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetKafkaTopicNamesOk() ([]string, bool) {
+	if o == nil || o.KafkaTopicNames == nil {
+		return nil, false
+	}
+	return o.KafkaTopicNames, true
+}
+
+// HasKafkaTopicNames returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasKafkaTopicNames() bool {
+	if o != nil && o.KafkaTopicNames != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKafkaTopicNames gets a reference to the given []string and assigns it to the KafkaTopicNames field.
+func (o *KafkaIntegration) SetKafkaTopicNames(v []string) {
+	o.KafkaTopicNames = v
 }
 
 // GetSchemaRegistryConfig returns the SchemaRegistryConfig field value if set, zero value otherwise.
@@ -337,34 +241,130 @@ func (o *KafkaIntegration) SetSchemaRegistryConfig(v SchemaRegistryConfig) {
 	o.SchemaRegistryConfig = &v
 }
 
+// GetSecurityConfig returns the SecurityConfig field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetSecurityConfig() KafkaV3SecurityConfig {
+	if o == nil || o.SecurityConfig == nil {
+		var ret KafkaV3SecurityConfig
+		return ret
+	}
+	return *o.SecurityConfig
+}
+
+// GetSecurityConfigOk returns a tuple with the SecurityConfig field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetSecurityConfigOk() (*KafkaV3SecurityConfig, bool) {
+	if o == nil || o.SecurityConfig == nil {
+		return nil, false
+	}
+	return o.SecurityConfig, true
+}
+
+// HasSecurityConfig returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasSecurityConfig() bool {
+	if o != nil && o.SecurityConfig != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSecurityConfig gets a reference to the given KafkaV3SecurityConfig and assigns it to the SecurityConfig field.
+func (o *KafkaIntegration) SetSecurityConfig(v KafkaV3SecurityConfig) {
+	o.SecurityConfig = &v
+}
+
+// GetSourceStatusByTopic returns the SourceStatusByTopic field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetSourceStatusByTopic() map[string]StatusKafka {
+	if o == nil || o.SourceStatusByTopic == nil {
+		var ret map[string]StatusKafka
+		return ret
+	}
+	return *o.SourceStatusByTopic
+}
+
+// GetSourceStatusByTopicOk returns a tuple with the SourceStatusByTopic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetSourceStatusByTopicOk() (*map[string]StatusKafka, bool) {
+	if o == nil || o.SourceStatusByTopic == nil {
+		return nil, false
+	}
+	return o.SourceStatusByTopic, true
+}
+
+// HasSourceStatusByTopic returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasSourceStatusByTopic() bool {
+	if o != nil && o.SourceStatusByTopic != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSourceStatusByTopic gets a reference to the given map[string]StatusKafka and assigns it to the SourceStatusByTopic field.
+func (o *KafkaIntegration) SetSourceStatusByTopic(v map[string]StatusKafka) {
+	o.SourceStatusByTopic = &v
+}
+
+// GetUseV3 returns the UseV3 field value if set, zero value otherwise.
+func (o *KafkaIntegration) GetUseV3() bool {
+	if o == nil || o.UseV3 == nil {
+		var ret bool
+		return ret
+	}
+	return *o.UseV3
+}
+
+// GetUseV3Ok returns a tuple with the UseV3 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KafkaIntegration) GetUseV3Ok() (*bool, bool) {
+	if o == nil || o.UseV3 == nil {
+		return nil, false
+	}
+	return o.UseV3, true
+}
+
+// HasUseV3 returns a boolean if a field has been set.
+func (o *KafkaIntegration) HasUseV3() bool {
+	if o != nil && o.UseV3 != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUseV3 gets a reference to the given bool and assigns it to the UseV3 field.
+func (o *KafkaIntegration) SetUseV3(v bool) {
+	o.UseV3 = &v
+}
+
 func (o KafkaIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.KafkaTopicNames != nil {
-		toSerialize["kafka_topic_names"] = o.KafkaTopicNames
-	}
-	if o.SourceStatusByTopic != nil {
-		toSerialize["source_status_by_topic"] = o.SourceStatusByTopic
-	}
-	if o.KafkaDataFormat != nil {
-		toSerialize["kafka_data_format"] = o.KafkaDataFormat
-	}
-	if o.ConnectionString != nil {
-		toSerialize["connection_string"] = o.ConnectionString
-	}
 	if o.AwsRole != nil {
 		toSerialize["aws_role"] = o.AwsRole
-	}
-	if o.UseV3 != nil {
-		toSerialize["use_v3"] = o.UseV3
 	}
 	if o.BootstrapServers != nil {
 		toSerialize["bootstrap_servers"] = o.BootstrapServers
 	}
-	if o.SecurityConfig != nil {
-		toSerialize["security_config"] = o.SecurityConfig
+	if o.ConnectionString != nil {
+		toSerialize["connection_string"] = o.ConnectionString
+	}
+	if o.KafkaDataFormat != nil {
+		toSerialize["kafka_data_format"] = o.KafkaDataFormat
+	}
+	if o.KafkaTopicNames != nil {
+		toSerialize["kafka_topic_names"] = o.KafkaTopicNames
 	}
 	if o.SchemaRegistryConfig != nil {
 		toSerialize["schema_registry_config"] = o.SchemaRegistryConfig
+	}
+	if o.SecurityConfig != nil {
+		toSerialize["security_config"] = o.SecurityConfig
+	}
+	if o.SourceStatusByTopic != nil {
+		toSerialize["source_status_by_topic"] = o.SourceStatusByTopic
+	}
+	if o.UseV3 != nil {
+		toSerialize["use_v3"] = o.UseV3
 	}
 	return json.Marshal(toSerialize)
 }

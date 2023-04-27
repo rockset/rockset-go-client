@@ -16,22 +16,22 @@ import (
 
 // Alias struct for Alias
 type Alias struct {
-	// Name of the alias.
-	Name *string `json:"name,omitempty"`
-	// Alias description.
-	Description *string `json:"description,omitempty"`
-	// Name of the workspace.
-	Workspace *string `json:"workspace,omitempty"`
-	// Email of the creator.
-	CreatorEmail *string `json:"creator_email,omitempty"`
 	// List of fully qualified collection names referenced by alias.
 	Collections []string `json:"collections,omitempty"`
-	// State of the alias.
-	State *string `json:"state,omitempty"`
 	// ISO-8601 date.
 	CreatedAt *string `json:"created_at,omitempty"`
+	// Email of the creator.
+	CreatorEmail *string `json:"creator_email,omitempty"`
+	// Alias description.
+	Description *string `json:"description,omitempty"`
 	// ISO-8601 date.
 	ModifiedAt *string `json:"modified_at,omitempty"`
+	// Name of the alias.
+	Name *string `json:"name,omitempty"`
+	// State of the alias.
+	State *string `json:"state,omitempty"`
+	// Name of the workspace.
+	Workspace *string `json:"workspace,omitempty"`
 }
 
 // NewAlias instantiates a new Alias object
@@ -49,134 +49,6 @@ func NewAlias() *Alias {
 func NewAliasWithDefaults() *Alias {
 	this := Alias{}
 	return &this
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *Alias) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Alias) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *Alias) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Alias) SetName(v string) {
-	o.Name = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *Alias) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Alias) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *Alias) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *Alias) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetWorkspace returns the Workspace field value if set, zero value otherwise.
-func (o *Alias) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
-		var ret string
-		return ret
-	}
-	return *o.Workspace
-}
-
-// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Alias) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
-		return nil, false
-	}
-	return o.Workspace, true
-}
-
-// HasWorkspace returns a boolean if a field has been set.
-func (o *Alias) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
-func (o *Alias) SetWorkspace(v string) {
-	o.Workspace = &v
-}
-
-// GetCreatorEmail returns the CreatorEmail field value if set, zero value otherwise.
-func (o *Alias) GetCreatorEmail() string {
-	if o == nil || o.CreatorEmail == nil {
-		var ret string
-		return ret
-	}
-	return *o.CreatorEmail
-}
-
-// GetCreatorEmailOk returns a tuple with the CreatorEmail field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Alias) GetCreatorEmailOk() (*string, bool) {
-	if o == nil || o.CreatorEmail == nil {
-		return nil, false
-	}
-	return o.CreatorEmail, true
-}
-
-// HasCreatorEmail returns a boolean if a field has been set.
-func (o *Alias) HasCreatorEmail() bool {
-	if o != nil && o.CreatorEmail != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatorEmail gets a reference to the given string and assigns it to the CreatorEmail field.
-func (o *Alias) SetCreatorEmail(v string) {
-	o.CreatorEmail = &v
 }
 
 // GetCollections returns the Collections field value if set, zero value otherwise.
@@ -211,38 +83,6 @@ func (o *Alias) SetCollections(v []string) {
 	o.Collections = v
 }
 
-// GetState returns the State field value if set, zero value otherwise.
-func (o *Alias) GetState() string {
-	if o == nil || o.State == nil {
-		var ret string
-		return ret
-	}
-	return *o.State
-}
-
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Alias) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
-		return nil, false
-	}
-	return o.State, true
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *Alias) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given string and assigns it to the State field.
-func (o *Alias) SetState(v string) {
-	o.State = &v
-}
-
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Alias) GetCreatedAt() string {
 	if o == nil || o.CreatedAt == nil {
@@ -273,6 +113,70 @@ func (o *Alias) HasCreatedAt() bool {
 // SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
 func (o *Alias) SetCreatedAt(v string) {
 	o.CreatedAt = &v
+}
+
+// GetCreatorEmail returns the CreatorEmail field value if set, zero value otherwise.
+func (o *Alias) GetCreatorEmail() string {
+	if o == nil || o.CreatorEmail == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatorEmail
+}
+
+// GetCreatorEmailOk returns a tuple with the CreatorEmail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Alias) GetCreatorEmailOk() (*string, bool) {
+	if o == nil || o.CreatorEmail == nil {
+		return nil, false
+	}
+	return o.CreatorEmail, true
+}
+
+// HasCreatorEmail returns a boolean if a field has been set.
+func (o *Alias) HasCreatorEmail() bool {
+	if o != nil && o.CreatorEmail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatorEmail gets a reference to the given string and assigns it to the CreatorEmail field.
+func (o *Alias) SetCreatorEmail(v string) {
+	o.CreatorEmail = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *Alias) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Alias) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *Alias) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *Alias) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
@@ -307,31 +211,127 @@ func (o *Alias) SetModifiedAt(v string) {
 	o.ModifiedAt = &v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Alias) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Alias) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Alias) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Alias) SetName(v string) {
+	o.Name = &v
+}
+
+// GetState returns the State field value if set, zero value otherwise.
+func (o *Alias) GetState() string {
+	if o == nil || o.State == nil {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Alias) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *Alias) HasState() bool {
+	if o != nil && o.State != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *Alias) SetState(v string) {
+	o.State = &v
+}
+
+// GetWorkspace returns the Workspace field value if set, zero value otherwise.
+func (o *Alias) GetWorkspace() string {
+	if o == nil || o.Workspace == nil {
+		var ret string
+		return ret
+	}
+	return *o.Workspace
+}
+
+// GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Alias) GetWorkspaceOk() (*string, bool) {
+	if o == nil || o.Workspace == nil {
+		return nil, false
+	}
+	return o.Workspace, true
+}
+
+// HasWorkspace returns a boolean if a field has been set.
+func (o *Alias) HasWorkspace() bool {
+	if o != nil && o.Workspace != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWorkspace gets a reference to the given string and assigns it to the Workspace field.
+func (o *Alias) SetWorkspace(v string) {
+	o.Workspace = &v
+}
+
 func (o Alias) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
-	}
-	if o.CreatorEmail != nil {
-		toSerialize["creator_email"] = o.CreatorEmail
-	}
 	if o.Collections != nil {
 		toSerialize["collections"] = o.Collections
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+	if o.CreatorEmail != nil {
+		toSerialize["creator_email"] = o.CreatorEmail
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
 	if o.ModifiedAt != nil {
 		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.State != nil {
+		toSerialize["state"] = o.State
+	}
+	if o.Workspace != nil {
+		toSerialize["workspace"] = o.Workspace
 	}
 	return json.Marshal(toSerialize)
 }

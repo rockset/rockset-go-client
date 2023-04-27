@@ -18,10 +18,10 @@ import (
 type Privilege struct {
 	// The action allowed by this privilege.
 	Action *string `json:"action,omitempty"`
-	// The resources on which the action is allowed. Defaults to '*All*' if not specified.
-	ResourceName *string `json:"resource_name,omitempty"`
 	// Cluster ID (`usw2a1` for us-west-2, `use1a1` for us-east-1, `euc1a1` for eu-central-1) for which the action is allowed. Defaults to '*All*' if not specified.
 	Cluster *string `json:"cluster,omitempty"`
+	// The resources on which the action is allowed. Defaults to '*All*' if not specified.
+	ResourceName *string `json:"resource_name,omitempty"`
 }
 
 // NewPrivilege instantiates a new Privilege object
@@ -73,38 +73,6 @@ func (o *Privilege) SetAction(v string) {
 	o.Action = &v
 }
 
-// GetResourceName returns the ResourceName field value if set, zero value otherwise.
-func (o *Privilege) GetResourceName() string {
-	if o == nil || o.ResourceName == nil {
-		var ret string
-		return ret
-	}
-	return *o.ResourceName
-}
-
-// GetResourceNameOk returns a tuple with the ResourceName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Privilege) GetResourceNameOk() (*string, bool) {
-	if o == nil || o.ResourceName == nil {
-		return nil, false
-	}
-	return o.ResourceName, true
-}
-
-// HasResourceName returns a boolean if a field has been set.
-func (o *Privilege) HasResourceName() bool {
-	if o != nil && o.ResourceName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetResourceName gets a reference to the given string and assigns it to the ResourceName field.
-func (o *Privilege) SetResourceName(v string) {
-	o.ResourceName = &v
-}
-
 // GetCluster returns the Cluster field value if set, zero value otherwise.
 func (o *Privilege) GetCluster() string {
 	if o == nil || o.Cluster == nil {
@@ -137,16 +105,48 @@ func (o *Privilege) SetCluster(v string) {
 	o.Cluster = &v
 }
 
+// GetResourceName returns the ResourceName field value if set, zero value otherwise.
+func (o *Privilege) GetResourceName() string {
+	if o == nil || o.ResourceName == nil {
+		var ret string
+		return ret
+	}
+	return *o.ResourceName
+}
+
+// GetResourceNameOk returns a tuple with the ResourceName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Privilege) GetResourceNameOk() (*string, bool) {
+	if o == nil || o.ResourceName == nil {
+		return nil, false
+	}
+	return o.ResourceName, true
+}
+
+// HasResourceName returns a boolean if a field has been set.
+func (o *Privilege) HasResourceName() bool {
+	if o != nil && o.ResourceName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetResourceName gets a reference to the given string and assigns it to the ResourceName field.
+func (o *Privilege) SetResourceName(v string) {
+	o.ResourceName = &v
+}
+
 func (o Privilege) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Action != nil {
 		toSerialize["action"] = o.Action
 	}
-	if o.ResourceName != nil {
-		toSerialize["resource_name"] = o.ResourceName
-	}
 	if o.Cluster != nil {
 		toSerialize["cluster"] = o.Cluster
+	}
+	if o.ResourceName != nil {
+		toSerialize["resource_name"] = o.ResourceName
 	}
 	return json.Marshal(toSerialize)
 }

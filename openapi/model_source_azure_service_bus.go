@@ -16,11 +16,11 @@ import (
 
 // SourceAzureServiceBus struct for SourceAzureServiceBus
 type SourceAzureServiceBus struct {
-	// Name of the topic which rockset should ingest from.
-	Topic *string `json:"topic,omitempty"`
+	Status *StatusAzureServiceBus `json:"status,omitempty"`
 	// The subscription to read from the topic.
 	Subscription *string `json:"subscription,omitempty"`
-	Status *StatusAzureServiceBus `json:"status,omitempty"`
+	// Name of the topic which rockset should ingest from.
+	Topic *string `json:"topic,omitempty"`
 }
 
 // NewSourceAzureServiceBus instantiates a new SourceAzureServiceBus object
@@ -38,70 +38,6 @@ func NewSourceAzureServiceBus() *SourceAzureServiceBus {
 func NewSourceAzureServiceBusWithDefaults() *SourceAzureServiceBus {
 	this := SourceAzureServiceBus{}
 	return &this
-}
-
-// GetTopic returns the Topic field value if set, zero value otherwise.
-func (o *SourceAzureServiceBus) GetTopic() string {
-	if o == nil || o.Topic == nil {
-		var ret string
-		return ret
-	}
-	return *o.Topic
-}
-
-// GetTopicOk returns a tuple with the Topic field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceAzureServiceBus) GetTopicOk() (*string, bool) {
-	if o == nil || o.Topic == nil {
-		return nil, false
-	}
-	return o.Topic, true
-}
-
-// HasTopic returns a boolean if a field has been set.
-func (o *SourceAzureServiceBus) HasTopic() bool {
-	if o != nil && o.Topic != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTopic gets a reference to the given string and assigns it to the Topic field.
-func (o *SourceAzureServiceBus) SetTopic(v string) {
-	o.Topic = &v
-}
-
-// GetSubscription returns the Subscription field value if set, zero value otherwise.
-func (o *SourceAzureServiceBus) GetSubscription() string {
-	if o == nil || o.Subscription == nil {
-		var ret string
-		return ret
-	}
-	return *o.Subscription
-}
-
-// GetSubscriptionOk returns a tuple with the Subscription field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceAzureServiceBus) GetSubscriptionOk() (*string, bool) {
-	if o == nil || o.Subscription == nil {
-		return nil, false
-	}
-	return o.Subscription, true
-}
-
-// HasSubscription returns a boolean if a field has been set.
-func (o *SourceAzureServiceBus) HasSubscription() bool {
-	if o != nil && o.Subscription != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSubscription gets a reference to the given string and assigns it to the Subscription field.
-func (o *SourceAzureServiceBus) SetSubscription(v string) {
-	o.Subscription = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -136,16 +72,80 @@ func (o *SourceAzureServiceBus) SetStatus(v StatusAzureServiceBus) {
 	o.Status = &v
 }
 
+// GetSubscription returns the Subscription field value if set, zero value otherwise.
+func (o *SourceAzureServiceBus) GetSubscription() string {
+	if o == nil || o.Subscription == nil {
+		var ret string
+		return ret
+	}
+	return *o.Subscription
+}
+
+// GetSubscriptionOk returns a tuple with the Subscription field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceAzureServiceBus) GetSubscriptionOk() (*string, bool) {
+	if o == nil || o.Subscription == nil {
+		return nil, false
+	}
+	return o.Subscription, true
+}
+
+// HasSubscription returns a boolean if a field has been set.
+func (o *SourceAzureServiceBus) HasSubscription() bool {
+	if o != nil && o.Subscription != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubscription gets a reference to the given string and assigns it to the Subscription field.
+func (o *SourceAzureServiceBus) SetSubscription(v string) {
+	o.Subscription = &v
+}
+
+// GetTopic returns the Topic field value if set, zero value otherwise.
+func (o *SourceAzureServiceBus) GetTopic() string {
+	if o == nil || o.Topic == nil {
+		var ret string
+		return ret
+	}
+	return *o.Topic
+}
+
+// GetTopicOk returns a tuple with the Topic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceAzureServiceBus) GetTopicOk() (*string, bool) {
+	if o == nil || o.Topic == nil {
+		return nil, false
+	}
+	return o.Topic, true
+}
+
+// HasTopic returns a boolean if a field has been set.
+func (o *SourceAzureServiceBus) HasTopic() bool {
+	if o != nil && o.Topic != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTopic gets a reference to the given string and assigns it to the Topic field.
+func (o *SourceAzureServiceBus) SetTopic(v string) {
+	o.Topic = &v
+}
+
 func (o SourceAzureServiceBus) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Topic != nil {
-		toSerialize["topic"] = o.Topic
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
 	if o.Subscription != nil {
 		toSerialize["subscription"] = o.Subscription
 	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	if o.Topic != nil {
+		toSerialize["topic"] = o.Topic
 	}
 	return json.Marshal(toSerialize)
 }

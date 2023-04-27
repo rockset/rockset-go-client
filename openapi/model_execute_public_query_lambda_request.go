@@ -16,12 +16,12 @@ import (
 
 // ExecutePublicQueryLambdaRequest struct for ExecutePublicQueryLambdaRequest
 type ExecutePublicQueryLambdaRequest struct {
-	// List of named parameters.
-	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Row limit to use if no limit specified in the SQL query text.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
 	// Whether to generate warnings.
 	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
+	// List of named parameters.
+	Parameters []QueryParameter `json:"parameters,omitempty"`
 }
 
 // NewExecutePublicQueryLambdaRequest instantiates a new ExecutePublicQueryLambdaRequest object
@@ -39,38 +39,6 @@ func NewExecutePublicQueryLambdaRequest() *ExecutePublicQueryLambdaRequest {
 func NewExecutePublicQueryLambdaRequestWithDefaults() *ExecutePublicQueryLambdaRequest {
 	this := ExecutePublicQueryLambdaRequest{}
 	return &this
-}
-
-// GetParameters returns the Parameters field value if set, zero value otherwise.
-func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter {
-	if o == nil || o.Parameters == nil {
-		var ret []QueryParameter
-		return ret
-	}
-	return o.Parameters
-}
-
-// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExecutePublicQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.Parameters == nil {
-		return nil, false
-	}
-	return o.Parameters, true
-}
-
-// HasParameters returns a boolean if a field has been set.
-func (o *ExecutePublicQueryLambdaRequest) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
-func (o *ExecutePublicQueryLambdaRequest) SetParameters(v []QueryParameter) {
-	o.Parameters = v
 }
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
@@ -137,16 +105,48 @@ func (o *ExecutePublicQueryLambdaRequest) SetGenerateWarnings(v bool) {
 	o.GenerateWarnings = &v
 }
 
+// GetParameters returns the Parameters field value if set, zero value otherwise.
+func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter {
+	if o == nil || o.Parameters == nil {
+		var ret []QueryParameter
+		return ret
+	}
+	return o.Parameters
+}
+
+// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecutePublicQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
+	if o == nil || o.Parameters == nil {
+		return nil, false
+	}
+	return o.Parameters, true
+}
+
+// HasParameters returns a boolean if a field has been set.
+func (o *ExecutePublicQueryLambdaRequest) HasParameters() bool {
+	if o != nil && o.Parameters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
+func (o *ExecutePublicQueryLambdaRequest) SetParameters(v []QueryParameter) {
+	o.Parameters = v
+}
+
 func (o ExecutePublicQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Parameters != nil {
-		toSerialize["parameters"] = o.Parameters
-	}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
 	}
 	if o.GenerateWarnings != nil {
 		toSerialize["generate_warnings"] = o.GenerateWarnings
+	}
+	if o.Parameters != nil {
+		toSerialize["parameters"] = o.Parameters
 	}
 	return json.Marshal(toSerialize)
 }

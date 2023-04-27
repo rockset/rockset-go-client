@@ -16,15 +16,15 @@ import (
 
 // FormatParams struct for FormatParams
 type FormatParams struct {
+	Avro map[string]interface{} `json:"avro,omitempty"`
+	Csv *CsvParams `json:"csv,omitempty"`
 	// Source data is in json format.
 	Json *bool `json:"json,omitempty"`
-	Csv *CsvParams `json:"csv,omitempty"`
-	Xml *XmlParams `json:"xml,omitempty"`
-	MysqlDms *bool `json:"mysql_dms,omitempty"`
-	PostgresDms *bool `json:"postgres_dms,omitempty"`
 	MssqlDms *bool `json:"mssql_dms,omitempty"`
+	MysqlDms *bool `json:"mysql_dms,omitempty"`
 	OracleDms *bool `json:"oracle_dms,omitempty"`
-	Avro map[string]interface{} `json:"avro,omitempty"`
+	PostgresDms *bool `json:"postgres_dms,omitempty"`
+	Xml *XmlParams `json:"xml,omitempty"`
 }
 
 // NewFormatParams instantiates a new FormatParams object
@@ -42,230 +42,6 @@ func NewFormatParams() *FormatParams {
 func NewFormatParamsWithDefaults() *FormatParams {
 	this := FormatParams{}
 	return &this
-}
-
-// GetJson returns the Json field value if set, zero value otherwise.
-func (o *FormatParams) GetJson() bool {
-	if o == nil || o.Json == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Json
-}
-
-// GetJsonOk returns a tuple with the Json field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetJsonOk() (*bool, bool) {
-	if o == nil || o.Json == nil {
-		return nil, false
-	}
-	return o.Json, true
-}
-
-// HasJson returns a boolean if a field has been set.
-func (o *FormatParams) HasJson() bool {
-	if o != nil && o.Json != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetJson gets a reference to the given bool and assigns it to the Json field.
-func (o *FormatParams) SetJson(v bool) {
-	o.Json = &v
-}
-
-// GetCsv returns the Csv field value if set, zero value otherwise.
-func (o *FormatParams) GetCsv() CsvParams {
-	if o == nil || o.Csv == nil {
-		var ret CsvParams
-		return ret
-	}
-	return *o.Csv
-}
-
-// GetCsvOk returns a tuple with the Csv field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetCsvOk() (*CsvParams, bool) {
-	if o == nil || o.Csv == nil {
-		return nil, false
-	}
-	return o.Csv, true
-}
-
-// HasCsv returns a boolean if a field has been set.
-func (o *FormatParams) HasCsv() bool {
-	if o != nil && o.Csv != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCsv gets a reference to the given CsvParams and assigns it to the Csv field.
-func (o *FormatParams) SetCsv(v CsvParams) {
-	o.Csv = &v
-}
-
-// GetXml returns the Xml field value if set, zero value otherwise.
-func (o *FormatParams) GetXml() XmlParams {
-	if o == nil || o.Xml == nil {
-		var ret XmlParams
-		return ret
-	}
-	return *o.Xml
-}
-
-// GetXmlOk returns a tuple with the Xml field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetXmlOk() (*XmlParams, bool) {
-	if o == nil || o.Xml == nil {
-		return nil, false
-	}
-	return o.Xml, true
-}
-
-// HasXml returns a boolean if a field has been set.
-func (o *FormatParams) HasXml() bool {
-	if o != nil && o.Xml != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetXml gets a reference to the given XmlParams and assigns it to the Xml field.
-func (o *FormatParams) SetXml(v XmlParams) {
-	o.Xml = &v
-}
-
-// GetMysqlDms returns the MysqlDms field value if set, zero value otherwise.
-func (o *FormatParams) GetMysqlDms() bool {
-	if o == nil || o.MysqlDms == nil {
-		var ret bool
-		return ret
-	}
-	return *o.MysqlDms
-}
-
-// GetMysqlDmsOk returns a tuple with the MysqlDms field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetMysqlDmsOk() (*bool, bool) {
-	if o == nil || o.MysqlDms == nil {
-		return nil, false
-	}
-	return o.MysqlDms, true
-}
-
-// HasMysqlDms returns a boolean if a field has been set.
-func (o *FormatParams) HasMysqlDms() bool {
-	if o != nil && o.MysqlDms != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMysqlDms gets a reference to the given bool and assigns it to the MysqlDms field.
-func (o *FormatParams) SetMysqlDms(v bool) {
-	o.MysqlDms = &v
-}
-
-// GetPostgresDms returns the PostgresDms field value if set, zero value otherwise.
-func (o *FormatParams) GetPostgresDms() bool {
-	if o == nil || o.PostgresDms == nil {
-		var ret bool
-		return ret
-	}
-	return *o.PostgresDms
-}
-
-// GetPostgresDmsOk returns a tuple with the PostgresDms field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetPostgresDmsOk() (*bool, bool) {
-	if o == nil || o.PostgresDms == nil {
-		return nil, false
-	}
-	return o.PostgresDms, true
-}
-
-// HasPostgresDms returns a boolean if a field has been set.
-func (o *FormatParams) HasPostgresDms() bool {
-	if o != nil && o.PostgresDms != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPostgresDms gets a reference to the given bool and assigns it to the PostgresDms field.
-func (o *FormatParams) SetPostgresDms(v bool) {
-	o.PostgresDms = &v
-}
-
-// GetMssqlDms returns the MssqlDms field value if set, zero value otherwise.
-func (o *FormatParams) GetMssqlDms() bool {
-	if o == nil || o.MssqlDms == nil {
-		var ret bool
-		return ret
-	}
-	return *o.MssqlDms
-}
-
-// GetMssqlDmsOk returns a tuple with the MssqlDms field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetMssqlDmsOk() (*bool, bool) {
-	if o == nil || o.MssqlDms == nil {
-		return nil, false
-	}
-	return o.MssqlDms, true
-}
-
-// HasMssqlDms returns a boolean if a field has been set.
-func (o *FormatParams) HasMssqlDms() bool {
-	if o != nil && o.MssqlDms != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMssqlDms gets a reference to the given bool and assigns it to the MssqlDms field.
-func (o *FormatParams) SetMssqlDms(v bool) {
-	o.MssqlDms = &v
-}
-
-// GetOracleDms returns the OracleDms field value if set, zero value otherwise.
-func (o *FormatParams) GetOracleDms() bool {
-	if o == nil || o.OracleDms == nil {
-		var ret bool
-		return ret
-	}
-	return *o.OracleDms
-}
-
-// GetOracleDmsOk returns a tuple with the OracleDms field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FormatParams) GetOracleDmsOk() (*bool, bool) {
-	if o == nil || o.OracleDms == nil {
-		return nil, false
-	}
-	return o.OracleDms, true
-}
-
-// HasOracleDms returns a boolean if a field has been set.
-func (o *FormatParams) HasOracleDms() bool {
-	if o != nil && o.OracleDms != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetOracleDms gets a reference to the given bool and assigns it to the OracleDms field.
-func (o *FormatParams) SetOracleDms(v bool) {
-	o.OracleDms = &v
 }
 
 // GetAvro returns the Avro field value if set, zero value otherwise.
@@ -300,31 +76,255 @@ func (o *FormatParams) SetAvro(v map[string]interface{}) {
 	o.Avro = v
 }
 
+// GetCsv returns the Csv field value if set, zero value otherwise.
+func (o *FormatParams) GetCsv() CsvParams {
+	if o == nil || o.Csv == nil {
+		var ret CsvParams
+		return ret
+	}
+	return *o.Csv
+}
+
+// GetCsvOk returns a tuple with the Csv field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetCsvOk() (*CsvParams, bool) {
+	if o == nil || o.Csv == nil {
+		return nil, false
+	}
+	return o.Csv, true
+}
+
+// HasCsv returns a boolean if a field has been set.
+func (o *FormatParams) HasCsv() bool {
+	if o != nil && o.Csv != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCsv gets a reference to the given CsvParams and assigns it to the Csv field.
+func (o *FormatParams) SetCsv(v CsvParams) {
+	o.Csv = &v
+}
+
+// GetJson returns the Json field value if set, zero value otherwise.
+func (o *FormatParams) GetJson() bool {
+	if o == nil || o.Json == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Json
+}
+
+// GetJsonOk returns a tuple with the Json field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetJsonOk() (*bool, bool) {
+	if o == nil || o.Json == nil {
+		return nil, false
+	}
+	return o.Json, true
+}
+
+// HasJson returns a boolean if a field has been set.
+func (o *FormatParams) HasJson() bool {
+	if o != nil && o.Json != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetJson gets a reference to the given bool and assigns it to the Json field.
+func (o *FormatParams) SetJson(v bool) {
+	o.Json = &v
+}
+
+// GetMssqlDms returns the MssqlDms field value if set, zero value otherwise.
+func (o *FormatParams) GetMssqlDms() bool {
+	if o == nil || o.MssqlDms == nil {
+		var ret bool
+		return ret
+	}
+	return *o.MssqlDms
+}
+
+// GetMssqlDmsOk returns a tuple with the MssqlDms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetMssqlDmsOk() (*bool, bool) {
+	if o == nil || o.MssqlDms == nil {
+		return nil, false
+	}
+	return o.MssqlDms, true
+}
+
+// HasMssqlDms returns a boolean if a field has been set.
+func (o *FormatParams) HasMssqlDms() bool {
+	if o != nil && o.MssqlDms != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMssqlDms gets a reference to the given bool and assigns it to the MssqlDms field.
+func (o *FormatParams) SetMssqlDms(v bool) {
+	o.MssqlDms = &v
+}
+
+// GetMysqlDms returns the MysqlDms field value if set, zero value otherwise.
+func (o *FormatParams) GetMysqlDms() bool {
+	if o == nil || o.MysqlDms == nil {
+		var ret bool
+		return ret
+	}
+	return *o.MysqlDms
+}
+
+// GetMysqlDmsOk returns a tuple with the MysqlDms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetMysqlDmsOk() (*bool, bool) {
+	if o == nil || o.MysqlDms == nil {
+		return nil, false
+	}
+	return o.MysqlDms, true
+}
+
+// HasMysqlDms returns a boolean if a field has been set.
+func (o *FormatParams) HasMysqlDms() bool {
+	if o != nil && o.MysqlDms != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMysqlDms gets a reference to the given bool and assigns it to the MysqlDms field.
+func (o *FormatParams) SetMysqlDms(v bool) {
+	o.MysqlDms = &v
+}
+
+// GetOracleDms returns the OracleDms field value if set, zero value otherwise.
+func (o *FormatParams) GetOracleDms() bool {
+	if o == nil || o.OracleDms == nil {
+		var ret bool
+		return ret
+	}
+	return *o.OracleDms
+}
+
+// GetOracleDmsOk returns a tuple with the OracleDms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetOracleDmsOk() (*bool, bool) {
+	if o == nil || o.OracleDms == nil {
+		return nil, false
+	}
+	return o.OracleDms, true
+}
+
+// HasOracleDms returns a boolean if a field has been set.
+func (o *FormatParams) HasOracleDms() bool {
+	if o != nil && o.OracleDms != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOracleDms gets a reference to the given bool and assigns it to the OracleDms field.
+func (o *FormatParams) SetOracleDms(v bool) {
+	o.OracleDms = &v
+}
+
+// GetPostgresDms returns the PostgresDms field value if set, zero value otherwise.
+func (o *FormatParams) GetPostgresDms() bool {
+	if o == nil || o.PostgresDms == nil {
+		var ret bool
+		return ret
+	}
+	return *o.PostgresDms
+}
+
+// GetPostgresDmsOk returns a tuple with the PostgresDms field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetPostgresDmsOk() (*bool, bool) {
+	if o == nil || o.PostgresDms == nil {
+		return nil, false
+	}
+	return o.PostgresDms, true
+}
+
+// HasPostgresDms returns a boolean if a field has been set.
+func (o *FormatParams) HasPostgresDms() bool {
+	if o != nil && o.PostgresDms != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPostgresDms gets a reference to the given bool and assigns it to the PostgresDms field.
+func (o *FormatParams) SetPostgresDms(v bool) {
+	o.PostgresDms = &v
+}
+
+// GetXml returns the Xml field value if set, zero value otherwise.
+func (o *FormatParams) GetXml() XmlParams {
+	if o == nil || o.Xml == nil {
+		var ret XmlParams
+		return ret
+	}
+	return *o.Xml
+}
+
+// GetXmlOk returns a tuple with the Xml field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FormatParams) GetXmlOk() (*XmlParams, bool) {
+	if o == nil || o.Xml == nil {
+		return nil, false
+	}
+	return o.Xml, true
+}
+
+// HasXml returns a boolean if a field has been set.
+func (o *FormatParams) HasXml() bool {
+	if o != nil && o.Xml != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetXml gets a reference to the given XmlParams and assigns it to the Xml field.
+func (o *FormatParams) SetXml(v XmlParams) {
+	o.Xml = &v
+}
+
 func (o FormatParams) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Json != nil {
-		toSerialize["json"] = o.Json
+	if o.Avro != nil {
+		toSerialize["avro"] = o.Avro
 	}
 	if o.Csv != nil {
 		toSerialize["csv"] = o.Csv
 	}
-	if o.Xml != nil {
-		toSerialize["xml"] = o.Xml
-	}
-	if o.MysqlDms != nil {
-		toSerialize["mysql_dms"] = o.MysqlDms
-	}
-	if o.PostgresDms != nil {
-		toSerialize["postgres_dms"] = o.PostgresDms
+	if o.Json != nil {
+		toSerialize["json"] = o.Json
 	}
 	if o.MssqlDms != nil {
 		toSerialize["mssql_dms"] = o.MssqlDms
 	}
+	if o.MysqlDms != nil {
+		toSerialize["mysql_dms"] = o.MysqlDms
+	}
 	if o.OracleDms != nil {
 		toSerialize["oracle_dms"] = o.OracleDms
 	}
-	if o.Avro != nil {
-		toSerialize["avro"] = o.Avro
+	if o.PostgresDms != nil {
+		toSerialize["postgres_dms"] = o.PostgresDms
+	}
+	if o.Xml != nil {
+		toSerialize["xml"] = o.Xml
 	}
 	return json.Marshal(toSerialize)
 }

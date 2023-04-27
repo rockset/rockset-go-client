@@ -39,7 +39,7 @@ jobs:
       - run:
           name: go test
           no_output_timeout: 30m
-          command: go test -v -cover -timeout 30m -race -coverprofile=cover.out ./...
+          command: gotestsum --format pkgname-and-test-fails -- -cover -timeout 30m -race -coverprofile=cover.out ./...
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   release:
     docker:

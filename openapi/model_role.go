@@ -16,18 +16,18 @@ import (
 
 // Role struct for Role
 type Role struct {
-	// Unique identifier for the role.
-	RoleName *string `json:"role_name,omitempty"`
+	// ISO-8601 date of when the role was created.
+	CreatedAt *string `json:"created_at,omitempty"`
+	// Email of the user who created the role.
+	CreatedBy *string `json:"created_by,omitempty"`
 	// Description for the role.
 	Description *string `json:"description,omitempty"`
 	// Email of the user who currently owns the role.
 	OwnerEmail *string `json:"owner_email,omitempty"`
-	// Email of the user who created the role.
-	CreatedBy *string `json:"created_by,omitempty"`
 	// List of privileges associated with the role.
 	Privileges []Privilege `json:"privileges,omitempty"`
-	// ISO-8601 date of when the role was created.
-	CreatedAt *string `json:"created_at,omitempty"`
+	// Unique identifier for the role.
+	RoleName *string `json:"role_name,omitempty"`
 }
 
 // NewRole instantiates a new Role object
@@ -47,36 +47,68 @@ func NewRoleWithDefaults() *Role {
 	return &this
 }
 
-// GetRoleName returns the RoleName field value if set, zero value otherwise.
-func (o *Role) GetRoleName() string {
-	if o == nil || o.RoleName == nil {
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *Role) GetCreatedAt() string {
+	if o == nil || o.CreatedAt == nil {
 		var ret string
 		return ret
 	}
-	return *o.RoleName
+	return *o.CreatedAt
 }
 
-// GetRoleNameOk returns a tuple with the RoleName field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Role) GetRoleNameOk() (*string, bool) {
-	if o == nil || o.RoleName == nil {
+func (o *Role) GetCreatedAtOk() (*string, bool) {
+	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
-	return o.RoleName, true
+	return o.CreatedAt, true
 }
 
-// HasRoleName returns a boolean if a field has been set.
-func (o *Role) HasRoleName() bool {
-	if o != nil && o.RoleName != nil {
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *Role) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRoleName gets a reference to the given string and assigns it to the RoleName field.
-func (o *Role) SetRoleName(v string) {
-	o.RoleName = &v
+// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
+func (o *Role) SetCreatedAt(v string) {
+	o.CreatedAt = &v
+}
+
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *Role) GetCreatedBy() string {
+	if o == nil || o.CreatedBy == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Role) GetCreatedByOk() (*string, bool) {
+	if o == nil || o.CreatedBy == nil {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *Role) HasCreatedBy() bool {
+	if o != nil && o.CreatedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *Role) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -143,38 +175,6 @@ func (o *Role) SetOwnerEmail(v string) {
 	o.OwnerEmail = &v
 }
 
-// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
-func (o *Role) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
-		var ret string
-		return ret
-	}
-	return *o.CreatedBy
-}
-
-// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Role) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
-		return nil, false
-	}
-	return o.CreatedBy, true
-}
-
-// HasCreatedBy returns a boolean if a field has been set.
-func (o *Role) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
-func (o *Role) SetCreatedBy(v string) {
-	o.CreatedBy = &v
-}
-
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *Role) GetPrivileges() []Privilege {
 	if o == nil || o.Privileges == nil {
@@ -207,42 +207,45 @@ func (o *Role) SetPrivileges(v []Privilege) {
 	o.Privileges = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *Role) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+// GetRoleName returns the RoleName field value if set, zero value otherwise.
+func (o *Role) GetRoleName() string {
+	if o == nil || o.RoleName == nil {
 		var ret string
 		return ret
 	}
-	return *o.CreatedAt
+	return *o.RoleName
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetRoleNameOk returns a tuple with the RoleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Role) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+func (o *Role) GetRoleNameOk() (*string, bool) {
+	if o == nil || o.RoleName == nil {
 		return nil, false
 	}
-	return o.CreatedAt, true
+	return o.RoleName, true
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *Role) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+// HasRoleName returns a boolean if a field has been set.
+func (o *Role) HasRoleName() bool {
+	if o != nil && o.RoleName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCreatedAt gets a reference to the given string and assigns it to the CreatedAt field.
-func (o *Role) SetCreatedAt(v string) {
-	o.CreatedAt = &v
+// SetRoleName gets a reference to the given string and assigns it to the RoleName field.
+func (o *Role) SetRoleName(v string) {
+	o.RoleName = &v
 }
 
 func (o Role) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RoleName != nil {
-		toSerialize["role_name"] = o.RoleName
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if o.CreatedBy != nil {
+		toSerialize["created_by"] = o.CreatedBy
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
@@ -250,14 +253,11 @@ func (o Role) MarshalJSON() ([]byte, error) {
 	if o.OwnerEmail != nil {
 		toSerialize["owner_email"] = o.OwnerEmail
 	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
 	if o.Privileges != nil {
 		toSerialize["privileges"] = o.Privileges
 	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	if o.RoleName != nil {
+		toSerialize["role_name"] = o.RoleName
 	}
 	return json.Marshal(toSerialize)
 }

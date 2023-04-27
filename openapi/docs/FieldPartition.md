@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name. | [optional] 
-**Type** | Pointer to **string** | The type of partitions on a field. | [optional] 
 **Keys** | Pointer to **[]string** | The values for partitioning of a field. Unneeded if the partition type is AUTO. | [optional] 
+**Type** | Pointer to **string** | The type of partitions on a field. | [optional] 
 
 ## Methods
 
@@ -52,31 +52,6 @@ SetFieldName sets FieldName field to given value.
 
 HasFieldName returns a boolean if a field has been set.
 
-### GetType
-
-`func (o *FieldPartition) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *FieldPartition) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *FieldPartition) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *FieldPartition) HasType() bool`
-
-HasType returns a boolean if a field has been set.
-
 ### GetKeys
 
 `func (o *FieldPartition) GetKeys() []string`
@@ -101,6 +76,31 @@ SetKeys sets Keys field to given value.
 `func (o *FieldPartition) HasKeys() bool`
 
 HasKeys returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *FieldPartition) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *FieldPartition) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *FieldPartition) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *FieldPartition) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

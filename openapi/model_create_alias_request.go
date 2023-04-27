@@ -16,22 +16,22 @@ import (
 
 // CreateAliasRequest struct for CreateAliasRequest
 type CreateAliasRequest struct {
-	// Alias name.
-	Name string `json:"name"`
-	// Optional description.
-	Description *string `json:"description,omitempty"`
 	// List of fully qualified collection names referenced by alias.
 	Collections []string `json:"collections"`
+	// Optional description.
+	Description *string `json:"description,omitempty"`
+	// Alias name.
+	Name string `json:"name"`
 }
 
 // NewCreateAliasRequest instantiates a new CreateAliasRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateAliasRequest(name string, collections []string) *CreateAliasRequest {
+func NewCreateAliasRequest(collections []string, name string) *CreateAliasRequest {
 	this := CreateAliasRequest{}
-	this.Name = name
 	this.Collections = collections
+	this.Name = name
 	return &this
 }
 
@@ -43,28 +43,28 @@ func NewCreateAliasRequestWithDefaults() *CreateAliasRequest {
 	return &this
 }
 
-// GetName returns the Name field value
-func (o *CreateAliasRequest) GetName() string {
+// GetCollections returns the Collections field value
+func (o *CreateAliasRequest) GetCollections() []string {
 	if o == nil {
-		var ret string
+		var ret []string
 		return ret
 	}
 
-	return o.Name
+	return o.Collections
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetCollectionsOk returns a tuple with the Collections field value
 // and a boolean to check if the value has been set.
-func (o *CreateAliasRequest) GetNameOk() (*string, bool) {
+func (o *CreateAliasRequest) GetCollectionsOk() ([]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Collections, true
 }
 
-// SetName sets field value
-func (o *CreateAliasRequest) SetName(v string) {
-	o.Name = v
+// SetCollections sets field value
+func (o *CreateAliasRequest) SetCollections(v []string) {
+	o.Collections = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -99,40 +99,40 @@ func (o *CreateAliasRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetCollections returns the Collections field value
-func (o *CreateAliasRequest) GetCollections() []string {
+// GetName returns the Name field value
+func (o *CreateAliasRequest) GetName() string {
 	if o == nil {
-		var ret []string
+		var ret string
 		return ret
 	}
 
-	return o.Collections
+	return o.Name
 }
 
-// GetCollectionsOk returns a tuple with the Collections field value
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *CreateAliasRequest) GetCollectionsOk() ([]string, bool) {
+func (o *CreateAliasRequest) GetNameOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Collections, true
+	return &o.Name, true
 }
 
-// SetCollections sets field value
-func (o *CreateAliasRequest) SetCollections(v []string) {
-	o.Collections = v
+// SetName sets field value
+func (o *CreateAliasRequest) SetName(v string) {
+	o.Name = v
 }
 
 func (o CreateAliasRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["name"] = o.Name
+		toSerialize["collections"] = o.Collections
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
 	if true {
-		toSerialize["collections"] = o.Collections
+		toSerialize["name"] = o.Name
 	}
 	return json.Marshal(toSerialize)
 }

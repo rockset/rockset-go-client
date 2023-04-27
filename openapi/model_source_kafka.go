@@ -16,15 +16,15 @@ import (
 
 // SourceKafka struct for SourceKafka
 type SourceKafka struct {
-	// The Kafka topic to be tailed.
-	KafkaTopicName *string `json:"kafka_topic_name,omitempty"`
-	Status *StatusKafka `json:"status,omitempty"`
 	// The Kafka consumer group Id being used.
 	ConsumerGroupId *string `json:"consumer_group_id,omitempty"`
-	// Whether to use v3 integration.
-	UseV3 *bool `json:"use_v3,omitempty"`
+	// The Kafka topic to be tailed.
+	KafkaTopicName *string `json:"kafka_topic_name,omitempty"`
 	// The offset reset policy.
 	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`
+	Status *StatusKafka `json:"status,omitempty"`
+	// Whether to use v3 integration.
+	UseV3 *bool `json:"use_v3,omitempty"`
 }
 
 // NewSourceKafka instantiates a new SourceKafka object
@@ -42,70 +42,6 @@ func NewSourceKafka() *SourceKafka {
 func NewSourceKafkaWithDefaults() *SourceKafka {
 	this := SourceKafka{}
 	return &this
-}
-
-// GetKafkaTopicName returns the KafkaTopicName field value if set, zero value otherwise.
-func (o *SourceKafka) GetKafkaTopicName() string {
-	if o == nil || o.KafkaTopicName == nil {
-		var ret string
-		return ret
-	}
-	return *o.KafkaTopicName
-}
-
-// GetKafkaTopicNameOk returns a tuple with the KafkaTopicName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceKafka) GetKafkaTopicNameOk() (*string, bool) {
-	if o == nil || o.KafkaTopicName == nil {
-		return nil, false
-	}
-	return o.KafkaTopicName, true
-}
-
-// HasKafkaTopicName returns a boolean if a field has been set.
-func (o *SourceKafka) HasKafkaTopicName() bool {
-	if o != nil && o.KafkaTopicName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKafkaTopicName gets a reference to the given string and assigns it to the KafkaTopicName field.
-func (o *SourceKafka) SetKafkaTopicName(v string) {
-	o.KafkaTopicName = &v
-}
-
-// GetStatus returns the Status field value if set, zero value otherwise.
-func (o *SourceKafka) GetStatus() StatusKafka {
-	if o == nil || o.Status == nil {
-		var ret StatusKafka
-		return ret
-	}
-	return *o.Status
-}
-
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceKafka) GetStatusOk() (*StatusKafka, bool) {
-	if o == nil || o.Status == nil {
-		return nil, false
-	}
-	return o.Status, true
-}
-
-// HasStatus returns a boolean if a field has been set.
-func (o *SourceKafka) HasStatus() bool {
-	if o != nil && o.Status != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given StatusKafka and assigns it to the Status field.
-func (o *SourceKafka) SetStatus(v StatusKafka) {
-	o.Status = &v
 }
 
 // GetConsumerGroupId returns the ConsumerGroupId field value if set, zero value otherwise.
@@ -140,36 +76,36 @@ func (o *SourceKafka) SetConsumerGroupId(v string) {
 	o.ConsumerGroupId = &v
 }
 
-// GetUseV3 returns the UseV3 field value if set, zero value otherwise.
-func (o *SourceKafka) GetUseV3() bool {
-	if o == nil || o.UseV3 == nil {
-		var ret bool
+// GetKafkaTopicName returns the KafkaTopicName field value if set, zero value otherwise.
+func (o *SourceKafka) GetKafkaTopicName() string {
+	if o == nil || o.KafkaTopicName == nil {
+		var ret string
 		return ret
 	}
-	return *o.UseV3
+	return *o.KafkaTopicName
 }
 
-// GetUseV3Ok returns a tuple with the UseV3 field value if set, nil otherwise
+// GetKafkaTopicNameOk returns a tuple with the KafkaTopicName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceKafka) GetUseV3Ok() (*bool, bool) {
-	if o == nil || o.UseV3 == nil {
+func (o *SourceKafka) GetKafkaTopicNameOk() (*string, bool) {
+	if o == nil || o.KafkaTopicName == nil {
 		return nil, false
 	}
-	return o.UseV3, true
+	return o.KafkaTopicName, true
 }
 
-// HasUseV3 returns a boolean if a field has been set.
-func (o *SourceKafka) HasUseV3() bool {
-	if o != nil && o.UseV3 != nil {
+// HasKafkaTopicName returns a boolean if a field has been set.
+func (o *SourceKafka) HasKafkaTopicName() bool {
+	if o != nil && o.KafkaTopicName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUseV3 gets a reference to the given bool and assigns it to the UseV3 field.
-func (o *SourceKafka) SetUseV3(v bool) {
-	o.UseV3 = &v
+// SetKafkaTopicName gets a reference to the given string and assigns it to the KafkaTopicName field.
+func (o *SourceKafka) SetKafkaTopicName(v string) {
+	o.KafkaTopicName = &v
 }
 
 // GetOffsetResetPolicy returns the OffsetResetPolicy field value if set, zero value otherwise.
@@ -204,22 +140,86 @@ func (o *SourceKafka) SetOffsetResetPolicy(v string) {
 	o.OffsetResetPolicy = &v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *SourceKafka) GetStatus() StatusKafka {
+	if o == nil || o.Status == nil {
+		var ret StatusKafka
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceKafka) GetStatusOk() (*StatusKafka, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *SourceKafka) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given StatusKafka and assigns it to the Status field.
+func (o *SourceKafka) SetStatus(v StatusKafka) {
+	o.Status = &v
+}
+
+// GetUseV3 returns the UseV3 field value if set, zero value otherwise.
+func (o *SourceKafka) GetUseV3() bool {
+	if o == nil || o.UseV3 == nil {
+		var ret bool
+		return ret
+	}
+	return *o.UseV3
+}
+
+// GetUseV3Ok returns a tuple with the UseV3 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceKafka) GetUseV3Ok() (*bool, bool) {
+	if o == nil || o.UseV3 == nil {
+		return nil, false
+	}
+	return o.UseV3, true
+}
+
+// HasUseV3 returns a boolean if a field has been set.
+func (o *SourceKafka) HasUseV3() bool {
+	if o != nil && o.UseV3 != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUseV3 gets a reference to the given bool and assigns it to the UseV3 field.
+func (o *SourceKafka) SetUseV3(v bool) {
+	o.UseV3 = &v
+}
+
 func (o SourceKafka) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.ConsumerGroupId != nil {
+		toSerialize["consumer_group_id"] = o.ConsumerGroupId
+	}
 	if o.KafkaTopicName != nil {
 		toSerialize["kafka_topic_name"] = o.KafkaTopicName
+	}
+	if o.OffsetResetPolicy != nil {
+		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
-	if o.ConsumerGroupId != nil {
-		toSerialize["consumer_group_id"] = o.ConsumerGroupId
-	}
 	if o.UseV3 != nil {
 		toSerialize["use_v3"] = o.UseV3
-	}
-	if o.OffsetResetPolicy != nil {
-		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
 	}
 	return json.Marshal(toSerialize)
 }

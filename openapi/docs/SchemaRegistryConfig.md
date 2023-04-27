@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Url** | Pointer to **string** | Schema registry URL. | [optional] 
 **Key** | Pointer to **string** | The secure API key for schema registry. | [optional] 
 **Secret** | Pointer to **string** | The secure API password registry. | [optional] 
+**Url** | Pointer to **string** | Schema registry URL. | [optional] 
 
 ## Methods
 
@@ -26,31 +26,6 @@ will change when the set of required properties is changed
 NewSchemaRegistryConfigWithDefaults instantiates a new SchemaRegistryConfig object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetUrl
-
-`func (o *SchemaRegistryConfig) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *SchemaRegistryConfig) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrl
-
-`func (o *SchemaRegistryConfig) SetUrl(v string)`
-
-SetUrl sets Url field to given value.
-
-### HasUrl
-
-`func (o *SchemaRegistryConfig) HasUrl() bool`
-
-HasUrl returns a boolean if a field has been set.
 
 ### GetKey
 
@@ -101,6 +76,31 @@ SetSecret sets Secret field to given value.
 `func (o *SchemaRegistryConfig) HasSecret() bool`
 
 HasSecret returns a boolean if a field has been set.
+
+### GetUrl
+
+`func (o *SchemaRegistryConfig) GetUrl() string`
+
+GetUrl returns the Url field if non-nil, zero value otherwise.
+
+### GetUrlOk
+
+`func (o *SchemaRegistryConfig) GetUrlOk() (*string, bool)`
+
+GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUrl
+
+`func (o *SchemaRegistryConfig) SetUrl(v string)`
+
+SetUrl sets Url field to given value.
+
+### HasUrl
+
+`func (o *SchemaRegistryConfig) HasUrl() bool`
+
+HasUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Bucket** | Pointer to **string** | Name of GCS bucket you want to ingest from. | [optional] 
-**Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
-**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
+**ObjectBytesDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
+**ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
 **ObjectCountDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
 **ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
-**ObjectBytesTotal** | Pointer to **int64** |  | [optional] [readonly] 
-**ObjectBytesDownloaded** | Pointer to **int64** |  | [optional] [readonly] 
+**Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
+**Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
 
 ## Methods
 
@@ -56,55 +56,55 @@ SetBucket sets Bucket field to given value.
 
 HasBucket returns a boolean if a field has been set.
 
-### GetPrefix
+### GetObjectBytesDownloaded
 
-`func (o *SourceGcs) GetPrefix() string`
+`func (o *SourceGcs) GetObjectBytesDownloaded() int64`
 
-GetPrefix returns the Prefix field if non-nil, zero value otherwise.
+GetObjectBytesDownloaded returns the ObjectBytesDownloaded field if non-nil, zero value otherwise.
 
-### GetPrefixOk
+### GetObjectBytesDownloadedOk
 
-`func (o *SourceGcs) GetPrefixOk() (*string, bool)`
+`func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool)`
 
-GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
+GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPrefix
+### SetObjectBytesDownloaded
 
-`func (o *SourceGcs) SetPrefix(v string)`
+`func (o *SourceGcs) SetObjectBytesDownloaded(v int64)`
 
-SetPrefix sets Prefix field to given value.
+SetObjectBytesDownloaded sets ObjectBytesDownloaded field to given value.
 
-### HasPrefix
+### HasObjectBytesDownloaded
 
-`func (o *SourceGcs) HasPrefix() bool`
+`func (o *SourceGcs) HasObjectBytesDownloaded() bool`
 
-HasPrefix returns a boolean if a field has been set.
+HasObjectBytesDownloaded returns a boolean if a field has been set.
 
-### GetPattern
+### GetObjectBytesTotal
 
-`func (o *SourceGcs) GetPattern() string`
+`func (o *SourceGcs) GetObjectBytesTotal() int64`
 
-GetPattern returns the Pattern field if non-nil, zero value otherwise.
+GetObjectBytesTotal returns the ObjectBytesTotal field if non-nil, zero value otherwise.
 
-### GetPatternOk
+### GetObjectBytesTotalOk
 
-`func (o *SourceGcs) GetPatternOk() (*string, bool)`
+`func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool)`
 
-GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
+GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPattern
+### SetObjectBytesTotal
 
-`func (o *SourceGcs) SetPattern(v string)`
+`func (o *SourceGcs) SetObjectBytesTotal(v int64)`
 
-SetPattern sets Pattern field to given value.
+SetObjectBytesTotal sets ObjectBytesTotal field to given value.
 
-### HasPattern
+### HasObjectBytesTotal
 
-`func (o *SourceGcs) HasPattern() bool`
+`func (o *SourceGcs) HasObjectBytesTotal() bool`
 
-HasPattern returns a boolean if a field has been set.
+HasObjectBytesTotal returns a boolean if a field has been set.
 
 ### GetObjectCountDownloaded
 
@@ -156,55 +156,55 @@ SetObjectCountTotal sets ObjectCountTotal field to given value.
 
 HasObjectCountTotal returns a boolean if a field has been set.
 
-### GetObjectBytesTotal
+### GetPattern
 
-`func (o *SourceGcs) GetObjectBytesTotal() int64`
+`func (o *SourceGcs) GetPattern() string`
 
-GetObjectBytesTotal returns the ObjectBytesTotal field if non-nil, zero value otherwise.
+GetPattern returns the Pattern field if non-nil, zero value otherwise.
 
-### GetObjectBytesTotalOk
+### GetPatternOk
 
-`func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool)`
+`func (o *SourceGcs) GetPatternOk() (*string, bool)`
 
-GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field if it's non-nil, zero value otherwise
+GetPatternOk returns a tuple with the Pattern field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObjectBytesTotal
+### SetPattern
 
-`func (o *SourceGcs) SetObjectBytesTotal(v int64)`
+`func (o *SourceGcs) SetPattern(v string)`
 
-SetObjectBytesTotal sets ObjectBytesTotal field to given value.
+SetPattern sets Pattern field to given value.
 
-### HasObjectBytesTotal
+### HasPattern
 
-`func (o *SourceGcs) HasObjectBytesTotal() bool`
+`func (o *SourceGcs) HasPattern() bool`
 
-HasObjectBytesTotal returns a boolean if a field has been set.
+HasPattern returns a boolean if a field has been set.
 
-### GetObjectBytesDownloaded
+### GetPrefix
 
-`func (o *SourceGcs) GetObjectBytesDownloaded() int64`
+`func (o *SourceGcs) GetPrefix() string`
 
-GetObjectBytesDownloaded returns the ObjectBytesDownloaded field if non-nil, zero value otherwise.
+GetPrefix returns the Prefix field if non-nil, zero value otherwise.
 
-### GetObjectBytesDownloadedOk
+### GetPrefixOk
 
-`func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool)`
+`func (o *SourceGcs) GetPrefixOk() (*string, bool)`
 
-GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field if it's non-nil, zero value otherwise
+GetPrefixOk returns a tuple with the Prefix field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetObjectBytesDownloaded
+### SetPrefix
 
-`func (o *SourceGcs) SetObjectBytesDownloaded(v int64)`
+`func (o *SourceGcs) SetPrefix(v string)`
 
-SetObjectBytesDownloaded sets ObjectBytesDownloaded field to given value.
+SetPrefix sets Prefix field to given value.
 
-### HasObjectBytesDownloaded
+### HasPrefix
 
-`func (o *SourceGcs) HasObjectBytesDownloaded() bool`
+`func (o *SourceGcs) HasPrefix() bool`
 
-HasObjectBytesDownloaded returns a boolean if a field has been set.
+HasPrefix returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

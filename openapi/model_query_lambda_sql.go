@@ -16,10 +16,10 @@ import (
 
 // QueryLambdaSql struct for QueryLambdaSql
 type QueryLambdaSql struct {
-	// SQL text.
-	Query string `json:"query"`
 	// Default parameters for this Query Lambda.
 	DefaultParameters []QueryParameter `json:"default_parameters,omitempty"`
+	// SQL text.
+	Query string `json:"query"`
 }
 
 // NewQueryLambdaSql instantiates a new QueryLambdaSql object
@@ -38,30 +38,6 @@ func NewQueryLambdaSql(query string) *QueryLambdaSql {
 func NewQueryLambdaSqlWithDefaults() *QueryLambdaSql {
 	this := QueryLambdaSql{}
 	return &this
-}
-
-// GetQuery returns the Query field value
-func (o *QueryLambdaSql) GetQuery() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Query
-}
-
-// GetQueryOk returns a tuple with the Query field value
-// and a boolean to check if the value has been set.
-func (o *QueryLambdaSql) GetQueryOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Query, true
-}
-
-// SetQuery sets field value
-func (o *QueryLambdaSql) SetQuery(v string) {
-	o.Query = v
 }
 
 // GetDefaultParameters returns the DefaultParameters field value if set, zero value otherwise.
@@ -96,13 +72,37 @@ func (o *QueryLambdaSql) SetDefaultParameters(v []QueryParameter) {
 	o.DefaultParameters = v
 }
 
+// GetQuery returns the Query field value
+func (o *QueryLambdaSql) GetQuery() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Query
+}
+
+// GetQueryOk returns a tuple with the Query field value
+// and a boolean to check if the value has been set.
+func (o *QueryLambdaSql) GetQueryOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Query, true
+}
+
+// SetQuery sets field value
+func (o *QueryLambdaSql) SetQuery(v string) {
+	o.Query = v
+}
+
 func (o QueryLambdaSql) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["query"] = o.Query
-	}
 	if o.DefaultParameters != nil {
 		toSerialize["default_parameters"] = o.DefaultParameters
+	}
+	if true {
+		toSerialize["query"] = o.Query
 	}
 	return json.Marshal(toSerialize)
 }

@@ -16,18 +16,18 @@ import (
 
 // Cluster struct for Cluster
 type Cluster struct {
-	// Unique identifier for the cluster.
-	Id *string `json:"id,omitempty"`
-	// Cluster type.
-	ClusterType *string `json:"cluster_type,omitempty"`
-	// Aws region.
-	AwsRegion *string `json:"aws_region,omitempty"`
-	// Domain of org using cluster.
-	Domain *string `json:"domain,omitempty"`
-	// Top level domain of org using cluster.
-	TopLevelDomain *string `json:"top_level_domain,omitempty"`
 	// Api server url for cluster.
 	ApiserverUrl *string `json:"apiserver_url,omitempty"`
+	// Aws region.
+	AwsRegion *string `json:"aws_region,omitempty"`
+	// Cluster type.
+	ClusterType *string `json:"cluster_type,omitempty"`
+	// Domain of org using cluster.
+	Domain *string `json:"domain,omitempty"`
+	// Unique identifier for the cluster.
+	Id *string `json:"id,omitempty"`
+	// Top level domain of org using cluster.
+	TopLevelDomain *string `json:"top_level_domain,omitempty"`
 }
 
 // NewCluster instantiates a new Cluster object
@@ -45,166 +45,6 @@ func NewCluster() *Cluster {
 func NewClusterWithDefaults() *Cluster {
 	this := Cluster{}
 	return &this
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *Cluster) GetId() string {
-	if o == nil || o.Id == nil {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Cluster) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *Cluster) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *Cluster) SetId(v string) {
-	o.Id = &v
-}
-
-// GetClusterType returns the ClusterType field value if set, zero value otherwise.
-func (o *Cluster) GetClusterType() string {
-	if o == nil || o.ClusterType == nil {
-		var ret string
-		return ret
-	}
-	return *o.ClusterType
-}
-
-// GetClusterTypeOk returns a tuple with the ClusterType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Cluster) GetClusterTypeOk() (*string, bool) {
-	if o == nil || o.ClusterType == nil {
-		return nil, false
-	}
-	return o.ClusterType, true
-}
-
-// HasClusterType returns a boolean if a field has been set.
-func (o *Cluster) HasClusterType() bool {
-	if o != nil && o.ClusterType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClusterType gets a reference to the given string and assigns it to the ClusterType field.
-func (o *Cluster) SetClusterType(v string) {
-	o.ClusterType = &v
-}
-
-// GetAwsRegion returns the AwsRegion field value if set, zero value otherwise.
-func (o *Cluster) GetAwsRegion() string {
-	if o == nil || o.AwsRegion == nil {
-		var ret string
-		return ret
-	}
-	return *o.AwsRegion
-}
-
-// GetAwsRegionOk returns a tuple with the AwsRegion field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Cluster) GetAwsRegionOk() (*string, bool) {
-	if o == nil || o.AwsRegion == nil {
-		return nil, false
-	}
-	return o.AwsRegion, true
-}
-
-// HasAwsRegion returns a boolean if a field has been set.
-func (o *Cluster) HasAwsRegion() bool {
-	if o != nil && o.AwsRegion != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAwsRegion gets a reference to the given string and assigns it to the AwsRegion field.
-func (o *Cluster) SetAwsRegion(v string) {
-	o.AwsRegion = &v
-}
-
-// GetDomain returns the Domain field value if set, zero value otherwise.
-func (o *Cluster) GetDomain() string {
-	if o == nil || o.Domain == nil {
-		var ret string
-		return ret
-	}
-	return *o.Domain
-}
-
-// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Cluster) GetDomainOk() (*string, bool) {
-	if o == nil || o.Domain == nil {
-		return nil, false
-	}
-	return o.Domain, true
-}
-
-// HasDomain returns a boolean if a field has been set.
-func (o *Cluster) HasDomain() bool {
-	if o != nil && o.Domain != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDomain gets a reference to the given string and assigns it to the Domain field.
-func (o *Cluster) SetDomain(v string) {
-	o.Domain = &v
-}
-
-// GetTopLevelDomain returns the TopLevelDomain field value if set, zero value otherwise.
-func (o *Cluster) GetTopLevelDomain() string {
-	if o == nil || o.TopLevelDomain == nil {
-		var ret string
-		return ret
-	}
-	return *o.TopLevelDomain
-}
-
-// GetTopLevelDomainOk returns a tuple with the TopLevelDomain field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Cluster) GetTopLevelDomainOk() (*string, bool) {
-	if o == nil || o.TopLevelDomain == nil {
-		return nil, false
-	}
-	return o.TopLevelDomain, true
-}
-
-// HasTopLevelDomain returns a boolean if a field has been set.
-func (o *Cluster) HasTopLevelDomain() bool {
-	if o != nil && o.TopLevelDomain != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTopLevelDomain gets a reference to the given string and assigns it to the TopLevelDomain field.
-func (o *Cluster) SetTopLevelDomain(v string) {
-	o.TopLevelDomain = &v
 }
 
 // GetApiserverUrl returns the ApiserverUrl field value if set, zero value otherwise.
@@ -239,25 +79,185 @@ func (o *Cluster) SetApiserverUrl(v string) {
 	o.ApiserverUrl = &v
 }
 
+// GetAwsRegion returns the AwsRegion field value if set, zero value otherwise.
+func (o *Cluster) GetAwsRegion() string {
+	if o == nil || o.AwsRegion == nil {
+		var ret string
+		return ret
+	}
+	return *o.AwsRegion
+}
+
+// GetAwsRegionOk returns a tuple with the AwsRegion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Cluster) GetAwsRegionOk() (*string, bool) {
+	if o == nil || o.AwsRegion == nil {
+		return nil, false
+	}
+	return o.AwsRegion, true
+}
+
+// HasAwsRegion returns a boolean if a field has been set.
+func (o *Cluster) HasAwsRegion() bool {
+	if o != nil && o.AwsRegion != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAwsRegion gets a reference to the given string and assigns it to the AwsRegion field.
+func (o *Cluster) SetAwsRegion(v string) {
+	o.AwsRegion = &v
+}
+
+// GetClusterType returns the ClusterType field value if set, zero value otherwise.
+func (o *Cluster) GetClusterType() string {
+	if o == nil || o.ClusterType == nil {
+		var ret string
+		return ret
+	}
+	return *o.ClusterType
+}
+
+// GetClusterTypeOk returns a tuple with the ClusterType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Cluster) GetClusterTypeOk() (*string, bool) {
+	if o == nil || o.ClusterType == nil {
+		return nil, false
+	}
+	return o.ClusterType, true
+}
+
+// HasClusterType returns a boolean if a field has been set.
+func (o *Cluster) HasClusterType() bool {
+	if o != nil && o.ClusterType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetClusterType gets a reference to the given string and assigns it to the ClusterType field.
+func (o *Cluster) SetClusterType(v string) {
+	o.ClusterType = &v
+}
+
+// GetDomain returns the Domain field value if set, zero value otherwise.
+func (o *Cluster) GetDomain() string {
+	if o == nil || o.Domain == nil {
+		var ret string
+		return ret
+	}
+	return *o.Domain
+}
+
+// GetDomainOk returns a tuple with the Domain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Cluster) GetDomainOk() (*string, bool) {
+	if o == nil || o.Domain == nil {
+		return nil, false
+	}
+	return o.Domain, true
+}
+
+// HasDomain returns a boolean if a field has been set.
+func (o *Cluster) HasDomain() bool {
+	if o != nil && o.Domain != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDomain gets a reference to the given string and assigns it to the Domain field.
+func (o *Cluster) SetDomain(v string) {
+	o.Domain = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *Cluster) GetId() string {
+	if o == nil || o.Id == nil {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Cluster) GetIdOk() (*string, bool) {
+	if o == nil || o.Id == nil {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *Cluster) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *Cluster) SetId(v string) {
+	o.Id = &v
+}
+
+// GetTopLevelDomain returns the TopLevelDomain field value if set, zero value otherwise.
+func (o *Cluster) GetTopLevelDomain() string {
+	if o == nil || o.TopLevelDomain == nil {
+		var ret string
+		return ret
+	}
+	return *o.TopLevelDomain
+}
+
+// GetTopLevelDomainOk returns a tuple with the TopLevelDomain field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Cluster) GetTopLevelDomainOk() (*string, bool) {
+	if o == nil || o.TopLevelDomain == nil {
+		return nil, false
+	}
+	return o.TopLevelDomain, true
+}
+
+// HasTopLevelDomain returns a boolean if a field has been set.
+func (o *Cluster) HasTopLevelDomain() bool {
+	if o != nil && o.TopLevelDomain != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTopLevelDomain gets a reference to the given string and assigns it to the TopLevelDomain field.
+func (o *Cluster) SetTopLevelDomain(v string) {
+	o.TopLevelDomain = &v
+}
+
 func (o Cluster) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.ClusterType != nil {
-		toSerialize["cluster_type"] = o.ClusterType
+	if o.ApiserverUrl != nil {
+		toSerialize["apiserver_url"] = o.ApiserverUrl
 	}
 	if o.AwsRegion != nil {
 		toSerialize["aws_region"] = o.AwsRegion
 	}
+	if o.ClusterType != nil {
+		toSerialize["cluster_type"] = o.ClusterType
+	}
 	if o.Domain != nil {
 		toSerialize["domain"] = o.Domain
 	}
+	if o.Id != nil {
+		toSerialize["id"] = o.Id
+	}
 	if o.TopLevelDomain != nil {
 		toSerialize["top_level_domain"] = o.TopLevelDomain
-	}
-	if o.ApiserverUrl != nil {
-		toSerialize["apiserver_url"] = o.ApiserverUrl
 	}
 	return json.Marshal(toSerialize)
 }

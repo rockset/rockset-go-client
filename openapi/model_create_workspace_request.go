@@ -16,10 +16,10 @@ import (
 
 // CreateWorkspaceRequest struct for CreateWorkspaceRequest
 type CreateWorkspaceRequest struct {
-	// Descriptive label and unique identifier.
-	Name string `json:"name"`
 	// Longer explanation for the workspace.
 	Description *string `json:"description,omitempty"`
+	// Descriptive label and unique identifier.
+	Name string `json:"name"`
 }
 
 // NewCreateWorkspaceRequest instantiates a new CreateWorkspaceRequest object
@@ -38,30 +38,6 @@ func NewCreateWorkspaceRequest(name string) *CreateWorkspaceRequest {
 func NewCreateWorkspaceRequestWithDefaults() *CreateWorkspaceRequest {
 	this := CreateWorkspaceRequest{}
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *CreateWorkspaceRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *CreateWorkspaceRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *CreateWorkspaceRequest) SetName(v string) {
-	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -96,13 +72,37 @@ func (o *CreateWorkspaceRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetName returns the Name field value
+func (o *CreateWorkspaceRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateWorkspaceRequest) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateWorkspaceRequest) SetName(v string) {
+	o.Name = v
+}
+
 func (o CreateWorkspaceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if true {
+		toSerialize["name"] = o.Name
 	}
 	return json.Marshal(toSerialize)
 }

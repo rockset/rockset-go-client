@@ -18,9 +18,9 @@ import (
 type OutputField struct {
 	// The name of a field, parsed as a SQL qualified name.
 	FieldName *string `json:"field_name,omitempty"`
-	Value *SqlExpression `json:"value,omitempty"`
 	// Error in Mapping execution: 'skip' or 'fail'.
 	OnError *string `json:"on_error,omitempty"`
+	Value *SqlExpression `json:"value,omitempty"`
 }
 
 // NewOutputField instantiates a new OutputField object
@@ -72,38 +72,6 @@ func (o *OutputField) SetFieldName(v string) {
 	o.FieldName = &v
 }
 
-// GetValue returns the Value field value if set, zero value otherwise.
-func (o *OutputField) GetValue() SqlExpression {
-	if o == nil || o.Value == nil {
-		var ret SqlExpression
-		return ret
-	}
-	return *o.Value
-}
-
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OutputField) GetValueOk() (*SqlExpression, bool) {
-	if o == nil || o.Value == nil {
-		return nil, false
-	}
-	return o.Value, true
-}
-
-// HasValue returns a boolean if a field has been set.
-func (o *OutputField) HasValue() bool {
-	if o != nil && o.Value != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetValue gets a reference to the given SqlExpression and assigns it to the Value field.
-func (o *OutputField) SetValue(v SqlExpression) {
-	o.Value = &v
-}
-
 // GetOnError returns the OnError field value if set, zero value otherwise.
 func (o *OutputField) GetOnError() string {
 	if o == nil || o.OnError == nil {
@@ -136,16 +104,48 @@ func (o *OutputField) SetOnError(v string) {
 	o.OnError = &v
 }
 
+// GetValue returns the Value field value if set, zero value otherwise.
+func (o *OutputField) GetValue() SqlExpression {
+	if o == nil || o.Value == nil {
+		var ret SqlExpression
+		return ret
+	}
+	return *o.Value
+}
+
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OutputField) GetValueOk() (*SqlExpression, bool) {
+	if o == nil || o.Value == nil {
+		return nil, false
+	}
+	return o.Value, true
+}
+
+// HasValue returns a boolean if a field has been set.
+func (o *OutputField) HasValue() bool {
+	if o != nil && o.Value != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given SqlExpression and assigns it to the Value field.
+func (o *OutputField) SetValue(v SqlExpression) {
+	o.Value = &v
+}
+
 func (o OutputField) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FieldName != nil {
 		toSerialize["field_name"] = o.FieldName
 	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
-	}
 	if o.OnError != nil {
 		toSerialize["on_error"] = o.OnError
+	}
+	if o.Value != nil {
+		toSerialize["value"] = o.Value
 	}
 	return json.Marshal(toSerialize)
 }

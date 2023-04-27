@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **FieldName** | Pointer to **string** | The name of a field, parsed as a SQL qualified name. | [optional] 
-**Value** | Pointer to [**SqlExpression**](SqlExpression.md) |  | [optional] 
 **OnError** | Pointer to **string** | Error in Mapping execution: &#39;skip&#39; or &#39;fail&#39;. | [optional] 
+**Value** | Pointer to [**SqlExpression**](SqlExpression.md) |  | [optional] 
 
 ## Methods
 
@@ -52,31 +52,6 @@ SetFieldName sets FieldName field to given value.
 
 HasFieldName returns a boolean if a field has been set.
 
-### GetValue
-
-`func (o *OutputField) GetValue() SqlExpression`
-
-GetValue returns the Value field if non-nil, zero value otherwise.
-
-### GetValueOk
-
-`func (o *OutputField) GetValueOk() (*SqlExpression, bool)`
-
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValue
-
-`func (o *OutputField) SetValue(v SqlExpression)`
-
-SetValue sets Value field to given value.
-
-### HasValue
-
-`func (o *OutputField) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
-
 ### GetOnError
 
 `func (o *OutputField) GetOnError() string`
@@ -101,6 +76,31 @@ SetOnError sets OnError field to given value.
 `func (o *OutputField) HasOnError() bool`
 
 HasOnError returns a boolean if a field has been set.
+
+### GetValue
+
+`func (o *OutputField) GetValue() SqlExpression`
+
+GetValue returns the Value field if non-nil, zero value otherwise.
+
+### GetValueOk
+
+`func (o *OutputField) GetValueOk() (*SqlExpression, bool)`
+
+GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetValue
+
+`func (o *OutputField) SetValue(v SqlExpression)`
+
+SetValue sets Value field to given value.
+
+### HasValue
+
+`func (o *OutputField) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

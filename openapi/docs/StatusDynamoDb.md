@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ScanStartTime** | Pointer to **string** | DynamoDB scan start time. | [optional] 
 **ScanEndTime** | Pointer to **string** | DynamoDb scan end time. | [optional] 
 **ScanRecordsProcessed** | Pointer to **int64** | Number of records inserted using scan. | [optional] 
+**ScanStartTime** | Pointer to **string** | DynamoDB scan start time. | [optional] 
 **ScanTotalRecords** | Pointer to **int64** | Number of records in DynamoDB table at time of scan. | [optional] 
 **State** | Pointer to **string** | State of current ingest for this table. | [optional] 
 **StreamLastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed. | [optional] 
@@ -29,31 +29,6 @@ will change when the set of required properties is changed
 NewStatusDynamoDbWithDefaults instantiates a new StatusDynamoDb object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetScanStartTime
-
-`func (o *StatusDynamoDb) GetScanStartTime() string`
-
-GetScanStartTime returns the ScanStartTime field if non-nil, zero value otherwise.
-
-### GetScanStartTimeOk
-
-`func (o *StatusDynamoDb) GetScanStartTimeOk() (*string, bool)`
-
-GetScanStartTimeOk returns a tuple with the ScanStartTime field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetScanStartTime
-
-`func (o *StatusDynamoDb) SetScanStartTime(v string)`
-
-SetScanStartTime sets ScanStartTime field to given value.
-
-### HasScanStartTime
-
-`func (o *StatusDynamoDb) HasScanStartTime() bool`
-
-HasScanStartTime returns a boolean if a field has been set.
 
 ### GetScanEndTime
 
@@ -104,6 +79,31 @@ SetScanRecordsProcessed sets ScanRecordsProcessed field to given value.
 `func (o *StatusDynamoDb) HasScanRecordsProcessed() bool`
 
 HasScanRecordsProcessed returns a boolean if a field has been set.
+
+### GetScanStartTime
+
+`func (o *StatusDynamoDb) GetScanStartTime() string`
+
+GetScanStartTime returns the ScanStartTime field if non-nil, zero value otherwise.
+
+### GetScanStartTimeOk
+
+`func (o *StatusDynamoDb) GetScanStartTimeOk() (*string, bool)`
+
+GetScanStartTimeOk returns a tuple with the ScanStartTime field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScanStartTime
+
+`func (o *StatusDynamoDb) SetScanStartTime(v string)`
+
+SetScanStartTime sets ScanStartTime field to given value.
+
+### HasScanStartTime
+
+`func (o *StatusDynamoDb) HasScanStartTime() bool`
+
+HasScanStartTime returns a boolean if a field has been set.
 
 ### GetScanTotalRecords
 

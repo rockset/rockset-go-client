@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**QueryId** | Pointer to **string** | Unique Query ID. | [optional] 
-**Status** | Pointer to **string** | Status of the query. | [optional] 
 **ExecutedBy** | Pointer to **string** | User ID who executed the query. | [optional] 
-**SubmittedAt** | Pointer to **string** | Time (UTC) the query request was first received and queued for execution. | [optional] 
 **ExpiresAt** | Pointer to **string** | Time (UTC) that query results expire. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. | [optional] 
-**Stats** | Pointer to [**Stats**](Stats.md) |  | [optional] 
-**Pagination** | Pointer to [**Pagination**](Pagination.md) |  | [optional] 
 **LastOffset** | Pointer to **string** | The log offset that query results were written to in the destination collection. Only populated for INSERT INTO queries. | [optional] 
+**Pagination** | Pointer to [**Pagination**](Pagination.md) |  | [optional] 
 **QueryErrors** | Pointer to [**[]QueryError**](QueryError.md) | Errors encountered while executing the query. | [optional] 
+**QueryId** | Pointer to **string** | Unique Query ID. | [optional] 
+**Stats** | Pointer to [**Stats**](Stats.md) |  | [optional] 
+**Status** | Pointer to **string** | Status of the query. | [optional] 
+**SubmittedAt** | Pointer to **string** | Time (UTC) the query request was first received and queued for execution. | [optional] 
 
 ## Methods
 
@@ -32,56 +32,6 @@ will change when the set of required properties is changed
 NewQueryInfoWithDefaults instantiates a new QueryInfo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetQueryId
-
-`func (o *QueryInfo) GetQueryId() string`
-
-GetQueryId returns the QueryId field if non-nil, zero value otherwise.
-
-### GetQueryIdOk
-
-`func (o *QueryInfo) GetQueryIdOk() (*string, bool)`
-
-GetQueryIdOk returns a tuple with the QueryId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetQueryId
-
-`func (o *QueryInfo) SetQueryId(v string)`
-
-SetQueryId sets QueryId field to given value.
-
-### HasQueryId
-
-`func (o *QueryInfo) HasQueryId() bool`
-
-HasQueryId returns a boolean if a field has been set.
-
-### GetStatus
-
-`func (o *QueryInfo) GetStatus() string`
-
-GetStatus returns the Status field if non-nil, zero value otherwise.
-
-### GetStatusOk
-
-`func (o *QueryInfo) GetStatusOk() (*string, bool)`
-
-GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStatus
-
-`func (o *QueryInfo) SetStatus(v string)`
-
-SetStatus sets Status field to given value.
-
-### HasStatus
-
-`func (o *QueryInfo) HasStatus() bool`
-
-HasStatus returns a boolean if a field has been set.
 
 ### GetExecutedBy
 
@@ -108,31 +58,6 @@ SetExecutedBy sets ExecutedBy field to given value.
 
 HasExecutedBy returns a boolean if a field has been set.
 
-### GetSubmittedAt
-
-`func (o *QueryInfo) GetSubmittedAt() string`
-
-GetSubmittedAt returns the SubmittedAt field if non-nil, zero value otherwise.
-
-### GetSubmittedAtOk
-
-`func (o *QueryInfo) GetSubmittedAtOk() (*string, bool)`
-
-GetSubmittedAtOk returns a tuple with the SubmittedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSubmittedAt
-
-`func (o *QueryInfo) SetSubmittedAt(v string)`
-
-SetSubmittedAt sets SubmittedAt field to given value.
-
-### HasSubmittedAt
-
-`func (o *QueryInfo) HasSubmittedAt() bool`
-
-HasSubmittedAt returns a boolean if a field has been set.
-
 ### GetExpiresAt
 
 `func (o *QueryInfo) GetExpiresAt() string`
@@ -157,56 +82,6 @@ SetExpiresAt sets ExpiresAt field to given value.
 `func (o *QueryInfo) HasExpiresAt() bool`
 
 HasExpiresAt returns a boolean if a field has been set.
-
-### GetStats
-
-`func (o *QueryInfo) GetStats() Stats`
-
-GetStats returns the Stats field if non-nil, zero value otherwise.
-
-### GetStatsOk
-
-`func (o *QueryInfo) GetStatsOk() (*Stats, bool)`
-
-GetStatsOk returns a tuple with the Stats field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStats
-
-`func (o *QueryInfo) SetStats(v Stats)`
-
-SetStats sets Stats field to given value.
-
-### HasStats
-
-`func (o *QueryInfo) HasStats() bool`
-
-HasStats returns a boolean if a field has been set.
-
-### GetPagination
-
-`func (o *QueryInfo) GetPagination() Pagination`
-
-GetPagination returns the Pagination field if non-nil, zero value otherwise.
-
-### GetPaginationOk
-
-`func (o *QueryInfo) GetPaginationOk() (*Pagination, bool)`
-
-GetPaginationOk returns a tuple with the Pagination field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPagination
-
-`func (o *QueryInfo) SetPagination(v Pagination)`
-
-SetPagination sets Pagination field to given value.
-
-### HasPagination
-
-`func (o *QueryInfo) HasPagination() bool`
-
-HasPagination returns a boolean if a field has been set.
 
 ### GetLastOffset
 
@@ -233,6 +108,31 @@ SetLastOffset sets LastOffset field to given value.
 
 HasLastOffset returns a boolean if a field has been set.
 
+### GetPagination
+
+`func (o *QueryInfo) GetPagination() Pagination`
+
+GetPagination returns the Pagination field if non-nil, zero value otherwise.
+
+### GetPaginationOk
+
+`func (o *QueryInfo) GetPaginationOk() (*Pagination, bool)`
+
+GetPaginationOk returns a tuple with the Pagination field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPagination
+
+`func (o *QueryInfo) SetPagination(v Pagination)`
+
+SetPagination sets Pagination field to given value.
+
+### HasPagination
+
+`func (o *QueryInfo) HasPagination() bool`
+
+HasPagination returns a boolean if a field has been set.
+
 ### GetQueryErrors
 
 `func (o *QueryInfo) GetQueryErrors() []QueryError`
@@ -257,6 +157,106 @@ SetQueryErrors sets QueryErrors field to given value.
 `func (o *QueryInfo) HasQueryErrors() bool`
 
 HasQueryErrors returns a boolean if a field has been set.
+
+### GetQueryId
+
+`func (o *QueryInfo) GetQueryId() string`
+
+GetQueryId returns the QueryId field if non-nil, zero value otherwise.
+
+### GetQueryIdOk
+
+`func (o *QueryInfo) GetQueryIdOk() (*string, bool)`
+
+GetQueryIdOk returns a tuple with the QueryId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetQueryId
+
+`func (o *QueryInfo) SetQueryId(v string)`
+
+SetQueryId sets QueryId field to given value.
+
+### HasQueryId
+
+`func (o *QueryInfo) HasQueryId() bool`
+
+HasQueryId returns a boolean if a field has been set.
+
+### GetStats
+
+`func (o *QueryInfo) GetStats() Stats`
+
+GetStats returns the Stats field if non-nil, zero value otherwise.
+
+### GetStatsOk
+
+`func (o *QueryInfo) GetStatsOk() (*Stats, bool)`
+
+GetStatsOk returns a tuple with the Stats field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStats
+
+`func (o *QueryInfo) SetStats(v Stats)`
+
+SetStats sets Stats field to given value.
+
+### HasStats
+
+`func (o *QueryInfo) HasStats() bool`
+
+HasStats returns a boolean if a field has been set.
+
+### GetStatus
+
+`func (o *QueryInfo) GetStatus() string`
+
+GetStatus returns the Status field if non-nil, zero value otherwise.
+
+### GetStatusOk
+
+`func (o *QueryInfo) GetStatusOk() (*string, bool)`
+
+GetStatusOk returns a tuple with the Status field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStatus
+
+`func (o *QueryInfo) SetStatus(v string)`
+
+SetStatus sets Status field to given value.
+
+### HasStatus
+
+`func (o *QueryInfo) HasStatus() bool`
+
+HasStatus returns a boolean if a field has been set.
+
+### GetSubmittedAt
+
+`func (o *QueryInfo) GetSubmittedAt() string`
+
+GetSubmittedAt returns the SubmittedAt field if non-nil, zero value otherwise.
+
+### GetSubmittedAtOk
+
+`func (o *QueryInfo) GetSubmittedAtOk() (*string, bool)`
+
+GetSubmittedAtOk returns a tuple with the SubmittedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubmittedAt
+
+`func (o *QueryInfo) SetSubmittedAt(v string)`
+
+SetSubmittedAt sets SubmittedAt field to given value.
+
+### HasSubmittedAt
+
+`func (o *QueryInfo) HasSubmittedAt() bool`
+
+HasSubmittedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

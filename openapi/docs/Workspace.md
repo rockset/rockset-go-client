@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CollectionCount** | Pointer to **int64** | Number of collections that are immediate children of workspace. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date of when workspace was created. | [optional] 
 **CreatedBy** | Pointer to **string** | Email of user who created the workspace. | [optional] 
-**Name** | Pointer to **string** | Descriptive label and unique identifier. | [optional] 
 **Description** | Pointer to **string** | Longer explanation for the workspace. | [optional] 
-**CollectionCount** | Pointer to **int64** | Number of collections that are immediate children of workspace. | [optional] 
+**Name** | Pointer to **string** | Descriptive label and unique identifier. | [optional] 
 
 ## Methods
 
@@ -28,6 +28,31 @@ will change when the set of required properties is changed
 NewWorkspaceWithDefaults instantiates a new Workspace object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCollectionCount
+
+`func (o *Workspace) GetCollectionCount() int64`
+
+GetCollectionCount returns the CollectionCount field if non-nil, zero value otherwise.
+
+### GetCollectionCountOk
+
+`func (o *Workspace) GetCollectionCountOk() (*int64, bool)`
+
+GetCollectionCountOk returns a tuple with the CollectionCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCollectionCount
+
+`func (o *Workspace) SetCollectionCount(v int64)`
+
+SetCollectionCount sets CollectionCount field to given value.
+
+### HasCollectionCount
+
+`func (o *Workspace) HasCollectionCount() bool`
+
+HasCollectionCount returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -79,31 +104,6 @@ SetCreatedBy sets CreatedBy field to given value.
 
 HasCreatedBy returns a boolean if a field has been set.
 
-### GetName
-
-`func (o *Workspace) GetName() string`
-
-GetName returns the Name field if non-nil, zero value otherwise.
-
-### GetNameOk
-
-`func (o *Workspace) GetNameOk() (*string, bool)`
-
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetName
-
-`func (o *Workspace) SetName(v string)`
-
-SetName sets Name field to given value.
-
-### HasName
-
-`func (o *Workspace) HasName() bool`
-
-HasName returns a boolean if a field has been set.
-
 ### GetDescription
 
 `func (o *Workspace) GetDescription() string`
@@ -129,30 +129,30 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetCollectionCount
+### GetName
 
-`func (o *Workspace) GetCollectionCount() int64`
+`func (o *Workspace) GetName() string`
 
-GetCollectionCount returns the CollectionCount field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetCollectionCountOk
+### GetNameOk
 
-`func (o *Workspace) GetCollectionCountOk() (*int64, bool)`
+`func (o *Workspace) GetNameOk() (*string, bool)`
 
-GetCollectionCountOk returns a tuple with the CollectionCount field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCollectionCount
+### SetName
 
-`func (o *Workspace) SetCollectionCount(v int64)`
+`func (o *Workspace) SetName(v string)`
 
-SetCollectionCount sets CollectionCount field to given value.
+SetName sets Name field to given value.
 
-### HasCollectionCount
+### HasName
 
-`func (o *Workspace) HasCollectionCount() bool`
+`func (o *Workspace) HasName() bool`
 
-HasCollectionCount returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

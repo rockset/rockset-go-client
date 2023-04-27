@@ -18,12 +18,12 @@ import (
 type SourceKinesis struct {
 	// AWS region name of Kinesis stream, by default us-west-2 is used.
 	AwsRegion *string `json:"aws_region,omitempty"`
-	// Name of kinesis stream.
-	StreamName string `json:"stream_name"`
 	// Set of fields that correspond to a DMS primary key.
 	DmsPrimaryKey []string `json:"dms_primary_key,omitempty"`
 	// For non-DMS streams, Rockset can tail from the earliest end or latest end of kinesis source.
 	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`
+	// Name of kinesis stream.
+	StreamName string `json:"stream_name"`
 }
 
 // NewSourceKinesis instantiates a new SourceKinesis object
@@ -74,30 +74,6 @@ func (o *SourceKinesis) HasAwsRegion() bool {
 // SetAwsRegion gets a reference to the given string and assigns it to the AwsRegion field.
 func (o *SourceKinesis) SetAwsRegion(v string) {
 	o.AwsRegion = &v
-}
-
-// GetStreamName returns the StreamName field value
-func (o *SourceKinesis) GetStreamName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.StreamName
-}
-
-// GetStreamNameOk returns a tuple with the StreamName field value
-// and a boolean to check if the value has been set.
-func (o *SourceKinesis) GetStreamNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.StreamName, true
-}
-
-// SetStreamName sets field value
-func (o *SourceKinesis) SetStreamName(v string) {
-	o.StreamName = v
 }
 
 // GetDmsPrimaryKey returns the DmsPrimaryKey field value if set, zero value otherwise.
@@ -164,19 +140,43 @@ func (o *SourceKinesis) SetOffsetResetPolicy(v string) {
 	o.OffsetResetPolicy = &v
 }
 
+// GetStreamName returns the StreamName field value
+func (o *SourceKinesis) GetStreamName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.StreamName
+}
+
+// GetStreamNameOk returns a tuple with the StreamName field value
+// and a boolean to check if the value has been set.
+func (o *SourceKinesis) GetStreamNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.StreamName, true
+}
+
+// SetStreamName sets field value
+func (o *SourceKinesis) SetStreamName(v string) {
+	o.StreamName = v
+}
+
 func (o SourceKinesis) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AwsRegion != nil {
 		toSerialize["aws_region"] = o.AwsRegion
-	}
-	if true {
-		toSerialize["stream_name"] = o.StreamName
 	}
 	if o.DmsPrimaryKey != nil {
 		toSerialize["dms_primary_key"] = o.DmsPrimaryKey
 	}
 	if o.OffsetResetPolicy != nil {
 		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
+	}
+	if true {
+		toSerialize["stream_name"] = o.StreamName
 	}
 	return json.Marshal(toSerialize)
 }

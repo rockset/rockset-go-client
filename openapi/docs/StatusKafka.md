@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | State of the Kafka source. | [optional] 
+**KafkaPartitions** | Pointer to [**[]StatusKafkaPartition**](StatusKafkaPartition.md) | Status info per partition. | [optional] 
 **LastConsumedTime** | Pointer to **string** | Time at which the last document was consumed from Kafka. | [optional] 
 **NumDocumentsProcessed** | Pointer to **int64** | Number of documents consumed by this Kafka topic. | [optional] 
-**KafkaPartitions** | Pointer to [**[]StatusKafkaPartition**](StatusKafkaPartition.md) | Status info per partition. | [optional] 
+**State** | Pointer to **string** | State of the Kafka source. | [optional] 
 
 ## Methods
 
@@ -28,30 +28,30 @@ NewStatusKafkaWithDefaults instantiates a new StatusKafka object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetState
+### GetKafkaPartitions
 
-`func (o *StatusKafka) GetState() string`
+`func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition`
 
-GetState returns the State field if non-nil, zero value otherwise.
+GetKafkaPartitions returns the KafkaPartitions field if non-nil, zero value otherwise.
 
-### GetStateOk
+### GetKafkaPartitionsOk
 
-`func (o *StatusKafka) GetStateOk() (*string, bool)`
+`func (o *StatusKafka) GetKafkaPartitionsOk() (*[]StatusKafkaPartition, bool)`
 
-GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetState
+### SetKafkaPartitions
 
-`func (o *StatusKafka) SetState(v string)`
+`func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition)`
 
-SetState sets State field to given value.
+SetKafkaPartitions sets KafkaPartitions field to given value.
 
-### HasState
+### HasKafkaPartitions
 
-`func (o *StatusKafka) HasState() bool`
+`func (o *StatusKafka) HasKafkaPartitions() bool`
 
-HasState returns a boolean if a field has been set.
+HasKafkaPartitions returns a boolean if a field has been set.
 
 ### GetLastConsumedTime
 
@@ -103,30 +103,30 @@ SetNumDocumentsProcessed sets NumDocumentsProcessed field to given value.
 
 HasNumDocumentsProcessed returns a boolean if a field has been set.
 
-### GetKafkaPartitions
+### GetState
 
-`func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition`
+`func (o *StatusKafka) GetState() string`
 
-GetKafkaPartitions returns the KafkaPartitions field if non-nil, zero value otherwise.
+GetState returns the State field if non-nil, zero value otherwise.
 
-### GetKafkaPartitionsOk
+### GetStateOk
 
-`func (o *StatusKafka) GetKafkaPartitionsOk() (*[]StatusKafkaPartition, bool)`
+`func (o *StatusKafka) GetStateOk() (*string, bool)`
 
-GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field if it's non-nil, zero value otherwise
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetKafkaPartitions
+### SetState
 
-`func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition)`
+`func (o *StatusKafka) SetState(v string)`
 
-SetKafkaPartitions sets KafkaPartitions field to given value.
+SetState sets State field to given value.
 
-### HasKafkaPartitions
+### HasState
 
-`func (o *StatusKafka) HasKafkaPartitions() bool`
+`func (o *StatusKafka) HasState() bool`
 
-HasKafkaPartitions returns a boolean if a field has been set.
+HasState returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

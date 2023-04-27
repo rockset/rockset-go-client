@@ -16,10 +16,12 @@ import (
 
 // SourceMongoDb struct for SourceMongoDb
 type SourceMongoDb struct {
-	// MongoDB database name containing this collection.
-	DatabaseName string `json:"database_name"`
 	// MongoDB collection name.
 	CollectionName string `json:"collection_name"`
+	// MongoDB database name containing this collection.
+	DatabaseName string `json:"database_name"`
+	// Whether to get the full document from the MongoDB change stream to enable multi-field expression transformations. Selecting this option will increase load on your upstream MongoDB database.
+	RetrieveFullDocument *bool `json:"retrieve_full_document,omitempty"`
 	Status *StatusMongoDb `json:"status,omitempty"`
 }
 
@@ -27,10 +29,10 @@ type SourceMongoDb struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSourceMongoDb(databaseName string, collectionName string) *SourceMongoDb {
+func NewSourceMongoDb(collectionName string, databaseName string) *SourceMongoDb {
 	this := SourceMongoDb{}
-	this.DatabaseName = databaseName
 	this.CollectionName = collectionName
+	this.DatabaseName = databaseName
 	return &this
 }
 
@@ -40,6 +42,30 @@ func NewSourceMongoDb(databaseName string, collectionName string) *SourceMongoDb
 func NewSourceMongoDbWithDefaults() *SourceMongoDb {
 	this := SourceMongoDb{}
 	return &this
+}
+
+// GetCollectionName returns the CollectionName field value
+func (o *SourceMongoDb) GetCollectionName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.CollectionName
+}
+
+// GetCollectionNameOk returns a tuple with the CollectionName field value
+// and a boolean to check if the value has been set.
+func (o *SourceMongoDb) GetCollectionNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.CollectionName, true
+}
+
+// SetCollectionName sets field value
+func (o *SourceMongoDb) SetCollectionName(v string) {
+	o.CollectionName = v
 }
 
 // GetDatabaseName returns the DatabaseName field value
@@ -66,28 +92,36 @@ func (o *SourceMongoDb) SetDatabaseName(v string) {
 	o.DatabaseName = v
 }
 
-// GetCollectionName returns the CollectionName field value
-func (o *SourceMongoDb) GetCollectionName() string {
-	if o == nil {
-		var ret string
+// GetRetrieveFullDocument returns the RetrieveFullDocument field value if set, zero value otherwise.
+func (o *SourceMongoDb) GetRetrieveFullDocument() bool {
+	if o == nil || o.RetrieveFullDocument == nil {
+		var ret bool
 		return ret
 	}
-
-	return o.CollectionName
+	return *o.RetrieveFullDocument
 }
 
-// GetCollectionNameOk returns a tuple with the CollectionName field value
+// GetRetrieveFullDocumentOk returns a tuple with the RetrieveFullDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceMongoDb) GetCollectionNameOk() (*string, bool) {
-	if o == nil  {
+func (o *SourceMongoDb) GetRetrieveFullDocumentOk() (*bool, bool) {
+	if o == nil || o.RetrieveFullDocument == nil {
 		return nil, false
 	}
-	return &o.CollectionName, true
+	return o.RetrieveFullDocument, true
 }
 
-// SetCollectionName sets field value
-func (o *SourceMongoDb) SetCollectionName(v string) {
-	o.CollectionName = v
+// HasRetrieveFullDocument returns a boolean if a field has been set.
+func (o *SourceMongoDb) HasRetrieveFullDocument() bool {
+	if o != nil && o.RetrieveFullDocument != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRetrieveFullDocument gets a reference to the given bool and assigns it to the RetrieveFullDocument field.
+func (o *SourceMongoDb) SetRetrieveFullDocument(v bool) {
+	o.RetrieveFullDocument = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -125,10 +159,13 @@ func (o *SourceMongoDb) SetStatus(v StatusMongoDb) {
 func (o SourceMongoDb) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["database_name"] = o.DatabaseName
+		toSerialize["collection_name"] = o.CollectionName
 	}
 	if true {
-		toSerialize["collection_name"] = o.CollectionName
+		toSerialize["database_name"] = o.DatabaseName
+	}
+	if o.RetrieveFullDocument != nil {
+		toSerialize["retrieve_full_document"] = o.RetrieveFullDocument
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status

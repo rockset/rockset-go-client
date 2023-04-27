@@ -16,8 +16,8 @@ import (
 
 // QueryRequest struct for QueryRequest
 type QueryRequest struct {
-	Sql QueryRequestSql `json:"sql"`
 	AsyncOptions *AsyncQueryOptions `json:"async_options,omitempty"`
+	Sql QueryRequestSql `json:"sql"`
 }
 
 // NewQueryRequest instantiates a new QueryRequest object
@@ -36,30 +36,6 @@ func NewQueryRequest(sql QueryRequestSql) *QueryRequest {
 func NewQueryRequestWithDefaults() *QueryRequest {
 	this := QueryRequest{}
 	return &this
-}
-
-// GetSql returns the Sql field value
-func (o *QueryRequest) GetSql() QueryRequestSql {
-	if o == nil {
-		var ret QueryRequestSql
-		return ret
-	}
-
-	return o.Sql
-}
-
-// GetSqlOk returns a tuple with the Sql field value
-// and a boolean to check if the value has been set.
-func (o *QueryRequest) GetSqlOk() (*QueryRequestSql, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Sql, true
-}
-
-// SetSql sets field value
-func (o *QueryRequest) SetSql(v QueryRequestSql) {
-	o.Sql = v
 }
 
 // GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
@@ -94,13 +70,37 @@ func (o *QueryRequest) SetAsyncOptions(v AsyncQueryOptions) {
 	o.AsyncOptions = &v
 }
 
+// GetSql returns the Sql field value
+func (o *QueryRequest) GetSql() QueryRequestSql {
+	if o == nil {
+		var ret QueryRequestSql
+		return ret
+	}
+
+	return o.Sql
+}
+
+// GetSqlOk returns a tuple with the Sql field value
+// and a boolean to check if the value has been set.
+func (o *QueryRequest) GetSqlOk() (*QueryRequestSql, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Sql, true
+}
+
+// SetSql sets field value
+func (o *QueryRequest) SetSql(v QueryRequestSql) {
+	o.Sql = v
+}
+
 func (o QueryRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["sql"] = o.Sql
-	}
 	if o.AsyncOptions != nil {
 		toSerialize["async_options"] = o.AsyncOptions
+	}
+	if true {
+		toSerialize["sql"] = o.Sql
 	}
 	return json.Marshal(toSerialize)
 }

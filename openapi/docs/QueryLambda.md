@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Workspace** | Pointer to **string** | Workspace of this Query Lambda. | [optional] 
-**LastUpdatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
+**Collections** | Pointer to **[]string** | Collections/aliases queried by underlying SQL query. | [optional] 
 **LastUpdated** | Pointer to **string** | ISO-8601 date of when Query Lambda was last updated. | [optional] 
+**LastUpdatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
+**LatestVersion** | Pointer to [**QueryLambdaVersion**](QueryLambdaVersion.md) |  | [optional] 
 **Name** | Pointer to **string** | Query Lambda name. | [optional] 
 **VersionCount** | Pointer to **int32** | Number of Query Lambda versions. | [optional] 
-**Collections** | Pointer to **[]string** | Collections/aliases queried by underlying SQL query. | [optional] 
-**LatestVersion** | Pointer to [**QueryLambdaVersion**](QueryLambdaVersion.md) |  | [optional] 
+**Workspace** | Pointer to **string** | Workspace of this Query Lambda. | [optional] 
 
 ## Methods
 
@@ -31,30 +31,55 @@ NewQueryLambdaWithDefaults instantiates a new QueryLambda object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetWorkspace
+### GetCollections
 
-`func (o *QueryLambda) GetWorkspace() string`
+`func (o *QueryLambda) GetCollections() []string`
 
-GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
+GetCollections returns the Collections field if non-nil, zero value otherwise.
 
-### GetWorkspaceOk
+### GetCollectionsOk
 
-`func (o *QueryLambda) GetWorkspaceOk() (*string, bool)`
+`func (o *QueryLambda) GetCollectionsOk() (*[]string, bool)`
 
-GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
+GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWorkspace
+### SetCollections
 
-`func (o *QueryLambda) SetWorkspace(v string)`
+`func (o *QueryLambda) SetCollections(v []string)`
 
-SetWorkspace sets Workspace field to given value.
+SetCollections sets Collections field to given value.
 
-### HasWorkspace
+### HasCollections
 
-`func (o *QueryLambda) HasWorkspace() bool`
+`func (o *QueryLambda) HasCollections() bool`
 
-HasWorkspace returns a boolean if a field has been set.
+HasCollections returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *QueryLambda) GetLastUpdated() string`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *QueryLambda) GetLastUpdatedOk() (*string, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *QueryLambda) SetLastUpdated(v string)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *QueryLambda) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 ### GetLastUpdatedBy
 
@@ -81,30 +106,30 @@ SetLastUpdatedBy sets LastUpdatedBy field to given value.
 
 HasLastUpdatedBy returns a boolean if a field has been set.
 
-### GetLastUpdated
+### GetLatestVersion
 
-`func (o *QueryLambda) GetLastUpdated() string`
+`func (o *QueryLambda) GetLatestVersion() QueryLambdaVersion`
 
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+GetLatestVersion returns the LatestVersion field if non-nil, zero value otherwise.
 
-### GetLastUpdatedOk
+### GetLatestVersionOk
 
-`func (o *QueryLambda) GetLastUpdatedOk() (*string, bool)`
+`func (o *QueryLambda) GetLatestVersionOk() (*QueryLambdaVersion, bool)`
 
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+GetLatestVersionOk returns a tuple with the LatestVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastUpdated
+### SetLatestVersion
 
-`func (o *QueryLambda) SetLastUpdated(v string)`
+`func (o *QueryLambda) SetLatestVersion(v QueryLambdaVersion)`
 
-SetLastUpdated sets LastUpdated field to given value.
+SetLatestVersion sets LatestVersion field to given value.
 
-### HasLastUpdated
+### HasLatestVersion
 
-`func (o *QueryLambda) HasLastUpdated() bool`
+`func (o *QueryLambda) HasLatestVersion() bool`
 
-HasLastUpdated returns a boolean if a field has been set.
+HasLatestVersion returns a boolean if a field has been set.
 
 ### GetName
 
@@ -156,55 +181,30 @@ SetVersionCount sets VersionCount field to given value.
 
 HasVersionCount returns a boolean if a field has been set.
 
-### GetCollections
+### GetWorkspace
 
-`func (o *QueryLambda) GetCollections() []string`
+`func (o *QueryLambda) GetWorkspace() string`
 
-GetCollections returns the Collections field if non-nil, zero value otherwise.
+GetWorkspace returns the Workspace field if non-nil, zero value otherwise.
 
-### GetCollectionsOk
+### GetWorkspaceOk
 
-`func (o *QueryLambda) GetCollectionsOk() (*[]string, bool)`
+`func (o *QueryLambda) GetWorkspaceOk() (*string, bool)`
 
-GetCollectionsOk returns a tuple with the Collections field if it's non-nil, zero value otherwise
+GetWorkspaceOk returns a tuple with the Workspace field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCollections
+### SetWorkspace
 
-`func (o *QueryLambda) SetCollections(v []string)`
+`func (o *QueryLambda) SetWorkspace(v string)`
 
-SetCollections sets Collections field to given value.
+SetWorkspace sets Workspace field to given value.
 
-### HasCollections
+### HasWorkspace
 
-`func (o *QueryLambda) HasCollections() bool`
+`func (o *QueryLambda) HasWorkspace() bool`
 
-HasCollections returns a boolean if a field has been set.
-
-### GetLatestVersion
-
-`func (o *QueryLambda) GetLatestVersion() QueryLambdaVersion`
-
-GetLatestVersion returns the LatestVersion field if non-nil, zero value otherwise.
-
-### GetLatestVersionOk
-
-`func (o *QueryLambda) GetLatestVersionOk() (*QueryLambdaVersion, bool)`
-
-GetLatestVersionOk returns a tuple with the LatestVersion field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLatestVersion
-
-`func (o *QueryLambda) SetLatestVersion(v QueryLambdaVersion)`
-
-SetLatestVersion sets LatestVersion field to given value.
-
-### HasLatestVersion
-
-`func (o *QueryLambda) HasLatestVersion() bool`
-
-HasLatestVersion returns a boolean if a field has been set.
+HasWorkspace returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

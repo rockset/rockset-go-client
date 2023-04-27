@@ -16,12 +16,12 @@ import (
 
 // CreateQueryLambdaRequest struct for CreateQueryLambdaRequest
 type CreateQueryLambdaRequest struct {
-	// Query Lambda name.
-	Name string `json:"name"`
 	// Optional description.
 	Description *string `json:"description,omitempty"`
-	Sql QueryLambdaSql `json:"sql"`
 	IsPublic *bool `json:"is_public,omitempty"`
+	// Query Lambda name.
+	Name string `json:"name"`
+	Sql QueryLambdaSql `json:"sql"`
 }
 
 // NewCreateQueryLambdaRequest instantiates a new CreateQueryLambdaRequest object
@@ -41,30 +41,6 @@ func NewCreateQueryLambdaRequest(name string, sql QueryLambdaSql) *CreateQueryLa
 func NewCreateQueryLambdaRequestWithDefaults() *CreateQueryLambdaRequest {
 	this := CreateQueryLambdaRequest{}
 	return &this
-}
-
-// GetName returns the Name field value
-func (o *CreateQueryLambdaRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *CreateQueryLambdaRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *CreateQueryLambdaRequest) SetName(v string) {
-	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -99,30 +75,6 @@ func (o *CreateQueryLambdaRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetSql returns the Sql field value
-func (o *CreateQueryLambdaRequest) GetSql() QueryLambdaSql {
-	if o == nil {
-		var ret QueryLambdaSql
-		return ret
-	}
-
-	return o.Sql
-}
-
-// GetSqlOk returns a tuple with the Sql field value
-// and a boolean to check if the value has been set.
-func (o *CreateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Sql, true
-}
-
-// SetSql sets field value
-func (o *CreateQueryLambdaRequest) SetSql(v QueryLambdaSql) {
-	o.Sql = v
-}
-
 // GetIsPublic returns the IsPublic field value if set, zero value otherwise.
 func (o *CreateQueryLambdaRequest) GetIsPublic() bool {
 	if o == nil || o.IsPublic == nil {
@@ -155,19 +107,67 @@ func (o *CreateQueryLambdaRequest) SetIsPublic(v bool) {
 	o.IsPublic = &v
 }
 
+// GetName returns the Name field value
+func (o *CreateQueryLambdaRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateQueryLambdaRequest) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateQueryLambdaRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetSql returns the Sql field value
+func (o *CreateQueryLambdaRequest) GetSql() QueryLambdaSql {
+	if o == nil {
+		var ret QueryLambdaSql
+		return ret
+	}
+
+	return o.Sql
+}
+
+// GetSqlOk returns a tuple with the Sql field value
+// and a boolean to check if the value has been set.
+func (o *CreateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Sql, true
+}
+
+// SetSql sets field value
+func (o *CreateQueryLambdaRequest) SetSql(v QueryLambdaSql) {
+	o.Sql = v
+}
+
 func (o CreateQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if true {
-		toSerialize["sql"] = o.Sql
-	}
 	if o.IsPublic != nil {
 		toSerialize["is_public"] = o.IsPublic
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if true {
+		toSerialize["sql"] = o.Sql
 	}
 	return json.Marshal(toSerialize)
 }

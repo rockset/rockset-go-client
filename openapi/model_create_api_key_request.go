@@ -16,10 +16,10 @@ import (
 
 // CreateApiKeyRequest struct for CreateApiKeyRequest
 type CreateApiKeyRequest struct {
+	CreatedBy *string `json:"created_by,omitempty"`
 	// Name for this API key.
 	Name string `json:"name"`
 	Role *string `json:"role,omitempty"`
-	CreatedBy *string `json:"created_by,omitempty"`
 }
 
 // NewCreateApiKeyRequest instantiates a new CreateApiKeyRequest object
@@ -38,6 +38,38 @@ func NewCreateApiKeyRequest(name string) *CreateApiKeyRequest {
 func NewCreateApiKeyRequestWithDefaults() *CreateApiKeyRequest {
 	this := CreateApiKeyRequest{}
 	return &this
+}
+
+// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
+func (o *CreateApiKeyRequest) GetCreatedBy() string {
+	if o == nil || o.CreatedBy == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedBy
+}
+
+// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateApiKeyRequest) GetCreatedByOk() (*string, bool) {
+	if o == nil || o.CreatedBy == nil {
+		return nil, false
+	}
+	return o.CreatedBy, true
+}
+
+// HasCreatedBy returns a boolean if a field has been set.
+func (o *CreateApiKeyRequest) HasCreatedBy() bool {
+	if o != nil && o.CreatedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
+func (o *CreateApiKeyRequest) SetCreatedBy(v string) {
+	o.CreatedBy = &v
 }
 
 // GetName returns the Name field value
@@ -96,48 +128,16 @@ func (o *CreateApiKeyRequest) SetRole(v string) {
 	o.Role = &v
 }
 
-// GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
-func (o *CreateApiKeyRequest) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
-		var ret string
-		return ret
-	}
-	return *o.CreatedBy
-}
-
-// GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateApiKeyRequest) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
-		return nil, false
-	}
-	return o.CreatedBy, true
-}
-
-// HasCreatedBy returns a boolean if a field has been set.
-func (o *CreateApiKeyRequest) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
-func (o *CreateApiKeyRequest) SetCreatedBy(v string) {
-	o.CreatedBy = &v
-}
-
 func (o CreateApiKeyRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.CreatedBy != nil {
+		toSerialize["created_by"] = o.CreatedBy
+	}
 	if true {
 		toSerialize["name"] = o.Name
 	}
 	if o.Role != nil {
 		toSerialize["role"] = o.Role
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
 	}
 	return json.Marshal(toSerialize)
 }

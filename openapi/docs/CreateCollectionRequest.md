@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | Unique identifier for collection, can contain alphanumeric or dash characters. | [optional] 
-**Description** | Pointer to **string** | Text describing the collection. | [optional] 
-**Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which to ingest data. | [optional] 
-**RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged, based on event time. | [optional] 
-**EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
-**FieldMappings** | Pointer to [**[]FieldMappingV2**](FieldMappingV2.md) | Deprecated. List of mappings. Use field_mapping_query instead. | [optional] 
-**FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **ClusteringKey** | Pointer to [**[]FieldPartition**](FieldPartition.md) | Deprecated. List of clustering fields. Use CLUSTER BY clause in &#x60;field_mapping_query&#x60; instead. | [optional] 
+**Description** | Pointer to **string** | Text describing the collection. | [optional] 
+**EventTimeInfo** | Pointer to [**EventTimeInfo**](EventTimeInfo.md) |  | [optional] 
+**FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
+**Name** | Pointer to **string** | Unique identifier for collection, can contain alphanumeric or dash characters. | [optional] 
+**RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged, based on event time. | [optional] 
+**Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which to ingest data. | [optional] 
 **StorageCompressionType** | Pointer to **string** | RocksDB storage compression type. | [optional] 
 
 ## Methods
@@ -33,30 +32,30 @@ NewCreateCollectionRequestWithDefaults instantiates a new CreateCollectionReques
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetName
+### GetClusteringKey
 
-`func (o *CreateCollectionRequest) GetName() string`
+`func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition`
 
-GetName returns the Name field if non-nil, zero value otherwise.
+GetClusteringKey returns the ClusteringKey field if non-nil, zero value otherwise.
 
-### GetNameOk
+### GetClusteringKeyOk
 
-`func (o *CreateCollectionRequest) GetNameOk() (*string, bool)`
+`func (o *CreateCollectionRequest) GetClusteringKeyOk() (*[]FieldPartition, bool)`
 
-GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+GetClusteringKeyOk returns a tuple with the ClusteringKey field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetName
+### SetClusteringKey
 
-`func (o *CreateCollectionRequest) SetName(v string)`
+`func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition)`
 
-SetName sets Name field to given value.
+SetClusteringKey sets ClusteringKey field to given value.
 
-### HasName
+### HasClusteringKey
 
-`func (o *CreateCollectionRequest) HasName() bool`
+`func (o *CreateCollectionRequest) HasClusteringKey() bool`
 
-HasName returns a boolean if a field has been set.
+HasClusteringKey returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -83,56 +82,6 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetSources
-
-`func (o *CreateCollectionRequest) GetSources() []Source`
-
-GetSources returns the Sources field if non-nil, zero value otherwise.
-
-### GetSourcesOk
-
-`func (o *CreateCollectionRequest) GetSourcesOk() (*[]Source, bool)`
-
-GetSourcesOk returns a tuple with the Sources field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSources
-
-`func (o *CreateCollectionRequest) SetSources(v []Source)`
-
-SetSources sets Sources field to given value.
-
-### HasSources
-
-`func (o *CreateCollectionRequest) HasSources() bool`
-
-HasSources returns a boolean if a field has been set.
-
-### GetRetentionSecs
-
-`func (o *CreateCollectionRequest) GetRetentionSecs() int64`
-
-GetRetentionSecs returns the RetentionSecs field if non-nil, zero value otherwise.
-
-### GetRetentionSecsOk
-
-`func (o *CreateCollectionRequest) GetRetentionSecsOk() (*int64, bool)`
-
-GetRetentionSecsOk returns a tuple with the RetentionSecs field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRetentionSecs
-
-`func (o *CreateCollectionRequest) SetRetentionSecs(v int64)`
-
-SetRetentionSecs sets RetentionSecs field to given value.
-
-### HasRetentionSecs
-
-`func (o *CreateCollectionRequest) HasRetentionSecs() bool`
-
-HasRetentionSecs returns a boolean if a field has been set.
-
 ### GetEventTimeInfo
 
 `func (o *CreateCollectionRequest) GetEventTimeInfo() EventTimeInfo`
@@ -157,31 +106,6 @@ SetEventTimeInfo sets EventTimeInfo field to given value.
 `func (o *CreateCollectionRequest) HasEventTimeInfo() bool`
 
 HasEventTimeInfo returns a boolean if a field has been set.
-
-### GetFieldMappings
-
-`func (o *CreateCollectionRequest) GetFieldMappings() []FieldMappingV2`
-
-GetFieldMappings returns the FieldMappings field if non-nil, zero value otherwise.
-
-### GetFieldMappingsOk
-
-`func (o *CreateCollectionRequest) GetFieldMappingsOk() (*[]FieldMappingV2, bool)`
-
-GetFieldMappingsOk returns a tuple with the FieldMappings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFieldMappings
-
-`func (o *CreateCollectionRequest) SetFieldMappings(v []FieldMappingV2)`
-
-SetFieldMappings sets FieldMappings field to given value.
-
-### HasFieldMappings
-
-`func (o *CreateCollectionRequest) HasFieldMappings() bool`
-
-HasFieldMappings returns a boolean if a field has been set.
 
 ### GetFieldMappingQuery
 
@@ -208,30 +132,80 @@ SetFieldMappingQuery sets FieldMappingQuery field to given value.
 
 HasFieldMappingQuery returns a boolean if a field has been set.
 
-### GetClusteringKey
+### GetName
 
-`func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition`
+`func (o *CreateCollectionRequest) GetName() string`
 
-GetClusteringKey returns the ClusteringKey field if non-nil, zero value otherwise.
+GetName returns the Name field if non-nil, zero value otherwise.
 
-### GetClusteringKeyOk
+### GetNameOk
 
-`func (o *CreateCollectionRequest) GetClusteringKeyOk() (*[]FieldPartition, bool)`
+`func (o *CreateCollectionRequest) GetNameOk() (*string, bool)`
 
-GetClusteringKeyOk returns a tuple with the ClusteringKey field if it's non-nil, zero value otherwise
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetClusteringKey
+### SetName
 
-`func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition)`
+`func (o *CreateCollectionRequest) SetName(v string)`
 
-SetClusteringKey sets ClusteringKey field to given value.
+SetName sets Name field to given value.
 
-### HasClusteringKey
+### HasName
 
-`func (o *CreateCollectionRequest) HasClusteringKey() bool`
+`func (o *CreateCollectionRequest) HasName() bool`
 
-HasClusteringKey returns a boolean if a field has been set.
+HasName returns a boolean if a field has been set.
+
+### GetRetentionSecs
+
+`func (o *CreateCollectionRequest) GetRetentionSecs() int64`
+
+GetRetentionSecs returns the RetentionSecs field if non-nil, zero value otherwise.
+
+### GetRetentionSecsOk
+
+`func (o *CreateCollectionRequest) GetRetentionSecsOk() (*int64, bool)`
+
+GetRetentionSecsOk returns a tuple with the RetentionSecs field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRetentionSecs
+
+`func (o *CreateCollectionRequest) SetRetentionSecs(v int64)`
+
+SetRetentionSecs sets RetentionSecs field to given value.
+
+### HasRetentionSecs
+
+`func (o *CreateCollectionRequest) HasRetentionSecs() bool`
+
+HasRetentionSecs returns a boolean if a field has been set.
+
+### GetSources
+
+`func (o *CreateCollectionRequest) GetSources() []Source`
+
+GetSources returns the Sources field if non-nil, zero value otherwise.
+
+### GetSourcesOk
+
+`func (o *CreateCollectionRequest) GetSourcesOk() (*[]Source, bool)`
+
+GetSourcesOk returns a tuple with the Sources field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSources
+
+`func (o *CreateCollectionRequest) SetSources(v []Source)`
+
+SetSources sets Sources field to given value.
+
+### HasSources
+
+`func (o *CreateCollectionRequest) HasSources() bool`
+
+HasSources returns a boolean if a field has been set.
 
 ### GetStorageCompressionType
 

@@ -16,16 +16,16 @@ import (
 
 // CreateVirtualInstanceRequest struct for CreateVirtualInstanceRequest
 type CreateVirtualInstanceRequest struct {
-	// Requested virtual instance type.
-	Type *string `json:"type,omitempty"`
-	// Unique identifier for virtual instance, can contain alphanumeric or dash characters.
-	Name string `json:"name"`
-	// Description of requested virtual instance.
-	Description *string `json:"description,omitempty"`
 	// Number of seconds without queries after which the VI is suspended
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
+	// Description of requested virtual instance.
+	Description *string `json:"description,omitempty"`
 	// Number of seconds between data refreshes for mounts on this Virtual Instance
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
+	// Unique identifier for virtual instance, can contain alphanumeric or dash characters.
+	Name string `json:"name"`
+	// Requested virtual instance type.
+	Type *string `json:"type,omitempty"`
 }
 
 // NewCreateVirtualInstanceRequest instantiates a new CreateVirtualInstanceRequest object
@@ -44,94 +44,6 @@ func NewCreateVirtualInstanceRequest(name string) *CreateVirtualInstanceRequest 
 func NewCreateVirtualInstanceRequestWithDefaults() *CreateVirtualInstanceRequest {
 	this := CreateVirtualInstanceRequest{}
 	return &this
-}
-
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *CreateVirtualInstanceRequest) GetType() string {
-	if o == nil || o.Type == nil {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateVirtualInstanceRequest) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *CreateVirtualInstanceRequest) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *CreateVirtualInstanceRequest) SetType(v string) {
-	o.Type = &v
-}
-
-// GetName returns the Name field value
-func (o *CreateVirtualInstanceRequest) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *CreateVirtualInstanceRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *CreateVirtualInstanceRequest) SetName(v string) {
-	o.Name = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *CreateVirtualInstanceRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *CreateVirtualInstanceRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *CreateVirtualInstanceRequest) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
@@ -166,6 +78,38 @@ func (o *CreateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32) {
 	o.AutoSuspendSeconds = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *CreateVirtualInstanceRequest) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *CreateVirtualInstanceRequest) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *CreateVirtualInstanceRequest) SetDescription(v string) {
+	o.Description = &v
+}
+
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
 func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
 	if o == nil || o.MountRefreshIntervalSeconds == nil {
@@ -198,22 +142,78 @@ func (o *CreateVirtualInstanceRequest) SetMountRefreshIntervalSeconds(v int32) {
 	o.MountRefreshIntervalSeconds = &v
 }
 
+// GetName returns the Name field value
+func (o *CreateVirtualInstanceRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateVirtualInstanceRequest) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateVirtualInstanceRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *CreateVirtualInstanceRequest) GetType() string {
+	if o == nil || o.Type == nil {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateVirtualInstanceRequest) GetTypeOk() (*string, bool) {
+	if o == nil || o.Type == nil {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *CreateVirtualInstanceRequest) HasType() bool {
+	if o != nil && o.Type != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *CreateVirtualInstanceRequest) SetType(v string) {
+	o.Type = &v
+}
+
 func (o CreateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
+	if o.AutoSuspendSeconds != nil {
+		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.AutoSuspendSeconds != nil {
-		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
-	}
 	if o.MountRefreshIntervalSeconds != nil {
 		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
 }

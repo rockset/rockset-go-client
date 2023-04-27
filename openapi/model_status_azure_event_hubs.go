@@ -16,14 +16,14 @@ import (
 
 // StatusAzureEventHubs struct for StatusAzureEventHubs
 type StatusAzureEventHubs struct {
-	// State of the source.
-	State *string `json:"state,omitempty"`
 	// Time at which the last document was consumed.
 	LastConsumedTime *string `json:"last_consumed_time,omitempty"`
 	// Number of documents consumed.
 	NumDocumentsProcessed *int64 `json:"num_documents_processed,omitempty"`
 	// Status info per partition.
 	Partitions []StatusAzureEventHubsPartition `json:"partitions,omitempty"`
+	// State of the source.
+	State *string `json:"state,omitempty"`
 }
 
 // NewStatusAzureEventHubs instantiates a new StatusAzureEventHubs object
@@ -41,38 +41,6 @@ func NewStatusAzureEventHubs() *StatusAzureEventHubs {
 func NewStatusAzureEventHubsWithDefaults() *StatusAzureEventHubs {
 	this := StatusAzureEventHubs{}
 	return &this
-}
-
-// GetState returns the State field value if set, zero value otherwise.
-func (o *StatusAzureEventHubs) GetState() string {
-	if o == nil || o.State == nil {
-		var ret string
-		return ret
-	}
-	return *o.State
-}
-
-// GetStateOk returns a tuple with the State field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *StatusAzureEventHubs) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
-		return nil, false
-	}
-	return o.State, true
-}
-
-// HasState returns a boolean if a field has been set.
-func (o *StatusAzureEventHubs) HasState() bool {
-	if o != nil && o.State != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetState gets a reference to the given string and assigns it to the State field.
-func (o *StatusAzureEventHubs) SetState(v string) {
-	o.State = &v
 }
 
 // GetLastConsumedTime returns the LastConsumedTime field value if set, zero value otherwise.
@@ -171,11 +139,40 @@ func (o *StatusAzureEventHubs) SetPartitions(v []StatusAzureEventHubsPartition) 
 	o.Partitions = v
 }
 
+// GetState returns the State field value if set, zero value otherwise.
+func (o *StatusAzureEventHubs) GetState() string {
+	if o == nil || o.State == nil {
+		var ret string
+		return ret
+	}
+	return *o.State
+}
+
+// GetStateOk returns a tuple with the State field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *StatusAzureEventHubs) GetStateOk() (*string, bool) {
+	if o == nil || o.State == nil {
+		return nil, false
+	}
+	return o.State, true
+}
+
+// HasState returns a boolean if a field has been set.
+func (o *StatusAzureEventHubs) HasState() bool {
+	if o != nil && o.State != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetState gets a reference to the given string and assigns it to the State field.
+func (o *StatusAzureEventHubs) SetState(v string) {
+	o.State = &v
+}
+
 func (o StatusAzureEventHubs) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
 	if o.LastConsumedTime != nil {
 		toSerialize["last_consumed_time"] = o.LastConsumedTime
 	}
@@ -184,6 +181,9 @@ func (o StatusAzureEventHubs) MarshalJSON() ([]byte, error) {
 	}
 	if o.Partitions != nil {
 		toSerialize["partitions"] = o.Partitions
+	}
+	if o.State != nil {
+		toSerialize["state"] = o.State
 	}
 	return json.Marshal(toSerialize)
 }

@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | Status of the Source&#39;s ingestion. | [optional] 
-**Message** | Pointer to **string** | State message. | [optional] 
+**DetectedSizeBytes** | Pointer to **int64** | Size in bytes detected for the source at collection initialization. This size can be 0 or null for event stream sources. | [optional] 
 **LastProcessedAt** | Pointer to **string** | ISO-8601 date when source was last processed. | [optional] 
 **LastProcessedItem** | Pointer to **string** | Last source item processed by ingester. | [optional] 
+**Message** | Pointer to **string** | State message. | [optional] 
+**State** | Pointer to **string** | Status of the Source&#39;s ingestion. | [optional] 
 **TotalProcessedItems** | Pointer to **int64** | Total items processed of source. | [optional] 
-**DetectedSizeBytes** | Pointer to **int64** | Size in bytes detected for the source at collection initialization. This size can be 0 or null for event stream sources. | [optional] 
 
 ## Methods
 
@@ -30,55 +30,30 @@ NewStatusWithDefaults instantiates a new Status object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetState
+### GetDetectedSizeBytes
 
-`func (o *Status) GetState() string`
+`func (o *Status) GetDetectedSizeBytes() int64`
 
-GetState returns the State field if non-nil, zero value otherwise.
+GetDetectedSizeBytes returns the DetectedSizeBytes field if non-nil, zero value otherwise.
 
-### GetStateOk
+### GetDetectedSizeBytesOk
 
-`func (o *Status) GetStateOk() (*string, bool)`
+`func (o *Status) GetDetectedSizeBytesOk() (*int64, bool)`
 
-GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+GetDetectedSizeBytesOk returns a tuple with the DetectedSizeBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetState
+### SetDetectedSizeBytes
 
-`func (o *Status) SetState(v string)`
+`func (o *Status) SetDetectedSizeBytes(v int64)`
 
-SetState sets State field to given value.
+SetDetectedSizeBytes sets DetectedSizeBytes field to given value.
 
-### HasState
+### HasDetectedSizeBytes
 
-`func (o *Status) HasState() bool`
+`func (o *Status) HasDetectedSizeBytes() bool`
 
-HasState returns a boolean if a field has been set.
-
-### GetMessage
-
-`func (o *Status) GetMessage() string`
-
-GetMessage returns the Message field if non-nil, zero value otherwise.
-
-### GetMessageOk
-
-`func (o *Status) GetMessageOk() (*string, bool)`
-
-GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMessage
-
-`func (o *Status) SetMessage(v string)`
-
-SetMessage sets Message field to given value.
-
-### HasMessage
-
-`func (o *Status) HasMessage() bool`
-
-HasMessage returns a boolean if a field has been set.
+HasDetectedSizeBytes returns a boolean if a field has been set.
 
 ### GetLastProcessedAt
 
@@ -130,6 +105,56 @@ SetLastProcessedItem sets LastProcessedItem field to given value.
 
 HasLastProcessedItem returns a boolean if a field has been set.
 
+### GetMessage
+
+`func (o *Status) GetMessage() string`
+
+GetMessage returns the Message field if non-nil, zero value otherwise.
+
+### GetMessageOk
+
+`func (o *Status) GetMessageOk() (*string, bool)`
+
+GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMessage
+
+`func (o *Status) SetMessage(v string)`
+
+SetMessage sets Message field to given value.
+
+### HasMessage
+
+`func (o *Status) HasMessage() bool`
+
+HasMessage returns a boolean if a field has been set.
+
+### GetState
+
+`func (o *Status) GetState() string`
+
+GetState returns the State field if non-nil, zero value otherwise.
+
+### GetStateOk
+
+`func (o *Status) GetStateOk() (*string, bool)`
+
+GetStateOk returns a tuple with the State field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetState
+
+`func (o *Status) SetState(v string)`
+
+SetState sets State field to given value.
+
+### HasState
+
+`func (o *Status) HasState() bool`
+
+HasState returns a boolean if a field has been set.
+
 ### GetTotalProcessedItems
 
 `func (o *Status) GetTotalProcessedItems() int64`
@@ -154,31 +179,6 @@ SetTotalProcessedItems sets TotalProcessedItems field to given value.
 `func (o *Status) HasTotalProcessedItems() bool`
 
 HasTotalProcessedItems returns a boolean if a field has been set.
-
-### GetDetectedSizeBytes
-
-`func (o *Status) GetDetectedSizeBytes() int64`
-
-GetDetectedSizeBytes returns the DetectedSizeBytes field if non-nil, zero value otherwise.
-
-### GetDetectedSizeBytesOk
-
-`func (o *Status) GetDetectedSizeBytesOk() (*int64, bool)`
-
-GetDetectedSizeBytesOk returns a tuple with the DetectedSizeBytes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDetectedSizeBytes
-
-`func (o *Status) SetDetectedSizeBytes(v int64)`
-
-SetDetectedSizeBytes sets DetectedSizeBytes field to given value.
-
-### HasDetectedSizeBytes
-
-`func (o *Status) HasDetectedSizeBytes() bool`
-
-HasDetectedSizeBytes returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

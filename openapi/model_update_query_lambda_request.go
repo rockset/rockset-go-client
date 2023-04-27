@@ -18,8 +18,8 @@ import (
 type UpdateQueryLambdaRequest struct {
 	// Optional description.
 	Description *string `json:"description,omitempty"`
-	Sql *QueryLambdaSql `json:"sql,omitempty"`
 	IsPublic *bool `json:"is_public,omitempty"`
+	Sql *QueryLambdaSql `json:"sql,omitempty"`
 }
 
 // NewUpdateQueryLambdaRequest instantiates a new UpdateQueryLambdaRequest object
@@ -71,38 +71,6 @@ func (o *UpdateQueryLambdaRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetSql returns the Sql field value if set, zero value otherwise.
-func (o *UpdateQueryLambdaRequest) GetSql() QueryLambdaSql {
-	if o == nil || o.Sql == nil {
-		var ret QueryLambdaSql
-		return ret
-	}
-	return *o.Sql
-}
-
-// GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool) {
-	if o == nil || o.Sql == nil {
-		return nil, false
-	}
-	return o.Sql, true
-}
-
-// HasSql returns a boolean if a field has been set.
-func (o *UpdateQueryLambdaRequest) HasSql() bool {
-	if o != nil && o.Sql != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSql gets a reference to the given QueryLambdaSql and assigns it to the Sql field.
-func (o *UpdateQueryLambdaRequest) SetSql(v QueryLambdaSql) {
-	o.Sql = &v
-}
-
 // GetIsPublic returns the IsPublic field value if set, zero value otherwise.
 func (o *UpdateQueryLambdaRequest) GetIsPublic() bool {
 	if o == nil || o.IsPublic == nil {
@@ -135,16 +103,48 @@ func (o *UpdateQueryLambdaRequest) SetIsPublic(v bool) {
 	o.IsPublic = &v
 }
 
+// GetSql returns the Sql field value if set, zero value otherwise.
+func (o *UpdateQueryLambdaRequest) GetSql() QueryLambdaSql {
+	if o == nil || o.Sql == nil {
+		var ret QueryLambdaSql
+		return ret
+	}
+	return *o.Sql
+}
+
+// GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool) {
+	if o == nil || o.Sql == nil {
+		return nil, false
+	}
+	return o.Sql, true
+}
+
+// HasSql returns a boolean if a field has been set.
+func (o *UpdateQueryLambdaRequest) HasSql() bool {
+	if o != nil && o.Sql != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSql gets a reference to the given QueryLambdaSql and assigns it to the Sql field.
+func (o *UpdateQueryLambdaRequest) SetSql(v QueryLambdaSql) {
+	o.Sql = &v
+}
+
 func (o UpdateQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Sql != nil {
-		toSerialize["sql"] = o.Sql
-	}
 	if o.IsPublic != nil {
 		toSerialize["is_public"] = o.IsPublic
+	}
+	if o.Sql != nil {
+		toSerialize["sql"] = o.Sql
 	}
 	return json.Marshal(toSerialize)
 }

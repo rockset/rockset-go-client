@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CurrentPageDocCount** | Pointer to **int64** | Number of documents returned in this result set. | [optional] 
-**NextCursorOffset** | Pointer to **int64** | The doc offset that next_cursor starts at. | [optional] 
-**StartCursor** | Pointer to **string** | Cursor used to retrieve the first set of documents. | [optional] 
 **NextCursor** | Pointer to **string** | Cursor to use to get the list of documents. | [optional] 
+**NextCursorOffset** | Pointer to **int64** | The doc offset that next_cursor starts at. | [optional] 
 **NextPageLink** | Pointer to **string** | Direct link to the next page of results. | [optional] [readonly] 
+**StartCursor** | Pointer to **string** | Cursor used to retrieve the first set of documents. | [optional] 
 
 ## Methods
 
@@ -54,56 +54,6 @@ SetCurrentPageDocCount sets CurrentPageDocCount field to given value.
 
 HasCurrentPageDocCount returns a boolean if a field has been set.
 
-### GetNextCursorOffset
-
-`func (o *PaginationInfo) GetNextCursorOffset() int64`
-
-GetNextCursorOffset returns the NextCursorOffset field if non-nil, zero value otherwise.
-
-### GetNextCursorOffsetOk
-
-`func (o *PaginationInfo) GetNextCursorOffsetOk() (*int64, bool)`
-
-GetNextCursorOffsetOk returns a tuple with the NextCursorOffset field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetNextCursorOffset
-
-`func (o *PaginationInfo) SetNextCursorOffset(v int64)`
-
-SetNextCursorOffset sets NextCursorOffset field to given value.
-
-### HasNextCursorOffset
-
-`func (o *PaginationInfo) HasNextCursorOffset() bool`
-
-HasNextCursorOffset returns a boolean if a field has been set.
-
-### GetStartCursor
-
-`func (o *PaginationInfo) GetStartCursor() string`
-
-GetStartCursor returns the StartCursor field if non-nil, zero value otherwise.
-
-### GetStartCursorOk
-
-`func (o *PaginationInfo) GetStartCursorOk() (*string, bool)`
-
-GetStartCursorOk returns a tuple with the StartCursor field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetStartCursor
-
-`func (o *PaginationInfo) SetStartCursor(v string)`
-
-SetStartCursor sets StartCursor field to given value.
-
-### HasStartCursor
-
-`func (o *PaginationInfo) HasStartCursor() bool`
-
-HasStartCursor returns a boolean if a field has been set.
-
 ### GetNextCursor
 
 `func (o *PaginationInfo) GetNextCursor() string`
@@ -129,6 +79,31 @@ SetNextCursor sets NextCursor field to given value.
 
 HasNextCursor returns a boolean if a field has been set.
 
+### GetNextCursorOffset
+
+`func (o *PaginationInfo) GetNextCursorOffset() int64`
+
+GetNextCursorOffset returns the NextCursorOffset field if non-nil, zero value otherwise.
+
+### GetNextCursorOffsetOk
+
+`func (o *PaginationInfo) GetNextCursorOffsetOk() (*int64, bool)`
+
+GetNextCursorOffsetOk returns a tuple with the NextCursorOffset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetNextCursorOffset
+
+`func (o *PaginationInfo) SetNextCursorOffset(v int64)`
+
+SetNextCursorOffset sets NextCursorOffset field to given value.
+
+### HasNextCursorOffset
+
+`func (o *PaginationInfo) HasNextCursorOffset() bool`
+
+HasNextCursorOffset returns a boolean if a field has been set.
+
 ### GetNextPageLink
 
 `func (o *PaginationInfo) GetNextPageLink() string`
@@ -153,6 +128,31 @@ SetNextPageLink sets NextPageLink field to given value.
 `func (o *PaginationInfo) HasNextPageLink() bool`
 
 HasNextPageLink returns a boolean if a field has been set.
+
+### GetStartCursor
+
+`func (o *PaginationInfo) GetStartCursor() string`
+
+GetStartCursor returns the StartCursor field if non-nil, zero value otherwise.
+
+### GetStartCursorOk
+
+`func (o *PaginationInfo) GetStartCursorOk() (*string, bool)`
+
+GetStartCursorOk returns a tuple with the StartCursor field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStartCursor
+
+`func (o *PaginationInfo) SetStartCursor(v string)`
+
+SetStartCursor sets StartCursor field to given value.
+
+### HasStartCursor
+
+`func (o *PaginationInfo) HasStartCursor() bool`
+
+HasStartCursor returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

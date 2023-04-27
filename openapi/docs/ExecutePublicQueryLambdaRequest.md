@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the SQL query text. | [optional] 
 **GenerateWarnings** | Pointer to **bool** | Whether to generate warnings. | [optional] 
+**Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 
 ## Methods
 
@@ -26,31 +26,6 @@ will change when the set of required properties is changed
 NewExecutePublicQueryLambdaRequestWithDefaults instantiates a new ExecutePublicQueryLambdaRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
-
-### GetParameters
-
-`func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter`
-
-GetParameters returns the Parameters field if non-nil, zero value otherwise.
-
-### GetParametersOk
-
-`func (o *ExecutePublicQueryLambdaRequest) GetParametersOk() (*[]QueryParameter, bool)`
-
-GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetParameters
-
-`func (o *ExecutePublicQueryLambdaRequest) SetParameters(v []QueryParameter)`
-
-SetParameters sets Parameters field to given value.
-
-### HasParameters
-
-`func (o *ExecutePublicQueryLambdaRequest) HasParameters() bool`
-
-HasParameters returns a boolean if a field has been set.
 
 ### GetDefaultRowLimit
 
@@ -101,6 +76,31 @@ SetGenerateWarnings sets GenerateWarnings field to given value.
 `func (o *ExecutePublicQueryLambdaRequest) HasGenerateWarnings() bool`
 
 HasGenerateWarnings returns a boolean if a field has been set.
+
+### GetParameters
+
+`func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter`
+
+GetParameters returns the Parameters field if non-nil, zero value otherwise.
+
+### GetParametersOk
+
+`func (o *ExecutePublicQueryLambdaRequest) GetParametersOk() (*[]QueryParameter, bool)`
+
+GetParametersOk returns a tuple with the Parameters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParameters
+
+`func (o *ExecutePublicQueryLambdaRequest) SetParameters(v []QueryParameter)`
+
+SetParameters sets Parameters field to given value.
+
+### HasParameters
+
+`func (o *ExecutePublicQueryLambdaRequest) HasParameters() bool`
+
+HasParameters returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

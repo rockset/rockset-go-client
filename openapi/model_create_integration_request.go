@@ -16,19 +16,19 @@ import (
 
 // CreateIntegrationRequest struct for CreateIntegrationRequest
 type CreateIntegrationRequest struct {
-	// Descriptive label.
-	Name string `json:"name"`
+	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
+	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
+	AzureServiceBus *AzureServiceBusIntegration `json:"azure_service_bus,omitempty"`
 	// Longer explanation for the integration.
 	Description *string `json:"description,omitempty"`
-	S3 *S3Integration `json:"s3,omitempty"`
-	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
 	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
-	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
-	AzureServiceBus *AzureServiceBusIntegration `json:"azure_service_bus,omitempty"`
-	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
+	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
 	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
+	// Descriptive label.
+	Name string `json:"name"`
+	S3 *S3Integration `json:"s3,omitempty"`
 	Snowflake *SnowflakeIntegration `json:"snowflake,omitempty"`
 }
 
@@ -50,28 +50,100 @@ func NewCreateIntegrationRequestWithDefaults() *CreateIntegrationRequest {
 	return &this
 }
 
-// GetName returns the Name field value
-func (o *CreateIntegrationRequest) GetName() string {
-	if o == nil {
-		var ret string
+// GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration {
+	if o == nil || o.AzureBlobStorage == nil {
+		var ret AzureBlobStorageIntegration
 		return ret
 	}
-
-	return o.Name
+	return *o.AzureBlobStorage
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool) {
+	if o == nil || o.AzureBlobStorage == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.AzureBlobStorage, true
 }
 
-// SetName sets field value
-func (o *CreateIntegrationRequest) SetName(v string) {
-	o.Name = v
+// HasAzureBlobStorage returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool {
+	if o != nil && o.AzureBlobStorage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureBlobStorage gets a reference to the given AzureBlobStorageIntegration and assigns it to the AzureBlobStorage field.
+func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegration) {
+	o.AzureBlobStorage = &v
+}
+
+// GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration {
+	if o == nil || o.AzureEventHubs == nil {
+		var ret AzureEventHubsIntegration
+		return ret
+	}
+	return *o.AzureEventHubs
+}
+
+// GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool) {
+	if o == nil || o.AzureEventHubs == nil {
+		return nil, false
+	}
+	return o.AzureEventHubs, true
+}
+
+// HasAzureEventHubs returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasAzureEventHubs() bool {
+	if o != nil && o.AzureEventHubs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureEventHubs gets a reference to the given AzureEventHubsIntegration and assigns it to the AzureEventHubs field.
+func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration) {
+	o.AzureEventHubs = &v
+}
+
+// GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration {
+	if o == nil || o.AzureServiceBus == nil {
+		var ret AzureServiceBusIntegration
+		return ret
+	}
+	return *o.AzureServiceBus
+}
+
+// GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool) {
+	if o == nil || o.AzureServiceBus == nil {
+		return nil, false
+	}
+	return o.AzureServiceBus, true
+}
+
+// HasAzureServiceBus returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasAzureServiceBus() bool {
+	if o != nil && o.AzureServiceBus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAzureServiceBus gets a reference to the given AzureServiceBusIntegration and assigns it to the AzureServiceBus field.
+func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegration) {
+	o.AzureServiceBus = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -104,70 +176,6 @@ func (o *CreateIntegrationRequest) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *CreateIntegrationRequest) SetDescription(v string) {
 	o.Description = &v
-}
-
-// GetS3 returns the S3 field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetS3() S3Integration {
-	if o == nil || o.S3 == nil {
-		var ret S3Integration
-		return ret
-	}
-	return *o.S3
-}
-
-// GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetS3Ok() (*S3Integration, bool) {
-	if o == nil || o.S3 == nil {
-		return nil, false
-	}
-	return o.S3, true
-}
-
-// HasS3 returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasS3() bool {
-	if o != nil && o.S3 != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetS3 gets a reference to the given S3Integration and assigns it to the S3 field.
-func (o *CreateIntegrationRequest) SetS3(v S3Integration) {
-	o.S3 = &v
-}
-
-// GetKinesis returns the Kinesis field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetKinesis() KinesisIntegration {
-	if o == nil || o.Kinesis == nil {
-		var ret KinesisIntegration
-		return ret
-	}
-	return *o.Kinesis
-}
-
-// GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetKinesisOk() (*KinesisIntegration, bool) {
-	if o == nil || o.Kinesis == nil {
-		return nil, false
-	}
-	return o.Kinesis, true
-}
-
-// HasKinesis returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasKinesis() bool {
-	if o != nil && o.Kinesis != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKinesis gets a reference to the given KinesisIntegration and assigns it to the Kinesis field.
-func (o *CreateIntegrationRequest) SetKinesis(v KinesisIntegration) {
-	o.Kinesis = &v
 }
 
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
@@ -234,102 +242,6 @@ func (o *CreateIntegrationRequest) SetGcs(v GcsIntegration) {
 	o.Gcs = &v
 }
 
-// GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration {
-	if o == nil || o.AzureBlobStorage == nil {
-		var ret AzureBlobStorageIntegration
-		return ret
-	}
-	return *o.AzureBlobStorage
-}
-
-// GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool) {
-	if o == nil || o.AzureBlobStorage == nil {
-		return nil, false
-	}
-	return o.AzureBlobStorage, true
-}
-
-// HasAzureBlobStorage returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool {
-	if o != nil && o.AzureBlobStorage != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAzureBlobStorage gets a reference to the given AzureBlobStorageIntegration and assigns it to the AzureBlobStorage field.
-func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegration) {
-	o.AzureBlobStorage = &v
-}
-
-// GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration {
-	if o == nil || o.AzureServiceBus == nil {
-		var ret AzureServiceBusIntegration
-		return ret
-	}
-	return *o.AzureServiceBus
-}
-
-// GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool) {
-	if o == nil || o.AzureServiceBus == nil {
-		return nil, false
-	}
-	return o.AzureServiceBus, true
-}
-
-// HasAzureServiceBus returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasAzureServiceBus() bool {
-	if o != nil && o.AzureServiceBus != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAzureServiceBus gets a reference to the given AzureServiceBusIntegration and assigns it to the AzureServiceBus field.
-func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegration) {
-	o.AzureServiceBus = &v
-}
-
-// GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
-func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration {
-	if o == nil || o.AzureEventHubs == nil {
-		var ret AzureEventHubsIntegration
-		return ret
-	}
-	return *o.AzureEventHubs
-}
-
-// GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool) {
-	if o == nil || o.AzureEventHubs == nil {
-		return nil, false
-	}
-	return o.AzureEventHubs, true
-}
-
-// HasAzureEventHubs returns a boolean if a field has been set.
-func (o *CreateIntegrationRequest) HasAzureEventHubs() bool {
-	if o != nil && o.AzureEventHubs != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAzureEventHubs gets a reference to the given AzureEventHubsIntegration and assigns it to the AzureEventHubs field.
-func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration) {
-	o.AzureEventHubs = &v
-}
-
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetKafka() KafkaIntegration {
 	if o == nil || o.Kafka == nil {
@@ -362,6 +274,38 @@ func (o *CreateIntegrationRequest) SetKafka(v KafkaIntegration) {
 	o.Kafka = &v
 }
 
+// GetKinesis returns the Kinesis field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetKinesis() KinesisIntegration {
+	if o == nil || o.Kinesis == nil {
+		var ret KinesisIntegration
+		return ret
+	}
+	return *o.Kinesis
+}
+
+// GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetKinesisOk() (*KinesisIntegration, bool) {
+	if o == nil || o.Kinesis == nil {
+		return nil, false
+	}
+	return o.Kinesis, true
+}
+
+// HasKinesis returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasKinesis() bool {
+	if o != nil && o.Kinesis != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetKinesis gets a reference to the given KinesisIntegration and assigns it to the Kinesis field.
+func (o *CreateIntegrationRequest) SetKinesis(v KinesisIntegration) {
+	o.Kinesis = &v
+}
+
 // GetMongodb returns the Mongodb field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetMongodb() MongoDbIntegration {
 	if o == nil || o.Mongodb == nil {
@@ -392,6 +336,62 @@ func (o *CreateIntegrationRequest) HasMongodb() bool {
 // SetMongodb gets a reference to the given MongoDbIntegration and assigns it to the Mongodb field.
 func (o *CreateIntegrationRequest) SetMongodb(v MongoDbIntegration) {
 	o.Mongodb = &v
+}
+
+// GetName returns the Name field value
+func (o *CreateIntegrationRequest) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetNameOk() (*string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *CreateIntegrationRequest) SetName(v string) {
+	o.Name = v
+}
+
+// GetS3 returns the S3 field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetS3() S3Integration {
+	if o == nil || o.S3 == nil {
+		var ret S3Integration
+		return ret
+	}
+	return *o.S3
+}
+
+// GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetS3Ok() (*S3Integration, bool) {
+	if o == nil || o.S3 == nil {
+		return nil, false
+	}
+	return o.S3, true
+}
+
+// HasS3 returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasS3() bool {
+	if o != nil && o.S3 != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetS3 gets a reference to the given S3Integration and assigns it to the S3 field.
+func (o *CreateIntegrationRequest) SetS3(v S3Integration) {
+	o.S3 = &v
 }
 
 // GetSnowflake returns the Snowflake field value if set, zero value otherwise.
@@ -428,17 +428,17 @@ func (o *CreateIntegrationRequest) SetSnowflake(v SnowflakeIntegration) {
 
 func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	if o.AzureBlobStorage != nil {
+		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
+	}
+	if o.AzureEventHubs != nil {
+		toSerialize["azure_event_hubs"] = o.AzureEventHubs
+	}
+	if o.AzureServiceBus != nil {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
-	}
-	if o.S3 != nil {
-		toSerialize["s3"] = o.S3
-	}
-	if o.Kinesis != nil {
-		toSerialize["kinesis"] = o.Kinesis
 	}
 	if o.Dynamodb != nil {
 		toSerialize["dynamodb"] = o.Dynamodb
@@ -446,20 +446,20 @@ func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
 	if o.Gcs != nil {
 		toSerialize["gcs"] = o.Gcs
 	}
-	if o.AzureBlobStorage != nil {
-		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
-	}
-	if o.AzureServiceBus != nil {
-		toSerialize["azure_service_bus"] = o.AzureServiceBus
-	}
-	if o.AzureEventHubs != nil {
-		toSerialize["azure_event_hubs"] = o.AzureEventHubs
-	}
 	if o.Kafka != nil {
 		toSerialize["kafka"] = o.Kafka
 	}
+	if o.Kinesis != nil {
+		toSerialize["kinesis"] = o.Kinesis
+	}
 	if o.Mongodb != nil {
 		toSerialize["mongodb"] = o.Mongodb
+	}
+	if true {
+		toSerialize["name"] = o.Name
+	}
+	if o.S3 != nil {
+		toSerialize["s3"] = o.S3
 	}
 	if o.Snowflake != nil {
 		toSerialize["snowflake"] = o.Snowflake

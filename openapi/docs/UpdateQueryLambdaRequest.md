@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | Optional description. | [optional] 
-**Sql** | Pointer to [**QueryLambdaSql**](QueryLambdaSql.md) |  | [optional] 
 **IsPublic** | Pointer to **bool** |  | [optional] 
+**Sql** | Pointer to [**QueryLambdaSql**](QueryLambdaSql.md) |  | [optional] 
 
 ## Methods
 
@@ -52,31 +52,6 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetSql
-
-`func (o *UpdateQueryLambdaRequest) GetSql() QueryLambdaSql`
-
-GetSql returns the Sql field if non-nil, zero value otherwise.
-
-### GetSqlOk
-
-`func (o *UpdateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool)`
-
-GetSqlOk returns a tuple with the Sql field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSql
-
-`func (o *UpdateQueryLambdaRequest) SetSql(v QueryLambdaSql)`
-
-SetSql sets Sql field to given value.
-
-### HasSql
-
-`func (o *UpdateQueryLambdaRequest) HasSql() bool`
-
-HasSql returns a boolean if a field has been set.
-
 ### GetIsPublic
 
 `func (o *UpdateQueryLambdaRequest) GetIsPublic() bool`
@@ -101,6 +76,31 @@ SetIsPublic sets IsPublic field to given value.
 `func (o *UpdateQueryLambdaRequest) HasIsPublic() bool`
 
 HasIsPublic returns a boolean if a field has been set.
+
+### GetSql
+
+`func (o *UpdateQueryLambdaRequest) GetSql() QueryLambdaSql`
+
+GetSql returns the Sql field if non-nil, zero value otherwise.
+
+### GetSqlOk
+
+`func (o *UpdateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool)`
+
+GetSqlOk returns a tuple with the Sql field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSql
+
+`func (o *UpdateQueryLambdaRequest) SetSql(v QueryLambdaSql)`
+
+SetSql sets Sql field to given value.
+
+### HasSql
+
+`func (o *UpdateQueryLambdaRequest) HasSql() bool`
+
+HasSql returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

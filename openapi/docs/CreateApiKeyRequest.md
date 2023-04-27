@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**CreatedBy** | Pointer to **string** |  | [optional] 
 **Name** | **string** | Name for this API key. | 
 **Role** | Pointer to **string** |  | [optional] 
-**CreatedBy** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -26,6 +26,31 @@ will change when the set of required properties is changed
 NewCreateApiKeyRequestWithDefaults instantiates a new CreateApiKeyRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCreatedBy
+
+`func (o *CreateApiKeyRequest) GetCreatedBy() string`
+
+GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
+
+### GetCreatedByOk
+
+`func (o *CreateApiKeyRequest) GetCreatedByOk() (*string, bool)`
+
+GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedBy
+
+`func (o *CreateApiKeyRequest) SetCreatedBy(v string)`
+
+SetCreatedBy sets CreatedBy field to given value.
+
+### HasCreatedBy
+
+`func (o *CreateApiKeyRequest) HasCreatedBy() bool`
+
+HasCreatedBy returns a boolean if a field has been set.
 
 ### GetName
 
@@ -71,31 +96,6 @@ SetRole sets Role field to given value.
 `func (o *CreateApiKeyRequest) HasRole() bool`
 
 HasRole returns a boolean if a field has been set.
-
-### GetCreatedBy
-
-`func (o *CreateApiKeyRequest) GetCreatedBy() string`
-
-GetCreatedBy returns the CreatedBy field if non-nil, zero value otherwise.
-
-### GetCreatedByOk
-
-`func (o *CreateApiKeyRequest) GetCreatedByOk() (*string, bool)`
-
-GetCreatedByOk returns a tuple with the CreatedBy field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetCreatedBy
-
-`func (o *CreateApiKeyRequest) SetCreatedBy(v string)`
-
-SetCreatedBy sets CreatedBy field to given value.
-
-### HasCreatedBy
-
-`func (o *CreateApiKeyRequest) HasCreatedBy() bool`
-
-HasCreatedBy returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

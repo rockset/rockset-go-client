@@ -16,17 +16,17 @@ import (
 
 // ExecuteQueryLambdaRequest struct for ExecuteQueryLambdaRequest
 type ExecuteQueryLambdaRequest struct {
-	// List of named parameters.
-	Parameters []QueryParameter `json:"parameters,omitempty"`
+	AsyncOptions *AsyncQueryOptions `json:"async_options,omitempty"`
 	// Row limit to use if no limit specified in the SQL query text.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
 	// Whether to generate warnings.
 	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
-	// Flag to paginate and store the results of this query for later / sequential retrieval.
-	Paginate *bool `json:"paginate,omitempty"`
 	// Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
-	AsyncOptions *AsyncQueryOptions `json:"async_options,omitempty"`
+	// Flag to paginate and store the results of this query for later / sequential retrieval.
+	Paginate *bool `json:"paginate,omitempty"`
+	// List of named parameters.
+	Parameters []QueryParameter `json:"parameters,omitempty"`
 	// Virtual instance on which to run the query.
 	VirtualInstanceId *string `json:"virtual_instance_id,omitempty"`
 }
@@ -48,36 +48,36 @@ func NewExecuteQueryLambdaRequestWithDefaults() *ExecuteQueryLambdaRequest {
 	return &this
 }
 
-// GetParameters returns the Parameters field value if set, zero value otherwise.
-func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter {
-	if o == nil || o.Parameters == nil {
-		var ret []QueryParameter
+// GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions {
+	if o == nil || o.AsyncOptions == nil {
+		var ret AsyncQueryOptions
 		return ret
 	}
-	return o.Parameters
+	return *o.AsyncOptions
 }
 
-// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
+// GetAsyncOptionsOk returns a tuple with the AsyncOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExecuteQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.Parameters == nil {
+func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
+	if o == nil || o.AsyncOptions == nil {
 		return nil, false
 	}
-	return o.Parameters, true
+	return o.AsyncOptions, true
 }
 
-// HasParameters returns a boolean if a field has been set.
-func (o *ExecuteQueryLambdaRequest) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
+// HasAsyncOptions returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool {
+	if o != nil && o.AsyncOptions != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
-func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter) {
-	o.Parameters = v
+// SetAsyncOptions gets a reference to the given AsyncQueryOptions and assigns it to the AsyncOptions field.
+func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions) {
+	o.AsyncOptions = &v
 }
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
@@ -144,38 +144,6 @@ func (o *ExecuteQueryLambdaRequest) SetGenerateWarnings(v bool) {
 	o.GenerateWarnings = &v
 }
 
-// GetPaginate returns the Paginate field value if set, zero value otherwise.
-func (o *ExecuteQueryLambdaRequest) GetPaginate() bool {
-	if o == nil || o.Paginate == nil {
-		var ret bool
-		return ret
-	}
-	return *o.Paginate
-}
-
-// GetPaginateOk returns a tuple with the Paginate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool) {
-	if o == nil || o.Paginate == nil {
-		return nil, false
-	}
-	return o.Paginate, true
-}
-
-// HasPaginate returns a boolean if a field has been set.
-func (o *ExecuteQueryLambdaRequest) HasPaginate() bool {
-	if o != nil && o.Paginate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPaginate gets a reference to the given bool and assigns it to the Paginate field.
-func (o *ExecuteQueryLambdaRequest) SetPaginate(v bool) {
-	o.Paginate = &v
-}
-
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCount() int32 {
 	if o == nil || o.InitialPaginateResponseDocCount == nil {
@@ -208,36 +176,68 @@ func (o *ExecuteQueryLambdaRequest) SetInitialPaginateResponseDocCount(v int32) 
 	o.InitialPaginateResponseDocCount = &v
 }
 
-// GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
-func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions {
-	if o == nil || o.AsyncOptions == nil {
-		var ret AsyncQueryOptions
+// GetPaginate returns the Paginate field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetPaginate() bool {
+	if o == nil || o.Paginate == nil {
+		var ret bool
 		return ret
 	}
-	return *o.AsyncOptions
+	return *o.Paginate
 }
 
-// GetAsyncOptionsOk returns a tuple with the AsyncOptions field value if set, nil otherwise
+// GetPaginateOk returns a tuple with the Paginate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
-	if o == nil || o.AsyncOptions == nil {
+func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool) {
+	if o == nil || o.Paginate == nil {
 		return nil, false
 	}
-	return o.AsyncOptions, true
+	return o.Paginate, true
 }
 
-// HasAsyncOptions returns a boolean if a field has been set.
-func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool {
-	if o != nil && o.AsyncOptions != nil {
+// HasPaginate returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasPaginate() bool {
+	if o != nil && o.Paginate != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAsyncOptions gets a reference to the given AsyncQueryOptions and assigns it to the AsyncOptions field.
-func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions) {
-	o.AsyncOptions = &v
+// SetPaginate gets a reference to the given bool and assigns it to the Paginate field.
+func (o *ExecuteQueryLambdaRequest) SetPaginate(v bool) {
+	o.Paginate = &v
+}
+
+// GetParameters returns the Parameters field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter {
+	if o == nil || o.Parameters == nil {
+		var ret []QueryParameter
+		return ret
+	}
+	return o.Parameters
+}
+
+// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
+	if o == nil || o.Parameters == nil {
+		return nil, false
+	}
+	return o.Parameters, true
+}
+
+// HasParameters returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasParameters() bool {
+	if o != nil && o.Parameters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParameters gets a reference to the given []QueryParameter and assigns it to the Parameters field.
+func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter) {
+	o.Parameters = v
 }
 
 // GetVirtualInstanceId returns the VirtualInstanceId field value if set, zero value otherwise.
@@ -274,8 +274,8 @@ func (o *ExecuteQueryLambdaRequest) SetVirtualInstanceId(v string) {
 
 func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Parameters != nil {
-		toSerialize["parameters"] = o.Parameters
+	if o.AsyncOptions != nil {
+		toSerialize["async_options"] = o.AsyncOptions
 	}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
@@ -283,14 +283,14 @@ func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	if o.GenerateWarnings != nil {
 		toSerialize["generate_warnings"] = o.GenerateWarnings
 	}
-	if o.Paginate != nil {
-		toSerialize["paginate"] = o.Paginate
-	}
 	if o.InitialPaginateResponseDocCount != nil {
 		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
 	}
-	if o.AsyncOptions != nil {
-		toSerialize["async_options"] = o.AsyncOptions
+	if o.Paginate != nil {
+		toSerialize["paginate"] = o.Paginate
+	}
+	if o.Parameters != nil {
+		toSerialize["parameters"] = o.Parameters
 	}
 	if o.VirtualInstanceId != nil {
 		toSerialize["virtual_instance_id"] = o.VirtualInstanceId

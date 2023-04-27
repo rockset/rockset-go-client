@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ElapsedTimeMs** | Pointer to **int64** | Total execution time (including time queued) of the query, in milliseconds. | [optional] 
-**ThrottledTimeMs** | Pointer to **int64** | Time query spent queued, in milliseconds. | [optional] 
-**ResultSetDocumentCount** | Pointer to **int64** | Number of documents returned by the query. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. | [optional] 
 **ResultSetBytesSize** | Pointer to **int64** | Number of bytes in the query result set. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. Not populated for INSERT INTO queries. | [optional] 
+**ResultSetDocumentCount** | Pointer to **int64** | Number of documents returned by the query. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. | [optional] 
+**ThrottledTimeMs** | Pointer to **int64** | Time query spent queued, in milliseconds. | [optional] 
 
 ## Methods
 
@@ -53,30 +53,30 @@ SetElapsedTimeMs sets ElapsedTimeMs field to given value.
 
 HasElapsedTimeMs returns a boolean if a field has been set.
 
-### GetThrottledTimeMs
+### GetResultSetBytesSize
 
-`func (o *Stats) GetThrottledTimeMs() int64`
+`func (o *Stats) GetResultSetBytesSize() int64`
 
-GetThrottledTimeMs returns the ThrottledTimeMs field if non-nil, zero value otherwise.
+GetResultSetBytesSize returns the ResultSetBytesSize field if non-nil, zero value otherwise.
 
-### GetThrottledTimeMsOk
+### GetResultSetBytesSizeOk
 
-`func (o *Stats) GetThrottledTimeMsOk() (*int64, bool)`
+`func (o *Stats) GetResultSetBytesSizeOk() (*int64, bool)`
 
-GetThrottledTimeMsOk returns a tuple with the ThrottledTimeMs field if it's non-nil, zero value otherwise
+GetResultSetBytesSizeOk returns a tuple with the ResultSetBytesSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetThrottledTimeMs
+### SetResultSetBytesSize
 
-`func (o *Stats) SetThrottledTimeMs(v int64)`
+`func (o *Stats) SetResultSetBytesSize(v int64)`
 
-SetThrottledTimeMs sets ThrottledTimeMs field to given value.
+SetResultSetBytesSize sets ResultSetBytesSize field to given value.
 
-### HasThrottledTimeMs
+### HasResultSetBytesSize
 
-`func (o *Stats) HasThrottledTimeMs() bool`
+`func (o *Stats) HasResultSetBytesSize() bool`
 
-HasThrottledTimeMs returns a boolean if a field has been set.
+HasResultSetBytesSize returns a boolean if a field has been set.
 
 ### GetResultSetDocumentCount
 
@@ -103,30 +103,30 @@ SetResultSetDocumentCount sets ResultSetDocumentCount field to given value.
 
 HasResultSetDocumentCount returns a boolean if a field has been set.
 
-### GetResultSetBytesSize
+### GetThrottledTimeMs
 
-`func (o *Stats) GetResultSetBytesSize() int64`
+`func (o *Stats) GetThrottledTimeMs() int64`
 
-GetResultSetBytesSize returns the ResultSetBytesSize field if non-nil, zero value otherwise.
+GetThrottledTimeMs returns the ThrottledTimeMs field if non-nil, zero value otherwise.
 
-### GetResultSetBytesSizeOk
+### GetThrottledTimeMsOk
 
-`func (o *Stats) GetResultSetBytesSizeOk() (*int64, bool)`
+`func (o *Stats) GetThrottledTimeMsOk() (*int64, bool)`
 
-GetResultSetBytesSizeOk returns a tuple with the ResultSetBytesSize field if it's non-nil, zero value otherwise
+GetThrottledTimeMsOk returns a tuple with the ThrottledTimeMs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetResultSetBytesSize
+### SetThrottledTimeMs
 
-`func (o *Stats) SetResultSetBytesSize(v int64)`
+`func (o *Stats) SetThrottledTimeMs(v int64)`
 
-SetResultSetBytesSize sets ResultSetBytesSize field to given value.
+SetThrottledTimeMs sets ThrottledTimeMs field to given value.
 
-### HasResultSetBytesSize
+### HasThrottledTimeMs
 
-`func (o *Stats) HasResultSetBytesSize() bool`
+`func (o *Stats) HasThrottledTimeMs() bool`
 
-HasResultSetBytesSize returns a boolean if a field has been set.
+HasThrottledTimeMs returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

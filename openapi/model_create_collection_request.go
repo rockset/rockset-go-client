@@ -16,20 +16,18 @@ import (
 
 // CreateCollectionRequest struct for CreateCollectionRequest
 type CreateCollectionRequest struct {
-	// Unique identifier for collection, can contain alphanumeric or dash characters.
-	Name *string `json:"name,omitempty"`
-	// Text describing the collection.
-	Description *string `json:"description,omitempty"`
-	// List of sources from which to ingest data.
-	Sources []Source `json:"sources,omitempty"`
-	// Number of seconds after which data is purged, based on event time.
-	RetentionSecs *int64 `json:"retention_secs,omitempty"`
-	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
-	// Deprecated. List of mappings. Use field_mapping_query instead.
-	FieldMappings []FieldMappingV2 `json:"field_mappings,omitempty"`
-	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// Deprecated. List of clustering fields. Use CLUSTER BY clause in `field_mapping_query` instead.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
+	// Text describing the collection.
+	Description *string `json:"description,omitempty"`
+	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
+	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
+	// Unique identifier for collection, can contain alphanumeric or dash characters.
+	Name *string `json:"name,omitempty"`
+	// Number of seconds after which data is purged, based on event time.
+	RetentionSecs *int64 `json:"retention_secs,omitempty"`
+	// List of sources from which to ingest data.
+	Sources []Source `json:"sources,omitempty"`
 	// RocksDB storage compression type.
 	StorageCompressionType *string `json:"storage_compression_type,omitempty"`
 }
@@ -51,36 +49,36 @@ func NewCreateCollectionRequestWithDefaults() *CreateCollectionRequest {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
+// GetClusteringKey returns the ClusteringKey field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition {
+	if o == nil || o.ClusteringKey == nil {
+		var ret []FieldPartition
 		return ret
 	}
-	return *o.Name
+	return o.ClusteringKey
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+func (o *CreateCollectionRequest) GetClusteringKeyOk() ([]FieldPartition, bool) {
+	if o == nil || o.ClusteringKey == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return o.ClusteringKey, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+// HasClusteringKey returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasClusteringKey() bool {
+	if o != nil && o.ClusteringKey != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *CreateCollectionRequest) SetName(v string) {
-	o.Name = &v
+// SetClusteringKey gets a reference to the given []FieldPartition and assigns it to the ClusteringKey field.
+func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
+	o.ClusteringKey = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -115,70 +113,6 @@ func (o *CreateCollectionRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetSources returns the Sources field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetSources() []Source {
-	if o == nil || o.Sources == nil {
-		var ret []Source
-		return ret
-	}
-	return o.Sources
-}
-
-// GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetSourcesOk() ([]Source, bool) {
-	if o == nil || o.Sources == nil {
-		return nil, false
-	}
-	return o.Sources, true
-}
-
-// HasSources returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasSources() bool {
-	if o != nil && o.Sources != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSources gets a reference to the given []Source and assigns it to the Sources field.
-func (o *CreateCollectionRequest) SetSources(v []Source) {
-	o.Sources = v
-}
-
-// GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetRetentionSecs() int64 {
-	if o == nil || o.RetentionSecs == nil {
-		var ret int64
-		return ret
-	}
-	return *o.RetentionSecs
-}
-
-// GetRetentionSecsOk returns a tuple with the RetentionSecs field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetRetentionSecsOk() (*int64, bool) {
-	if o == nil || o.RetentionSecs == nil {
-		return nil, false
-	}
-	return o.RetentionSecs, true
-}
-
-// HasRetentionSecs returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasRetentionSecs() bool {
-	if o != nil && o.RetentionSecs != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
-func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
-	o.RetentionSecs = &v
-}
-
 // GetEventTimeInfo returns the EventTimeInfo field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetEventTimeInfo() EventTimeInfo {
 	if o == nil || o.EventTimeInfo == nil {
@@ -209,38 +143,6 @@ func (o *CreateCollectionRequest) HasEventTimeInfo() bool {
 // SetEventTimeInfo gets a reference to the given EventTimeInfo and assigns it to the EventTimeInfo field.
 func (o *CreateCollectionRequest) SetEventTimeInfo(v EventTimeInfo) {
 	o.EventTimeInfo = &v
-}
-
-// GetFieldMappings returns the FieldMappings field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetFieldMappings() []FieldMappingV2 {
-	if o == nil || o.FieldMappings == nil {
-		var ret []FieldMappingV2
-		return ret
-	}
-	return o.FieldMappings
-}
-
-// GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
-	if o == nil || o.FieldMappings == nil {
-		return nil, false
-	}
-	return o.FieldMappings, true
-}
-
-// HasFieldMappings returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasFieldMappings() bool {
-	if o != nil && o.FieldMappings != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetFieldMappings gets a reference to the given []FieldMappingV2 and assigns it to the FieldMappings field.
-func (o *CreateCollectionRequest) SetFieldMappings(v []FieldMappingV2) {
-	o.FieldMappings = v
 }
 
 // GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
@@ -275,36 +177,100 @@ func (o *CreateCollectionRequest) SetFieldMappingQuery(v FieldMappingQuery) {
 	o.FieldMappingQuery = &v
 }
 
-// GetClusteringKey returns the ClusteringKey field value if set, zero value otherwise.
-func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition {
-	if o == nil || o.ClusteringKey == nil {
-		var ret []FieldPartition
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
 		return ret
 	}
-	return o.ClusteringKey
+	return *o.Name
 }
 
-// GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCollectionRequest) GetClusteringKeyOk() ([]FieldPartition, bool) {
-	if o == nil || o.ClusteringKey == nil {
+func (o *CreateCollectionRequest) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
-	return o.ClusteringKey, true
+	return o.Name, true
 }
 
-// HasClusteringKey returns a boolean if a field has been set.
-func (o *CreateCollectionRequest) HasClusteringKey() bool {
-	if o != nil && o.ClusteringKey != nil {
+// HasName returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasName() bool {
+	if o != nil && o.Name != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetClusteringKey gets a reference to the given []FieldPartition and assigns it to the ClusteringKey field.
-func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
-	o.ClusteringKey = v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *CreateCollectionRequest) SetName(v string) {
+	o.Name = &v
+}
+
+// GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetRetentionSecs() int64 {
+	if o == nil || o.RetentionSecs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.RetentionSecs
+}
+
+// GetRetentionSecsOk returns a tuple with the RetentionSecs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCollectionRequest) GetRetentionSecsOk() (*int64, bool) {
+	if o == nil || o.RetentionSecs == nil {
+		return nil, false
+	}
+	return o.RetentionSecs, true
+}
+
+// HasRetentionSecs returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasRetentionSecs() bool {
+	if o != nil && o.RetentionSecs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRetentionSecs gets a reference to the given int64 and assigns it to the RetentionSecs field.
+func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
+	o.RetentionSecs = &v
+}
+
+// GetSources returns the Sources field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetSources() []Source {
+	if o == nil || o.Sources == nil {
+		var ret []Source
+		return ret
+	}
+	return o.Sources
+}
+
+// GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCollectionRequest) GetSourcesOk() ([]Source, bool) {
+	if o == nil || o.Sources == nil {
+		return nil, false
+	}
+	return o.Sources, true
+}
+
+// HasSources returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasSources() bool {
+	if o != nil && o.Sources != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSources gets a reference to the given []Source and assigns it to the Sources field.
+func (o *CreateCollectionRequest) SetSources(v []Source) {
+	o.Sources = v
 }
 
 // GetStorageCompressionType returns the StorageCompressionType field value if set, zero value otherwise.
@@ -341,29 +307,26 @@ func (o *CreateCollectionRequest) SetStorageCompressionType(v string) {
 
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	if o.ClusteringKey != nil {
+		toSerialize["clustering_key"] = o.ClusteringKey
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Sources != nil {
-		toSerialize["sources"] = o.Sources
-	}
-	if o.RetentionSecs != nil {
-		toSerialize["retention_secs"] = o.RetentionSecs
-	}
 	if o.EventTimeInfo != nil {
 		toSerialize["event_time_info"] = o.EventTimeInfo
-	}
-	if o.FieldMappings != nil {
-		toSerialize["field_mappings"] = o.FieldMappings
 	}
 	if o.FieldMappingQuery != nil {
 		toSerialize["field_mapping_query"] = o.FieldMappingQuery
 	}
-	if o.ClusteringKey != nil {
-		toSerialize["clustering_key"] = o.ClusteringKey
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.RetentionSecs != nil {
+		toSerialize["retention_secs"] = o.RetentionSecs
+	}
+	if o.Sources != nil {
+		toSerialize["sources"] = o.Sources
 	}
 	if o.StorageCompressionType != nil {
 		toSerialize["storage_compression_type"] = o.StorageCompressionType

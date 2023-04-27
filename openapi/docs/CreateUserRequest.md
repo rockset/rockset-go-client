@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Email** | **string** | User email, must be unique. | 
-**Roles** | **[]string** | List of roles for a given user. | 
 **FirstName** | Pointer to **string** | User first name. | [optional] 
 **LastName** | Pointer to **string** | User last name. | [optional] 
+**Roles** | **[]string** | List of roles for a given user. | 
 
 ## Methods
 
@@ -46,26 +46,6 @@ and a boolean to check if the value has been set.
 `func (o *CreateUserRequest) SetEmail(v string)`
 
 SetEmail sets Email field to given value.
-
-
-### GetRoles
-
-`func (o *CreateUserRequest) GetRoles() []string`
-
-GetRoles returns the Roles field if non-nil, zero value otherwise.
-
-### GetRolesOk
-
-`func (o *CreateUserRequest) GetRolesOk() (*[]string, bool)`
-
-GetRolesOk returns a tuple with the Roles field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRoles
-
-`func (o *CreateUserRequest) SetRoles(v []string)`
-
-SetRoles sets Roles field to given value.
 
 
 ### GetFirstName
@@ -117,6 +97,26 @@ SetLastName sets LastName field to given value.
 `func (o *CreateUserRequest) HasLastName() bool`
 
 HasLastName returns a boolean if a field has been set.
+
+### GetRoles
+
+`func (o *CreateUserRequest) GetRoles() []string`
+
+GetRoles returns the Roles field if non-nil, zero value otherwise.
+
+### GetRolesOk
+
+`func (o *CreateUserRequest) GetRolesOk() (*[]string, bool)`
+
+GetRolesOk returns a tuple with the Roles field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRoles
+
+`func (o *CreateUserRequest) SetRoles(v []string)`
+
+SetRoles sets Roles field to given value.
+
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

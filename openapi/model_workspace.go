@@ -16,16 +16,16 @@ import (
 
 // Workspace Workspaces are organizational containers for collections.
 type Workspace struct {
+	// Number of collections that are immediate children of workspace.
+	CollectionCount *int64 `json:"collection_count,omitempty"`
 	// ISO-8601 date of when workspace was created.
 	CreatedAt *string `json:"created_at,omitempty"`
 	// Email of user who created the workspace.
 	CreatedBy *string `json:"created_by,omitempty"`
-	// Descriptive label and unique identifier.
-	Name *string `json:"name,omitempty"`
 	// Longer explanation for the workspace.
 	Description *string `json:"description,omitempty"`
-	// Number of collections that are immediate children of workspace.
-	CollectionCount *int64 `json:"collection_count,omitempty"`
+	// Descriptive label and unique identifier.
+	Name *string `json:"name,omitempty"`
 }
 
 // NewWorkspace instantiates a new Workspace object
@@ -43,6 +43,38 @@ func NewWorkspace() *Workspace {
 func NewWorkspaceWithDefaults() *Workspace {
 	this := Workspace{}
 	return &this
+}
+
+// GetCollectionCount returns the CollectionCount field value if set, zero value otherwise.
+func (o *Workspace) GetCollectionCount() int64 {
+	if o == nil || o.CollectionCount == nil {
+		var ret int64
+		return ret
+	}
+	return *o.CollectionCount
+}
+
+// GetCollectionCountOk returns a tuple with the CollectionCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Workspace) GetCollectionCountOk() (*int64, bool) {
+	if o == nil || o.CollectionCount == nil {
+		return nil, false
+	}
+	return o.CollectionCount, true
+}
+
+// HasCollectionCount returns a boolean if a field has been set.
+func (o *Workspace) HasCollectionCount() bool {
+	if o != nil && o.CollectionCount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectionCount gets a reference to the given int64 and assigns it to the CollectionCount field.
+func (o *Workspace) SetCollectionCount(v int64) {
+	o.CollectionCount = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -109,38 +141,6 @@ func (o *Workspace) SetCreatedBy(v string) {
 	o.CreatedBy = &v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *Workspace) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Workspace) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *Workspace) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *Workspace) SetName(v string) {
-	o.Name = &v
-}
-
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Workspace) GetDescription() string {
 	if o == nil || o.Description == nil {
@@ -173,54 +173,54 @@ func (o *Workspace) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetCollectionCount returns the CollectionCount field value if set, zero value otherwise.
-func (o *Workspace) GetCollectionCount() int64 {
-	if o == nil || o.CollectionCount == nil {
-		var ret int64
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Workspace) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
 		return ret
 	}
-	return *o.CollectionCount
+	return *o.Name
 }
 
-// GetCollectionCountOk returns a tuple with the CollectionCount field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Workspace) GetCollectionCountOk() (*int64, bool) {
-	if o == nil || o.CollectionCount == nil {
+func (o *Workspace) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
-	return o.CollectionCount, true
+	return o.Name, true
 }
 
-// HasCollectionCount returns a boolean if a field has been set.
-func (o *Workspace) HasCollectionCount() bool {
-	if o != nil && o.CollectionCount != nil {
+// HasName returns a boolean if a field has been set.
+func (o *Workspace) HasName() bool {
+	if o != nil && o.Name != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCollectionCount gets a reference to the given int64 and assigns it to the CollectionCount field.
-func (o *Workspace) SetCollectionCount(v int64) {
-	o.CollectionCount = &v
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Workspace) SetName(v string) {
+	o.Name = &v
 }
 
 func (o Workspace) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.CollectionCount != nil {
+		toSerialize["collection_count"] = o.CollectionCount
+	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if o.CreatedBy != nil {
 		toSerialize["created_by"] = o.CreatedBy
 	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.CollectionCount != nil {
-		toSerialize["collection_count"] = o.CollectionCount
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
 	}
 	return json.Marshal(toSerialize)
 }

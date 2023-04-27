@@ -16,19 +16,19 @@ import (
 
 // UpdateVirtualInstanceRequest struct for UpdateVirtualInstanceRequest
 type UpdateVirtualInstanceRequest struct {
-	// Requested virtual instance size.
-	NewSize *string `json:"new_size,omitempty"`
-	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
-	// New virtual instance name.
-	Name *string `json:"name,omitempty"`
-	// New virtual instance description.
-	Description *string `json:"description,omitempty"`
 	// Whether auto-suspend should be enabled for this Virtual Instance.
 	AutoSuspendEnabled *bool `json:"auto_suspend_enabled,omitempty"`
 	// Number of seconds without queries after which the VI is suspended
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
+	// New virtual instance description.
+	Description *string `json:"description,omitempty"`
+	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
 	// Number of seconds between data refreshes for mounts on this Virtual Instance
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
+	// New virtual instance name.
+	Name *string `json:"name,omitempty"`
+	// Requested virtual instance size.
+	NewSize *string `json:"new_size,omitempty"`
 }
 
 // NewUpdateVirtualInstanceRequest instantiates a new UpdateVirtualInstanceRequest object
@@ -46,134 +46,6 @@ func NewUpdateVirtualInstanceRequest() *UpdateVirtualInstanceRequest {
 func NewUpdateVirtualInstanceRequestWithDefaults() *UpdateVirtualInstanceRequest {
 	this := UpdateVirtualInstanceRequest{}
 	return &this
-}
-
-// GetNewSize returns the NewSize field value if set, zero value otherwise.
-func (o *UpdateVirtualInstanceRequest) GetNewSize() string {
-	if o == nil || o.NewSize == nil {
-		var ret string
-		return ret
-	}
-	return *o.NewSize
-}
-
-// GetNewSizeOk returns a tuple with the NewSize field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateVirtualInstanceRequest) GetNewSizeOk() (*string, bool) {
-	if o == nil || o.NewSize == nil {
-		return nil, false
-	}
-	return o.NewSize, true
-}
-
-// HasNewSize returns a boolean if a field has been set.
-func (o *UpdateVirtualInstanceRequest) HasNewSize() bool {
-	if o != nil && o.NewSize != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNewSize gets a reference to the given string and assigns it to the NewSize field.
-func (o *UpdateVirtualInstanceRequest) SetNewSize(v string) {
-	o.NewSize = &v
-}
-
-// GetMonitoringEnabled returns the MonitoringEnabled field value if set, zero value otherwise.
-func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabled() bool {
-	if o == nil || o.MonitoringEnabled == nil {
-		var ret bool
-		return ret
-	}
-	return *o.MonitoringEnabled
-}
-
-// GetMonitoringEnabledOk returns a tuple with the MonitoringEnabled field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabledOk() (*bool, bool) {
-	if o == nil || o.MonitoringEnabled == nil {
-		return nil, false
-	}
-	return o.MonitoringEnabled, true
-}
-
-// HasMonitoringEnabled returns a boolean if a field has been set.
-func (o *UpdateVirtualInstanceRequest) HasMonitoringEnabled() bool {
-	if o != nil && o.MonitoringEnabled != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMonitoringEnabled gets a reference to the given bool and assigns it to the MonitoringEnabled field.
-func (o *UpdateVirtualInstanceRequest) SetMonitoringEnabled(v bool) {
-	o.MonitoringEnabled = &v
-}
-
-// GetName returns the Name field value if set, zero value otherwise.
-func (o *UpdateVirtualInstanceRequest) GetName() string {
-	if o == nil || o.Name == nil {
-		var ret string
-		return ret
-	}
-	return *o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateVirtualInstanceRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
-		return nil, false
-	}
-	return o.Name, true
-}
-
-// HasName returns a boolean if a field has been set.
-func (o *UpdateVirtualInstanceRequest) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
-func (o *UpdateVirtualInstanceRequest) SetName(v string) {
-	o.Name = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *UpdateVirtualInstanceRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UpdateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *UpdateVirtualInstanceRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *UpdateVirtualInstanceRequest) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetAutoSuspendEnabled returns the AutoSuspendEnabled field value if set, zero value otherwise.
@@ -240,6 +112,70 @@ func (o *UpdateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32) {
 	o.AutoSuspendSeconds = &v
 }
 
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *UpdateVirtualInstanceRequest) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetMonitoringEnabled returns the MonitoringEnabled field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabled() bool {
+	if o == nil || o.MonitoringEnabled == nil {
+		var ret bool
+		return ret
+	}
+	return *o.MonitoringEnabled
+}
+
+// GetMonitoringEnabledOk returns a tuple with the MonitoringEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabledOk() (*bool, bool) {
+	if o == nil || o.MonitoringEnabled == nil {
+		return nil, false
+	}
+	return o.MonitoringEnabled, true
+}
+
+// HasMonitoringEnabled returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasMonitoringEnabled() bool {
+	if o != nil && o.MonitoringEnabled != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMonitoringEnabled gets a reference to the given bool and assigns it to the MonitoringEnabled field.
+func (o *UpdateVirtualInstanceRequest) SetMonitoringEnabled(v bool) {
+	o.MonitoringEnabled = &v
+}
+
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
 	if o == nil || o.MountRefreshIntervalSeconds == nil {
@@ -272,28 +208,92 @@ func (o *UpdateVirtualInstanceRequest) SetMountRefreshIntervalSeconds(v int32) {
 	o.MountRefreshIntervalSeconds = &v
 }
 
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *UpdateVirtualInstanceRequest) SetName(v string) {
+	o.Name = &v
+}
+
+// GetNewSize returns the NewSize field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetNewSize() string {
+	if o == nil || o.NewSize == nil {
+		var ret string
+		return ret
+	}
+	return *o.NewSize
+}
+
+// GetNewSizeOk returns a tuple with the NewSize field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetNewSizeOk() (*string, bool) {
+	if o == nil || o.NewSize == nil {
+		return nil, false
+	}
+	return o.NewSize, true
+}
+
+// HasNewSize returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasNewSize() bool {
+	if o != nil && o.NewSize != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNewSize gets a reference to the given string and assigns it to the NewSize field.
+func (o *UpdateVirtualInstanceRequest) SetNewSize(v string) {
+	o.NewSize = &v
+}
+
 func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.NewSize != nil {
-		toSerialize["new_size"] = o.NewSize
-	}
-	if o.MonitoringEnabled != nil {
-		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
 	if o.AutoSuspendEnabled != nil {
 		toSerialize["auto_suspend_enabled"] = o.AutoSuspendEnabled
 	}
 	if o.AutoSuspendSeconds != nil {
 		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
 	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
+	}
+	if o.MonitoringEnabled != nil {
+		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
+	}
 	if o.MountRefreshIntervalSeconds != nil {
 		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.NewSize != nil {
+		toSerialize["new_size"] = o.NewSize
 	}
 	return json.Marshal(toSerialize)
 }
