@@ -36,7 +36,10 @@ jobs:
     steps:
       - checkout
       - run: go install github.com/mattn/goveralls@latest
-      - run: go test -v -cover -timeout 20m -race -coverprofile=cover.out ./...
+      - run:
+          name: go test
+          no_output_timeout: 30m
+          command: go test -v -cover -timeout 30m -race -coverprofile=cover.out ./...
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   release:
     docker:

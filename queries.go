@@ -25,16 +25,16 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 	var response *openapi.QueryResponse
 
 	q := rc.QueriesApi.Query(ctx)
-	rq := openapi.NewQueryRequestWithDefaults()
-	rq.Sql = openapi.QueryRequestSql{Query: sql}
-	rq.Sql.Parameters = []openapi.QueryParameter{}
+	queryRequest := openapi.NewQueryRequestWithDefaults()
+	queryRequest.Sql = openapi.QueryRequestSql{Query: sql}
+	queryRequest.Sql.Parameters = []openapi.QueryParameter{}
 
 	for _, o := range options {
-		o(rq)
+		o(queryRequest)
 	}
 
 	err = rc.Retry(ctx, func() error {
-		response, httpResp, err = q.Body(*rq).Execute()
+		response, httpResp, err = q.Body(*queryRequest).Execute()
 
 		return NewErrorWithStatusCode(err, httpResp)
 	})

@@ -77,6 +77,20 @@ func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, n
 	}))
 }
 
+func (rc *RockClient) WaitUntilVirtualInstanceActive(ctx context.Context, id string) error {
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceActive}, func(ctx context.Context) (string, error) {
+		vi, err := rc.GetVirtualInstance(ctx, id)
+		return vi.GetState(), err
+	}))
+}
+
+func (rc *RockClient) WaitUntilVirtualInstanceSuspended(ctx context.Context, id string) error {
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceSuspended}, func(ctx context.Context) (string, error) {
+		vi, err := rc.GetVirtualInstance(ctx, id)
+		return vi.GetState(), err
+	}))
+}
+
 // WaitUntilCollectionGone waits until a collection marked for deletion is gone, i.e. GetCollection()
 // returns "not found".
 func (rc *RockClient) WaitUntilCollectionGone(ctx context.Context, workspace, name string) error {
@@ -98,6 +112,14 @@ func (rc *RockClient) WaitUntilViewGone(ctx context.Context, workspace, name str
 // WaitUntilWorkspaceAvailable waits until the workspace is available.
 func (rc *RockClient) WaitUntilWorkspaceAvailable(ctx context.Context, workspace string) error {
 	return rc.RetryWithCheck(ctx, resourceIsAvailable(ctx, func(ctx context.Context) error {
+		_, err := rc.GetWorkspace(ctx, workspace)
+		return err
+	}))
+}
+
+// WaitUntilWorkspaceGone waits until the workspace is gone, i.e. GetWorkspace() returns "not found".
+func (rc *RockClient) WaitUntilWorkspaceGone(ctx context.Context, workspace string) error {
+	return rc.RetryWithCheck(ctx, resourceIsGone(ctx, func(ctx context.Context) error {
 		_, err := rc.GetWorkspace(ctx, workspace)
 		return err
 	}))
@@ -164,6 +186,7 @@ func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) Ret
 // resourceHasState implements RetryFn to wait until the resource is has the desired state
 func resourceHasState[T comparable](ctx context.Context, states []T, fn func(ctx context.Context) (T, error)) RetryCheck {
 	return func() (bool, error) {
+		zl := zerolog.Ctx(ctx)
 		state, err := fn(ctx)
 		if err != nil {
 			return false, err
@@ -174,6 +197,8 @@ func resourceHasState[T comparable](ctx context.Context, states []T, fn func(ctx
 				return false, nil
 			}
 		}
+
+		zl.Trace().Any("current", state).Msg("waiting for resource state")
 
 		return true, nil
 	}

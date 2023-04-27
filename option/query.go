@@ -4,9 +4,18 @@ import "github.com/rockset/rockset-go-client/openapi"
 
 type QueryOption func(request *openapi.QueryRequest)
 
+// WithWarnings enables warnings. Warnings can help debug query issues but negatively affect performance.
 func WithWarnings() QueryOption {
 	return func(o *openapi.QueryRequest) {
 		o.Sql.GenerateWarnings = openapi.PtrBool(true)
+	}
+}
+
+// WithPaginationDocCount sets the number of documents to return in addition to paginating for
+// this query call. Only relevant if WithPagination is also set.
+func WithPaginationDocCount(limit int32) QueryOption {
+	return func(o *openapi.QueryRequest) {
+		o.Sql.InitialPaginateResponseDocCount = &limit
 	}
 }
 
@@ -15,6 +24,8 @@ func WithRowLimit(limit int32) QueryOption {
 		o.Sql.DefaultRowLimit = &limit
 	}
 }
+
+// TODO add WithVirtualInstance for the regular query api and make it use rockset.ExecuteQueryOnVirtualInstance
 
 func WithParameter(name, valueType, value string) QueryOption {
 	return func(o *openapi.QueryRequest) {

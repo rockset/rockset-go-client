@@ -63,6 +63,12 @@ func testClient(t *testing.T) *rockset.RockClient {
 	return rc
 }
 
+func debugClient(t *testing.T) *rockset.RockClient {
+	rc, err := rockset.NewClient(rockset.WithUserAgent("rockset-go-integration-tests"), rockset.WithHTTPDebug())
+	require.NoError(t, err)
+	return rc
+}
+
 // these are used for testing when a persistent value is needed
 const buildNum = "CIRCLE_BUILD_NUM"
 const persistentWorkspace = "persistent"
