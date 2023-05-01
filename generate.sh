@@ -7,7 +7,9 @@ VERSION=$(grep --only-match "[0-9]*\.[0-9]*\.[0-9]*" version.go)
 rm -rf openapi/*
 
 docker run --rm \
-    -v "${PWD}:/rockset" openapitools/openapi-generator-cli:v5.4.0 generate \
+    -v "${PWD}:/rockset" \
+    -u "$(id -u):$(id -g)" \
+    openapitools/openapi-generator-cli:v5.4.0 generate \
     -g go \
     --config /rockset/generator/config.json \
     -i /rockset/spec/spec2.yaml \
@@ -16,7 +18,7 @@ docker run --rm \
     --additional-properties "packageVersion=${VERSION},generateInterfaces=true" \
     -o /rockset/openapi
 
-rm openapi/go.*
+rm -f openapi/go.mod openapi/go.sum
 
 go get -u ./...
 
