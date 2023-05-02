@@ -54,10 +54,6 @@ func (rc *RockClient) CreateVirtualInstance(ctx context.Context, name string, op
 		s := int32(opts.MountRefreshInterval.Seconds())
 		req.MountRefreshIntervalSeconds = &s
 	}
-	if opts.MonitoringEnabled != nil {
-		log := zerolog.Ctx(ctx)
-		log.Warn().Msg("monitoring can't be enabled on virtual instance creation")
-	}
 
 	q := rc.VirtualInstancesApi.CreateVirtualInstance(ctx)
 
@@ -162,9 +158,6 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 
 	if opts.Size != nil {
 		req.NewSize = opts.Size
-	}
-	if opts.MonitoringEnabled != nil {
-		req.MonitoringEnabled = opts.MonitoringEnabled
 	}
 
 	err = rc.Retry(ctx, func() error {
