@@ -5,21 +5,12 @@ import "time"
 // VirtualInstanceOptions contains the optional settings for a virtual instance.
 type VirtualInstanceOptions struct {
 	Description          *string
-	MonitoringEnabled    *bool
 	Size                 *string
 	MountRefreshInterval *time.Duration
 	AutoSuspend          *time.Duration
 }
 
 type VirtualInstanceOption func(*VirtualInstanceOptions)
-
-// WithVIMonitoring is used to optionally set the virtual instance monitoring, which can only be done
-// when updating the instance, not during creation.
-func WithVIMonitoring(enabled bool) VirtualInstanceOption {
-	return func(o *VirtualInstanceOptions) {
-		o.MonitoringEnabled = &enabled
-	}
-}
 
 // WithMountRefreshInterval is used to optionally set the mount refresh interval. Setting it to 0 means
 // it will be a continuous refresh, but then WithContinuousMountRefresh should be used instead. Not specifying
