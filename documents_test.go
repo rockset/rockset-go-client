@@ -17,10 +17,10 @@ type DocumentIntegrationSuite struct {
 }
 
 func TestDocumentSuite(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t)
 
 	s := DocumentIntegrationSuite{
-		rc:         testClient(t),
+		rc:         rc,
 		ws:         randomName("docs"),
 		collection: randomName("docs"),
 	}

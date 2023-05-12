@@ -3,6 +3,8 @@ package rockset_test
 import (
 	"context"
 	"fmt"
+	"github.com/seborama/govcr/v13"
+	"github.com/seborama/govcr/v13/cassette/track"
 	"math/rand"
 	"os"
 	"strings"
@@ -63,6 +65,96 @@ func testClient(t *testing.T) *rockset.RockClient {
 	return rc
 }
 
+// testRetrier is used with VCR to retry as fast as possible, as the responses are recorded
+type testRetrier struct{}
+
+func (t testRetrier) Retry(ctx context.Context, retryFn rockset.RetryFunc) error {
+	for {
+		err := retryFn()
+		if err == nil {
+			return nil
+		}
+		if !rockset.DefaultRetryableErrorCheck(err) {
+			return err
+		}
+	}
+}
+
+func (t testRetrier) RetryWithCheck(ctx context.Context, checkFunc rockset.RetryCheck) error {
+	for {
+		retry, err := checkFunc()
+		if err == nil {
+			return nil
+		}
+		if !retry {
+			return nil
+		}
+		if !rockset.DefaultRetryableErrorCheck(err) {
+			return err
+		}
+	}
+}
+
+func vcrClient(t *testing.T) (*rockset.RockClient, func(string) string) {
+	randFn := randomName
+	options := []rockset.RockOption{rockset.WithUserAgent("rockset-go-integration-tests")}
+	var settings []govcr.Setting
+	name := fmt.Sprintf("vcr/%s.cassette", t.Name())
+
+	switch mode := strings.ToLower(os.Getenv("VCR_MODE")); mode {
+	case "record": // remove cassette to force a new one to be created
+		t.Logf("using VCR to record response")
+		randFn = func(pfx string) string {
+			return fmt.Sprintf("%s_go", pfx)
+		}
+		if err := os.Remove(name); err != nil {
+			t.Logf("failed to remove %s", name)
+		}
+	case "offline", "": // quick run using a recorded
+		t.Logf("using VCR to replay response")
+		randFn = func(pfx string) string {
+			return fmt.Sprintf("%s_go", pfx)
+		}
+		settings = vcrSettings(true)
+		options = append(options, rockset.WithAPIKey("fake"),
+			rockset.WithAPIServer("fake"), rockset.WithRetry(&testRetrier{}))
+	case "online": // for running everything live
+		t.Logf("using VCR in online mode")
+		settings = vcrSettings(false)
+	default:
+		t.Fatalf("unknown VCR_MODE: %s", mode)
+	}
+
+	vcr := govcr.NewVCR(govcr.NewCassetteLoader(name), settings...)
+	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()))
+
+	rc, err := rockset.NewClient(options...)
+	require.NoError(t, err)
+	return rc, randFn
+}
+
+// VCR settings that exclude the HTTP header Authorization
+func vcrSettings(offline bool) []govcr.Setting {
+	const authHeader = "Authorization"
+	settings := []govcr.Setting{
+		govcr.WithRequestMatchers(
+			func(httpRequest, trackRequest *track.Request) bool {
+				httpRequest.Header.Del(authHeader)
+				trackRequest.Header.Del(authHeader)
+
+				return govcr.DefaultHeaderMatcher(httpRequest, trackRequest)
+			},
+		),
+		govcr.WithTrackRecordingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
+		govcr.WithTrackReplayingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
+	}
+	if offline {
+		settings = append(settings, govcr.WithOfflineMode())
+	}
+
+	return settings
+}
+
 func debugClient(t *testing.T) *rockset.RockClient {
 	rc, err := rockset.NewClient(rockset.WithUserAgent("rockset-go-integration-tests"), rockset.WithHTTPDebug())
 	require.NoError(t, err)
@@ -116,12 +208,9 @@ func randomName(prefix string) string {
 
 // TestTemplate is used as a copypasta for new tests
 func TestTemplate(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t)
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
-
-	rc := testClient(t)
 
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)
@@ -177,6 +266,7 @@ const USW2A1 = "api.usw2a1.rockset.com"
 
 func TestRockClient_withAPIServer(t *testing.T) {
 	skipUnlessIntegrationTest(t)
+	// TODO this should use VCR too
 
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
@@ -201,7 +291,7 @@ func TestRockClient_withAPIServer(t *testing.T) {
 }
 
 func TestRockClient_withAPIServerEnv(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, _ := vcrClient(t)
 
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
@@ -216,8 +306,6 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 	err := os.Setenv(rockset.APIServerEnvironmentVariableName, USW2A1)
 	require.NoError(t, err)
 
-	rc := testClient(t)
-
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)
 
@@ -225,11 +313,8 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 }
 
 func TestRockClient_Ping(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t)
 	ctx := testCtx()
-
-	rc := testClient(t)
 
 	err := rc.Ping(ctx)
 	require.NoError(t, err)

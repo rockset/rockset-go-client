@@ -9,20 +9,16 @@ import (
 )
 
 func TestListViews(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t)
 	ctx := testCtx()
-	rc := testClient(t)
 
 	_, err := rc.ListViews(ctx, option.WithViewWorkspace(persistentWorkspace))
 	require.NoError(t, err)
 }
 
 func TestViewCRUD(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t)
 	ctx := testCtx()
-	rc := testClient(t)
 
 	ws := "acc"
 	name := randomName("view")

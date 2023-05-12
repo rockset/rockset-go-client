@@ -18,9 +18,9 @@ type CollectionTestSuite struct {
 }
 
 func TestCollectionIntegrationSuite(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t)
 
-	suite.Run(t, &CollectionTestSuite{rc: testClient(t), ws: randomName("collection")})
+	suite.Run(t, &CollectionTestSuite{rc: rc, ws: randomName("collection")})
 }
 
 func (s *CollectionTestSuite) SetupSuite() {

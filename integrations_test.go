@@ -16,10 +16,10 @@ type IntegrationTestSuite struct {
 }
 
 func TestIntegrationTestSuite(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t)
 
 	suite.Run(t, &IntegrationTestSuite{
-		rc:             testClient(t),
+		rc:             rc,
 		s3Integration:  randomName("s3"),
 		gcsIntegration: randomName("gcs"),
 	})

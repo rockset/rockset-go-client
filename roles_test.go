@@ -16,10 +16,10 @@ type RoleIntegrationSuite struct {
 }
 
 func TestRoleIntegration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t)
 
 	suite.Run(t, &RoleIntegrationSuite{
-		rc:   testClient(t),
+		rc:   rc,
 		name: randomName("role"),
 	})
 }

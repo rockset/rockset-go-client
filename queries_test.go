@@ -1,7 +1,6 @@
 package rockset_test
 
 import (
-	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/suite"
 	"testing"
@@ -13,65 +12,68 @@ const slowQuery = `script {{{ import * as rockset from "/rockset"; export functi
 
 type QueryIntegrationSuite struct {
 	suite.Suite
-	rc *rockset.RockClient
 }
 
 func TestQueryIntegration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
 
-	s := QueryIntegrationSuite{
-		rc: testClient(t),
-	}
+	s := QueryIntegrationSuite{}
 	suite.Run(t, &s)
 }
 
 func (s *QueryIntegrationSuite) TestQuery() {
 	ctx := testCtx()
+	rc, _ := vcrClient(s.T())
 
-	_, err := s.rc.Query(ctx, "SELECT 1")
+	_, err := rc.Query(ctx, "SELECT 1")
 	s.Require().NoError(err)
 }
 
 func (s *QueryIntegrationSuite) TestListQueries() {
 	ctx := testCtx()
+	rc, _ := vcrClient(s.T())
 
-	_, err := s.rc.ListActiveQueries(ctx)
+	_, err := rc.ListActiveQueries(ctx)
 	s.Require().NoError(err)
 }
 
 func (s *QueryIntegrationSuite) TestAsyncQuery() {
 	ctx := testCtx()
+	rc, _ := vcrClient(s.T())
 
-	resp, err := s.rc.Query(ctx, slowQuery,
+	resp, err := rc.Query(ctx, slowQuery,
 		option.WithAsyncClientTimeout(100),
 		option.WithAsyncMaxInitialResults(10),
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilQueryCompleted(ctx, *resp.QueryId)
+	err = rc.WaitUntilQueryCompleted(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 
-	_, err = s.rc.GetQueryResults(ctx, *resp.QueryId)
+	_, err = rc.GetQueryResults(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 }
 
 func (s *QueryIntegrationSuite) TestCancelQuery() {
 	ctx := testCtx()
+	rc, _ := vcrClient(s.T())
 
-	resp, err := s.rc.Query(ctx, slowQuery,
+	resp, err := rc.Query(ctx, slowQuery,
 		option.WithAsyncClientTimeout(100),
 		option.WithAsyncMaxInitialResults(10),
 	)
 	s.Require().NoError(err)
 
-	info, err := s.rc.CancelQuery(ctx, *resp.QueryId)
+	info, err := rc.CancelQuery(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 	s.Require().Equal("CANCELLED", info.GetStatus())
+	// TODO this creates a new client for each test instead of on for the whole test suite,
+	//      as this test fails due to the status being COMPLETED instead of CANCELLED
 }
 
 func (s *QueryIntegrationSuite) TestValidateQuery() {
 	ctx := testCtx()
+	rc, _ := vcrClient(s.T())
 
-	_, err := s.rc.ValidateQuery(ctx, "SELECT 1")
+	_, err := rc.ValidateQuery(ctx, "SELECT 1")
 	s.Require().NoError(err)
 }

@@ -20,12 +20,11 @@ type UserIntegrationSuite struct {
 }
 
 func TestUserIntegration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
 	// we convert the email address to lowercase in Rockset, so must do it here or the test will fail
-	name := strings.ToLower(randomName("test"))
+	rc, nameGenerator := vcrClient(t)
+	name := strings.ToLower(nameGenerator("test"))
 	s := UserIntegrationSuite{
-		rc:    testClient(t),
+		rc:    rc,
 		email: fmt.Sprintf("pme+%s@rockset.com", name),
 	}
 	suite.Run(t, &s)
