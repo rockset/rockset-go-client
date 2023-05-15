@@ -55,7 +55,7 @@ environment variable.
 
 To run tests:
 ```
-go test ./...
+go test -v -timeout 30m ./...
 ```
 
 ### Code Coverage

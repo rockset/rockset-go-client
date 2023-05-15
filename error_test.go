@@ -12,7 +12,7 @@ import (
 )
 
 func TestError_IsNotFoundError(t *testing.T) {
-	rc, _ := vcrClient(t)
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
 
 	_, err := rc.GetCollection(ctx, persistentWorkspace, "notfound")

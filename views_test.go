@@ -9,7 +9,7 @@ import (
 )
 
 func TestListViews(t *testing.T) {
-	rc, _ := vcrClient(t)
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
 
 	_, err := rc.ListViews(ctx, option.WithViewWorkspace(persistentWorkspace))
@@ -17,7 +17,7 @@ func TestListViews(t *testing.T) {
 }
 
 func TestViewCRUD(t *testing.T) {
-	rc, _ := vcrClient(t)
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
 
 	ws := "acc"

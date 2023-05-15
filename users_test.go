@@ -21,7 +21,7 @@ type UserIntegrationSuite struct {
 
 func TestUserIntegration(t *testing.T) {
 	// we convert the email address to lowercase in Rockset, so must do it here or the test will fail
-	rc, nameGenerator := vcrClient(t)
+	rc, nameGenerator := vcrClient(t, t.Name())
 	name := strings.ToLower(nameGenerator("test"))
 	s := UserIntegrationSuite{
 		rc:    rc,

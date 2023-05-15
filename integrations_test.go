@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/suite"
 	"testing"
 
@@ -16,13 +17,16 @@ type IntegrationTestSuite struct {
 }
 
 func TestIntegrationTestSuite(t *testing.T) {
-	rc, randomName := vcrClient(t)
+	_, randomName := vcrClient(t, t.Name())
 
 	suite.Run(t, &IntegrationTestSuite{
-		rc:             rc,
 		s3Integration:  randomName("s3"),
 		gcsIntegration: randomName("gcs"),
 	})
+}
+
+func (s *IntegrationTestSuite) BeforeTest(suiteName, testName string) {
+	s.rc, _ = vcrClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
 }
 
 func (s *IntegrationTestSuite) TearDown() {

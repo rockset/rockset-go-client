@@ -95,11 +95,11 @@ func (t testRetrier) RetryWithCheck(ctx context.Context, checkFunc rockset.Retry
 	}
 }
 
-func vcrClient(t *testing.T) (*rockset.RockClient, func(string) string) {
+func vcrClient(t *testing.T, name string) (*rockset.RockClient, func(string) string) {
 	randFn := randomName
 	options := []rockset.RockOption{rockset.WithUserAgent("rockset-go-integration-tests")}
 	var settings []govcr.Setting
-	name := fmt.Sprintf("vcr/%s.cassette", t.Name())
+	path := fmt.Sprintf("vcr/%s.cassette.gz", name)
 
 	switch mode := strings.ToLower(os.Getenv("VCR_MODE")); mode {
 	case "record": // remove cassette to force a new one to be created
@@ -107,10 +107,11 @@ func vcrClient(t *testing.T) (*rockset.RockClient, func(string) string) {
 		randFn = func(pfx string) string {
 			return fmt.Sprintf("%s_go", pfx)
 		}
-		if err := os.Remove(name); err != nil {
-			t.Logf("failed to remove %s", name)
+		if err := os.Remove(path); err != nil {
+			t.Logf("failed to remove %s", path)
 		}
-	case "offline", "": // quick run using a recorded
+		settings = vcrSettings(false)
+	case "offline", "": // quick run using a recorded response
 		t.Logf("using VCR to replay response")
 		randFn = func(pfx string) string {
 			return fmt.Sprintf("%s_go", pfx)
@@ -125,7 +126,7 @@ func vcrClient(t *testing.T) (*rockset.RockClient, func(string) string) {
 		t.Fatalf("unknown VCR_MODE: %s", mode)
 	}
 
-	vcr := govcr.NewVCR(govcr.NewCassetteLoader(name), settings...)
+	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path), settings...)
 	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()))
 
 	rc, err := rockset.NewClient(options...)
@@ -146,7 +147,9 @@ func vcrSettings(offline bool) []govcr.Setting {
 			},
 		),
 		govcr.WithTrackRecordingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
+		govcr.WithTrackRecordingMutators(track.ResponseDeleteTLS()),
 		govcr.WithTrackReplayingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
+		govcr.WithTrackReplayingMutators(track.ResponseDeleteTLS()),
 	}
 	if offline {
 		settings = append(settings, govcr.WithOfflineMode())
@@ -208,7 +211,7 @@ func randomName(prefix string) string {
 
 // TestTemplate is used as a copypasta for new tests
 func TestTemplate(t *testing.T) {
-	rc, _ := vcrClient(t)
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
@@ -291,7 +294,7 @@ func TestRockClient_withAPIServer(t *testing.T) {
 }
 
 func TestRockClient_withAPIServerEnv(t *testing.T) {
-	rc, _ := vcrClient(t)
+	rc, _ := vcrClient(t, t.Name())
 
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
@@ -313,7 +316,7 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 }
 
 func TestRockClient_Ping(t *testing.T) {
-	rc, _ := vcrClient(t)
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
 
 	err := rc.Ping(ctx)

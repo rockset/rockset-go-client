@@ -16,7 +16,7 @@ type RoleIntegrationSuite struct {
 }
 
 func TestRoleIntegration(t *testing.T) {
-	rc, randomName := vcrClient(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	suite.Run(t, &RoleIntegrationSuite{
 		rc:   rc,

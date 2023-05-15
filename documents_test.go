@@ -17,7 +17,7 @@ type DocumentIntegrationSuite struct {
 }
 
 func TestDocumentSuite(t *testing.T) {
-	rc, randomName := vcrClient(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	s := DocumentIntegrationSuite{
 		rc:         rc,

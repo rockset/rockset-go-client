@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -18,7 +19,7 @@ type CollectionTestSuite struct {
 }
 
 func TestCollectionIntegrationSuite(t *testing.T) {
-	rc, randomName := vcrClient(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	suite.Run(t, &CollectionTestSuite{rc: rc, ws: randomName("collection")})
 }
@@ -50,6 +51,10 @@ func (s *CollectionTestSuite) TearDownSuite() {
 
 	err := s.rc.DeleteWorkspace(ctx, s.ws)
 	s.NoError(err)
+}
+
+func (s *CollectionTestSuite) BeforeTest(suiteName, testName string) {
+	s.rc, _ = vcrClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
 }
 
 func (s *CollectionTestSuite) TestGetCollection() {

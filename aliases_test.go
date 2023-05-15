@@ -18,7 +18,7 @@ type AliasIntegrationSuite struct {
 }
 
 func TestAliasIntegrationSuite(t *testing.T) {
-	rc, randomName := vcrClient(t)
+	rc, randomName := vcrClient(t, t.Name())
 	s := AliasIntegrationSuite{rc: rc, alias: randomName("alias")}
 	suite.Run(t, &s)
 }

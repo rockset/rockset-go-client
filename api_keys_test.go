@@ -18,7 +18,7 @@ type SuiteAPIKey struct {
 }
 
 func TestSuiteAPIKey(t *testing.T) {
-	rc, randomName := vcrClient(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	s := SuiteAPIKey{
 		rc:      rc,
