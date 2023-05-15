@@ -106,12 +106,25 @@ func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi
 }
 
 // GetQueryResults retrieves the results of a completed async query.
-func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (openapi.QueryPaginationResponse, error) {
+func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string, options ...option.QueryResultOption) (openapi.QueryPaginationResponse, error) {
 	var err error
 	var httpResp *http.Response
 	var response *openapi.QueryPaginationResponse
 
 	q := rc.QueriesApi.GetQueryResults(ctx, queryID)
+	var opts option.QueryResultOptions
+	for _, opt := range options {
+		opt(&opts)
+	}
+	if opts.Offset != nil {
+		q = q.Offset(*opts.Offset)
+	}
+	if opts.Docs != nil {
+		q = q.Docs(*opts.Docs)
+	}
+	if opts.Cursor != nil {
+		q = q.Cursor(*opts.Cursor)
+	}
 
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
