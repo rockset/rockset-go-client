@@ -12,10 +12,8 @@ import (
 )
 
 func TestError_IsNotFoundError(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-	rc := testClient(t)
 
 	_, err := rc.GetCollection(ctx, persistentWorkspace, "notfound")
 	require.Error(t, err)

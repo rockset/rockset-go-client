@@ -23,10 +23,10 @@ type VirtualInstanceSuite struct {
 }
 
 func TestVirtualInstance(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, _ := vcrClient(t, t.Name())
 
 	s := VirtualInstanceSuite{
-		rc:  testClient(t),
+		rc:  rc,
 		vID: rocksetCircleCIMainVI,
 	}
 	suite.Run(t, &s)
@@ -105,11 +105,10 @@ type VirtualInstanceIntegrationSuite struct {
 
 // This test suite requires a Rockset org with "premium" support, as it needs to create a virtual instance.
 func TestVirtualInstanceIntegration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-	t.Log("This test can take more than 10 minutes to run, so make sure to use `go test -timeout 15m`")
+	rc, randomName := vcrClient(t, t.Name())
 
 	s := VirtualInstanceIntegrationSuite{
-		rc:   testClient(t),
+		rc:   rc,
 		name: randomName("vi"),
 	}
 	suite.Run(t, &s)

@@ -8,6 +8,17 @@ workflows:
             - validation
           # Skip tests on tag pushes as they have already run
           filters:
+            branches:
+              ignore: master
+            tags:
+              ignore: /v[0-9]+(\.[0-9]+)*(-.*)*/
+      - integration:
+          requires:
+            - validation
+          # Skip tests on tag pushes as they have already run
+          filters:
+            branches:
+              only: master
             tags:
               ignore: /v[0-9]+(\.[0-9]+)*(-.*)*/
       - release:
@@ -39,7 +50,17 @@ jobs:
       - run:
           name: go test
           no_output_timeout: 30m
-          command: gotestsum --format pkgname-and-test-fails -- -cover -timeout 30m -race -coverprofile=cover.out ./...
+          command: gotestsum --junitfile test-results/junit.xml --format pkgname-and-test-fails -- -cover -timeout 30m -race -coverprofile=cover.out ./...
+      - run: goveralls -coverprofile=cover.out -service=circle-ci
+  integration:
+    docker:
+      - image: cimg/go:1.20
+    steps:
+      - checkout
+      - run: go install github.com/mattn/goveralls@latest
+      - run:
+          name: go test
+          command: VCR_MODE=offline gotestsum --junitfile test-results/junit.xml --format pkgname-and-test-fails -- -cover -timeout 30m -race -coverprofile=cover.out ./...
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   release:
     docker:

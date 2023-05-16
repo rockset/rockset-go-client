@@ -10,13 +10,11 @@ import (
 )
 
 func TestRockClient_CreateQueryLambda(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	ctx := testCtx()
 	ws := "acc"
 	name := randomName("ql")
-
-	rc := testClient(t)
 
 	ql, err := rc.CreateQueryLambda(ctx, ws, name, "SELECT 1",
 		option.WithDefaultParameter("", "", ""), option.WithQueryLambdaDescription(description()))
@@ -42,11 +40,8 @@ const (
 )
 
 func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-
-	rc := testClient(t)
 
 	version, err := rc.GetQueryLambdaVersionByTag(ctx, persistentWorkspace, qlName, qlTag)
 	require.NoError(t, err)
@@ -54,11 +49,8 @@ func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
 }
 
 func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-
-	rc := testClient(t)
 
 	version, err := rc.GetQueryLambdaVersion(ctx, persistentWorkspace, qlName, qlVersion)
 	require.NoError(t, err)
@@ -66,10 +58,8 @@ func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdas(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-	rc := testClient(t)
 
 	lambdas, err := rc.ListQueryLambdas(ctx)
 	require.NoError(t, err)
@@ -80,11 +70,8 @@ func TestRockClient_ListQueryLambdas(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-
-	rc := testClient(t)
 
 	lambdas, err := rc.ListQueryLambdas(ctx, option.WithQueryLambdaWorkspace(persistentWorkspace))
 	require.NoError(t, err)
@@ -95,11 +82,8 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-
-	rc := testClient(t)
 
 	versions, err := rc.ListQueryLambdaVersions(ctx, persistentWorkspace, qlName)
 	require.NoError(t, err)
@@ -110,11 +94,8 @@ func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdaTags(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
+	rc, _ := vcrClient(t, t.Name())
 	ctx := testCtx()
-
-	rc := testClient(t)
 
 	tags, err := rc.ListQueryLambdaTags(ctx, persistentWorkspace, qlName)
 	require.NoError(t, err)

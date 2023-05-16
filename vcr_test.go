@@ -5,21 +5,21 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/seborama/govcr"
-
 	"github.com/rockset/rockset-go-client"
+	"github.com/seborama/govcr/v13"
 )
 
-// Use govcr to record API calls as fixtures and then replay them. Note that this will record your API key
-// so do not commit the saved "cassette" to a public repo.
+// Use govcr to record API calls as fixtures and then replay them. The settings remove the HTTP header
+// "Authorization" which is where the Rockset API key resides.
 // See https://github.com/seborama/govcr for information how to use govcr.
 func Example_vCR() {
 	ctx := context.TODO()
 
-	cfg := govcr.VCRConfig{Logging: true, CassettePath: "vcr"}
-	rt := govcr.NewVCR("example", &cfg).Client
+	name := fmt.Sprintf("vcr/%s.cassette", "example_vcr")
+	settings := vcrSettings(false)
+	vcr := govcr.NewVCR(govcr.NewCassetteLoader(name), settings...)
 
-	rc, err := rockset.NewClient(rockset.WithHTTPClient(rt))
+	rc, err := rockset.NewClient(rockset.WithHTTPClient(vcr.HTTPClient()))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,10 +31,10 @@ func Example_vCR() {
 	}
 	fmt.Printf("org: %s\n", r.GetId())
 
-	// get a new client with recordings disabled
-	cfg.DisableRecording = true
-	rt = govcr.NewVCR("example", &cfg).Client
-	rc, err = rockset.NewClient(rockset.WithHTTPClient(rt))
+	// get a new client with offline mode
+	settings = vcrSettings(true)
+	vcr = govcr.NewVCR(govcr.NewCassetteLoader(name), settings...)
+	rc, err = rockset.NewClient(rockset.WithHTTPClient(vcr.HTTPClient()))
 	if err != nil {
 		log.Fatal(err)
 	}

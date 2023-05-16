@@ -18,10 +18,10 @@ type SuiteAPIKey struct {
 }
 
 func TestSuiteAPIKey(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	s := SuiteAPIKey{
-		rc:      testClient(t),
+		rc:      rc,
 		keyName: randomName("key"),
 	}
 	suite.Run(t, &s)

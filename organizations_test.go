@@ -8,11 +8,8 @@ import (
 )
 
 func TestRockClient_GetOrganization(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
 	ctx := testCtx()
-
-	rc := testClient(t)
+	rc, _ := vcrClient(t, t.Name())
 
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)

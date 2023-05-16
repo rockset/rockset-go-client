@@ -13,19 +13,17 @@ import (
 
 type AliasIntegrationSuite struct {
 	suite.Suite
-	rc *rockset.RockClient
+	rc    *rockset.RockClient
+	alias string
 }
 
 func TestAliasIntegrationSuite(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-
-	s := AliasIntegrationSuite{rc: testClient(t)}
+	rc, randomName := vcrClient(t, t.Name())
+	s := AliasIntegrationSuite{rc: rc, alias: randomName("alias")}
 	suite.Run(t, &s)
 }
 
 func (s *AliasIntegrationSuite) TestGetAlias() {
-	skipUnlessIntegrationTest(s.T())
-
 	ctx := testCtx()
 
 	alias, err := s.rc.GetAlias(ctx, persistentWorkspace, persistentAlias)
@@ -34,8 +32,6 @@ func (s *AliasIntegrationSuite) TestGetAlias() {
 }
 
 func (s *AliasIntegrationSuite) TestListAliases() {
-	skipUnlessIntegrationTest(s.T())
-
 	ctx := testCtx()
 
 	aliases, err := s.rc.ListAliases(ctx)
@@ -46,8 +42,6 @@ func (s *AliasIntegrationSuite) TestListAliases() {
 }
 
 func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
-	skipUnlessIntegrationTest(s.T())
-
 	ctx := testCtx()
 
 	aliases, err := s.rc.ListAliases(ctx, option.WithAliasWorkspace(persistentWorkspace))
@@ -58,23 +52,19 @@ func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
 }
 
 func (s *AliasIntegrationSuite) TestAliases() {
-	skipUnlessIntegrationTest(s.T())
-
 	ctx := testCtx()
 
-	alias := randomName("alias")
-
-	_, err := s.rc.CreateAlias(ctx, persistentWorkspace, alias, []string{"commons._events"})
+	_, err := s.rc.CreateAlias(ctx, persistentWorkspace, s.alias, []string{"commons._events"})
 	require.NoError(s.T(), err)
 
-	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, alias)
+	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
 
 	// update
 
-	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, alias)
+	err = s.rc.WaitUntilAliasAvailable(ctx, persistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
 
-	err = s.rc.DeleteAlias(ctx, persistentWorkspace, alias)
+	err = s.rc.DeleteAlias(ctx, persistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
 }

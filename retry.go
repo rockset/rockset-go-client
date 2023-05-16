@@ -53,7 +53,7 @@ type ExponentialRetry struct {
 	RetryableErrorCheck func(error) bool
 }
 
-// Retry retries retryFn until it returns false, or an error. Uses exponential backoff.
+// Retry retries retryFn until it returns an error. Uses exponential backoff.
 // If the retryFn returns an error, it is wrapped in an Error, which implements RetryableError
 // so the RetryableErrorCheck can determine if it should retry the operation.
 func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {

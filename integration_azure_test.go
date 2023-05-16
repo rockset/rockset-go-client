@@ -43,9 +43,10 @@ func (s *AzureIntegrationsSuite) TearDownSuite() {
 
 func TestAzureIntegrations(t *testing.T) {
 	connectionString := skipUnlessEnvSet(t, "AZURE_CONNECTION_STRING")
+	rc, randomName := vcrClient(t, t.Name())
 
 	s := AzureIntegrationsSuite{
-		rc:               testClient(t),
+		rc:               rc,
 		integrationName:  randomName("azure"),
 		connectionString: connectionString,
 	}

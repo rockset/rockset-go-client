@@ -17,10 +17,10 @@ type SuiteWorkspace struct {
 }
 
 func TestSuiteWorkspace(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	rc, randomName := vcrClient(t, t.Name())
 
 	s := SuiteWorkspace{
-		rc: testClient(t),
+		rc: rc,
 		ws: randomName("ws"),
 	}
 	suite.Run(t, &s)

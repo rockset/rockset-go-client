@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"fmt"
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/suite"
@@ -17,12 +18,13 @@ type QueryIntegrationSuite struct {
 }
 
 func TestQueryIntegration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
 
-	s := QueryIntegrationSuite{
-		rc: testClient(t),
-	}
+	s := QueryIntegrationSuite{}
 	suite.Run(t, &s)
+}
+
+func (s *QueryIntegrationSuite) BeforeTest(suiteName, testName string) {
+	s.rc, _ = vcrClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
 }
 
 func (s *QueryIntegrationSuite) TestQuery() {
@@ -67,6 +69,8 @@ func (s *QueryIntegrationSuite) TestCancelQuery() {
 	info, err := s.rc.CancelQuery(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 	s.Require().Equal("CANCELLED", info.GetStatus())
+	// TODO this creates a new client for each test instead of on for the whole test suite,
+	//      as this test fails due to the status being COMPLETED instead of CANCELLED
 }
 
 func (s *QueryIntegrationSuite) TestValidateQuery() {
