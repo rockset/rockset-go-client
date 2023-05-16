@@ -9,7 +9,7 @@ import (
 
 func TestRockClient_GetOrganization(t *testing.T) {
 	ctx := testCtx()
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 
 	org, err := rc.GetOrganization(ctx)
 	require.NoError(t, err)

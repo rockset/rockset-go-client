@@ -23,7 +23,7 @@ type VirtualInstanceSuite struct {
 }
 
 func TestVirtualInstance(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 
 	s := VirtualInstanceSuite{
 		rc:  rc,
@@ -105,7 +105,7 @@ type VirtualInstanceIntegrationSuite struct {
 
 // This test suite requires a Rockset org with "premium" support, as it needs to create a virtual instance.
 func TestVirtualInstanceIntegration(t *testing.T) {
-	rc, randomName := vcrClient(t, t.Name())
+	rc, randomName := vcrTestClient(t, t.Name())
 
 	s := VirtualInstanceIntegrationSuite{
 		rc:   rc,

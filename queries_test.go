@@ -24,7 +24,7 @@ func TestQueryIntegration(t *testing.T) {
 }
 
 func (s *QueryIntegrationSuite) BeforeTest(suiteName, testName string) {
-	s.rc, _ = vcrClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
+	s.rc, _ = vcrTestClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
 }
 
 func (s *QueryIntegrationSuite) TestQuery() {

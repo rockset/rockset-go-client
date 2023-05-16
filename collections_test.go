@@ -19,7 +19,7 @@ type CollectionTestSuite struct {
 }
 
 func TestCollectionIntegrationSuite(t *testing.T) {
-	rc, randomName := vcrClient(t, t.Name())
+	rc, randomName := vcrTestClient(t, t.Name())
 
 	suite.Run(t, &CollectionTestSuite{rc: rc, ws: randomName("collection")})
 }
@@ -54,7 +54,7 @@ func (s *CollectionTestSuite) TearDownSuite() {
 }
 
 func (s *CollectionTestSuite) BeforeTest(suiteName, testName string) {
-	s.rc, _ = vcrClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
+	s.rc, _ = vcrTestClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
 }
 
 func (s *CollectionTestSuite) TestGetCollection() {
