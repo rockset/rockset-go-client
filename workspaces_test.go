@@ -17,7 +17,7 @@ type SuiteWorkspace struct {
 }
 
 func TestSuiteWorkspace(t *testing.T) {
-	rc, randomName := vcrClient(t, t.Name())
+	rc, randomName := vcrTestClient(t, t.Name())
 
 	s := SuiteWorkspace{
 		rc: rc,

@@ -10,7 +10,7 @@ import (
 )
 
 func TestRockClient_CreateQueryLambda(t *testing.T) {
-	rc, randomName := vcrClient(t, t.Name())
+	rc, randomName := vcrTestClient(t, t.Name())
 
 	ctx := testCtx()
 	ws := "acc"
@@ -40,7 +40,7 @@ const (
 )
 
 func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	version, err := rc.GetQueryLambdaVersionByTag(ctx, persistentWorkspace, qlName, qlTag)
@@ -49,7 +49,7 @@ func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
 }
 
 func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	version, err := rc.GetQueryLambdaVersion(ctx, persistentWorkspace, qlName, qlVersion)
@@ -58,7 +58,7 @@ func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdas(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	lambdas, err := rc.ListQueryLambdas(ctx)
@@ -70,7 +70,7 @@ func TestRockClient_ListQueryLambdas(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	lambdas, err := rc.ListQueryLambdas(ctx, option.WithQueryLambdaWorkspace(persistentWorkspace))
@@ -82,7 +82,7 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	versions, err := rc.ListQueryLambdaVersions(ctx, persistentWorkspace, qlName)
@@ -94,7 +94,7 @@ func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
 }
 
 func TestRockClient_ListQueryLambdaTags(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	tags, err := rc.ListQueryLambdaTags(ctx, persistentWorkspace, qlName)

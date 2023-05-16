@@ -17,7 +17,7 @@ type IntegrationTestSuite struct {
 }
 
 func TestIntegrationTestSuite(t *testing.T) {
-	_, randomName := vcrClient(t, t.Name())
+	_, randomName := vcrTestClient(t, t.Name())
 
 	suite.Run(t, &IntegrationTestSuite{
 		s3Integration:  randomName("s3"),
@@ -26,7 +26,7 @@ func TestIntegrationTestSuite(t *testing.T) {
 }
 
 func (s *IntegrationTestSuite) BeforeTest(suiteName, testName string) {
-	s.rc, _ = vcrClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
+	s.rc, _ = vcrTestClient(s.T(), fmt.Sprintf("%s/%s", suiteName, testName))
 }
 
 func (s *IntegrationTestSuite) TearDown() {

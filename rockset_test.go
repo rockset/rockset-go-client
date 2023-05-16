@@ -95,7 +95,16 @@ func (t testRetrier) RetryWithCheck(ctx context.Context, checkFunc rockset.Retry
 	}
 }
 
-func vcrClient(t *testing.T, name string) (*rockset.RockClient, func(string) string) {
+func vcrTestClient(t *testing.T, name string) (*rockset.RockClient, func(string) string) {
+	rc, fn, err := vcrClient(name)
+	if err != nil {
+		require.NoError(t, err)
+	}
+
+	return rc, fn
+}
+
+func vcrClient(name string) (*rockset.RockClient, func(string) string, error) {
 	randFn := randomName
 	options := []rockset.RockOption{rockset.WithUserAgent("rockset-go-integration-tests")}
 	var settings []govcr.Setting
@@ -103,16 +112,13 @@ func vcrClient(t *testing.T, name string) (*rockset.RockClient, func(string) str
 
 	switch mode := strings.ToLower(os.Getenv("VCR_MODE")); mode {
 	case "record": // remove cassette to force a new one to be created
-		t.Logf("using VCR to record response")
 		randFn = func(pfx string) string {
 			return fmt.Sprintf("%s_go", pfx)
 		}
-		if err := os.Remove(path); err != nil {
-			t.Logf("failed to remove %s", path)
-		}
+		// ignore errors
+		_ = os.Remove(path)
 		settings = vcrSettings(false)
 	case "offline", "": // quick run using a recorded response
-		t.Logf("using VCR to replay response")
 		randFn = func(pfx string) string {
 			return fmt.Sprintf("%s_go", pfx)
 		}
@@ -120,18 +126,16 @@ func vcrClient(t *testing.T, name string) (*rockset.RockClient, func(string) str
 		options = append(options, rockset.WithAPIKey("fake"),
 			rockset.WithAPIServer("fake"), rockset.WithRetry(&testRetrier{}))
 	case "online": // for running everything live
-		t.Logf("using VCR in online mode")
 		settings = vcrSettings(false)
 	default:
-		t.Fatalf("unknown VCR_MODE: %s", mode)
+		return nil, nil, fmt.Errorf("unknown VCR_MODE: %s", mode)
 	}
 
 	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path), settings...)
 	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()))
 
 	rc, err := rockset.NewClient(options...)
-	require.NoError(t, err)
-	return rc, randFn
+	return rc, randFn, err
 }
 
 // VCR settings that exclude the HTTP header Authorization
@@ -211,7 +215,7 @@ func randomName(prefix string) string {
 
 // TestTemplate is used as a copypasta for new tests
 func TestTemplate(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
 
@@ -294,7 +298,7 @@ func TestRockClient_withAPIServer(t *testing.T) {
 }
 
 func TestRockClient_withAPIServerEnv(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 
 	ctx := testCtx()
 	log := zerolog.Ctx(ctx)
@@ -316,7 +320,7 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 }
 
 func TestRockClient_Ping(t *testing.T) {
-	rc, _ := vcrClient(t, t.Name())
+	rc, _ := vcrTestClient(t, t.Name())
 	ctx := testCtx()
 
 	err := rc.Ping(ctx)
