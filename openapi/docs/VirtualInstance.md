@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AutoScalingPolicy** | Pointer to [**AutoScalingPolicy**](AutoScalingPolicy.md) |  | [optional] 
 **AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
 **CreatedBy** | Pointer to **string** | Creator of requested virtual instance. | [optional] 
@@ -12,6 +13,7 @@ Name | Type | Description | Notes
 **DefaultVi** | Pointer to **bool** |  | [optional] 
 **Description** | Pointer to **string** | Virtual instance description. | [optional] 
 **DesiredSize** | Pointer to **string** | Virtual instance desired size. | [optional] [readonly] 
+**EnableRemountOnResume** | Pointer to **bool** | When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended. | [optional] 
 **Id** | Pointer to **string** | Unique identifier for virtual instance. | [optional] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
 **MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
@@ -40,6 +42,31 @@ will change when the set of required properties is changed
 NewVirtualInstanceWithDefaults instantiates a new VirtualInstance object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAutoScalingPolicy
+
+`func (o *VirtualInstance) GetAutoScalingPolicy() AutoScalingPolicy`
+
+GetAutoScalingPolicy returns the AutoScalingPolicy field if non-nil, zero value otherwise.
+
+### GetAutoScalingPolicyOk
+
+`func (o *VirtualInstance) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool)`
+
+GetAutoScalingPolicyOk returns a tuple with the AutoScalingPolicy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoScalingPolicy
+
+`func (o *VirtualInstance) SetAutoScalingPolicy(v AutoScalingPolicy)`
+
+SetAutoScalingPolicy sets AutoScalingPolicy field to given value.
+
+### HasAutoScalingPolicy
+
+`func (o *VirtualInstance) HasAutoScalingPolicy() bool`
+
+HasAutoScalingPolicy returns a boolean if a field has been set.
 
 ### GetAutoSuspendSeconds
 
@@ -240,6 +267,31 @@ SetDesiredSize sets DesiredSize field to given value.
 `func (o *VirtualInstance) HasDesiredSize() bool`
 
 HasDesiredSize returns a boolean if a field has been set.
+
+### GetEnableRemountOnResume
+
+`func (o *VirtualInstance) GetEnableRemountOnResume() bool`
+
+GetEnableRemountOnResume returns the EnableRemountOnResume field if non-nil, zero value otherwise.
+
+### GetEnableRemountOnResumeOk
+
+`func (o *VirtualInstance) GetEnableRemountOnResumeOk() (*bool, bool)`
+
+GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableRemountOnResume
+
+`func (o *VirtualInstance) SetEnableRemountOnResume(v bool)`
+
+SetEnableRemountOnResume sets EnableRemountOnResume field to given value.
+
+### HasEnableRemountOnResume
+
+`func (o *VirtualInstance) HasEnableRemountOnResume() bool`
+
+HasEnableRemountOnResume returns a boolean if a field has been set.
 
 ### GetId
 

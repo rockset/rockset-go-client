@@ -33,6 +33,9 @@ type Source struct {
 	S3 *SourceS3 `json:"s3,omitempty"`
 	Snowflake *SourceSnowflake `json:"snowflake,omitempty"`
 	Status *Status `json:"status,omitempty"`
+	// ISO-8601 date when source was suspended, if suspended
+	SuspendedAt *string `json:"suspended_at,omitempty"`
+	System *SourceSystem `json:"system,omitempty"`
 }
 
 // NewSource instantiates a new Source object
@@ -532,6 +535,70 @@ func (o *Source) SetStatus(v Status) {
 	o.Status = &v
 }
 
+// GetSuspendedAt returns the SuspendedAt field value if set, zero value otherwise.
+func (o *Source) GetSuspendedAt() string {
+	if o == nil || o.SuspendedAt == nil {
+		var ret string
+		return ret
+	}
+	return *o.SuspendedAt
+}
+
+// GetSuspendedAtOk returns a tuple with the SuspendedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetSuspendedAtOk() (*string, bool) {
+	if o == nil || o.SuspendedAt == nil {
+		return nil, false
+	}
+	return o.SuspendedAt, true
+}
+
+// HasSuspendedAt returns a boolean if a field has been set.
+func (o *Source) HasSuspendedAt() bool {
+	if o != nil && o.SuspendedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSuspendedAt gets a reference to the given string and assigns it to the SuspendedAt field.
+func (o *Source) SetSuspendedAt(v string) {
+	o.SuspendedAt = &v
+}
+
+// GetSystem returns the System field value if set, zero value otherwise.
+func (o *Source) GetSystem() SourceSystem {
+	if o == nil || o.System == nil {
+		var ret SourceSystem
+		return ret
+	}
+	return *o.System
+}
+
+// GetSystemOk returns a tuple with the System field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetSystemOk() (*SourceSystem, bool) {
+	if o == nil || o.System == nil {
+		return nil, false
+	}
+	return o.System, true
+}
+
+// HasSystem returns a boolean if a field has been set.
+func (o *Source) HasSystem() bool {
+	if o != nil && o.System != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSystem gets a reference to the given SourceSystem and assigns it to the System field.
+func (o *Source) SetSystem(v SourceSystem) {
+	o.System = &v
+}
+
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AzureBlobStorage != nil {
@@ -578,6 +645,12 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.SuspendedAt != nil {
+		toSerialize["suspended_at"] = o.SuspendedAt
+	}
+	if o.System != nil {
+		toSerialize["system"] = o.System
 	}
 	return json.Marshal(toSerialize)
 }

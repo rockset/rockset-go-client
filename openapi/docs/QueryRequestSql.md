@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use. Limits specified in the query text will override this default. | [optional] 
 **GenerateWarnings** | Pointer to **bool** | Flag to enable warnings. Warnings can help debug query issues but negatively affect performance. | [optional] 
-**InitialPaginateResponseDocCount** | Pointer to **int32** | Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
+**InitialPaginateResponseDocCount** | Pointer to **int32** | [DEPRECATED] Use &#x60;max_initial_results&#x60; instead. Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
 **Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 **Query** | **string** | SQL query string. | 
 

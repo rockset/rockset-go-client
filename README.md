@@ -50,8 +50,8 @@ fmt.Printf("%+v\n", res)
 
 ## Testing
 
-There are a number of testable examples which require an API key, i.e. set the `ROCKSET_APIKEY` 
-environment variable. 
+There are a number of testable examples which require an API key, i.e. set the `ROCKSET_APIKEY` and `ROCKSET_APISERVER`
+environment variables. 
 
 To run tests:
 ```

@@ -18,7 +18,7 @@ import (
 type QueryParameter struct {
 	// Name of the field.
 	Name string `json:"name"`
-	// Data type of the field.
+	// Deprecated. Data type of the field.
 	Type string `json:"type"`
 	// Literal value of the field.
 	Value string `json:"value"`

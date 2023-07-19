@@ -12,6 +12,7 @@ api_organizations.go
 api_queries.go
 api_query_lambdas.go
 api_shared_lambdas.go
+api_sources.go
 api_users.go
 api_views.go
 api_virtual_instances.go
@@ -25,6 +26,7 @@ docs/Alias.md
 docs/AliasesApi.md
 docs/ApiKey.md
 docs/AsyncQueryOptions.md
+docs/AutoScalingPolicy.md
 docs/AwsAccessKey.md
 docs/AwsRole.md
 docs/AzureBlobStorageIntegration.md
@@ -70,6 +72,7 @@ docs/DeleteDocumentsRequestData.md
 docs/DeleteDocumentsResponse.md
 docs/DeleteIntegrationResponse.md
 docs/DeleteQueryLambdaResponse.md
+docs/DeleteSourceResponse.md
 docs/DeleteUserResponse.md
 docs/DeleteViewResponse.md
 docs/DeleteVirtualInstanceResponse.md
@@ -92,6 +95,7 @@ docs/GetApiKeyResponse.md
 docs/GetCollectionResponse.md
 docs/GetIntegrationResponse.md
 docs/GetQueryResponse.md
+docs/GetSourceResponse.md
 docs/GetViewResponse.md
 docs/GetVirtualInstanceResponse.md
 docs/GetWorkspaceResponse.md
@@ -111,6 +115,7 @@ docs/ListQueryLambdaTagsResponse.md
 docs/ListQueryLambdaVersionsResponse.md
 docs/ListQueryLambdasResponse.md
 docs/ListRolesResponse.md
+docs/ListSourcesResponse.md
 docs/ListUnsubscribePreferencesResponse.md
 docs/ListUsersResponse.md
 docs/ListViewsResponse.md
@@ -164,7 +169,10 @@ docs/SourceKafka.md
 docs/SourceKinesis.md
 docs/SourceMongoDb.md
 docs/SourceS3.md
+docs/SourceSnapshot.md
 docs/SourceSnowflake.md
+docs/SourceSystem.md
+docs/SourcesApi.md
 docs/SqlExpression.md
 docs/Stats.md
 docs/Status.md
@@ -212,6 +220,7 @@ model_add_documents_response.go
 model_alias.go
 model_api_key.go
 model_async_query_options.go
+model_auto_scaling_policy.go
 model_aws_access_key.go
 model_aws_role.go
 model_azure_blob_storage_integration.go
@@ -255,6 +264,7 @@ model_delete_documents_request_data.go
 model_delete_documents_response.go
 model_delete_integration_response.go
 model_delete_query_lambda_response.go
+model_delete_source_response.go
 model_delete_user_response.go
 model_delete_view_response.go
 model_delete_virtual_instance_response.go
@@ -276,6 +286,7 @@ model_get_api_key_response.go
 model_get_collection_response.go
 model_get_integration_response.go
 model_get_query_response.go
+model_get_source_response.go
 model_get_view_response.go
 model_get_virtual_instance_response.go
 model_get_workspace_response.go
@@ -294,6 +305,7 @@ model_list_query_lambda_tags_response.go
 model_list_query_lambda_versions_response.go
 model_list_query_lambdas_response.go
 model_list_roles_response.go
+model_list_sources_response.go
 model_list_unsubscribe_preferences_response.go
 model_list_users_response.go
 model_list_views_response.go
@@ -343,7 +355,9 @@ model_source_kafka.go
 model_source_kinesis.go
 model_source_mongo_db.go
 model_source_s3.go
+model_source_snapshot.go
 model_source_snowflake.go
+model_source_system.go
 model_sql_expression.go
 model_stats.go
 model_status.go

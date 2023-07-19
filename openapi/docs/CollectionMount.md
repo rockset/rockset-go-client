@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **SnapshotExpirationTimeMillis** | Pointer to **int64** | Time in millis at which the snapshot expires. | [optional] 
 **State** | Pointer to **string** | Mount type. | [optional] 
 **Stats** | Pointer to [**CollectionMountStats**](CollectionMountStats.md) |  | [optional] 
-**Type** | Pointer to **string** | Mount type. | [optional] 
 **VirtualInstanceId** | Pointer to **string** | Virtual instance ID. | [optional] 
 **VirtualInstanceRrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
 
@@ -234,31 +233,6 @@ SetStats sets Stats field to given value.
 `func (o *CollectionMount) HasStats() bool`
 
 HasStats returns a boolean if a field has been set.
-
-### GetType
-
-`func (o *CollectionMount) GetType() string`
-
-GetType returns the Type field if non-nil, zero value otherwise.
-
-### GetTypeOk
-
-`func (o *CollectionMount) GetTypeOk() (*string, bool)`
-
-GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetType
-
-`func (o *CollectionMount) SetType(v string)`
-
-SetType sets Type field to given value.
-
-### HasType
-
-`func (o *CollectionMount) HasType() bool`
-
-HasType returns a boolean if a field has been set.
 
 ### GetVirtualInstanceId
 

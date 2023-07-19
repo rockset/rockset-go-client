@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **ExternalId** | Pointer to **string** | Organization&#39;s unique external ID within Rockset. | [optional] 
 **Id** | Pointer to **string** | Unique identifier for the organization. | [optional] 
 **RocksetUser** | Pointer to **string** | Rockset&#39;s global AWS user. | [optional] 
+**SsoConnection** | Pointer to **string** | Connection name of SSO connection. | [optional] 
+**SsoOnly** | Pointer to **bool** | Whether or not SSO is the only permitted form of auth. | [optional] 
 
 ## Methods
 
@@ -179,6 +181,56 @@ SetRocksetUser sets RocksetUser field to given value.
 `func (o *Organization) HasRocksetUser() bool`
 
 HasRocksetUser returns a boolean if a field has been set.
+
+### GetSsoConnection
+
+`func (o *Organization) GetSsoConnection() string`
+
+GetSsoConnection returns the SsoConnection field if non-nil, zero value otherwise.
+
+### GetSsoConnectionOk
+
+`func (o *Organization) GetSsoConnectionOk() (*string, bool)`
+
+GetSsoConnectionOk returns a tuple with the SsoConnection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSsoConnection
+
+`func (o *Organization) SetSsoConnection(v string)`
+
+SetSsoConnection sets SsoConnection field to given value.
+
+### HasSsoConnection
+
+`func (o *Organization) HasSsoConnection() bool`
+
+HasSsoConnection returns a boolean if a field has been set.
+
+### GetSsoOnly
+
+`func (o *Organization) GetSsoOnly() bool`
+
+GetSsoOnly returns the SsoOnly field if non-nil, zero value otherwise.
+
+### GetSsoOnlyOk
+
+`func (o *Organization) GetSsoOnlyOk() (*bool, bool)`
+
+GetSsoOnlyOk returns a tuple with the SsoOnly field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSsoOnly
+
+`func (o *Organization) SetSsoOnly(v bool)`
+
+SetSsoOnly sets SsoOnly field to given value.
+
+### HasSsoOnly
+
+`func (o *Organization) HasSsoOnly() bool`
+
+HasSsoOnly returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

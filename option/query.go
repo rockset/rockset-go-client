@@ -11,14 +11,6 @@ func WithWarnings() QueryOption {
 	}
 }
 
-// WithPaginationDocCount sets the number of documents to return in addition to paginating for
-// this query call. Only relevant if WithPagination is also set.
-func WithPaginationDocCount(limit int32) QueryOption {
-	return func(o *openapi.QueryRequest) {
-		o.Sql.InitialPaginateResponseDocCount = &limit
-	}
-}
-
 func WithRowLimit(limit int32) QueryOption {
 	return func(o *openapi.QueryRequest) {
 		o.Sql.DefaultRowLimit = &limit
@@ -37,6 +29,32 @@ func WithParameter(name, valueType, value string) QueryOption {
 	}
 }
 
+// WithTimeout maximum amount of time that Rockset will attempt to complete query execution before
+// aborting the query and returning an error. The query timeout defaults to a maximum of 2 minutes. 
+// If WithAsync is set, the query timeout defaults to a maximum of 30 minutes.
+func WithAsync(async bool) QueryOption {
+	return func(o *openapi.QueryRequest) {
+		o.Async = &async
+	}
+}
+
+// WithTimeout is the maximum amount of time that Rockset will attempt to complete query execution before
+// aborting the query and returning an error. The query timeout defaults to a maximum of 2 minutes. 
+// If WithAsync is set, the query timeout defaults to a maximum of 30 minutes.
+func WithTimeout(timeout int64) QueryOption {
+	return func(o *openapi.QueryRequest) {
+		o.TimeoutMs = &timeout
+	}
+}
+
+// WithMaxInitialResults is the maximum number of results you will receive as a client. If the query exceeds this limit,
+// the remaining results can be requested using a returned pagination cursor. 
+func WithMaxInitialResults(maxInitialResults int64) QueryOption {
+	return func(o *openapi.QueryRequest) {
+		o.MaxInitialResults = &maxInitialResults
+	}
+}
+
 // WithAsyncClientTimeout is maximum amount of time that the client is willing to wait for the query to complete.
 // If the query is not complete by this timeout, a response will be returned with a query_id that can be used to
 // check the status of the query and retrieve results once the query has completed.
@@ -46,28 +64,5 @@ func WithAsyncClientTimeout(timeout int64) QueryOption {
 			o.AsyncOptions = &openapi.AsyncQueryOptions{}
 		}
 		o.AsyncOptions.ClientTimeoutMs = &timeout
-	}
-}
-
-// WithAsyncTimeout maximum amount of time that Rockset will attempt to complete query execution before
-// aborting the query and returning an error.
-func WithAsyncTimeout(timeout int64) QueryOption {
-	return func(o *openapi.QueryRequest) {
-		if o.AsyncOptions == nil {
-			o.AsyncOptions = &openapi.AsyncQueryOptions{}
-		}
-		o.AsyncOptions.TimeoutMs = &timeout
-	}
-}
-
-// WithAsyncMaxInitialResults maximum number of results you will receive as a client. If the query exceeds this limit,
-// the remaining results can be requested using a returned pagination cursor. In addition, there is a maximum response
-// size of 100MiB so fewer than max_results may be returned.
-func WithAsyncMaxInitialResults(timeout int64) QueryOption {
-	return func(o *openapi.QueryRequest) {
-		if o.AsyncOptions == nil {
-			o.AsyncOptions = &openapi.AsyncQueryOptions{}
-		}
-		o.AsyncOptions.MaxInitialResults = &timeout
 	}
 }

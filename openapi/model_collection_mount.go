@@ -31,8 +31,6 @@ type CollectionMount struct {
 	// Mount type.
 	State *string `json:"state,omitempty"`
 	Stats *CollectionMountStats `json:"stats,omitempty"`
-	// Mount type.
-	Type *string `json:"type,omitempty"`
 	// Virtual instance ID.
 	VirtualInstanceId *string `json:"virtual_instance_id,omitempty"`
 	// Virtual Instance RRN.
@@ -312,38 +310,6 @@ func (o *CollectionMount) SetStats(v CollectionMountStats) {
 	o.Stats = &v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *CollectionMount) GetType() string {
-	if o == nil || o.Type == nil {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CollectionMount) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *CollectionMount) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *CollectionMount) SetType(v string) {
-	o.Type = &v
-}
-
 // GetVirtualInstanceId returns the VirtualInstanceId field value if set, zero value otherwise.
 func (o *CollectionMount) GetVirtualInstanceId() string {
 	if o == nil || o.VirtualInstanceId == nil {
@@ -433,9 +399,6 @@ func (o CollectionMount) MarshalJSON() ([]byte, error) {
 	}
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
 	}
 	if o.VirtualInstanceId != nil {
 		toSerialize["virtual_instance_id"] = o.VirtualInstanceId

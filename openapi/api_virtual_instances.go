@@ -58,7 +58,7 @@ type VirtualInstancesApi interface {
 	/*
 	GetCollectionMount Get Collection Mount
 
-	[beta] Get a mount on this virtual instance.
+	[beta] Retrieve a mount on this virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -131,7 +131,7 @@ type VirtualInstancesApi interface {
 	ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (*ListVirtualInstancesResponse, *http.Response, error)
 
 	/*
-	MountCollection Mount Collection
+	MountCollection Mount Collections
 
 	[beta] Mount a collection to this virtual instance.
 
@@ -713,7 +713,7 @@ func (r ApiGetCollectionMountRequest) Execute() (*CollectionMountResponse, *http
 /*
 GetCollectionMount Get Collection Mount
 
-[beta] Get a mount on this virtual instance.
+[beta] Retrieve a mount on this virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -1881,7 +1881,7 @@ func (r ApiMountCollectionRequest) Execute() (*CreateCollectionMountsResponse, *
 }
 
 /*
-MountCollection Mount Collection
+MountCollection Mount Collections
 
 [beta] Mount a collection to this virtual instance.
 

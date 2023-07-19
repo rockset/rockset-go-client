@@ -16,17 +16,25 @@ import (
 
 // ExecuteQueryLambdaRequest struct for ExecuteQueryLambdaRequest
 type ExecuteQueryLambdaRequest struct {
+	// If true, the query will run asynchronously for up to 30 minutes. The query request will immediately return with a query id that can be used to retrieve the query status and results. If false or not specified, the query will return with results once completed or timeout after 2 minutes. (To return results directly for shorter queries while still allowing a timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) 
+	Async *bool `json:"async,omitempty"`
 	AsyncOptions *AsyncQueryOptions `json:"async_options,omitempty"`
+	// If query execution takes longer than this value, debug information will be logged. If the query text includes the DEBUG hint and this parameter is also provided, only this value will be used and the DEBUG hint will be ignored.
+	DebugThresholdMs *int64 `json:"debug_threshold_ms,omitempty"`
 	// Row limit to use if no limit specified in the SQL query text.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
 	// Whether to generate warnings.
 	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
-	// Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
+	// [DEPRECATED] Use `max_initial_results` instead. Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
+	// This limits the maximum number of results in the initial response. A pagination cursor is returned if the number of results exceeds `max_initial_results`. If `max_initial_results` is not set, all results will be returned in the initial response up to 4 million. If `max_initial_results` is set, the value must be between 0 and 100,000. If the query is async and `client_timeout_ms` is exceeded, `max_initial_results` does not apply since none of the results will be returned with the initial response.
+	MaxInitialResults *int64 `json:"max_initial_results,omitempty"`
 	// Flag to paginate and store the results of this query for later / sequential retrieval.
 	Paginate *bool `json:"paginate,omitempty"`
 	// List of named parameters.
 	Parameters []QueryParameter `json:"parameters,omitempty"`
+	// If a query exceeds the specified timeout, the query will automatically stop and return an error. The query timeout defaults to a maximum of 2 minutes. If `async` is true, the query timeout defaults to a maximum of 30 minutes.
+	TimeoutMs *int64 `json:"timeout_ms,omitempty"`
 	// Virtual instance on which to run the query.
 	VirtualInstanceId *string `json:"virtual_instance_id,omitempty"`
 }
@@ -46,6 +54,38 @@ func NewExecuteQueryLambdaRequest() *ExecuteQueryLambdaRequest {
 func NewExecuteQueryLambdaRequestWithDefaults() *ExecuteQueryLambdaRequest {
 	this := ExecuteQueryLambdaRequest{}
 	return &this
+}
+
+// GetAsync returns the Async field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetAsync() bool {
+	if o == nil || o.Async == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Async
+}
+
+// GetAsyncOk returns a tuple with the Async field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetAsyncOk() (*bool, bool) {
+	if o == nil || o.Async == nil {
+		return nil, false
+	}
+	return o.Async, true
+}
+
+// HasAsync returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasAsync() bool {
+	if o != nil && o.Async != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAsync gets a reference to the given bool and assigns it to the Async field.
+func (o *ExecuteQueryLambdaRequest) SetAsync(v bool) {
+	o.Async = &v
 }
 
 // GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
@@ -78,6 +118,38 @@ func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool {
 // SetAsyncOptions gets a reference to the given AsyncQueryOptions and assigns it to the AsyncOptions field.
 func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions) {
 	o.AsyncOptions = &v
+}
+
+// GetDebugThresholdMs returns the DebugThresholdMs field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetDebugThresholdMs() int64 {
+	if o == nil || o.DebugThresholdMs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.DebugThresholdMs
+}
+
+// GetDebugThresholdMsOk returns a tuple with the DebugThresholdMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetDebugThresholdMsOk() (*int64, bool) {
+	if o == nil || o.DebugThresholdMs == nil {
+		return nil, false
+	}
+	return o.DebugThresholdMs, true
+}
+
+// HasDebugThresholdMs returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasDebugThresholdMs() bool {
+	if o != nil && o.DebugThresholdMs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDebugThresholdMs gets a reference to the given int64 and assigns it to the DebugThresholdMs field.
+func (o *ExecuteQueryLambdaRequest) SetDebugThresholdMs(v int64) {
+	o.DebugThresholdMs = &v
 }
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
@@ -176,6 +248,38 @@ func (o *ExecuteQueryLambdaRequest) SetInitialPaginateResponseDocCount(v int32) 
 	o.InitialPaginateResponseDocCount = &v
 }
 
+// GetMaxInitialResults returns the MaxInitialResults field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetMaxInitialResults() int64 {
+	if o == nil || o.MaxInitialResults == nil {
+		var ret int64
+		return ret
+	}
+	return *o.MaxInitialResults
+}
+
+// GetMaxInitialResultsOk returns a tuple with the MaxInitialResults field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetMaxInitialResultsOk() (*int64, bool) {
+	if o == nil || o.MaxInitialResults == nil {
+		return nil, false
+	}
+	return o.MaxInitialResults, true
+}
+
+// HasMaxInitialResults returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasMaxInitialResults() bool {
+	if o != nil && o.MaxInitialResults != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxInitialResults gets a reference to the given int64 and assigns it to the MaxInitialResults field.
+func (o *ExecuteQueryLambdaRequest) SetMaxInitialResults(v int64) {
+	o.MaxInitialResults = &v
+}
+
 // GetPaginate returns the Paginate field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetPaginate() bool {
 	if o == nil || o.Paginate == nil {
@@ -240,6 +344,38 @@ func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter) {
 	o.Parameters = v
 }
 
+// GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
+func (o *ExecuteQueryLambdaRequest) GetTimeoutMs() int64 {
+	if o == nil || o.TimeoutMs == nil {
+		var ret int64
+		return ret
+	}
+	return *o.TimeoutMs
+}
+
+// GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ExecuteQueryLambdaRequest) GetTimeoutMsOk() (*int64, bool) {
+	if o == nil || o.TimeoutMs == nil {
+		return nil, false
+	}
+	return o.TimeoutMs, true
+}
+
+// HasTimeoutMs returns a boolean if a field has been set.
+func (o *ExecuteQueryLambdaRequest) HasTimeoutMs() bool {
+	if o != nil && o.TimeoutMs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTimeoutMs gets a reference to the given int64 and assigns it to the TimeoutMs field.
+func (o *ExecuteQueryLambdaRequest) SetTimeoutMs(v int64) {
+	o.TimeoutMs = &v
+}
+
 // GetVirtualInstanceId returns the VirtualInstanceId field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceId() string {
 	if o == nil || o.VirtualInstanceId == nil {
@@ -274,8 +410,14 @@ func (o *ExecuteQueryLambdaRequest) SetVirtualInstanceId(v string) {
 
 func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Async != nil {
+		toSerialize["async"] = o.Async
+	}
 	if o.AsyncOptions != nil {
 		toSerialize["async_options"] = o.AsyncOptions
+	}
+	if o.DebugThresholdMs != nil {
+		toSerialize["debug_threshold_ms"] = o.DebugThresholdMs
 	}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
@@ -286,11 +428,17 @@ func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	if o.InitialPaginateResponseDocCount != nil {
 		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
 	}
+	if o.MaxInitialResults != nil {
+		toSerialize["max_initial_results"] = o.MaxInitialResults
+	}
 	if o.Paginate != nil {
 		toSerialize["paginate"] = o.Paginate
 	}
 	if o.Parameters != nil {
 		toSerialize["parameters"] = o.Parameters
+	}
+	if o.TimeoutMs != nil {
+		toSerialize["timeout_ms"] = o.TimeoutMs
 	}
 	if o.VirtualInstanceId != nil {
 		toSerialize["virtual_instance_id"] = o.VirtualInstanceId

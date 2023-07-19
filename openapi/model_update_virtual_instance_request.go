@@ -16,14 +16,16 @@ import (
 
 // UpdateVirtualInstanceRequest struct for UpdateVirtualInstanceRequest
 type UpdateVirtualInstanceRequest struct {
+	AutoScalingPolicy *AutoScalingPolicy `json:"auto_scaling_policy,omitempty"`
 	// Whether auto-suspend should be enabled for this Virtual Instance.
 	AutoSuspendEnabled *bool `json:"auto_suspend_enabled,omitempty"`
 	// Number of seconds without queries after which the VI is suspended
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
 	// New virtual instance description.
 	Description *string `json:"description,omitempty"`
-	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance
+	// When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
+	EnableRemountOnResume *bool `json:"enable_remount_on_resume,omitempty"`
+	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
 	// New virtual instance name.
 	Name *string `json:"name,omitempty"`
@@ -46,6 +48,38 @@ func NewUpdateVirtualInstanceRequest() *UpdateVirtualInstanceRequest {
 func NewUpdateVirtualInstanceRequestWithDefaults() *UpdateVirtualInstanceRequest {
 	this := UpdateVirtualInstanceRequest{}
 	return &this
+}
+
+// GetAutoScalingPolicy returns the AutoScalingPolicy field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicy() AutoScalingPolicy {
+	if o == nil || o.AutoScalingPolicy == nil {
+		var ret AutoScalingPolicy
+		return ret
+	}
+	return *o.AutoScalingPolicy
+}
+
+// GetAutoScalingPolicyOk returns a tuple with the AutoScalingPolicy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool) {
+	if o == nil || o.AutoScalingPolicy == nil {
+		return nil, false
+	}
+	return o.AutoScalingPolicy, true
+}
+
+// HasAutoScalingPolicy returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasAutoScalingPolicy() bool {
+	if o != nil && o.AutoScalingPolicy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoScalingPolicy gets a reference to the given AutoScalingPolicy and assigns it to the AutoScalingPolicy field.
+func (o *UpdateVirtualInstanceRequest) SetAutoScalingPolicy(v AutoScalingPolicy) {
+	o.AutoScalingPolicy = &v
 }
 
 // GetAutoSuspendEnabled returns the AutoSuspendEnabled field value if set, zero value otherwise.
@@ -144,36 +178,36 @@ func (o *UpdateVirtualInstanceRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetMonitoringEnabled returns the MonitoringEnabled field value if set, zero value otherwise.
-func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabled() bool {
-	if o == nil || o.MonitoringEnabled == nil {
+// GetEnableRemountOnResume returns the EnableRemountOnResume field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResume() bool {
+	if o == nil || o.EnableRemountOnResume == nil {
 		var ret bool
 		return ret
 	}
-	return *o.MonitoringEnabled
+	return *o.EnableRemountOnResume
 }
 
-// GetMonitoringEnabledOk returns a tuple with the MonitoringEnabled field value if set, nil otherwise
+// GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabledOk() (*bool, bool) {
-	if o == nil || o.MonitoringEnabled == nil {
+func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool) {
+	if o == nil || o.EnableRemountOnResume == nil {
 		return nil, false
 	}
-	return o.MonitoringEnabled, true
+	return o.EnableRemountOnResume, true
 }
 
-// HasMonitoringEnabled returns a boolean if a field has been set.
-func (o *UpdateVirtualInstanceRequest) HasMonitoringEnabled() bool {
-	if o != nil && o.MonitoringEnabled != nil {
+// HasEnableRemountOnResume returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasEnableRemountOnResume() bool {
+	if o != nil && o.EnableRemountOnResume != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMonitoringEnabled gets a reference to the given bool and assigns it to the MonitoringEnabled field.
-func (o *UpdateVirtualInstanceRequest) SetMonitoringEnabled(v bool) {
-	o.MonitoringEnabled = &v
+// SetEnableRemountOnResume gets a reference to the given bool and assigns it to the EnableRemountOnResume field.
+func (o *UpdateVirtualInstanceRequest) SetEnableRemountOnResume(v bool) {
+	o.EnableRemountOnResume = &v
 }
 
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
@@ -274,6 +308,9 @@ func (o *UpdateVirtualInstanceRequest) SetNewSize(v string) {
 
 func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.AutoScalingPolicy != nil {
+		toSerialize["auto_scaling_policy"] = o.AutoScalingPolicy
+	}
 	if o.AutoSuspendEnabled != nil {
 		toSerialize["auto_suspend_enabled"] = o.AutoSuspendEnabled
 	}
@@ -283,8 +320,8 @@ func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.MonitoringEnabled != nil {
-		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
+	if o.EnableRemountOnResume != nil {
+		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
 	}
 	if o.MountRefreshIntervalSeconds != nil {
 		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds

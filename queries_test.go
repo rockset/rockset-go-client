@@ -6,6 +6,7 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/suite"
 	"testing"
+	"errors"
 )
 
 // for anyone poking around in the code, rockset.sleep() only works for this test org as no sane person would want
@@ -45,8 +46,7 @@ func (s *QueryIntegrationSuite) TestAsyncQuery() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
-		option.WithAsyncClientTimeout(100),
-		option.WithAsyncMaxInitialResults(10),
+		option.WithAsync(true),
 	)
 	s.Require().NoError(err)
 
@@ -57,12 +57,43 @@ func (s *QueryIntegrationSuite) TestAsyncQuery() {
 	s.Require().NoError(err)
 }
 
+func (s *QueryIntegrationSuite) TestAsyncQueryWithClientTimeout() {
+	ctx := testCtx()
+
+	resp, err := s.rc.Query(ctx, slowQuery,
+		option.WithAsync(true),
+		option.WithAsyncClientTimeout(100),
+		option.WithMaxInitialResults(10),
+	)
+	s.Require().NoError(err)
+
+	err = s.rc.WaitUntilQueryCompleted(ctx, *resp.QueryId)
+	s.Require().NoError(err)
+
+	_, err = s.rc.GetQueryResults(ctx, *resp.QueryId)
+	s.Require().NoError(err)
+}
+
+func (s *QueryIntegrationSuite) TestQueryWithTimeout() {
+	ctx := testCtx()
+
+	_, err := s.rc.Query(ctx, slowQuery,
+		option.WithTimeout(1000),
+	)
+	s.Require().Error(err)
+
+	var re rockset.Error
+	s.Require().True(errors.As(err, &re))
+	s.Assert().Equal(re.Type, "QueryTimeout")
+}
+
 func (s *QueryIntegrationSuite) TestCancelQuery() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
+		option.WithAsync(true),
 		option.WithAsyncClientTimeout(100),
-		option.WithAsyncMaxInitialResults(10),
+		option.WithMaxInitialResults(10),
 	)
 	s.Require().NoError(err)
 

@@ -69,6 +69,8 @@ type APIClient struct {
 
 	SharedLambdasApi SharedLambdasApi
 
+	SourcesApi SourcesApi
+
 	UsersApi UsersApi
 
 	ViewsApi ViewsApi
@@ -104,6 +106,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.QueriesApi = (*QueriesApiService)(&c.common)
 	c.QueryLambdasApi = (*QueryLambdasApiService)(&c.common)
 	c.SharedLambdasApi = (*SharedLambdasApiService)(&c.common)
+	c.SourcesApi = (*SourcesApiService)(&c.common)
 	c.UsersApi = (*UsersApiService)(&c.common)
 	c.ViewsApi = (*ViewsApiService)(&c.common)
 	c.VirtualInstancesApi = (*VirtualInstancesApiService)(&c.common)

@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Collections** | Pointer to **[]string** | List of fully qualified collection names referenced by alias. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**CreatedByApikeyName** | Pointer to **string** | Name of the API key that was used to create this object if one was used. | [optional] 
 **CreatorEmail** | Pointer to **string** | Email of the creator. | [optional] 
 **Description** | Pointer to **string** | Alias description. | [optional] 
 **ModifiedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
@@ -81,6 +82,31 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *Alias) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
+
+### GetCreatedByApikeyName
+
+`func (o *Alias) GetCreatedByApikeyName() string`
+
+GetCreatedByApikeyName returns the CreatedByApikeyName field if non-nil, zero value otherwise.
+
+### GetCreatedByApikeyNameOk
+
+`func (o *Alias) GetCreatedByApikeyNameOk() (*string, bool)`
+
+GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByApikeyName
+
+`func (o *Alias) SetCreatedByApikeyName(v string)`
+
+SetCreatedByApikeyName sets CreatedByApikeyName field to given value.
+
+### HasCreatedByApikeyName
+
+`func (o *Alias) HasCreatedByApikeyName() bool`
+
+HasCreatedByApikeyName returns a boolean if a field has been set.
 
 ### GetCreatorEmail
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Collections** | Pointer to **[]string** | Collections queried by underlying SQL query. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date of when Query Lambda was created. | [optional] 
 **CreatedBy** | Pointer to **string** | User that created this Query Lambda. | [optional] 
+**CreatedByApikeyName** | Pointer to **string** | Name of the API key that was used to create this object if one was used. | [optional] 
 **Description** | Pointer to **string** | Optional description. | [optional] 
 **Name** | Pointer to **string** | Query Lambda name. | [optional] 
 **PublicAccessId** | Pointer to **string** | Public access ID associated with this QL version | [optional] 
@@ -109,6 +110,31 @@ SetCreatedBy sets CreatedBy field to given value.
 `func (o *QueryLambdaVersion) HasCreatedBy() bool`
 
 HasCreatedBy returns a boolean if a field has been set.
+
+### GetCreatedByApikeyName
+
+`func (o *QueryLambdaVersion) GetCreatedByApikeyName() string`
+
+GetCreatedByApikeyName returns the CreatedByApikeyName field if non-nil, zero value otherwise.
+
+### GetCreatedByApikeyNameOk
+
+`func (o *QueryLambdaVersion) GetCreatedByApikeyNameOk() (*string, bool)`
+
+GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByApikeyName
+
+`func (o *QueryLambdaVersion) SetCreatedByApikeyName(v string)`
+
+SetCreatedByApikeyName sets CreatedByApikeyName field to given value.
+
+### HasCreatedByApikeyName
+
+`func (o *QueryLambdaVersion) HasCreatedByApikeyName() bool`
+
+HasCreatedByApikeyName returns a boolean if a field has been set.
 
 ### GetDescription
 

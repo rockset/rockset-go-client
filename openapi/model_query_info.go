@@ -27,6 +27,8 @@ type QueryInfo struct {
 	QueryErrors []QueryError `json:"query_errors,omitempty"`
 	// Unique Query ID.
 	QueryId *string `json:"query_id,omitempty"`
+	// The SQL query for this request
+	Sql *string `json:"sql,omitempty"`
 	Stats *Stats `json:"stats,omitempty"`
 	// Status of the query.
 	Status *string `json:"status,omitempty"`
@@ -243,6 +245,38 @@ func (o *QueryInfo) SetQueryId(v string) {
 	o.QueryId = &v
 }
 
+// GetSql returns the Sql field value if set, zero value otherwise.
+func (o *QueryInfo) GetSql() string {
+	if o == nil || o.Sql == nil {
+		var ret string
+		return ret
+	}
+	return *o.Sql
+}
+
+// GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryInfo) GetSqlOk() (*string, bool) {
+	if o == nil || o.Sql == nil {
+		return nil, false
+	}
+	return o.Sql, true
+}
+
+// HasSql returns a boolean if a field has been set.
+func (o *QueryInfo) HasSql() bool {
+	if o != nil && o.Sql != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSql gets a reference to the given string and assigns it to the Sql field.
+func (o *QueryInfo) SetSql(v string) {
+	o.Sql = &v
+}
+
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *QueryInfo) GetStats() Stats {
 	if o == nil || o.Stats == nil {
@@ -358,6 +392,9 @@ func (o QueryInfo) MarshalJSON() ([]byte, error) {
 	}
 	if o.QueryId != nil {
 		toSerialize["query_id"] = o.QueryId
+	}
+	if o.Sql != nil {
+		toSerialize["sql"] = o.Sql
 	}
 	if o.Stats != nil {
 		toSerialize["stats"] = o.Stats
