@@ -85,7 +85,7 @@ func (s *WriterSuite) TestCancellation() {
 	ctx, cancel := context.WithCancel(testCtx())
 	c := rockset.WriterConfig{
 		BatchDocumentCount: 30,
-		FlushInterval:      time.Millisecond * 10,
+		FlushInterval:      time.Millisecond * 20,
 	}
 	fa := &fakeAdder{}
 	w, err := rockset.NewWriter(c, fa)
@@ -98,7 +98,7 @@ func (s *WriterSuite) TestCancellation() {
 		Collection: "collection",
 		Data:       testObject{},
 	}
-	time.Sleep(20 * time.Millisecond)
+	time.Sleep(30 * time.Millisecond)
 	w.C() <- rockset.WriteRequest{
 		Workspace:  "workspace",
 		Collection: "collection",
@@ -226,16 +226,22 @@ func TestWriterIntegration(t *testing.T) {
 
 	assert.Equal(t, uint64(0), w.Stats().ErrorCount)
 	assert.Equal(t, writeCount, w.Stats().DocumentCount)
-	// sleep 1s to allow the data to be queryable
-	time.Sleep(time.Second)
 
-	resp, err := rc.Query(ctx, "SELECT COUNT(*) AS cnt FROM commons.writetest WHERE Bar = :name",
-		option.WithParameter("name", "string", name))
-	require.NoError(t, err)
+	// try to get the documents written back from Rockset
+	for i := 0; i < 5; i++ {
+		time.Sleep(time.Second)
+		resp, err := rc.Query(ctx, "SELECT COUNT(*) AS cnt FROM commons.writetest WHERE Bar = :name",
+			option.WithParameter("name", "string", name))
+		require.NoError(t, err)
 
-	require.Len(t, resp.Results, 1)
-	r := resp.Results[0]
-	cnt := r["cnt"]
-	count := cnt.(float64)
-	assert.Equal(t, writeCount, uint64(count))
+		require.Len(t, resp.Results, 1)
+		r := resp.Results[0]
+		cnt := r["cnt"]
+		count := cnt.(float64)
+		if uint64(count) == writeCount {
+			return
+		}
+	}
+
+	t.Errorf("failed to get %d records", writeCount)
 }

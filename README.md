@@ -58,6 +58,11 @@ To run tests:
 go test -v -timeout 30m ./...
 ```
 
+### Go VCR
+
+Some tests use [Go VCR](https://github.com/seborama/govcr), and they will use a cassette (recorded response) by default,
+so if you want to re-record a cassette, set the environment variable `VCR_MODE` to `record`.
+
 ### Code Coverage
 
 ```
