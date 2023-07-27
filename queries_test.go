@@ -1,12 +1,13 @@
 package rockset_test
 
 import (
+	"errors"
 	"fmt"
+	"testing"
+
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/suite"
-	"testing"
-	"errors"
 )
 
 // for anyone poking around in the code, rockset.sleep() only works for this test org as no sane person would want
@@ -46,7 +47,7 @@ func (s *QueryIntegrationSuite) TestAsyncQuery() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
-		option.WithAsync(true),
+		option.WithAsync(),
 	)
 	s.Require().NoError(err)
 
@@ -61,7 +62,7 @@ func (s *QueryIntegrationSuite) TestAsyncQueryWithClientTimeout() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
-		option.WithAsync(true),
+		option.WithAsync(),
 		option.WithAsyncClientTimeout(100),
 		option.WithMaxInitialResults(10),
 	)
@@ -91,7 +92,7 @@ func (s *QueryIntegrationSuite) TestCancelQuery() {
 	ctx := testCtx()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
-		option.WithAsync(true),
+		option.WithAsync(),
 		option.WithAsyncClientTimeout(100),
 		option.WithMaxInitialResults(10),
 	)

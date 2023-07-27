@@ -29,12 +29,10 @@ func WithParameter(name, valueType, value string) QueryOption {
 	}
 }
 
-// WithTimeout maximum amount of time that Rockset will attempt to complete query execution before
-// aborting the query and returning an error. The query timeout defaults to a maximum of 2 minutes. 
-// If WithAsync is set, the query timeout defaults to a maximum of 30 minutes.
-func WithAsync(async bool) QueryOption {
+// WithAsync means that the query will run asynchronously so that queries can run with an extended timeout of 30 minutes. When set, the query request will return immediately with a query id that can be used to retrieve the status and results.
+func WithAsync() QueryOption {
 	return func(o *openapi.QueryRequest) {
-		o.Async = &async
+		o.Async = openapi.PtrBool(true)
 	}
 }
 
