@@ -85,7 +85,7 @@ func (s *QueryIntegrationSuite) TestQueryWithTimeout() {
 
 	var re rockset.Error
 	s.Require().True(errors.As(err, &re))
-	s.Assert().Equal(re.Type, "QueryTimeout")
+	s.Assert().Equal("QUERY_TIMEOUT", *re.Type)
 }
 
 func (s *QueryIntegrationSuite) TestCancelQuery() {
