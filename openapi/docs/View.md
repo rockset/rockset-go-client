@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
+**CreatedByApikeyName** | Pointer to **string** | Name of the API key that was used to create this object if one was used. | [optional] 
 **CreatorEmail** | Pointer to **string** | Email of the creator. | [optional] 
 **Description** | Pointer to **string** | View description. | [optional] 
 **Entities** | Pointer to **[]string** | List of entities referenced by view. An entity can be a view, alias or collection. | [optional] 
@@ -59,6 +60,31 @@ SetCreatedAt sets CreatedAt field to given value.
 `func (o *View) HasCreatedAt() bool`
 
 HasCreatedAt returns a boolean if a field has been set.
+
+### GetCreatedByApikeyName
+
+`func (o *View) GetCreatedByApikeyName() string`
+
+GetCreatedByApikeyName returns the CreatedByApikeyName field if non-nil, zero value otherwise.
+
+### GetCreatedByApikeyNameOk
+
+`func (o *View) GetCreatedByApikeyNameOk() (*string, bool)`
+
+GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByApikeyName
+
+`func (o *View) SetCreatedByApikeyName(v string)`
+
+SetCreatedByApikeyName sets CreatedByApikeyName field to given value.
+
+### HasCreatedByApikeyName
+
+`func (o *View) HasCreatedByApikeyName() bool`
+
+HasCreatedByApikeyName returns a boolean if a field has been set.
 
 ### GetCreatorEmail
 

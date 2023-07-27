@@ -18,8 +18,6 @@ import (
 type CreateCollectionMountRequest struct {
 	// Collections to mount.
 	CollectionPaths []string `json:"collection_paths,omitempty"`
-	// Mount type.
-	Type *string `json:"type,omitempty"`
 }
 
 // NewCreateCollectionMountRequest instantiates a new CreateCollectionMountRequest object
@@ -71,45 +69,10 @@ func (o *CreateCollectionMountRequest) SetCollectionPaths(v []string) {
 	o.CollectionPaths = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
-func (o *CreateCollectionMountRequest) GetType() string {
-	if o == nil || o.Type == nil {
-		var ret string
-		return ret
-	}
-	return *o.Type
-}
-
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateCollectionMountRequest) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
-		return nil, false
-	}
-	return o.Type, true
-}
-
-// HasType returns a boolean if a field has been set.
-func (o *CreateCollectionMountRequest) HasType() bool {
-	if o != nil && o.Type != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *CreateCollectionMountRequest) SetType(v string) {
-	o.Type = &v
-}
-
 func (o CreateCollectionMountRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CollectionPaths != nil {
 		toSerialize["collection_paths"] = o.CollectionPaths
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
 	}
 	return json.Marshal(toSerialize)
 }

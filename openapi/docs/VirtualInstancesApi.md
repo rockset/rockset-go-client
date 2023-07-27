@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**GetVirtualInstanceQueries**](VirtualInstancesApi.md#GetVirtualInstanceQueries) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | List Queries
 [**ListCollectionMounts**](VirtualInstancesApi.md#ListCollectionMounts) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | List Collection Mounts
 [**ListVirtualInstances**](VirtualInstancesApi.md#ListVirtualInstances) | **Get** /v1/orgs/self/virtualinstances | List Virtual Instances
-[**MountCollection**](VirtualInstancesApi.md#MountCollection) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | Mount Collection
+[**MountCollection**](VirtualInstancesApi.md#MountCollection) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | Mount Collections
 [**QueryVirtualInstance**](VirtualInstancesApi.md#QueryVirtualInstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | Execute SQL Query
 [**ResumeVirtualInstance**](VirtualInstancesApi.md#ResumeVirtualInstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/resume | Resume Virtual Instance
 [**SetVirtualInstance**](VirtualInstancesApi.md#SetVirtualInstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Update Virtual Instance
@@ -504,7 +504,7 @@ No authorization required
 
 > CreateCollectionMountsResponse MountCollection(ctx, virtualInstanceId).Body(body).Execute()
 
-Mount Collection
+Mount Collections
 
 
 

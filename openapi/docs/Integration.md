@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Collections** | Pointer to [**[]Collection**](Collection.md) | List of collections that use the integration. | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date. | [optional] 
 **CreatedBy** | **string** | Email of user who created the integration. | 
+**CreatedByApikeyName** | Pointer to **string** | Name of the API key that was used to create this object if one was used. | [optional] 
 **Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
@@ -184,6 +185,31 @@ and a boolean to check if the value has been set.
 
 SetCreatedBy sets CreatedBy field to given value.
 
+
+### GetCreatedByApikeyName
+
+`func (o *Integration) GetCreatedByApikeyName() string`
+
+GetCreatedByApikeyName returns the CreatedByApikeyName field if non-nil, zero value otherwise.
+
+### GetCreatedByApikeyNameOk
+
+`func (o *Integration) GetCreatedByApikeyNameOk() (*string, bool)`
+
+GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByApikeyName
+
+`func (o *Integration) SetCreatedByApikeyName(v string)`
+
+SetCreatedByApikeyName sets CreatedByApikeyName field to given value.
+
+### HasCreatedByApikeyName
+
+`func (o *Integration) HasCreatedByApikeyName() bool`
+
+HasCreatedByApikeyName returns a boolean if a field has been set.
 
 ### GetDescription
 

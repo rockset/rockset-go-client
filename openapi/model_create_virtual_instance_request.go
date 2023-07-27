@@ -20,7 +20,9 @@ type CreateVirtualInstanceRequest struct {
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
 	// Description of requested virtual instance.
 	Description *string `json:"description,omitempty"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance
+	// When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
+	EnableRemountOnResume *bool `json:"enable_remount_on_resume,omitempty"`
+	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
 	// Unique identifier for virtual instance, can contain alphanumeric or dash characters.
 	Name string `json:"name"`
@@ -108,6 +110,38 @@ func (o *CreateVirtualInstanceRequest) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *CreateVirtualInstanceRequest) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetEnableRemountOnResume returns the EnableRemountOnResume field value if set, zero value otherwise.
+func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResume() bool {
+	if o == nil || o.EnableRemountOnResume == nil {
+		var ret bool
+		return ret
+	}
+	return *o.EnableRemountOnResume
+}
+
+// GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool) {
+	if o == nil || o.EnableRemountOnResume == nil {
+		return nil, false
+	}
+	return o.EnableRemountOnResume, true
+}
+
+// HasEnableRemountOnResume returns a boolean if a field has been set.
+func (o *CreateVirtualInstanceRequest) HasEnableRemountOnResume() bool {
+	if o != nil && o.EnableRemountOnResume != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnableRemountOnResume gets a reference to the given bool and assigns it to the EnableRemountOnResume field.
+func (o *CreateVirtualInstanceRequest) SetEnableRemountOnResume(v bool) {
+	o.EnableRemountOnResume = &v
 }
 
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
@@ -205,6 +239,9 @@ func (o CreateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.EnableRemountOnResume != nil {
+		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
 	}
 	if o.MountRefreshIntervalSeconds != nil {
 		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds

@@ -22,6 +22,8 @@ type QueryLambdaVersion struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	// User that created this Query Lambda.
 	CreatedBy *string `json:"created_by,omitempty"`
+	// Name of the API key that was used to create this object if one was used.
+	CreatedByApikeyName *string `json:"created_by_apikey_name,omitempty"`
 	// Optional description.
 	Description *string `json:"description,omitempty"`
 	// Query Lambda name.
@@ -149,6 +151,38 @@ func (o *QueryLambdaVersion) HasCreatedBy() bool {
 // SetCreatedBy gets a reference to the given string and assigns it to the CreatedBy field.
 func (o *QueryLambdaVersion) SetCreatedBy(v string) {
 	o.CreatedBy = &v
+}
+
+// GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
+func (o *QueryLambdaVersion) GetCreatedByApikeyName() string {
+	if o == nil || o.CreatedByApikeyName == nil {
+		var ret string
+		return ret
+	}
+	return *o.CreatedByApikeyName
+}
+
+// GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryLambdaVersion) GetCreatedByApikeyNameOk() (*string, bool) {
+	if o == nil || o.CreatedByApikeyName == nil {
+		return nil, false
+	}
+	return o.CreatedByApikeyName, true
+}
+
+// HasCreatedByApikeyName returns a boolean if a field has been set.
+func (o *QueryLambdaVersion) HasCreatedByApikeyName() bool {
+	if o != nil && o.CreatedByApikeyName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedByApikeyName gets a reference to the given string and assigns it to the CreatedByApikeyName field.
+func (o *QueryLambdaVersion) SetCreatedByApikeyName(v string) {
+	o.CreatedByApikeyName = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -417,6 +451,9 @@ func (o QueryLambdaVersion) MarshalJSON() ([]byte, error) {
 	}
 	if o.CreatedBy != nil {
 		toSerialize["created_by"] = o.CreatedBy
+	}
+	if o.CreatedByApikeyName != nil {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description

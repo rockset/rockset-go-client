@@ -6,8 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **string** | Date that API key was created (ISO-8601 format). | [optional] 
 **CreatedBy** | Pointer to **string** | Email of API key owner. | [optional] 
+**CreatedByApikeyName** | Pointer to **string** | Name of the API key that was used to create this object if one was used. | [optional] 
 **ExpiryTime** | Pointer to **string** | The expiration date of this API key. | [optional] 
-**Key** | **string** | API key string of 64 alphanumeric characters. | 
+**Key** | **string** | This field will only be populated with the full key when creating an API key. Otherwise, it will be an API key identifier of 6 characters. | 
 **LastAccessTime** | Pointer to **string** | Date that API key was most recently used (ISO-8601 format). | [optional] 
 **Name** | **string** | Name of the API key. | 
 **Role** | Pointer to **string** | Role specifying access control. If not specified, API key will have access to all of the associated user&#39;s roles. | [optional] 
@@ -81,6 +82,31 @@ SetCreatedBy sets CreatedBy field to given value.
 `func (o *ApiKey) HasCreatedBy() bool`
 
 HasCreatedBy returns a boolean if a field has been set.
+
+### GetCreatedByApikeyName
+
+`func (o *ApiKey) GetCreatedByApikeyName() string`
+
+GetCreatedByApikeyName returns the CreatedByApikeyName field if non-nil, zero value otherwise.
+
+### GetCreatedByApikeyNameOk
+
+`func (o *ApiKey) GetCreatedByApikeyNameOk() (*string, bool)`
+
+GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedByApikeyName
+
+`func (o *ApiKey) SetCreatedByApikeyName(v string)`
+
+SetCreatedByApikeyName sets CreatedByApikeyName field to given value.
+
+### HasCreatedByApikeyName
+
+`func (o *ApiKey) HasCreatedByApikeyName() bool`
+
+HasCreatedByApikeyName returns a boolean if a field has been set.
 
 ### GetExpiryTime
 

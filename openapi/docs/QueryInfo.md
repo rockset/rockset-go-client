@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Pagination** | Pointer to [**Pagination**](Pagination.md) |  | [optional] 
 **QueryErrors** | Pointer to [**[]QueryError**](QueryError.md) | Errors encountered while executing the query. | [optional] 
 **QueryId** | Pointer to **string** | Unique Query ID. | [optional] 
+**Sql** | Pointer to **string** | The SQL query for this request | [optional] 
 **Stats** | Pointer to [**Stats**](Stats.md) |  | [optional] 
 **Status** | Pointer to **string** | Status of the query. | [optional] 
 **SubmittedAt** | Pointer to **string** | Time (UTC) the query request was first received and queued for execution. | [optional] 
@@ -182,6 +183,31 @@ SetQueryId sets QueryId field to given value.
 `func (o *QueryInfo) HasQueryId() bool`
 
 HasQueryId returns a boolean if a field has been set.
+
+### GetSql
+
+`func (o *QueryInfo) GetSql() string`
+
+GetSql returns the Sql field if non-nil, zero value otherwise.
+
+### GetSqlOk
+
+`func (o *QueryInfo) GetSqlOk() (*string, bool)`
+
+GetSqlOk returns a tuple with the Sql field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSql
+
+`func (o *QueryInfo) SetSql(v string)`
+
+SetSql sets Sql field to given value.
+
+### HasSql
+
+`func (o *QueryInfo) HasSql() bool`
+
+HasSql returns a boolean if a field has been set.
 
 ### GetStats
 

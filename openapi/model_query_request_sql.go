@@ -20,7 +20,7 @@ type QueryRequestSql struct {
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
 	// Flag to enable warnings. Warnings can help debug query issues but negatively affect performance.
 	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
-	// Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
+	// [DEPRECATED] Use `max_initial_results` instead. Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
 	// List of named parameters.
 	Parameters []QueryParameter `json:"parameters,omitempty"`

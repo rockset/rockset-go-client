@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
 **Description** | Pointer to **string** | Description of requested virtual instance. | [optional] 
-**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
+**EnableRemountOnResume** | Pointer to **bool** | When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended. | [optional] 
+**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh. | [optional] 
 **Name** | **string** | Unique identifier for virtual instance, can contain alphanumeric or dash characters. | 
 **Type** | Pointer to **string** | Requested virtual instance type. | [optional] 
 
@@ -78,6 +79,31 @@ SetDescription sets Description field to given value.
 `func (o *CreateVirtualInstanceRequest) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetEnableRemountOnResume
+
+`func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResume() bool`
+
+GetEnableRemountOnResume returns the EnableRemountOnResume field if non-nil, zero value otherwise.
+
+### GetEnableRemountOnResumeOk
+
+`func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool)`
+
+GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnableRemountOnResume
+
+`func (o *CreateVirtualInstanceRequest) SetEnableRemountOnResume(v bool)`
+
+SetEnableRemountOnResume sets EnableRemountOnResume field to given value.
+
+### HasEnableRemountOnResume
+
+`func (o *CreateVirtualInstanceRequest) HasEnableRemountOnResume() bool`
+
+HasEnableRemountOnResume returns a boolean if a field has been set.
 
 ### GetMountRefreshIntervalSeconds
 

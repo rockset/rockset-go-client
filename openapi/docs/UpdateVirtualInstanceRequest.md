@@ -4,11 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**AutoScalingPolicy** | Pointer to [**AutoScalingPolicy**](AutoScalingPolicy.md) |  | [optional] 
 **AutoSuspendEnabled** | Pointer to **bool** | Whether auto-suspend should be enabled for this Virtual Instance. | [optional] 
 **AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
 **Description** | Pointer to **string** | New virtual instance description. | [optional] 
-**MonitoringEnabled** | Pointer to **bool** |  | [optional] 
-**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
+**EnableRemountOnResume** | Pointer to **bool** | When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended. | [optional] 
+**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh. | [optional] 
 **Name** | Pointer to **string** | New virtual instance name. | [optional] 
 **NewSize** | Pointer to **string** | Requested virtual instance size. | [optional] 
 
@@ -30,6 +31,31 @@ will change when the set of required properties is changed
 NewUpdateVirtualInstanceRequestWithDefaults instantiates a new UpdateVirtualInstanceRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAutoScalingPolicy
+
+`func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicy() AutoScalingPolicy`
+
+GetAutoScalingPolicy returns the AutoScalingPolicy field if non-nil, zero value otherwise.
+
+### GetAutoScalingPolicyOk
+
+`func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool)`
+
+GetAutoScalingPolicyOk returns a tuple with the AutoScalingPolicy field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAutoScalingPolicy
+
+`func (o *UpdateVirtualInstanceRequest) SetAutoScalingPolicy(v AutoScalingPolicy)`
+
+SetAutoScalingPolicy sets AutoScalingPolicy field to given value.
+
+### HasAutoScalingPolicy
+
+`func (o *UpdateVirtualInstanceRequest) HasAutoScalingPolicy() bool`
+
+HasAutoScalingPolicy returns a boolean if a field has been set.
 
 ### GetAutoSuspendEnabled
 
@@ -106,30 +132,30 @@ SetDescription sets Description field to given value.
 
 HasDescription returns a boolean if a field has been set.
 
-### GetMonitoringEnabled
+### GetEnableRemountOnResume
 
-`func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabled() bool`
+`func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResume() bool`
 
-GetMonitoringEnabled returns the MonitoringEnabled field if non-nil, zero value otherwise.
+GetEnableRemountOnResume returns the EnableRemountOnResume field if non-nil, zero value otherwise.
 
-### GetMonitoringEnabledOk
+### GetEnableRemountOnResumeOk
 
-`func (o *UpdateVirtualInstanceRequest) GetMonitoringEnabledOk() (*bool, bool)`
+`func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool)`
 
-GetMonitoringEnabledOk returns a tuple with the MonitoringEnabled field if it's non-nil, zero value otherwise
+GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMonitoringEnabled
+### SetEnableRemountOnResume
 
-`func (o *UpdateVirtualInstanceRequest) SetMonitoringEnabled(v bool)`
+`func (o *UpdateVirtualInstanceRequest) SetEnableRemountOnResume(v bool)`
 
-SetMonitoringEnabled sets MonitoringEnabled field to given value.
+SetEnableRemountOnResume sets EnableRemountOnResume field to given value.
 
-### HasMonitoringEnabled
+### HasEnableRemountOnResume
 
-`func (o *UpdateVirtualInstanceRequest) HasMonitoringEnabled() bool`
+`func (o *UpdateVirtualInstanceRequest) HasEnableRemountOnResume() bool`
 
-HasMonitoringEnabled returns a boolean if a field has been set.
+HasEnableRemountOnResume returns a boolean if a field has been set.
 
 ### GetMountRefreshIntervalSeconds
 

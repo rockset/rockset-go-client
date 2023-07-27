@@ -16,6 +16,7 @@ import (
 
 // VirtualInstance struct for VirtualInstance
 type VirtualInstance struct {
+	AutoScalingPolicy *AutoScalingPolicy `json:"auto_scaling_policy,omitempty"`
 	// Number of seconds without queries after which the VI is suspended
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
 	// ISO-8601 date of when virtual instance was created.
@@ -30,6 +31,8 @@ type VirtualInstance struct {
 	Description *string `json:"description,omitempty"`
 	// Virtual instance desired size.
 	DesiredSize *string `json:"desired_size,omitempty"`
+	// When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
+	EnableRemountOnResume *bool `json:"enable_remount_on_resume,omitempty"`
 	// Unique identifier for virtual instance.
 	Id *string `json:"id,omitempty"`
 	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
@@ -63,6 +66,38 @@ func NewVirtualInstance(name string) *VirtualInstance {
 func NewVirtualInstanceWithDefaults() *VirtualInstance {
 	this := VirtualInstance{}
 	return &this
+}
+
+// GetAutoScalingPolicy returns the AutoScalingPolicy field value if set, zero value otherwise.
+func (o *VirtualInstance) GetAutoScalingPolicy() AutoScalingPolicy {
+	if o == nil || o.AutoScalingPolicy == nil {
+		var ret AutoScalingPolicy
+		return ret
+	}
+	return *o.AutoScalingPolicy
+}
+
+// GetAutoScalingPolicyOk returns a tuple with the AutoScalingPolicy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool) {
+	if o == nil || o.AutoScalingPolicy == nil {
+		return nil, false
+	}
+	return o.AutoScalingPolicy, true
+}
+
+// HasAutoScalingPolicy returns a boolean if a field has been set.
+func (o *VirtualInstance) HasAutoScalingPolicy() bool {
+	if o != nil && o.AutoScalingPolicy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoScalingPolicy gets a reference to the given AutoScalingPolicy and assigns it to the AutoScalingPolicy field.
+func (o *VirtualInstance) SetAutoScalingPolicy(v AutoScalingPolicy) {
+	o.AutoScalingPolicy = &v
 }
 
 // GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
@@ -319,6 +354,38 @@ func (o *VirtualInstance) HasDesiredSize() bool {
 // SetDesiredSize gets a reference to the given string and assigns it to the DesiredSize field.
 func (o *VirtualInstance) SetDesiredSize(v string) {
 	o.DesiredSize = &v
+}
+
+// GetEnableRemountOnResume returns the EnableRemountOnResume field value if set, zero value otherwise.
+func (o *VirtualInstance) GetEnableRemountOnResume() bool {
+	if o == nil || o.EnableRemountOnResume == nil {
+		var ret bool
+		return ret
+	}
+	return *o.EnableRemountOnResume
+}
+
+// GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetEnableRemountOnResumeOk() (*bool, bool) {
+	if o == nil || o.EnableRemountOnResume == nil {
+		return nil, false
+	}
+	return o.EnableRemountOnResume, true
+}
+
+// HasEnableRemountOnResume returns a boolean if a field has been set.
+func (o *VirtualInstance) HasEnableRemountOnResume() bool {
+	if o != nil && o.EnableRemountOnResume != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnableRemountOnResume gets a reference to the given bool and assigns it to the EnableRemountOnResume field.
+func (o *VirtualInstance) SetEnableRemountOnResume(v bool) {
+	o.EnableRemountOnResume = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -603,6 +670,9 @@ func (o *VirtualInstance) SetStats(v VirtualInstanceStats) {
 
 func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.AutoScalingPolicy != nil {
+		toSerialize["auto_scaling_policy"] = o.AutoScalingPolicy
+	}
 	if o.AutoSuspendSeconds != nil {
 		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
 	}
@@ -626,6 +696,9 @@ func (o VirtualInstance) MarshalJSON() ([]byte, error) {
 	}
 	if o.DesiredSize != nil {
 		toSerialize["desired_size"] = o.DesiredSize
+	}
+	if o.EnableRemountOnResume != nil {
+		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id

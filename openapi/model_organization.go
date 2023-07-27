@@ -28,6 +28,10 @@ type Organization struct {
 	Id *string `json:"id,omitempty"`
 	// Rockset's global AWS user.
 	RocksetUser *string `json:"rockset_user,omitempty"`
+	// Connection name of SSO connection.
+	SsoConnection *string `json:"sso_connection,omitempty"`
+	// Whether or not SSO is the only permitted form of auth.
+	SsoOnly *bool `json:"sso_only,omitempty"`
 }
 
 // NewOrganization instantiates a new Organization object
@@ -239,6 +243,70 @@ func (o *Organization) SetRocksetUser(v string) {
 	o.RocksetUser = &v
 }
 
+// GetSsoConnection returns the SsoConnection field value if set, zero value otherwise.
+func (o *Organization) GetSsoConnection() string {
+	if o == nil || o.SsoConnection == nil {
+		var ret string
+		return ret
+	}
+	return *o.SsoConnection
+}
+
+// GetSsoConnectionOk returns a tuple with the SsoConnection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetSsoConnectionOk() (*string, bool) {
+	if o == nil || o.SsoConnection == nil {
+		return nil, false
+	}
+	return o.SsoConnection, true
+}
+
+// HasSsoConnection returns a boolean if a field has been set.
+func (o *Organization) HasSsoConnection() bool {
+	if o != nil && o.SsoConnection != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSsoConnection gets a reference to the given string and assigns it to the SsoConnection field.
+func (o *Organization) SetSsoConnection(v string) {
+	o.SsoConnection = &v
+}
+
+// GetSsoOnly returns the SsoOnly field value if set, zero value otherwise.
+func (o *Organization) GetSsoOnly() bool {
+	if o == nil || o.SsoOnly == nil {
+		var ret bool
+		return ret
+	}
+	return *o.SsoOnly
+}
+
+// GetSsoOnlyOk returns a tuple with the SsoOnly field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Organization) GetSsoOnlyOk() (*bool, bool) {
+	if o == nil || o.SsoOnly == nil {
+		return nil, false
+	}
+	return o.SsoOnly, true
+}
+
+// HasSsoOnly returns a boolean if a field has been set.
+func (o *Organization) HasSsoOnly() bool {
+	if o != nil && o.SsoOnly != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSsoOnly gets a reference to the given bool and assigns it to the SsoOnly field.
+func (o *Organization) SetSsoOnly(v bool) {
+	o.SsoOnly = &v
+}
+
 func (o Organization) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Clusters != nil {
@@ -258,6 +326,12 @@ func (o Organization) MarshalJSON() ([]byte, error) {
 	}
 	if o.RocksetUser != nil {
 		toSerialize["rockset_user"] = o.RocksetUser
+	}
+	if o.SsoConnection != nil {
+		toSerialize["sso_connection"] = o.SsoConnection
+	}
+	if o.SsoOnly != nil {
+		toSerialize["sso_only"] = o.SsoOnly
 	}
 	return json.Marshal(toSerialize)
 }

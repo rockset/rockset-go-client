@@ -19,6 +19,8 @@ Name | Type | Description | Notes
 **S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
 **Snowflake** | Pointer to [**SourceSnowflake**](SourceSnowflake.md) |  | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
+**SuspendedAt** | Pointer to **string** | ISO-8601 date when source was suspended, if suspended | [optional] 
+**System** | Pointer to [**SourceSystem**](SourceSystem.md) |  | [optional] 
 
 ## Methods
 
@@ -413,6 +415,56 @@ SetStatus sets Status field to given value.
 `func (o *Source) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetSuspendedAt
+
+`func (o *Source) GetSuspendedAt() string`
+
+GetSuspendedAt returns the SuspendedAt field if non-nil, zero value otherwise.
+
+### GetSuspendedAtOk
+
+`func (o *Source) GetSuspendedAtOk() (*string, bool)`
+
+GetSuspendedAtOk returns a tuple with the SuspendedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSuspendedAt
+
+`func (o *Source) SetSuspendedAt(v string)`
+
+SetSuspendedAt sets SuspendedAt field to given value.
+
+### HasSuspendedAt
+
+`func (o *Source) HasSuspendedAt() bool`
+
+HasSuspendedAt returns a boolean if a field has been set.
+
+### GetSystem
+
+`func (o *Source) GetSystem() SourceSystem`
+
+GetSystem returns the System field if non-nil, zero value otherwise.
+
+### GetSystemOk
+
+`func (o *Source) GetSystemOk() (*SourceSystem, bool)`
+
+GetSystemOk returns a tuple with the System field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSystem
+
+`func (o *Source) SetSystem(v SourceSystem)`
+
+SetSystem sets System field to given value.
+
+### HasSystem
+
+`func (o *Source) HasSystem() bool`
+
+HasSystem returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

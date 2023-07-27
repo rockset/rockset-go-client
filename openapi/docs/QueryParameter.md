@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | Name of the field. | 
-**Type** | **string** | Data type of the field. | 
+**Type** | **string** | Deprecated. Data type of the field. | 
 **Value** | **string** | Literal value of the field. | 
 
 ## Methods

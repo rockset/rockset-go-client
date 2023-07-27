@@ -24,155 +24,167 @@ var (
 	_ context.Context
 )
 
-type ViewsApi interface {
+type SourcesApi interface {
 
 	/*
-	CreateView Create View
+	CreateSource Create a source
 
-	Create a view
+	Create new source in a collection.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
-	 @return ApiCreateViewRequest
+	 @param collection name of the collection
+	 @return ApiCreateSourceRequest
 	*/
-	CreateView(ctx context.Context, workspace string) ApiCreateViewRequest
+	CreateSource(ctx context.Context, workspace string, collection string) ApiCreateSourceRequest
 
-	// CreateViewExecute executes the request
-	//  @return CreateViewResponse
-	CreateViewExecute(r ApiCreateViewRequest) (*CreateViewResponse, *http.Response, error)
+	// CreateSourceExecute executes the request
+	//  @return GetSourceResponse
+	CreateSourceExecute(r ApiCreateSourceRequest) (*GetSourceResponse, *http.Response, error)
 
 	/*
-	DeleteView Delete View
+	DeleteSource Delete Collection source
 
-	Delete a view
+	Delete a collection source
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
-	 @param view name of the view
-	 @return ApiDeleteViewRequest
+	 @param collection name of the collection
+	 @param source id of source
+	 @return ApiDeleteSourceRequest
 	*/
-	DeleteView(ctx context.Context, workspace string, view string) ApiDeleteViewRequest
+	DeleteSource(ctx context.Context, workspace string, collection string, source string) ApiDeleteSourceRequest
 
-	// DeleteViewExecute executes the request
-	//  @return DeleteViewResponse
-	DeleteViewExecute(r ApiDeleteViewRequest) (*DeleteViewResponse, *http.Response, error)
+	// DeleteSourceExecute executes the request
+	//  @return DeleteSourceResponse
+	DeleteSourceExecute(r ApiDeleteSourceRequest) (*DeleteSourceResponse, *http.Response, error)
 
 	/*
-	GetView Retrieve View
+	GetSource Retrieve source
 
-	Get details about a view
+	Get details about a collection source.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
-	 @param view name of the view
-	 @return ApiGetViewRequest
+	 @param collection name of the collection
+	 @param source id of source
+	 @return ApiGetSourceRequest
 	*/
-	GetView(ctx context.Context, workspace string, view string) ApiGetViewRequest
+	GetSource(ctx context.Context, workspace string, collection string, source string) ApiGetSourceRequest
 
-	// GetViewExecute executes the request
-	//  @return GetViewResponse
-	GetViewExecute(r ApiGetViewRequest) (*GetViewResponse, *http.Response, error)
+	// GetSourceExecute executes the request
+	//  @return GetSourceResponse
+	GetSourceExecute(r ApiGetSourceRequest) (*GetSourceResponse, *http.Response, error)
 
 	/*
-	ListViews List Views
+	ListCollectionSources List sources in collection
 
-	Retrieve all views in an organization
-
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListViewsRequest
-	*/
-	ListViews(ctx context.Context) ApiListViewsRequest
-
-	// ListViewsExecute executes the request
-	//  @return ListViewsResponse
-	ListViewsExecute(r ApiListViewsRequest) (*ListViewsResponse, *http.Response, error)
-
-	/*
-	UpdateView Update View
-
-	Update a view
+	Retrieve all sources in a collection.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
-	 @param view name of the view
-	 @return ApiUpdateViewRequest
+	 @param collection name of the collection
+	 @return ApiListCollectionSourcesRequest
 	*/
-	UpdateView(ctx context.Context, workspace string, view string) ApiUpdateViewRequest
+	ListCollectionSources(ctx context.Context, workspace string, collection string) ApiListCollectionSourcesRequest
 
-	// UpdateViewExecute executes the request
-	//  @return UpdateViewResponse
-	UpdateViewExecute(r ApiUpdateViewRequest) (*UpdateViewResponse, *http.Response, error)
+	// ListCollectionSourcesExecute executes the request
+	//  @return ListSourcesResponse
+	ListCollectionSourcesExecute(r ApiListCollectionSourcesRequest) (*ListSourcesResponse, *http.Response, error)
 
 	/*
-	WorkspaceViews List Views in Workspace
+	ResumeSource Resume source ingest
 
-	Retrieve all views in a workspace.
+	Resume source ingest
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param workspace name of the workspace
-	 @return ApiWorkspaceViewsRequest
+	 @param collection name of the collection
+	 @param source id of source
+	 @return ApiResumeSourceRequest
 	*/
-	WorkspaceViews(ctx context.Context, workspace string) ApiWorkspaceViewsRequest
+	ResumeSource(ctx context.Context, workspace string, collection string, source string) ApiResumeSourceRequest
 
-	// WorkspaceViewsExecute executes the request
-	//  @return ListViewsResponse
-	WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (*ListViewsResponse, *http.Response, error)
+	// ResumeSourceExecute executes the request
+	//  @return GetSourceResponse
+	ResumeSourceExecute(r ApiResumeSourceRequest) (*GetSourceResponse, *http.Response, error)
+
+	/*
+	SuspendSource Suspend source ingest
+
+	Suspend source ingest
+
+	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param workspace name of the workspace
+	 @param collection name of the collection
+	 @param source id of source
+	 @return ApiSuspendSourceRequest
+	*/
+	SuspendSource(ctx context.Context, workspace string, collection string, source string) ApiSuspendSourceRequest
+
+	// SuspendSourceExecute executes the request
+	//  @return GetSourceResponse
+	SuspendSourceExecute(r ApiSuspendSourceRequest) (*GetSourceResponse, *http.Response, error)
 }
 
-// ViewsApiService ViewsApi service
-type ViewsApiService service
+// SourcesApiService SourcesApi service
+type SourcesApiService service
 
-type ApiCreateViewRequest struct {
+type ApiCreateSourceRequest struct {
 	ctx context.Context
-	ApiService ViewsApi
+	ApiService SourcesApi
 	workspace string
-	body *CreateViewRequest
+	collection string
+	body *Source
 }
 
 // JSON object
-func (r ApiCreateViewRequest) Body(body CreateViewRequest) ApiCreateViewRequest {
+func (r ApiCreateSourceRequest) Body(body Source) ApiCreateSourceRequest {
 	r.body = &body
 	return r
 }
 
-func (r ApiCreateViewRequest) Execute() (*CreateViewResponse, *http.Response, error) {
-	return r.ApiService.CreateViewExecute(r)
+func (r ApiCreateSourceRequest) Execute() (*GetSourceResponse, *http.Response, error) {
+	return r.ApiService.CreateSourceExecute(r)
 }
 
 /*
-CreateView Create View
+CreateSource Create a source
 
-Create a view
+Create new source in a collection.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
- @return ApiCreateViewRequest
+ @param collection name of the collection
+ @return ApiCreateSourceRequest
 */
-func (a *ViewsApiService) CreateView(ctx context.Context, workspace string) ApiCreateViewRequest {
-	return ApiCreateViewRequest{
+func (a *SourcesApiService) CreateSource(ctx context.Context, workspace string, collection string) ApiCreateSourceRequest {
+	return ApiCreateSourceRequest{
 		ApiService: a,
 		ctx: ctx,
 		workspace: workspace,
+		collection: collection,
 	}
 }
 
 // Execute executes the request
-//  @return CreateViewResponse
-func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (*CreateViewResponse, *http.Response, error) {
+//  @return GetSourceResponse
+func (a *SourcesApiService) CreateSourceExecute(r ApiCreateSourceRequest) (*GetSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *CreateViewResponse
+		localVarReturnValue  *GetSourceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.CreateView")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.CreateSource")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views"
+	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/sources"
 	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -366,55 +378,59 @@ func (a *ViewsApiService) CreateViewExecute(r ApiCreateViewRequest) (*CreateView
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiDeleteViewRequest struct {
+type ApiDeleteSourceRequest struct {
 	ctx context.Context
-	ApiService ViewsApi
+	ApiService SourcesApi
 	workspace string
-	view string
+	collection string
+	source string
 }
 
 
-func (r ApiDeleteViewRequest) Execute() (*DeleteViewResponse, *http.Response, error) {
-	return r.ApiService.DeleteViewExecute(r)
+func (r ApiDeleteSourceRequest) Execute() (*DeleteSourceResponse, *http.Response, error) {
+	return r.ApiService.DeleteSourceExecute(r)
 }
 
 /*
-DeleteView Delete View
+DeleteSource Delete Collection source
 
-Delete a view
+Delete a collection source
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
- @param view name of the view
- @return ApiDeleteViewRequest
+ @param collection name of the collection
+ @param source id of source
+ @return ApiDeleteSourceRequest
 */
-func (a *ViewsApiService) DeleteView(ctx context.Context, workspace string, view string) ApiDeleteViewRequest {
-	return ApiDeleteViewRequest{
+func (a *SourcesApiService) DeleteSource(ctx context.Context, workspace string, collection string, source string) ApiDeleteSourceRequest {
+	return ApiDeleteSourceRequest{
 		ApiService: a,
 		ctx: ctx,
 		workspace: workspace,
-		view: view,
+		collection: collection,
+		source: source,
 	}
 }
 
 // Execute executes the request
-//  @return DeleteViewResponse
-func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (*DeleteViewResponse, *http.Response, error) {
+//  @return DeleteSourceResponse
+func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (*DeleteSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeleteViewResponse
+		localVarReturnValue  *DeleteSourceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.DeleteView")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.DeleteSource")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views/{view}"
+	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}"
 	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", url.PathEscape(parameterToString(r.view, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -603,55 +619,59 @@ func (a *ViewsApiService) DeleteViewExecute(r ApiDeleteViewRequest) (*DeleteView
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetViewRequest struct {
+type ApiGetSourceRequest struct {
 	ctx context.Context
-	ApiService ViewsApi
+	ApiService SourcesApi
 	workspace string
-	view string
+	collection string
+	source string
 }
 
 
-func (r ApiGetViewRequest) Execute() (*GetViewResponse, *http.Response, error) {
-	return r.ApiService.GetViewExecute(r)
+func (r ApiGetSourceRequest) Execute() (*GetSourceResponse, *http.Response, error) {
+	return r.ApiService.GetSourceExecute(r)
 }
 
 /*
-GetView Retrieve View
+GetSource Retrieve source
 
-Get details about a view
+Get details about a collection source.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
- @param view name of the view
- @return ApiGetViewRequest
+ @param collection name of the collection
+ @param source id of source
+ @return ApiGetSourceRequest
 */
-func (a *ViewsApiService) GetView(ctx context.Context, workspace string, view string) ApiGetViewRequest {
-	return ApiGetViewRequest{
+func (a *SourcesApiService) GetSource(ctx context.Context, workspace string, collection string, source string) ApiGetSourceRequest {
+	return ApiGetSourceRequest{
 		ApiService: a,
 		ctx: ctx,
 		workspace: workspace,
-		view: view,
+		collection: collection,
+		source: source,
 	}
 }
 
 // Execute executes the request
-//  @return GetViewResponse
-func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (*GetViewResponse, *http.Response, error) {
+//  @return GetSourceResponse
+func (a *SourcesApiService) GetSourceExecute(r ApiGetSourceRequest) (*GetSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *GetViewResponse
+		localVarReturnValue  *GetSourceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.GetView")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSource")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views/{view}"
+	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}"
 	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", url.PathEscape(parameterToString(r.view, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -840,47 +860,55 @@ func (a *ViewsApiService) GetViewExecute(r ApiGetViewRequest) (*GetViewResponse,
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListViewsRequest struct {
+type ApiListCollectionSourcesRequest struct {
 	ctx context.Context
-	ApiService ViewsApi
+	ApiService SourcesApi
+	workspace string
+	collection string
 }
 
 
-func (r ApiListViewsRequest) Execute() (*ListViewsResponse, *http.Response, error) {
-	return r.ApiService.ListViewsExecute(r)
+func (r ApiListCollectionSourcesRequest) Execute() (*ListSourcesResponse, *http.Response, error) {
+	return r.ApiService.ListCollectionSourcesExecute(r)
 }
 
 /*
-ListViews List Views
+ListCollectionSources List sources in collection
 
-Retrieve all views in an organization
+Retrieve all sources in a collection.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListViewsRequest
+ @param workspace name of the workspace
+ @param collection name of the collection
+ @return ApiListCollectionSourcesRequest
 */
-func (a *ViewsApiService) ListViews(ctx context.Context) ApiListViewsRequest {
-	return ApiListViewsRequest{
+func (a *SourcesApiService) ListCollectionSources(ctx context.Context, workspace string, collection string) ApiListCollectionSourcesRequest {
+	return ApiListCollectionSourcesRequest{
 		ApiService: a,
 		ctx: ctx,
+		workspace: workspace,
+		collection: collection,
 	}
 }
 
 // Execute executes the request
-//  @return ListViewsResponse
-func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (*ListViewsResponse, *http.Response, error) {
+//  @return ListSourcesResponse
+func (a *SourcesApiService) ListCollectionSourcesExecute(r ApiListCollectionSourcesRequest) (*ListSourcesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListViewsResponse
+		localVarReturnValue  *ListSourcesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.ListViews")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.ListCollectionSources")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/orgs/self/views"
+	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/sources"
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1069,71 +1097,66 @@ func (a *ViewsApiService) ListViewsExecute(r ApiListViewsRequest) (*ListViewsRes
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiUpdateViewRequest struct {
+type ApiResumeSourceRequest struct {
 	ctx context.Context
-	ApiService ViewsApi
+	ApiService SourcesApi
 	workspace string
-	view string
-	body *UpdateViewRequest
+	collection string
+	source string
 }
 
-// JSON object
-func (r ApiUpdateViewRequest) Body(body UpdateViewRequest) ApiUpdateViewRequest {
-	r.body = &body
-	return r
-}
 
-func (r ApiUpdateViewRequest) Execute() (*UpdateViewResponse, *http.Response, error) {
-	return r.ApiService.UpdateViewExecute(r)
+func (r ApiResumeSourceRequest) Execute() (*GetSourceResponse, *http.Response, error) {
+	return r.ApiService.ResumeSourceExecute(r)
 }
 
 /*
-UpdateView Update View
+ResumeSource Resume source ingest
 
-Update a view
+Resume source ingest
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
- @param view name of the view
- @return ApiUpdateViewRequest
+ @param collection name of the collection
+ @param source id of source
+ @return ApiResumeSourceRequest
 */
-func (a *ViewsApiService) UpdateView(ctx context.Context, workspace string, view string) ApiUpdateViewRequest {
-	return ApiUpdateViewRequest{
+func (a *SourcesApiService) ResumeSource(ctx context.Context, workspace string, collection string, source string) ApiResumeSourceRequest {
+	return ApiResumeSourceRequest{
 		ApiService: a,
 		ctx: ctx,
 		workspace: workspace,
-		view: view,
+		collection: collection,
+		source: source,
 	}
 }
 
 // Execute executes the request
-//  @return UpdateViewResponse
-func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (*UpdateViewResponse, *http.Response, error) {
+//  @return GetSourceResponse
+func (a *SourcesApiService) ResumeSourceExecute(r ApiResumeSourceRequest) (*GetSourceResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *UpdateViewResponse
+		localVarReturnValue  *GetSourceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.UpdateView")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.ResumeSource")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views/{view}"
+	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}/resume"
 	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"view"+"}", url.PathEscape(parameterToString(r.view, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1149,8 +1172,6 @@ func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (*UpdateView
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1317,51 +1338,59 @@ func (a *ViewsApiService) UpdateViewExecute(r ApiUpdateViewRequest) (*UpdateView
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiWorkspaceViewsRequest struct {
+type ApiSuspendSourceRequest struct {
 	ctx context.Context
-	ApiService ViewsApi
+	ApiService SourcesApi
 	workspace string
+	collection string
+	source string
 }
 
 
-func (r ApiWorkspaceViewsRequest) Execute() (*ListViewsResponse, *http.Response, error) {
-	return r.ApiService.WorkspaceViewsExecute(r)
+func (r ApiSuspendSourceRequest) Execute() (*GetSourceResponse, *http.Response, error) {
+	return r.ApiService.SuspendSourceExecute(r)
 }
 
 /*
-WorkspaceViews List Views in Workspace
+SuspendSource Suspend source ingest
 
-Retrieve all views in a workspace.
+Suspend source ingest
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param workspace name of the workspace
- @return ApiWorkspaceViewsRequest
+ @param collection name of the collection
+ @param source id of source
+ @return ApiSuspendSourceRequest
 */
-func (a *ViewsApiService) WorkspaceViews(ctx context.Context, workspace string) ApiWorkspaceViewsRequest {
-	return ApiWorkspaceViewsRequest{
+func (a *SourcesApiService) SuspendSource(ctx context.Context, workspace string, collection string, source string) ApiSuspendSourceRequest {
+	return ApiSuspendSourceRequest{
 		ApiService: a,
 		ctx: ctx,
 		workspace: workspace,
+		collection: collection,
+		source: source,
 	}
 }
 
 // Execute executes the request
-//  @return ListViewsResponse
-func (a *ViewsApiService) WorkspaceViewsExecute(r ApiWorkspaceViewsRequest) (*ListViewsResponse, *http.Response, error) {
+//  @return GetSourceResponse
+func (a *SourcesApiService) SuspendSourceExecute(r ApiSuspendSourceRequest) (*GetSourceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListViewsResponse
+		localVarReturnValue  *GetSourceResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ViewsApiService.WorkspaceViews")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.SuspendSource")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/views"
+	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}/suspend"
 	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"collection"+"}", url.PathEscape(parameterToString(r.collection, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source"+"}", url.PathEscape(parameterToString(r.source, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

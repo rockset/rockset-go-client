@@ -138,6 +138,12 @@ Class | Method | HTTP request | Description
 *QueryLambdasApi* | [**ListQueryLambdasInWorkspace**](docs/QueryLambdasApi.md#listquerylambdasinworkspace) | **Get** /v1/orgs/self/ws/{workspace}/lambdas | List Query Lambdas in Workspace
 *QueryLambdasApi* | [**UpdateQueryLambda**](docs/QueryLambdasApi.md#updatequerylambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | Update Query Lambda
 *SharedLambdasApi* | [**ExecutePublicQueryLambdaWithParams**](docs/SharedLambdasApi.md#executepublicquerylambdawithparams) | **Post** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
+*SourcesApi* | [**CreateSource**](docs/SourcesApi.md#createsource) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources | Create a source
+*SourcesApi* | [**DeleteSource**](docs/SourcesApi.md#deletesource) | **Delete** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source} | Delete Collection source
+*SourcesApi* | [**GetSource**](docs/SourcesApi.md#getsource) | **Get** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source} | Retrieve source
+*SourcesApi* | [**ListCollectionSources**](docs/SourcesApi.md#listcollectionsources) | **Get** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources | List sources in collection
+*SourcesApi* | [**ResumeSource**](docs/SourcesApi.md#resumesource) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}/resume | Resume source ingest
+*SourcesApi* | [**SuspendSource**](docs/SourcesApi.md#suspendsource) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}/suspend | Suspend source ingest
 *UsersApi* | [**CreateUser**](docs/UsersApi.md#createuser) | **Post** /v1/orgs/self/users | Create User
 *UsersApi* | [**DeleteUser**](docs/UsersApi.md#deleteuser) | **Delete** /v1/orgs/self/users/{user} | Delete User
 *UsersApi* | [**GetCurrentUser**](docs/UsersApi.md#getcurrentuser) | **Get** /v1/orgs/self/users/self | Retrieve Current User
@@ -159,7 +165,7 @@ Class | Method | HTTP request | Description
 *VirtualInstancesApi* | [**GetVirtualInstanceQueries**](docs/VirtualInstancesApi.md#getvirtualinstancequeries) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | List Queries
 *VirtualInstancesApi* | [**ListCollectionMounts**](docs/VirtualInstancesApi.md#listcollectionmounts) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | List Collection Mounts
 *VirtualInstancesApi* | [**ListVirtualInstances**](docs/VirtualInstancesApi.md#listvirtualinstances) | **Get** /v1/orgs/self/virtualinstances | List Virtual Instances
-*VirtualInstancesApi* | [**MountCollection**](docs/VirtualInstancesApi.md#mountcollection) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | Mount Collection
+*VirtualInstancesApi* | [**MountCollection**](docs/VirtualInstancesApi.md#mountcollection) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | Mount Collections
 *VirtualInstancesApi* | [**QueryVirtualInstance**](docs/VirtualInstancesApi.md#queryvirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | Execute SQL Query
 *VirtualInstancesApi* | [**ResumeVirtualInstance**](docs/VirtualInstancesApi.md#resumevirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/resume | Resume Virtual Instance
 *VirtualInstancesApi* | [**SetVirtualInstance**](docs/VirtualInstancesApi.md#setvirtualinstance) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Update Virtual Instance
@@ -178,6 +184,7 @@ Class | Method | HTTP request | Description
  - [Alias](docs/Alias.md)
  - [ApiKey](docs/ApiKey.md)
  - [AsyncQueryOptions](docs/AsyncQueryOptions.md)
+ - [AutoScalingPolicy](docs/AutoScalingPolicy.md)
  - [AwsAccessKey](docs/AwsAccessKey.md)
  - [AwsRole](docs/AwsRole.md)
  - [AzureBlobStorageIntegration](docs/AzureBlobStorageIntegration.md)
@@ -221,6 +228,7 @@ Class | Method | HTTP request | Description
  - [DeleteDocumentsResponse](docs/DeleteDocumentsResponse.md)
  - [DeleteIntegrationResponse](docs/DeleteIntegrationResponse.md)
  - [DeleteQueryLambdaResponse](docs/DeleteQueryLambdaResponse.md)
+ - [DeleteSourceResponse](docs/DeleteSourceResponse.md)
  - [DeleteUserResponse](docs/DeleteUserResponse.md)
  - [DeleteViewResponse](docs/DeleteViewResponse.md)
  - [DeleteVirtualInstanceResponse](docs/DeleteVirtualInstanceResponse.md)
@@ -242,6 +250,7 @@ Class | Method | HTTP request | Description
  - [GetCollectionResponse](docs/GetCollectionResponse.md)
  - [GetIntegrationResponse](docs/GetIntegrationResponse.md)
  - [GetQueryResponse](docs/GetQueryResponse.md)
+ - [GetSourceResponse](docs/GetSourceResponse.md)
  - [GetViewResponse](docs/GetViewResponse.md)
  - [GetVirtualInstanceResponse](docs/GetVirtualInstanceResponse.md)
  - [GetWorkspaceResponse](docs/GetWorkspaceResponse.md)
@@ -260,6 +269,7 @@ Class | Method | HTTP request | Description
  - [ListQueryLambdaVersionsResponse](docs/ListQueryLambdaVersionsResponse.md)
  - [ListQueryLambdasResponse](docs/ListQueryLambdasResponse.md)
  - [ListRolesResponse](docs/ListRolesResponse.md)
+ - [ListSourcesResponse](docs/ListSourcesResponse.md)
  - [ListUnsubscribePreferencesResponse](docs/ListUnsubscribePreferencesResponse.md)
  - [ListUsersResponse](docs/ListUsersResponse.md)
  - [ListViewsResponse](docs/ListViewsResponse.md)
@@ -309,7 +319,9 @@ Class | Method | HTTP request | Description
  - [SourceKinesis](docs/SourceKinesis.md)
  - [SourceMongoDb](docs/SourceMongoDb.md)
  - [SourceS3](docs/SourceS3.md)
+ - [SourceSnapshot](docs/SourceSnapshot.md)
  - [SourceSnowflake](docs/SourceSnowflake.md)
+ - [SourceSystem](docs/SourceSystem.md)
  - [SqlExpression](docs/SqlExpression.md)
  - [Stats](docs/Stats.md)
  - [Status](docs/Status.md)
