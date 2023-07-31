@@ -29,13 +29,6 @@ func WithQueryLambdaRowLimit(limit int32) QueryLambdaOption {
 	}
 }
 
-// WithQueryLambdaWarnings enables warnings.
-func WithQueryLambdaWarnings() QueryLambdaOption {
-	return func(o *ExecuteQueryLambdaRequest) {
-		o.GenerateWarnings = openapi.PtrBool(true)
-	}
-}
-
 // WithQueryLambdaParameter sets a query lambda parameter.
 func WithQueryLambdaParameter(name, valueType, value string) QueryLambdaOption {
 	return func(o *ExecuteQueryLambdaRequest) {

@@ -62,8 +62,7 @@ func (s *VirtualInstanceSuite) TestExecuteQuery() {
 	ctx := testCtx()
 
 	result, err := s.rc.ExecuteQueryOnVirtualInstance(ctx, s.vID,
-		"SELECT * from commons._events LIMIT 10",
-		option.WithWarnings())
+		"SELECT * from commons._events LIMIT 10")
 	s.Require().NoError(err)
 	s.Assert().Contains(result.Collections, "commons._events")
 }

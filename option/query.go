@@ -4,13 +4,6 @@ import "github.com/rockset/rockset-go-client/openapi"
 
 type QueryOption func(request *openapi.QueryRequest)
 
-// WithWarnings enables warnings. Warnings can help debug query issues but negatively affect performance.
-func WithWarnings() QueryOption {
-	return func(o *openapi.QueryRequest) {
-		o.Sql.GenerateWarnings = openapi.PtrBool(true)
-	}
-}
-
 func WithRowLimit(limit int32) QueryOption {
 	return func(o *openapi.QueryRequest) {
 		o.Sql.DefaultRowLimit = &limit
