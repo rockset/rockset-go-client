@@ -23,7 +23,6 @@ func Example_queryRaw() {
 	rq := openapi.NewQueryRequestWithDefaults()
 
 	rq.Sql = openapi.QueryRequestSql{Query: "SELECT * FROM commons._events where label = :label"}
-	rq.Sql.GenerateWarnings = openapi.PtrBool(true)
 	rq.Sql.DefaultRowLimit = openapi.PtrInt32(10)
 
 	rq.Sql.Parameters = []openapi.QueryParameter{
