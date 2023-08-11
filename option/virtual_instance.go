@@ -29,6 +29,13 @@ func WithContinuousMountRefresh() VirtualInstanceOption {
 	}
 }
 
+// WithNoMountRefresh disables mount refresh.
+func WithNoMountRefresh() VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		o.MountRefreshInterval = nil
+	}
+}
+
 // WithAutoSuspend duration without queries after which the virtual instance is suspended. Minimum time is 15 minutes.
 func WithAutoSuspend(d time.Duration) VirtualInstanceOption {
 	return func(o *VirtualInstanceOptions) {

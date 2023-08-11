@@ -27,7 +27,7 @@ type SourceS3 struct {
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
 	// List of prefixes to paths from which data should be ingested.
-	Prefixes []string `json:"prefixes"`
+	Prefixes []string `json:"prefixes,omitempty"`
 	// AWS region containing source bucket.
 	Region *string `json:"region,omitempty"`
 }
@@ -36,10 +36,9 @@ type SourceS3 struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSourceS3(bucket string, prefixes []string) *SourceS3 {
+func NewSourceS3(bucket string) *SourceS3 {
 	this := SourceS3{}
 	this.Bucket = bucket
-	this.Prefixes = prefixes
 	return &this
 }
 
@@ -267,26 +266,34 @@ func (o *SourceS3) SetPrefix(v string) {
 	o.Prefix = &v
 }
 
-// GetPrefixes returns the Prefixes field value
+// GetPrefixes returns the Prefixes field value if set, zero value otherwise.
 func (o *SourceS3) GetPrefixes() []string {
-	if o == nil {
+	if o == nil || o.Prefixes == nil {
 		var ret []string
 		return ret
 	}
-
 	return o.Prefixes
 }
 
-// GetPrefixesOk returns a tuple with the Prefixes field value
+// GetPrefixesOk returns a tuple with the Prefixes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetPrefixesOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil || o.Prefixes == nil {
 		return nil, false
 	}
 	return o.Prefixes, true
 }
 
-// SetPrefixes sets field value
+// HasPrefixes returns a boolean if a field has been set.
+func (o *SourceS3) HasPrefixes() bool {
+	if o != nil && o.Prefixes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPrefixes gets a reference to the given []string and assigns it to the Prefixes field.
 func (o *SourceS3) SetPrefixes(v []string) {
 	o.Prefixes = v
 }
@@ -346,7 +353,7 @@ func (o SourceS3) MarshalJSON() ([]byte, error) {
 	if o.Prefix != nil {
 		toSerialize["prefix"] = o.Prefix
 	}
-	if true {
+	if o.Prefixes != nil {
 		toSerialize["prefixes"] = o.Prefixes
 	}
 	if o.Region != nil {

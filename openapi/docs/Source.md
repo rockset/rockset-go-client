@@ -11,7 +11,8 @@ Name | Type | Description | Notes
 **FileUpload** | Pointer to [**SourceFileUpload**](SourceFileUpload.md) |  | [optional] 
 **FormatParams** | Pointer to [**FormatParams**](FormatParams.md) |  | [optional] 
 **Gcs** | Pointer to [**SourceGcs**](SourceGcs.md) |  | [optional] 
-**Id** | Pointer to **string** | Unique source identifier. | [optional] 
+**Id** | Pointer to **string** | Unique source identifier. | [optional] [readonly] 
+**IngestTransformation** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **IntegrationName** | Pointer to **string** | Name of integration to use. | [optional] 
 **Kafka** | Pointer to [**SourceKafka**](SourceKafka.md) |  | [optional] 
 **Kinesis** | Pointer to [**SourceKinesis**](SourceKinesis.md) |  | [optional] 
@@ -19,7 +20,7 @@ Name | Type | Description | Notes
 **S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
 **Snowflake** | Pointer to [**SourceSnowflake**](SourceSnowflake.md) |  | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
-**SuspendedAt** | Pointer to **string** | ISO-8601 date when source was suspended, if suspended | [optional] 
+**SuspendedAt** | Pointer to **string** | ISO-8601 date when source was suspended, if suspended | [optional] [readonly] 
 **System** | Pointer to [**SourceSystem**](SourceSystem.md) |  | [optional] 
 
 ## Methods
@@ -240,6 +241,31 @@ SetId sets Id field to given value.
 `func (o *Source) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetIngestTransformation
+
+`func (o *Source) GetIngestTransformation() FieldMappingQuery`
+
+GetIngestTransformation returns the IngestTransformation field if non-nil, zero value otherwise.
+
+### GetIngestTransformationOk
+
+`func (o *Source) GetIngestTransformationOk() (*FieldMappingQuery, bool)`
+
+GetIngestTransformationOk returns a tuple with the IngestTransformation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIngestTransformation
+
+`func (o *Source) SetIngestTransformation(v FieldMappingQuery)`
+
+SetIngestTransformation sets IngestTransformation field to given value.
+
+### HasIngestTransformation
+
+`func (o *Source) HasIngestTransformation() bool`
+
+HasIngestTransformation returns a boolean if a field has been set.
 
 ### GetIntegrationName
 

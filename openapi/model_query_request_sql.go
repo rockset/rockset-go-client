@@ -18,8 +18,6 @@ import (
 type QueryRequestSql struct {
 	// Row limit to use. Limits specified in the query text will override this default.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
-	// Flag to enable warnings. Warnings can help debug query issues but negatively affect performance.
-	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
 	// [DEPRECATED] Use `max_initial_results` instead. Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
 	// List of named parameters.
@@ -76,38 +74,6 @@ func (o *QueryRequestSql) HasDefaultRowLimit() bool {
 // SetDefaultRowLimit gets a reference to the given int32 and assigns it to the DefaultRowLimit field.
 func (o *QueryRequestSql) SetDefaultRowLimit(v int32) {
 	o.DefaultRowLimit = &v
-}
-
-// GetGenerateWarnings returns the GenerateWarnings field value if set, zero value otherwise.
-func (o *QueryRequestSql) GetGenerateWarnings() bool {
-	if o == nil || o.GenerateWarnings == nil {
-		var ret bool
-		return ret
-	}
-	return *o.GenerateWarnings
-}
-
-// GetGenerateWarningsOk returns a tuple with the GenerateWarnings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *QueryRequestSql) GetGenerateWarningsOk() (*bool, bool) {
-	if o == nil || o.GenerateWarnings == nil {
-		return nil, false
-	}
-	return o.GenerateWarnings, true
-}
-
-// HasGenerateWarnings returns a boolean if a field has been set.
-func (o *QueryRequestSql) HasGenerateWarnings() bool {
-	if o != nil && o.GenerateWarnings != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGenerateWarnings gets a reference to the given bool and assigns it to the GenerateWarnings field.
-func (o *QueryRequestSql) SetGenerateWarnings(v bool) {
-	o.GenerateWarnings = &v
 }
 
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
@@ -202,9 +168,6 @@ func (o QueryRequestSql) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.GenerateWarnings != nil {
-		toSerialize["generate_warnings"] = o.GenerateWarnings
 	}
 	if o.InitialPaginateResponseDocCount != nil {
 		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount

@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **FieldMappingQuery** | Pointer to [**FieldMappingQuery**](FieldMappingQuery.md) |  | [optional] 
 **Name** | Pointer to **string** | Unique identifier for collection, can contain alphanumeric or dash characters. | [optional] 
 **RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged, based on event time. | [optional] 
+**SourceDownloadSoftLimitBytes** | Pointer to **int64** | Soft ingest limit for this collection. | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which to ingest data. | [optional] 
 **StorageCompressionType** | Pointer to **string** | RocksDB storage compression type. | [optional] 
 
@@ -181,6 +182,31 @@ SetRetentionSecs sets RetentionSecs field to given value.
 `func (o *CreateCollectionRequest) HasRetentionSecs() bool`
 
 HasRetentionSecs returns a boolean if a field has been set.
+
+### GetSourceDownloadSoftLimitBytes
+
+`func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytes() int64`
+
+GetSourceDownloadSoftLimitBytes returns the SourceDownloadSoftLimitBytes field if non-nil, zero value otherwise.
+
+### GetSourceDownloadSoftLimitBytesOk
+
+`func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytesOk() (*int64, bool)`
+
+GetSourceDownloadSoftLimitBytesOk returns a tuple with the SourceDownloadSoftLimitBytes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSourceDownloadSoftLimitBytes
+
+`func (o *CreateCollectionRequest) SetSourceDownloadSoftLimitBytes(v int64)`
+
+SetSourceDownloadSoftLimitBytes sets SourceDownloadSoftLimitBytes field to given value.
+
+### HasSourceDownloadSoftLimitBytes
+
+`func (o *CreateCollectionRequest) HasSourceDownloadSoftLimitBytes() bool`
+
+HasSourceDownloadSoftLimitBytes returns a boolean if a field has been set.
 
 ### GetSources
 

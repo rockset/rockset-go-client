@@ -23,8 +23,6 @@ type ExecuteQueryLambdaRequest struct {
 	DebugThresholdMs *int64 `json:"debug_threshold_ms,omitempty"`
 	// Row limit to use if no limit specified in the SQL query text.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
-	// Whether to generate warnings.
-	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
 	// [DEPRECATED] Use `max_initial_results` instead. Number of documents to return in addition to paginating for this query call. Only relevant if `paginate` flag is also set.
 	InitialPaginateResponseDocCount *int32 `json:"initial_paginate_response_doc_count,omitempty"`
 	// This limits the maximum number of results in the initial response. A pagination cursor is returned if the number of results exceeds `max_initial_results`. If `max_initial_results` is not set, all results will be returned in the initial response up to 4 million. If `max_initial_results` is set, the value must be between 0 and 100,000. If the query is async and `client_timeout_ms` is exceeded, `max_initial_results` does not apply since none of the results will be returned with the initial response.
@@ -182,38 +180,6 @@ func (o *ExecuteQueryLambdaRequest) HasDefaultRowLimit() bool {
 // SetDefaultRowLimit gets a reference to the given int32 and assigns it to the DefaultRowLimit field.
 func (o *ExecuteQueryLambdaRequest) SetDefaultRowLimit(v int32) {
 	o.DefaultRowLimit = &v
-}
-
-// GetGenerateWarnings returns the GenerateWarnings field value if set, zero value otherwise.
-func (o *ExecuteQueryLambdaRequest) GetGenerateWarnings() bool {
-	if o == nil || o.GenerateWarnings == nil {
-		var ret bool
-		return ret
-	}
-	return *o.GenerateWarnings
-}
-
-// GetGenerateWarningsOk returns a tuple with the GenerateWarnings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExecuteQueryLambdaRequest) GetGenerateWarningsOk() (*bool, bool) {
-	if o == nil || o.GenerateWarnings == nil {
-		return nil, false
-	}
-	return o.GenerateWarnings, true
-}
-
-// HasGenerateWarnings returns a boolean if a field has been set.
-func (o *ExecuteQueryLambdaRequest) HasGenerateWarnings() bool {
-	if o != nil && o.GenerateWarnings != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGenerateWarnings gets a reference to the given bool and assigns it to the GenerateWarnings field.
-func (o *ExecuteQueryLambdaRequest) SetGenerateWarnings(v bool) {
-	o.GenerateWarnings = &v
 }
 
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
@@ -421,9 +387,6 @@ func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.GenerateWarnings != nil {
-		toSerialize["generate_warnings"] = o.GenerateWarnings
 	}
 	if o.InitialPaginateResponseDocCount != nil {
 		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount

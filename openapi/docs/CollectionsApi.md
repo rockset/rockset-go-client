@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateCollection**](CollectionsApi.md#CreateCollection) | **Post** /v1/orgs/self/ws/{workspace}/collections | Create Collection
 [**DeleteCollection**](CollectionsApi.md#DeleteCollection) | **Delete** /v1/orgs/self/ws/{workspace}/collections/{collection} | Delete Collection
 [**GetCollection**](CollectionsApi.md#GetCollection) | **Get** /v1/orgs/self/ws/{workspace}/collections/{collection} | Retrieve Collection
+[**GetCollectionOffsets**](CollectionsApi.md#GetCollectionOffsets) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/offsets/commit | Get Collection Commit
 [**ListCollections**](CollectionsApi.md#ListCollections) | **Get** /v1/orgs/self/collections | List Collections
 [**UpdateCollection**](CollectionsApi.md#UpdateCollection) | **Put** /v1/orgs/self/ws/{workspace}/collections/{collection} | Update Collection
 [**WorkspaceCollections**](CollectionsApi.md#WorkspaceCollections) | **Get** /v1/orgs/self/ws/{workspace}/collections | List Collections in Workspace
@@ -224,6 +225,81 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetCollectionOffsets
+
+> GetCollectionCommit GetCollectionOffsets(ctx, workspace, collection).Body(body).Execute()
+
+Get Collection Commit
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    workspace := "workspace_example" // string | name of the workspace (default to "commons")
+    collection := "collection_example" // string | name of the collection
+    body := *openapiclient.NewGetCollectionCommitRequest() // GetCollectionCommitRequest | JSON object
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.CollectionsApi.GetCollectionOffsets(context.Background(), workspace, collection).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `CollectionsApi.GetCollectionOffsets``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetCollectionOffsets`: GetCollectionCommit
+    fmt.Fprintf(os.Stdout, "Response from `CollectionsApi.GetCollectionOffsets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
+**collection** | **string** | name of the collection | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetCollectionOffsetsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **body** | [**GetCollectionCommitRequest**](GetCollectionCommitRequest.md) | JSON object | 
+
+### Return type
+
+[**GetCollectionCommit**](GetCollectionCommit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use. Limits specified in the query text will override this default. | [optional] 
-**GenerateWarnings** | Pointer to **bool** | Flag to enable warnings. Warnings can help debug query issues but negatively affect performance. | [optional] 
 **InitialPaginateResponseDocCount** | Pointer to **int32** | [DEPRECATED] Use &#x60;max_initial_results&#x60; instead. Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
 **Parameters** | Pointer to [**[]QueryParameter**](QueryParameter.md) | List of named parameters. | [optional] 
 **Query** | **string** | SQL query string. | 
@@ -53,31 +52,6 @@ SetDefaultRowLimit sets DefaultRowLimit field to given value.
 `func (o *QueryRequestSql) HasDefaultRowLimit() bool`
 
 HasDefaultRowLimit returns a boolean if a field has been set.
-
-### GetGenerateWarnings
-
-`func (o *QueryRequestSql) GetGenerateWarnings() bool`
-
-GetGenerateWarnings returns the GenerateWarnings field if non-nil, zero value otherwise.
-
-### GetGenerateWarningsOk
-
-`func (o *QueryRequestSql) GetGenerateWarningsOk() (*bool, bool)`
-
-GetGenerateWarningsOk returns a tuple with the GenerateWarnings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGenerateWarnings
-
-`func (o *QueryRequestSql) SetGenerateWarnings(v bool)`
-
-SetGenerateWarnings sets GenerateWarnings field to given value.
-
-### HasGenerateWarnings
-
-`func (o *QueryRequestSql) HasGenerateWarnings() bool`
-
-HasGenerateWarnings returns a boolean if a field has been set.
 
 ### GetInitialPaginateResponseDocCount
 

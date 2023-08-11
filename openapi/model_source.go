@@ -25,6 +25,7 @@ type Source struct {
 	Gcs *SourceGcs `json:"gcs,omitempty"`
 	// Unique source identifier.
 	Id *string `json:"id,omitempty"`
+	IngestTransformation *FieldMappingQuery `json:"ingest_transformation,omitempty"`
 	// Name of integration to use.
 	IntegrationName *string `json:"integration_name,omitempty"`
 	Kafka *SourceKafka `json:"kafka,omitempty"`
@@ -309,6 +310,38 @@ func (o *Source) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *Source) SetId(v string) {
 	o.Id = &v
+}
+
+// GetIngestTransformation returns the IngestTransformation field value if set, zero value otherwise.
+func (o *Source) GetIngestTransformation() FieldMappingQuery {
+	if o == nil || o.IngestTransformation == nil {
+		var ret FieldMappingQuery
+		return ret
+	}
+	return *o.IngestTransformation
+}
+
+// GetIngestTransformationOk returns a tuple with the IngestTransformation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetIngestTransformationOk() (*FieldMappingQuery, bool) {
+	if o == nil || o.IngestTransformation == nil {
+		return nil, false
+	}
+	return o.IngestTransformation, true
+}
+
+// HasIngestTransformation returns a boolean if a field has been set.
+func (o *Source) HasIngestTransformation() bool {
+	if o != nil && o.IngestTransformation != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIngestTransformation gets a reference to the given FieldMappingQuery and assigns it to the IngestTransformation field.
+func (o *Source) SetIngestTransformation(v FieldMappingQuery) {
+	o.IngestTransformation = &v
 }
 
 // GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
@@ -624,6 +657,9 @@ func (o Source) MarshalJSON() ([]byte, error) {
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.IngestTransformation != nil {
+		toSerialize["ingest_transformation"] = o.IngestTransformation
 	}
 	if o.IntegrationName != nil {
 		toSerialize["integration_name"] = o.IntegrationName

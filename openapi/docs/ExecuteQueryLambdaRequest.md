@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **AsyncOptions** | Pointer to [**AsyncQueryOptions**](AsyncQueryOptions.md) |  | [optional] 
 **DebugThresholdMs** | Pointer to **int64** | If query execution takes longer than this value, debug information will be logged. If the query text includes the DEBUG hint and this parameter is also provided, only this value will be used and the DEBUG hint will be ignored. | [optional] 
 **DefaultRowLimit** | Pointer to **int32** | Row limit to use if no limit specified in the SQL query text. | [optional] 
-**GenerateWarnings** | Pointer to **bool** | Whether to generate warnings. | [optional] 
 **InitialPaginateResponseDocCount** | Pointer to **int32** | [DEPRECATED] Use &#x60;max_initial_results&#x60; instead. Number of documents to return in addition to paginating for this query call. Only relevant if &#x60;paginate&#x60; flag is also set. | [optional] 
 **MaxInitialResults** | Pointer to **int64** | This limits the maximum number of results in the initial response. A pagination cursor is returned if the number of results exceeds &#x60;max_initial_results&#x60;. If &#x60;max_initial_results&#x60; is not set, all results will be returned in the initial response up to 4 million. If &#x60;max_initial_results&#x60; is set, the value must be between 0 and 100,000. If the query is async and &#x60;client_timeout_ms&#x60; is exceeded, &#x60;max_initial_results&#x60; does not apply since none of the results will be returned with the initial response. | [optional] 
 **Paginate** | Pointer to **bool** | Flag to paginate and store the results of this query for later / sequential retrieval. | [optional] 
@@ -134,31 +133,6 @@ SetDefaultRowLimit sets DefaultRowLimit field to given value.
 `func (o *ExecuteQueryLambdaRequest) HasDefaultRowLimit() bool`
 
 HasDefaultRowLimit returns a boolean if a field has been set.
-
-### GetGenerateWarnings
-
-`func (o *ExecuteQueryLambdaRequest) GetGenerateWarnings() bool`
-
-GetGenerateWarnings returns the GenerateWarnings field if non-nil, zero value otherwise.
-
-### GetGenerateWarningsOk
-
-`func (o *ExecuteQueryLambdaRequest) GetGenerateWarningsOk() (*bool, bool)`
-
-GetGenerateWarningsOk returns a tuple with the GenerateWarnings field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGenerateWarnings
-
-`func (o *ExecuteQueryLambdaRequest) SetGenerateWarnings(v bool)`
-
-SetGenerateWarnings sets GenerateWarnings field to given value.
-
-### HasGenerateWarnings
-
-`func (o *ExecuteQueryLambdaRequest) HasGenerateWarnings() bool`
-
-HasGenerateWarnings returns a boolean if a field has been set.
 
 ### GetInitialPaginateResponseDocCount
 
