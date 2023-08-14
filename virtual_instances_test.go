@@ -2,13 +2,15 @@ package rockset_test
 
 import (
 	"fmt"
-	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/dataset"
-	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/suite"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/suite"
+
+	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/dataset"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 const (
@@ -116,8 +118,11 @@ func TestVirtualInstanceIntegration(t *testing.T) {
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance() {
 	ctx := testCtx()
 
-	vi, err := s.rc.CreateVirtualInstance(ctx, s.name, option.WithVirtualInstanceSize(option.SizeSmall),
-		option.WithContinuousMountRefresh(), option.WithAutoSuspend(time.Hour))
+	vi, err := s.rc.CreateVirtualInstance(ctx, s.name,
+		option.WithVirtualInstanceSize(option.SizeSmall),
+		option.WithNoMountRefresh(),
+		option.WithAutoSuspend(time.Hour),
+	)
 	s.Require().NoError(err)
 	s.vID = vi.GetId()
 	s.T().Logf("vi %s is created", s.vID)

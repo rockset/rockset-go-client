@@ -64,7 +64,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 		user = *opts.User
 	}
 
-	getReq := rc.APIKeysApi.GetApiKey(ctx, user, name).Reveal(opts.Reveal)
+	getReq := rc.APIKeysApi.GetApiKey(ctx, user, name)
 
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()

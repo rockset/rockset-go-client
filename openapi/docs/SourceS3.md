@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
 **Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
-**Prefixes** | **[]string** | List of prefixes to paths from which data should be ingested. | [readonly] 
+**Prefixes** | Pointer to **[]string** | List of prefixes to paths from which data should be ingested. | [optional] [readonly] 
 **Region** | Pointer to **string** | AWS region containing source bucket. | [optional] 
 
 ## Methods
 
 ### NewSourceS3
 
-`func NewSourceS3(bucket string, prefixes []string, ) *SourceS3`
+`func NewSourceS3(bucket string, ) *SourceS3`
 
 NewSourceS3 instantiates a new SourceS3 object
 This constructor will assign default values to properties that have it defined,
@@ -222,6 +222,11 @@ and a boolean to check if the value has been set.
 
 SetPrefixes sets Prefixes field to given value.
 
+### HasPrefixes
+
+`func (o *SourceS3) HasPrefixes() bool`
+
+HasPrefixes returns a boolean if a field has been set.
 
 ### GetRegion
 

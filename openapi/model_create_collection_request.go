@@ -26,6 +26,8 @@ type CreateCollectionRequest struct {
 	Name *string `json:"name,omitempty"`
 	// Number of seconds after which data is purged, based on event time.
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
+	// Soft ingest limit for this collection.
+	SourceDownloadSoftLimitBytes *int64 `json:"source_download_soft_limit_bytes,omitempty"`
 	// List of sources from which to ingest data.
 	Sources []Source `json:"sources,omitempty"`
 	// RocksDB storage compression type.
@@ -241,6 +243,38 @@ func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
 	o.RetentionSecs = &v
 }
 
+// GetSourceDownloadSoftLimitBytes returns the SourceDownloadSoftLimitBytes field value if set, zero value otherwise.
+func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytes() int64 {
+	if o == nil || o.SourceDownloadSoftLimitBytes == nil {
+		var ret int64
+		return ret
+	}
+	return *o.SourceDownloadSoftLimitBytes
+}
+
+// GetSourceDownloadSoftLimitBytesOk returns a tuple with the SourceDownloadSoftLimitBytes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytesOk() (*int64, bool) {
+	if o == nil || o.SourceDownloadSoftLimitBytes == nil {
+		return nil, false
+	}
+	return o.SourceDownloadSoftLimitBytes, true
+}
+
+// HasSourceDownloadSoftLimitBytes returns a boolean if a field has been set.
+func (o *CreateCollectionRequest) HasSourceDownloadSoftLimitBytes() bool {
+	if o != nil && o.SourceDownloadSoftLimitBytes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSourceDownloadSoftLimitBytes gets a reference to the given int64 and assigns it to the SourceDownloadSoftLimitBytes field.
+func (o *CreateCollectionRequest) SetSourceDownloadSoftLimitBytes(v int64) {
+	o.SourceDownloadSoftLimitBytes = &v
+}
+
 // GetSources returns the Sources field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetSources() []Source {
 	if o == nil || o.Sources == nil {
@@ -324,6 +358,9 @@ func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.RetentionSecs != nil {
 		toSerialize["retention_secs"] = o.RetentionSecs
+	}
+	if o.SourceDownloadSoftLimitBytes != nil {
+		toSerialize["source_download_soft_limit_bytes"] = o.SourceDownloadSoftLimitBytes
 	}
 	if o.Sources != nil {
 		toSerialize["sources"] = o.Sources

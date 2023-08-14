@@ -17,6 +17,8 @@ import (
 // PatchDocumentsResponse struct for PatchDocumentsResponse
 type PatchDocumentsResponse struct {
 	Data []DocumentStatus `json:"data"`
+	// A string representing the collection offset after completing the patch.
+	LastOffset *string `json:"last_offset,omitempty"`
 }
 
 // NewPatchDocumentsResponse instantiates a new PatchDocumentsResponse object
@@ -61,10 +63,45 @@ func (o *PatchDocumentsResponse) SetData(v []DocumentStatus) {
 	o.Data = v
 }
 
+// GetLastOffset returns the LastOffset field value if set, zero value otherwise.
+func (o *PatchDocumentsResponse) GetLastOffset() string {
+	if o == nil || o.LastOffset == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastOffset
+}
+
+// GetLastOffsetOk returns a tuple with the LastOffset field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PatchDocumentsResponse) GetLastOffsetOk() (*string, bool) {
+	if o == nil || o.LastOffset == nil {
+		return nil, false
+	}
+	return o.LastOffset, true
+}
+
+// HasLastOffset returns a boolean if a field has been set.
+func (o *PatchDocumentsResponse) HasLastOffset() bool {
+	if o != nil && o.LastOffset != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastOffset gets a reference to the given string and assigns it to the LastOffset field.
+func (o *PatchDocumentsResponse) SetLastOffset(v string) {
+	o.LastOffset = &v
+}
+
 func (o PatchDocumentsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["data"] = o.Data
+	}
+	if o.LastOffset != nil {
+		toSerialize["last_offset"] = o.LastOffset
 	}
 	return json.Marshal(toSerialize)
 }

@@ -43,27 +43,20 @@ func (s *SuiteAPIKey) TearDownSuite() {
 	s.Require().NoError(err)
 }
 
-const mask = "************************************************************"
-
 func (s *SuiteAPIKey) TestGetAPIKey() {
 	ctx := testCtx()
 	key, err := s.rc.GetAPIKey(ctx, s.keyName)
 	s.Require().NoError(err)
-	s.Assert().Equalf(mask, key.Key[4:], "key should be masked")
+	s.Equal(6, len(key.GetKey()), "key hash should be 6 characters")
+	key.GetCreatedByApikeyName()
+	key.GetLastAccessTime()
 }
 
 func (s *SuiteAPIKey) TestUpdateAPIKey() {
 	ctx := testCtx()
 	key, err := s.rc.UpdateAPIKey(ctx, s.keyName, option.State(option.KeySuspended))
 	s.Require().NoError(err)
-	s.Assert().NotEqual(option.KeyActive, key.GetState())
-}
-
-func (s *SuiteAPIKey) TestGetAPIKeyWithReveal() {
-	ctx := testCtx()
-	key, err := s.rc.GetAPIKey(ctx, s.keyName, option.RevealKey())
-	s.Require().NoError(err)
-	s.Assert().NotEqualf(mask, key.Key[4:], "key should not be masked")
+	s.NotEqual(option.KeyActive, key.GetState())
 }
 
 func (s *SuiteAPIKey) TestListAPIKeys() {
@@ -78,5 +71,5 @@ func (s *SuiteAPIKey) TestListAPIKeys() {
 		}
 	}
 
-	s.Assert().True(found)
+	s.True(found)
 }

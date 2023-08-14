@@ -92,6 +92,9 @@ docs/GcpServiceAccount.md
 docs/GcsIntegration.md
 docs/GetAliasResponse.md
 docs/GetApiKeyResponse.md
+docs/GetCollectionCommit.md
+docs/GetCollectionCommitData.md
+docs/GetCollectionCommitRequest.md
 docs/GetCollectionResponse.md
 docs/GetIntegrationResponse.md
 docs/GetQueryResponse.md
@@ -122,6 +125,7 @@ docs/ListViewsResponse.md
 docs/ListVirtualInstancesResponse.md
 docs/ListWorkspacesResponse.md
 docs/MongoDbIntegration.md
+docs/Offsets.md
 docs/Organization.md
 docs/OrganizationResponse.md
 docs/OrganizationsApi.md
@@ -283,6 +287,9 @@ model_gcp_service_account.go
 model_gcs_integration.go
 model_get_alias_response.go
 model_get_api_key_response.go
+model_get_collection_commit.go
+model_get_collection_commit_data.go
+model_get_collection_commit_request.go
 model_get_collection_response.go
 model_get_integration_response.go
 model_get_query_response.go
@@ -312,6 +319,7 @@ model_list_views_response.go
 model_list_virtual_instances_response.go
 model_list_workspaces_response.go
 model_mongo_db_integration.go
+model_offsets.go
 model_organization.go
 model_organization_response.go
 model_output_field.go

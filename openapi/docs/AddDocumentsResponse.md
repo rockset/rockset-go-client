@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Data** | Pointer to [**[]DocumentStatus**](DocumentStatus.md) | Information about the added documents. | [optional] 
+**LastOffset** | Pointer to **string** | A string representing the collection offset after completing the write. | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetData sets Data field to given value.
 `func (o *AddDocumentsResponse) HasData() bool`
 
 HasData returns a boolean if a field has been set.
+
+### GetLastOffset
+
+`func (o *AddDocumentsResponse) GetLastOffset() string`
+
+GetLastOffset returns the LastOffset field if non-nil, zero value otherwise.
+
+### GetLastOffsetOk
+
+`func (o *AddDocumentsResponse) GetLastOffsetOk() (*string, bool)`
+
+GetLastOffsetOk returns a tuple with the LastOffset field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastOffset
+
+`func (o *AddDocumentsResponse) SetLastOffset(v string)`
+
+SetLastOffset sets LastOffset field to given value.
+
+### HasLastOffset
+
+`func (o *AddDocumentsResponse) HasLastOffset() bool`
+
+HasLastOffset returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -18,8 +18,6 @@ import (
 type ExecutePublicQueryLambdaRequest struct {
 	// Row limit to use if no limit specified in the SQL query text.
 	DefaultRowLimit *int32 `json:"default_row_limit,omitempty"`
-	// Whether to generate warnings.
-	GenerateWarnings *bool `json:"generate_warnings,omitempty"`
 	// List of named parameters.
 	Parameters []QueryParameter `json:"parameters,omitempty"`
 }
@@ -73,38 +71,6 @@ func (o *ExecutePublicQueryLambdaRequest) SetDefaultRowLimit(v int32) {
 	o.DefaultRowLimit = &v
 }
 
-// GetGenerateWarnings returns the GenerateWarnings field value if set, zero value otherwise.
-func (o *ExecutePublicQueryLambdaRequest) GetGenerateWarnings() bool {
-	if o == nil || o.GenerateWarnings == nil {
-		var ret bool
-		return ret
-	}
-	return *o.GenerateWarnings
-}
-
-// GetGenerateWarningsOk returns a tuple with the GenerateWarnings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ExecutePublicQueryLambdaRequest) GetGenerateWarningsOk() (*bool, bool) {
-	if o == nil || o.GenerateWarnings == nil {
-		return nil, false
-	}
-	return o.GenerateWarnings, true
-}
-
-// HasGenerateWarnings returns a boolean if a field has been set.
-func (o *ExecutePublicQueryLambdaRequest) HasGenerateWarnings() bool {
-	if o != nil && o.GenerateWarnings != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetGenerateWarnings gets a reference to the given bool and assigns it to the GenerateWarnings field.
-func (o *ExecutePublicQueryLambdaRequest) SetGenerateWarnings(v bool) {
-	o.GenerateWarnings = &v
-}
-
 // GetParameters returns the Parameters field value if set, zero value otherwise.
 func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter {
 	if o == nil || o.Parameters == nil {
@@ -141,9 +107,6 @@ func (o ExecutePublicQueryLambdaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.DefaultRowLimit != nil {
 		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.GenerateWarnings != nil {
-		toSerialize["generate_warnings"] = o.GenerateWarnings
 	}
 	if o.Parameters != nil {
 		toSerialize["parameters"] = o.Parameters
