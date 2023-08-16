@@ -10,6 +10,7 @@ import (
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rockset/rockset-go-client/wait"
 	"github.com/stretchr/testify/require"
 	"io"
 	"log"
@@ -60,7 +61,8 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 	require.NoError(t, err)
 
 	t.Log("waiting for collection to start receiving documents...")
-	err = rc.WaitUntilCollectionHasNewDocuments(ctx, kc.workspace, kc.collection, 1)
+	w := wait.New(rc)
+	err = w.UntilCollectionHasNewDocuments(ctx, kc.workspace, kc.collection, 1)
 	require.NoError(t, err)
 
 	t.Log("done")

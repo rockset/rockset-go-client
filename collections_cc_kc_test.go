@@ -14,6 +14,7 @@ import (
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rockset/rockset-go-client/wait"
 )
 
 type ConfluentCloudWithKafkaConnectIntegrationSuite struct {
@@ -103,7 +104,7 @@ func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TearDownSuite() {
 		s.T().Logf("deleted collection %s.%s", s.kc.workspace, s.kc.collection)
 	}
 
-	err := s.rc.WaitUntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
+	err := wait.New(s.rc).UntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
 	s.Require().NoError(err)
 
 	if err := s.rc.DeleteIntegration(ctx, s.kc.integrationName); err == nil {

@@ -2,6 +2,7 @@ package rockset_test
 
 import (
 	"fmt"
+	"github.com/rockset/rockset-go-client/wait"
 	"strings"
 	"testing"
 	"time"
@@ -163,7 +164,8 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
 	s.T().Logf("collection %s.%s is created (%s)", s.workspace, s.collection, time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilCollectionHasDocuments(ctx, s.workspace, s.collection, 2_830)
+	w := wait.New(rc)
+	err = w.UntilCollectionHasDocuments(ctx, s.workspace, s.collection, 2_830)
 	s.Require().NoError(err)
 	s.T().Log("collection has documents", time.Since(t0))
 	t0 = time.Now()
@@ -180,7 +182,8 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_2_Mount() {
 	s.T().Logf("collection %s.%s is mounted on %s (%s)", s.workspace, s.collection, s.vID, time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilCollectionReady(ctx, s.workspace, s.collection)
+	w := wait.New(rc)
+	err = w.UntilCollectionReady(ctx, s.workspace, s.collection)
 	s.Require().NoError(err)
 	s.T().Logf("collection %s.%s is ready (%s)", s.workspace, s.collection, time.Since(t0))
 	t0 = time.Now()
@@ -265,7 +268,8 @@ func (s *VirtualInstanceIntegrationSuite) TearDownSuite() {
 	err := s.rc.DeleteCollection(ctx, s.workspace, s.collection)
 	s.Assert().NoError(err)
 
-	err = s.rc.WaitUntilCollectionGone(ctx, s.workspace, s.collection)
+	w := wait.New(s.rc)
+	err = w.UntilCollectionGone(ctx, s.workspace, s.collection)
 	s.Assert().NoError(err)
 
 	err = s.rc.DeleteWorkspace(ctx, s.workspace)

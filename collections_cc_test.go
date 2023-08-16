@@ -11,6 +11,7 @@ import (
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rockset/rockset-go-client/wait"
 )
 
 type ConfluentCloudIntegrationSuite struct {
@@ -83,12 +84,13 @@ func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.coll)
+	w := wait.New(s.rc)
+	err = w.UntilCollectionReady(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 
 	// TODO(pmenglund) this should write a document to kafka so we don't need a data generator
 	//  in Confluent Cloud
-	err = s.rc.WaitUntilCollectionHasNewDocuments(ctx, s.ws, s.coll, 1)
+	err = w.UntilCollectionHasNewDocuments(ctx, s.ws, s.coll, 1)
 	s.Require().NoError(err)
 }
 
@@ -98,6 +100,7 @@ func (s *ConfluentCloudIntegrationSuite) TestDeleteCollection() {
 	err := s.rc.DeleteCollection(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionGone(ctx, s.ws, s.coll)
+	w := wait.New(s.rc)
+	err = w.UntilCollectionGone(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 }

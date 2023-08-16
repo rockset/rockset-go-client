@@ -74,15 +74,6 @@ func (rc *RockClient) WaitUntilQueryCompleted(ctx context.Context, queryID strin
 		}))
 }
 
-// WaitUntilCollectionReady waits until the collection is ready.
-func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, name string) error {
-	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{collectionStatusREADY},
-		func(ctx context.Context) (string, error) {
-			c, err := rc.GetCollection(ctx, workspace, name)
-			return c.GetStatus(), err
-		}))
-}
-
 func (rc *RockClient) WaitUntilVirtualInstanceActive(ctx context.Context, id string) error {
 	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceActive},
 		func(ctx context.Context) (string, error) {
@@ -109,15 +100,6 @@ func (rc *RockClient) WaitUntilMountActive(ctx context.Context, vID, workspace, 
 		}))
 }
 
-// WaitUntilCollectionGone waits until a collection marked for deletion is gone, i.e. GetCollection()
-// returns "not found".
-func (rc *RockClient) WaitUntilCollectionGone(ctx context.Context, workspace, name string) error {
-	return rc.RetryWithCheck(ctx, resourceIsGone(ctx, func(ctx context.Context) error {
-		_, err := rc.GetCollection(ctx, workspace, name)
-		return err
-	}))
-}
-
 // WaitUntilViewGone waits until a view marked for deletion is gone, i.e. GetView()
 // returns "not found".
 func (rc *RockClient) WaitUntilViewGone(ctx context.Context, workspace, name string) error {
@@ -141,20 +123,6 @@ func (rc *RockClient) WaitUntilWorkspaceGone(ctx context.Context, workspace stri
 		_, err := rc.GetWorkspace(ctx, workspace)
 		return err
 	}))
-}
-
-// WaitUntilCollectionHasNewDocuments waits until the collection has at least count new documents
-// (measured from when the method is called).
-func (rc *RockClient) WaitUntilCollectionHasNewDocuments(ctx context.Context, workspace, name string,
-	count int64) error {
-	waiter := docWaiter{rc: rc}
-	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
-}
-
-// WaitUntilCollectionHasDocuments waits until the collection has at least count documents
-func (rc *RockClient) WaitUntilCollectionHasDocuments(ctx context.Context, workspace, name string, count int64) error {
-	waiter := docWaiter{rc: rc}
-	return rc.RetryWithCheck(ctx, waiter.collectionHasDocs(ctx, workspace, name, count))
 }
 
 // resourceIsAvailable implements RetryFn to wait until the resource is present
@@ -218,68 +186,6 @@ func resourceHasState[T comparable](ctx context.Context, states []T, fn func(ctx
 		}
 
 		zl.Trace().Any("current", state).Msg("waiting for resource state")
-
-		return true, nil
-	}
-}
-
-type docWaiter struct {
-	rc        *RockClient
-	prevCount int64
-}
-
-func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name string, count int64) retry.CheckFn {
-	d.prevCount = -1
-	return func() (bool, error) {
-		zl := zerolog.Ctx(ctx)
-		c, err := d.rc.GetCollection(ctx, workspace, name)
-		if err != nil {
-			re := rockerr.New(err)
-			if re.Retryable() {
-				return true, nil
-			}
-
-			return false, err
-		}
-
-		current := c.Stats.GetDocCount()
-		zl.Debug().Str("workspace", workspace).Int64("current", current).
-			Int64("previous", d.prevCount).Str("collection", name).
-			Int64("count", count).Msg("collectionHasNewDocs()")
-
-		if d.prevCount == -1 {
-			d.prevCount = current
-		}
-
-		if current-d.prevCount >= count {
-			return false, nil
-		}
-
-		return true, nil
-	}
-}
-
-func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name string, count int64) retry.CheckFn {
-	return func() (bool, error) {
-		zl := zerolog.Ctx(ctx)
-		c, err := d.rc.GetCollection(ctx, workspace, name)
-		if err != nil {
-			re := rockerr.New(err)
-			if re.Retryable() {
-				return true, nil
-			}
-
-			return false, err
-		}
-
-		current := c.Stats.GetDocCount()
-		zl.Debug().Str("workspace", workspace).Int64("current", current).
-			Int64("previous", d.prevCount).Str("collection", name).
-			Int64("count", count).Msg("collectionHasNewDocs()")
-
-		if current >= count {
-			return false, nil
-		}
 
 		return true, nil
 	}

@@ -1,6 +1,7 @@
 package rockset_test
 
 import (
+	"github.com/rockset/rockset-go-client/wait"
 	"testing"
 
 	"github.com/fatih/structs"
@@ -38,7 +39,8 @@ func (s *DocumentIntegrationSuite) SetupSuite() {
 	// create a temporary write-api collection
 	_, err = s.rc.CreateCollection(ctx, s.ws, s.collection)
 	s.Require().NoError(err)
-	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.collection)
+	w := wait.New(s.rc)
+	err = w.UntilCollectionReady(ctx, s.ws, s.collection)
 	s.Require().NoError(err)
 }
 
@@ -48,7 +50,8 @@ func (s *DocumentIntegrationSuite) TearDownSuite() {
 	err := s.rc.DeleteCollection(ctx, s.ws, s.collection)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionGone(ctx, s.ws, s.collection)
+	w := wait.New(s.rc)
+	err = w.UntilCollectionGone(ctx, s.ws, s.collection)
 	s.Require().NoError(err)
 
 	err = s.rc.DeleteWorkspace(ctx, s.ws)

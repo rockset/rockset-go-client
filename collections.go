@@ -12,6 +12,12 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+const (
+	CollectionStatusCreated     = "CREATED"
+	CollectionStatusInitialized = "INITIALIZED"
+	CollectionStatusReady       = "READY"
+)
+
 // GetCollection gets information about a collection.
 func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string) (openapi.Collection, error) {
 	var err error
