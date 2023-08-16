@@ -77,6 +77,38 @@ func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, n
 	}))
 }
 
+// WaitUntilCollectionIsQueryable waits until it is possible to query the collection. It first
+// waits until the collection is READY before waiting for it to be queryable.
+func (rc *RockClient) WaitUntilCollectionIsQueryable(ctx context.Context, workspace, collection string) error {
+	// first make sure the workspace and collection are valid, to avoid SQL injection
+	if err := ValidEntityName(workspace); err != nil {
+		return err
+	}
+	if err := ValidEntityName(collection); err != nil {
+		return err
+	}
+
+	// wait for it to be READY, so we know that any 404 we get from thm API server is due to eventual consistency
+	if err := rc.WaitUntilCollectionReady(ctx, workspace, collection); err != nil {
+		return err
+	}
+	// now wait for a query to succeed
+	return rc.RetryWithCheck(ctx, func() (retry bool, err error) {
+		// we don't care about the result, just that we can query
+		_, err = rc.Query(ctx, fmt.Sprintf("SELECT * FROM %s.%s LIMIT 1", workspace, collection))
+
+		var re Error
+		if errors.As(err, &re) {
+			if re.IsNotFoundError() {
+				// the resource is not present, but we want to retry anyway as it *should* be present
+				return true, nil
+			}
+		}
+
+		return false, err
+	})
+}
+
 func (rc *RockClient) WaitUntilVirtualInstanceActive(ctx context.Context, id string) error {
 	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceActive}, func(ctx context.Context) (string, error) {
 		vi, err := rc.GetVirtualInstance(ctx, id)

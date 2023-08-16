@@ -10,6 +10,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"regexp"
 
 	"github.com/rs/zerolog"
 
@@ -224,6 +225,28 @@ func (rc *RockClient) Ping(ctx context.Context) error {
 	const goRockset = "GO ROCKSET!"
 	if ping.Message != goRockset {
 		return fmt.Errorf("unexpected message: %s", ping.Message)
+	}
+
+	return nil
+}
+
+const (
+	entityRegexpString = "^[[:alnum:]][[:alnum:]-_]*$"
+	maxEntityLength    = 100
+)
+
+var (
+	entityRegexp = regexp.MustCompile(entityRegexpString)
+)
+
+// ValidEntityName is used to validate if a name is valid for a workspace, collection, etc
+func ValidEntityName(name string) error {
+	if len(name) > maxEntityLength {
+		return fmt.Errorf("name must be less than %d characters", maxEntityLength)
+	}
+
+	if !entityRegexp.MatchString(name) {
+		return fmt.Errorf("invalid name, must match `%s`", entityRegexpString)
 	}
 
 	return nil

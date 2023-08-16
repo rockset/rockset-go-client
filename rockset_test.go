@@ -326,3 +326,29 @@ func TestRockClient_Ping(t *testing.T) {
 	err := rc.Ping(ctx)
 	require.NoError(t, err)
 }
+
+func TestValidCollectionName(t *testing.T) {
+	tests := []struct {
+		name   string
+		errStr string
+	}{
+		{"_123", "invalid name, must match `^[[:alnum:]][[:alnum:]-_]*$`"},
+		{"abc", ""},
+		{
+			"a1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890",
+			"name must be less than 100 characters",
+		},
+	}
+
+	for _, tst := range tests {
+		t.Run(tst.name, func(t *testing.T) {
+			err := rockset.ValidEntityName(tst.name)
+			if tst.errStr == "" {
+				assert.NoError(t, err)
+			} else {
+				assert.Error(t, err)
+				assert.Equal(t, tst.errStr, err.Error())
+			}
+		})
+	}
+}
