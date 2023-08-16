@@ -191,6 +191,102 @@
       "ErrType": null,
       "ErrMsg": null,
       "UUID": "0065faf7-32f6-49eb-998a-c5d4967584c5"
+    },
+    {
+      "Request": {
+        "Method": "GET",
+        "URL": {
+          "Scheme": "https",
+          "Opaque": "",
+          "User": null,
+          "Host": "api.usw2a1.rockset.com",
+          "Path": "/v1/orgs/self",
+          "RawPath": "",
+          "OmitHost": false,
+          "ForceQuery": false,
+          "RawQuery": "",
+          "Fragment": "",
+          "RawFragment": ""
+        },
+        "Proto": "HTTP/1.1",
+        "ProtoMajor": 1,
+        "ProtoMinor": 1,
+        "Header": {
+          "Accept": [
+            "application/json"
+          ],
+          "User-Agent": [
+            "rockset-go-client"
+          ],
+          "X-Rockset-Version": [
+            "0.20.1"
+          ]
+        },
+        "Body": "",
+        "ContentLength": 0,
+        "TransferEncoding": [],
+        "Close": false,
+        "Host": "api.usw2a1.rockset.com",
+        "Form": null,
+        "PostForm": null,
+        "MultipartForm": null,
+        "Trailer": null,
+        "RemoteAddr": "",
+        "RequestURI": ""
+      },
+      "Response": {
+        "Status": "200 OK",
+        "StatusCode": 200,
+        "Proto": "HTTP/2.0",
+        "ProtoMajor": 2,
+        "ProtoMinor": 0,
+        "Header": {
+          "Access-Control-Allow-Credentials": [
+            "true"
+          ],
+          "Access-Control-Allow-Headers": [
+            "origin, content-type, accept, authorization, organization, user-agent, x-rockset-version, baggage, sentry-trace"
+          ],
+          "Access-Control-Allow-Methods": [
+            "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH"
+          ],
+          "Access-Control-Allow-Origin": [
+            "*"
+          ],
+          "Access-Control-Max-Age": [
+            "1209600"
+          ],
+          "Cache-Control": [
+            "no-store"
+          ],
+          "Content-Length": [
+            "1751"
+          ],
+          "Content-Type": [
+            "application/json"
+          ],
+          "Date": [
+            "Fri, 18 Aug 2023 23:13:59 GMT"
+          ],
+          "Server": [
+            "openresty"
+          ],
+          "Strict-Transport-Security": [
+            "max-age=63072000; includeSubdomains; preload"
+          ]
+        },
+        "Body": "eyJkYXRhIjp7ImlkIjoicm9ja3NldC1jaXJjbGVjaSIsImNyZWF0ZWRfYXQiOiIyMDIwLTAyLTA0VDE4OjUzOjI4WiIsImRpc3BsYXlfbmFtZSI6IlJvY2tzZXQgQ2lyY2xlY2kiLCJjb21wYW55X25hbWUiOiJVc2VkIGZvciB0ZXN0aW5nIG9mIHJvY2tzZXQtZ28tY2xpZW50IGFuZCB0ZXJyYWZvcm0tcHJvdmlkZXItcm9ja3NldCIsImV4dGVybmFsX2lkIjoiNGVmMTJiNjY0Yzk2ZWZjZDgzNmVkZmVmN2IzZTA4NWU5MDhmNDYwNTJiNGRjYWVjM2ZhYWM1N2E1YjA4MDQ4ZSIsInJvY2tzZXRfdXNlciI6ImFybjphd3M6aWFtOjozMTgyMTI2MzY4MDA6dXNlci9yb2Nrc2V0IiwiYWx3YXlzX2dlbjJfdmlzIjpudWxsLCJhbHdheXNfaW50ZWxfaWNlX2xha2VfdmlzIjpmYWxzZSwic3RhdGUiOiJQQUlEIiwiZWRpdGlvbiI6IlBSRU1JVU0iLCJtZmFfcmVzdHJpY3RlZCI6bnVsbCwiY3VycmVuY3lfY29kZSI6IlVTRCIsImRlbGV0aW9uX3NjaGVkdWxlZF9hdCI6bnVsbCwiY2x1c3RlcnMiOlt7InB1YmxpY19lbmRwb2ludF9kaXNhYmxlZCI6ZmFsc2UsInByaXZhdGVfbGlua19lbmFibGVkIjpmYWxzZSwicHJpdmF0ZV9saW5rX3VybCI6bnVsbCwiaWQiOiIwNWU3OWJiZC1hMDg4LTQ3ODYtODIxMi00Nzc0YmMyNzNjYWIiLCJjbHVzdGVyX3R5cGUiOiJQVUJMSUMiLCJhd3NfcmVnaW9uIjoiZXUtY2VudHJhbC0xIiwiZG9tYWluIjoicm9ja3NldCIsInRvcF9sZXZlbF9kb21haW4iOiJjb20iLCJhcGlzZXJ2ZXJfdXJsIjoiYXBpLmV1YzFhMS5yb2Nrc2V0LmNvbSIsImdlbjJfdmlzX2F2YWlsYWJsZSI6bnVsbCwiaW50ZWxfaWNlX2xha2VfdmlzX2F2YWlsYWJsZSI6dHJ1ZSwiZ2VuMl92aXNfZW5hYmxlZCI6bnVsbCwiaW50ZWxfaWNlX2xha2VfdmlzX2VuYWJsZWQiOmZhbHNlfSx7InB1YmxpY19lbmRwb2ludF9kaXNhYmxlZCI6ZmFsc2UsInByaXZhdGVfbGlua19lbmFibGVkIjpmYWxzZSwicHJpdmF0ZV9saW5rX3VybCI6bnVsbCwiaWQiOiJjOGQxNjQ1MC00YmYzLTRhMzAtOWMzNy00OTFlY2I1NDY1OWEiLCJjbHVzdGVyX3R5cGUiOiJQVUJMSUMiLCJhd3NfcmVnaW9uIjoidXMtZWFzdC0xIiwiZG9tYWluIjoicm9ja3NldCIsInRvcF9sZXZlbF9kb21haW4iOiJjb20iLCJhcGlzZXJ2ZXJfdXJsIjoiYXBpLnVzZTFhMS5yb2Nrc2V0LmNvbSIsImdlbjJfdmlzX2F2YWlsYWJsZSI6bnVsbCwiaW50ZWxfaWNlX2xha2VfdmlzX2F2YWlsYWJsZSI6dHJ1ZSwiZ2VuMl92aXNfZW5hYmxlZCI6bnVsbCwiaW50ZWxfaWNlX2xha2VfdmlzX2VuYWJsZWQiOmZhbHNlfSx7InB1YmxpY19lbmRwb2ludF9kaXNhYmxlZCI6ZmFsc2UsInByaXZhdGVfbGlua19lbmFibGVkIjpmYWxzZSwicHJpdmF0ZV9saW5rX3VybCI6bnVsbCwiaWQiOiJjOThiOTc2ZS1lY2UzLTQ3NWMtYWZiOC1lYmQ5Y2U0ZGE4NzYiLCJjbHVzdGVyX3R5cGUiOiJQVUJMSUMiLCJhd3NfcmVnaW9uIjoidXMtd2VzdC0yIiwiZG9tYWluIjoicm9ja3NldCIsInRvcF9sZXZlbF9kb21haW4iOiJjb20iLCJhcGlzZXJ2ZXJfdXJsIjoiYXBpLnVzdzJhMS5yb2Nrc2V0LmNvbSIsImdlbjJfdmlzX2F2YWlsYWJsZSI6bnVsbCwiaW50ZWxfaWNlX2xha2VfdmlzX2F2YWlsYWJsZSI6dHJ1ZSwiZ2VuMl92aXNfZW5hYmxlZCI6bnVsbCwiaW50ZWxfaWNlX2xha2VfdmlzX2VuYWJsZWQiOmZhbHNlfV0sImF3c19tYXJrZXRwbGFjZV9jdXN0b21lcl9pZCI6IlMzNlM3dW1yV0d3Iiwic3NvX2Nvbm5lY3Rpb24iOm51bGwsInNzb19vbmx5IjpudWxsfX0=",
+        "ContentLength": 1751,
+        "TransferEncoding": [],
+        "Close": false,
+        "Uncompressed": false,
+        "Trailer": null,
+        "TLS": null,
+        "Request": null
+      },
+      "ErrType": null,
+      "ErrMsg": null,
+      "UUID": "9c37fba7-50e0-41c5-9bd5-19e2c3f72e02"
     }
   ]
 }

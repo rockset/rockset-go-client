@@ -63,64 +63,36 @@ func (rc *RockClient) WaitUntilAliasGone(ctx context.Context, workspace, alias s
 // WaitUntilQueryCompleted waits until queryID has either completed, errored, or been cancelled.
 func (rc *RockClient) WaitUntilQueryCompleted(ctx context.Context, queryID string) error {
 	// TODO should this only wait for COMPLETED and return an error for ERROR and CANCELLED?
-	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []QueryState{QueryCompleted, QueryError, QueryCancelled}, func(ctx context.Context) (QueryState, error) {
-		q, err := rc.GetQueryInfo(ctx, queryID)
-		return QueryState(q.GetStatus()), err
-	}))
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []QueryState{QueryCompleted, QueryError, QueryCancelled},
+		func(ctx context.Context) (QueryState, error) {
+			q, err := rc.GetQueryInfo(ctx, queryID)
+			return QueryState(q.GetStatus()), err
+		}))
 }
 
 // WaitUntilCollectionReady waits until the collection is ready.
 func (rc *RockClient) WaitUntilCollectionReady(ctx context.Context, workspace, name string) error {
-	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{collectionStatusREADY}, func(ctx context.Context) (string, error) {
-		c, err := rc.GetCollection(ctx, workspace, name)
-		return c.GetStatus(), err
-	}))
-}
-
-// WaitUntilCollectionIsQueryable waits until it is possible to query the collection. It first
-// waits until the collection is READY before waiting for it to be queryable.
-func (rc *RockClient) WaitUntilCollectionIsQueryable(ctx context.Context, workspace, collection string) error {
-	// first make sure the workspace and collection are valid, to avoid SQL injection
-	if err := ValidEntityName(workspace); err != nil {
-		return err
-	}
-	if err := ValidEntityName(collection); err != nil {
-		return err
-	}
-
-	// wait for it to be READY, so we know that any 404 we get from thm API server is due to eventual consistency
-	if err := rc.WaitUntilCollectionReady(ctx, workspace, collection); err != nil {
-		return err
-	}
-	// now wait for a query to succeed
-	return rc.RetryWithCheck(ctx, func() (retry bool, err error) {
-		// we don't care about the result, just that we can query
-		_, err = rc.Query(ctx, fmt.Sprintf("SELECT * FROM %s.%s LIMIT 1", workspace, collection))
-
-		var re Error
-		if errors.As(err, &re) {
-			if re.IsNotFoundError() {
-				// the resource is not present, but we want to retry anyway as it *should* be present
-				return true, nil
-			}
-		}
-
-		return false, err
-	})
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{collectionStatusREADY},
+		func(ctx context.Context) (string, error) {
+			c, err := rc.GetCollection(ctx, workspace, name)
+			return c.GetStatus(), err
+		}))
 }
 
 func (rc *RockClient) WaitUntilVirtualInstanceActive(ctx context.Context, id string) error {
-	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceActive}, func(ctx context.Context) (string, error) {
-		vi, err := rc.GetVirtualInstance(ctx, id)
-		return vi.GetState(), err
-	}))
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceActive},
+		func(ctx context.Context) (string, error) {
+			vi, err := rc.GetVirtualInstance(ctx, id)
+			return vi.GetState(), err
+		}))
 }
 
 func (rc *RockClient) WaitUntilVirtualInstanceSuspended(ctx context.Context, id string) error {
-	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceSuspended}, func(ctx context.Context) (string, error) {
-		vi, err := rc.GetVirtualInstance(ctx, id)
-		return vi.GetState(), err
-	}))
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{VirtualInstanceSuspended},
+		func(ctx context.Context) (string, error) {
+			vi, err := rc.GetVirtualInstance(ctx, id)
+			return vi.GetState(), err
+		}))
 }
 
 // WaitUntilCollectionGone waits until a collection marked for deletion is gone, i.e. GetCollection()
@@ -159,7 +131,8 @@ func (rc *RockClient) WaitUntilWorkspaceGone(ctx context.Context, workspace stri
 
 // WaitUntilCollectionHasNewDocuments waits until the collection has at least count new documents
 // (measured from when the method is called).
-func (rc *RockClient) WaitUntilCollectionHasNewDocuments(ctx context.Context, workspace, name string, count int64) error {
+func (rc *RockClient) WaitUntilCollectionHasNewDocuments(ctx context.Context, workspace, name string,
+	count int64) error {
 	waiter := docWaiter{rc: rc}
 	return rc.RetryWithCheck(ctx, waiter.collectionHasNewDocs(ctx, workspace, name, count))
 }
