@@ -85,6 +85,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -178,6 +184,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -271,6 +283,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -364,6 +382,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -463,6 +487,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -563,6 +593,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -662,6 +698,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -755,6 +797,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -847,6 +895,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -945,6 +999,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1045,6 +1105,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1144,6 +1210,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1241,6 +1313,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1356,6 +1434,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1448,6 +1532,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1547,6 +1637,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1647,6 +1743,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1745,6 +1847,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1850,6 +1958,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -1944,6 +2058,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2043,6 +2163,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2137,6 +2263,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2236,6 +2368,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2330,6 +2468,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2428,6 +2572,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2528,6 +2678,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2627,6 +2783,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2733,6 +2895,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2836,6 +3004,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -2945,6 +3119,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3059,6 +3239,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3174,6 +3360,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3268,6 +3460,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3361,6 +3559,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3402,7 +3606,7 @@ paths:
       - Virtual Instances
       x-rename: list
     post:
-      description: '[beta] Create virtual instance'
+      description: Create virtual instance
       operationId: createVirtualInstance
       requestBody:
         content:
@@ -3460,6 +3664,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3503,7 +3713,7 @@ paths:
       x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}:
     delete:
-      description: '[beta] Delete a virtual instance.'
+      description: Delete a virtual instance.
       operationId: deleteVirtualInstance
       parameters:
       - description: Virtual Instance RRN
@@ -3561,6 +3771,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3660,6 +3876,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3766,6 +3988,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3809,7 +4037,7 @@ paths:
       x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts:
     get:
-      description: '[beta] List collection mounts for a particular VI.'
+      description: List collection mounts for a particular VI.
       operationId: listCollectionMounts
       parameters:
       - description: Virtual Instance RRN
@@ -3867,6 +4095,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -3907,7 +4141,7 @@ paths:
       tags:
       - Virtual Instances
     post:
-      description: '[beta] Mount a collection to this virtual instance.'
+      description: Mount a collection to this virtual instance.
       operationId: mountCollection
       parameters:
       - description: Virtual Instance RRN
@@ -3972,6 +4206,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4014,7 +4254,7 @@ paths:
       x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts/{collectionPath}:
     delete:
-      description: '[beta] Unmount a collection from this virtual instance.'
+      description: Unmount a collection from this virtual instance.
       operationId: unmountCollection
       parameters:
       - description: Virtual Instance RRN
@@ -4077,6 +4317,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4117,7 +4363,7 @@ paths:
       tags:
       - Virtual Instances
     get:
-      description: '[beta] Retrieve a mount on this virtual instance.'
+      description: Retrieve a mount on this virtual instance.
       operationId: getCollectionMount
       parameters:
       - description: Virtual Instance RRN
@@ -4180,6 +4426,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4221,8 +4473,8 @@ paths:
       - Virtual Instances
   /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries:
     get:
-      description: '[beta] Lists actively queued and running queries for a particular
-        Virtual Instance.'
+      description: Lists actively queued and running queries for a particular Virtual
+        Instance.
       operationId: getVirtualInstanceQueries
       parameters:
       - description: Virtual Instance RRN
@@ -4280,6 +4532,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4320,7 +4578,7 @@ paths:
       tags:
       - Virtual Instances
     post:
-      description: '[beta] Make a SQL query to Rockset.'
+      description: Make a SQL query to Rockset.
       operationId: queryVirtualInstance
       parameters:
       - description: Virtual Instance RRN
@@ -4385,6 +4643,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4427,7 +4691,7 @@ paths:
       x-codegen-request-body-name: body
   /v1/orgs/self/virtualinstances/{virtualInstanceId}/resume:
     post:
-      description: '[beta] Resume a virtual instance.'
+      description: Resume a virtual instance.
       operationId: resumeVirtualInstance
       parameters:
       - description: Virtual Instance RRN
@@ -4485,6 +4749,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4526,7 +4796,7 @@ paths:
       - Virtual Instances
   /v1/orgs/self/virtualinstances/{virtualInstanceId}/suspend:
     post:
-      description: '[beta] Suspend a virtual instance.'
+      description: Suspend a virtual instance.
       operationId: suspendVirtualInstance
       parameters:
       - description: Virtual Instance RRN
@@ -4584,6 +4854,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4676,6 +4952,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4775,6 +5057,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4877,6 +5165,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -4977,6 +5271,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5078,6 +5378,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5184,6 +5490,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5292,6 +5604,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5398,6 +5716,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5511,6 +5835,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5613,6 +5943,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5719,6 +6055,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5826,6 +6168,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -5932,6 +6280,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -6045,6 +6399,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -6513,6 +6873,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -6620,6 +6986,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -6733,6 +7105,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -6846,6 +7224,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -6958,6 +7342,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7071,6 +7461,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7184,6 +7580,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7285,6 +7687,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7391,6 +7799,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7498,6 +7912,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7604,6 +8024,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7717,6 +8143,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7830,6 +8262,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -7941,6 +8379,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8059,6 +8503,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8172,6 +8622,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8278,6 +8734,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8395,6 +8857,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8508,6 +8976,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8626,6 +9100,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8727,6 +9207,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8833,6 +9319,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -8941,6 +9433,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -9047,6 +9545,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -9160,6 +9664,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:
@@ -9268,6 +9778,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
         "415":
           content:
             application/json:

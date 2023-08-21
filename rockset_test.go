@@ -138,7 +138,17 @@ func vcrClient(name string) (*rockset.RockClient, func(string) string, error) {
 	return rc, randFn, err
 }
 
-// VCR settings that exclude the HTTP header Authorization
+// stripPatchVersion removes the patch version from a SemVer string
+func stripPatchVersion(v string) string {
+	fields := strings.Split(v, ".")
+	if len(fields) != 3 {
+		panic("malformed version string: " + v)
+	}
+
+	return strings.Join(fields[:2], ".")
+}
+
+// VCR settings that exclude the HTTP header Authorization and ignores the patch version
 func vcrSettings(offline bool) []govcr.Setting {
 	const authHeader = "Authorization"
 	settings := []govcr.Setting{
@@ -147,13 +157,17 @@ func vcrSettings(offline bool) []govcr.Setting {
 				httpRequest.Header.Del(authHeader)
 				trackRequest.Header.Del(authHeader)
 
+				v := httpRequest.Header.Get(rockset.HeaderVersionName)
+				v = stripPatchVersion(v)
+				httpRequest.Header.Set(rockset.HeaderVersionName, v)
+
+				v = trackRequest.Header.Get(rockset.HeaderVersionName)
+				v = stripPatchVersion(v)
+				trackRequest.Header.Set(rockset.HeaderVersionName, v)
+
 				return govcr.DefaultHeaderMatcher(httpRequest, trackRequest)
 			},
 		),
-		govcr.WithTrackRecordingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
-		govcr.WithTrackRecordingMutators(track.ResponseDeleteTLS()),
-		govcr.WithTrackReplayingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
-		govcr.WithTrackReplayingMutators(track.ResponseDeleteTLS()),
 	}
 	if offline {
 		settings = append(settings, govcr.WithOfflineMode())

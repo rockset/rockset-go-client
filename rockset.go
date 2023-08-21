@@ -197,6 +197,9 @@ func (rc *RockClient) Ping(ctx context.Context) error {
 		return err
 	}
 
+	// needs special handling as the VCR recorder inspects this field
+	req.Header.Set(HeaderVersionName, Version)
+
 	resp, err := c.Do(req)
 	if err != nil {
 		return err

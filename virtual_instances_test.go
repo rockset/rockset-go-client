@@ -40,7 +40,7 @@ func (s *VirtualInstanceSuite) TestListQueries() {
 	queries, err := s.rc.GetVirtualInstanceQueries(ctx, s.vID)
 	s.Require().NoError(err)
 	for _, q := range queries {
-		s.T().Logf("%s: %s", q.GetQueryId(), q.GetStatus())
+		s.NotEmpty(q.GetQueryId())
 	}
 }
 
