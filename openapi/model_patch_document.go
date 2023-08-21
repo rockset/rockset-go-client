@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchDocument type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchDocument{}
+
 // PatchDocument struct for PatchDocument
 type PatchDocument struct {
 	// Unique ID of the document to be patched.
@@ -54,7 +57,7 @@ func (o *PatchDocument) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PatchDocument) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -78,7 +81,7 @@ func (o *PatchDocument) GetPatch() []PatchOperation {
 // GetPatchOk returns a tuple with the Patch field value
 // and a boolean to check if the value has been set.
 func (o *PatchDocument) GetPatchOk() ([]PatchOperation, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Patch, true
@@ -90,14 +93,18 @@ func (o *PatchDocument) SetPatch(v []PatchOperation) {
 }
 
 func (o PatchDocument) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["_id"] = o.Id
-	}
-	if true {
-		toSerialize["patch"] = o.Patch
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchDocument) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["_id"] = o.Id
+	toSerialize["patch"] = o.Patch
+	return toSerialize, nil
 }
 
 type NullablePatchDocument struct {

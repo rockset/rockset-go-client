@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateVirtualInstanceRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateVirtualInstanceRequest{}
+
 // CreateVirtualInstanceRequest struct for CreateVirtualInstanceRequest
 type CreateVirtualInstanceRequest struct {
 	// Number of seconds without queries after which the VI is suspended
@@ -50,7 +53,7 @@ func NewCreateVirtualInstanceRequestWithDefaults() *CreateVirtualInstanceRequest
 
 // GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
 func (o *CreateVirtualInstanceRequest) GetAutoSuspendSeconds() int32 {
-	if o == nil || o.AutoSuspendSeconds == nil {
+	if o == nil || IsNil(o.AutoSuspendSeconds) {
 		var ret int32
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *CreateVirtualInstanceRequest) GetAutoSuspendSeconds() int32 {
 // GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateVirtualInstanceRequest) GetAutoSuspendSecondsOk() (*int32, bool) {
-	if o == nil || o.AutoSuspendSeconds == nil {
+	if o == nil || IsNil(o.AutoSuspendSeconds) {
 		return nil, false
 	}
 	return o.AutoSuspendSeconds, true
@@ -68,7 +71,7 @@ func (o *CreateVirtualInstanceRequest) GetAutoSuspendSecondsOk() (*int32, bool) 
 
 // HasAutoSuspendSeconds returns a boolean if a field has been set.
 func (o *CreateVirtualInstanceRequest) HasAutoSuspendSeconds() bool {
-	if o != nil && o.AutoSuspendSeconds != nil {
+	if o != nil && !IsNil(o.AutoSuspendSeconds) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *CreateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateVirtualInstanceRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *CreateVirtualInstanceRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -100,7 +103,7 @@ func (o *CreateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateVirtualInstanceRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *CreateVirtualInstanceRequest) SetDescription(v string) {
 
 // GetEnableRemountOnResume returns the EnableRemountOnResume field value if set, zero value otherwise.
 func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResume() bool {
-	if o == nil || o.EnableRemountOnResume == nil {
+	if o == nil || IsNil(o.EnableRemountOnResume) {
 		var ret bool
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResume() bool {
 // GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool) {
-	if o == nil || o.EnableRemountOnResume == nil {
+	if o == nil || IsNil(o.EnableRemountOnResume) {
 		return nil, false
 	}
 	return o.EnableRemountOnResume, true
@@ -132,7 +135,7 @@ func (o *CreateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool
 
 // HasEnableRemountOnResume returns a boolean if a field has been set.
 func (o *CreateVirtualInstanceRequest) HasEnableRemountOnResume() bool {
-	if o != nil && o.EnableRemountOnResume != nil {
+	if o != nil && !IsNil(o.EnableRemountOnResume) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *CreateVirtualInstanceRequest) SetEnableRemountOnResume(v bool) {
 
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
 func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
-	if o == nil || o.MountRefreshIntervalSeconds == nil {
+	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
 		var ret int32
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
 // GetMountRefreshIntervalSecondsOk returns a tuple with the MountRefreshIntervalSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSecondsOk() (*int32, bool) {
-	if o == nil || o.MountRefreshIntervalSeconds == nil {
+	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
 		return nil, false
 	}
 	return o.MountRefreshIntervalSeconds, true
@@ -164,7 +167,7 @@ func (o *CreateVirtualInstanceRequest) GetMountRefreshIntervalSecondsOk() (*int3
 
 // HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
 func (o *CreateVirtualInstanceRequest) HasMountRefreshIntervalSeconds() bool {
-	if o != nil && o.MountRefreshIntervalSeconds != nil {
+	if o != nil && !IsNil(o.MountRefreshIntervalSeconds) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *CreateVirtualInstanceRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateVirtualInstanceRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -202,7 +205,7 @@ func (o *CreateVirtualInstanceRequest) SetName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *CreateVirtualInstanceRequest) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -212,7 +215,7 @@ func (o *CreateVirtualInstanceRequest) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateVirtualInstanceRequest) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -220,7 +223,7 @@ func (o *CreateVirtualInstanceRequest) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *CreateVirtualInstanceRequest) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -233,26 +236,32 @@ func (o *CreateVirtualInstanceRequest) SetType(v string) {
 }
 
 func (o CreateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AutoSuspendSeconds != nil {
-		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.EnableRemountOnResume != nil {
-		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
-	}
-	if o.MountRefreshIntervalSeconds != nil {
-		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateVirtualInstanceRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AutoSuspendSeconds) {
+		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.EnableRemountOnResume) {
+		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
+	}
+	if !IsNil(o.MountRefreshIntervalSeconds) {
+		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateVirtualInstanceRequest struct {

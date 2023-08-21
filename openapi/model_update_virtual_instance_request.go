@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateVirtualInstanceRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateVirtualInstanceRequest{}
+
 // UpdateVirtualInstanceRequest struct for UpdateVirtualInstanceRequest
 type UpdateVirtualInstanceRequest struct {
 	AutoScalingPolicy *AutoScalingPolicy `json:"auto_scaling_policy,omitempty"`
@@ -52,7 +55,7 @@ func NewUpdateVirtualInstanceRequestWithDefaults() *UpdateVirtualInstanceRequest
 
 // GetAutoScalingPolicy returns the AutoScalingPolicy field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicy() AutoScalingPolicy {
-	if o == nil || o.AutoScalingPolicy == nil {
+	if o == nil || IsNil(o.AutoScalingPolicy) {
 		var ret AutoScalingPolicy
 		return ret
 	}
@@ -62,7 +65,7 @@ func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicy() AutoScalingPolicy 
 // GetAutoScalingPolicyOk returns a tuple with the AutoScalingPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool) {
-	if o == nil || o.AutoScalingPolicy == nil {
+	if o == nil || IsNil(o.AutoScalingPolicy) {
 		return nil, false
 	}
 	return o.AutoScalingPolicy, true
@@ -70,7 +73,7 @@ func (o *UpdateVirtualInstanceRequest) GetAutoScalingPolicyOk() (*AutoScalingPol
 
 // HasAutoScalingPolicy returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasAutoScalingPolicy() bool {
-	if o != nil && o.AutoScalingPolicy != nil {
+	if o != nil && !IsNil(o.AutoScalingPolicy) {
 		return true
 	}
 
@@ -84,7 +87,7 @@ func (o *UpdateVirtualInstanceRequest) SetAutoScalingPolicy(v AutoScalingPolicy)
 
 // GetAutoSuspendEnabled returns the AutoSuspendEnabled field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabled() bool {
-	if o == nil || o.AutoSuspendEnabled == nil {
+	if o == nil || IsNil(o.AutoSuspendEnabled) {
 		var ret bool
 		return ret
 	}
@@ -94,7 +97,7 @@ func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabled() bool {
 // GetAutoSuspendEnabledOk returns a tuple with the AutoSuspendEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabledOk() (*bool, bool) {
-	if o == nil || o.AutoSuspendEnabled == nil {
+	if o == nil || IsNil(o.AutoSuspendEnabled) {
 		return nil, false
 	}
 	return o.AutoSuspendEnabled, true
@@ -102,7 +105,7 @@ func (o *UpdateVirtualInstanceRequest) GetAutoSuspendEnabledOk() (*bool, bool) {
 
 // HasAutoSuspendEnabled returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasAutoSuspendEnabled() bool {
-	if o != nil && o.AutoSuspendEnabled != nil {
+	if o != nil && !IsNil(o.AutoSuspendEnabled) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *UpdateVirtualInstanceRequest) SetAutoSuspendEnabled(v bool) {
 
 // GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSeconds() int32 {
-	if o == nil || o.AutoSuspendSeconds == nil {
+	if o == nil || IsNil(o.AutoSuspendSeconds) {
 		var ret int32
 		return ret
 	}
@@ -126,7 +129,7 @@ func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSeconds() int32 {
 // GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSecondsOk() (*int32, bool) {
-	if o == nil || o.AutoSuspendSeconds == nil {
+	if o == nil || IsNil(o.AutoSuspendSeconds) {
 		return nil, false
 	}
 	return o.AutoSuspendSeconds, true
@@ -134,7 +137,7 @@ func (o *UpdateVirtualInstanceRequest) GetAutoSuspendSecondsOk() (*int32, bool) 
 
 // HasAutoSuspendSeconds returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasAutoSuspendSeconds() bool {
-	if o != nil && o.AutoSuspendSeconds != nil {
+	if o != nil && !IsNil(o.AutoSuspendSeconds) {
 		return true
 	}
 
@@ -148,7 +151,7 @@ func (o *UpdateVirtualInstanceRequest) SetAutoSuspendSeconds(v int32) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -158,7 +161,7 @@ func (o *UpdateVirtualInstanceRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -166,7 +169,7 @@ func (o *UpdateVirtualInstanceRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -180,7 +183,7 @@ func (o *UpdateVirtualInstanceRequest) SetDescription(v string) {
 
 // GetEnableRemountOnResume returns the EnableRemountOnResume field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResume() bool {
-	if o == nil || o.EnableRemountOnResume == nil {
+	if o == nil || IsNil(o.EnableRemountOnResume) {
 		var ret bool
 		return ret
 	}
@@ -190,7 +193,7 @@ func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResume() bool {
 // GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool) {
-	if o == nil || o.EnableRemountOnResume == nil {
+	if o == nil || IsNil(o.EnableRemountOnResume) {
 		return nil, false
 	}
 	return o.EnableRemountOnResume, true
@@ -198,7 +201,7 @@ func (o *UpdateVirtualInstanceRequest) GetEnableRemountOnResumeOk() (*bool, bool
 
 // HasEnableRemountOnResume returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasEnableRemountOnResume() bool {
-	if o != nil && o.EnableRemountOnResume != nil {
+	if o != nil && !IsNil(o.EnableRemountOnResume) {
 		return true
 	}
 
@@ -212,7 +215,7 @@ func (o *UpdateVirtualInstanceRequest) SetEnableRemountOnResume(v bool) {
 
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
-	if o == nil || o.MountRefreshIntervalSeconds == nil {
+	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
 		var ret int32
 		return ret
 	}
@@ -222,7 +225,7 @@ func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
 // GetMountRefreshIntervalSecondsOk returns a tuple with the MountRefreshIntervalSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSecondsOk() (*int32, bool) {
-	if o == nil || o.MountRefreshIntervalSeconds == nil {
+	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
 		return nil, false
 	}
 	return o.MountRefreshIntervalSeconds, true
@@ -230,7 +233,7 @@ func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSecondsOk() (*int3
 
 // HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasMountRefreshIntervalSeconds() bool {
-	if o != nil && o.MountRefreshIntervalSeconds != nil {
+	if o != nil && !IsNil(o.MountRefreshIntervalSeconds) {
 		return true
 	}
 
@@ -244,7 +247,7 @@ func (o *UpdateVirtualInstanceRequest) SetMountRefreshIntervalSeconds(v int32) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -254,7 +257,7 @@ func (o *UpdateVirtualInstanceRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -262,7 +265,7 @@ func (o *UpdateVirtualInstanceRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -276,7 +279,7 @@ func (o *UpdateVirtualInstanceRequest) SetName(v string) {
 
 // GetNewSize returns the NewSize field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetNewSize() string {
-	if o == nil || o.NewSize == nil {
+	if o == nil || IsNil(o.NewSize) {
 		var ret string
 		return ret
 	}
@@ -286,7 +289,7 @@ func (o *UpdateVirtualInstanceRequest) GetNewSize() string {
 // GetNewSizeOk returns a tuple with the NewSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateVirtualInstanceRequest) GetNewSizeOk() (*string, bool) {
-	if o == nil || o.NewSize == nil {
+	if o == nil || IsNil(o.NewSize) {
 		return nil, false
 	}
 	return o.NewSize, true
@@ -294,7 +297,7 @@ func (o *UpdateVirtualInstanceRequest) GetNewSizeOk() (*string, bool) {
 
 // HasNewSize returns a boolean if a field has been set.
 func (o *UpdateVirtualInstanceRequest) HasNewSize() bool {
-	if o != nil && o.NewSize != nil {
+	if o != nil && !IsNil(o.NewSize) {
 		return true
 	}
 
@@ -307,32 +310,40 @@ func (o *UpdateVirtualInstanceRequest) SetNewSize(v string) {
 }
 
 func (o UpdateVirtualInstanceRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AutoScalingPolicy != nil {
-		toSerialize["auto_scaling_policy"] = o.AutoScalingPolicy
-	}
-	if o.AutoSuspendEnabled != nil {
-		toSerialize["auto_suspend_enabled"] = o.AutoSuspendEnabled
-	}
-	if o.AutoSuspendSeconds != nil {
-		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.EnableRemountOnResume != nil {
-		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
-	}
-	if o.MountRefreshIntervalSeconds != nil {
-		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.NewSize != nil {
-		toSerialize["new_size"] = o.NewSize
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateVirtualInstanceRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AutoScalingPolicy) {
+		toSerialize["auto_scaling_policy"] = o.AutoScalingPolicy
+	}
+	if !IsNil(o.AutoSuspendEnabled) {
+		toSerialize["auto_suspend_enabled"] = o.AutoSuspendEnabled
+	}
+	if !IsNil(o.AutoSuspendSeconds) {
+		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.EnableRemountOnResume) {
+		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
+	}
+	if !IsNil(o.MountRefreshIntervalSeconds) {
+		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.NewSize) {
+		toSerialize["new_size"] = o.NewSize
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateVirtualInstanceRequest struct {

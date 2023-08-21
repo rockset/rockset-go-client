@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaginationInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaginationInfo{}
+
 // PaginationInfo struct for PaginationInfo
 type PaginationInfo struct {
 	// Number of documents returned in this result set.
@@ -47,7 +50,7 @@ func NewPaginationInfoWithDefaults() *PaginationInfo {
 
 // GetCurrentPageDocCount returns the CurrentPageDocCount field value if set, zero value otherwise.
 func (o *PaginationInfo) GetCurrentPageDocCount() int64 {
-	if o == nil || o.CurrentPageDocCount == nil {
+	if o == nil || IsNil(o.CurrentPageDocCount) {
 		var ret int64
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *PaginationInfo) GetCurrentPageDocCount() int64 {
 // GetCurrentPageDocCountOk returns a tuple with the CurrentPageDocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationInfo) GetCurrentPageDocCountOk() (*int64, bool) {
-	if o == nil || o.CurrentPageDocCount == nil {
+	if o == nil || IsNil(o.CurrentPageDocCount) {
 		return nil, false
 	}
 	return o.CurrentPageDocCount, true
@@ -65,7 +68,7 @@ func (o *PaginationInfo) GetCurrentPageDocCountOk() (*int64, bool) {
 
 // HasCurrentPageDocCount returns a boolean if a field has been set.
 func (o *PaginationInfo) HasCurrentPageDocCount() bool {
-	if o != nil && o.CurrentPageDocCount != nil {
+	if o != nil && !IsNil(o.CurrentPageDocCount) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *PaginationInfo) SetCurrentPageDocCount(v int64) {
 
 // GetNextCursor returns the NextCursor field value if set, zero value otherwise.
 func (o *PaginationInfo) GetNextCursor() string {
-	if o == nil || o.NextCursor == nil {
+	if o == nil || IsNil(o.NextCursor) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *PaginationInfo) GetNextCursor() string {
 // GetNextCursorOk returns a tuple with the NextCursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationInfo) GetNextCursorOk() (*string, bool) {
-	if o == nil || o.NextCursor == nil {
+	if o == nil || IsNil(o.NextCursor) {
 		return nil, false
 	}
 	return o.NextCursor, true
@@ -97,7 +100,7 @@ func (o *PaginationInfo) GetNextCursorOk() (*string, bool) {
 
 // HasNextCursor returns a boolean if a field has been set.
 func (o *PaginationInfo) HasNextCursor() bool {
-	if o != nil && o.NextCursor != nil {
+	if o != nil && !IsNil(o.NextCursor) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *PaginationInfo) SetNextCursor(v string) {
 
 // GetNextCursorOffset returns the NextCursorOffset field value if set, zero value otherwise.
 func (o *PaginationInfo) GetNextCursorOffset() int64 {
-	if o == nil || o.NextCursorOffset == nil {
+	if o == nil || IsNil(o.NextCursorOffset) {
 		var ret int64
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *PaginationInfo) GetNextCursorOffset() int64 {
 // GetNextCursorOffsetOk returns a tuple with the NextCursorOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationInfo) GetNextCursorOffsetOk() (*int64, bool) {
-	if o == nil || o.NextCursorOffset == nil {
+	if o == nil || IsNil(o.NextCursorOffset) {
 		return nil, false
 	}
 	return o.NextCursorOffset, true
@@ -129,7 +132,7 @@ func (o *PaginationInfo) GetNextCursorOffsetOk() (*int64, bool) {
 
 // HasNextCursorOffset returns a boolean if a field has been set.
 func (o *PaginationInfo) HasNextCursorOffset() bool {
-	if o != nil && o.NextCursorOffset != nil {
+	if o != nil && !IsNil(o.NextCursorOffset) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *PaginationInfo) SetNextCursorOffset(v int64) {
 
 // GetNextPageLink returns the NextPageLink field value if set, zero value otherwise.
 func (o *PaginationInfo) GetNextPageLink() string {
-	if o == nil || o.NextPageLink == nil {
+	if o == nil || IsNil(o.NextPageLink) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *PaginationInfo) GetNextPageLink() string {
 // GetNextPageLinkOk returns a tuple with the NextPageLink field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationInfo) GetNextPageLinkOk() (*string, bool) {
-	if o == nil || o.NextPageLink == nil {
+	if o == nil || IsNil(o.NextPageLink) {
 		return nil, false
 	}
 	return o.NextPageLink, true
@@ -161,7 +164,7 @@ func (o *PaginationInfo) GetNextPageLinkOk() (*string, bool) {
 
 // HasNextPageLink returns a boolean if a field has been set.
 func (o *PaginationInfo) HasNextPageLink() bool {
-	if o != nil && o.NextPageLink != nil {
+	if o != nil && !IsNil(o.NextPageLink) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *PaginationInfo) SetNextPageLink(v string) {
 
 // GetStartCursor returns the StartCursor field value if set, zero value otherwise.
 func (o *PaginationInfo) GetStartCursor() string {
-	if o == nil || o.StartCursor == nil {
+	if o == nil || IsNil(o.StartCursor) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *PaginationInfo) GetStartCursor() string {
 // GetStartCursorOk returns a tuple with the StartCursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationInfo) GetStartCursorOk() (*string, bool) {
-	if o == nil || o.StartCursor == nil {
+	if o == nil || IsNil(o.StartCursor) {
 		return nil, false
 	}
 	return o.StartCursor, true
@@ -193,7 +196,7 @@ func (o *PaginationInfo) GetStartCursorOk() (*string, bool) {
 
 // HasStartCursor returns a boolean if a field has been set.
 func (o *PaginationInfo) HasStartCursor() bool {
-	if o != nil && o.StartCursor != nil {
+	if o != nil && !IsNil(o.StartCursor) {
 		return true
 	}
 
@@ -206,23 +209,29 @@ func (o *PaginationInfo) SetStartCursor(v string) {
 }
 
 func (o PaginationInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CurrentPageDocCount != nil {
-		toSerialize["current_page_doc_count"] = o.CurrentPageDocCount
-	}
-	if o.NextCursor != nil {
-		toSerialize["next_cursor"] = o.NextCursor
-	}
-	if o.NextCursorOffset != nil {
-		toSerialize["next_cursor_offset"] = o.NextCursorOffset
-	}
-	if o.NextPageLink != nil {
-		toSerialize["next_page_link"] = o.NextPageLink
-	}
-	if o.StartCursor != nil {
-		toSerialize["start_cursor"] = o.StartCursor
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaginationInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CurrentPageDocCount) {
+		toSerialize["current_page_doc_count"] = o.CurrentPageDocCount
+	}
+	if !IsNil(o.NextCursor) {
+		toSerialize["next_cursor"] = o.NextCursor
+	}
+	if !IsNil(o.NextCursorOffset) {
+		toSerialize["next_cursor_offset"] = o.NextCursorOffset
+	}
+	// skip: next_page_link is readOnly
+	if !IsNil(o.StartCursor) {
+		toSerialize["start_cursor"] = o.StartCursor
+	}
+	return toSerialize, nil
 }
 
 type NullablePaginationInfo struct {

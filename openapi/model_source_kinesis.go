@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceKinesis type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceKinesis{}
+
 // SourceKinesis struct for SourceKinesis
 type SourceKinesis struct {
 	// AWS region name of Kinesis stream, by default us-west-2 is used.
@@ -46,7 +49,7 @@ func NewSourceKinesisWithDefaults() *SourceKinesis {
 
 // GetAwsRegion returns the AwsRegion field value if set, zero value otherwise.
 func (o *SourceKinesis) GetAwsRegion() string {
-	if o == nil || o.AwsRegion == nil {
+	if o == nil || IsNil(o.AwsRegion) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *SourceKinesis) GetAwsRegion() string {
 // GetAwsRegionOk returns a tuple with the AwsRegion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKinesis) GetAwsRegionOk() (*string, bool) {
-	if o == nil || o.AwsRegion == nil {
+	if o == nil || IsNil(o.AwsRegion) {
 		return nil, false
 	}
 	return o.AwsRegion, true
@@ -64,7 +67,7 @@ func (o *SourceKinesis) GetAwsRegionOk() (*string, bool) {
 
 // HasAwsRegion returns a boolean if a field has been set.
 func (o *SourceKinesis) HasAwsRegion() bool {
-	if o != nil && o.AwsRegion != nil {
+	if o != nil && !IsNil(o.AwsRegion) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *SourceKinesis) SetAwsRegion(v string) {
 
 // GetDmsPrimaryKey returns the DmsPrimaryKey field value if set, zero value otherwise.
 func (o *SourceKinesis) GetDmsPrimaryKey() []string {
-	if o == nil || o.DmsPrimaryKey == nil {
+	if o == nil || IsNil(o.DmsPrimaryKey) {
 		var ret []string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *SourceKinesis) GetDmsPrimaryKey() []string {
 // GetDmsPrimaryKeyOk returns a tuple with the DmsPrimaryKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKinesis) GetDmsPrimaryKeyOk() ([]string, bool) {
-	if o == nil || o.DmsPrimaryKey == nil {
+	if o == nil || IsNil(o.DmsPrimaryKey) {
 		return nil, false
 	}
 	return o.DmsPrimaryKey, true
@@ -96,7 +99,7 @@ func (o *SourceKinesis) GetDmsPrimaryKeyOk() ([]string, bool) {
 
 // HasDmsPrimaryKey returns a boolean if a field has been set.
 func (o *SourceKinesis) HasDmsPrimaryKey() bool {
-	if o != nil && o.DmsPrimaryKey != nil {
+	if o != nil && !IsNil(o.DmsPrimaryKey) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *SourceKinesis) SetDmsPrimaryKey(v []string) {
 
 // GetOffsetResetPolicy returns the OffsetResetPolicy field value if set, zero value otherwise.
 func (o *SourceKinesis) GetOffsetResetPolicy() string {
-	if o == nil || o.OffsetResetPolicy == nil {
+	if o == nil || IsNil(o.OffsetResetPolicy) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *SourceKinesis) GetOffsetResetPolicy() string {
 // GetOffsetResetPolicyOk returns a tuple with the OffsetResetPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKinesis) GetOffsetResetPolicyOk() (*string, bool) {
-	if o == nil || o.OffsetResetPolicy == nil {
+	if o == nil || IsNil(o.OffsetResetPolicy) {
 		return nil, false
 	}
 	return o.OffsetResetPolicy, true
@@ -128,7 +131,7 @@ func (o *SourceKinesis) GetOffsetResetPolicyOk() (*string, bool) {
 
 // HasOffsetResetPolicy returns a boolean if a field has been set.
 func (o *SourceKinesis) HasOffsetResetPolicy() bool {
-	if o != nil && o.OffsetResetPolicy != nil {
+	if o != nil && !IsNil(o.OffsetResetPolicy) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *SourceKinesis) GetStreamName() string {
 // GetStreamNameOk returns a tuple with the StreamName field value
 // and a boolean to check if the value has been set.
 func (o *SourceKinesis) GetStreamNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.StreamName, true
@@ -165,20 +168,26 @@ func (o *SourceKinesis) SetStreamName(v string) {
 }
 
 func (o SourceKinesis) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsRegion != nil {
-		toSerialize["aws_region"] = o.AwsRegion
-	}
-	if o.DmsPrimaryKey != nil {
-		toSerialize["dms_primary_key"] = o.DmsPrimaryKey
-	}
-	if o.OffsetResetPolicy != nil {
-		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
-	}
-	if true {
-		toSerialize["stream_name"] = o.StreamName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceKinesis) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsRegion) {
+		toSerialize["aws_region"] = o.AwsRegion
+	}
+	if !IsNil(o.DmsPrimaryKey) {
+		toSerialize["dms_primary_key"] = o.DmsPrimaryKey
+	}
+	if !IsNil(o.OffsetResetPolicy) {
+		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
+	}
+	toSerialize["stream_name"] = o.StreamName
+	return toSerialize, nil
 }
 
 type NullableSourceKinesis struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the XmlParams type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &XmlParams{}
+
 // XmlParams struct for XmlParams
 type XmlParams struct {
 	// Tag to differentiate between attributes and elements.
@@ -47,7 +50,7 @@ func NewXmlParamsWithDefaults() *XmlParams {
 
 // GetAttributePrefix returns the AttributePrefix field value if set, zero value otherwise.
 func (o *XmlParams) GetAttributePrefix() string {
-	if o == nil || o.AttributePrefix == nil {
+	if o == nil || IsNil(o.AttributePrefix) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *XmlParams) GetAttributePrefix() string {
 // GetAttributePrefixOk returns a tuple with the AttributePrefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *XmlParams) GetAttributePrefixOk() (*string, bool) {
-	if o == nil || o.AttributePrefix == nil {
+	if o == nil || IsNil(o.AttributePrefix) {
 		return nil, false
 	}
 	return o.AttributePrefix, true
@@ -65,7 +68,7 @@ func (o *XmlParams) GetAttributePrefixOk() (*string, bool) {
 
 // HasAttributePrefix returns a boolean if a field has been set.
 func (o *XmlParams) HasAttributePrefix() bool {
-	if o != nil && o.AttributePrefix != nil {
+	if o != nil && !IsNil(o.AttributePrefix) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *XmlParams) SetAttributePrefix(v string) {
 
 // GetDocTag returns the DocTag field value if set, zero value otherwise.
 func (o *XmlParams) GetDocTag() string {
-	if o == nil || o.DocTag == nil {
+	if o == nil || IsNil(o.DocTag) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *XmlParams) GetDocTag() string {
 // GetDocTagOk returns a tuple with the DocTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *XmlParams) GetDocTagOk() (*string, bool) {
-	if o == nil || o.DocTag == nil {
+	if o == nil || IsNil(o.DocTag) {
 		return nil, false
 	}
 	return o.DocTag, true
@@ -97,7 +100,7 @@ func (o *XmlParams) GetDocTagOk() (*string, bool) {
 
 // HasDocTag returns a boolean if a field has been set.
 func (o *XmlParams) HasDocTag() bool {
-	if o != nil && o.DocTag != nil {
+	if o != nil && !IsNil(o.DocTag) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *XmlParams) SetDocTag(v string) {
 
 // GetEncoding returns the Encoding field value if set, zero value otherwise.
 func (o *XmlParams) GetEncoding() string {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		var ret string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *XmlParams) GetEncoding() string {
 // GetEncodingOk returns a tuple with the Encoding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *XmlParams) GetEncodingOk() (*string, bool) {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		return nil, false
 	}
 	return o.Encoding, true
@@ -129,7 +132,7 @@ func (o *XmlParams) GetEncodingOk() (*string, bool) {
 
 // HasEncoding returns a boolean if a field has been set.
 func (o *XmlParams) HasEncoding() bool {
-	if o != nil && o.Encoding != nil {
+	if o != nil && !IsNil(o.Encoding) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *XmlParams) SetEncoding(v string) {
 
 // GetRootTag returns the RootTag field value if set, zero value otherwise.
 func (o *XmlParams) GetRootTag() string {
-	if o == nil || o.RootTag == nil {
+	if o == nil || IsNil(o.RootTag) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *XmlParams) GetRootTag() string {
 // GetRootTagOk returns a tuple with the RootTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *XmlParams) GetRootTagOk() (*string, bool) {
-	if o == nil || o.RootTag == nil {
+	if o == nil || IsNil(o.RootTag) {
 		return nil, false
 	}
 	return o.RootTag, true
@@ -161,7 +164,7 @@ func (o *XmlParams) GetRootTagOk() (*string, bool) {
 
 // HasRootTag returns a boolean if a field has been set.
 func (o *XmlParams) HasRootTag() bool {
-	if o != nil && o.RootTag != nil {
+	if o != nil && !IsNil(o.RootTag) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *XmlParams) SetRootTag(v string) {
 
 // GetValueTag returns the ValueTag field value if set, zero value otherwise.
 func (o *XmlParams) GetValueTag() string {
-	if o == nil || o.ValueTag == nil {
+	if o == nil || IsNil(o.ValueTag) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *XmlParams) GetValueTag() string {
 // GetValueTagOk returns a tuple with the ValueTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *XmlParams) GetValueTagOk() (*string, bool) {
-	if o == nil || o.ValueTag == nil {
+	if o == nil || IsNil(o.ValueTag) {
 		return nil, false
 	}
 	return o.ValueTag, true
@@ -193,7 +196,7 @@ func (o *XmlParams) GetValueTagOk() (*string, bool) {
 
 // HasValueTag returns a boolean if a field has been set.
 func (o *XmlParams) HasValueTag() bool {
-	if o != nil && o.ValueTag != nil {
+	if o != nil && !IsNil(o.ValueTag) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *XmlParams) SetValueTag(v string) {
 }
 
 func (o XmlParams) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AttributePrefix != nil {
-		toSerialize["attribute_prefix"] = o.AttributePrefix
-	}
-	if o.DocTag != nil {
-		toSerialize["doc_tag"] = o.DocTag
-	}
-	if o.Encoding != nil {
-		toSerialize["encoding"] = o.Encoding
-	}
-	if o.RootTag != nil {
-		toSerialize["root_tag"] = o.RootTag
-	}
-	if o.ValueTag != nil {
-		toSerialize["value_tag"] = o.ValueTag
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o XmlParams) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AttributePrefix) {
+		toSerialize["attribute_prefix"] = o.AttributePrefix
+	}
+	if !IsNil(o.DocTag) {
+		toSerialize["doc_tag"] = o.DocTag
+	}
+	if !IsNil(o.Encoding) {
+		toSerialize["encoding"] = o.Encoding
+	}
+	if !IsNil(o.RootTag) {
+		toSerialize["root_tag"] = o.RootTag
+	}
+	if !IsNil(o.ValueTag) {
+		toSerialize["value_tag"] = o.ValueTag
+	}
+	return toSerialize, nil
 }
 
 type NullableXmlParams struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Alias type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Alias{}
+
 // Alias struct for Alias
 type Alias struct {
 	// List of fully qualified collection names referenced by alias.
@@ -55,7 +58,7 @@ func NewAliasWithDefaults() *Alias {
 
 // GetCollections returns the Collections field value if set, zero value otherwise.
 func (o *Alias) GetCollections() []string {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		var ret []string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Alias) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetCollectionsOk() ([]string, bool) {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		return nil, false
 	}
 	return o.Collections, true
@@ -73,7 +76,7 @@ func (o *Alias) GetCollectionsOk() ([]string, bool) {
 
 // HasCollections returns a boolean if a field has been set.
 func (o *Alias) HasCollections() bool {
-	if o != nil && o.Collections != nil {
+	if o != nil && !IsNil(o.Collections) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *Alias) SetCollections(v []string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Alias) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *Alias) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -105,7 +108,7 @@ func (o *Alias) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Alias) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -119,7 +122,7 @@ func (o *Alias) SetCreatedAt(v string) {
 
 // GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
 func (o *Alias) GetCreatedByApikeyName() string {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		var ret string
 		return ret
 	}
@@ -129,7 +132,7 @@ func (o *Alias) GetCreatedByApikeyName() string {
 // GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetCreatedByApikeyNameOk() (*string, bool) {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		return nil, false
 	}
 	return o.CreatedByApikeyName, true
@@ -137,7 +140,7 @@ func (o *Alias) GetCreatedByApikeyNameOk() (*string, bool) {
 
 // HasCreatedByApikeyName returns a boolean if a field has been set.
 func (o *Alias) HasCreatedByApikeyName() bool {
-	if o != nil && o.CreatedByApikeyName != nil {
+	if o != nil && !IsNil(o.CreatedByApikeyName) {
 		return true
 	}
 
@@ -151,7 +154,7 @@ func (o *Alias) SetCreatedByApikeyName(v string) {
 
 // GetCreatorEmail returns the CreatorEmail field value if set, zero value otherwise.
 func (o *Alias) GetCreatorEmail() string {
-	if o == nil || o.CreatorEmail == nil {
+	if o == nil || IsNil(o.CreatorEmail) {
 		var ret string
 		return ret
 	}
@@ -161,7 +164,7 @@ func (o *Alias) GetCreatorEmail() string {
 // GetCreatorEmailOk returns a tuple with the CreatorEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetCreatorEmailOk() (*string, bool) {
-	if o == nil || o.CreatorEmail == nil {
+	if o == nil || IsNil(o.CreatorEmail) {
 		return nil, false
 	}
 	return o.CreatorEmail, true
@@ -169,7 +172,7 @@ func (o *Alias) GetCreatorEmailOk() (*string, bool) {
 
 // HasCreatorEmail returns a boolean if a field has been set.
 func (o *Alias) HasCreatorEmail() bool {
-	if o != nil && o.CreatorEmail != nil {
+	if o != nil && !IsNil(o.CreatorEmail) {
 		return true
 	}
 
@@ -183,7 +186,7 @@ func (o *Alias) SetCreatorEmail(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Alias) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -193,7 +196,7 @@ func (o *Alias) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -201,7 +204,7 @@ func (o *Alias) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Alias) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -215,7 +218,7 @@ func (o *Alias) SetDescription(v string) {
 
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
 func (o *Alias) GetModifiedAt() string {
-	if o == nil || o.ModifiedAt == nil {
+	if o == nil || IsNil(o.ModifiedAt) {
 		var ret string
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *Alias) GetModifiedAt() string {
 // GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetModifiedAtOk() (*string, bool) {
-	if o == nil || o.ModifiedAt == nil {
+	if o == nil || IsNil(o.ModifiedAt) {
 		return nil, false
 	}
 	return o.ModifiedAt, true
@@ -233,7 +236,7 @@ func (o *Alias) GetModifiedAtOk() (*string, bool) {
 
 // HasModifiedAt returns a boolean if a field has been set.
 func (o *Alias) HasModifiedAt() bool {
-	if o != nil && o.ModifiedAt != nil {
+	if o != nil && !IsNil(o.ModifiedAt) {
 		return true
 	}
 
@@ -247,7 +250,7 @@ func (o *Alias) SetModifiedAt(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Alias) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *Alias) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -265,7 +268,7 @@ func (o *Alias) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Alias) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *Alias) SetName(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *Alias) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *Alias) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -297,7 +300,7 @@ func (o *Alias) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *Alias) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -311,7 +314,7 @@ func (o *Alias) SetState(v string) {
 
 // GetWorkspace returns the Workspace field value if set, zero value otherwise.
 func (o *Alias) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		var ret string
 		return ret
 	}
@@ -321,7 +324,7 @@ func (o *Alias) GetWorkspace() string {
 // GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Alias) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		return nil, false
 	}
 	return o.Workspace, true
@@ -329,7 +332,7 @@ func (o *Alias) GetWorkspaceOk() (*string, bool) {
 
 // HasWorkspace returns a boolean if a field has been set.
 func (o *Alias) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+	if o != nil && !IsNil(o.Workspace) {
 		return true
 	}
 
@@ -342,35 +345,43 @@ func (o *Alias) SetWorkspace(v string) {
 }
 
 func (o Alias) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedByApikeyName != nil {
-		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
-	}
-	if o.CreatorEmail != nil {
-		toSerialize["creator_email"] = o.CreatorEmail
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.ModifiedAt != nil {
-		toSerialize["modified_at"] = o.ModifiedAt
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Alias) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Collections) {
+		toSerialize["collections"] = o.Collections
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedByApikeyName) {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
+	}
+	if !IsNil(o.CreatorEmail) {
+		toSerialize["creator_email"] = o.CreatorEmail
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ModifiedAt) {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Workspace) {
+		toSerialize["workspace"] = o.Workspace
+	}
+	return toSerialize, nil
 }
 
 type NullableAlias struct {

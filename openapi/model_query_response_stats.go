@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryResponseStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryResponseStats{}
+
 // QueryResponseStats struct for QueryResponseStats
 type QueryResponseStats struct {
 	// Query time in milliseconds.
@@ -41,7 +44,7 @@ func NewQueryResponseStatsWithDefaults() *QueryResponseStats {
 
 // GetElapsedTimeMs returns the ElapsedTimeMs field value if set, zero value otherwise.
 func (o *QueryResponseStats) GetElapsedTimeMs() int64 {
-	if o == nil || o.ElapsedTimeMs == nil {
+	if o == nil || IsNil(o.ElapsedTimeMs) {
 		var ret int64
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *QueryResponseStats) GetElapsedTimeMs() int64 {
 // GetElapsedTimeMsOk returns a tuple with the ElapsedTimeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponseStats) GetElapsedTimeMsOk() (*int64, bool) {
-	if o == nil || o.ElapsedTimeMs == nil {
+	if o == nil || IsNil(o.ElapsedTimeMs) {
 		return nil, false
 	}
 	return o.ElapsedTimeMs, true
@@ -59,7 +62,7 @@ func (o *QueryResponseStats) GetElapsedTimeMsOk() (*int64, bool) {
 
 // HasElapsedTimeMs returns a boolean if a field has been set.
 func (o *QueryResponseStats) HasElapsedTimeMs() bool {
-	if o != nil && o.ElapsedTimeMs != nil {
+	if o != nil && !IsNil(o.ElapsedTimeMs) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *QueryResponseStats) SetElapsedTimeMs(v int64) {
 
 // GetThrottledTimeMicros returns the ThrottledTimeMicros field value if set, zero value otherwise.
 func (o *QueryResponseStats) GetThrottledTimeMicros() int64 {
-	if o == nil || o.ThrottledTimeMicros == nil {
+	if o == nil || IsNil(o.ThrottledTimeMicros) {
 		var ret int64
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *QueryResponseStats) GetThrottledTimeMicros() int64 {
 // GetThrottledTimeMicrosOk returns a tuple with the ThrottledTimeMicros field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponseStats) GetThrottledTimeMicrosOk() (*int64, bool) {
-	if o == nil || o.ThrottledTimeMicros == nil {
+	if o == nil || IsNil(o.ThrottledTimeMicros) {
 		return nil, false
 	}
 	return o.ThrottledTimeMicros, true
@@ -91,7 +94,7 @@ func (o *QueryResponseStats) GetThrottledTimeMicrosOk() (*int64, bool) {
 
 // HasThrottledTimeMicros returns a boolean if a field has been set.
 func (o *QueryResponseStats) HasThrottledTimeMicros() bool {
-	if o != nil && o.ThrottledTimeMicros != nil {
+	if o != nil && !IsNil(o.ThrottledTimeMicros) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *QueryResponseStats) SetThrottledTimeMicros(v int64) {
 }
 
 func (o QueryResponseStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ElapsedTimeMs != nil {
-		toSerialize["elapsed_time_ms"] = o.ElapsedTimeMs
-	}
-	if o.ThrottledTimeMicros != nil {
-		toSerialize["throttled_time_micros"] = o.ThrottledTimeMicros
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryResponseStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ElapsedTimeMs) {
+		toSerialize["elapsed_time_ms"] = o.ElapsedTimeMs
+	}
+	if !IsNil(o.ThrottledTimeMicros) {
+		toSerialize["throttled_time_micros"] = o.ThrottledTimeMicros
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryResponseStats struct {

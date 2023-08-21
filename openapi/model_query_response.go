@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryResponse{}
+
 // QueryResponse struct for QueryResponse
 type QueryResponse struct {
 	// List of collections referenced in the query.
@@ -58,7 +61,7 @@ func NewQueryResponseWithDefaults() *QueryResponse {
 
 // GetCollections returns the Collections field value if set, zero value otherwise.
 func (o *QueryResponse) GetCollections() []string {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		var ret []string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *QueryResponse) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetCollectionsOk() ([]string, bool) {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		return nil, false
 	}
 	return o.Collections, true
@@ -76,7 +79,7 @@ func (o *QueryResponse) GetCollectionsOk() ([]string, bool) {
 
 // HasCollections returns a boolean if a field has been set.
 func (o *QueryResponse) HasCollections() bool {
-	if o != nil && o.Collections != nil {
+	if o != nil && !IsNil(o.Collections) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *QueryResponse) SetCollections(v []string) {
 
 // GetColumnFields returns the ColumnFields field value if set, zero value otherwise.
 func (o *QueryResponse) GetColumnFields() []QueryFieldType {
-	if o == nil || o.ColumnFields == nil {
+	if o == nil || IsNil(o.ColumnFields) {
 		var ret []QueryFieldType
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *QueryResponse) GetColumnFields() []QueryFieldType {
 // GetColumnFieldsOk returns a tuple with the ColumnFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetColumnFieldsOk() ([]QueryFieldType, bool) {
-	if o == nil || o.ColumnFields == nil {
+	if o == nil || IsNil(o.ColumnFields) {
 		return nil, false
 	}
 	return o.ColumnFields, true
@@ -108,7 +111,7 @@ func (o *QueryResponse) GetColumnFieldsOk() ([]QueryFieldType, bool) {
 
 // HasColumnFields returns a boolean if a field has been set.
 func (o *QueryResponse) HasColumnFields() bool {
-	if o != nil && o.ColumnFields != nil {
+	if o != nil && !IsNil(o.ColumnFields) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *QueryResponse) SetColumnFields(v []QueryFieldType) {
 
 // GetLastOffset returns the LastOffset field value if set, zero value otherwise.
 func (o *QueryResponse) GetLastOffset() string {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *QueryResponse) GetLastOffset() string {
 // GetLastOffsetOk returns a tuple with the LastOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetLastOffsetOk() (*string, bool) {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		return nil, false
 	}
 	return o.LastOffset, true
@@ -140,7 +143,7 @@ func (o *QueryResponse) GetLastOffsetOk() (*string, bool) {
 
 // HasLastOffset returns a boolean if a field has been set.
 func (o *QueryResponse) HasLastOffset() bool {
-	if o != nil && o.LastOffset != nil {
+	if o != nil && !IsNil(o.LastOffset) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *QueryResponse) SetLastOffset(v string) {
 
 // GetPagination returns the Pagination field value if set, zero value otherwise.
 func (o *QueryResponse) GetPagination() PaginationInfo {
-	if o == nil || o.Pagination == nil {
+	if o == nil || IsNil(o.Pagination) {
 		var ret PaginationInfo
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *QueryResponse) GetPagination() PaginationInfo {
 // GetPaginationOk returns a tuple with the Pagination field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetPaginationOk() (*PaginationInfo, bool) {
-	if o == nil || o.Pagination == nil {
+	if o == nil || IsNil(o.Pagination) {
 		return nil, false
 	}
 	return o.Pagination, true
@@ -172,7 +175,7 @@ func (o *QueryResponse) GetPaginationOk() (*PaginationInfo, bool) {
 
 // HasPagination returns a boolean if a field has been set.
 func (o *QueryResponse) HasPagination() bool {
-	if o != nil && o.Pagination != nil {
+	if o != nil && !IsNil(o.Pagination) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *QueryResponse) SetPagination(v PaginationInfo) {
 
 // GetQueryErrors returns the QueryErrors field value if set, zero value otherwise.
 func (o *QueryResponse) GetQueryErrors() []QueryError {
-	if o == nil || o.QueryErrors == nil {
+	if o == nil || IsNil(o.QueryErrors) {
 		var ret []QueryError
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *QueryResponse) GetQueryErrors() []QueryError {
 // GetQueryErrorsOk returns a tuple with the QueryErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetQueryErrorsOk() ([]QueryError, bool) {
-	if o == nil || o.QueryErrors == nil {
+	if o == nil || IsNil(o.QueryErrors) {
 		return nil, false
 	}
 	return o.QueryErrors, true
@@ -204,7 +207,7 @@ func (o *QueryResponse) GetQueryErrorsOk() ([]QueryError, bool) {
 
 // HasQueryErrors returns a boolean if a field has been set.
 func (o *QueryResponse) HasQueryErrors() bool {
-	if o != nil && o.QueryErrors != nil {
+	if o != nil && !IsNil(o.QueryErrors) {
 		return true
 	}
 
@@ -218,7 +221,7 @@ func (o *QueryResponse) SetQueryErrors(v []QueryError) {
 
 // GetQueryId returns the QueryId field value if set, zero value otherwise.
 func (o *QueryResponse) GetQueryId() string {
-	if o == nil || o.QueryId == nil {
+	if o == nil || IsNil(o.QueryId) {
 		var ret string
 		return ret
 	}
@@ -228,7 +231,7 @@ func (o *QueryResponse) GetQueryId() string {
 // GetQueryIdOk returns a tuple with the QueryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetQueryIdOk() (*string, bool) {
-	if o == nil || o.QueryId == nil {
+	if o == nil || IsNil(o.QueryId) {
 		return nil, false
 	}
 	return o.QueryId, true
@@ -236,7 +239,7 @@ func (o *QueryResponse) GetQueryIdOk() (*string, bool) {
 
 // HasQueryId returns a boolean if a field has been set.
 func (o *QueryResponse) HasQueryId() bool {
-	if o != nil && o.QueryId != nil {
+	if o != nil && !IsNil(o.QueryId) {
 		return true
 	}
 
@@ -250,7 +253,7 @@ func (o *QueryResponse) SetQueryId(v string) {
 
 // GetQueryLambdaPath returns the QueryLambdaPath field value if set, zero value otherwise.
 func (o *QueryResponse) GetQueryLambdaPath() string {
-	if o == nil || o.QueryLambdaPath == nil {
+	if o == nil || IsNil(o.QueryLambdaPath) {
 		var ret string
 		return ret
 	}
@@ -260,7 +263,7 @@ func (o *QueryResponse) GetQueryLambdaPath() string {
 // GetQueryLambdaPathOk returns a tuple with the QueryLambdaPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetQueryLambdaPathOk() (*string, bool) {
-	if o == nil || o.QueryLambdaPath == nil {
+	if o == nil || IsNil(o.QueryLambdaPath) {
 		return nil, false
 	}
 	return o.QueryLambdaPath, true
@@ -268,7 +271,7 @@ func (o *QueryResponse) GetQueryLambdaPathOk() (*string, bool) {
 
 // HasQueryLambdaPath returns a boolean if a field has been set.
 func (o *QueryResponse) HasQueryLambdaPath() bool {
-	if o != nil && o.QueryLambdaPath != nil {
+	if o != nil && !IsNil(o.QueryLambdaPath) {
 		return true
 	}
 
@@ -282,7 +285,7 @@ func (o *QueryResponse) SetQueryLambdaPath(v string) {
 
 // GetResults returns the Results field value if set, zero value otherwise.
 func (o *QueryResponse) GetResults() []map[string]interface{} {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -292,7 +295,7 @@ func (o *QueryResponse) GetResults() []map[string]interface{} {
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetResultsOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
 	return o.Results, true
@@ -300,7 +303,7 @@ func (o *QueryResponse) GetResultsOk() ([]map[string]interface{}, bool) {
 
 // HasResults returns a boolean if a field has been set.
 func (o *QueryResponse) HasResults() bool {
-	if o != nil && o.Results != nil {
+	if o != nil && !IsNil(o.Results) {
 		return true
 	}
 
@@ -314,7 +317,7 @@ func (o *QueryResponse) SetResults(v []map[string]interface{}) {
 
 // GetResultsTotalDocCount returns the ResultsTotalDocCount field value if set, zero value otherwise.
 func (o *QueryResponse) GetResultsTotalDocCount() int64 {
-	if o == nil || o.ResultsTotalDocCount == nil {
+	if o == nil || IsNil(o.ResultsTotalDocCount) {
 		var ret int64
 		return ret
 	}
@@ -324,7 +327,7 @@ func (o *QueryResponse) GetResultsTotalDocCount() int64 {
 // GetResultsTotalDocCountOk returns a tuple with the ResultsTotalDocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetResultsTotalDocCountOk() (*int64, bool) {
-	if o == nil || o.ResultsTotalDocCount == nil {
+	if o == nil || IsNil(o.ResultsTotalDocCount) {
 		return nil, false
 	}
 	return o.ResultsTotalDocCount, true
@@ -332,7 +335,7 @@ func (o *QueryResponse) GetResultsTotalDocCountOk() (*int64, bool) {
 
 // HasResultsTotalDocCount returns a boolean if a field has been set.
 func (o *QueryResponse) HasResultsTotalDocCount() bool {
-	if o != nil && o.ResultsTotalDocCount != nil {
+	if o != nil && !IsNil(o.ResultsTotalDocCount) {
 		return true
 	}
 
@@ -346,7 +349,7 @@ func (o *QueryResponse) SetResultsTotalDocCount(v int64) {
 
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *QueryResponse) GetStats() QueryResponseStats {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		var ret QueryResponseStats
 		return ret
 	}
@@ -356,7 +359,7 @@ func (o *QueryResponse) GetStats() QueryResponseStats {
 // GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetStatsOk() (*QueryResponseStats, bool) {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		return nil, false
 	}
 	return o.Stats, true
@@ -364,7 +367,7 @@ func (o *QueryResponse) GetStatsOk() (*QueryResponseStats, bool) {
 
 // HasStats returns a boolean if a field has been set.
 func (o *QueryResponse) HasStats() bool {
-	if o != nil && o.Stats != nil {
+	if o != nil && !IsNil(o.Stats) {
 		return true
 	}
 
@@ -378,7 +381,7 @@ func (o *QueryResponse) SetStats(v QueryResponseStats) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *QueryResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -388,7 +391,7 @@ func (o *QueryResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -396,7 +399,7 @@ func (o *QueryResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *QueryResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -410,7 +413,7 @@ func (o *QueryResponse) SetStatus(v string) {
 
 // GetWarnings returns the Warnings field value if set, zero value otherwise.
 func (o *QueryResponse) GetWarnings() []string {
-	if o == nil || o.Warnings == nil {
+	if o == nil || IsNil(o.Warnings) {
 		var ret []string
 		return ret
 	}
@@ -420,7 +423,7 @@ func (o *QueryResponse) GetWarnings() []string {
 // GetWarningsOk returns a tuple with the Warnings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryResponse) GetWarningsOk() ([]string, bool) {
-	if o == nil || o.Warnings == nil {
+	if o == nil || IsNil(o.Warnings) {
 		return nil, false
 	}
 	return o.Warnings, true
@@ -428,7 +431,7 @@ func (o *QueryResponse) GetWarningsOk() ([]string, bool) {
 
 // HasWarnings returns a boolean if a field has been set.
 func (o *QueryResponse) HasWarnings() bool {
-	if o != nil && o.Warnings != nil {
+	if o != nil && !IsNil(o.Warnings) {
 		return true
 	}
 
@@ -441,44 +444,52 @@ func (o *QueryResponse) SetWarnings(v []string) {
 }
 
 func (o QueryResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.ColumnFields != nil {
-		toSerialize["column_fields"] = o.ColumnFields
-	}
-	if o.LastOffset != nil {
-		toSerialize["last_offset"] = o.LastOffset
-	}
-	if o.Pagination != nil {
-		toSerialize["pagination"] = o.Pagination
-	}
-	if o.QueryErrors != nil {
-		toSerialize["query_errors"] = o.QueryErrors
-	}
-	if o.QueryId != nil {
-		toSerialize["query_id"] = o.QueryId
-	}
-	if o.QueryLambdaPath != nil {
-		toSerialize["query_lambda_path"] = o.QueryLambdaPath
-	}
-	if o.Results != nil {
-		toSerialize["results"] = o.Results
-	}
-	if o.ResultsTotalDocCount != nil {
-		toSerialize["results_total_doc_count"] = o.ResultsTotalDocCount
-	}
-	if o.Stats != nil {
-		toSerialize["stats"] = o.Stats
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Warnings != nil {
-		toSerialize["warnings"] = o.Warnings
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Collections) {
+		toSerialize["collections"] = o.Collections
+	}
+	if !IsNil(o.ColumnFields) {
+		toSerialize["column_fields"] = o.ColumnFields
+	}
+	if !IsNil(o.LastOffset) {
+		toSerialize["last_offset"] = o.LastOffset
+	}
+	if !IsNil(o.Pagination) {
+		toSerialize["pagination"] = o.Pagination
+	}
+	if !IsNil(o.QueryErrors) {
+		toSerialize["query_errors"] = o.QueryErrors
+	}
+	if !IsNil(o.QueryId) {
+		toSerialize["query_id"] = o.QueryId
+	}
+	if !IsNil(o.QueryLambdaPath) {
+		toSerialize["query_lambda_path"] = o.QueryLambdaPath
+	}
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
+	if !IsNil(o.ResultsTotalDocCount) {
+		toSerialize["results_total_doc_count"] = o.ResultsTotalDocCount
+	}
+	if !IsNil(o.Stats) {
+		toSerialize["stats"] = o.Stats
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Warnings) {
+		toSerialize["warnings"] = o.Warnings
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryResponse struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryInfo{}
+
 // QueryInfo struct for QueryInfo
 type QueryInfo struct {
 	// User ID who executed the query.
@@ -55,7 +58,7 @@ func NewQueryInfoWithDefaults() *QueryInfo {
 
 // GetExecutedBy returns the ExecutedBy field value if set, zero value otherwise.
 func (o *QueryInfo) GetExecutedBy() string {
-	if o == nil || o.ExecutedBy == nil {
+	if o == nil || IsNil(o.ExecutedBy) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *QueryInfo) GetExecutedBy() string {
 // GetExecutedByOk returns a tuple with the ExecutedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetExecutedByOk() (*string, bool) {
-	if o == nil || o.ExecutedBy == nil {
+	if o == nil || IsNil(o.ExecutedBy) {
 		return nil, false
 	}
 	return o.ExecutedBy, true
@@ -73,7 +76,7 @@ func (o *QueryInfo) GetExecutedByOk() (*string, bool) {
 
 // HasExecutedBy returns a boolean if a field has been set.
 func (o *QueryInfo) HasExecutedBy() bool {
-	if o != nil && o.ExecutedBy != nil {
+	if o != nil && !IsNil(o.ExecutedBy) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *QueryInfo) SetExecutedBy(v string) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *QueryInfo) GetExpiresAt() string {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *QueryInfo) GetExpiresAt() string {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetExpiresAtOk() (*string, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -105,7 +108,7 @@ func (o *QueryInfo) GetExpiresAtOk() (*string, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *QueryInfo) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -119,7 +122,7 @@ func (o *QueryInfo) SetExpiresAt(v string) {
 
 // GetLastOffset returns the LastOffset field value if set, zero value otherwise.
 func (o *QueryInfo) GetLastOffset() string {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		var ret string
 		return ret
 	}
@@ -129,7 +132,7 @@ func (o *QueryInfo) GetLastOffset() string {
 // GetLastOffsetOk returns a tuple with the LastOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetLastOffsetOk() (*string, bool) {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		return nil, false
 	}
 	return o.LastOffset, true
@@ -137,7 +140,7 @@ func (o *QueryInfo) GetLastOffsetOk() (*string, bool) {
 
 // HasLastOffset returns a boolean if a field has been set.
 func (o *QueryInfo) HasLastOffset() bool {
-	if o != nil && o.LastOffset != nil {
+	if o != nil && !IsNil(o.LastOffset) {
 		return true
 	}
 
@@ -151,7 +154,7 @@ func (o *QueryInfo) SetLastOffset(v string) {
 
 // GetPagination returns the Pagination field value if set, zero value otherwise.
 func (o *QueryInfo) GetPagination() Pagination {
-	if o == nil || o.Pagination == nil {
+	if o == nil || IsNil(o.Pagination) {
 		var ret Pagination
 		return ret
 	}
@@ -161,7 +164,7 @@ func (o *QueryInfo) GetPagination() Pagination {
 // GetPaginationOk returns a tuple with the Pagination field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetPaginationOk() (*Pagination, bool) {
-	if o == nil || o.Pagination == nil {
+	if o == nil || IsNil(o.Pagination) {
 		return nil, false
 	}
 	return o.Pagination, true
@@ -169,7 +172,7 @@ func (o *QueryInfo) GetPaginationOk() (*Pagination, bool) {
 
 // HasPagination returns a boolean if a field has been set.
 func (o *QueryInfo) HasPagination() bool {
-	if o != nil && o.Pagination != nil {
+	if o != nil && !IsNil(o.Pagination) {
 		return true
 	}
 
@@ -183,7 +186,7 @@ func (o *QueryInfo) SetPagination(v Pagination) {
 
 // GetQueryErrors returns the QueryErrors field value if set, zero value otherwise.
 func (o *QueryInfo) GetQueryErrors() []QueryError {
-	if o == nil || o.QueryErrors == nil {
+	if o == nil || IsNil(o.QueryErrors) {
 		var ret []QueryError
 		return ret
 	}
@@ -193,7 +196,7 @@ func (o *QueryInfo) GetQueryErrors() []QueryError {
 // GetQueryErrorsOk returns a tuple with the QueryErrors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetQueryErrorsOk() ([]QueryError, bool) {
-	if o == nil || o.QueryErrors == nil {
+	if o == nil || IsNil(o.QueryErrors) {
 		return nil, false
 	}
 	return o.QueryErrors, true
@@ -201,7 +204,7 @@ func (o *QueryInfo) GetQueryErrorsOk() ([]QueryError, bool) {
 
 // HasQueryErrors returns a boolean if a field has been set.
 func (o *QueryInfo) HasQueryErrors() bool {
-	if o != nil && o.QueryErrors != nil {
+	if o != nil && !IsNil(o.QueryErrors) {
 		return true
 	}
 
@@ -215,7 +218,7 @@ func (o *QueryInfo) SetQueryErrors(v []QueryError) {
 
 // GetQueryId returns the QueryId field value if set, zero value otherwise.
 func (o *QueryInfo) GetQueryId() string {
-	if o == nil || o.QueryId == nil {
+	if o == nil || IsNil(o.QueryId) {
 		var ret string
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *QueryInfo) GetQueryId() string {
 // GetQueryIdOk returns a tuple with the QueryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetQueryIdOk() (*string, bool) {
-	if o == nil || o.QueryId == nil {
+	if o == nil || IsNil(o.QueryId) {
 		return nil, false
 	}
 	return o.QueryId, true
@@ -233,7 +236,7 @@ func (o *QueryInfo) GetQueryIdOk() (*string, bool) {
 
 // HasQueryId returns a boolean if a field has been set.
 func (o *QueryInfo) HasQueryId() bool {
-	if o != nil && o.QueryId != nil {
+	if o != nil && !IsNil(o.QueryId) {
 		return true
 	}
 
@@ -247,7 +250,7 @@ func (o *QueryInfo) SetQueryId(v string) {
 
 // GetSql returns the Sql field value if set, zero value otherwise.
 func (o *QueryInfo) GetSql() string {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		var ret string
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *QueryInfo) GetSql() string {
 // GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetSqlOk() (*string, bool) {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		return nil, false
 	}
 	return o.Sql, true
@@ -265,7 +268,7 @@ func (o *QueryInfo) GetSqlOk() (*string, bool) {
 
 // HasSql returns a boolean if a field has been set.
 func (o *QueryInfo) HasSql() bool {
-	if o != nil && o.Sql != nil {
+	if o != nil && !IsNil(o.Sql) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *QueryInfo) SetSql(v string) {
 
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *QueryInfo) GetStats() Stats {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		var ret Stats
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *QueryInfo) GetStats() Stats {
 // GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetStatsOk() (*Stats, bool) {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		return nil, false
 	}
 	return o.Stats, true
@@ -297,7 +300,7 @@ func (o *QueryInfo) GetStatsOk() (*Stats, bool) {
 
 // HasStats returns a boolean if a field has been set.
 func (o *QueryInfo) HasStats() bool {
-	if o != nil && o.Stats != nil {
+	if o != nil && !IsNil(o.Stats) {
 		return true
 	}
 
@@ -311,7 +314,7 @@ func (o *QueryInfo) SetStats(v Stats) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *QueryInfo) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -321,7 +324,7 @@ func (o *QueryInfo) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -329,7 +332,7 @@ func (o *QueryInfo) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *QueryInfo) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -343,7 +346,7 @@ func (o *QueryInfo) SetStatus(v string) {
 
 // GetSubmittedAt returns the SubmittedAt field value if set, zero value otherwise.
 func (o *QueryInfo) GetSubmittedAt() string {
-	if o == nil || o.SubmittedAt == nil {
+	if o == nil || IsNil(o.SubmittedAt) {
 		var ret string
 		return ret
 	}
@@ -353,7 +356,7 @@ func (o *QueryInfo) GetSubmittedAt() string {
 // GetSubmittedAtOk returns a tuple with the SubmittedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryInfo) GetSubmittedAtOk() (*string, bool) {
-	if o == nil || o.SubmittedAt == nil {
+	if o == nil || IsNil(o.SubmittedAt) {
 		return nil, false
 	}
 	return o.SubmittedAt, true
@@ -361,7 +364,7 @@ func (o *QueryInfo) GetSubmittedAtOk() (*string, bool) {
 
 // HasSubmittedAt returns a boolean if a field has been set.
 func (o *QueryInfo) HasSubmittedAt() bool {
-	if o != nil && o.SubmittedAt != nil {
+	if o != nil && !IsNil(o.SubmittedAt) {
 		return true
 	}
 
@@ -374,38 +377,46 @@ func (o *QueryInfo) SetSubmittedAt(v string) {
 }
 
 func (o QueryInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ExecutedBy != nil {
-		toSerialize["executed_by"] = o.ExecutedBy
-	}
-	if o.ExpiresAt != nil {
-		toSerialize["expires_at"] = o.ExpiresAt
-	}
-	if o.LastOffset != nil {
-		toSerialize["last_offset"] = o.LastOffset
-	}
-	if o.Pagination != nil {
-		toSerialize["pagination"] = o.Pagination
-	}
-	if o.QueryErrors != nil {
-		toSerialize["query_errors"] = o.QueryErrors
-	}
-	if o.QueryId != nil {
-		toSerialize["query_id"] = o.QueryId
-	}
-	if o.Sql != nil {
-		toSerialize["sql"] = o.Sql
-	}
-	if o.Stats != nil {
-		toSerialize["stats"] = o.Stats
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.SubmittedAt != nil {
-		toSerialize["submitted_at"] = o.SubmittedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ExecutedBy) {
+		toSerialize["executed_by"] = o.ExecutedBy
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.LastOffset) {
+		toSerialize["last_offset"] = o.LastOffset
+	}
+	if !IsNil(o.Pagination) {
+		toSerialize["pagination"] = o.Pagination
+	}
+	if !IsNil(o.QueryErrors) {
+		toSerialize["query_errors"] = o.QueryErrors
+	}
+	if !IsNil(o.QueryId) {
+		toSerialize["query_id"] = o.QueryId
+	}
+	if !IsNil(o.Sql) {
+		toSerialize["sql"] = o.Sql
+	}
+	if !IsNil(o.Stats) {
+		toSerialize["stats"] = o.Stats
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.SubmittedAt) {
+		toSerialize["submitted_at"] = o.SubmittedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryInfo struct {

@@ -13,16 +13,12 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
 
 type APIKeysApi interface {
 
@@ -31,8 +27,8 @@ type APIKeysApi interface {
 
 	Create a new API key for the authenticated user.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiCreateApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateApiKeyRequest
 	*/
 	CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest
 
@@ -45,10 +41,10 @@ type APIKeysApi interface {
 
 	Delete an API key for any user in your organization.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name Name of the API key.
-	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
-	 @return ApiDeleteApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name of the API key.
+	@param user Email of the API key owner. Use `self` to specify the currently authenticated user.
+	@return ApiDeleteApiKeyRequest
 	*/
 	DeleteApiKey(ctx context.Context, name string, user string) ApiDeleteApiKeyRequest
 
@@ -61,10 +57,10 @@ type APIKeysApi interface {
 
 	Retrieve a particular API key for any user in your organization.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
-	 @param name Name of the API key.
-	 @return ApiGetApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param user Email of the API key owner. Use `self` to specify the currently authenticated user.
+	@param name Name of the API key.
+	@return ApiGetApiKeyRequest
 	*/
 	GetApiKey(ctx context.Context, user string, name string) ApiGetApiKeyRequest
 
@@ -77,9 +73,9 @@ type APIKeysApi interface {
 
 	List API key metadata for any user in your organization.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
-	 @return ApiListApiKeysRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param user Email of the API key owner. Use `self` to specify the currently authenticated user.
+	@return ApiListApiKeysRequest
 	*/
 	ListApiKeys(ctx context.Context, user string) ApiListApiKeysRequest
 
@@ -92,10 +88,10 @@ type APIKeysApi interface {
 
 	Update the state of an API key for any user in your organization.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name Name of the API key.
-	 @param user Email of the API key owner. Use `self` to specify the currently authenticated user.
-	 @return ApiUpdateApiKeyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name Name of the API key.
+	@param user Email of the API key owner. Use `self` to specify the currently authenticated user.
+	@return ApiUpdateApiKeyRequest
 	*/
 	UpdateApiKey(ctx context.Context, name string, user string) ApiUpdateApiKeyRequest
 
@@ -191,9 +187,9 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -210,7 +206,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -220,7 +217,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -230,7 +228,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -240,7 +239,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -250,7 +250,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -260,7 +261,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -270,7 +272,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -280,7 +283,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -290,7 +294,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -300,7 +305,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -310,7 +316,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -320,7 +327,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -330,7 +338,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -340,7 +349,8 @@ func (a *APIKeysApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Crea
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -363,7 +373,6 @@ type ApiDeleteApiKeyRequest struct {
 	name string
 	user string
 }
-
 
 func (r ApiDeleteApiKeyRequest) Execute() (*DeleteApiKeyResponse, *http.Response, error) {
 	return r.ApiService.DeleteApiKeyExecute(r)
@@ -404,8 +413,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterValueToString(r.user, "user")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -438,9 +447,9 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -457,7 +466,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -467,7 +477,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -477,7 +488,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -487,7 +499,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -497,7 +510,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -507,7 +521,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -517,7 +532,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -527,7 +543,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -537,7 +554,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -547,7 +565,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -557,7 +576,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -567,7 +587,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -577,7 +598,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -587,7 +609,8 @@ func (a *APIKeysApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*Dele
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -657,15 +680,15 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterValueToString(r.user, "user")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.reveal != nil {
-		localVarQueryParams.Add("reveal", parameterToString(*r.reveal, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "reveal", r.reveal, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -694,9 +717,9 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -713,7 +736,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -723,7 +747,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -733,7 +758,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -743,7 +769,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -753,7 +780,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -763,7 +791,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -773,7 +802,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -783,7 +813,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -793,7 +824,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -803,7 +835,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -813,7 +846,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -823,7 +857,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -833,7 +868,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -843,7 +879,8 @@ func (a *APIKeysApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*GetApiKeyR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -865,7 +902,6 @@ type ApiListApiKeysRequest struct {
 	ApiService APIKeysApi
 	user string
 }
-
 
 func (r ApiListApiKeysRequest) Execute() (*ListApiKeysResponse, *http.Response, error) {
 	return r.ApiService.ListApiKeysExecute(r)
@@ -904,7 +940,7 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys"
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterValueToString(r.user, "user")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -937,9 +973,9 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -956,7 +992,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -966,7 +1003,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -976,7 +1014,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -986,7 +1025,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -996,7 +1036,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1006,7 +1047,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1016,7 +1058,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1026,7 +1069,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1036,7 +1080,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1046,7 +1091,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1056,7 +1102,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1066,7 +1113,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1076,7 +1124,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1086,7 +1135,8 @@ func (a *APIKeysApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ListAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1156,8 +1206,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/users/{user}/apikeys/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterToString(r.user, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"user"+"}", url.PathEscape(parameterValueToString(r.user, "user")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1195,9 +1245,9 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1214,7 +1264,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1224,7 +1275,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1234,7 +1286,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1244,7 +1297,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1254,7 +1308,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1264,7 +1319,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1274,7 +1330,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1284,7 +1341,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1294,7 +1352,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1304,7 +1363,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1314,7 +1374,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1324,7 +1385,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1334,7 +1396,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1344,7 +1407,8 @@ func (a *APIKeysApiService) UpdateApiKeyExecute(r ApiUpdateApiKeyRequest) (*Upda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

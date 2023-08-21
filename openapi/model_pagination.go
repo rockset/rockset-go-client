@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Pagination type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Pagination{}
+
 // Pagination struct for Pagination
 type Pagination struct {
 	// Use this cursor to fetch the first page of results for this query.
@@ -39,7 +42,7 @@ func NewPaginationWithDefaults() *Pagination {
 
 // GetStartCursor returns the StartCursor field value if set, zero value otherwise.
 func (o *Pagination) GetStartCursor() string {
-	if o == nil || o.StartCursor == nil {
+	if o == nil || IsNil(o.StartCursor) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *Pagination) GetStartCursor() string {
 // GetStartCursorOk returns a tuple with the StartCursor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Pagination) GetStartCursorOk() (*string, bool) {
-	if o == nil || o.StartCursor == nil {
+	if o == nil || IsNil(o.StartCursor) {
 		return nil, false
 	}
 	return o.StartCursor, true
@@ -57,7 +60,7 @@ func (o *Pagination) GetStartCursorOk() (*string, bool) {
 
 // HasStartCursor returns a boolean if a field has been set.
 func (o *Pagination) HasStartCursor() bool {
-	if o != nil && o.StartCursor != nil {
+	if o != nil && !IsNil(o.StartCursor) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *Pagination) SetStartCursor(v string) {
 }
 
 func (o Pagination) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.StartCursor != nil {
-		toSerialize["start_cursor"] = o.StartCursor
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Pagination) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StartCursor) {
+		toSerialize["start_cursor"] = o.StartCursor
+	}
+	return toSerialize, nil
 }
 
 type NullablePagination struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetCollectionCommitData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetCollectionCommitData{}
+
 // GetCollectionCommitData struct for GetCollectionCommitData
 type GetCollectionCommitData struct {
 	// The max offset passed in the request which is the latest offset that was compared to the commit.
@@ -41,7 +44,7 @@ func NewGetCollectionCommitDataWithDefaults() *GetCollectionCommitData {
 
 // GetFence returns the Fence field value if set, zero value otherwise.
 func (o *GetCollectionCommitData) GetFence() string {
-	if o == nil || o.Fence == nil {
+	if o == nil || IsNil(o.Fence) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *GetCollectionCommitData) GetFence() string {
 // GetFenceOk returns a tuple with the Fence field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetCollectionCommitData) GetFenceOk() (*string, bool) {
-	if o == nil || o.Fence == nil {
+	if o == nil || IsNil(o.Fence) {
 		return nil, false
 	}
 	return o.Fence, true
@@ -59,7 +62,7 @@ func (o *GetCollectionCommitData) GetFenceOk() (*string, bool) {
 
 // HasFence returns a boolean if a field has been set.
 func (o *GetCollectionCommitData) HasFence() bool {
-	if o != nil && o.Fence != nil {
+	if o != nil && !IsNil(o.Fence) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *GetCollectionCommitData) SetFence(v string) {
 
 // GetPassed returns the Passed field value if set, zero value otherwise.
 func (o *GetCollectionCommitData) GetPassed() bool {
-	if o == nil || o.Passed == nil {
+	if o == nil || IsNil(o.Passed) {
 		var ret bool
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *GetCollectionCommitData) GetPassed() bool {
 // GetPassedOk returns a tuple with the Passed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetCollectionCommitData) GetPassedOk() (*bool, bool) {
-	if o == nil || o.Passed == nil {
+	if o == nil || IsNil(o.Passed) {
 		return nil, false
 	}
 	return o.Passed, true
@@ -91,7 +94,7 @@ func (o *GetCollectionCommitData) GetPassedOk() (*bool, bool) {
 
 // HasPassed returns a boolean if a field has been set.
 func (o *GetCollectionCommitData) HasPassed() bool {
-	if o != nil && o.Passed != nil {
+	if o != nil && !IsNil(o.Passed) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *GetCollectionCommitData) SetPassed(v bool) {
 }
 
 func (o GetCollectionCommitData) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Fence != nil {
-		toSerialize["fence"] = o.Fence
-	}
-	if o.Passed != nil {
-		toSerialize["passed"] = o.Passed
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetCollectionCommitData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Fence) {
+		toSerialize["fence"] = o.Fence
+	}
+	if !IsNil(o.Passed) {
+		toSerialize["passed"] = o.Passed
+	}
+	return toSerialize, nil
 }
 
 type NullableGetCollectionCommitData struct {

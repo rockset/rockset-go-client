@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceKafka type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceKafka{}
+
 // SourceKafka struct for SourceKafka
 type SourceKafka struct {
 	// The Kafka consumer group Id being used.
@@ -46,7 +49,7 @@ func NewSourceKafkaWithDefaults() *SourceKafka {
 
 // GetConsumerGroupId returns the ConsumerGroupId field value if set, zero value otherwise.
 func (o *SourceKafka) GetConsumerGroupId() string {
-	if o == nil || o.ConsumerGroupId == nil {
+	if o == nil || IsNil(o.ConsumerGroupId) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *SourceKafka) GetConsumerGroupId() string {
 // GetConsumerGroupIdOk returns a tuple with the ConsumerGroupId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKafka) GetConsumerGroupIdOk() (*string, bool) {
-	if o == nil || o.ConsumerGroupId == nil {
+	if o == nil || IsNil(o.ConsumerGroupId) {
 		return nil, false
 	}
 	return o.ConsumerGroupId, true
@@ -64,7 +67,7 @@ func (o *SourceKafka) GetConsumerGroupIdOk() (*string, bool) {
 
 // HasConsumerGroupId returns a boolean if a field has been set.
 func (o *SourceKafka) HasConsumerGroupId() bool {
-	if o != nil && o.ConsumerGroupId != nil {
+	if o != nil && !IsNil(o.ConsumerGroupId) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *SourceKafka) SetConsumerGroupId(v string) {
 
 // GetKafkaTopicName returns the KafkaTopicName field value if set, zero value otherwise.
 func (o *SourceKafka) GetKafkaTopicName() string {
-	if o == nil || o.KafkaTopicName == nil {
+	if o == nil || IsNil(o.KafkaTopicName) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *SourceKafka) GetKafkaTopicName() string {
 // GetKafkaTopicNameOk returns a tuple with the KafkaTopicName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKafka) GetKafkaTopicNameOk() (*string, bool) {
-	if o == nil || o.KafkaTopicName == nil {
+	if o == nil || IsNil(o.KafkaTopicName) {
 		return nil, false
 	}
 	return o.KafkaTopicName, true
@@ -96,7 +99,7 @@ func (o *SourceKafka) GetKafkaTopicNameOk() (*string, bool) {
 
 // HasKafkaTopicName returns a boolean if a field has been set.
 func (o *SourceKafka) HasKafkaTopicName() bool {
-	if o != nil && o.KafkaTopicName != nil {
+	if o != nil && !IsNil(o.KafkaTopicName) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *SourceKafka) SetKafkaTopicName(v string) {
 
 // GetOffsetResetPolicy returns the OffsetResetPolicy field value if set, zero value otherwise.
 func (o *SourceKafka) GetOffsetResetPolicy() string {
-	if o == nil || o.OffsetResetPolicy == nil {
+	if o == nil || IsNil(o.OffsetResetPolicy) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *SourceKafka) GetOffsetResetPolicy() string {
 // GetOffsetResetPolicyOk returns a tuple with the OffsetResetPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKafka) GetOffsetResetPolicyOk() (*string, bool) {
-	if o == nil || o.OffsetResetPolicy == nil {
+	if o == nil || IsNil(o.OffsetResetPolicy) {
 		return nil, false
 	}
 	return o.OffsetResetPolicy, true
@@ -128,7 +131,7 @@ func (o *SourceKafka) GetOffsetResetPolicyOk() (*string, bool) {
 
 // HasOffsetResetPolicy returns a boolean if a field has been set.
 func (o *SourceKafka) HasOffsetResetPolicy() bool {
-	if o != nil && o.OffsetResetPolicy != nil {
+	if o != nil && !IsNil(o.OffsetResetPolicy) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *SourceKafka) SetOffsetResetPolicy(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SourceKafka) GetStatus() StatusKafka {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StatusKafka
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *SourceKafka) GetStatus() StatusKafka {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKafka) GetStatusOk() (*StatusKafka, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -160,7 +163,7 @@ func (o *SourceKafka) GetStatusOk() (*StatusKafka, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SourceKafka) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *SourceKafka) SetStatus(v StatusKafka) {
 
 // GetUseV3 returns the UseV3 field value if set, zero value otherwise.
 func (o *SourceKafka) GetUseV3() bool {
-	if o == nil || o.UseV3 == nil {
+	if o == nil || IsNil(o.UseV3) {
 		var ret bool
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *SourceKafka) GetUseV3() bool {
 // GetUseV3Ok returns a tuple with the UseV3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceKafka) GetUseV3Ok() (*bool, bool) {
-	if o == nil || o.UseV3 == nil {
+	if o == nil || IsNil(o.UseV3) {
 		return nil, false
 	}
 	return o.UseV3, true
@@ -192,7 +195,7 @@ func (o *SourceKafka) GetUseV3Ok() (*bool, bool) {
 
 // HasUseV3 returns a boolean if a field has been set.
 func (o *SourceKafka) HasUseV3() bool {
-	if o != nil && o.UseV3 != nil {
+	if o != nil && !IsNil(o.UseV3) {
 		return true
 	}
 
@@ -205,23 +208,31 @@ func (o *SourceKafka) SetUseV3(v bool) {
 }
 
 func (o SourceKafka) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ConsumerGroupId != nil {
-		toSerialize["consumer_group_id"] = o.ConsumerGroupId
-	}
-	if o.KafkaTopicName != nil {
-		toSerialize["kafka_topic_name"] = o.KafkaTopicName
-	}
-	if o.OffsetResetPolicy != nil {
-		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.UseV3 != nil {
-		toSerialize["use_v3"] = o.UseV3
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceKafka) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ConsumerGroupId) {
+		toSerialize["consumer_group_id"] = o.ConsumerGroupId
+	}
+	if !IsNil(o.KafkaTopicName) {
+		toSerialize["kafka_topic_name"] = o.KafkaTopicName
+	}
+	if !IsNil(o.OffsetResetPolicy) {
+		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.UseV3) {
+		toSerialize["use_v3"] = o.UseV3
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceKafka struct {

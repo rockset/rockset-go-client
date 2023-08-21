@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Integration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Integration{}
+
 // Integration Integrations that can be associated with data sources to create collections. Only one type of integration may be specified.
 type Integration struct {
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
@@ -63,7 +66,7 @@ func NewIntegrationWithDefaults() *Integration {
 
 // GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
 func (o *Integration) GetAzureBlobStorage() AzureBlobStorageIntegration {
-	if o == nil || o.AzureBlobStorage == nil {
+	if o == nil || IsNil(o.AzureBlobStorage) {
 		var ret AzureBlobStorageIntegration
 		return ret
 	}
@@ -73,7 +76,7 @@ func (o *Integration) GetAzureBlobStorage() AzureBlobStorageIntegration {
 // GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool) {
-	if o == nil || o.AzureBlobStorage == nil {
+	if o == nil || IsNil(o.AzureBlobStorage) {
 		return nil, false
 	}
 	return o.AzureBlobStorage, true
@@ -81,7 +84,7 @@ func (o *Integration) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, boo
 
 // HasAzureBlobStorage returns a boolean if a field has been set.
 func (o *Integration) HasAzureBlobStorage() bool {
-	if o != nil && o.AzureBlobStorage != nil {
+	if o != nil && !IsNil(o.AzureBlobStorage) {
 		return true
 	}
 
@@ -95,7 +98,7 @@ func (o *Integration) SetAzureBlobStorage(v AzureBlobStorageIntegration) {
 
 // GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
 func (o *Integration) GetAzureEventHubs() AzureEventHubsIntegration {
-	if o == nil || o.AzureEventHubs == nil {
+	if o == nil || IsNil(o.AzureEventHubs) {
 		var ret AzureEventHubsIntegration
 		return ret
 	}
@@ -105,7 +108,7 @@ func (o *Integration) GetAzureEventHubs() AzureEventHubsIntegration {
 // GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool) {
-	if o == nil || o.AzureEventHubs == nil {
+	if o == nil || IsNil(o.AzureEventHubs) {
 		return nil, false
 	}
 	return o.AzureEventHubs, true
@@ -113,7 +116,7 @@ func (o *Integration) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool) {
 
 // HasAzureEventHubs returns a boolean if a field has been set.
 func (o *Integration) HasAzureEventHubs() bool {
-	if o != nil && o.AzureEventHubs != nil {
+	if o != nil && !IsNil(o.AzureEventHubs) {
 		return true
 	}
 
@@ -127,7 +130,7 @@ func (o *Integration) SetAzureEventHubs(v AzureEventHubsIntegration) {
 
 // GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
 func (o *Integration) GetAzureServiceBus() AzureServiceBusIntegration {
-	if o == nil || o.AzureServiceBus == nil {
+	if o == nil || IsNil(o.AzureServiceBus) {
 		var ret AzureServiceBusIntegration
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *Integration) GetAzureServiceBus() AzureServiceBusIntegration {
 // GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool) {
-	if o == nil || o.AzureServiceBus == nil {
+	if o == nil || IsNil(o.AzureServiceBus) {
 		return nil, false
 	}
 	return o.AzureServiceBus, true
@@ -145,7 +148,7 @@ func (o *Integration) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool)
 
 // HasAzureServiceBus returns a boolean if a field has been set.
 func (o *Integration) HasAzureServiceBus() bool {
-	if o != nil && o.AzureServiceBus != nil {
+	if o != nil && !IsNil(o.AzureServiceBus) {
 		return true
 	}
 
@@ -159,7 +162,7 @@ func (o *Integration) SetAzureServiceBus(v AzureServiceBusIntegration) {
 
 // GetCollections returns the Collections field value if set, zero value otherwise.
 func (o *Integration) GetCollections() []Collection {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		var ret []Collection
 		return ret
 	}
@@ -169,7 +172,7 @@ func (o *Integration) GetCollections() []Collection {
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetCollectionsOk() ([]Collection, bool) {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		return nil, false
 	}
 	return o.Collections, true
@@ -177,7 +180,7 @@ func (o *Integration) GetCollectionsOk() ([]Collection, bool) {
 
 // HasCollections returns a boolean if a field has been set.
 func (o *Integration) HasCollections() bool {
-	if o != nil && o.Collections != nil {
+	if o != nil && !IsNil(o.Collections) {
 		return true
 	}
 
@@ -191,7 +194,7 @@ func (o *Integration) SetCollections(v []Collection) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Integration) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -201,7 +204,7 @@ func (o *Integration) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -209,7 +212,7 @@ func (o *Integration) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Integration) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -234,7 +237,7 @@ func (o *Integration) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value
 // and a boolean to check if the value has been set.
 func (o *Integration) GetCreatedByOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CreatedBy, true
@@ -247,7 +250,7 @@ func (o *Integration) SetCreatedBy(v string) {
 
 // GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
 func (o *Integration) GetCreatedByApikeyName() string {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		var ret string
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *Integration) GetCreatedByApikeyName() string {
 // GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetCreatedByApikeyNameOk() (*string, bool) {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		return nil, false
 	}
 	return o.CreatedByApikeyName, true
@@ -265,7 +268,7 @@ func (o *Integration) GetCreatedByApikeyNameOk() (*string, bool) {
 
 // HasCreatedByApikeyName returns a boolean if a field has been set.
 func (o *Integration) HasCreatedByApikeyName() bool {
-	if o != nil && o.CreatedByApikeyName != nil {
+	if o != nil && !IsNil(o.CreatedByApikeyName) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *Integration) SetCreatedByApikeyName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Integration) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *Integration) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -297,7 +300,7 @@ func (o *Integration) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Integration) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -311,7 +314,7 @@ func (o *Integration) SetDescription(v string) {
 
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
 func (o *Integration) GetDynamodb() DynamodbIntegration {
-	if o == nil || o.Dynamodb == nil {
+	if o == nil || IsNil(o.Dynamodb) {
 		var ret DynamodbIntegration
 		return ret
 	}
@@ -321,7 +324,7 @@ func (o *Integration) GetDynamodb() DynamodbIntegration {
 // GetDynamodbOk returns a tuple with the Dynamodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetDynamodbOk() (*DynamodbIntegration, bool) {
-	if o == nil || o.Dynamodb == nil {
+	if o == nil || IsNil(o.Dynamodb) {
 		return nil, false
 	}
 	return o.Dynamodb, true
@@ -329,7 +332,7 @@ func (o *Integration) GetDynamodbOk() (*DynamodbIntegration, bool) {
 
 // HasDynamodb returns a boolean if a field has been set.
 func (o *Integration) HasDynamodb() bool {
-	if o != nil && o.Dynamodb != nil {
+	if o != nil && !IsNil(o.Dynamodb) {
 		return true
 	}
 
@@ -343,7 +346,7 @@ func (o *Integration) SetDynamodb(v DynamodbIntegration) {
 
 // GetGcs returns the Gcs field value if set, zero value otherwise.
 func (o *Integration) GetGcs() GcsIntegration {
-	if o == nil || o.Gcs == nil {
+	if o == nil || IsNil(o.Gcs) {
 		var ret GcsIntegration
 		return ret
 	}
@@ -353,7 +356,7 @@ func (o *Integration) GetGcs() GcsIntegration {
 // GetGcsOk returns a tuple with the Gcs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetGcsOk() (*GcsIntegration, bool) {
-	if o == nil || o.Gcs == nil {
+	if o == nil || IsNil(o.Gcs) {
 		return nil, false
 	}
 	return o.Gcs, true
@@ -361,7 +364,7 @@ func (o *Integration) GetGcsOk() (*GcsIntegration, bool) {
 
 // HasGcs returns a boolean if a field has been set.
 func (o *Integration) HasGcs() bool {
-	if o != nil && o.Gcs != nil {
+	if o != nil && !IsNil(o.Gcs) {
 		return true
 	}
 
@@ -375,7 +378,7 @@ func (o *Integration) SetGcs(v GcsIntegration) {
 
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *Integration) GetKafka() KafkaIntegration {
-	if o == nil || o.Kafka == nil {
+	if o == nil || IsNil(o.Kafka) {
 		var ret KafkaIntegration
 		return ret
 	}
@@ -385,7 +388,7 @@ func (o *Integration) GetKafka() KafkaIntegration {
 // GetKafkaOk returns a tuple with the Kafka field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetKafkaOk() (*KafkaIntegration, bool) {
-	if o == nil || o.Kafka == nil {
+	if o == nil || IsNil(o.Kafka) {
 		return nil, false
 	}
 	return o.Kafka, true
@@ -393,7 +396,7 @@ func (o *Integration) GetKafkaOk() (*KafkaIntegration, bool) {
 
 // HasKafka returns a boolean if a field has been set.
 func (o *Integration) HasKafka() bool {
-	if o != nil && o.Kafka != nil {
+	if o != nil && !IsNil(o.Kafka) {
 		return true
 	}
 
@@ -407,7 +410,7 @@ func (o *Integration) SetKafka(v KafkaIntegration) {
 
 // GetKinesis returns the Kinesis field value if set, zero value otherwise.
 func (o *Integration) GetKinesis() KinesisIntegration {
-	if o == nil || o.Kinesis == nil {
+	if o == nil || IsNil(o.Kinesis) {
 		var ret KinesisIntegration
 		return ret
 	}
@@ -417,7 +420,7 @@ func (o *Integration) GetKinesis() KinesisIntegration {
 // GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetKinesisOk() (*KinesisIntegration, bool) {
-	if o == nil || o.Kinesis == nil {
+	if o == nil || IsNil(o.Kinesis) {
 		return nil, false
 	}
 	return o.Kinesis, true
@@ -425,7 +428,7 @@ func (o *Integration) GetKinesisOk() (*KinesisIntegration, bool) {
 
 // HasKinesis returns a boolean if a field has been set.
 func (o *Integration) HasKinesis() bool {
-	if o != nil && o.Kinesis != nil {
+	if o != nil && !IsNil(o.Kinesis) {
 		return true
 	}
 
@@ -439,7 +442,7 @@ func (o *Integration) SetKinesis(v KinesisIntegration) {
 
 // GetMongodb returns the Mongodb field value if set, zero value otherwise.
 func (o *Integration) GetMongodb() MongoDbIntegration {
-	if o == nil || o.Mongodb == nil {
+	if o == nil || IsNil(o.Mongodb) {
 		var ret MongoDbIntegration
 		return ret
 	}
@@ -449,7 +452,7 @@ func (o *Integration) GetMongodb() MongoDbIntegration {
 // GetMongodbOk returns a tuple with the Mongodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetMongodbOk() (*MongoDbIntegration, bool) {
-	if o == nil || o.Mongodb == nil {
+	if o == nil || IsNil(o.Mongodb) {
 		return nil, false
 	}
 	return o.Mongodb, true
@@ -457,7 +460,7 @@ func (o *Integration) GetMongodbOk() (*MongoDbIntegration, bool) {
 
 // HasMongodb returns a boolean if a field has been set.
 func (o *Integration) HasMongodb() bool {
-	if o != nil && o.Mongodb != nil {
+	if o != nil && !IsNil(o.Mongodb) {
 		return true
 	}
 
@@ -482,7 +485,7 @@ func (o *Integration) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Integration) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -495,7 +498,7 @@ func (o *Integration) SetName(v string) {
 
 // GetOwnerEmail returns the OwnerEmail field value if set, zero value otherwise.
 func (o *Integration) GetOwnerEmail() string {
-	if o == nil || o.OwnerEmail == nil {
+	if o == nil || IsNil(o.OwnerEmail) {
 		var ret string
 		return ret
 	}
@@ -505,7 +508,7 @@ func (o *Integration) GetOwnerEmail() string {
 // GetOwnerEmailOk returns a tuple with the OwnerEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetOwnerEmailOk() (*string, bool) {
-	if o == nil || o.OwnerEmail == nil {
+	if o == nil || IsNil(o.OwnerEmail) {
 		return nil, false
 	}
 	return o.OwnerEmail, true
@@ -513,7 +516,7 @@ func (o *Integration) GetOwnerEmailOk() (*string, bool) {
 
 // HasOwnerEmail returns a boolean if a field has been set.
 func (o *Integration) HasOwnerEmail() bool {
-	if o != nil && o.OwnerEmail != nil {
+	if o != nil && !IsNil(o.OwnerEmail) {
 		return true
 	}
 
@@ -527,7 +530,7 @@ func (o *Integration) SetOwnerEmail(v string) {
 
 // GetS3 returns the S3 field value if set, zero value otherwise.
 func (o *Integration) GetS3() S3Integration {
-	if o == nil || o.S3 == nil {
+	if o == nil || IsNil(o.S3) {
 		var ret S3Integration
 		return ret
 	}
@@ -537,7 +540,7 @@ func (o *Integration) GetS3() S3Integration {
 // GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetS3Ok() (*S3Integration, bool) {
-	if o == nil || o.S3 == nil {
+	if o == nil || IsNil(o.S3) {
 		return nil, false
 	}
 	return o.S3, true
@@ -545,7 +548,7 @@ func (o *Integration) GetS3Ok() (*S3Integration, bool) {
 
 // HasS3 returns a boolean if a field has been set.
 func (o *Integration) HasS3() bool {
-	if o != nil && o.S3 != nil {
+	if o != nil && !IsNil(o.S3) {
 		return true
 	}
 
@@ -559,7 +562,7 @@ func (o *Integration) SetS3(v S3Integration) {
 
 // GetSnowflake returns the Snowflake field value if set, zero value otherwise.
 func (o *Integration) GetSnowflake() SnowflakeIntegration {
-	if o == nil || o.Snowflake == nil {
+	if o == nil || IsNil(o.Snowflake) {
 		var ret SnowflakeIntegration
 		return ret
 	}
@@ -569,7 +572,7 @@ func (o *Integration) GetSnowflake() SnowflakeIntegration {
 // GetSnowflakeOk returns a tuple with the Snowflake field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetSnowflakeOk() (*SnowflakeIntegration, bool) {
-	if o == nil || o.Snowflake == nil {
+	if o == nil || IsNil(o.Snowflake) {
 		return nil, false
 	}
 	return o.Snowflake, true
@@ -577,7 +580,7 @@ func (o *Integration) GetSnowflakeOk() (*SnowflakeIntegration, bool) {
 
 // HasSnowflake returns a boolean if a field has been set.
 func (o *Integration) HasSnowflake() bool {
-	if o != nil && o.Snowflake != nil {
+	if o != nil && !IsNil(o.Snowflake) {
 		return true
 	}
 
@@ -590,59 +593,63 @@ func (o *Integration) SetSnowflake(v SnowflakeIntegration) {
 }
 
 func (o Integration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AzureBlobStorage != nil {
-		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
-	}
-	if o.AzureEventHubs != nil {
-		toSerialize["azure_event_hubs"] = o.AzureEventHubs
-	}
-	if o.AzureServiceBus != nil {
-		toSerialize["azure_service_bus"] = o.AzureServiceBus
-	}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if o.CreatedByApikeyName != nil {
-		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Dynamodb != nil {
-		toSerialize["dynamodb"] = o.Dynamodb
-	}
-	if o.Gcs != nil {
-		toSerialize["gcs"] = o.Gcs
-	}
-	if o.Kafka != nil {
-		toSerialize["kafka"] = o.Kafka
-	}
-	if o.Kinesis != nil {
-		toSerialize["kinesis"] = o.Kinesis
-	}
-	if o.Mongodb != nil {
-		toSerialize["mongodb"] = o.Mongodb
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.OwnerEmail != nil {
-		toSerialize["owner_email"] = o.OwnerEmail
-	}
-	if o.S3 != nil {
-		toSerialize["s3"] = o.S3
-	}
-	if o.Snowflake != nil {
-		toSerialize["snowflake"] = o.Snowflake
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Integration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AzureBlobStorage) {
+		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
+	}
+	if !IsNil(o.AzureEventHubs) {
+		toSerialize["azure_event_hubs"] = o.AzureEventHubs
+	}
+	if !IsNil(o.AzureServiceBus) {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
+	}
+	if !IsNil(o.Collections) {
+		toSerialize["collections"] = o.Collections
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	toSerialize["created_by"] = o.CreatedBy
+	if !IsNil(o.CreatedByApikeyName) {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Dynamodb) {
+		toSerialize["dynamodb"] = o.Dynamodb
+	}
+	if !IsNil(o.Gcs) {
+		toSerialize["gcs"] = o.Gcs
+	}
+	if !IsNil(o.Kafka) {
+		toSerialize["kafka"] = o.Kafka
+	}
+	if !IsNil(o.Kinesis) {
+		toSerialize["kinesis"] = o.Kinesis
+	}
+	if !IsNil(o.Mongodb) {
+		toSerialize["mongodb"] = o.Mongodb
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.OwnerEmail) {
+		toSerialize["owner_email"] = o.OwnerEmail
+	}
+	if !IsNil(o.S3) {
+		toSerialize["s3"] = o.S3
+	}
+	if !IsNil(o.Snowflake) {
+		toSerialize["snowflake"] = o.Snowflake
+	}
+	return toSerialize, nil
 }
 
 type NullableIntegration struct {

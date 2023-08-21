@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetIntegrationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetIntegrationResponse{}
+
 // GetIntegrationResponse struct for GetIntegrationResponse
 type GetIntegrationResponse struct {
 	Data *Integration `json:"data,omitempty"`
@@ -38,7 +41,7 @@ func NewGetIntegrationResponseWithDefaults() *GetIntegrationResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *GetIntegrationResponse) GetData() Integration {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret Integration
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *GetIntegrationResponse) GetData() Integration {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetIntegrationResponse) GetDataOk() (*Integration, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -56,7 +59,7 @@ func (o *GetIntegrationResponse) GetDataOk() (*Integration, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *GetIntegrationResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *GetIntegrationResponse) SetData(v Integration) {
 }
 
 func (o GetIntegrationResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetIntegrationResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableGetIntegrationResponse struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AwsRole type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AwsRole{}
+
 // AwsRole struct for AwsRole
 type AwsRole struct {
 	// External id used for integration.
@@ -42,7 +45,7 @@ func NewAwsRoleWithDefaults() *AwsRole {
 
 // GetAwsExternalId returns the AwsExternalId field value if set, zero value otherwise.
 func (o *AwsRole) GetAwsExternalId() string {
-	if o == nil || o.AwsExternalId == nil {
+	if o == nil || IsNil(o.AwsExternalId) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *AwsRole) GetAwsExternalId() string {
 // GetAwsExternalIdOk returns a tuple with the AwsExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AwsRole) GetAwsExternalIdOk() (*string, bool) {
-	if o == nil || o.AwsExternalId == nil {
+	if o == nil || IsNil(o.AwsExternalId) {
 		return nil, false
 	}
 	return o.AwsExternalId, true
@@ -60,7 +63,7 @@ func (o *AwsRole) GetAwsExternalIdOk() (*string, bool) {
 
 // HasAwsExternalId returns a boolean if a field has been set.
 func (o *AwsRole) HasAwsExternalId() bool {
-	if o != nil && o.AwsExternalId != nil {
+	if o != nil && !IsNil(o.AwsExternalId) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *AwsRole) GetAwsRoleArn() string {
 // GetAwsRoleArnOk returns a tuple with the AwsRoleArn field value
 // and a boolean to check if the value has been set.
 func (o *AwsRole) GetAwsRoleArnOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AwsRoleArn, true
@@ -97,14 +100,20 @@ func (o *AwsRole) SetAwsRoleArn(v string) {
 }
 
 func (o AwsRole) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsExternalId != nil {
-		toSerialize["aws_external_id"] = o.AwsExternalId
-	}
-	if true {
-		toSerialize["aws_role_arn"] = o.AwsRoleArn
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AwsRole) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsExternalId) {
+		toSerialize["aws_external_id"] = o.AwsExternalId
+	}
+	toSerialize["aws_role_arn"] = o.AwsRoleArn
+	return toSerialize, nil
 }
 
 type NullableAwsRole struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceSnapshot type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceSnapshot{}
+
 // SourceSnapshot struct for SourceSnapshot
 type SourceSnapshot struct {
 	// Path of source collection to restore the snapshot from.
@@ -41,7 +44,7 @@ func NewSourceSnapshotWithDefaults() *SourceSnapshot {
 
 // GetSourceCollectionPath returns the SourceCollectionPath field value if set, zero value otherwise.
 func (o *SourceSnapshot) GetSourceCollectionPath() string {
-	if o == nil || o.SourceCollectionPath == nil {
+	if o == nil || IsNil(o.SourceCollectionPath) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *SourceSnapshot) GetSourceCollectionPath() string {
 // GetSourceCollectionPathOk returns a tuple with the SourceCollectionPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceSnapshot) GetSourceCollectionPathOk() (*string, bool) {
-	if o == nil || o.SourceCollectionPath == nil {
+	if o == nil || IsNil(o.SourceCollectionPath) {
 		return nil, false
 	}
 	return o.SourceCollectionPath, true
@@ -59,7 +62,7 @@ func (o *SourceSnapshot) GetSourceCollectionPathOk() (*string, bool) {
 
 // HasSourceCollectionPath returns a boolean if a field has been set.
 func (o *SourceSnapshot) HasSourceCollectionPath() bool {
-	if o != nil && o.SourceCollectionPath != nil {
+	if o != nil && !IsNil(o.SourceCollectionPath) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *SourceSnapshot) SetSourceCollectionPath(v string) {
 
 // GetSourceSnapshotId returns the SourceSnapshotId field value if set, zero value otherwise.
 func (o *SourceSnapshot) GetSourceSnapshotId() string {
-	if o == nil || o.SourceSnapshotId == nil {
+	if o == nil || IsNil(o.SourceSnapshotId) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *SourceSnapshot) GetSourceSnapshotId() string {
 // GetSourceSnapshotIdOk returns a tuple with the SourceSnapshotId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceSnapshot) GetSourceSnapshotIdOk() (*string, bool) {
-	if o == nil || o.SourceSnapshotId == nil {
+	if o == nil || IsNil(o.SourceSnapshotId) {
 		return nil, false
 	}
 	return o.SourceSnapshotId, true
@@ -91,7 +94,7 @@ func (o *SourceSnapshot) GetSourceSnapshotIdOk() (*string, bool) {
 
 // HasSourceSnapshotId returns a boolean if a field has been set.
 func (o *SourceSnapshot) HasSourceSnapshotId() bool {
-	if o != nil && o.SourceSnapshotId != nil {
+	if o != nil && !IsNil(o.SourceSnapshotId) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *SourceSnapshot) SetSourceSnapshotId(v string) {
 }
 
 func (o SourceSnapshot) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SourceCollectionPath != nil {
-		toSerialize["source_collection_path"] = o.SourceCollectionPath
-	}
-	if o.SourceSnapshotId != nil {
-		toSerialize["source_snapshot_id"] = o.SourceSnapshotId
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceSnapshot) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SourceCollectionPath) {
+		toSerialize["source_collection_path"] = o.SourceCollectionPath
+	}
+	if !IsNil(o.SourceSnapshotId) {
+		toSerialize["source_snapshot_id"] = o.SourceSnapshotId
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceSnapshot struct {

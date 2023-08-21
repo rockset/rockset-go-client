@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryLambdaVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryLambdaVersion{}
+
 // QueryLambdaVersion struct for QueryLambdaVersion
 type QueryLambdaVersion struct {
 	// Collections queried by underlying SQL query.
@@ -59,7 +62,7 @@ func NewQueryLambdaVersionWithDefaults() *QueryLambdaVersion {
 
 // GetCollections returns the Collections field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetCollections() []string {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		var ret []string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *QueryLambdaVersion) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetCollectionsOk() ([]string, bool) {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		return nil, false
 	}
 	return o.Collections, true
@@ -77,7 +80,7 @@ func (o *QueryLambdaVersion) GetCollectionsOk() ([]string, bool) {
 
 // HasCollections returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasCollections() bool {
-	if o != nil && o.Collections != nil {
+	if o != nil && !IsNil(o.Collections) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *QueryLambdaVersion) SetCollections(v []string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *QueryLambdaVersion) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -109,7 +112,7 @@ func (o *QueryLambdaVersion) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *QueryLambdaVersion) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *QueryLambdaVersion) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -141,7 +144,7 @@ func (o *QueryLambdaVersion) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *QueryLambdaVersion) SetCreatedBy(v string) {
 
 // GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetCreatedByApikeyName() string {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *QueryLambdaVersion) GetCreatedByApikeyName() string {
 // GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetCreatedByApikeyNameOk() (*string, bool) {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		return nil, false
 	}
 	return o.CreatedByApikeyName, true
@@ -173,7 +176,7 @@ func (o *QueryLambdaVersion) GetCreatedByApikeyNameOk() (*string, bool) {
 
 // HasCreatedByApikeyName returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasCreatedByApikeyName() bool {
-	if o != nil && o.CreatedByApikeyName != nil {
+	if o != nil && !IsNil(o.CreatedByApikeyName) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *QueryLambdaVersion) SetCreatedByApikeyName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *QueryLambdaVersion) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -205,7 +208,7 @@ func (o *QueryLambdaVersion) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *QueryLambdaVersion) SetDescription(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *QueryLambdaVersion) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -237,7 +240,7 @@ func (o *QueryLambdaVersion) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -251,7 +254,7 @@ func (o *QueryLambdaVersion) SetName(v string) {
 
 // GetPublicAccessId returns the PublicAccessId field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetPublicAccessId() string {
-	if o == nil || o.PublicAccessId == nil {
+	if o == nil || IsNil(o.PublicAccessId) {
 		var ret string
 		return ret
 	}
@@ -261,7 +264,7 @@ func (o *QueryLambdaVersion) GetPublicAccessId() string {
 // GetPublicAccessIdOk returns a tuple with the PublicAccessId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool) {
-	if o == nil || o.PublicAccessId == nil {
+	if o == nil || IsNil(o.PublicAccessId) {
 		return nil, false
 	}
 	return o.PublicAccessId, true
@@ -269,7 +272,7 @@ func (o *QueryLambdaVersion) GetPublicAccessIdOk() (*string, bool) {
 
 // HasPublicAccessId returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasPublicAccessId() bool {
-	if o != nil && o.PublicAccessId != nil {
+	if o != nil && !IsNil(o.PublicAccessId) {
 		return true
 	}
 
@@ -283,7 +286,7 @@ func (o *QueryLambdaVersion) SetPublicAccessId(v string) {
 
 // GetSql returns the Sql field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetSql() QueryLambdaSql {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		var ret QueryLambdaSql
 		return ret
 	}
@@ -293,7 +296,7 @@ func (o *QueryLambdaVersion) GetSql() QueryLambdaSql {
 // GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetSqlOk() (*QueryLambdaSql, bool) {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		return nil, false
 	}
 	return o.Sql, true
@@ -301,7 +304,7 @@ func (o *QueryLambdaVersion) GetSqlOk() (*QueryLambdaSql, bool) {
 
 // HasSql returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasSql() bool {
-	if o != nil && o.Sql != nil {
+	if o != nil && !IsNil(o.Sql) {
 		return true
 	}
 
@@ -315,7 +318,7 @@ func (o *QueryLambdaVersion) SetSql(v QueryLambdaSql) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -325,7 +328,7 @@ func (o *QueryLambdaVersion) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -333,7 +336,7 @@ func (o *QueryLambdaVersion) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -347,7 +350,7 @@ func (o *QueryLambdaVersion) SetState(v string) {
 
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetStats() QueryLambdaStats {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		var ret QueryLambdaStats
 		return ret
 	}
@@ -357,7 +360,7 @@ func (o *QueryLambdaVersion) GetStats() QueryLambdaStats {
 // GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetStatsOk() (*QueryLambdaStats, bool) {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		return nil, false
 	}
 	return o.Stats, true
@@ -365,7 +368,7 @@ func (o *QueryLambdaVersion) GetStatsOk() (*QueryLambdaStats, bool) {
 
 // HasStats returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasStats() bool {
-	if o != nil && o.Stats != nil {
+	if o != nil && !IsNil(o.Stats) {
 		return true
 	}
 
@@ -379,7 +382,7 @@ func (o *QueryLambdaVersion) SetStats(v QueryLambdaStats) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -389,7 +392,7 @@ func (o *QueryLambdaVersion) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -397,7 +400,7 @@ func (o *QueryLambdaVersion) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -411,7 +414,7 @@ func (o *QueryLambdaVersion) SetVersion(v string) {
 
 // GetWorkspace returns the Workspace field value if set, zero value otherwise.
 func (o *QueryLambdaVersion) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		var ret string
 		return ret
 	}
@@ -421,7 +424,7 @@ func (o *QueryLambdaVersion) GetWorkspace() string {
 // GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersion) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		return nil, false
 	}
 	return o.Workspace, true
@@ -429,7 +432,7 @@ func (o *QueryLambdaVersion) GetWorkspaceOk() (*string, bool) {
 
 // HasWorkspace returns a boolean if a field has been set.
 func (o *QueryLambdaVersion) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+	if o != nil && !IsNil(o.Workspace) {
 		return true
 	}
 
@@ -442,44 +445,52 @@ func (o *QueryLambdaVersion) SetWorkspace(v string) {
 }
 
 func (o QueryLambdaVersion) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if o.CreatedByApikeyName != nil {
-		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.PublicAccessId != nil {
-		toSerialize["public_access_id"] = o.PublicAccessId
-	}
-	if o.Sql != nil {
-		toSerialize["sql"] = o.Sql
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Stats != nil {
-		toSerialize["stats"] = o.Stats
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryLambdaVersion) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Collections) {
+		toSerialize["collections"] = o.Collections
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	if !IsNil(o.CreatedByApikeyName) {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.PublicAccessId) {
+		toSerialize["public_access_id"] = o.PublicAccessId
+	}
+	if !IsNil(o.Sql) {
+		toSerialize["sql"] = o.Sql
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Stats) {
+		toSerialize["stats"] = o.Stats
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Workspace) {
+		toSerialize["workspace"] = o.Workspace
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryLambdaVersion struct {

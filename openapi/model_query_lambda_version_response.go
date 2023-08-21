@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryLambdaVersionResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryLambdaVersionResponse{}
+
 // QueryLambdaVersionResponse struct for QueryLambdaVersionResponse
 type QueryLambdaVersionResponse struct {
 	Data *QueryLambdaVersion `json:"data,omitempty"`
@@ -38,7 +41,7 @@ func NewQueryLambdaVersionResponseWithDefaults() *QueryLambdaVersionResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *QueryLambdaVersionResponse) GetData() QueryLambdaVersion {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret QueryLambdaVersion
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *QueryLambdaVersionResponse) GetData() QueryLambdaVersion {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaVersionResponse) GetDataOk() (*QueryLambdaVersion, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -56,7 +59,7 @@ func (o *QueryLambdaVersionResponse) GetDataOk() (*QueryLambdaVersion, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *QueryLambdaVersionResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *QueryLambdaVersionResponse) SetData(v QueryLambdaVersion) {
 }
 
 func (o QueryLambdaVersionResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryLambdaVersionResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryLambdaVersionResponse struct {

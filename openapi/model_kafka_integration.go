@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KafkaIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KafkaIntegration{}
+
 // KafkaIntegration struct for KafkaIntegration
 type KafkaIntegration struct {
 	AwsRole *AwsRole `json:"aws_role,omitempty"`
@@ -51,7 +54,7 @@ func NewKafkaIntegrationWithDefaults() *KafkaIntegration {
 
 // GetAwsRole returns the AwsRole field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetAwsRole() AwsRole {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		var ret AwsRole
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *KafkaIntegration) GetAwsRole() AwsRole {
 // GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetAwsRoleOk() (*AwsRole, bool) {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		return nil, false
 	}
 	return o.AwsRole, true
@@ -69,7 +72,7 @@ func (o *KafkaIntegration) GetAwsRoleOk() (*AwsRole, bool) {
 
 // HasAwsRole returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasAwsRole() bool {
-	if o != nil && o.AwsRole != nil {
+	if o != nil && !IsNil(o.AwsRole) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *KafkaIntegration) SetAwsRole(v AwsRole) {
 
 // GetBootstrapServers returns the BootstrapServers field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetBootstrapServers() string {
-	if o == nil || o.BootstrapServers == nil {
+	if o == nil || IsNil(o.BootstrapServers) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *KafkaIntegration) GetBootstrapServers() string {
 // GetBootstrapServersOk returns a tuple with the BootstrapServers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetBootstrapServersOk() (*string, bool) {
-	if o == nil || o.BootstrapServers == nil {
+	if o == nil || IsNil(o.BootstrapServers) {
 		return nil, false
 	}
 	return o.BootstrapServers, true
@@ -101,7 +104,7 @@ func (o *KafkaIntegration) GetBootstrapServersOk() (*string, bool) {
 
 // HasBootstrapServers returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasBootstrapServers() bool {
-	if o != nil && o.BootstrapServers != nil {
+	if o != nil && !IsNil(o.BootstrapServers) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *KafkaIntegration) SetBootstrapServers(v string) {
 
 // GetConnectionString returns the ConnectionString field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetConnectionString() string {
-	if o == nil || o.ConnectionString == nil {
+	if o == nil || IsNil(o.ConnectionString) {
 		var ret string
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *KafkaIntegration) GetConnectionString() string {
 // GetConnectionStringOk returns a tuple with the ConnectionString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetConnectionStringOk() (*string, bool) {
-	if o == nil || o.ConnectionString == nil {
+	if o == nil || IsNil(o.ConnectionString) {
 		return nil, false
 	}
 	return o.ConnectionString, true
@@ -133,7 +136,7 @@ func (o *KafkaIntegration) GetConnectionStringOk() (*string, bool) {
 
 // HasConnectionString returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasConnectionString() bool {
-	if o != nil && o.ConnectionString != nil {
+	if o != nil && !IsNil(o.ConnectionString) {
 		return true
 	}
 
@@ -147,7 +150,7 @@ func (o *KafkaIntegration) SetConnectionString(v string) {
 
 // GetKafkaDataFormat returns the KafkaDataFormat field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetKafkaDataFormat() string {
-	if o == nil || o.KafkaDataFormat == nil {
+	if o == nil || IsNil(o.KafkaDataFormat) {
 		var ret string
 		return ret
 	}
@@ -157,7 +160,7 @@ func (o *KafkaIntegration) GetKafkaDataFormat() string {
 // GetKafkaDataFormatOk returns a tuple with the KafkaDataFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetKafkaDataFormatOk() (*string, bool) {
-	if o == nil || o.KafkaDataFormat == nil {
+	if o == nil || IsNil(o.KafkaDataFormat) {
 		return nil, false
 	}
 	return o.KafkaDataFormat, true
@@ -165,7 +168,7 @@ func (o *KafkaIntegration) GetKafkaDataFormatOk() (*string, bool) {
 
 // HasKafkaDataFormat returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasKafkaDataFormat() bool {
-	if o != nil && o.KafkaDataFormat != nil {
+	if o != nil && !IsNil(o.KafkaDataFormat) {
 		return true
 	}
 
@@ -179,7 +182,7 @@ func (o *KafkaIntegration) SetKafkaDataFormat(v string) {
 
 // GetKafkaTopicNames returns the KafkaTopicNames field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetKafkaTopicNames() []string {
-	if o == nil || o.KafkaTopicNames == nil {
+	if o == nil || IsNil(o.KafkaTopicNames) {
 		var ret []string
 		return ret
 	}
@@ -189,7 +192,7 @@ func (o *KafkaIntegration) GetKafkaTopicNames() []string {
 // GetKafkaTopicNamesOk returns a tuple with the KafkaTopicNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetKafkaTopicNamesOk() ([]string, bool) {
-	if o == nil || o.KafkaTopicNames == nil {
+	if o == nil || IsNil(o.KafkaTopicNames) {
 		return nil, false
 	}
 	return o.KafkaTopicNames, true
@@ -197,7 +200,7 @@ func (o *KafkaIntegration) GetKafkaTopicNamesOk() ([]string, bool) {
 
 // HasKafkaTopicNames returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasKafkaTopicNames() bool {
-	if o != nil && o.KafkaTopicNames != nil {
+	if o != nil && !IsNil(o.KafkaTopicNames) {
 		return true
 	}
 
@@ -211,7 +214,7 @@ func (o *KafkaIntegration) SetKafkaTopicNames(v []string) {
 
 // GetSchemaRegistryConfig returns the SchemaRegistryConfig field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetSchemaRegistryConfig() SchemaRegistryConfig {
-	if o == nil || o.SchemaRegistryConfig == nil {
+	if o == nil || IsNil(o.SchemaRegistryConfig) {
 		var ret SchemaRegistryConfig
 		return ret
 	}
@@ -221,7 +224,7 @@ func (o *KafkaIntegration) GetSchemaRegistryConfig() SchemaRegistryConfig {
 // GetSchemaRegistryConfigOk returns a tuple with the SchemaRegistryConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetSchemaRegistryConfigOk() (*SchemaRegistryConfig, bool) {
-	if o == nil || o.SchemaRegistryConfig == nil {
+	if o == nil || IsNil(o.SchemaRegistryConfig) {
 		return nil, false
 	}
 	return o.SchemaRegistryConfig, true
@@ -229,7 +232,7 @@ func (o *KafkaIntegration) GetSchemaRegistryConfigOk() (*SchemaRegistryConfig, b
 
 // HasSchemaRegistryConfig returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasSchemaRegistryConfig() bool {
-	if o != nil && o.SchemaRegistryConfig != nil {
+	if o != nil && !IsNil(o.SchemaRegistryConfig) {
 		return true
 	}
 
@@ -243,7 +246,7 @@ func (o *KafkaIntegration) SetSchemaRegistryConfig(v SchemaRegistryConfig) {
 
 // GetSecurityConfig returns the SecurityConfig field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetSecurityConfig() KafkaV3SecurityConfig {
-	if o == nil || o.SecurityConfig == nil {
+	if o == nil || IsNil(o.SecurityConfig) {
 		var ret KafkaV3SecurityConfig
 		return ret
 	}
@@ -253,7 +256,7 @@ func (o *KafkaIntegration) GetSecurityConfig() KafkaV3SecurityConfig {
 // GetSecurityConfigOk returns a tuple with the SecurityConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetSecurityConfigOk() (*KafkaV3SecurityConfig, bool) {
-	if o == nil || o.SecurityConfig == nil {
+	if o == nil || IsNil(o.SecurityConfig) {
 		return nil, false
 	}
 	return o.SecurityConfig, true
@@ -261,7 +264,7 @@ func (o *KafkaIntegration) GetSecurityConfigOk() (*KafkaV3SecurityConfig, bool) 
 
 // HasSecurityConfig returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasSecurityConfig() bool {
-	if o != nil && o.SecurityConfig != nil {
+	if o != nil && !IsNil(o.SecurityConfig) {
 		return true
 	}
 
@@ -275,7 +278,7 @@ func (o *KafkaIntegration) SetSecurityConfig(v KafkaV3SecurityConfig) {
 
 // GetSourceStatusByTopic returns the SourceStatusByTopic field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetSourceStatusByTopic() map[string]StatusKafka {
-	if o == nil || o.SourceStatusByTopic == nil {
+	if o == nil || IsNil(o.SourceStatusByTopic) {
 		var ret map[string]StatusKafka
 		return ret
 	}
@@ -285,7 +288,7 @@ func (o *KafkaIntegration) GetSourceStatusByTopic() map[string]StatusKafka {
 // GetSourceStatusByTopicOk returns a tuple with the SourceStatusByTopic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetSourceStatusByTopicOk() (*map[string]StatusKafka, bool) {
-	if o == nil || o.SourceStatusByTopic == nil {
+	if o == nil || IsNil(o.SourceStatusByTopic) {
 		return nil, false
 	}
 	return o.SourceStatusByTopic, true
@@ -293,7 +296,7 @@ func (o *KafkaIntegration) GetSourceStatusByTopicOk() (*map[string]StatusKafka, 
 
 // HasSourceStatusByTopic returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasSourceStatusByTopic() bool {
-	if o != nil && o.SourceStatusByTopic != nil {
+	if o != nil && !IsNil(o.SourceStatusByTopic) {
 		return true
 	}
 
@@ -307,7 +310,7 @@ func (o *KafkaIntegration) SetSourceStatusByTopic(v map[string]StatusKafka) {
 
 // GetUseV3 returns the UseV3 field value if set, zero value otherwise.
 func (o *KafkaIntegration) GetUseV3() bool {
-	if o == nil || o.UseV3 == nil {
+	if o == nil || IsNil(o.UseV3) {
 		var ret bool
 		return ret
 	}
@@ -317,7 +320,7 @@ func (o *KafkaIntegration) GetUseV3() bool {
 // GetUseV3Ok returns a tuple with the UseV3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaIntegration) GetUseV3Ok() (*bool, bool) {
-	if o == nil || o.UseV3 == nil {
+	if o == nil || IsNil(o.UseV3) {
 		return nil, false
 	}
 	return o.UseV3, true
@@ -325,7 +328,7 @@ func (o *KafkaIntegration) GetUseV3Ok() (*bool, bool) {
 
 // HasUseV3 returns a boolean if a field has been set.
 func (o *KafkaIntegration) HasUseV3() bool {
-	if o != nil && o.UseV3 != nil {
+	if o != nil && !IsNil(o.UseV3) {
 		return true
 	}
 
@@ -338,35 +341,41 @@ func (o *KafkaIntegration) SetUseV3(v bool) {
 }
 
 func (o KafkaIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsRole != nil {
-		toSerialize["aws_role"] = o.AwsRole
-	}
-	if o.BootstrapServers != nil {
-		toSerialize["bootstrap_servers"] = o.BootstrapServers
-	}
-	if o.ConnectionString != nil {
-		toSerialize["connection_string"] = o.ConnectionString
-	}
-	if o.KafkaDataFormat != nil {
-		toSerialize["kafka_data_format"] = o.KafkaDataFormat
-	}
-	if o.KafkaTopicNames != nil {
-		toSerialize["kafka_topic_names"] = o.KafkaTopicNames
-	}
-	if o.SchemaRegistryConfig != nil {
-		toSerialize["schema_registry_config"] = o.SchemaRegistryConfig
-	}
-	if o.SecurityConfig != nil {
-		toSerialize["security_config"] = o.SecurityConfig
-	}
-	if o.SourceStatusByTopic != nil {
-		toSerialize["source_status_by_topic"] = o.SourceStatusByTopic
-	}
-	if o.UseV3 != nil {
-		toSerialize["use_v3"] = o.UseV3
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KafkaIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsRole) {
+		toSerialize["aws_role"] = o.AwsRole
+	}
+	if !IsNil(o.BootstrapServers) {
+		toSerialize["bootstrap_servers"] = o.BootstrapServers
+	}
+	if !IsNil(o.ConnectionString) {
+		toSerialize["connection_string"] = o.ConnectionString
+	}
+	if !IsNil(o.KafkaDataFormat) {
+		toSerialize["kafka_data_format"] = o.KafkaDataFormat
+	}
+	if !IsNil(o.KafkaTopicNames) {
+		toSerialize["kafka_topic_names"] = o.KafkaTopicNames
+	}
+	if !IsNil(o.SchemaRegistryConfig) {
+		toSerialize["schema_registry_config"] = o.SchemaRegistryConfig
+	}
+	if !IsNil(o.SecurityConfig) {
+		toSerialize["security_config"] = o.SecurityConfig
+	}
+	// skip: source_status_by_topic is readOnly
+	if !IsNil(o.UseV3) {
+		toSerialize["use_v3"] = o.UseV3
+	}
+	return toSerialize, nil
 }
 
 type NullableKafkaIntegration struct {

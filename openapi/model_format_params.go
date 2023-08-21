@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FormatParams type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FormatParams{}
+
 // FormatParams struct for FormatParams
 type FormatParams struct {
 	Avro map[string]interface{} `json:"avro,omitempty"`
@@ -46,7 +49,7 @@ func NewFormatParamsWithDefaults() *FormatParams {
 
 // GetAvro returns the Avro field value if set, zero value otherwise.
 func (o *FormatParams) GetAvro() map[string]interface{} {
-	if o == nil || o.Avro == nil {
+	if o == nil || IsNil(o.Avro) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -56,15 +59,15 @@ func (o *FormatParams) GetAvro() map[string]interface{} {
 // GetAvroOk returns a tuple with the Avro field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetAvroOk() (map[string]interface{}, bool) {
-	if o == nil || o.Avro == nil {
-		return nil, false
+	if o == nil || IsNil(o.Avro) {
+		return map[string]interface{}{}, false
 	}
 	return o.Avro, true
 }
 
 // HasAvro returns a boolean if a field has been set.
 func (o *FormatParams) HasAvro() bool {
-	if o != nil && o.Avro != nil {
+	if o != nil && !IsNil(o.Avro) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *FormatParams) SetAvro(v map[string]interface{}) {
 
 // GetCsv returns the Csv field value if set, zero value otherwise.
 func (o *FormatParams) GetCsv() CsvParams {
-	if o == nil || o.Csv == nil {
+	if o == nil || IsNil(o.Csv) {
 		var ret CsvParams
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *FormatParams) GetCsv() CsvParams {
 // GetCsvOk returns a tuple with the Csv field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetCsvOk() (*CsvParams, bool) {
-	if o == nil || o.Csv == nil {
+	if o == nil || IsNil(o.Csv) {
 		return nil, false
 	}
 	return o.Csv, true
@@ -96,7 +99,7 @@ func (o *FormatParams) GetCsvOk() (*CsvParams, bool) {
 
 // HasCsv returns a boolean if a field has been set.
 func (o *FormatParams) HasCsv() bool {
-	if o != nil && o.Csv != nil {
+	if o != nil && !IsNil(o.Csv) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *FormatParams) SetCsv(v CsvParams) {
 
 // GetJson returns the Json field value if set, zero value otherwise.
 func (o *FormatParams) GetJson() bool {
-	if o == nil || o.Json == nil {
+	if o == nil || IsNil(o.Json) {
 		var ret bool
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *FormatParams) GetJson() bool {
 // GetJsonOk returns a tuple with the Json field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetJsonOk() (*bool, bool) {
-	if o == nil || o.Json == nil {
+	if o == nil || IsNil(o.Json) {
 		return nil, false
 	}
 	return o.Json, true
@@ -128,7 +131,7 @@ func (o *FormatParams) GetJsonOk() (*bool, bool) {
 
 // HasJson returns a boolean if a field has been set.
 func (o *FormatParams) HasJson() bool {
-	if o != nil && o.Json != nil {
+	if o != nil && !IsNil(o.Json) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *FormatParams) SetJson(v bool) {
 
 // GetMssqlDms returns the MssqlDms field value if set, zero value otherwise.
 func (o *FormatParams) GetMssqlDms() bool {
-	if o == nil || o.MssqlDms == nil {
+	if o == nil || IsNil(o.MssqlDms) {
 		var ret bool
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *FormatParams) GetMssqlDms() bool {
 // GetMssqlDmsOk returns a tuple with the MssqlDms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetMssqlDmsOk() (*bool, bool) {
-	if o == nil || o.MssqlDms == nil {
+	if o == nil || IsNil(o.MssqlDms) {
 		return nil, false
 	}
 	return o.MssqlDms, true
@@ -160,7 +163,7 @@ func (o *FormatParams) GetMssqlDmsOk() (*bool, bool) {
 
 // HasMssqlDms returns a boolean if a field has been set.
 func (o *FormatParams) HasMssqlDms() bool {
-	if o != nil && o.MssqlDms != nil {
+	if o != nil && !IsNil(o.MssqlDms) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *FormatParams) SetMssqlDms(v bool) {
 
 // GetMysqlDms returns the MysqlDms field value if set, zero value otherwise.
 func (o *FormatParams) GetMysqlDms() bool {
-	if o == nil || o.MysqlDms == nil {
+	if o == nil || IsNil(o.MysqlDms) {
 		var ret bool
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *FormatParams) GetMysqlDms() bool {
 // GetMysqlDmsOk returns a tuple with the MysqlDms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetMysqlDmsOk() (*bool, bool) {
-	if o == nil || o.MysqlDms == nil {
+	if o == nil || IsNil(o.MysqlDms) {
 		return nil, false
 	}
 	return o.MysqlDms, true
@@ -192,7 +195,7 @@ func (o *FormatParams) GetMysqlDmsOk() (*bool, bool) {
 
 // HasMysqlDms returns a boolean if a field has been set.
 func (o *FormatParams) HasMysqlDms() bool {
-	if o != nil && o.MysqlDms != nil {
+	if o != nil && !IsNil(o.MysqlDms) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *FormatParams) SetMysqlDms(v bool) {
 
 // GetOracleDms returns the OracleDms field value if set, zero value otherwise.
 func (o *FormatParams) GetOracleDms() bool {
-	if o == nil || o.OracleDms == nil {
+	if o == nil || IsNil(o.OracleDms) {
 		var ret bool
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *FormatParams) GetOracleDms() bool {
 // GetOracleDmsOk returns a tuple with the OracleDms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetOracleDmsOk() (*bool, bool) {
-	if o == nil || o.OracleDms == nil {
+	if o == nil || IsNil(o.OracleDms) {
 		return nil, false
 	}
 	return o.OracleDms, true
@@ -224,7 +227,7 @@ func (o *FormatParams) GetOracleDmsOk() (*bool, bool) {
 
 // HasOracleDms returns a boolean if a field has been set.
 func (o *FormatParams) HasOracleDms() bool {
-	if o != nil && o.OracleDms != nil {
+	if o != nil && !IsNil(o.OracleDms) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *FormatParams) SetOracleDms(v bool) {
 
 // GetPostgresDms returns the PostgresDms field value if set, zero value otherwise.
 func (o *FormatParams) GetPostgresDms() bool {
-	if o == nil || o.PostgresDms == nil {
+	if o == nil || IsNil(o.PostgresDms) {
 		var ret bool
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *FormatParams) GetPostgresDms() bool {
 // GetPostgresDmsOk returns a tuple with the PostgresDms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetPostgresDmsOk() (*bool, bool) {
-	if o == nil || o.PostgresDms == nil {
+	if o == nil || IsNil(o.PostgresDms) {
 		return nil, false
 	}
 	return o.PostgresDms, true
@@ -256,7 +259,7 @@ func (o *FormatParams) GetPostgresDmsOk() (*bool, bool) {
 
 // HasPostgresDms returns a boolean if a field has been set.
 func (o *FormatParams) HasPostgresDms() bool {
-	if o != nil && o.PostgresDms != nil {
+	if o != nil && !IsNil(o.PostgresDms) {
 		return true
 	}
 
@@ -270,7 +273,7 @@ func (o *FormatParams) SetPostgresDms(v bool) {
 
 // GetXml returns the Xml field value if set, zero value otherwise.
 func (o *FormatParams) GetXml() XmlParams {
-	if o == nil || o.Xml == nil {
+	if o == nil || IsNil(o.Xml) {
 		var ret XmlParams
 		return ret
 	}
@@ -280,7 +283,7 @@ func (o *FormatParams) GetXml() XmlParams {
 // GetXmlOk returns a tuple with the Xml field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FormatParams) GetXmlOk() (*XmlParams, bool) {
-	if o == nil || o.Xml == nil {
+	if o == nil || IsNil(o.Xml) {
 		return nil, false
 	}
 	return o.Xml, true
@@ -288,7 +291,7 @@ func (o *FormatParams) GetXmlOk() (*XmlParams, bool) {
 
 // HasXml returns a boolean if a field has been set.
 func (o *FormatParams) HasXml() bool {
-	if o != nil && o.Xml != nil {
+	if o != nil && !IsNil(o.Xml) {
 		return true
 	}
 
@@ -301,32 +304,40 @@ func (o *FormatParams) SetXml(v XmlParams) {
 }
 
 func (o FormatParams) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Avro != nil {
-		toSerialize["avro"] = o.Avro
-	}
-	if o.Csv != nil {
-		toSerialize["csv"] = o.Csv
-	}
-	if o.Json != nil {
-		toSerialize["json"] = o.Json
-	}
-	if o.MssqlDms != nil {
-		toSerialize["mssql_dms"] = o.MssqlDms
-	}
-	if o.MysqlDms != nil {
-		toSerialize["mysql_dms"] = o.MysqlDms
-	}
-	if o.OracleDms != nil {
-		toSerialize["oracle_dms"] = o.OracleDms
-	}
-	if o.PostgresDms != nil {
-		toSerialize["postgres_dms"] = o.PostgresDms
-	}
-	if o.Xml != nil {
-		toSerialize["xml"] = o.Xml
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FormatParams) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Avro) {
+		toSerialize["avro"] = o.Avro
+	}
+	if !IsNil(o.Csv) {
+		toSerialize["csv"] = o.Csv
+	}
+	if !IsNil(o.Json) {
+		toSerialize["json"] = o.Json
+	}
+	if !IsNil(o.MssqlDms) {
+		toSerialize["mssql_dms"] = o.MssqlDms
+	}
+	if !IsNil(o.MysqlDms) {
+		toSerialize["mysql_dms"] = o.MysqlDms
+	}
+	if !IsNil(o.OracleDms) {
+		toSerialize["oracle_dms"] = o.OracleDms
+	}
+	if !IsNil(o.PostgresDms) {
+		toSerialize["postgres_dms"] = o.PostgresDms
+	}
+	if !IsNil(o.Xml) {
+		toSerialize["xml"] = o.Xml
+	}
+	return toSerialize, nil
 }
 
 type NullableFormatParams struct {

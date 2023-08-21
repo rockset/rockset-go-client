@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InputField type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InputField{}
+
 // InputField struct for InputField
 type InputField struct {
 	// The name of a field, parsed as a SQL qualified name.
@@ -45,7 +48,7 @@ func NewInputFieldWithDefaults() *InputField {
 
 // GetFieldName returns the FieldName field value if set, zero value otherwise.
 func (o *InputField) GetFieldName() string {
-	if o == nil || o.FieldName == nil {
+	if o == nil || IsNil(o.FieldName) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *InputField) GetFieldName() string {
 // GetFieldNameOk returns a tuple with the FieldName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InputField) GetFieldNameOk() (*string, bool) {
-	if o == nil || o.FieldName == nil {
+	if o == nil || IsNil(o.FieldName) {
 		return nil, false
 	}
 	return o.FieldName, true
@@ -63,7 +66,7 @@ func (o *InputField) GetFieldNameOk() (*string, bool) {
 
 // HasFieldName returns a boolean if a field has been set.
 func (o *InputField) HasFieldName() bool {
-	if o != nil && o.FieldName != nil {
+	if o != nil && !IsNil(o.FieldName) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *InputField) SetFieldName(v string) {
 
 // GetIfMissing returns the IfMissing field value if set, zero value otherwise.
 func (o *InputField) GetIfMissing() string {
-	if o == nil || o.IfMissing == nil {
+	if o == nil || IsNil(o.IfMissing) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *InputField) GetIfMissing() string {
 // GetIfMissingOk returns a tuple with the IfMissing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InputField) GetIfMissingOk() (*string, bool) {
-	if o == nil || o.IfMissing == nil {
+	if o == nil || IsNil(o.IfMissing) {
 		return nil, false
 	}
 	return o.IfMissing, true
@@ -95,7 +98,7 @@ func (o *InputField) GetIfMissingOk() (*string, bool) {
 
 // HasIfMissing returns a boolean if a field has been set.
 func (o *InputField) HasIfMissing() bool {
-	if o != nil && o.IfMissing != nil {
+	if o != nil && !IsNil(o.IfMissing) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *InputField) SetIfMissing(v string) {
 
 // GetIsDrop returns the IsDrop field value if set, zero value otherwise.
 func (o *InputField) GetIsDrop() bool {
-	if o == nil || o.IsDrop == nil {
+	if o == nil || IsNil(o.IsDrop) {
 		var ret bool
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *InputField) GetIsDrop() bool {
 // GetIsDropOk returns a tuple with the IsDrop field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InputField) GetIsDropOk() (*bool, bool) {
-	if o == nil || o.IsDrop == nil {
+	if o == nil || IsNil(o.IsDrop) {
 		return nil, false
 	}
 	return o.IsDrop, true
@@ -127,7 +130,7 @@ func (o *InputField) GetIsDropOk() (*bool, bool) {
 
 // HasIsDrop returns a boolean if a field has been set.
 func (o *InputField) HasIsDrop() bool {
-	if o != nil && o.IsDrop != nil {
+	if o != nil && !IsNil(o.IsDrop) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *InputField) SetIsDrop(v bool) {
 
 // GetParam returns the Param field value if set, zero value otherwise.
 func (o *InputField) GetParam() string {
-	if o == nil || o.Param == nil {
+	if o == nil || IsNil(o.Param) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *InputField) GetParam() string {
 // GetParamOk returns a tuple with the Param field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InputField) GetParamOk() (*string, bool) {
-	if o == nil || o.Param == nil {
+	if o == nil || IsNil(o.Param) {
 		return nil, false
 	}
 	return o.Param, true
@@ -159,7 +162,7 @@ func (o *InputField) GetParamOk() (*string, bool) {
 
 // HasParam returns a boolean if a field has been set.
 func (o *InputField) HasParam() bool {
-	if o != nil && o.Param != nil {
+	if o != nil && !IsNil(o.Param) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *InputField) SetParam(v string) {
 }
 
 func (o InputField) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.FieldName != nil {
-		toSerialize["field_name"] = o.FieldName
-	}
-	if o.IfMissing != nil {
-		toSerialize["if_missing"] = o.IfMissing
-	}
-	if o.IsDrop != nil {
-		toSerialize["is_drop"] = o.IsDrop
-	}
-	if o.Param != nil {
-		toSerialize["param"] = o.Param
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o InputField) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.FieldName) {
+		toSerialize["field_name"] = o.FieldName
+	}
+	if !IsNil(o.IfMissing) {
+		toSerialize["if_missing"] = o.IfMissing
+	}
+	if !IsNil(o.IsDrop) {
+		toSerialize["is_drop"] = o.IsDrop
+	}
+	if !IsNil(o.Param) {
+		toSerialize["param"] = o.Param
+	}
+	return toSerialize, nil
 }
 
 type NullableInputField struct {

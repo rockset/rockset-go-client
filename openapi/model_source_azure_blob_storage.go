@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceAzureBlobStorage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceAzureBlobStorage{}
+
 // SourceAzureBlobStorage struct for SourceAzureBlobStorage
 type SourceAzureBlobStorage struct {
 	BlobBytesTotal *int64 `json:"blob_bytes_total,omitempty"`
@@ -46,7 +49,7 @@ func NewSourceAzureBlobStorageWithDefaults() *SourceAzureBlobStorage {
 
 // GetBlobBytesTotal returns the BlobBytesTotal field value if set, zero value otherwise.
 func (o *SourceAzureBlobStorage) GetBlobBytesTotal() int64 {
-	if o == nil || o.BlobBytesTotal == nil {
+	if o == nil || IsNil(o.BlobBytesTotal) {
 		var ret int64
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *SourceAzureBlobStorage) GetBlobBytesTotal() int64 {
 // GetBlobBytesTotalOk returns a tuple with the BlobBytesTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureBlobStorage) GetBlobBytesTotalOk() (*int64, bool) {
-	if o == nil || o.BlobBytesTotal == nil {
+	if o == nil || IsNil(o.BlobBytesTotal) {
 		return nil, false
 	}
 	return o.BlobBytesTotal, true
@@ -64,7 +67,7 @@ func (o *SourceAzureBlobStorage) GetBlobBytesTotalOk() (*int64, bool) {
 
 // HasBlobBytesTotal returns a boolean if a field has been set.
 func (o *SourceAzureBlobStorage) HasBlobBytesTotal() bool {
-	if o != nil && o.BlobBytesTotal != nil {
+	if o != nil && !IsNil(o.BlobBytesTotal) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *SourceAzureBlobStorage) SetBlobBytesTotal(v int64) {
 
 // GetBlobCountDownloaded returns the BlobCountDownloaded field value if set, zero value otherwise.
 func (o *SourceAzureBlobStorage) GetBlobCountDownloaded() int64 {
-	if o == nil || o.BlobCountDownloaded == nil {
+	if o == nil || IsNil(o.BlobCountDownloaded) {
 		var ret int64
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *SourceAzureBlobStorage) GetBlobCountDownloaded() int64 {
 // GetBlobCountDownloadedOk returns a tuple with the BlobCountDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureBlobStorage) GetBlobCountDownloadedOk() (*int64, bool) {
-	if o == nil || o.BlobCountDownloaded == nil {
+	if o == nil || IsNil(o.BlobCountDownloaded) {
 		return nil, false
 	}
 	return o.BlobCountDownloaded, true
@@ -96,7 +99,7 @@ func (o *SourceAzureBlobStorage) GetBlobCountDownloadedOk() (*int64, bool) {
 
 // HasBlobCountDownloaded returns a boolean if a field has been set.
 func (o *SourceAzureBlobStorage) HasBlobCountDownloaded() bool {
-	if o != nil && o.BlobCountDownloaded != nil {
+	if o != nil && !IsNil(o.BlobCountDownloaded) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *SourceAzureBlobStorage) SetBlobCountDownloaded(v int64) {
 
 // GetBlobCountTotal returns the BlobCountTotal field value if set, zero value otherwise.
 func (o *SourceAzureBlobStorage) GetBlobCountTotal() int64 {
-	if o == nil || o.BlobCountTotal == nil {
+	if o == nil || IsNil(o.BlobCountTotal) {
 		var ret int64
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *SourceAzureBlobStorage) GetBlobCountTotal() int64 {
 // GetBlobCountTotalOk returns a tuple with the BlobCountTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureBlobStorage) GetBlobCountTotalOk() (*int64, bool) {
-	if o == nil || o.BlobCountTotal == nil {
+	if o == nil || IsNil(o.BlobCountTotal) {
 		return nil, false
 	}
 	return o.BlobCountTotal, true
@@ -128,7 +131,7 @@ func (o *SourceAzureBlobStorage) GetBlobCountTotalOk() (*int64, bool) {
 
 // HasBlobCountTotal returns a boolean if a field has been set.
 func (o *SourceAzureBlobStorage) HasBlobCountTotal() bool {
-	if o != nil && o.BlobCountTotal != nil {
+	if o != nil && !IsNil(o.BlobCountTotal) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *SourceAzureBlobStorage) SetBlobCountTotal(v int64) {
 
 // GetContainer returns the Container field value if set, zero value otherwise.
 func (o *SourceAzureBlobStorage) GetContainer() string {
-	if o == nil || o.Container == nil {
+	if o == nil || IsNil(o.Container) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *SourceAzureBlobStorage) GetContainer() string {
 // GetContainerOk returns a tuple with the Container field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureBlobStorage) GetContainerOk() (*string, bool) {
-	if o == nil || o.Container == nil {
+	if o == nil || IsNil(o.Container) {
 		return nil, false
 	}
 	return o.Container, true
@@ -160,7 +163,7 @@ func (o *SourceAzureBlobStorage) GetContainerOk() (*string, bool) {
 
 // HasContainer returns a boolean if a field has been set.
 func (o *SourceAzureBlobStorage) HasContainer() bool {
-	if o != nil && o.Container != nil {
+	if o != nil && !IsNil(o.Container) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *SourceAzureBlobStorage) SetContainer(v string) {
 
 // GetPattern returns the Pattern field value if set, zero value otherwise.
 func (o *SourceAzureBlobStorage) GetPattern() string {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		var ret string
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *SourceAzureBlobStorage) GetPattern() string {
 // GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureBlobStorage) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		return nil, false
 	}
 	return o.Pattern, true
@@ -192,7 +195,7 @@ func (o *SourceAzureBlobStorage) GetPatternOk() (*string, bool) {
 
 // HasPattern returns a boolean if a field has been set.
 func (o *SourceAzureBlobStorage) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
+	if o != nil && !IsNil(o.Pattern) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *SourceAzureBlobStorage) SetPattern(v string) {
 
 // GetPrefix returns the Prefix field value if set, zero value otherwise.
 func (o *SourceAzureBlobStorage) GetPrefix() string {
-	if o == nil || o.Prefix == nil {
+	if o == nil || IsNil(o.Prefix) {
 		var ret string
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *SourceAzureBlobStorage) GetPrefix() string {
 // GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureBlobStorage) GetPrefixOk() (*string, bool) {
-	if o == nil || o.Prefix == nil {
+	if o == nil || IsNil(o.Prefix) {
 		return nil, false
 	}
 	return o.Prefix, true
@@ -224,7 +227,7 @@ func (o *SourceAzureBlobStorage) GetPrefixOk() (*string, bool) {
 
 // HasPrefix returns a boolean if a field has been set.
 func (o *SourceAzureBlobStorage) HasPrefix() bool {
-	if o != nil && o.Prefix != nil {
+	if o != nil && !IsNil(o.Prefix) {
 		return true
 	}
 
@@ -237,26 +240,28 @@ func (o *SourceAzureBlobStorage) SetPrefix(v string) {
 }
 
 func (o SourceAzureBlobStorage) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.BlobBytesTotal != nil {
-		toSerialize["blob_bytes_total"] = o.BlobBytesTotal
-	}
-	if o.BlobCountDownloaded != nil {
-		toSerialize["blob_count_downloaded"] = o.BlobCountDownloaded
-	}
-	if o.BlobCountTotal != nil {
-		toSerialize["blob_count_total"] = o.BlobCountTotal
-	}
-	if o.Container != nil {
-		toSerialize["container"] = o.Container
-	}
-	if o.Pattern != nil {
-		toSerialize["pattern"] = o.Pattern
-	}
-	if o.Prefix != nil {
-		toSerialize["prefix"] = o.Prefix
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceAzureBlobStorage) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	// skip: blob_bytes_total is readOnly
+	// skip: blob_count_downloaded is readOnly
+	// skip: blob_count_total is readOnly
+	if !IsNil(o.Container) {
+		toSerialize["container"] = o.Container
+	}
+	if !IsNil(o.Pattern) {
+		toSerialize["pattern"] = o.Pattern
+	}
+	if !IsNil(o.Prefix) {
+		toSerialize["prefix"] = o.Prefix
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceAzureBlobStorage struct {

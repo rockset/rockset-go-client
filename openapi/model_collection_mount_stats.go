@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CollectionMountStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionMountStats{}
+
 // CollectionMountStats struct for CollectionMountStats
 type CollectionMountStats struct {
 	// Milliseconds since Unix epoch Jan 1, 1970.
@@ -39,7 +42,7 @@ func NewCollectionMountStatsWithDefaults() *CollectionMountStats {
 
 // GetLastQueriedMs returns the LastQueriedMs field value if set, zero value otherwise.
 func (o *CollectionMountStats) GetLastQueriedMs() int64 {
-	if o == nil || o.LastQueriedMs == nil {
+	if o == nil || IsNil(o.LastQueriedMs) {
 		var ret int64
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *CollectionMountStats) GetLastQueriedMs() int64 {
 // GetLastQueriedMsOk returns a tuple with the LastQueriedMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMountStats) GetLastQueriedMsOk() (*int64, bool) {
-	if o == nil || o.LastQueriedMs == nil {
+	if o == nil || IsNil(o.LastQueriedMs) {
 		return nil, false
 	}
 	return o.LastQueriedMs, true
@@ -57,7 +60,7 @@ func (o *CollectionMountStats) GetLastQueriedMsOk() (*int64, bool) {
 
 // HasLastQueriedMs returns a boolean if a field has been set.
 func (o *CollectionMountStats) HasLastQueriedMs() bool {
-	if o != nil && o.LastQueriedMs != nil {
+	if o != nil && !IsNil(o.LastQueriedMs) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *CollectionMountStats) SetLastQueriedMs(v int64) {
 }
 
 func (o CollectionMountStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LastQueriedMs != nil {
-		toSerialize["last_queried_ms"] = o.LastQueriedMs
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionMountStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LastQueriedMs) {
+		toSerialize["last_queried_ms"] = o.LastQueriedMs
+	}
+	return toSerialize, nil
 }
 
 type NullableCollectionMountStats struct {

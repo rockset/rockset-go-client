@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the View type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &View{}
+
 // View struct for View
 type View struct {
 	// ISO-8601 date.
@@ -60,7 +63,7 @@ func NewViewWithDefaults() *View {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *View) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *View) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -78,7 +81,7 @@ func (o *View) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *View) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -92,7 +95,7 @@ func (o *View) SetCreatedAt(v string) {
 
 // GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
 func (o *View) GetCreatedByApikeyName() string {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *View) GetCreatedByApikeyName() string {
 // GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetCreatedByApikeyNameOk() (*string, bool) {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		return nil, false
 	}
 	return o.CreatedByApikeyName, true
@@ -110,7 +113,7 @@ func (o *View) GetCreatedByApikeyNameOk() (*string, bool) {
 
 // HasCreatedByApikeyName returns a boolean if a field has been set.
 func (o *View) HasCreatedByApikeyName() bool {
-	if o != nil && o.CreatedByApikeyName != nil {
+	if o != nil && !IsNil(o.CreatedByApikeyName) {
 		return true
 	}
 
@@ -124,7 +127,7 @@ func (o *View) SetCreatedByApikeyName(v string) {
 
 // GetCreatorEmail returns the CreatorEmail field value if set, zero value otherwise.
 func (o *View) GetCreatorEmail() string {
-	if o == nil || o.CreatorEmail == nil {
+	if o == nil || IsNil(o.CreatorEmail) {
 		var ret string
 		return ret
 	}
@@ -134,7 +137,7 @@ func (o *View) GetCreatorEmail() string {
 // GetCreatorEmailOk returns a tuple with the CreatorEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetCreatorEmailOk() (*string, bool) {
-	if o == nil || o.CreatorEmail == nil {
+	if o == nil || IsNil(o.CreatorEmail) {
 		return nil, false
 	}
 	return o.CreatorEmail, true
@@ -142,7 +145,7 @@ func (o *View) GetCreatorEmailOk() (*string, bool) {
 
 // HasCreatorEmail returns a boolean if a field has been set.
 func (o *View) HasCreatorEmail() bool {
-	if o != nil && o.CreatorEmail != nil {
+	if o != nil && !IsNil(o.CreatorEmail) {
 		return true
 	}
 
@@ -156,7 +159,7 @@ func (o *View) SetCreatorEmail(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *View) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *View) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -174,7 +177,7 @@ func (o *View) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *View) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *View) SetDescription(v string) {
 
 // GetEntities returns the Entities field value if set, zero value otherwise.
 func (o *View) GetEntities() []string {
-	if o == nil || o.Entities == nil {
+	if o == nil || IsNil(o.Entities) {
 		var ret []string
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *View) GetEntities() []string {
 // GetEntitiesOk returns a tuple with the Entities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetEntitiesOk() ([]string, bool) {
-	if o == nil || o.Entities == nil {
+	if o == nil || IsNil(o.Entities) {
 		return nil, false
 	}
 	return o.Entities, true
@@ -206,7 +209,7 @@ func (o *View) GetEntitiesOk() ([]string, bool) {
 
 // HasEntities returns a boolean if a field has been set.
 func (o *View) HasEntities() bool {
-	if o != nil && o.Entities != nil {
+	if o != nil && !IsNil(o.Entities) {
 		return true
 	}
 
@@ -220,7 +223,7 @@ func (o *View) SetEntities(v []string) {
 
 // GetModifiedAt returns the ModifiedAt field value if set, zero value otherwise.
 func (o *View) GetModifiedAt() string {
-	if o == nil || o.ModifiedAt == nil {
+	if o == nil || IsNil(o.ModifiedAt) {
 		var ret string
 		return ret
 	}
@@ -230,7 +233,7 @@ func (o *View) GetModifiedAt() string {
 // GetModifiedAtOk returns a tuple with the ModifiedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetModifiedAtOk() (*string, bool) {
-	if o == nil || o.ModifiedAt == nil {
+	if o == nil || IsNil(o.ModifiedAt) {
 		return nil, false
 	}
 	return o.ModifiedAt, true
@@ -238,7 +241,7 @@ func (o *View) GetModifiedAtOk() (*string, bool) {
 
 // HasModifiedAt returns a boolean if a field has been set.
 func (o *View) HasModifiedAt() bool {
-	if o != nil && o.ModifiedAt != nil {
+	if o != nil && !IsNil(o.ModifiedAt) {
 		return true
 	}
 
@@ -252,7 +255,7 @@ func (o *View) SetModifiedAt(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *View) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -262,7 +265,7 @@ func (o *View) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -270,7 +273,7 @@ func (o *View) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *View) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -284,7 +287,7 @@ func (o *View) SetName(v string) {
 
 // GetOwnerEmail returns the OwnerEmail field value if set, zero value otherwise.
 func (o *View) GetOwnerEmail() string {
-	if o == nil || o.OwnerEmail == nil {
+	if o == nil || IsNil(o.OwnerEmail) {
 		var ret string
 		return ret
 	}
@@ -294,7 +297,7 @@ func (o *View) GetOwnerEmail() string {
 // GetOwnerEmailOk returns a tuple with the OwnerEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetOwnerEmailOk() (*string, bool) {
-	if o == nil || o.OwnerEmail == nil {
+	if o == nil || IsNil(o.OwnerEmail) {
 		return nil, false
 	}
 	return o.OwnerEmail, true
@@ -302,7 +305,7 @@ func (o *View) GetOwnerEmailOk() (*string, bool) {
 
 // HasOwnerEmail returns a boolean if a field has been set.
 func (o *View) HasOwnerEmail() bool {
-	if o != nil && o.OwnerEmail != nil {
+	if o != nil && !IsNil(o.OwnerEmail) {
 		return true
 	}
 
@@ -316,7 +319,7 @@ func (o *View) SetOwnerEmail(v string) {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *View) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -326,7 +329,7 @@ func (o *View) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -334,7 +337,7 @@ func (o *View) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *View) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -348,7 +351,7 @@ func (o *View) SetPath(v string) {
 
 // GetQuerySql returns the QuerySql field value if set, zero value otherwise.
 func (o *View) GetQuerySql() string {
-	if o == nil || o.QuerySql == nil {
+	if o == nil || IsNil(o.QuerySql) {
 		var ret string
 		return ret
 	}
@@ -358,7 +361,7 @@ func (o *View) GetQuerySql() string {
 // GetQuerySqlOk returns a tuple with the QuerySql field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetQuerySqlOk() (*string, bool) {
-	if o == nil || o.QuerySql == nil {
+	if o == nil || IsNil(o.QuerySql) {
 		return nil, false
 	}
 	return o.QuerySql, true
@@ -366,7 +369,7 @@ func (o *View) GetQuerySqlOk() (*string, bool) {
 
 // HasQuerySql returns a boolean if a field has been set.
 func (o *View) HasQuerySql() bool {
-	if o != nil && o.QuerySql != nil {
+	if o != nil && !IsNil(o.QuerySql) {
 		return true
 	}
 
@@ -380,7 +383,7 @@ func (o *View) SetQuerySql(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *View) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -390,7 +393,7 @@ func (o *View) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -398,7 +401,7 @@ func (o *View) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *View) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -412,7 +415,7 @@ func (o *View) SetState(v string) {
 
 // GetWorkspace returns the Workspace field value if set, zero value otherwise.
 func (o *View) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		var ret string
 		return ret
 	}
@@ -422,7 +425,7 @@ func (o *View) GetWorkspace() string {
 // GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *View) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		return nil, false
 	}
 	return o.Workspace, true
@@ -430,7 +433,7 @@ func (o *View) GetWorkspaceOk() (*string, bool) {
 
 // HasWorkspace returns a boolean if a field has been set.
 func (o *View) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+	if o != nil && !IsNil(o.Workspace) {
 		return true
 	}
 
@@ -443,44 +446,52 @@ func (o *View) SetWorkspace(v string) {
 }
 
 func (o View) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedByApikeyName != nil {
-		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
-	}
-	if o.CreatorEmail != nil {
-		toSerialize["creator_email"] = o.CreatorEmail
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Entities != nil {
-		toSerialize["entities"] = o.Entities
-	}
-	if o.ModifiedAt != nil {
-		toSerialize["modified_at"] = o.ModifiedAt
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.OwnerEmail != nil {
-		toSerialize["owner_email"] = o.OwnerEmail
-	}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.QuerySql != nil {
-		toSerialize["query_sql"] = o.QuerySql
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o View) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedByApikeyName) {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
+	}
+	if !IsNil(o.CreatorEmail) {
+		toSerialize["creator_email"] = o.CreatorEmail
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Entities) {
+		toSerialize["entities"] = o.Entities
+	}
+	if !IsNil(o.ModifiedAt) {
+		toSerialize["modified_at"] = o.ModifiedAt
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.OwnerEmail) {
+		toSerialize["owner_email"] = o.OwnerEmail
+	}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.QuerySql) {
+		toSerialize["query_sql"] = o.QuerySql
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Workspace) {
+		toSerialize["workspace"] = o.Workspace
+	}
+	return toSerialize, nil
 }
 
 type NullableView struct {

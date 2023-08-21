@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusAzureServiceBusSession type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusAzureServiceBusSession{}
+
 // StatusAzureServiceBusSession struct for StatusAzureServiceBusSession
 type StatusAzureServiceBusSession struct {
 	// Most recent ISO-8601 date when a message from this session was processed.
@@ -41,7 +44,7 @@ func NewStatusAzureServiceBusSessionWithDefaults() *StatusAzureServiceBusSession
 
 // GetLastProcessed returns the LastProcessed field value if set, zero value otherwise.
 func (o *StatusAzureServiceBusSession) GetLastProcessed() string {
-	if o == nil || o.LastProcessed == nil {
+	if o == nil || IsNil(o.LastProcessed) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *StatusAzureServiceBusSession) GetLastProcessed() string {
 // GetLastProcessedOk returns a tuple with the LastProcessed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureServiceBusSession) GetLastProcessedOk() (*string, bool) {
-	if o == nil || o.LastProcessed == nil {
+	if o == nil || IsNil(o.LastProcessed) {
 		return nil, false
 	}
 	return o.LastProcessed, true
@@ -59,7 +62,7 @@ func (o *StatusAzureServiceBusSession) GetLastProcessedOk() (*string, bool) {
 
 // HasLastProcessed returns a boolean if a field has been set.
 func (o *StatusAzureServiceBusSession) HasLastProcessed() bool {
-	if o != nil && o.LastProcessed != nil {
+	if o != nil && !IsNil(o.LastProcessed) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *StatusAzureServiceBusSession) SetLastProcessed(v string) {
 
 // GetSequenceNumber returns the SequenceNumber field value if set, zero value otherwise.
 func (o *StatusAzureServiceBusSession) GetSequenceNumber() int64 {
-	if o == nil || o.SequenceNumber == nil {
+	if o == nil || IsNil(o.SequenceNumber) {
 		var ret int64
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *StatusAzureServiceBusSession) GetSequenceNumber() int64 {
 // GetSequenceNumberOk returns a tuple with the SequenceNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureServiceBusSession) GetSequenceNumberOk() (*int64, bool) {
-	if o == nil || o.SequenceNumber == nil {
+	if o == nil || IsNil(o.SequenceNumber) {
 		return nil, false
 	}
 	return o.SequenceNumber, true
@@ -91,7 +94,7 @@ func (o *StatusAzureServiceBusSession) GetSequenceNumberOk() (*int64, bool) {
 
 // HasSequenceNumber returns a boolean if a field has been set.
 func (o *StatusAzureServiceBusSession) HasSequenceNumber() bool {
-	if o != nil && o.SequenceNumber != nil {
+	if o != nil && !IsNil(o.SequenceNumber) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *StatusAzureServiceBusSession) SetSequenceNumber(v int64) {
 }
 
 func (o StatusAzureServiceBusSession) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LastProcessed != nil {
-		toSerialize["last_processed"] = o.LastProcessed
-	}
-	if o.SequenceNumber != nil {
-		toSerialize["sequence_number"] = o.SequenceNumber
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusAzureServiceBusSession) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LastProcessed) {
+		toSerialize["last_processed"] = o.LastProcessed
+	}
+	if !IsNil(o.SequenceNumber) {
+		toSerialize["sequence_number"] = o.SequenceNumber
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusAzureServiceBusSession struct {

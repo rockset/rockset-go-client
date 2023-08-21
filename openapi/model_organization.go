@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Organization type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Organization{}
+
 // Organization An organization in Rockset is a container for users and collections.
 type Organization struct {
 	// List of clusters associated with this org.
@@ -53,7 +56,7 @@ func NewOrganizationWithDefaults() *Organization {
 
 // GetClusters returns the Clusters field value if set, zero value otherwise.
 func (o *Organization) GetClusters() []Cluster {
-	if o == nil || o.Clusters == nil {
+	if o == nil || IsNil(o.Clusters) {
 		var ret []Cluster
 		return ret
 	}
@@ -63,7 +66,7 @@ func (o *Organization) GetClusters() []Cluster {
 // GetClustersOk returns a tuple with the Clusters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetClustersOk() ([]Cluster, bool) {
-	if o == nil || o.Clusters == nil {
+	if o == nil || IsNil(o.Clusters) {
 		return nil, false
 	}
 	return o.Clusters, true
@@ -71,7 +74,7 @@ func (o *Organization) GetClustersOk() ([]Cluster, bool) {
 
 // HasClusters returns a boolean if a field has been set.
 func (o *Organization) HasClusters() bool {
-	if o != nil && o.Clusters != nil {
+	if o != nil && !IsNil(o.Clusters) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *Organization) SetClusters(v []Cluster) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Organization) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *Organization) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -103,7 +106,7 @@ func (o *Organization) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Organization) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *Organization) SetCreatedAt(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *Organization) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *Organization) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -135,7 +138,7 @@ func (o *Organization) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *Organization) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -149,7 +152,7 @@ func (o *Organization) SetDisplayName(v string) {
 
 // GetExternalId returns the ExternalId field value if set, zero value otherwise.
 func (o *Organization) GetExternalId() string {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		var ret string
 		return ret
 	}
@@ -159,7 +162,7 @@ func (o *Organization) GetExternalId() string {
 // GetExternalIdOk returns a tuple with the ExternalId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetExternalIdOk() (*string, bool) {
-	if o == nil || o.ExternalId == nil {
+	if o == nil || IsNil(o.ExternalId) {
 		return nil, false
 	}
 	return o.ExternalId, true
@@ -167,7 +170,7 @@ func (o *Organization) GetExternalIdOk() (*string, bool) {
 
 // HasExternalId returns a boolean if a field has been set.
 func (o *Organization) HasExternalId() bool {
-	if o != nil && o.ExternalId != nil {
+	if o != nil && !IsNil(o.ExternalId) {
 		return true
 	}
 
@@ -181,7 +184,7 @@ func (o *Organization) SetExternalId(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Organization) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -191,7 +194,7 @@ func (o *Organization) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -199,7 +202,7 @@ func (o *Organization) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Organization) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -213,7 +216,7 @@ func (o *Organization) SetId(v string) {
 
 // GetRocksetUser returns the RocksetUser field value if set, zero value otherwise.
 func (o *Organization) GetRocksetUser() string {
-	if o == nil || o.RocksetUser == nil {
+	if o == nil || IsNil(o.RocksetUser) {
 		var ret string
 		return ret
 	}
@@ -223,7 +226,7 @@ func (o *Organization) GetRocksetUser() string {
 // GetRocksetUserOk returns a tuple with the RocksetUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetRocksetUserOk() (*string, bool) {
-	if o == nil || o.RocksetUser == nil {
+	if o == nil || IsNil(o.RocksetUser) {
 		return nil, false
 	}
 	return o.RocksetUser, true
@@ -231,7 +234,7 @@ func (o *Organization) GetRocksetUserOk() (*string, bool) {
 
 // HasRocksetUser returns a boolean if a field has been set.
 func (o *Organization) HasRocksetUser() bool {
-	if o != nil && o.RocksetUser != nil {
+	if o != nil && !IsNil(o.RocksetUser) {
 		return true
 	}
 
@@ -245,7 +248,7 @@ func (o *Organization) SetRocksetUser(v string) {
 
 // GetSsoConnection returns the SsoConnection field value if set, zero value otherwise.
 func (o *Organization) GetSsoConnection() string {
-	if o == nil || o.SsoConnection == nil {
+	if o == nil || IsNil(o.SsoConnection) {
 		var ret string
 		return ret
 	}
@@ -255,7 +258,7 @@ func (o *Organization) GetSsoConnection() string {
 // GetSsoConnectionOk returns a tuple with the SsoConnection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetSsoConnectionOk() (*string, bool) {
-	if o == nil || o.SsoConnection == nil {
+	if o == nil || IsNil(o.SsoConnection) {
 		return nil, false
 	}
 	return o.SsoConnection, true
@@ -263,7 +266,7 @@ func (o *Organization) GetSsoConnectionOk() (*string, bool) {
 
 // HasSsoConnection returns a boolean if a field has been set.
 func (o *Organization) HasSsoConnection() bool {
-	if o != nil && o.SsoConnection != nil {
+	if o != nil && !IsNil(o.SsoConnection) {
 		return true
 	}
 
@@ -277,7 +280,7 @@ func (o *Organization) SetSsoConnection(v string) {
 
 // GetSsoOnly returns the SsoOnly field value if set, zero value otherwise.
 func (o *Organization) GetSsoOnly() bool {
-	if o == nil || o.SsoOnly == nil {
+	if o == nil || IsNil(o.SsoOnly) {
 		var ret bool
 		return ret
 	}
@@ -287,7 +290,7 @@ func (o *Organization) GetSsoOnly() bool {
 // GetSsoOnlyOk returns a tuple with the SsoOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Organization) GetSsoOnlyOk() (*bool, bool) {
-	if o == nil || o.SsoOnly == nil {
+	if o == nil || IsNil(o.SsoOnly) {
 		return nil, false
 	}
 	return o.SsoOnly, true
@@ -295,7 +298,7 @@ func (o *Organization) GetSsoOnlyOk() (*bool, bool) {
 
 // HasSsoOnly returns a boolean if a field has been set.
 func (o *Organization) HasSsoOnly() bool {
-	if o != nil && o.SsoOnly != nil {
+	if o != nil && !IsNil(o.SsoOnly) {
 		return true
 	}
 
@@ -308,32 +311,40 @@ func (o *Organization) SetSsoOnly(v bool) {
 }
 
 func (o Organization) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Clusters != nil {
-		toSerialize["clusters"] = o.Clusters
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.DisplayName != nil {
-		toSerialize["display_name"] = o.DisplayName
-	}
-	if o.ExternalId != nil {
-		toSerialize["external_id"] = o.ExternalId
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.RocksetUser != nil {
-		toSerialize["rockset_user"] = o.RocksetUser
-	}
-	if o.SsoConnection != nil {
-		toSerialize["sso_connection"] = o.SsoConnection
-	}
-	if o.SsoOnly != nil {
-		toSerialize["sso_only"] = o.SsoOnly
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Organization) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Clusters) {
+		toSerialize["clusters"] = o.Clusters
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["display_name"] = o.DisplayName
+	}
+	if !IsNil(o.ExternalId) {
+		toSerialize["external_id"] = o.ExternalId
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.RocksetUser) {
+		toSerialize["rockset_user"] = o.RocksetUser
+	}
+	if !IsNil(o.SsoConnection) {
+		toSerialize["sso_connection"] = o.SsoConnection
+	}
+	if !IsNil(o.SsoOnly) {
+		toSerialize["sso_only"] = o.SsoOnly
+	}
+	return toSerialize, nil
 }
 
 type NullableOrganization struct {

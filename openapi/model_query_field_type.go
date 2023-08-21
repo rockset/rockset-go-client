@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryFieldType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryFieldType{}
+
 // QueryFieldType struct for QueryFieldType
 type QueryFieldType struct {
 	// Name of the field.
@@ -54,7 +57,7 @@ func (o *QueryFieldType) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *QueryFieldType) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -78,7 +81,7 @@ func (o *QueryFieldType) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *QueryFieldType) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -90,14 +93,18 @@ func (o *QueryFieldType) SetType(v string) {
 }
 
 func (o QueryFieldType) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryFieldType) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["type"] = o.Type
+	return toSerialize, nil
 }
 
 type NullableQueryFieldType struct {

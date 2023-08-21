@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateAliasRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateAliasRequest{}
+
 // UpdateAliasRequest struct for UpdateAliasRequest
 type UpdateAliasRequest struct {
 	// List of fully qualified collection names referenced by alias.
@@ -53,7 +56,7 @@ func (o *UpdateAliasRequest) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value
 // and a boolean to check if the value has been set.
 func (o *UpdateAliasRequest) GetCollectionsOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Collections, true
@@ -66,7 +69,7 @@ func (o *UpdateAliasRequest) SetCollections(v []string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UpdateAliasRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -76,7 +79,7 @@ func (o *UpdateAliasRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateAliasRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -84,7 +87,7 @@ func (o *UpdateAliasRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateAliasRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -97,14 +100,20 @@ func (o *UpdateAliasRequest) SetDescription(v string) {
 }
 
 func (o UpdateAliasRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateAliasRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["collections"] = o.Collections
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateAliasRequest struct {

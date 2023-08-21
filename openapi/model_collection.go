@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Collection type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Collection{}
+
 // Collection struct for Collection
 type Collection struct {
 	// List of aliases for a collection.
@@ -68,7 +71,7 @@ func NewCollectionWithDefaults() *Collection {
 
 // GetAliases returns the Aliases field value if set, zero value otherwise.
 func (o *Collection) GetAliases() []Alias {
-	if o == nil || o.Aliases == nil {
+	if o == nil || IsNil(o.Aliases) {
 		var ret []Alias
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *Collection) GetAliases() []Alias {
 // GetAliasesOk returns a tuple with the Aliases field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetAliasesOk() ([]Alias, bool) {
-	if o == nil || o.Aliases == nil {
+	if o == nil || IsNil(o.Aliases) {
 		return nil, false
 	}
 	return o.Aliases, true
@@ -86,7 +89,7 @@ func (o *Collection) GetAliasesOk() ([]Alias, bool) {
 
 // HasAliases returns a boolean if a field has been set.
 func (o *Collection) HasAliases() bool {
-	if o != nil && o.Aliases != nil {
+	if o != nil && !IsNil(o.Aliases) {
 		return true
 	}
 
@@ -100,7 +103,7 @@ func (o *Collection) SetAliases(v []Alias) {
 
 // GetBulkStats returns the BulkStats field value if set, zero value otherwise.
 func (o *Collection) GetBulkStats() []BulkStats {
-	if o == nil || o.BulkStats == nil {
+	if o == nil || IsNil(o.BulkStats) {
 		var ret []BulkStats
 		return ret
 	}
@@ -110,7 +113,7 @@ func (o *Collection) GetBulkStats() []BulkStats {
 // GetBulkStatsOk returns a tuple with the BulkStats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetBulkStatsOk() ([]BulkStats, bool) {
-	if o == nil || o.BulkStats == nil {
+	if o == nil || IsNil(o.BulkStats) {
 		return nil, false
 	}
 	return o.BulkStats, true
@@ -118,7 +121,7 @@ func (o *Collection) GetBulkStatsOk() ([]BulkStats, bool) {
 
 // HasBulkStats returns a boolean if a field has been set.
 func (o *Collection) HasBulkStats() bool {
-	if o != nil && o.BulkStats != nil {
+	if o != nil && !IsNil(o.BulkStats) {
 		return true
 	}
 
@@ -132,7 +135,7 @@ func (o *Collection) SetBulkStats(v []BulkStats) {
 
 // GetClusteringKey returns the ClusteringKey field value if set, zero value otherwise.
 func (o *Collection) GetClusteringKey() []FieldPartition {
-	if o == nil || o.ClusteringKey == nil {
+	if o == nil || IsNil(o.ClusteringKey) {
 		var ret []FieldPartition
 		return ret
 	}
@@ -142,7 +145,7 @@ func (o *Collection) GetClusteringKey() []FieldPartition {
 // GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetClusteringKeyOk() ([]FieldPartition, bool) {
-	if o == nil || o.ClusteringKey == nil {
+	if o == nil || IsNil(o.ClusteringKey) {
 		return nil, false
 	}
 	return o.ClusteringKey, true
@@ -150,7 +153,7 @@ func (o *Collection) GetClusteringKeyOk() ([]FieldPartition, bool) {
 
 // HasClusteringKey returns a boolean if a field has been set.
 func (o *Collection) HasClusteringKey() bool {
-	if o != nil && o.ClusteringKey != nil {
+	if o != nil && !IsNil(o.ClusteringKey) {
 		return true
 	}
 
@@ -164,7 +167,7 @@ func (o *Collection) SetClusteringKey(v []FieldPartition) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Collection) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *Collection) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -182,7 +185,7 @@ func (o *Collection) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Collection) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *Collection) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *Collection) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -206,7 +209,7 @@ func (o *Collection) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -214,7 +217,7 @@ func (o *Collection) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *Collection) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -228,7 +231,7 @@ func (o *Collection) SetCreatedBy(v string) {
 
 // GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
 func (o *Collection) GetCreatedByApikeyName() string {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		var ret string
 		return ret
 	}
@@ -238,7 +241,7 @@ func (o *Collection) GetCreatedByApikeyName() string {
 // GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetCreatedByApikeyNameOk() (*string, bool) {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		return nil, false
 	}
 	return o.CreatedByApikeyName, true
@@ -246,7 +249,7 @@ func (o *Collection) GetCreatedByApikeyNameOk() (*string, bool) {
 
 // HasCreatedByApikeyName returns a boolean if a field has been set.
 func (o *Collection) HasCreatedByApikeyName() bool {
-	if o != nil && o.CreatedByApikeyName != nil {
+	if o != nil && !IsNil(o.CreatedByApikeyName) {
 		return true
 	}
 
@@ -260,7 +263,7 @@ func (o *Collection) SetCreatedByApikeyName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Collection) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -270,7 +273,7 @@ func (o *Collection) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -278,7 +281,7 @@ func (o *Collection) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Collection) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -292,7 +295,7 @@ func (o *Collection) SetDescription(v string) {
 
 // GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
 func (o *Collection) GetFieldMappingQuery() FieldMappingQuery {
-	if o == nil || o.FieldMappingQuery == nil {
+	if o == nil || IsNil(o.FieldMappingQuery) {
 		var ret FieldMappingQuery
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *Collection) GetFieldMappingQuery() FieldMappingQuery {
 // GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool) {
-	if o == nil || o.FieldMappingQuery == nil {
+	if o == nil || IsNil(o.FieldMappingQuery) {
 		return nil, false
 	}
 	return o.FieldMappingQuery, true
@@ -310,7 +313,7 @@ func (o *Collection) GetFieldMappingQueryOk() (*FieldMappingQuery, bool) {
 
 // HasFieldMappingQuery returns a boolean if a field has been set.
 func (o *Collection) HasFieldMappingQuery() bool {
-	if o != nil && o.FieldMappingQuery != nil {
+	if o != nil && !IsNil(o.FieldMappingQuery) {
 		return true
 	}
 
@@ -324,7 +327,7 @@ func (o *Collection) SetFieldMappingQuery(v FieldMappingQuery) {
 
 // GetFieldMappings returns the FieldMappings field value if set, zero value otherwise.
 func (o *Collection) GetFieldMappings() []FieldMappingV2 {
-	if o == nil || o.FieldMappings == nil {
+	if o == nil || IsNil(o.FieldMappings) {
 		var ret []FieldMappingV2
 		return ret
 	}
@@ -334,7 +337,7 @@ func (o *Collection) GetFieldMappings() []FieldMappingV2 {
 // GetFieldMappingsOk returns a tuple with the FieldMappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
-	if o == nil || o.FieldMappings == nil {
+	if o == nil || IsNil(o.FieldMappings) {
 		return nil, false
 	}
 	return o.FieldMappings, true
@@ -342,7 +345,7 @@ func (o *Collection) GetFieldMappingsOk() ([]FieldMappingV2, bool) {
 
 // HasFieldMappings returns a boolean if a field has been set.
 func (o *Collection) HasFieldMappings() bool {
-	if o != nil && o.FieldMappings != nil {
+	if o != nil && !IsNil(o.FieldMappings) {
 		return true
 	}
 
@@ -356,7 +359,7 @@ func (o *Collection) SetFieldMappings(v []FieldMappingV2) {
 
 // GetInsertOnly returns the InsertOnly field value if set, zero value otherwise.
 func (o *Collection) GetInsertOnly() bool {
-	if o == nil || o.InsertOnly == nil {
+	if o == nil || IsNil(o.InsertOnly) {
 		var ret bool
 		return ret
 	}
@@ -366,7 +369,7 @@ func (o *Collection) GetInsertOnly() bool {
 // GetInsertOnlyOk returns a tuple with the InsertOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetInsertOnlyOk() (*bool, bool) {
-	if o == nil || o.InsertOnly == nil {
+	if o == nil || IsNil(o.InsertOnly) {
 		return nil, false
 	}
 	return o.InsertOnly, true
@@ -374,7 +377,7 @@ func (o *Collection) GetInsertOnlyOk() (*bool, bool) {
 
 // HasInsertOnly returns a boolean if a field has been set.
 func (o *Collection) HasInsertOnly() bool {
-	if o != nil && o.InsertOnly != nil {
+	if o != nil && !IsNil(o.InsertOnly) {
 		return true
 	}
 
@@ -388,7 +391,7 @@ func (o *Collection) SetInsertOnly(v bool) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Collection) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -398,7 +401,7 @@ func (o *Collection) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -406,7 +409,7 @@ func (o *Collection) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Collection) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -420,7 +423,7 @@ func (o *Collection) SetName(v string) {
 
 // GetReadOnly returns the ReadOnly field value if set, zero value otherwise.
 func (o *Collection) GetReadOnly() bool {
-	if o == nil || o.ReadOnly == nil {
+	if o == nil || IsNil(o.ReadOnly) {
 		var ret bool
 		return ret
 	}
@@ -430,7 +433,7 @@ func (o *Collection) GetReadOnly() bool {
 // GetReadOnlyOk returns a tuple with the ReadOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetReadOnlyOk() (*bool, bool) {
-	if o == nil || o.ReadOnly == nil {
+	if o == nil || IsNil(o.ReadOnly) {
 		return nil, false
 	}
 	return o.ReadOnly, true
@@ -438,7 +441,7 @@ func (o *Collection) GetReadOnlyOk() (*bool, bool) {
 
 // HasReadOnly returns a boolean if a field has been set.
 func (o *Collection) HasReadOnly() bool {
-	if o != nil && o.ReadOnly != nil {
+	if o != nil && !IsNil(o.ReadOnly) {
 		return true
 	}
 
@@ -452,7 +455,7 @@ func (o *Collection) SetReadOnly(v bool) {
 
 // GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
 func (o *Collection) GetRetentionSecs() int64 {
-	if o == nil || o.RetentionSecs == nil {
+	if o == nil || IsNil(o.RetentionSecs) {
 		var ret int64
 		return ret
 	}
@@ -462,7 +465,7 @@ func (o *Collection) GetRetentionSecs() int64 {
 // GetRetentionSecsOk returns a tuple with the RetentionSecs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetRetentionSecsOk() (*int64, bool) {
-	if o == nil || o.RetentionSecs == nil {
+	if o == nil || IsNil(o.RetentionSecs) {
 		return nil, false
 	}
 	return o.RetentionSecs, true
@@ -470,7 +473,7 @@ func (o *Collection) GetRetentionSecsOk() (*int64, bool) {
 
 // HasRetentionSecs returns a boolean if a field has been set.
 func (o *Collection) HasRetentionSecs() bool {
-	if o != nil && o.RetentionSecs != nil {
+	if o != nil && !IsNil(o.RetentionSecs) {
 		return true
 	}
 
@@ -484,7 +487,7 @@ func (o *Collection) SetRetentionSecs(v int64) {
 
 // GetSources returns the Sources field value if set, zero value otherwise.
 func (o *Collection) GetSources() []Source {
-	if o == nil || o.Sources == nil {
+	if o == nil || IsNil(o.Sources) {
 		var ret []Source
 		return ret
 	}
@@ -494,7 +497,7 @@ func (o *Collection) GetSources() []Source {
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetSourcesOk() ([]Source, bool) {
-	if o == nil || o.Sources == nil {
+	if o == nil || IsNil(o.Sources) {
 		return nil, false
 	}
 	return o.Sources, true
@@ -502,7 +505,7 @@ func (o *Collection) GetSourcesOk() ([]Source, bool) {
 
 // HasSources returns a boolean if a field has been set.
 func (o *Collection) HasSources() bool {
-	if o != nil && o.Sources != nil {
+	if o != nil && !IsNil(o.Sources) {
 		return true
 	}
 
@@ -516,7 +519,7 @@ func (o *Collection) SetSources(v []Source) {
 
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *Collection) GetStats() CollectionStats {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		var ret CollectionStats
 		return ret
 	}
@@ -526,7 +529,7 @@ func (o *Collection) GetStats() CollectionStats {
 // GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetStatsOk() (*CollectionStats, bool) {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		return nil, false
 	}
 	return o.Stats, true
@@ -534,7 +537,7 @@ func (o *Collection) GetStatsOk() (*CollectionStats, bool) {
 
 // HasStats returns a boolean if a field has been set.
 func (o *Collection) HasStats() bool {
-	if o != nil && o.Stats != nil {
+	if o != nil && !IsNil(o.Stats) {
 		return true
 	}
 
@@ -548,7 +551,7 @@ func (o *Collection) SetStats(v CollectionStats) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Collection) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -558,7 +561,7 @@ func (o *Collection) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -566,7 +569,7 @@ func (o *Collection) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Collection) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -580,7 +583,7 @@ func (o *Collection) SetStatus(v string) {
 
 // GetWorkspace returns the Workspace field value if set, zero value otherwise.
 func (o *Collection) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		var ret string
 		return ret
 	}
@@ -590,7 +593,7 @@ func (o *Collection) GetWorkspace() string {
 // GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Collection) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		return nil, false
 	}
 	return o.Workspace, true
@@ -598,7 +601,7 @@ func (o *Collection) GetWorkspaceOk() (*string, bool) {
 
 // HasWorkspace returns a boolean if a field has been set.
 func (o *Collection) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+	if o != nil && !IsNil(o.Workspace) {
 		return true
 	}
 
@@ -611,59 +614,67 @@ func (o *Collection) SetWorkspace(v string) {
 }
 
 func (o Collection) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Aliases != nil {
-		toSerialize["aliases"] = o.Aliases
-	}
-	if o.BulkStats != nil {
-		toSerialize["bulk_stats"] = o.BulkStats
-	}
-	if o.ClusteringKey != nil {
-		toSerialize["clustering_key"] = o.ClusteringKey
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if o.CreatedByApikeyName != nil {
-		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.FieldMappingQuery != nil {
-		toSerialize["field_mapping_query"] = o.FieldMappingQuery
-	}
-	if o.FieldMappings != nil {
-		toSerialize["field_mappings"] = o.FieldMappings
-	}
-	if o.InsertOnly != nil {
-		toSerialize["insert_only"] = o.InsertOnly
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.ReadOnly != nil {
-		toSerialize["read_only"] = o.ReadOnly
-	}
-	if o.RetentionSecs != nil {
-		toSerialize["retention_secs"] = o.RetentionSecs
-	}
-	if o.Sources != nil {
-		toSerialize["sources"] = o.Sources
-	}
-	if o.Stats != nil {
-		toSerialize["stats"] = o.Stats
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Collection) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Aliases) {
+		toSerialize["aliases"] = o.Aliases
+	}
+	if !IsNil(o.BulkStats) {
+		toSerialize["bulk_stats"] = o.BulkStats
+	}
+	if !IsNil(o.ClusteringKey) {
+		toSerialize["clustering_key"] = o.ClusteringKey
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	if !IsNil(o.CreatedByApikeyName) {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.FieldMappingQuery) {
+		toSerialize["field_mapping_query"] = o.FieldMappingQuery
+	}
+	if !IsNil(o.FieldMappings) {
+		toSerialize["field_mappings"] = o.FieldMappings
+	}
+	if !IsNil(o.InsertOnly) {
+		toSerialize["insert_only"] = o.InsertOnly
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.ReadOnly) {
+		toSerialize["read_only"] = o.ReadOnly
+	}
+	if !IsNil(o.RetentionSecs) {
+		toSerialize["retention_secs"] = o.RetentionSecs
+	}
+	if !IsNil(o.Sources) {
+		toSerialize["sources"] = o.Sources
+	}
+	if !IsNil(o.Stats) {
+		toSerialize["stats"] = o.Stats
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Workspace) {
+		toSerialize["workspace"] = o.Workspace
+	}
+	return toSerialize, nil
 }
 
 type NullableCollection struct {

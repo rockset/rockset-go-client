@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateApiKeyRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateApiKeyRequest{}
+
 // CreateApiKeyRequest struct for CreateApiKeyRequest
 type CreateApiKeyRequest struct {
 	CreatedBy *string `json:"created_by,omitempty"`
@@ -42,7 +45,7 @@ func NewCreateApiKeyRequestWithDefaults() *CreateApiKeyRequest {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *CreateApiKeyRequest) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *CreateApiKeyRequest) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateApiKeyRequest) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -60,7 +63,7 @@ func (o *CreateApiKeyRequest) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *CreateApiKeyRequest) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *CreateApiKeyRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateApiKeyRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -98,7 +101,7 @@ func (o *CreateApiKeyRequest) SetName(v string) {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *CreateApiKeyRequest) GetRole() string {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret string
 		return ret
 	}
@@ -108,7 +111,7 @@ func (o *CreateApiKeyRequest) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateApiKeyRequest) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -116,7 +119,7 @@ func (o *CreateApiKeyRequest) GetRoleOk() (*string, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *CreateApiKeyRequest) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -129,17 +132,23 @@ func (o *CreateApiKeyRequest) SetRole(v string) {
 }
 
 func (o CreateApiKeyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Role != nil {
-		toSerialize["role"] = o.Role
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateApiKeyRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateApiKeyRequest struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateCollectionMountRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateCollectionMountRequest{}
+
 // CreateCollectionMountRequest struct for CreateCollectionMountRequest
 type CreateCollectionMountRequest struct {
 	// Collections to mount.
@@ -39,7 +42,7 @@ func NewCreateCollectionMountRequestWithDefaults() *CreateCollectionMountRequest
 
 // GetCollectionPaths returns the CollectionPaths field value if set, zero value otherwise.
 func (o *CreateCollectionMountRequest) GetCollectionPaths() []string {
-	if o == nil || o.CollectionPaths == nil {
+	if o == nil || IsNil(o.CollectionPaths) {
 		var ret []string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *CreateCollectionMountRequest) GetCollectionPaths() []string {
 // GetCollectionPathsOk returns a tuple with the CollectionPaths field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionMountRequest) GetCollectionPathsOk() ([]string, bool) {
-	if o == nil || o.CollectionPaths == nil {
+	if o == nil || IsNil(o.CollectionPaths) {
 		return nil, false
 	}
 	return o.CollectionPaths, true
@@ -57,7 +60,7 @@ func (o *CreateCollectionMountRequest) GetCollectionPathsOk() ([]string, bool) {
 
 // HasCollectionPaths returns a boolean if a field has been set.
 func (o *CreateCollectionMountRequest) HasCollectionPaths() bool {
-	if o != nil && o.CollectionPaths != nil {
+	if o != nil && !IsNil(o.CollectionPaths) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *CreateCollectionMountRequest) SetCollectionPaths(v []string) {
 }
 
 func (o CreateCollectionMountRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CollectionPaths != nil {
-		toSerialize["collection_paths"] = o.CollectionPaths
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateCollectionMountRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CollectionPaths) {
+		toSerialize["collection_paths"] = o.CollectionPaths
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateCollectionMountRequest struct {

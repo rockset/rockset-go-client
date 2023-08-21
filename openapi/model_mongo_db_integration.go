@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MongoDbIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MongoDbIntegration{}
+
 // MongoDbIntegration struct for MongoDbIntegration
 type MongoDbIntegration struct {
 	// MongoDB connection URI string.
@@ -51,7 +54,7 @@ func (o *MongoDbIntegration) GetConnectionUri() string {
 // GetConnectionUriOk returns a tuple with the ConnectionUri field value
 // and a boolean to check if the value has been set.
 func (o *MongoDbIntegration) GetConnectionUriOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ConnectionUri, true
@@ -63,11 +66,17 @@ func (o *MongoDbIntegration) SetConnectionUri(v string) {
 }
 
 func (o MongoDbIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["connection_uri"] = o.ConnectionUri
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MongoDbIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["connection_uri"] = o.ConnectionUri
+	return toSerialize, nil
 }
 
 type NullableMongoDbIntegration struct {

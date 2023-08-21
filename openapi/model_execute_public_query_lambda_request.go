@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ExecutePublicQueryLambdaRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExecutePublicQueryLambdaRequest{}
+
 // ExecutePublicQueryLambdaRequest struct for ExecutePublicQueryLambdaRequest
 type ExecutePublicQueryLambdaRequest struct {
 	// Row limit to use if no limit specified in the SQL query text.
@@ -41,7 +44,7 @@ func NewExecutePublicQueryLambdaRequestWithDefaults() *ExecutePublicQueryLambdaR
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
 func (o *ExecutePublicQueryLambdaRequest) GetDefaultRowLimit() int32 {
-	if o == nil || o.DefaultRowLimit == nil {
+	if o == nil || IsNil(o.DefaultRowLimit) {
 		var ret int32
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ExecutePublicQueryLambdaRequest) GetDefaultRowLimit() int32 {
 // GetDefaultRowLimitOk returns a tuple with the DefaultRowLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutePublicQueryLambdaRequest) GetDefaultRowLimitOk() (*int32, bool) {
-	if o == nil || o.DefaultRowLimit == nil {
+	if o == nil || IsNil(o.DefaultRowLimit) {
 		return nil, false
 	}
 	return o.DefaultRowLimit, true
@@ -59,7 +62,7 @@ func (o *ExecutePublicQueryLambdaRequest) GetDefaultRowLimitOk() (*int32, bool) 
 
 // HasDefaultRowLimit returns a boolean if a field has been set.
 func (o *ExecutePublicQueryLambdaRequest) HasDefaultRowLimit() bool {
-	if o != nil && o.DefaultRowLimit != nil {
+	if o != nil && !IsNil(o.DefaultRowLimit) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ExecutePublicQueryLambdaRequest) SetDefaultRowLimit(v int32) {
 
 // GetParameters returns the Parameters field value if set, zero value otherwise.
 func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		var ret []QueryParameter
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ExecutePublicQueryLambdaRequest) GetParameters() []QueryParameter {
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecutePublicQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		return nil, false
 	}
 	return o.Parameters, true
@@ -91,7 +94,7 @@ func (o *ExecutePublicQueryLambdaRequest) GetParametersOk() ([]QueryParameter, b
 
 // HasParameters returns a boolean if a field has been set.
 func (o *ExecutePublicQueryLambdaRequest) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
+	if o != nil && !IsNil(o.Parameters) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *ExecutePublicQueryLambdaRequest) SetParameters(v []QueryParameter) {
 }
 
 func (o ExecutePublicQueryLambdaRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DefaultRowLimit != nil {
-		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.Parameters != nil {
-		toSerialize["parameters"] = o.Parameters
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ExecutePublicQueryLambdaRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DefaultRowLimit) {
+		toSerialize["default_row_limit"] = o.DefaultRowLimit
+	}
+	if !IsNil(o.Parameters) {
+		toSerialize["parameters"] = o.Parameters
+	}
+	return toSerialize, nil
 }
 
 type NullableExecutePublicQueryLambdaRequest struct {

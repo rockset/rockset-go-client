@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VirtualInstance type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VirtualInstance{}
+
 // VirtualInstance struct for VirtualInstance
 type VirtualInstance struct {
 	AutoScalingPolicy *AutoScalingPolicy `json:"auto_scaling_policy,omitempty"`
@@ -70,7 +73,7 @@ func NewVirtualInstanceWithDefaults() *VirtualInstance {
 
 // GetAutoScalingPolicy returns the AutoScalingPolicy field value if set, zero value otherwise.
 func (o *VirtualInstance) GetAutoScalingPolicy() AutoScalingPolicy {
-	if o == nil || o.AutoScalingPolicy == nil {
+	if o == nil || IsNil(o.AutoScalingPolicy) {
 		var ret AutoScalingPolicy
 		return ret
 	}
@@ -80,7 +83,7 @@ func (o *VirtualInstance) GetAutoScalingPolicy() AutoScalingPolicy {
 // GetAutoScalingPolicyOk returns a tuple with the AutoScalingPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool) {
-	if o == nil || o.AutoScalingPolicy == nil {
+	if o == nil || IsNil(o.AutoScalingPolicy) {
 		return nil, false
 	}
 	return o.AutoScalingPolicy, true
@@ -88,7 +91,7 @@ func (o *VirtualInstance) GetAutoScalingPolicyOk() (*AutoScalingPolicy, bool) {
 
 // HasAutoScalingPolicy returns a boolean if a field has been set.
 func (o *VirtualInstance) HasAutoScalingPolicy() bool {
-	if o != nil && o.AutoScalingPolicy != nil {
+	if o != nil && !IsNil(o.AutoScalingPolicy) {
 		return true
 	}
 
@@ -102,7 +105,7 @@ func (o *VirtualInstance) SetAutoScalingPolicy(v AutoScalingPolicy) {
 
 // GetAutoSuspendSeconds returns the AutoSuspendSeconds field value if set, zero value otherwise.
 func (o *VirtualInstance) GetAutoSuspendSeconds() int32 {
-	if o == nil || o.AutoSuspendSeconds == nil {
+	if o == nil || IsNil(o.AutoSuspendSeconds) {
 		var ret int32
 		return ret
 	}
@@ -112,7 +115,7 @@ func (o *VirtualInstance) GetAutoSuspendSeconds() int32 {
 // GetAutoSuspendSecondsOk returns a tuple with the AutoSuspendSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetAutoSuspendSecondsOk() (*int32, bool) {
-	if o == nil || o.AutoSuspendSeconds == nil {
+	if o == nil || IsNil(o.AutoSuspendSeconds) {
 		return nil, false
 	}
 	return o.AutoSuspendSeconds, true
@@ -120,7 +123,7 @@ func (o *VirtualInstance) GetAutoSuspendSecondsOk() (*int32, bool) {
 
 // HasAutoSuspendSeconds returns a boolean if a field has been set.
 func (o *VirtualInstance) HasAutoSuspendSeconds() bool {
-	if o != nil && o.AutoSuspendSeconds != nil {
+	if o != nil && !IsNil(o.AutoSuspendSeconds) {
 		return true
 	}
 
@@ -134,7 +137,7 @@ func (o *VirtualInstance) SetAutoSuspendSeconds(v int32) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *VirtualInstance) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -144,7 +147,7 @@ func (o *VirtualInstance) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -152,7 +155,7 @@ func (o *VirtualInstance) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *VirtualInstance) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -166,7 +169,7 @@ func (o *VirtualInstance) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *VirtualInstance) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -176,7 +179,7 @@ func (o *VirtualInstance) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -184,7 +187,7 @@ func (o *VirtualInstance) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *VirtualInstance) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -198,7 +201,7 @@ func (o *VirtualInstance) SetCreatedBy(v string) {
 
 // GetCurrentSize returns the CurrentSize field value if set, zero value otherwise.
 func (o *VirtualInstance) GetCurrentSize() string {
-	if o == nil || o.CurrentSize == nil {
+	if o == nil || IsNil(o.CurrentSize) {
 		var ret string
 		return ret
 	}
@@ -208,7 +211,7 @@ func (o *VirtualInstance) GetCurrentSize() string {
 // GetCurrentSizeOk returns a tuple with the CurrentSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetCurrentSizeOk() (*string, bool) {
-	if o == nil || o.CurrentSize == nil {
+	if o == nil || IsNil(o.CurrentSize) {
 		return nil, false
 	}
 	return o.CurrentSize, true
@@ -216,7 +219,7 @@ func (o *VirtualInstance) GetCurrentSizeOk() (*string, bool) {
 
 // HasCurrentSize returns a boolean if a field has been set.
 func (o *VirtualInstance) HasCurrentSize() bool {
-	if o != nil && o.CurrentSize != nil {
+	if o != nil && !IsNil(o.CurrentSize) {
 		return true
 	}
 
@@ -230,7 +233,7 @@ func (o *VirtualInstance) SetCurrentSize(v string) {
 
 // GetDefaultPodCount returns the DefaultPodCount field value if set, zero value otherwise.
 func (o *VirtualInstance) GetDefaultPodCount() int32 {
-	if o == nil || o.DefaultPodCount == nil {
+	if o == nil || IsNil(o.DefaultPodCount) {
 		var ret int32
 		return ret
 	}
@@ -240,7 +243,7 @@ func (o *VirtualInstance) GetDefaultPodCount() int32 {
 // GetDefaultPodCountOk returns a tuple with the DefaultPodCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetDefaultPodCountOk() (*int32, bool) {
-	if o == nil || o.DefaultPodCount == nil {
+	if o == nil || IsNil(o.DefaultPodCount) {
 		return nil, false
 	}
 	return o.DefaultPodCount, true
@@ -248,7 +251,7 @@ func (o *VirtualInstance) GetDefaultPodCountOk() (*int32, bool) {
 
 // HasDefaultPodCount returns a boolean if a field has been set.
 func (o *VirtualInstance) HasDefaultPodCount() bool {
-	if o != nil && o.DefaultPodCount != nil {
+	if o != nil && !IsNil(o.DefaultPodCount) {
 		return true
 	}
 
@@ -262,7 +265,7 @@ func (o *VirtualInstance) SetDefaultPodCount(v int32) {
 
 // GetDefaultVi returns the DefaultVi field value if set, zero value otherwise.
 func (o *VirtualInstance) GetDefaultVi() bool {
-	if o == nil || o.DefaultVi == nil {
+	if o == nil || IsNil(o.DefaultVi) {
 		var ret bool
 		return ret
 	}
@@ -272,7 +275,7 @@ func (o *VirtualInstance) GetDefaultVi() bool {
 // GetDefaultViOk returns a tuple with the DefaultVi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetDefaultViOk() (*bool, bool) {
-	if o == nil || o.DefaultVi == nil {
+	if o == nil || IsNil(o.DefaultVi) {
 		return nil, false
 	}
 	return o.DefaultVi, true
@@ -280,7 +283,7 @@ func (o *VirtualInstance) GetDefaultViOk() (*bool, bool) {
 
 // HasDefaultVi returns a boolean if a field has been set.
 func (o *VirtualInstance) HasDefaultVi() bool {
-	if o != nil && o.DefaultVi != nil {
+	if o != nil && !IsNil(o.DefaultVi) {
 		return true
 	}
 
@@ -294,7 +297,7 @@ func (o *VirtualInstance) SetDefaultVi(v bool) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *VirtualInstance) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -304,7 +307,7 @@ func (o *VirtualInstance) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -312,7 +315,7 @@ func (o *VirtualInstance) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *VirtualInstance) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -326,7 +329,7 @@ func (o *VirtualInstance) SetDescription(v string) {
 
 // GetDesiredSize returns the DesiredSize field value if set, zero value otherwise.
 func (o *VirtualInstance) GetDesiredSize() string {
-	if o == nil || o.DesiredSize == nil {
+	if o == nil || IsNil(o.DesiredSize) {
 		var ret string
 		return ret
 	}
@@ -336,7 +339,7 @@ func (o *VirtualInstance) GetDesiredSize() string {
 // GetDesiredSizeOk returns a tuple with the DesiredSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetDesiredSizeOk() (*string, bool) {
-	if o == nil || o.DesiredSize == nil {
+	if o == nil || IsNil(o.DesiredSize) {
 		return nil, false
 	}
 	return o.DesiredSize, true
@@ -344,7 +347,7 @@ func (o *VirtualInstance) GetDesiredSizeOk() (*string, bool) {
 
 // HasDesiredSize returns a boolean if a field has been set.
 func (o *VirtualInstance) HasDesiredSize() bool {
-	if o != nil && o.DesiredSize != nil {
+	if o != nil && !IsNil(o.DesiredSize) {
 		return true
 	}
 
@@ -358,7 +361,7 @@ func (o *VirtualInstance) SetDesiredSize(v string) {
 
 // GetEnableRemountOnResume returns the EnableRemountOnResume field value if set, zero value otherwise.
 func (o *VirtualInstance) GetEnableRemountOnResume() bool {
-	if o == nil || o.EnableRemountOnResume == nil {
+	if o == nil || IsNil(o.EnableRemountOnResume) {
 		var ret bool
 		return ret
 	}
@@ -368,7 +371,7 @@ func (o *VirtualInstance) GetEnableRemountOnResume() bool {
 // GetEnableRemountOnResumeOk returns a tuple with the EnableRemountOnResume field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetEnableRemountOnResumeOk() (*bool, bool) {
-	if o == nil || o.EnableRemountOnResume == nil {
+	if o == nil || IsNil(o.EnableRemountOnResume) {
 		return nil, false
 	}
 	return o.EnableRemountOnResume, true
@@ -376,7 +379,7 @@ func (o *VirtualInstance) GetEnableRemountOnResumeOk() (*bool, bool) {
 
 // HasEnableRemountOnResume returns a boolean if a field has been set.
 func (o *VirtualInstance) HasEnableRemountOnResume() bool {
-	if o != nil && o.EnableRemountOnResume != nil {
+	if o != nil && !IsNil(o.EnableRemountOnResume) {
 		return true
 	}
 
@@ -390,7 +393,7 @@ func (o *VirtualInstance) SetEnableRemountOnResume(v bool) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *VirtualInstance) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -400,7 +403,7 @@ func (o *VirtualInstance) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -408,7 +411,7 @@ func (o *VirtualInstance) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *VirtualInstance) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -422,7 +425,7 @@ func (o *VirtualInstance) SetId(v string) {
 
 // GetMonitoringEnabled returns the MonitoringEnabled field value if set, zero value otherwise.
 func (o *VirtualInstance) GetMonitoringEnabled() bool {
-	if o == nil || o.MonitoringEnabled == nil {
+	if o == nil || IsNil(o.MonitoringEnabled) {
 		var ret bool
 		return ret
 	}
@@ -432,7 +435,7 @@ func (o *VirtualInstance) GetMonitoringEnabled() bool {
 // GetMonitoringEnabledOk returns a tuple with the MonitoringEnabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetMonitoringEnabledOk() (*bool, bool) {
-	if o == nil || o.MonitoringEnabled == nil {
+	if o == nil || IsNil(o.MonitoringEnabled) {
 		return nil, false
 	}
 	return o.MonitoringEnabled, true
@@ -440,7 +443,7 @@ func (o *VirtualInstance) GetMonitoringEnabledOk() (*bool, bool) {
 
 // HasMonitoringEnabled returns a boolean if a field has been set.
 func (o *VirtualInstance) HasMonitoringEnabled() bool {
-	if o != nil && o.MonitoringEnabled != nil {
+	if o != nil && !IsNil(o.MonitoringEnabled) {
 		return true
 	}
 
@@ -454,7 +457,7 @@ func (o *VirtualInstance) SetMonitoringEnabled(v bool) {
 
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
 func (o *VirtualInstance) GetMountRefreshIntervalSeconds() int32 {
-	if o == nil || o.MountRefreshIntervalSeconds == nil {
+	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
 		var ret int32
 		return ret
 	}
@@ -464,7 +467,7 @@ func (o *VirtualInstance) GetMountRefreshIntervalSeconds() int32 {
 // GetMountRefreshIntervalSecondsOk returns a tuple with the MountRefreshIntervalSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetMountRefreshIntervalSecondsOk() (*int32, bool) {
-	if o == nil || o.MountRefreshIntervalSeconds == nil {
+	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
 		return nil, false
 	}
 	return o.MountRefreshIntervalSeconds, true
@@ -472,7 +475,7 @@ func (o *VirtualInstance) GetMountRefreshIntervalSecondsOk() (*int32, bool) {
 
 // HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
 func (o *VirtualInstance) HasMountRefreshIntervalSeconds() bool {
-	if o != nil && o.MountRefreshIntervalSeconds != nil {
+	if o != nil && !IsNil(o.MountRefreshIntervalSeconds) {
 		return true
 	}
 
@@ -497,7 +500,7 @@ func (o *VirtualInstance) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -510,7 +513,7 @@ func (o *VirtualInstance) SetName(v string) {
 
 // GetResumedAt returns the ResumedAt field value if set, zero value otherwise.
 func (o *VirtualInstance) GetResumedAt() string {
-	if o == nil || o.ResumedAt == nil {
+	if o == nil || IsNil(o.ResumedAt) {
 		var ret string
 		return ret
 	}
@@ -520,7 +523,7 @@ func (o *VirtualInstance) GetResumedAt() string {
 // GetResumedAtOk returns a tuple with the ResumedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetResumedAtOk() (*string, bool) {
-	if o == nil || o.ResumedAt == nil {
+	if o == nil || IsNil(o.ResumedAt) {
 		return nil, false
 	}
 	return o.ResumedAt, true
@@ -528,7 +531,7 @@ func (o *VirtualInstance) GetResumedAtOk() (*string, bool) {
 
 // HasResumedAt returns a boolean if a field has been set.
 func (o *VirtualInstance) HasResumedAt() bool {
-	if o != nil && o.ResumedAt != nil {
+	if o != nil && !IsNil(o.ResumedAt) {
 		return true
 	}
 
@@ -542,7 +545,7 @@ func (o *VirtualInstance) SetResumedAt(v string) {
 
 // GetRrn returns the Rrn field value if set, zero value otherwise.
 func (o *VirtualInstance) GetRrn() string {
-	if o == nil || o.Rrn == nil {
+	if o == nil || IsNil(o.Rrn) {
 		var ret string
 		return ret
 	}
@@ -552,7 +555,7 @@ func (o *VirtualInstance) GetRrn() string {
 // GetRrnOk returns a tuple with the Rrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetRrnOk() (*string, bool) {
-	if o == nil || o.Rrn == nil {
+	if o == nil || IsNil(o.Rrn) {
 		return nil, false
 	}
 	return o.Rrn, true
@@ -560,7 +563,7 @@ func (o *VirtualInstance) GetRrnOk() (*string, bool) {
 
 // HasRrn returns a boolean if a field has been set.
 func (o *VirtualInstance) HasRrn() bool {
-	if o != nil && o.Rrn != nil {
+	if o != nil && !IsNil(o.Rrn) {
 		return true
 	}
 
@@ -574,7 +577,7 @@ func (o *VirtualInstance) SetRrn(v string) {
 
 // GetScaledPodCount returns the ScaledPodCount field value if set, zero value otherwise.
 func (o *VirtualInstance) GetScaledPodCount() int32 {
-	if o == nil || o.ScaledPodCount == nil {
+	if o == nil || IsNil(o.ScaledPodCount) {
 		var ret int32
 		return ret
 	}
@@ -584,7 +587,7 @@ func (o *VirtualInstance) GetScaledPodCount() int32 {
 // GetScaledPodCountOk returns a tuple with the ScaledPodCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetScaledPodCountOk() (*int32, bool) {
-	if o == nil || o.ScaledPodCount == nil {
+	if o == nil || IsNil(o.ScaledPodCount) {
 		return nil, false
 	}
 	return o.ScaledPodCount, true
@@ -592,7 +595,7 @@ func (o *VirtualInstance) GetScaledPodCountOk() (*int32, bool) {
 
 // HasScaledPodCount returns a boolean if a field has been set.
 func (o *VirtualInstance) HasScaledPodCount() bool {
-	if o != nil && o.ScaledPodCount != nil {
+	if o != nil && !IsNil(o.ScaledPodCount) {
 		return true
 	}
 
@@ -606,7 +609,7 @@ func (o *VirtualInstance) SetScaledPodCount(v int32) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *VirtualInstance) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -616,7 +619,7 @@ func (o *VirtualInstance) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -624,7 +627,7 @@ func (o *VirtualInstance) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *VirtualInstance) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -638,7 +641,7 @@ func (o *VirtualInstance) SetState(v string) {
 
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *VirtualInstance) GetStats() VirtualInstanceStats {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		var ret VirtualInstanceStats
 		return ret
 	}
@@ -648,7 +651,7 @@ func (o *VirtualInstance) GetStats() VirtualInstanceStats {
 // GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VirtualInstance) GetStatsOk() (*VirtualInstanceStats, bool) {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		return nil, false
 	}
 	return o.Stats, true
@@ -656,7 +659,7 @@ func (o *VirtualInstance) GetStatsOk() (*VirtualInstanceStats, bool) {
 
 // HasStats returns a boolean if a field has been set.
 func (o *VirtualInstance) HasStats() bool {
-	if o != nil && o.Stats != nil {
+	if o != nil && !IsNil(o.Stats) {
 		return true
 	}
 
@@ -669,65 +672,67 @@ func (o *VirtualInstance) SetStats(v VirtualInstanceStats) {
 }
 
 func (o VirtualInstance) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AutoScalingPolicy != nil {
-		toSerialize["auto_scaling_policy"] = o.AutoScalingPolicy
-	}
-	if o.AutoSuspendSeconds != nil {
-		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if o.CurrentSize != nil {
-		toSerialize["current_size"] = o.CurrentSize
-	}
-	if o.DefaultPodCount != nil {
-		toSerialize["default_pod_count"] = o.DefaultPodCount
-	}
-	if o.DefaultVi != nil {
-		toSerialize["default_vi"] = o.DefaultVi
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.DesiredSize != nil {
-		toSerialize["desired_size"] = o.DesiredSize
-	}
-	if o.EnableRemountOnResume != nil {
-		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.MonitoringEnabled != nil {
-		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
-	}
-	if o.MountRefreshIntervalSeconds != nil {
-		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.ResumedAt != nil {
-		toSerialize["resumed_at"] = o.ResumedAt
-	}
-	if o.Rrn != nil {
-		toSerialize["rrn"] = o.Rrn
-	}
-	if o.ScaledPodCount != nil {
-		toSerialize["scaled_pod_count"] = o.ScaledPodCount
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Stats != nil {
-		toSerialize["stats"] = o.Stats
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VirtualInstance) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AutoScalingPolicy) {
+		toSerialize["auto_scaling_policy"] = o.AutoScalingPolicy
+	}
+	if !IsNil(o.AutoSuspendSeconds) {
+		toSerialize["auto_suspend_seconds"] = o.AutoSuspendSeconds
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	// skip: current_size is readOnly
+	if !IsNil(o.DefaultPodCount) {
+		toSerialize["default_pod_count"] = o.DefaultPodCount
+	}
+	if !IsNil(o.DefaultVi) {
+		toSerialize["default_vi"] = o.DefaultVi
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	// skip: desired_size is readOnly
+	if !IsNil(o.EnableRemountOnResume) {
+		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.MonitoringEnabled) {
+		toSerialize["monitoring_enabled"] = o.MonitoringEnabled
+	}
+	if !IsNil(o.MountRefreshIntervalSeconds) {
+		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.ResumedAt) {
+		toSerialize["resumed_at"] = o.ResumedAt
+	}
+	if !IsNil(o.Rrn) {
+		toSerialize["rrn"] = o.Rrn
+	}
+	if !IsNil(o.ScaledPodCount) {
+		toSerialize["scaled_pod_count"] = o.ScaledPodCount
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Stats) {
+		toSerialize["stats"] = o.Stats
+	}
+	return toSerialize, nil
 }
 
 type NullableVirtualInstance struct {

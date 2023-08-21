@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteDocumentsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteDocumentsResponse{}
+
 // DeleteDocumentsResponse struct for DeleteDocumentsResponse
 type DeleteDocumentsResponse struct {
 	// Information about deleted documents.
@@ -41,7 +44,7 @@ func NewDeleteDocumentsResponseWithDefaults() *DeleteDocumentsResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *DeleteDocumentsResponse) GetData() []DocumentStatus {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []DocumentStatus
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *DeleteDocumentsResponse) GetData() []DocumentStatus {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteDocumentsResponse) GetDataOk() ([]DocumentStatus, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -59,7 +62,7 @@ func (o *DeleteDocumentsResponse) GetDataOk() ([]DocumentStatus, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *DeleteDocumentsResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *DeleteDocumentsResponse) SetData(v []DocumentStatus) {
 
 // GetLastOffset returns the LastOffset field value if set, zero value otherwise.
 func (o *DeleteDocumentsResponse) GetLastOffset() string {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *DeleteDocumentsResponse) GetLastOffset() string {
 // GetLastOffsetOk returns a tuple with the LastOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteDocumentsResponse) GetLastOffsetOk() (*string, bool) {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		return nil, false
 	}
 	return o.LastOffset, true
@@ -91,7 +94,7 @@ func (o *DeleteDocumentsResponse) GetLastOffsetOk() (*string, bool) {
 
 // HasLastOffset returns a boolean if a field has been set.
 func (o *DeleteDocumentsResponse) HasLastOffset() bool {
-	if o != nil && o.LastOffset != nil {
+	if o != nil && !IsNil(o.LastOffset) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *DeleteDocumentsResponse) SetLastOffset(v string) {
 }
 
 func (o DeleteDocumentsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
-	}
-	if o.LastOffset != nil {
-		toSerialize["last_offset"] = o.LastOffset
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteDocumentsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	if !IsNil(o.LastOffset) {
+		toSerialize["last_offset"] = o.LastOffset
+	}
+	return toSerialize, nil
 }
 
 type NullableDeleteDocumentsResponse struct {

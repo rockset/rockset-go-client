@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusKafka type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusKafka{}
+
 // StatusKafka struct for StatusKafka
 type StatusKafka struct {
 	// Status info per partition.
@@ -45,7 +48,7 @@ func NewStatusKafkaWithDefaults() *StatusKafka {
 
 // GetKafkaPartitions returns the KafkaPartitions field value if set, zero value otherwise.
 func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition {
-	if o == nil || o.KafkaPartitions == nil {
+	if o == nil || IsNil(o.KafkaPartitions) {
 		var ret []StatusKafkaPartition
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *StatusKafka) GetKafkaPartitions() []StatusKafkaPartition {
 // GetKafkaPartitionsOk returns a tuple with the KafkaPartitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusKafka) GetKafkaPartitionsOk() ([]StatusKafkaPartition, bool) {
-	if o == nil || o.KafkaPartitions == nil {
+	if o == nil || IsNil(o.KafkaPartitions) {
 		return nil, false
 	}
 	return o.KafkaPartitions, true
@@ -63,7 +66,7 @@ func (o *StatusKafka) GetKafkaPartitionsOk() ([]StatusKafkaPartition, bool) {
 
 // HasKafkaPartitions returns a boolean if a field has been set.
 func (o *StatusKafka) HasKafkaPartitions() bool {
-	if o != nil && o.KafkaPartitions != nil {
+	if o != nil && !IsNil(o.KafkaPartitions) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *StatusKafka) SetKafkaPartitions(v []StatusKafkaPartition) {
 
 // GetLastConsumedTime returns the LastConsumedTime field value if set, zero value otherwise.
 func (o *StatusKafka) GetLastConsumedTime() string {
-	if o == nil || o.LastConsumedTime == nil {
+	if o == nil || IsNil(o.LastConsumedTime) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *StatusKafka) GetLastConsumedTime() string {
 // GetLastConsumedTimeOk returns a tuple with the LastConsumedTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusKafka) GetLastConsumedTimeOk() (*string, bool) {
-	if o == nil || o.LastConsumedTime == nil {
+	if o == nil || IsNil(o.LastConsumedTime) {
 		return nil, false
 	}
 	return o.LastConsumedTime, true
@@ -95,7 +98,7 @@ func (o *StatusKafka) GetLastConsumedTimeOk() (*string, bool) {
 
 // HasLastConsumedTime returns a boolean if a field has been set.
 func (o *StatusKafka) HasLastConsumedTime() bool {
-	if o != nil && o.LastConsumedTime != nil {
+	if o != nil && !IsNil(o.LastConsumedTime) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *StatusKafka) SetLastConsumedTime(v string) {
 
 // GetNumDocumentsProcessed returns the NumDocumentsProcessed field value if set, zero value otherwise.
 func (o *StatusKafka) GetNumDocumentsProcessed() int64 {
-	if o == nil || o.NumDocumentsProcessed == nil {
+	if o == nil || IsNil(o.NumDocumentsProcessed) {
 		var ret int64
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *StatusKafka) GetNumDocumentsProcessed() int64 {
 // GetNumDocumentsProcessedOk returns a tuple with the NumDocumentsProcessed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusKafka) GetNumDocumentsProcessedOk() (*int64, bool) {
-	if o == nil || o.NumDocumentsProcessed == nil {
+	if o == nil || IsNil(o.NumDocumentsProcessed) {
 		return nil, false
 	}
 	return o.NumDocumentsProcessed, true
@@ -127,7 +130,7 @@ func (o *StatusKafka) GetNumDocumentsProcessedOk() (*int64, bool) {
 
 // HasNumDocumentsProcessed returns a boolean if a field has been set.
 func (o *StatusKafka) HasNumDocumentsProcessed() bool {
-	if o != nil && o.NumDocumentsProcessed != nil {
+	if o != nil && !IsNil(o.NumDocumentsProcessed) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *StatusKafka) SetNumDocumentsProcessed(v int64) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *StatusKafka) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *StatusKafka) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusKafka) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -159,7 +162,7 @@ func (o *StatusKafka) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *StatusKafka) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *StatusKafka) SetState(v string) {
 }
 
 func (o StatusKafka) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.KafkaPartitions != nil {
-		toSerialize["kafka_partitions"] = o.KafkaPartitions
-	}
-	if o.LastConsumedTime != nil {
-		toSerialize["last_consumed_time"] = o.LastConsumedTime
-	}
-	if o.NumDocumentsProcessed != nil {
-		toSerialize["num_documents_processed"] = o.NumDocumentsProcessed
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusKafka) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.KafkaPartitions) {
+		toSerialize["kafka_partitions"] = o.KafkaPartitions
+	}
+	if !IsNil(o.LastConsumedTime) {
+		toSerialize["last_consumed_time"] = o.LastConsumedTime
+	}
+	if !IsNil(o.NumDocumentsProcessed) {
+		toSerialize["num_documents_processed"] = o.NumDocumentsProcessed
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusKafka struct {

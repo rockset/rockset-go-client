@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteApiKeyResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteApiKeyResponse{}
+
 // DeleteApiKeyResponse struct for DeleteApiKeyResponse
 type DeleteApiKeyResponse struct {
 	Data *ApiKey `json:"data,omitempty"`
@@ -38,7 +41,7 @@ func NewDeleteApiKeyResponseWithDefaults() *DeleteApiKeyResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *DeleteApiKeyResponse) GetData() ApiKey {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret ApiKey
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *DeleteApiKeyResponse) GetData() ApiKey {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteApiKeyResponse) GetDataOk() (*ApiKey, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -56,7 +59,7 @@ func (o *DeleteApiKeyResponse) GetDataOk() (*ApiKey, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *DeleteApiKeyResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *DeleteApiKeyResponse) SetData(v ApiKey) {
 }
 
 func (o DeleteApiKeyResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteApiKeyResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableDeleteApiKeyResponse struct {

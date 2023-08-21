@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceGcs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceGcs{}
+
 // SourceGcs struct for SourceGcs
 type SourceGcs struct {
 	// Name of GCS bucket you want to ingest from.
@@ -47,7 +50,7 @@ func NewSourceGcsWithDefaults() *SourceGcs {
 
 // GetBucket returns the Bucket field value if set, zero value otherwise.
 func (o *SourceGcs) GetBucket() string {
-	if o == nil || o.Bucket == nil {
+	if o == nil || IsNil(o.Bucket) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *SourceGcs) GetBucket() string {
 // GetBucketOk returns a tuple with the Bucket field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetBucketOk() (*string, bool) {
-	if o == nil || o.Bucket == nil {
+	if o == nil || IsNil(o.Bucket) {
 		return nil, false
 	}
 	return o.Bucket, true
@@ -65,7 +68,7 @@ func (o *SourceGcs) GetBucketOk() (*string, bool) {
 
 // HasBucket returns a boolean if a field has been set.
 func (o *SourceGcs) HasBucket() bool {
-	if o != nil && o.Bucket != nil {
+	if o != nil && !IsNil(o.Bucket) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *SourceGcs) SetBucket(v string) {
 
 // GetObjectBytesDownloaded returns the ObjectBytesDownloaded field value if set, zero value otherwise.
 func (o *SourceGcs) GetObjectBytesDownloaded() int64 {
-	if o == nil || o.ObjectBytesDownloaded == nil {
+	if o == nil || IsNil(o.ObjectBytesDownloaded) {
 		var ret int64
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *SourceGcs) GetObjectBytesDownloaded() int64 {
 // GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool) {
-	if o == nil || o.ObjectBytesDownloaded == nil {
+	if o == nil || IsNil(o.ObjectBytesDownloaded) {
 		return nil, false
 	}
 	return o.ObjectBytesDownloaded, true
@@ -97,7 +100,7 @@ func (o *SourceGcs) GetObjectBytesDownloadedOk() (*int64, bool) {
 
 // HasObjectBytesDownloaded returns a boolean if a field has been set.
 func (o *SourceGcs) HasObjectBytesDownloaded() bool {
-	if o != nil && o.ObjectBytesDownloaded != nil {
+	if o != nil && !IsNil(o.ObjectBytesDownloaded) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *SourceGcs) SetObjectBytesDownloaded(v int64) {
 
 // GetObjectBytesTotal returns the ObjectBytesTotal field value if set, zero value otherwise.
 func (o *SourceGcs) GetObjectBytesTotal() int64 {
-	if o == nil || o.ObjectBytesTotal == nil {
+	if o == nil || IsNil(o.ObjectBytesTotal) {
 		var ret int64
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *SourceGcs) GetObjectBytesTotal() int64 {
 // GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool) {
-	if o == nil || o.ObjectBytesTotal == nil {
+	if o == nil || IsNil(o.ObjectBytesTotal) {
 		return nil, false
 	}
 	return o.ObjectBytesTotal, true
@@ -129,7 +132,7 @@ func (o *SourceGcs) GetObjectBytesTotalOk() (*int64, bool) {
 
 // HasObjectBytesTotal returns a boolean if a field has been set.
 func (o *SourceGcs) HasObjectBytesTotal() bool {
-	if o != nil && o.ObjectBytesTotal != nil {
+	if o != nil && !IsNil(o.ObjectBytesTotal) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *SourceGcs) SetObjectBytesTotal(v int64) {
 
 // GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
 func (o *SourceGcs) GetObjectCountDownloaded() int64 {
-	if o == nil || o.ObjectCountDownloaded == nil {
+	if o == nil || IsNil(o.ObjectCountDownloaded) {
 		var ret int64
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *SourceGcs) GetObjectCountDownloaded() int64 {
 // GetObjectCountDownloadedOk returns a tuple with the ObjectCountDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetObjectCountDownloadedOk() (*int64, bool) {
-	if o == nil || o.ObjectCountDownloaded == nil {
+	if o == nil || IsNil(o.ObjectCountDownloaded) {
 		return nil, false
 	}
 	return o.ObjectCountDownloaded, true
@@ -161,7 +164,7 @@ func (o *SourceGcs) GetObjectCountDownloadedOk() (*int64, bool) {
 
 // HasObjectCountDownloaded returns a boolean if a field has been set.
 func (o *SourceGcs) HasObjectCountDownloaded() bool {
-	if o != nil && o.ObjectCountDownloaded != nil {
+	if o != nil && !IsNil(o.ObjectCountDownloaded) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *SourceGcs) SetObjectCountDownloaded(v int64) {
 
 // GetObjectCountTotal returns the ObjectCountTotal field value if set, zero value otherwise.
 func (o *SourceGcs) GetObjectCountTotal() int64 {
-	if o == nil || o.ObjectCountTotal == nil {
+	if o == nil || IsNil(o.ObjectCountTotal) {
 		var ret int64
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *SourceGcs) GetObjectCountTotal() int64 {
 // GetObjectCountTotalOk returns a tuple with the ObjectCountTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetObjectCountTotalOk() (*int64, bool) {
-	if o == nil || o.ObjectCountTotal == nil {
+	if o == nil || IsNil(o.ObjectCountTotal) {
 		return nil, false
 	}
 	return o.ObjectCountTotal, true
@@ -193,7 +196,7 @@ func (o *SourceGcs) GetObjectCountTotalOk() (*int64, bool) {
 
 // HasObjectCountTotal returns a boolean if a field has been set.
 func (o *SourceGcs) HasObjectCountTotal() bool {
-	if o != nil && o.ObjectCountTotal != nil {
+	if o != nil && !IsNil(o.ObjectCountTotal) {
 		return true
 	}
 
@@ -207,7 +210,7 @@ func (o *SourceGcs) SetObjectCountTotal(v int64) {
 
 // GetPattern returns the Pattern field value if set, zero value otherwise.
 func (o *SourceGcs) GetPattern() string {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		var ret string
 		return ret
 	}
@@ -217,7 +220,7 @@ func (o *SourceGcs) GetPattern() string {
 // GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		return nil, false
 	}
 	return o.Pattern, true
@@ -225,7 +228,7 @@ func (o *SourceGcs) GetPatternOk() (*string, bool) {
 
 // HasPattern returns a boolean if a field has been set.
 func (o *SourceGcs) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
+	if o != nil && !IsNil(o.Pattern) {
 		return true
 	}
 
@@ -239,7 +242,7 @@ func (o *SourceGcs) SetPattern(v string) {
 
 // GetPrefix returns the Prefix field value if set, zero value otherwise.
 func (o *SourceGcs) GetPrefix() string {
-	if o == nil || o.Prefix == nil {
+	if o == nil || IsNil(o.Prefix) {
 		var ret string
 		return ret
 	}
@@ -249,7 +252,7 @@ func (o *SourceGcs) GetPrefix() string {
 // GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceGcs) GetPrefixOk() (*string, bool) {
-	if o == nil || o.Prefix == nil {
+	if o == nil || IsNil(o.Prefix) {
 		return nil, false
 	}
 	return o.Prefix, true
@@ -257,7 +260,7 @@ func (o *SourceGcs) GetPrefixOk() (*string, bool) {
 
 // HasPrefix returns a boolean if a field has been set.
 func (o *SourceGcs) HasPrefix() bool {
-	if o != nil && o.Prefix != nil {
+	if o != nil && !IsNil(o.Prefix) {
 		return true
 	}
 
@@ -270,29 +273,29 @@ func (o *SourceGcs) SetPrefix(v string) {
 }
 
 func (o SourceGcs) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Bucket != nil {
-		toSerialize["bucket"] = o.Bucket
-	}
-	if o.ObjectBytesDownloaded != nil {
-		toSerialize["object_bytes_downloaded"] = o.ObjectBytesDownloaded
-	}
-	if o.ObjectBytesTotal != nil {
-		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
-	}
-	if o.ObjectCountDownloaded != nil {
-		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded
-	}
-	if o.ObjectCountTotal != nil {
-		toSerialize["object_count_total"] = o.ObjectCountTotal
-	}
-	if o.Pattern != nil {
-		toSerialize["pattern"] = o.Pattern
-	}
-	if o.Prefix != nil {
-		toSerialize["prefix"] = o.Prefix
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceGcs) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Bucket) {
+		toSerialize["bucket"] = o.Bucket
+	}
+	// skip: object_bytes_downloaded is readOnly
+	// skip: object_bytes_total is readOnly
+	// skip: object_count_downloaded is readOnly
+	// skip: object_count_total is readOnly
+	if !IsNil(o.Pattern) {
+		toSerialize["pattern"] = o.Pattern
+	}
+	if !IsNil(o.Prefix) {
+		toSerialize["prefix"] = o.Prefix
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceGcs struct {

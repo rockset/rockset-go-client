@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceDynamoDb type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceDynamoDb{}
+
 // SourceDynamoDb struct for SourceDynamoDb
 type SourceDynamoDb struct {
 	// AWS region name of DynamoDB table, by default us-west-2 is used.
@@ -48,7 +51,7 @@ func NewSourceDynamoDbWithDefaults() *SourceDynamoDb {
 
 // GetAwsRegion returns the AwsRegion field value if set, zero value otherwise.
 func (o *SourceDynamoDb) GetAwsRegion() string {
-	if o == nil || o.AwsRegion == nil {
+	if o == nil || IsNil(o.AwsRegion) {
 		var ret string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *SourceDynamoDb) GetAwsRegion() string {
 // GetAwsRegionOk returns a tuple with the AwsRegion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceDynamoDb) GetAwsRegionOk() (*string, bool) {
-	if o == nil || o.AwsRegion == nil {
+	if o == nil || IsNil(o.AwsRegion) {
 		return nil, false
 	}
 	return o.AwsRegion, true
@@ -66,7 +69,7 @@ func (o *SourceDynamoDb) GetAwsRegionOk() (*string, bool) {
 
 // HasAwsRegion returns a boolean if a field has been set.
 func (o *SourceDynamoDb) HasAwsRegion() bool {
-	if o != nil && o.AwsRegion != nil {
+	if o != nil && !IsNil(o.AwsRegion) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *SourceDynamoDb) SetAwsRegion(v string) {
 
 // GetCurrentStatus returns the CurrentStatus field value if set, zero value otherwise.
 func (o *SourceDynamoDb) GetCurrentStatus() StatusDynamoDbV2 {
-	if o == nil || o.CurrentStatus == nil {
+	if o == nil || IsNil(o.CurrentStatus) {
 		var ret StatusDynamoDbV2
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *SourceDynamoDb) GetCurrentStatus() StatusDynamoDbV2 {
 // GetCurrentStatusOk returns a tuple with the CurrentStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceDynamoDb) GetCurrentStatusOk() (*StatusDynamoDbV2, bool) {
-	if o == nil || o.CurrentStatus == nil {
+	if o == nil || IsNil(o.CurrentStatus) {
 		return nil, false
 	}
 	return o.CurrentStatus, true
@@ -98,7 +101,7 @@ func (o *SourceDynamoDb) GetCurrentStatusOk() (*StatusDynamoDbV2, bool) {
 
 // HasCurrentStatus returns a boolean if a field has been set.
 func (o *SourceDynamoDb) HasCurrentStatus() bool {
-	if o != nil && o.CurrentStatus != nil {
+	if o != nil && !IsNil(o.CurrentStatus) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *SourceDynamoDb) SetCurrentStatus(v StatusDynamoDbV2) {
 
 // GetRcu returns the Rcu field value if set, zero value otherwise.
 func (o *SourceDynamoDb) GetRcu() int64 {
-	if o == nil || o.Rcu == nil {
+	if o == nil || IsNil(o.Rcu) {
 		var ret int64
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *SourceDynamoDb) GetRcu() int64 {
 // GetRcuOk returns a tuple with the Rcu field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceDynamoDb) GetRcuOk() (*int64, bool) {
-	if o == nil || o.Rcu == nil {
+	if o == nil || IsNil(o.Rcu) {
 		return nil, false
 	}
 	return o.Rcu, true
@@ -130,7 +133,7 @@ func (o *SourceDynamoDb) GetRcuOk() (*int64, bool) {
 
 // HasRcu returns a boolean if a field has been set.
 func (o *SourceDynamoDb) HasRcu() bool {
-	if o != nil && o.Rcu != nil {
+	if o != nil && !IsNil(o.Rcu) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *SourceDynamoDb) SetRcu(v int64) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SourceDynamoDb) GetStatus() StatusDynamoDb {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StatusDynamoDb
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *SourceDynamoDb) GetStatus() StatusDynamoDb {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceDynamoDb) GetStatusOk() (*StatusDynamoDb, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -162,7 +165,7 @@ func (o *SourceDynamoDb) GetStatusOk() (*StatusDynamoDb, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SourceDynamoDb) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *SourceDynamoDb) GetTableName() string {
 // GetTableNameOk returns a tuple with the TableName field value
 // and a boolean to check if the value has been set.
 func (o *SourceDynamoDb) GetTableNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TableName, true
@@ -200,7 +203,7 @@ func (o *SourceDynamoDb) SetTableName(v string) {
 
 // GetUseScanApi returns the UseScanApi field value if set, zero value otherwise.
 func (o *SourceDynamoDb) GetUseScanApi() bool {
-	if o == nil || o.UseScanApi == nil {
+	if o == nil || IsNil(o.UseScanApi) {
 		var ret bool
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *SourceDynamoDb) GetUseScanApi() bool {
 // GetUseScanApiOk returns a tuple with the UseScanApi field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceDynamoDb) GetUseScanApiOk() (*bool, bool) {
-	if o == nil || o.UseScanApi == nil {
+	if o == nil || IsNil(o.UseScanApi) {
 		return nil, false
 	}
 	return o.UseScanApi, true
@@ -218,7 +221,7 @@ func (o *SourceDynamoDb) GetUseScanApiOk() (*bool, bool) {
 
 // HasUseScanApi returns a boolean if a field has been set.
 func (o *SourceDynamoDb) HasUseScanApi() bool {
-	if o != nil && o.UseScanApi != nil {
+	if o != nil && !IsNil(o.UseScanApi) {
 		return true
 	}
 
@@ -231,26 +234,32 @@ func (o *SourceDynamoDb) SetUseScanApi(v bool) {
 }
 
 func (o SourceDynamoDb) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsRegion != nil {
-		toSerialize["aws_region"] = o.AwsRegion
-	}
-	if o.CurrentStatus != nil {
-		toSerialize["current_status"] = o.CurrentStatus
-	}
-	if o.Rcu != nil {
-		toSerialize["rcu"] = o.Rcu
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["table_name"] = o.TableName
-	}
-	if o.UseScanApi != nil {
-		toSerialize["use_scan_api"] = o.UseScanApi
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceDynamoDb) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsRegion) {
+		toSerialize["aws_region"] = o.AwsRegion
+	}
+	if !IsNil(o.CurrentStatus) {
+		toSerialize["current_status"] = o.CurrentStatus
+	}
+	if !IsNil(o.Rcu) {
+		toSerialize["rcu"] = o.Rcu
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	toSerialize["table_name"] = o.TableName
+	if !IsNil(o.UseScanApi) {
+		toSerialize["use_scan_api"] = o.UseScanApi
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceDynamoDb struct {

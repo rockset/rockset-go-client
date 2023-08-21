@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceFileUpload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceFileUpload{}
+
 // SourceFileUpload struct for SourceFileUpload
 type SourceFileUpload struct {
 	// Name of the file.
@@ -57,7 +60,7 @@ func (o *SourceFileUpload) GetFileName() string {
 // GetFileNameOk returns a tuple with the FileName field value
 // and a boolean to check if the value has been set.
 func (o *SourceFileUpload) GetFileNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FileName, true
@@ -81,7 +84,7 @@ func (o *SourceFileUpload) GetFileSize() int64 {
 // GetFileSizeOk returns a tuple with the FileSize field value
 // and a boolean to check if the value has been set.
 func (o *SourceFileUpload) GetFileSizeOk() (*int64, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FileSize, true
@@ -105,7 +108,7 @@ func (o *SourceFileUpload) GetFileUploadTime() string {
 // GetFileUploadTimeOk returns a tuple with the FileUploadTime field value
 // and a boolean to check if the value has been set.
 func (o *SourceFileUpload) GetFileUploadTimeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FileUploadTime, true
@@ -117,17 +120,19 @@ func (o *SourceFileUpload) SetFileUploadTime(v string) {
 }
 
 func (o SourceFileUpload) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["file_name"] = o.FileName
-	}
-	if true {
-		toSerialize["file_size"] = o.FileSize
-	}
-	if true {
-		toSerialize["file_upload_time"] = o.FileUploadTime
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceFileUpload) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["file_name"] = o.FileName
+	toSerialize["file_size"] = o.FileSize
+	toSerialize["file_upload_time"] = o.FileUploadTime
+	return toSerialize, nil
 }
 
 type NullableSourceFileUpload struct {

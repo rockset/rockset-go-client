@@ -13,16 +13,12 @@ package openapi
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
 
 type QueryLambdasApi interface {
 
@@ -31,9 +27,9 @@ type QueryLambdasApi interface {
 
 	Create a Query Lambda in given workspace.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @return ApiCreateQueryLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@return ApiCreateQueryLambdaRequest
 	*/
 	CreateQueryLambda(ctx context.Context, workspace string) ApiCreateQueryLambdaRequest
 
@@ -46,10 +42,10 @@ type QueryLambdasApi interface {
 
 	Create a tag for a specific Query Lambda version, or update that tag if it already exists.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @return ApiCreateQueryLambdaTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@return ApiCreateQueryLambdaTagRequest
 	*/
 	CreateQueryLambdaTag(ctx context.Context, workspace string, queryLambda string) ApiCreateQueryLambdaTagRequest
 
@@ -62,10 +58,10 @@ type QueryLambdasApi interface {
 
 	Delete a Query Lambda.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @return ApiDeleteQueryLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@return ApiDeleteQueryLambdaRequest
 	*/
 	DeleteQueryLambda(ctx context.Context, workspace string, queryLambda string) ApiDeleteQueryLambdaRequest
 
@@ -78,11 +74,11 @@ type QueryLambdasApi interface {
 
 	Delete a tag for a specific Query Lambda
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @param tag name of the tag
-	 @return ApiDeleteQueryLambdaTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@param tag name of the tag
+	@return ApiDeleteQueryLambdaTagRequest
 	*/
 	DeleteQueryLambdaTag(ctx context.Context, workspace string, queryLambda string, tag string) ApiDeleteQueryLambdaTagRequest
 
@@ -95,11 +91,11 @@ type QueryLambdasApi interface {
 
 	Delete a Query Lambda version.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @param version version
-	 @return ApiDeleteQueryLambdaVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@param version version
+	@return ApiDeleteQueryLambdaVersionRequest
 	*/
 	DeleteQueryLambdaVersion(ctx context.Context, workspace string, queryLambda string, version string) ApiDeleteQueryLambdaVersionRequest
 
@@ -112,11 +108,11 @@ type QueryLambdasApi interface {
 
 	Execute a particular version of a Query Lambda.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @param version version
-	 @return ApiExecuteQueryLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@param version version
+	@return ApiExecuteQueryLambdaRequest
 	*/
 	ExecuteQueryLambda(ctx context.Context, workspace string, queryLambda string, version string) ApiExecuteQueryLambdaRequest
 
@@ -129,11 +125,11 @@ type QueryLambdasApi interface {
 
 	Execute the Query Lambda version associated with a given tag.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @param tag tag
-	 @return ApiExecuteQueryLambdaByTagRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@param tag tag
+	@return ApiExecuteQueryLambdaByTagRequest
 	*/
 	ExecuteQueryLambdaByTag(ctx context.Context, workspace string, queryLambda string, tag string) ApiExecuteQueryLambdaByTagRequest
 
@@ -146,11 +142,11 @@ type QueryLambdasApi interface {
 
 	Retrieve the Query Lambda version associated with a given tag.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @param tag name of the tag
-	 @return ApiGetQueryLambdaTagVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@param tag name of the tag
+	@return ApiGetQueryLambdaTagVersionRequest
 	*/
 	GetQueryLambdaTagVersion(ctx context.Context, workspace string, queryLambda string, tag string) ApiGetQueryLambdaTagVersionRequest
 
@@ -163,11 +159,11 @@ type QueryLambdasApi interface {
 
 	Retrieve details for a specified version of a Query Lambda.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @param version version
-	 @return ApiGetQueryLambdaVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@param version version
+	@return ApiGetQueryLambdaVersionRequest
 	*/
 	GetQueryLambdaVersion(ctx context.Context, workspace string, queryLambda string, version string) ApiGetQueryLambdaVersionRequest
 
@@ -180,8 +176,8 @@ type QueryLambdasApi interface {
 
 	List all Query Lambdas in an organization.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListAllQueryLambdasRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAllQueryLambdasRequest
 	*/
 	ListAllQueryLambdas(ctx context.Context) ApiListAllQueryLambdasRequest
 
@@ -194,10 +190,10 @@ type QueryLambdasApi interface {
 
 	List all tags associated with a Query Lambda
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @return ApiListQueryLambdaTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@return ApiListQueryLambdaTagsRequest
 	*/
 	ListQueryLambdaTags(ctx context.Context, workspace string, queryLambda string) ApiListQueryLambdaTagsRequest
 
@@ -210,10 +206,10 @@ type QueryLambdasApi interface {
 
 	List all versions of a Query Lambda.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @return ApiListQueryLambdaVersionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@return ApiListQueryLambdaVersionsRequest
 	*/
 	ListQueryLambdaVersions(ctx context.Context, workspace string, queryLambda string) ApiListQueryLambdaVersionsRequest
 
@@ -226,9 +222,9 @@ type QueryLambdasApi interface {
 
 	List all Query Lambdas under given workspace.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @return ApiListQueryLambdasInWorkspaceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@return ApiListQueryLambdasInWorkspaceRequest
 	*/
 	ListQueryLambdasInWorkspace(ctx context.Context, workspace string) ApiListQueryLambdasInWorkspaceRequest
 
@@ -241,10 +237,10 @@ type QueryLambdasApi interface {
 
 	Create a new version of a Query Lambda in given workspace.
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param workspace name of the workspace
-	 @param queryLambda name of the Query Lambda
-	 @return ApiUpdateQueryLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param queryLambda name of the Query Lambda
+	@return ApiUpdateQueryLambdaRequest
 	*/
 	UpdateQueryLambda(ctx context.Context, workspace string, queryLambda string) ApiUpdateQueryLambdaRequest
 
@@ -306,7 +302,7 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -344,9 +340,9 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -363,7 +359,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -373,7 +370,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -383,7 +381,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -393,7 +392,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -403,7 +403,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -413,7 +414,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -423,7 +425,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -433,7 +436,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -443,7 +447,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -453,7 +458,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -463,7 +469,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -473,7 +480,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -483,7 +491,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -493,7 +502,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaExecute(r ApiCreateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -563,8 +573,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -602,9 +612,9 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -621,7 +631,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -631,7 +642,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -641,7 +653,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -651,7 +664,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -661,7 +675,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -671,7 +686,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -681,7 +697,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -691,7 +708,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -701,7 +719,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -711,7 +730,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -721,7 +741,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -731,7 +752,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -741,7 +763,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -751,7 +774,8 @@ func (a *QueryLambdasApiService) CreateQueryLambdaTagExecute(r ApiCreateQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -774,7 +798,6 @@ type ApiDeleteQueryLambdaRequest struct {
 	workspace string
 	queryLambda string
 }
-
 
 func (r ApiDeleteQueryLambdaRequest) Execute() (*DeleteQueryLambdaResponse, *http.Response, error) {
 	return r.ApiService.DeleteQueryLambdaExecute(r)
@@ -815,8 +838,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -849,9 +872,9 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -868,7 +891,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -878,7 +902,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -888,7 +913,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -898,7 +924,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -908,7 +935,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -918,7 +946,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -928,7 +957,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -938,7 +968,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -948,7 +979,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -958,7 +990,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -968,7 +1001,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -978,7 +1012,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -988,7 +1023,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -998,7 +1034,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaExecute(r ApiDeleteQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1022,7 +1059,6 @@ type ApiDeleteQueryLambdaTagRequest struct {
 	queryLambda string
 	tag string
 }
-
 
 func (r ApiDeleteQueryLambdaTagRequest) Execute() (*QueryLambdaTagResponse, *http.Response, error) {
 	return r.ApiService.DeleteQueryLambdaTagExecute(r)
@@ -1065,9 +1101,9 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterToString(r.tag, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterValueToString(r.tag, "tag")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1100,9 +1136,9 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1119,7 +1155,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1129,7 +1166,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1139,7 +1177,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1149,7 +1188,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1159,7 +1199,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1169,7 +1210,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1179,7 +1221,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1189,7 +1232,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1199,7 +1243,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1209,7 +1254,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1219,7 +1265,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1229,7 +1276,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1239,7 +1287,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1249,7 +1298,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaTagExecute(r ApiDeleteQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1273,7 +1323,6 @@ type ApiDeleteQueryLambdaVersionRequest struct {
 	queryLambda string
 	version string
 }
-
 
 func (r ApiDeleteQueryLambdaVersionRequest) Execute() (*QueryLambdaVersionResponse, *http.Response, error) {
 	return r.ApiService.DeleteQueryLambdaVersionExecute(r)
@@ -1316,9 +1365,9 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/version/{version}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterToString(r.version, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterValueToString(r.version, "version")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1351,9 +1400,9 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1370,7 +1419,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1380,7 +1430,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1390,7 +1441,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1400,7 +1452,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1410,7 +1463,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1420,7 +1474,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1430,7 +1485,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1440,7 +1496,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1450,7 +1507,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1460,7 +1518,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1470,7 +1529,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1480,7 +1540,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1490,7 +1551,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1500,7 +1562,8 @@ func (a *QueryLambdasApiService) DeleteQueryLambdaVersionExecute(r ApiDeleteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1573,9 +1636,9 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterToString(r.version, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterValueToString(r.version, "version")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1610,9 +1673,9 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1629,7 +1692,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1639,7 +1703,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1649,7 +1714,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1659,7 +1725,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1669,7 +1736,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1679,7 +1747,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1689,7 +1758,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1699,7 +1769,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1709,7 +1780,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1719,7 +1791,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1729,7 +1802,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1739,7 +1813,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1749,7 +1824,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1759,7 +1835,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaExecute(r ApiExecuteQueryLamb
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1832,9 +1909,9 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterToString(r.tag, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterValueToString(r.tag, "tag")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1869,9 +1946,9 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1888,7 +1965,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1898,7 +1976,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1908,7 +1987,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1918,7 +1998,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1928,7 +2009,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1938,7 +2020,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1948,7 +2031,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1958,7 +2042,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1968,7 +2053,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1978,7 +2064,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1988,7 +2075,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1998,7 +2086,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2008,7 +2097,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2018,7 +2108,8 @@ func (a *QueryLambdasApiService) ExecuteQueryLambdaByTagExecute(r ApiExecuteQuer
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2042,7 +2133,6 @@ type ApiGetQueryLambdaTagVersionRequest struct {
 	queryLambda string
 	tag string
 }
-
 
 func (r ApiGetQueryLambdaTagVersionRequest) Execute() (*QueryLambdaTagResponse, *http.Response, error) {
 	return r.ApiService.GetQueryLambdaTagVersionExecute(r)
@@ -2085,9 +2175,9 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags/{tag}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterToString(r.tag, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"tag"+"}", url.PathEscape(parameterValueToString(r.tag, "tag")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2120,9 +2210,9 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2139,7 +2229,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2149,7 +2240,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2159,7 +2251,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2169,7 +2262,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2179,7 +2273,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2189,7 +2284,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2199,7 +2295,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2209,7 +2306,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2219,7 +2317,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2229,7 +2328,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2239,7 +2339,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2249,7 +2350,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2259,7 +2361,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2269,7 +2372,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaTagVersionExecute(r ApiGetQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2293,7 +2397,6 @@ type ApiGetQueryLambdaVersionRequest struct {
 	queryLambda string
 	version string
 }
-
 
 func (r ApiGetQueryLambdaVersionRequest) Execute() (*QueryLambdaVersionResponse, *http.Response, error) {
 	return r.ApiService.GetQueryLambdaVersionExecute(r)
@@ -2336,9 +2439,9 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions/{version}"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterToString(r.version, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"version"+"}", url.PathEscape(parameterValueToString(r.version, "version")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2371,9 +2474,9 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2390,7 +2493,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2400,7 +2504,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2410,7 +2515,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2420,7 +2526,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2430,7 +2537,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2440,7 +2548,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2450,7 +2559,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2460,7 +2570,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2470,7 +2581,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2480,7 +2592,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2490,7 +2603,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2500,7 +2614,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2510,7 +2625,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2520,7 +2636,8 @@ func (a *QueryLambdasApiService) GetQueryLambdaVersionExecute(r ApiGetQueryLambd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2541,7 +2658,6 @@ type ApiListAllQueryLambdasRequest struct {
 	ctx context.Context
 	ApiService QueryLambdasApi
 }
-
 
 func (r ApiListAllQueryLambdasRequest) Execute() (*ListQueryLambdasResponse, *http.Response, error) {
 	return r.ApiService.ListAllQueryLambdasExecute(r)
@@ -2610,9 +2726,9 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2629,7 +2745,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2639,7 +2756,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2649,7 +2767,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2659,7 +2778,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2669,7 +2789,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2679,7 +2800,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2689,7 +2811,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2699,7 +2822,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2709,7 +2833,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2719,7 +2844,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2729,7 +2855,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2739,7 +2866,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2749,7 +2877,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2759,7 +2888,8 @@ func (a *QueryLambdasApiService) ListAllQueryLambdasExecute(r ApiListAllQueryLam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2782,7 +2912,6 @@ type ApiListQueryLambdaTagsRequest struct {
 	workspace string
 	queryLambda string
 }
-
 
 func (r ApiListQueryLambdaTagsRequest) Execute() (*ListQueryLambdaTagsResponse, *http.Response, error) {
 	return r.ApiService.ListQueryLambdaTagsExecute(r)
@@ -2823,8 +2952,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/tags"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2857,9 +2986,9 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2876,7 +3005,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2886,7 +3016,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2896,7 +3027,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2906,7 +3038,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2916,7 +3049,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2926,7 +3060,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2936,7 +3071,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2946,7 +3082,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2956,7 +3093,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2966,7 +3104,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2976,7 +3115,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2986,7 +3126,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2996,7 +3137,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3006,7 +3148,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaTagsExecute(r ApiListQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3029,7 +3172,6 @@ type ApiListQueryLambdaVersionsRequest struct {
 	workspace string
 	queryLambda string
 }
-
 
 func (r ApiListQueryLambdaVersionsRequest) Execute() (*ListQueryLambdaVersionsResponse, *http.Response, error) {
 	return r.ApiService.ListQueryLambdaVersionsExecute(r)
@@ -3070,8 +3212,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3104,9 +3246,9 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3123,7 +3265,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -3133,7 +3276,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3143,7 +3287,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3153,7 +3298,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -3163,7 +3309,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3173,7 +3320,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3183,7 +3331,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3193,7 +3342,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3203,7 +3353,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3213,7 +3364,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3223,7 +3375,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3233,7 +3386,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3243,7 +3397,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3253,7 +3408,8 @@ func (a *QueryLambdasApiService) ListQueryLambdaVersionsExecute(r ApiListQueryLa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3275,7 +3431,6 @@ type ApiListQueryLambdasInWorkspaceRequest struct {
 	ApiService QueryLambdasApi
 	workspace string
 }
-
 
 func (r ApiListQueryLambdasInWorkspaceRequest) Execute() (*ListQueryLambdasResponse, *http.Response, error) {
 	return r.ApiService.ListQueryLambdasInWorkspaceExecute(r)
@@ -3314,7 +3469,7 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3347,9 +3502,9 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3366,7 +3521,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -3376,7 +3532,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3386,7 +3543,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3396,7 +3554,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -3406,7 +3565,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3416,7 +3576,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3426,7 +3587,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3436,7 +3598,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3446,7 +3609,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3456,7 +3620,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3466,7 +3631,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3476,7 +3642,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3486,7 +3653,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3496,7 +3664,8 @@ func (a *QueryLambdasApiService) ListQueryLambdasInWorkspaceExecute(r ApiListQue
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3527,6 +3696,7 @@ func (r ApiUpdateQueryLambdaRequest) Body(body UpdateQueryLambdaRequest) ApiUpda
 	r.body = &body
 	return r
 }
+
 // Create a new Query Lambda if one does not exist already.
 func (r ApiUpdateQueryLambdaRequest) Create(create bool) ApiUpdateQueryLambdaRequest {
 	r.create = &create
@@ -3572,8 +3742,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 	}
 
 	localVarPath := localBasePath + "/v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterToString(r.workspace, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterToString(r.queryLambda, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"workspace"+"}", url.PathEscape(parameterValueToString(r.workspace, "workspace")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"queryLambda"+"}", url.PathEscape(parameterValueToString(r.queryLambda, "queryLambda")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3583,7 +3753,7 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 	}
 
 	if r.create != nil {
-		localVarQueryParams.Add("create", parameterToString(*r.create, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "create", r.create, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -3614,9 +3784,9 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3633,7 +3803,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -3643,7 +3814,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3653,7 +3825,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3663,7 +3836,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -3673,7 +3847,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3683,7 +3858,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3693,7 +3869,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3703,7 +3880,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3713,7 +3891,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3723,7 +3902,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3733,7 +3913,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3743,7 +3924,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3753,7 +3935,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3763,7 +3946,8 @@ func (a *QueryLambdasApiService) UpdateQueryLambdaExecute(r ApiUpdateQueryLambda
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KafkaV3SecurityConfig type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KafkaV3SecurityConfig{}
+
 // KafkaV3SecurityConfig struct for KafkaV3SecurityConfig
 type KafkaV3SecurityConfig struct {
 	ApiKey *string `json:"api_key,omitempty"`
@@ -39,7 +42,7 @@ func NewKafkaV3SecurityConfigWithDefaults() *KafkaV3SecurityConfig {
 
 // GetApiKey returns the ApiKey field value if set, zero value otherwise.
 func (o *KafkaV3SecurityConfig) GetApiKey() string {
-	if o == nil || o.ApiKey == nil {
+	if o == nil || IsNil(o.ApiKey) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *KafkaV3SecurityConfig) GetApiKey() string {
 // GetApiKeyOk returns a tuple with the ApiKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaV3SecurityConfig) GetApiKeyOk() (*string, bool) {
-	if o == nil || o.ApiKey == nil {
+	if o == nil || IsNil(o.ApiKey) {
 		return nil, false
 	}
 	return o.ApiKey, true
@@ -57,7 +60,7 @@ func (o *KafkaV3SecurityConfig) GetApiKeyOk() (*string, bool) {
 
 // HasApiKey returns a boolean if a field has been set.
 func (o *KafkaV3SecurityConfig) HasApiKey() bool {
-	if o != nil && o.ApiKey != nil {
+	if o != nil && !IsNil(o.ApiKey) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *KafkaV3SecurityConfig) SetApiKey(v string) {
 
 // GetSecret returns the Secret field value if set, zero value otherwise.
 func (o *KafkaV3SecurityConfig) GetSecret() string {
-	if o == nil || o.Secret == nil {
+	if o == nil || IsNil(o.Secret) {
 		var ret string
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *KafkaV3SecurityConfig) GetSecret() string {
 // GetSecretOk returns a tuple with the Secret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KafkaV3SecurityConfig) GetSecretOk() (*string, bool) {
-	if o == nil || o.Secret == nil {
+	if o == nil || IsNil(o.Secret) {
 		return nil, false
 	}
 	return o.Secret, true
@@ -89,7 +92,7 @@ func (o *KafkaV3SecurityConfig) GetSecretOk() (*string, bool) {
 
 // HasSecret returns a boolean if a field has been set.
 func (o *KafkaV3SecurityConfig) HasSecret() bool {
-	if o != nil && o.Secret != nil {
+	if o != nil && !IsNil(o.Secret) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *KafkaV3SecurityConfig) SetSecret(v string) {
 }
 
 func (o KafkaV3SecurityConfig) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ApiKey != nil {
-		toSerialize["api_key"] = o.ApiKey
-	}
-	if o.Secret != nil {
-		toSerialize["secret"] = o.Secret
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KafkaV3SecurityConfig) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApiKey) {
+		toSerialize["api_key"] = o.ApiKey
+	}
+	if !IsNil(o.Secret) {
+		toSerialize["secret"] = o.Secret
+	}
+	return toSerialize, nil
 }
 
 type NullableKafkaV3SecurityConfig struct {

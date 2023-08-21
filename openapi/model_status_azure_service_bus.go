@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusAzureServiceBus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusAzureServiceBus{}
+
 // StatusAzureServiceBus struct for StatusAzureServiceBus
 type StatusAzureServiceBus struct {
 	// Service Bus first message processed time in ISO-8601 format.
@@ -43,7 +46,7 @@ func NewStatusAzureServiceBusWithDefaults() *StatusAzureServiceBus {
 
 // GetFirstProcessedAt returns the FirstProcessedAt field value if set, zero value otherwise.
 func (o *StatusAzureServiceBus) GetFirstProcessedAt() string {
-	if o == nil || o.FirstProcessedAt == nil {
+	if o == nil || IsNil(o.FirstProcessedAt) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *StatusAzureServiceBus) GetFirstProcessedAt() string {
 // GetFirstProcessedAtOk returns a tuple with the FirstProcessedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureServiceBus) GetFirstProcessedAtOk() (*string, bool) {
-	if o == nil || o.FirstProcessedAt == nil {
+	if o == nil || IsNil(o.FirstProcessedAt) {
 		return nil, false
 	}
 	return o.FirstProcessedAt, true
@@ -61,7 +64,7 @@ func (o *StatusAzureServiceBus) GetFirstProcessedAtOk() (*string, bool) {
 
 // HasFirstProcessedAt returns a boolean if a field has been set.
 func (o *StatusAzureServiceBus) HasFirstProcessedAt() bool {
-	if o != nil && o.FirstProcessedAt != nil {
+	if o != nil && !IsNil(o.FirstProcessedAt) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *StatusAzureServiceBus) SetFirstProcessedAt(v string) {
 
 // GetRecordsProcessed returns the RecordsProcessed field value if set, zero value otherwise.
 func (o *StatusAzureServiceBus) GetRecordsProcessed() int64 {
-	if o == nil || o.RecordsProcessed == nil {
+	if o == nil || IsNil(o.RecordsProcessed) {
 		var ret int64
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *StatusAzureServiceBus) GetRecordsProcessed() int64 {
 // GetRecordsProcessedOk returns a tuple with the RecordsProcessed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureServiceBus) GetRecordsProcessedOk() (*int64, bool) {
-	if o == nil || o.RecordsProcessed == nil {
+	if o == nil || IsNil(o.RecordsProcessed) {
 		return nil, false
 	}
 	return o.RecordsProcessed, true
@@ -93,7 +96,7 @@ func (o *StatusAzureServiceBus) GetRecordsProcessedOk() (*int64, bool) {
 
 // HasRecordsProcessed returns a boolean if a field has been set.
 func (o *StatusAzureServiceBus) HasRecordsProcessed() bool {
-	if o != nil && o.RecordsProcessed != nil {
+	if o != nil && !IsNil(o.RecordsProcessed) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *StatusAzureServiceBus) SetRecordsProcessed(v int64) {
 
 // GetSessions returns the Sessions field value if set, zero value otherwise.
 func (o *StatusAzureServiceBus) GetSessions() map[string]StatusAzureServiceBusSession {
-	if o == nil || o.Sessions == nil {
+	if o == nil || IsNil(o.Sessions) {
 		var ret map[string]StatusAzureServiceBusSession
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *StatusAzureServiceBus) GetSessions() map[string]StatusAzureServiceBusSe
 // GetSessionsOk returns a tuple with the Sessions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureServiceBus) GetSessionsOk() (*map[string]StatusAzureServiceBusSession, bool) {
-	if o == nil || o.Sessions == nil {
+	if o == nil || IsNil(o.Sessions) {
 		return nil, false
 	}
 	return o.Sessions, true
@@ -125,7 +128,7 @@ func (o *StatusAzureServiceBus) GetSessionsOk() (*map[string]StatusAzureServiceB
 
 // HasSessions returns a boolean if a field has been set.
 func (o *StatusAzureServiceBus) HasSessions() bool {
-	if o != nil && o.Sessions != nil {
+	if o != nil && !IsNil(o.Sessions) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *StatusAzureServiceBus) SetSessions(v map[string]StatusAzureServiceBusSe
 }
 
 func (o StatusAzureServiceBus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.FirstProcessedAt != nil {
-		toSerialize["first_processed_at"] = o.FirstProcessedAt
-	}
-	if o.RecordsProcessed != nil {
-		toSerialize["records_processed"] = o.RecordsProcessed
-	}
-	if o.Sessions != nil {
-		toSerialize["sessions"] = o.Sessions
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusAzureServiceBus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.FirstProcessedAt) {
+		toSerialize["first_processed_at"] = o.FirstProcessedAt
+	}
+	if !IsNil(o.RecordsProcessed) {
+		toSerialize["records_processed"] = o.RecordsProcessed
+	}
+	if !IsNil(o.Sessions) {
+		toSerialize["sessions"] = o.Sessions
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusAzureServiceBus struct {

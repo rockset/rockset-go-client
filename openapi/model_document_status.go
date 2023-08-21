@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DocumentStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DocumentStatus{}
+
 // DocumentStatus struct for DocumentStatus
 type DocumentStatus struct {
 	// Collection name.
@@ -46,7 +49,7 @@ func NewDocumentStatusWithDefaults() *DocumentStatus {
 
 // GetCollection returns the Collection field value if set, zero value otherwise.
 func (o *DocumentStatus) GetCollection() string {
-	if o == nil || o.Collection == nil {
+	if o == nil || IsNil(o.Collection) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *DocumentStatus) GetCollection() string {
 // GetCollectionOk returns a tuple with the Collection field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DocumentStatus) GetCollectionOk() (*string, bool) {
-	if o == nil || o.Collection == nil {
+	if o == nil || IsNil(o.Collection) {
 		return nil, false
 	}
 	return o.Collection, true
@@ -64,7 +67,7 @@ func (o *DocumentStatus) GetCollectionOk() (*string, bool) {
 
 // HasCollection returns a boolean if a field has been set.
 func (o *DocumentStatus) HasCollection() bool {
-	if o != nil && o.Collection != nil {
+	if o != nil && !IsNil(o.Collection) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *DocumentStatus) SetCollection(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *DocumentStatus) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *DocumentStatus) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DocumentStatus) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -96,7 +99,7 @@ func (o *DocumentStatus) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *DocumentStatus) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *DocumentStatus) SetId(v string) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *DocumentStatus) GetError() ErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret ErrorModel
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *DocumentStatus) GetError() ErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DocumentStatus) GetErrorOk() (*ErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -128,7 +131,7 @@ func (o *DocumentStatus) GetErrorOk() (*ErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *DocumentStatus) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *DocumentStatus) SetError(v ErrorModel) {
 
 // GetPatchId returns the PatchId field value if set, zero value otherwise.
 func (o *DocumentStatus) GetPatchId() string {
-	if o == nil || o.PatchId == nil {
+	if o == nil || IsNil(o.PatchId) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *DocumentStatus) GetPatchId() string {
 // GetPatchIdOk returns a tuple with the PatchId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DocumentStatus) GetPatchIdOk() (*string, bool) {
-	if o == nil || o.PatchId == nil {
+	if o == nil || IsNil(o.PatchId) {
 		return nil, false
 	}
 	return o.PatchId, true
@@ -160,7 +163,7 @@ func (o *DocumentStatus) GetPatchIdOk() (*string, bool) {
 
 // HasPatchId returns a boolean if a field has been set.
 func (o *DocumentStatus) HasPatchId() bool {
-	if o != nil && o.PatchId != nil {
+	if o != nil && !IsNil(o.PatchId) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *DocumentStatus) SetPatchId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *DocumentStatus) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *DocumentStatus) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DocumentStatus) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -192,7 +195,7 @@ func (o *DocumentStatus) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *DocumentStatus) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -205,23 +208,31 @@ func (o *DocumentStatus) SetStatus(v string) {
 }
 
 func (o DocumentStatus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Collection != nil {
-		toSerialize["_collection"] = o.Collection
-	}
-	if o.Id != nil {
-		toSerialize["_id"] = o.Id
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
-	}
-	if o.PatchId != nil {
-		toSerialize["patch_id"] = o.PatchId
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DocumentStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Collection) {
+		toSerialize["_collection"] = o.Collection
+	}
+	if !IsNil(o.Id) {
+		toSerialize["_id"] = o.Id
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.PatchId) {
+		toSerialize["patch_id"] = o.PatchId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	return toSerialize, nil
 }
 
 type NullableDocumentStatus struct {

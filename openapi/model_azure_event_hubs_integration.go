@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AzureEventHubsIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AzureEventHubsIntegration{}
+
 // AzureEventHubsIntegration struct for AzureEventHubsIntegration
 type AzureEventHubsIntegration struct {
 	// Credentials for the Azure Event Hubs.
@@ -39,7 +42,7 @@ func NewAzureEventHubsIntegrationWithDefaults() *AzureEventHubsIntegration {
 
 // GetConnectionString returns the ConnectionString field value if set, zero value otherwise.
 func (o *AzureEventHubsIntegration) GetConnectionString() string {
-	if o == nil || o.ConnectionString == nil {
+	if o == nil || IsNil(o.ConnectionString) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *AzureEventHubsIntegration) GetConnectionString() string {
 // GetConnectionStringOk returns a tuple with the ConnectionString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AzureEventHubsIntegration) GetConnectionStringOk() (*string, bool) {
-	if o == nil || o.ConnectionString == nil {
+	if o == nil || IsNil(o.ConnectionString) {
 		return nil, false
 	}
 	return o.ConnectionString, true
@@ -57,7 +60,7 @@ func (o *AzureEventHubsIntegration) GetConnectionStringOk() (*string, bool) {
 
 // HasConnectionString returns a boolean if a field has been set.
 func (o *AzureEventHubsIntegration) HasConnectionString() bool {
-	if o != nil && o.ConnectionString != nil {
+	if o != nil && !IsNil(o.ConnectionString) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *AzureEventHubsIntegration) SetConnectionString(v string) {
 }
 
 func (o AzureEventHubsIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ConnectionString != nil {
-		toSerialize["connection_string"] = o.ConnectionString
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AzureEventHubsIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ConnectionString) {
+		toSerialize["connection_string"] = o.ConnectionString
+	}
+	return toSerialize, nil
 }
 
 type NullableAzureEventHubsIntegration struct {

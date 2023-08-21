@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Status type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Status{}
+
 // Status struct for Status
 type Status struct {
 	// Size in bytes detected for the source at collection initialization. This size can be 0 or null for event stream sources.
@@ -49,7 +52,7 @@ func NewStatusWithDefaults() *Status {
 
 // GetDetectedSizeBytes returns the DetectedSizeBytes field value if set, zero value otherwise.
 func (o *Status) GetDetectedSizeBytes() int64 {
-	if o == nil || o.DetectedSizeBytes == nil {
+	if o == nil || IsNil(o.DetectedSizeBytes) {
 		var ret int64
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *Status) GetDetectedSizeBytes() int64 {
 // GetDetectedSizeBytesOk returns a tuple with the DetectedSizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Status) GetDetectedSizeBytesOk() (*int64, bool) {
-	if o == nil || o.DetectedSizeBytes == nil {
+	if o == nil || IsNil(o.DetectedSizeBytes) {
 		return nil, false
 	}
 	return o.DetectedSizeBytes, true
@@ -67,7 +70,7 @@ func (o *Status) GetDetectedSizeBytesOk() (*int64, bool) {
 
 // HasDetectedSizeBytes returns a boolean if a field has been set.
 func (o *Status) HasDetectedSizeBytes() bool {
-	if o != nil && o.DetectedSizeBytes != nil {
+	if o != nil && !IsNil(o.DetectedSizeBytes) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *Status) SetDetectedSizeBytes(v int64) {
 
 // GetLastProcessedAt returns the LastProcessedAt field value if set, zero value otherwise.
 func (o *Status) GetLastProcessedAt() string {
-	if o == nil || o.LastProcessedAt == nil {
+	if o == nil || IsNil(o.LastProcessedAt) {
 		var ret string
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *Status) GetLastProcessedAt() string {
 // GetLastProcessedAtOk returns a tuple with the LastProcessedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Status) GetLastProcessedAtOk() (*string, bool) {
-	if o == nil || o.LastProcessedAt == nil {
+	if o == nil || IsNil(o.LastProcessedAt) {
 		return nil, false
 	}
 	return o.LastProcessedAt, true
@@ -99,7 +102,7 @@ func (o *Status) GetLastProcessedAtOk() (*string, bool) {
 
 // HasLastProcessedAt returns a boolean if a field has been set.
 func (o *Status) HasLastProcessedAt() bool {
-	if o != nil && o.LastProcessedAt != nil {
+	if o != nil && !IsNil(o.LastProcessedAt) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *Status) SetLastProcessedAt(v string) {
 
 // GetLastProcessedItem returns the LastProcessedItem field value if set, zero value otherwise.
 func (o *Status) GetLastProcessedItem() string {
-	if o == nil || o.LastProcessedItem == nil {
+	if o == nil || IsNil(o.LastProcessedItem) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *Status) GetLastProcessedItem() string {
 // GetLastProcessedItemOk returns a tuple with the LastProcessedItem field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Status) GetLastProcessedItemOk() (*string, bool) {
-	if o == nil || o.LastProcessedItem == nil {
+	if o == nil || IsNil(o.LastProcessedItem) {
 		return nil, false
 	}
 	return o.LastProcessedItem, true
@@ -131,7 +134,7 @@ func (o *Status) GetLastProcessedItemOk() (*string, bool) {
 
 // HasLastProcessedItem returns a boolean if a field has been set.
 func (o *Status) HasLastProcessedItem() bool {
-	if o != nil && o.LastProcessedItem != nil {
+	if o != nil && !IsNil(o.LastProcessedItem) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *Status) SetLastProcessedItem(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *Status) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *Status) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Status) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -163,7 +166,7 @@ func (o *Status) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *Status) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *Status) SetMessage(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *Status) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *Status) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Status) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -195,7 +198,7 @@ func (o *Status) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *Status) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -209,7 +212,7 @@ func (o *Status) SetState(v string) {
 
 // GetTotalProcessedItems returns the TotalProcessedItems field value if set, zero value otherwise.
 func (o *Status) GetTotalProcessedItems() int64 {
-	if o == nil || o.TotalProcessedItems == nil {
+	if o == nil || IsNil(o.TotalProcessedItems) {
 		var ret int64
 		return ret
 	}
@@ -219,7 +222,7 @@ func (o *Status) GetTotalProcessedItems() int64 {
 // GetTotalProcessedItemsOk returns a tuple with the TotalProcessedItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Status) GetTotalProcessedItemsOk() (*int64, bool) {
-	if o == nil || o.TotalProcessedItems == nil {
+	if o == nil || IsNil(o.TotalProcessedItems) {
 		return nil, false
 	}
 	return o.TotalProcessedItems, true
@@ -227,7 +230,7 @@ func (o *Status) GetTotalProcessedItemsOk() (*int64, bool) {
 
 // HasTotalProcessedItems returns a boolean if a field has been set.
 func (o *Status) HasTotalProcessedItems() bool {
-	if o != nil && o.TotalProcessedItems != nil {
+	if o != nil && !IsNil(o.TotalProcessedItems) {
 		return true
 	}
 
@@ -240,26 +243,34 @@ func (o *Status) SetTotalProcessedItems(v int64) {
 }
 
 func (o Status) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DetectedSizeBytes != nil {
-		toSerialize["detected_size_bytes"] = o.DetectedSizeBytes
-	}
-	if o.LastProcessedAt != nil {
-		toSerialize["last_processed_at"] = o.LastProcessedAt
-	}
-	if o.LastProcessedItem != nil {
-		toSerialize["last_processed_item"] = o.LastProcessedItem
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.TotalProcessedItems != nil {
-		toSerialize["total_processed_items"] = o.TotalProcessedItems
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Status) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DetectedSizeBytes) {
+		toSerialize["detected_size_bytes"] = o.DetectedSizeBytes
+	}
+	if !IsNil(o.LastProcessedAt) {
+		toSerialize["last_processed_at"] = o.LastProcessedAt
+	}
+	if !IsNil(o.LastProcessedItem) {
+		toSerialize["last_processed_item"] = o.LastProcessedItem
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.TotalProcessedItems) {
+		toSerialize["total_processed_items"] = o.TotalProcessedItems
+	}
+	return toSerialize, nil
 }
 
 type NullableStatus struct {

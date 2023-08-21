@@ -9,12 +9,12 @@ rm -rf openapi/*
 docker run --rm \
     -v "${PWD}:/rockset" \
     -u "$(id -u):$(id -g)" \
-    openapitools/openapi-generator-cli:v5.4.0 generate \
+    openapitools/openapi-generator-cli:v6.6.0 generate \
     -g go \
-    --config /rockset/generator/config.json \
     -i /rockset/spec/spec2.yaml \
     --git-user-id rockset \
     --git-repo-id rockset-go-client \
+    --global-property modelTests=false,apiTests=false \
     --additional-properties "packageVersion=${VERSION},generateInterfaces=true" \
     -o /rockset/openapi
 

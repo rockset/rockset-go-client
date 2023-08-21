@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryRequest{}
+
 // QueryRequest struct for QueryRequest
 type QueryRequest struct {
 	// If true, the query will run asynchronously for up to 30 minutes. The query request will immediately return with a query id that can be used to retrieve the query status and results. If false or not specified, the query will return with results once completed or timeout after 2 minutes. (To return results directly for shorter queries while still allowing a timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) 
@@ -48,7 +51,7 @@ func NewQueryRequestWithDefaults() *QueryRequest {
 
 // GetAsync returns the Async field value if set, zero value otherwise.
 func (o *QueryRequest) GetAsync() bool {
-	if o == nil || o.Async == nil {
+	if o == nil || IsNil(o.Async) {
 		var ret bool
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *QueryRequest) GetAsync() bool {
 // GetAsyncOk returns a tuple with the Async field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequest) GetAsyncOk() (*bool, bool) {
-	if o == nil || o.Async == nil {
+	if o == nil || IsNil(o.Async) {
 		return nil, false
 	}
 	return o.Async, true
@@ -66,7 +69,7 @@ func (o *QueryRequest) GetAsyncOk() (*bool, bool) {
 
 // HasAsync returns a boolean if a field has been set.
 func (o *QueryRequest) HasAsync() bool {
-	if o != nil && o.Async != nil {
+	if o != nil && !IsNil(o.Async) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *QueryRequest) SetAsync(v bool) {
 
 // GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
 func (o *QueryRequest) GetAsyncOptions() AsyncQueryOptions {
-	if o == nil || o.AsyncOptions == nil {
+	if o == nil || IsNil(o.AsyncOptions) {
 		var ret AsyncQueryOptions
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *QueryRequest) GetAsyncOptions() AsyncQueryOptions {
 // GetAsyncOptionsOk returns a tuple with the AsyncOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
-	if o == nil || o.AsyncOptions == nil {
+	if o == nil || IsNil(o.AsyncOptions) {
 		return nil, false
 	}
 	return o.AsyncOptions, true
@@ -98,7 +101,7 @@ func (o *QueryRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
 
 // HasAsyncOptions returns a boolean if a field has been set.
 func (o *QueryRequest) HasAsyncOptions() bool {
-	if o != nil && o.AsyncOptions != nil {
+	if o != nil && !IsNil(o.AsyncOptions) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *QueryRequest) SetAsyncOptions(v AsyncQueryOptions) {
 
 // GetDebugThresholdMs returns the DebugThresholdMs field value if set, zero value otherwise.
 func (o *QueryRequest) GetDebugThresholdMs() int64 {
-	if o == nil || o.DebugThresholdMs == nil {
+	if o == nil || IsNil(o.DebugThresholdMs) {
 		var ret int64
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *QueryRequest) GetDebugThresholdMs() int64 {
 // GetDebugThresholdMsOk returns a tuple with the DebugThresholdMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequest) GetDebugThresholdMsOk() (*int64, bool) {
-	if o == nil || o.DebugThresholdMs == nil {
+	if o == nil || IsNil(o.DebugThresholdMs) {
 		return nil, false
 	}
 	return o.DebugThresholdMs, true
@@ -130,7 +133,7 @@ func (o *QueryRequest) GetDebugThresholdMsOk() (*int64, bool) {
 
 // HasDebugThresholdMs returns a boolean if a field has been set.
 func (o *QueryRequest) HasDebugThresholdMs() bool {
-	if o != nil && o.DebugThresholdMs != nil {
+	if o != nil && !IsNil(o.DebugThresholdMs) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *QueryRequest) SetDebugThresholdMs(v int64) {
 
 // GetMaxInitialResults returns the MaxInitialResults field value if set, zero value otherwise.
 func (o *QueryRequest) GetMaxInitialResults() int64 {
-	if o == nil || o.MaxInitialResults == nil {
+	if o == nil || IsNil(o.MaxInitialResults) {
 		var ret int64
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *QueryRequest) GetMaxInitialResults() int64 {
 // GetMaxInitialResultsOk returns a tuple with the MaxInitialResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequest) GetMaxInitialResultsOk() (*int64, bool) {
-	if o == nil || o.MaxInitialResults == nil {
+	if o == nil || IsNil(o.MaxInitialResults) {
 		return nil, false
 	}
 	return o.MaxInitialResults, true
@@ -162,7 +165,7 @@ func (o *QueryRequest) GetMaxInitialResultsOk() (*int64, bool) {
 
 // HasMaxInitialResults returns a boolean if a field has been set.
 func (o *QueryRequest) HasMaxInitialResults() bool {
-	if o != nil && o.MaxInitialResults != nil {
+	if o != nil && !IsNil(o.MaxInitialResults) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *QueryRequest) GetSql() QueryRequestSql {
 // GetSqlOk returns a tuple with the Sql field value
 // and a boolean to check if the value has been set.
 func (o *QueryRequest) GetSqlOk() (*QueryRequestSql, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Sql, true
@@ -200,7 +203,7 @@ func (o *QueryRequest) SetSql(v QueryRequestSql) {
 
 // GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
 func (o *QueryRequest) GetTimeoutMs() int64 {
-	if o == nil || o.TimeoutMs == nil {
+	if o == nil || IsNil(o.TimeoutMs) {
 		var ret int64
 		return ret
 	}
@@ -210,7 +213,7 @@ func (o *QueryRequest) GetTimeoutMs() int64 {
 // GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequest) GetTimeoutMsOk() (*int64, bool) {
-	if o == nil || o.TimeoutMs == nil {
+	if o == nil || IsNil(o.TimeoutMs) {
 		return nil, false
 	}
 	return o.TimeoutMs, true
@@ -218,7 +221,7 @@ func (o *QueryRequest) GetTimeoutMsOk() (*int64, bool) {
 
 // HasTimeoutMs returns a boolean if a field has been set.
 func (o *QueryRequest) HasTimeoutMs() bool {
-	if o != nil && o.TimeoutMs != nil {
+	if o != nil && !IsNil(o.TimeoutMs) {
 		return true
 	}
 
@@ -231,26 +234,32 @@ func (o *QueryRequest) SetTimeoutMs(v int64) {
 }
 
 func (o QueryRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Async != nil {
-		toSerialize["async"] = o.Async
-	}
-	if o.AsyncOptions != nil {
-		toSerialize["async_options"] = o.AsyncOptions
-	}
-	if o.DebugThresholdMs != nil {
-		toSerialize["debug_threshold_ms"] = o.DebugThresholdMs
-	}
-	if o.MaxInitialResults != nil {
-		toSerialize["max_initial_results"] = o.MaxInitialResults
-	}
-	if true {
-		toSerialize["sql"] = o.Sql
-	}
-	if o.TimeoutMs != nil {
-		toSerialize["timeout_ms"] = o.TimeoutMs
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Async) {
+		toSerialize["async"] = o.Async
+	}
+	if !IsNil(o.AsyncOptions) {
+		toSerialize["async_options"] = o.AsyncOptions
+	}
+	if !IsNil(o.DebugThresholdMs) {
+		toSerialize["debug_threshold_ms"] = o.DebugThresholdMs
+	}
+	if !IsNil(o.MaxInitialResults) {
+		toSerialize["max_initial_results"] = o.MaxInitialResults
+	}
+	toSerialize["sql"] = o.Sql
+	if !IsNil(o.TimeoutMs) {
+		toSerialize["timeout_ms"] = o.TimeoutMs
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryRequest struct {

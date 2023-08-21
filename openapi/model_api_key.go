@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ApiKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiKey{}
+
 // ApiKey API keys are used to authenticate requests to Rockset's API. An API key is tied to the user who creates it.
 type ApiKey struct {
 	// Date that API key was created (ISO-8601 format).
@@ -57,7 +60,7 @@ func NewApiKeyWithDefaults() *ApiKey {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ApiKey) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ApiKey) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -75,7 +78,7 @@ func (o *ApiKey) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ApiKey) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ApiKey) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *ApiKey) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ApiKey) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -107,7 +110,7 @@ func (o *ApiKey) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *ApiKey) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *ApiKey) SetCreatedBy(v string) {
 
 // GetCreatedByApikeyName returns the CreatedByApikeyName field value if set, zero value otherwise.
 func (o *ApiKey) GetCreatedByApikeyName() string {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *ApiKey) GetCreatedByApikeyName() string {
 // GetCreatedByApikeyNameOk returns a tuple with the CreatedByApikeyName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetCreatedByApikeyNameOk() (*string, bool) {
-	if o == nil || o.CreatedByApikeyName == nil {
+	if o == nil || IsNil(o.CreatedByApikeyName) {
 		return nil, false
 	}
 	return o.CreatedByApikeyName, true
@@ -139,7 +142,7 @@ func (o *ApiKey) GetCreatedByApikeyNameOk() (*string, bool) {
 
 // HasCreatedByApikeyName returns a boolean if a field has been set.
 func (o *ApiKey) HasCreatedByApikeyName() bool {
-	if o != nil && o.CreatedByApikeyName != nil {
+	if o != nil && !IsNil(o.CreatedByApikeyName) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *ApiKey) SetCreatedByApikeyName(v string) {
 
 // GetExpiryTime returns the ExpiryTime field value if set, zero value otherwise.
 func (o *ApiKey) GetExpiryTime() string {
-	if o == nil || o.ExpiryTime == nil {
+	if o == nil || IsNil(o.ExpiryTime) {
 		var ret string
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *ApiKey) GetExpiryTime() string {
 // GetExpiryTimeOk returns a tuple with the ExpiryTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetExpiryTimeOk() (*string, bool) {
-	if o == nil || o.ExpiryTime == nil {
+	if o == nil || IsNil(o.ExpiryTime) {
 		return nil, false
 	}
 	return o.ExpiryTime, true
@@ -171,7 +174,7 @@ func (o *ApiKey) GetExpiryTimeOk() (*string, bool) {
 
 // HasExpiryTime returns a boolean if a field has been set.
 func (o *ApiKey) HasExpiryTime() bool {
-	if o != nil && o.ExpiryTime != nil {
+	if o != nil && !IsNil(o.ExpiryTime) {
 		return true
 	}
 
@@ -196,7 +199,7 @@ func (o *ApiKey) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetKeyOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Key, true
@@ -209,7 +212,7 @@ func (o *ApiKey) SetKey(v string) {
 
 // GetLastAccessTime returns the LastAccessTime field value if set, zero value otherwise.
 func (o *ApiKey) GetLastAccessTime() string {
-	if o == nil || o.LastAccessTime == nil {
+	if o == nil || IsNil(o.LastAccessTime) {
 		var ret string
 		return ret
 	}
@@ -219,7 +222,7 @@ func (o *ApiKey) GetLastAccessTime() string {
 // GetLastAccessTimeOk returns a tuple with the LastAccessTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetLastAccessTimeOk() (*string, bool) {
-	if o == nil || o.LastAccessTime == nil {
+	if o == nil || IsNil(o.LastAccessTime) {
 		return nil, false
 	}
 	return o.LastAccessTime, true
@@ -227,7 +230,7 @@ func (o *ApiKey) GetLastAccessTimeOk() (*string, bool) {
 
 // HasLastAccessTime returns a boolean if a field has been set.
 func (o *ApiKey) HasLastAccessTime() bool {
-	if o != nil && o.LastAccessTime != nil {
+	if o != nil && !IsNil(o.LastAccessTime) {
 		return true
 	}
 
@@ -252,7 +255,7 @@ func (o *ApiKey) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -265,7 +268,7 @@ func (o *ApiKey) SetName(v string) {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *ApiKey) GetRole() string {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret string
 		return ret
 	}
@@ -275,7 +278,7 @@ func (o *ApiKey) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -283,7 +286,7 @@ func (o *ApiKey) GetRoleOk() (*string, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *ApiKey) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -297,7 +300,7 @@ func (o *ApiKey) SetRole(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *ApiKey) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -307,7 +310,7 @@ func (o *ApiKey) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiKey) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -315,7 +318,7 @@ func (o *ApiKey) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *ApiKey) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -328,35 +331,39 @@ func (o *ApiKey) SetState(v string) {
 }
 
 func (o ApiKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if o.CreatedByApikeyName != nil {
-		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
-	}
-	if o.ExpiryTime != nil {
-		toSerialize["expiry_time"] = o.ExpiryTime
-	}
-	if true {
-		toSerialize["key"] = o.Key
-	}
-	if o.LastAccessTime != nil {
-		toSerialize["last_access_time"] = o.LastAccessTime
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Role != nil {
-		toSerialize["role"] = o.Role
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApiKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	if !IsNil(o.CreatedByApikeyName) {
+		toSerialize["created_by_apikey_name"] = o.CreatedByApikeyName
+	}
+	if !IsNil(o.ExpiryTime) {
+		toSerialize["expiry_time"] = o.ExpiryTime
+	}
+	toSerialize["key"] = o.Key
+	if !IsNil(o.LastAccessTime) {
+		toSerialize["last_access_time"] = o.LastAccessTime
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	return toSerialize, nil
 }
 
 type NullableApiKey struct {

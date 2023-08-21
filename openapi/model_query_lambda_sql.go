@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryLambdaSql type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryLambdaSql{}
+
 // QueryLambdaSql struct for QueryLambdaSql
 type QueryLambdaSql struct {
 	// Default parameters for this Query Lambda.
@@ -42,7 +45,7 @@ func NewQueryLambdaSqlWithDefaults() *QueryLambdaSql {
 
 // GetDefaultParameters returns the DefaultParameters field value if set, zero value otherwise.
 func (o *QueryLambdaSql) GetDefaultParameters() []QueryParameter {
-	if o == nil || o.DefaultParameters == nil {
+	if o == nil || IsNil(o.DefaultParameters) {
 		var ret []QueryParameter
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *QueryLambdaSql) GetDefaultParameters() []QueryParameter {
 // GetDefaultParametersOk returns a tuple with the DefaultParameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaSql) GetDefaultParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.DefaultParameters == nil {
+	if o == nil || IsNil(o.DefaultParameters) {
 		return nil, false
 	}
 	return o.DefaultParameters, true
@@ -60,7 +63,7 @@ func (o *QueryLambdaSql) GetDefaultParametersOk() ([]QueryParameter, bool) {
 
 // HasDefaultParameters returns a boolean if a field has been set.
 func (o *QueryLambdaSql) HasDefaultParameters() bool {
-	if o != nil && o.DefaultParameters != nil {
+	if o != nil && !IsNil(o.DefaultParameters) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *QueryLambdaSql) GetQuery() string {
 // GetQueryOk returns a tuple with the Query field value
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaSql) GetQueryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Query, true
@@ -97,14 +100,20 @@ func (o *QueryLambdaSql) SetQuery(v string) {
 }
 
 func (o QueryLambdaSql) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DefaultParameters != nil {
-		toSerialize["default_parameters"] = o.DefaultParameters
-	}
-	if true {
-		toSerialize["query"] = o.Query
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryLambdaSql) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DefaultParameters) {
+		toSerialize["default_parameters"] = o.DefaultParameters
+	}
+	toSerialize["query"] = o.Query
+	return toSerialize, nil
 }
 
 type NullableQueryLambdaSql struct {
