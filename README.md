@@ -48,6 +48,19 @@ if err != nil {
 fmt.Printf("%+v\n", res)
 ```
 
+## Updating the OpenAPI specification
+
+If the OpenAPI specification has changed, you need to regenerate the OpenAPI client
+
+```
+# bump the minor version
+vi version.go 
+# generate a new client
+./generate.sh
+# record new VCR cassettes
+VCR_MODE=record go test ./...
+```
+
 ## Testing
 
 There are a number of testable examples which require an API key, i.e. set the `ROCKSET_APIKEY` and `ROCKSET_APISERVER`
@@ -60,8 +73,11 @@ go test -v -timeout 30m ./...
 
 ### Go VCR
 
-Some tests use [Go VCR](https://github.com/seborama/govcr), and they will use a cassette (recorded response) by default,
+Most tests use [Go VCR](https://github.com/seborama/govcr), and they will use a cassette (recorded response) by default,
 so if you want to re-record a cassette, set the environment variable `VCR_MODE` to `record`.
+
+The VCR tracks ignore the patch version of the client version, so when the OpenAPI spec is updated you have to
+re-record the VCR cassettes.
 
 ### Code Coverage
 

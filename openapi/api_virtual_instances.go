@@ -29,7 +29,7 @@ type VirtualInstancesApi interface {
 	/*
 	CreateVirtualInstance Create Virtual Instance
 
-	[beta] Create virtual instance
+	Create virtual instance
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateVirtualInstanceRequest
@@ -43,7 +43,7 @@ type VirtualInstancesApi interface {
 	/*
 	DeleteVirtualInstance Delete Virtual Instance
 
-	[beta] Delete a virtual instance.
+	Delete a virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -58,7 +58,7 @@ type VirtualInstancesApi interface {
 	/*
 	GetCollectionMount Get Collection Mount
 
-	[beta] Retrieve a mount on this virtual instance.
+	Retrieve a mount on this virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -89,7 +89,7 @@ type VirtualInstancesApi interface {
 	/*
 	GetVirtualInstanceQueries List Queries
 
-	[beta] Lists actively queued and running queries for a particular Virtual Instance.
+	Lists actively queued and running queries for a particular Virtual Instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -104,7 +104,7 @@ type VirtualInstancesApi interface {
 	/*
 	ListCollectionMounts List Collection Mounts
 
-	[beta] List collection mounts for a particular VI.
+	List collection mounts for a particular VI.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -133,7 +133,7 @@ type VirtualInstancesApi interface {
 	/*
 	MountCollection Mount Collections
 
-	[beta] Mount a collection to this virtual instance.
+	Mount a collection to this virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -148,7 +148,7 @@ type VirtualInstancesApi interface {
 	/*
 	QueryVirtualInstance Execute SQL Query
 
-	[beta] Make a SQL query to Rockset.
+	Make a SQL query to Rockset.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -163,7 +163,7 @@ type VirtualInstancesApi interface {
 	/*
 	ResumeVirtualInstance Resume Virtual Instance
 
-	[beta] Resume a virtual instance.
+	Resume a virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -193,7 +193,7 @@ type VirtualInstancesApi interface {
 	/*
 	SuspendVirtualInstance Suspend Virtual Instance
 
-	[beta] Suspend a virtual instance.
+	Suspend a virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -208,7 +208,7 @@ type VirtualInstancesApi interface {
 	/*
 	UnmountCollection Unmount Collection
 
-	[beta] Unmount a collection from this virtual instance.
+	Unmount a collection from this virtual instance.
 
 	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param virtualInstanceId Virtual Instance RRN
@@ -244,7 +244,7 @@ func (r ApiCreateVirtualInstanceRequest) Execute() (*CreateVirtualInstanceRespon
 /*
 CreateVirtualInstance Create Virtual Instance
 
-[beta] Create virtual instance
+Create virtual instance
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateVirtualInstanceRequest
@@ -391,6 +391,16 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -479,7 +489,7 @@ func (r ApiDeleteVirtualInstanceRequest) Execute() (*DeleteVirtualInstanceRespon
 /*
 DeleteVirtualInstance Delete Virtual Instance
 
-[beta] Delete a virtual instance.
+Delete a virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -624,6 +634,16 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -713,7 +733,7 @@ func (r ApiGetCollectionMountRequest) Execute() (*CollectionMountResponse, *http
 /*
 GetCollectionMount Get Collection Mount
 
-[beta] Retrieve a mount on this virtual instance.
+Retrieve a mount on this virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -852,6 +872,16 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1094,6 +1124,16 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -1182,7 +1222,7 @@ func (r ApiGetVirtualInstanceQueriesRequest) Execute() (*ListQueriesResponse, *h
 /*
 GetVirtualInstanceQueries List Queries
 
-[beta] Lists actively queued and running queries for a particular Virtual Instance.
+Lists actively queued and running queries for a particular Virtual Instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -1327,6 +1367,16 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -1415,7 +1465,7 @@ func (r ApiListCollectionMountsRequest) Execute() (*ListCollectionMountsResponse
 /*
 ListCollectionMounts List Collection Mounts
 
-[beta] List collection mounts for a particular VI.
+List collection mounts for a particular VI.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -1551,6 +1601,16 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1789,6 +1849,16 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -1883,7 +1953,7 @@ func (r ApiMountCollectionRequest) Execute() (*CreateCollectionMountsResponse, *
 /*
 MountCollection Mount Collections
 
-[beta] Mount a collection to this virtual instance.
+Mount a collection to this virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -2033,6 +2103,16 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -2127,7 +2207,7 @@ func (r ApiQueryVirtualInstanceRequest) Execute() (*QueryResponse, *http.Respons
 /*
 QueryVirtualInstance Execute SQL Query
 
-[beta] Make a SQL query to Rockset.
+Make a SQL query to Rockset.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -2277,6 +2357,16 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -2365,7 +2455,7 @@ func (r ApiResumeVirtualInstanceRequest) Execute() (*ResumeVirtualInstanceRespon
 /*
 ResumeVirtualInstance Resume Virtual Instance
 
-[beta] Resume a virtual instance.
+Resume a virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -2501,6 +2591,16 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -2754,6 +2854,16 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -2842,7 +2952,7 @@ func (r ApiSuspendVirtualInstanceRequest) Execute() (*SuspendVirtualInstanceResp
 /*
 SuspendVirtualInstance Suspend Virtual Instance
 
-[beta] Suspend a virtual instance.
+Suspend a virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -2987,6 +3097,16 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
 		if localVarHTTPResponse.StatusCode == 415 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
@@ -3076,7 +3196,7 @@ func (r ApiUnmountCollectionRequest) Execute() (*CollectionMountResponse, *http.
 /*
 UnmountCollection Unmount Collection
 
-[beta] Unmount a collection from this virtual instance.
+Unmount a collection from this virtual instance.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param virtualInstanceId Virtual Instance RRN
@@ -3215,6 +3335,16 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
+			var v ErrorModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
 			var v ErrorModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
