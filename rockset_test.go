@@ -132,7 +132,8 @@ func vcrClient(name string) (*rockset.RockClient, func(string) string, error) {
 	}
 
 	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path), settings...)
-	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()))
+	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()),
+		rockset.WithCustomHeader("x-rockset-test", "go-client"))
 
 	rc, err := rockset.NewClient(options...)
 	return rc, randFn, err
@@ -168,6 +169,10 @@ func vcrSettings(offline bool) []govcr.Setting {
 				return govcr.DefaultHeaderMatcher(httpRequest, trackRequest)
 			},
 		),
+		govcr.WithTrackRecordingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
+		govcr.WithTrackRecordingMutators(track.ResponseDeleteTLS()),
+		govcr.WithTrackReplayingMutators(track.TrackRequestDeleteHeaderKeys(authHeader)),
+		govcr.WithTrackReplayingMutators(track.ResponseDeleteTLS()),
 	}
 	if offline {
 		settings = append(settings, govcr.WithOfflineMode())

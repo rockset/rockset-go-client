@@ -128,6 +128,13 @@ func WithHTTPClient(c *http.Client) RockOption {
 	}
 }
 
+// WithCustomHeader sets a custom HTTP header for all Rockset API calls.
+func WithCustomHeader(key, value string) RockOption {
+	return func(rc *RockConfig) {
+		rc.cfg.AddDefaultHeader(key, value)
+	}
+}
+
 // WithRetry sets the Retrier the RockClient uses to retry requests which return a Error that can be retried.
 // The errors which can be retried are configurable using the ExponentialRetry field RetryableErrorCheck.
 //

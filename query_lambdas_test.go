@@ -35,7 +35,7 @@ func TestRockClient_CreateQueryLambda(t *testing.T) {
 // test fixtures
 const (
 	qlName    = "events"
-	qlVersion = "1921bcad817b5cc2"
+	qlVersion = "0eb7783c81ef339e"
 	qlTag     = "test"
 )
 
