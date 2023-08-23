@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateRoleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateRoleRequest{}
+
 // CreateRoleRequest struct for CreateRoleRequest
 type CreateRoleRequest struct {
 	// Description for the role.
@@ -43,7 +46,7 @@ func NewCreateRoleRequestWithDefaults() *CreateRoleRequest {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateRoleRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *CreateRoleRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRoleRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -61,7 +64,7 @@ func (o *CreateRoleRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateRoleRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *CreateRoleRequest) SetDescription(v string) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *CreateRoleRequest) GetPrivileges() []Privilege {
-	if o == nil || o.Privileges == nil {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []Privilege
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *CreateRoleRequest) GetPrivileges() []Privilege {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRoleRequest) GetPrivilegesOk() ([]Privilege, bool) {
-	if o == nil || o.Privileges == nil {
+	if o == nil || IsNil(o.Privileges) {
 		return nil, false
 	}
 	return o.Privileges, true
@@ -93,7 +96,7 @@ func (o *CreateRoleRequest) GetPrivilegesOk() ([]Privilege, bool) {
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *CreateRoleRequest) HasPrivileges() bool {
-	if o != nil && o.Privileges != nil {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *CreateRoleRequest) SetPrivileges(v []Privilege) {
 
 // GetRoleName returns the RoleName field value if set, zero value otherwise.
 func (o *CreateRoleRequest) GetRoleName() string {
-	if o == nil || o.RoleName == nil {
+	if o == nil || IsNil(o.RoleName) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *CreateRoleRequest) GetRoleName() string {
 // GetRoleNameOk returns a tuple with the RoleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateRoleRequest) GetRoleNameOk() (*string, bool) {
-	if o == nil || o.RoleName == nil {
+	if o == nil || IsNil(o.RoleName) {
 		return nil, false
 	}
 	return o.RoleName, true
@@ -125,7 +128,7 @@ func (o *CreateRoleRequest) GetRoleNameOk() (*string, bool) {
 
 // HasRoleName returns a boolean if a field has been set.
 func (o *CreateRoleRequest) HasRoleName() bool {
-	if o != nil && o.RoleName != nil {
+	if o != nil && !IsNil(o.RoleName) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *CreateRoleRequest) SetRoleName(v string) {
 }
 
 func (o CreateRoleRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Privileges != nil {
-		toSerialize["privileges"] = o.Privileges
-	}
-	if o.RoleName != nil {
-		toSerialize["role_name"] = o.RoleName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateRoleRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	if !IsNil(o.RoleName) {
+		toSerialize["role_name"] = o.RoleName
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateRoleRequest struct {

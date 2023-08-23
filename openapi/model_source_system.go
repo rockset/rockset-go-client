@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceSystem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceSystem{}
+
 // SourceSystem struct for SourceSystem
 type SourceSystem struct {
 	// The type of this system source.
@@ -39,7 +42,7 @@ func NewSourceSystemWithDefaults() *SourceSystem {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SourceSystem) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *SourceSystem) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceSystem) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -57,7 +60,7 @@ func (o *SourceSystem) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *SourceSystem) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *SourceSystem) SetType(v string) {
 }
 
 func (o SourceSystem) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceSystem) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceSystem struct {

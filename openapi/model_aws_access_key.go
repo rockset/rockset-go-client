@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AwsAccessKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AwsAccessKey{}
+
 // AwsAccessKey struct for AwsAccessKey
 type AwsAccessKey struct {
 	// AWS access key ID.
@@ -54,7 +57,7 @@ func (o *AwsAccessKey) GetAwsAccessKeyId() string {
 // GetAwsAccessKeyIdOk returns a tuple with the AwsAccessKeyId field value
 // and a boolean to check if the value has been set.
 func (o *AwsAccessKey) GetAwsAccessKeyIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AwsAccessKeyId, true
@@ -78,7 +81,7 @@ func (o *AwsAccessKey) GetAwsSecretAccessKey() string {
 // GetAwsSecretAccessKeyOk returns a tuple with the AwsSecretAccessKey field value
 // and a boolean to check if the value has been set.
 func (o *AwsAccessKey) GetAwsSecretAccessKeyOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AwsSecretAccessKey, true
@@ -90,14 +93,18 @@ func (o *AwsAccessKey) SetAwsSecretAccessKey(v string) {
 }
 
 func (o AwsAccessKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["aws_access_key_id"] = o.AwsAccessKeyId
-	}
-	if true {
-		toSerialize["aws_secret_access_key"] = o.AwsSecretAccessKey
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AwsAccessKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["aws_access_key_id"] = o.AwsAccessKeyId
+	toSerialize["aws_secret_access_key"] = o.AwsSecretAccessKey
+	return toSerialize, nil
 }
 
 type NullableAwsAccessKey struct {

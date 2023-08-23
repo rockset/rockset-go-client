@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FieldMappingQuery type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FieldMappingQuery{}
+
 // FieldMappingQuery struct for FieldMappingQuery
 type FieldMappingQuery struct {
 	// SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input.
@@ -39,7 +42,7 @@ func NewFieldMappingQueryWithDefaults() *FieldMappingQuery {
 
 // GetSql returns the Sql field value if set, zero value otherwise.
 func (o *FieldMappingQuery) GetSql() string {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *FieldMappingQuery) GetSql() string {
 // GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldMappingQuery) GetSqlOk() (*string, bool) {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		return nil, false
 	}
 	return o.Sql, true
@@ -57,7 +60,7 @@ func (o *FieldMappingQuery) GetSqlOk() (*string, bool) {
 
 // HasSql returns a boolean if a field has been set.
 func (o *FieldMappingQuery) HasSql() bool {
-	if o != nil && o.Sql != nil {
+	if o != nil && !IsNil(o.Sql) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *FieldMappingQuery) SetSql(v string) {
 }
 
 func (o FieldMappingQuery) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Sql != nil {
-		toSerialize["sql"] = o.Sql
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FieldMappingQuery) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Sql) {
+		toSerialize["sql"] = o.Sql
+	}
+	return toSerialize, nil
 }
 
 type NullableFieldMappingQuery struct {

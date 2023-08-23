@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AutoScalingPolicy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AutoScalingPolicy{}
+
 // AutoScalingPolicy struct for AutoScalingPolicy
 type AutoScalingPolicy struct {
 	// Whether auto scaling policy is enabled.
@@ -43,7 +46,7 @@ func NewAutoScalingPolicyWithDefaults() *AutoScalingPolicy {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *AutoScalingPolicy) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *AutoScalingPolicy) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoScalingPolicy) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -61,7 +64,7 @@ func (o *AutoScalingPolicy) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *AutoScalingPolicy) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *AutoScalingPolicy) SetEnabled(v bool) {
 
 // GetMaxSize returns the MaxSize field value if set, zero value otherwise.
 func (o *AutoScalingPolicy) GetMaxSize() string {
-	if o == nil || o.MaxSize == nil {
+	if o == nil || IsNil(o.MaxSize) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *AutoScalingPolicy) GetMaxSize() string {
 // GetMaxSizeOk returns a tuple with the MaxSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoScalingPolicy) GetMaxSizeOk() (*string, bool) {
-	if o == nil || o.MaxSize == nil {
+	if o == nil || IsNil(o.MaxSize) {
 		return nil, false
 	}
 	return o.MaxSize, true
@@ -93,7 +96,7 @@ func (o *AutoScalingPolicy) GetMaxSizeOk() (*string, bool) {
 
 // HasMaxSize returns a boolean if a field has been set.
 func (o *AutoScalingPolicy) HasMaxSize() bool {
-	if o != nil && o.MaxSize != nil {
+	if o != nil && !IsNil(o.MaxSize) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *AutoScalingPolicy) SetMaxSize(v string) {
 
 // GetMinSize returns the MinSize field value if set, zero value otherwise.
 func (o *AutoScalingPolicy) GetMinSize() string {
-	if o == nil || o.MinSize == nil {
+	if o == nil || IsNil(o.MinSize) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *AutoScalingPolicy) GetMinSize() string {
 // GetMinSizeOk returns a tuple with the MinSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutoScalingPolicy) GetMinSizeOk() (*string, bool) {
-	if o == nil || o.MinSize == nil {
+	if o == nil || IsNil(o.MinSize) {
 		return nil, false
 	}
 	return o.MinSize, true
@@ -125,7 +128,7 @@ func (o *AutoScalingPolicy) GetMinSizeOk() (*string, bool) {
 
 // HasMinSize returns a boolean if a field has been set.
 func (o *AutoScalingPolicy) HasMinSize() bool {
-	if o != nil && o.MinSize != nil {
+	if o != nil && !IsNil(o.MinSize) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *AutoScalingPolicy) SetMinSize(v string) {
 }
 
 func (o AutoScalingPolicy) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Enabled != nil {
-		toSerialize["enabled"] = o.Enabled
-	}
-	if o.MaxSize != nil {
-		toSerialize["max_size"] = o.MaxSize
-	}
-	if o.MinSize != nil {
-		toSerialize["min_size"] = o.MinSize
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AutoScalingPolicy) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.MaxSize) {
+		toSerialize["max_size"] = o.MaxSize
+	}
+	if !IsNil(o.MinSize) {
+		toSerialize["min_size"] = o.MinSize
+	}
+	return toSerialize, nil
 }
 
 type NullableAutoScalingPolicy struct {

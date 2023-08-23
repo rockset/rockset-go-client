@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateQueryLambdaTagRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateQueryLambdaTagRequest{}
+
 // CreateQueryLambdaTagRequest struct for CreateQueryLambdaTagRequest
 type CreateQueryLambdaTagRequest struct {
 	// Name of Query Lambda tag.
@@ -54,7 +57,7 @@ func (o *CreateQueryLambdaTagRequest) GetTagName() string {
 // GetTagNameOk returns a tuple with the TagName field value
 // and a boolean to check if the value has been set.
 func (o *CreateQueryLambdaTagRequest) GetTagNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TagName, true
@@ -78,7 +81,7 @@ func (o *CreateQueryLambdaTagRequest) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *CreateQueryLambdaTagRequest) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -90,14 +93,18 @@ func (o *CreateQueryLambdaTagRequest) SetVersion(v string) {
 }
 
 func (o CreateQueryLambdaTagRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["tag_name"] = o.TagName
-	}
-	if true {
-		toSerialize["version"] = o.Version
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateQueryLambdaTagRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["tag_name"] = o.TagName
+	toSerialize["version"] = o.Version
+	return toSerialize, nil
 }
 
 type NullableCreateQueryLambdaTagRequest struct {

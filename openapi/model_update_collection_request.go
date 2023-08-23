@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateCollectionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateCollectionRequest{}
+
 // UpdateCollectionRequest struct for UpdateCollectionRequest
 type UpdateCollectionRequest struct {
 	// Updated text describing the collection.
@@ -40,7 +43,7 @@ func NewUpdateCollectionRequestWithDefaults() *UpdateCollectionRequest {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UpdateCollectionRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *UpdateCollectionRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateCollectionRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -58,7 +61,7 @@ func (o *UpdateCollectionRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateCollectionRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *UpdateCollectionRequest) SetDescription(v string) {
 
 // GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
 func (o *UpdateCollectionRequest) GetFieldMappingQuery() FieldMappingQuery {
-	if o == nil || o.FieldMappingQuery == nil {
+	if o == nil || IsNil(o.FieldMappingQuery) {
 		var ret FieldMappingQuery
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *UpdateCollectionRequest) GetFieldMappingQuery() FieldMappingQuery {
 // GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateCollectionRequest) GetFieldMappingQueryOk() (*FieldMappingQuery, bool) {
-	if o == nil || o.FieldMappingQuery == nil {
+	if o == nil || IsNil(o.FieldMappingQuery) {
 		return nil, false
 	}
 	return o.FieldMappingQuery, true
@@ -90,7 +93,7 @@ func (o *UpdateCollectionRequest) GetFieldMappingQueryOk() (*FieldMappingQuery, 
 
 // HasFieldMappingQuery returns a boolean if a field has been set.
 func (o *UpdateCollectionRequest) HasFieldMappingQuery() bool {
-	if o != nil && o.FieldMappingQuery != nil {
+	if o != nil && !IsNil(o.FieldMappingQuery) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *UpdateCollectionRequest) SetFieldMappingQuery(v FieldMappingQuery) {
 }
 
 func (o UpdateCollectionRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.FieldMappingQuery != nil {
-		toSerialize["field_mapping_query"] = o.FieldMappingQuery
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateCollectionRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.FieldMappingQuery) {
+		toSerialize["field_mapping_query"] = o.FieldMappingQuery
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateCollectionRequest struct {

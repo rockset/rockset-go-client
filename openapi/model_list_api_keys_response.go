@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ListApiKeysResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListApiKeysResponse{}
+
 // ListApiKeysResponse struct for ListApiKeysResponse
 type ListApiKeysResponse struct {
 	// List of API key objects.
@@ -39,7 +42,7 @@ func NewListApiKeysResponseWithDefaults() *ListApiKeysResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *ListApiKeysResponse) GetData() []ApiKey {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []ApiKey
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ListApiKeysResponse) GetData() []ApiKey {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListApiKeysResponse) GetDataOk() ([]ApiKey, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -57,7 +60,7 @@ func (o *ListApiKeysResponse) GetDataOk() ([]ApiKey, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *ListApiKeysResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ListApiKeysResponse) SetData(v []ApiKey) {
 }
 
 func (o ListApiKeysResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListApiKeysResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableListApiKeysResponse struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Source type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Source{}
+
 // Source Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
 type Source struct {
 	AzureBlobStorage *SourceAzureBlobStorage `json:"azure_blob_storage,omitempty"`
@@ -58,7 +61,7 @@ func NewSourceWithDefaults() *Source {
 
 // GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
 func (o *Source) GetAzureBlobStorage() SourceAzureBlobStorage {
-	if o == nil || o.AzureBlobStorage == nil {
+	if o == nil || IsNil(o.AzureBlobStorage) {
 		var ret SourceAzureBlobStorage
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *Source) GetAzureBlobStorage() SourceAzureBlobStorage {
 // GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetAzureBlobStorageOk() (*SourceAzureBlobStorage, bool) {
-	if o == nil || o.AzureBlobStorage == nil {
+	if o == nil || IsNil(o.AzureBlobStorage) {
 		return nil, false
 	}
 	return o.AzureBlobStorage, true
@@ -76,7 +79,7 @@ func (o *Source) GetAzureBlobStorageOk() (*SourceAzureBlobStorage, bool) {
 
 // HasAzureBlobStorage returns a boolean if a field has been set.
 func (o *Source) HasAzureBlobStorage() bool {
-	if o != nil && o.AzureBlobStorage != nil {
+	if o != nil && !IsNil(o.AzureBlobStorage) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *Source) SetAzureBlobStorage(v SourceAzureBlobStorage) {
 
 // GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
 func (o *Source) GetAzureEventHubs() SourceAzureEventHubs {
-	if o == nil || o.AzureEventHubs == nil {
+	if o == nil || IsNil(o.AzureEventHubs) {
 		var ret SourceAzureEventHubs
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *Source) GetAzureEventHubs() SourceAzureEventHubs {
 // GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetAzureEventHubsOk() (*SourceAzureEventHubs, bool) {
-	if o == nil || o.AzureEventHubs == nil {
+	if o == nil || IsNil(o.AzureEventHubs) {
 		return nil, false
 	}
 	return o.AzureEventHubs, true
@@ -108,7 +111,7 @@ func (o *Source) GetAzureEventHubsOk() (*SourceAzureEventHubs, bool) {
 
 // HasAzureEventHubs returns a boolean if a field has been set.
 func (o *Source) HasAzureEventHubs() bool {
-	if o != nil && o.AzureEventHubs != nil {
+	if o != nil && !IsNil(o.AzureEventHubs) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *Source) SetAzureEventHubs(v SourceAzureEventHubs) {
 
 // GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
 func (o *Source) GetAzureServiceBus() SourceAzureServiceBus {
-	if o == nil || o.AzureServiceBus == nil {
+	if o == nil || IsNil(o.AzureServiceBus) {
 		var ret SourceAzureServiceBus
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *Source) GetAzureServiceBus() SourceAzureServiceBus {
 // GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool) {
-	if o == nil || o.AzureServiceBus == nil {
+	if o == nil || IsNil(o.AzureServiceBus) {
 		return nil, false
 	}
 	return o.AzureServiceBus, true
@@ -140,7 +143,7 @@ func (o *Source) GetAzureServiceBusOk() (*SourceAzureServiceBus, bool) {
 
 // HasAzureServiceBus returns a boolean if a field has been set.
 func (o *Source) HasAzureServiceBus() bool {
-	if o != nil && o.AzureServiceBus != nil {
+	if o != nil && !IsNil(o.AzureServiceBus) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *Source) SetAzureServiceBus(v SourceAzureServiceBus) {
 
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
 func (o *Source) GetDynamodb() SourceDynamoDb {
-	if o == nil || o.Dynamodb == nil {
+	if o == nil || IsNil(o.Dynamodb) {
 		var ret SourceDynamoDb
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *Source) GetDynamodb() SourceDynamoDb {
 // GetDynamodbOk returns a tuple with the Dynamodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetDynamodbOk() (*SourceDynamoDb, bool) {
-	if o == nil || o.Dynamodb == nil {
+	if o == nil || IsNil(o.Dynamodb) {
 		return nil, false
 	}
 	return o.Dynamodb, true
@@ -172,7 +175,7 @@ func (o *Source) GetDynamodbOk() (*SourceDynamoDb, bool) {
 
 // HasDynamodb returns a boolean if a field has been set.
 func (o *Source) HasDynamodb() bool {
-	if o != nil && o.Dynamodb != nil {
+	if o != nil && !IsNil(o.Dynamodb) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *Source) SetDynamodb(v SourceDynamoDb) {
 
 // GetFileUpload returns the FileUpload field value if set, zero value otherwise.
 func (o *Source) GetFileUpload() SourceFileUpload {
-	if o == nil || o.FileUpload == nil {
+	if o == nil || IsNil(o.FileUpload) {
 		var ret SourceFileUpload
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *Source) GetFileUpload() SourceFileUpload {
 // GetFileUploadOk returns a tuple with the FileUpload field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetFileUploadOk() (*SourceFileUpload, bool) {
-	if o == nil || o.FileUpload == nil {
+	if o == nil || IsNil(o.FileUpload) {
 		return nil, false
 	}
 	return o.FileUpload, true
@@ -204,7 +207,7 @@ func (o *Source) GetFileUploadOk() (*SourceFileUpload, bool) {
 
 // HasFileUpload returns a boolean if a field has been set.
 func (o *Source) HasFileUpload() bool {
-	if o != nil && o.FileUpload != nil {
+	if o != nil && !IsNil(o.FileUpload) {
 		return true
 	}
 
@@ -218,7 +221,7 @@ func (o *Source) SetFileUpload(v SourceFileUpload) {
 
 // GetFormatParams returns the FormatParams field value if set, zero value otherwise.
 func (o *Source) GetFormatParams() FormatParams {
-	if o == nil || o.FormatParams == nil {
+	if o == nil || IsNil(o.FormatParams) {
 		var ret FormatParams
 		return ret
 	}
@@ -228,7 +231,7 @@ func (o *Source) GetFormatParams() FormatParams {
 // GetFormatParamsOk returns a tuple with the FormatParams field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetFormatParamsOk() (*FormatParams, bool) {
-	if o == nil || o.FormatParams == nil {
+	if o == nil || IsNil(o.FormatParams) {
 		return nil, false
 	}
 	return o.FormatParams, true
@@ -236,7 +239,7 @@ func (o *Source) GetFormatParamsOk() (*FormatParams, bool) {
 
 // HasFormatParams returns a boolean if a field has been set.
 func (o *Source) HasFormatParams() bool {
-	if o != nil && o.FormatParams != nil {
+	if o != nil && !IsNil(o.FormatParams) {
 		return true
 	}
 
@@ -250,7 +253,7 @@ func (o *Source) SetFormatParams(v FormatParams) {
 
 // GetGcs returns the Gcs field value if set, zero value otherwise.
 func (o *Source) GetGcs() SourceGcs {
-	if o == nil || o.Gcs == nil {
+	if o == nil || IsNil(o.Gcs) {
 		var ret SourceGcs
 		return ret
 	}
@@ -260,7 +263,7 @@ func (o *Source) GetGcs() SourceGcs {
 // GetGcsOk returns a tuple with the Gcs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetGcsOk() (*SourceGcs, bool) {
-	if o == nil || o.Gcs == nil {
+	if o == nil || IsNil(o.Gcs) {
 		return nil, false
 	}
 	return o.Gcs, true
@@ -268,7 +271,7 @@ func (o *Source) GetGcsOk() (*SourceGcs, bool) {
 
 // HasGcs returns a boolean if a field has been set.
 func (o *Source) HasGcs() bool {
-	if o != nil && o.Gcs != nil {
+	if o != nil && !IsNil(o.Gcs) {
 		return true
 	}
 
@@ -282,7 +285,7 @@ func (o *Source) SetGcs(v SourceGcs) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Source) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -292,7 +295,7 @@ func (o *Source) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -300,7 +303,7 @@ func (o *Source) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Source) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -314,7 +317,7 @@ func (o *Source) SetId(v string) {
 
 // GetIngestTransformation returns the IngestTransformation field value if set, zero value otherwise.
 func (o *Source) GetIngestTransformation() FieldMappingQuery {
-	if o == nil || o.IngestTransformation == nil {
+	if o == nil || IsNil(o.IngestTransformation) {
 		var ret FieldMappingQuery
 		return ret
 	}
@@ -324,7 +327,7 @@ func (o *Source) GetIngestTransformation() FieldMappingQuery {
 // GetIngestTransformationOk returns a tuple with the IngestTransformation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetIngestTransformationOk() (*FieldMappingQuery, bool) {
-	if o == nil || o.IngestTransformation == nil {
+	if o == nil || IsNil(o.IngestTransformation) {
 		return nil, false
 	}
 	return o.IngestTransformation, true
@@ -332,7 +335,7 @@ func (o *Source) GetIngestTransformationOk() (*FieldMappingQuery, bool) {
 
 // HasIngestTransformation returns a boolean if a field has been set.
 func (o *Source) HasIngestTransformation() bool {
-	if o != nil && o.IngestTransformation != nil {
+	if o != nil && !IsNil(o.IngestTransformation) {
 		return true
 	}
 
@@ -346,7 +349,7 @@ func (o *Source) SetIngestTransformation(v FieldMappingQuery) {
 
 // GetIntegrationName returns the IntegrationName field value if set, zero value otherwise.
 func (o *Source) GetIntegrationName() string {
-	if o == nil || o.IntegrationName == nil {
+	if o == nil || IsNil(o.IntegrationName) {
 		var ret string
 		return ret
 	}
@@ -356,7 +359,7 @@ func (o *Source) GetIntegrationName() string {
 // GetIntegrationNameOk returns a tuple with the IntegrationName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetIntegrationNameOk() (*string, bool) {
-	if o == nil || o.IntegrationName == nil {
+	if o == nil || IsNil(o.IntegrationName) {
 		return nil, false
 	}
 	return o.IntegrationName, true
@@ -364,7 +367,7 @@ func (o *Source) GetIntegrationNameOk() (*string, bool) {
 
 // HasIntegrationName returns a boolean if a field has been set.
 func (o *Source) HasIntegrationName() bool {
-	if o != nil && o.IntegrationName != nil {
+	if o != nil && !IsNil(o.IntegrationName) {
 		return true
 	}
 
@@ -378,7 +381,7 @@ func (o *Source) SetIntegrationName(v string) {
 
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *Source) GetKafka() SourceKafka {
-	if o == nil || o.Kafka == nil {
+	if o == nil || IsNil(o.Kafka) {
 		var ret SourceKafka
 		return ret
 	}
@@ -388,7 +391,7 @@ func (o *Source) GetKafka() SourceKafka {
 // GetKafkaOk returns a tuple with the Kafka field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetKafkaOk() (*SourceKafka, bool) {
-	if o == nil || o.Kafka == nil {
+	if o == nil || IsNil(o.Kafka) {
 		return nil, false
 	}
 	return o.Kafka, true
@@ -396,7 +399,7 @@ func (o *Source) GetKafkaOk() (*SourceKafka, bool) {
 
 // HasKafka returns a boolean if a field has been set.
 func (o *Source) HasKafka() bool {
-	if o != nil && o.Kafka != nil {
+	if o != nil && !IsNil(o.Kafka) {
 		return true
 	}
 
@@ -410,7 +413,7 @@ func (o *Source) SetKafka(v SourceKafka) {
 
 // GetKinesis returns the Kinesis field value if set, zero value otherwise.
 func (o *Source) GetKinesis() SourceKinesis {
-	if o == nil || o.Kinesis == nil {
+	if o == nil || IsNil(o.Kinesis) {
 		var ret SourceKinesis
 		return ret
 	}
@@ -420,7 +423,7 @@ func (o *Source) GetKinesis() SourceKinesis {
 // GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetKinesisOk() (*SourceKinesis, bool) {
-	if o == nil || o.Kinesis == nil {
+	if o == nil || IsNil(o.Kinesis) {
 		return nil, false
 	}
 	return o.Kinesis, true
@@ -428,7 +431,7 @@ func (o *Source) GetKinesisOk() (*SourceKinesis, bool) {
 
 // HasKinesis returns a boolean if a field has been set.
 func (o *Source) HasKinesis() bool {
-	if o != nil && o.Kinesis != nil {
+	if o != nil && !IsNil(o.Kinesis) {
 		return true
 	}
 
@@ -442,7 +445,7 @@ func (o *Source) SetKinesis(v SourceKinesis) {
 
 // GetMongodb returns the Mongodb field value if set, zero value otherwise.
 func (o *Source) GetMongodb() SourceMongoDb {
-	if o == nil || o.Mongodb == nil {
+	if o == nil || IsNil(o.Mongodb) {
 		var ret SourceMongoDb
 		return ret
 	}
@@ -452,7 +455,7 @@ func (o *Source) GetMongodb() SourceMongoDb {
 // GetMongodbOk returns a tuple with the Mongodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetMongodbOk() (*SourceMongoDb, bool) {
-	if o == nil || o.Mongodb == nil {
+	if o == nil || IsNil(o.Mongodb) {
 		return nil, false
 	}
 	return o.Mongodb, true
@@ -460,7 +463,7 @@ func (o *Source) GetMongodbOk() (*SourceMongoDb, bool) {
 
 // HasMongodb returns a boolean if a field has been set.
 func (o *Source) HasMongodb() bool {
-	if o != nil && o.Mongodb != nil {
+	if o != nil && !IsNil(o.Mongodb) {
 		return true
 	}
 
@@ -474,7 +477,7 @@ func (o *Source) SetMongodb(v SourceMongoDb) {
 
 // GetS3 returns the S3 field value if set, zero value otherwise.
 func (o *Source) GetS3() SourceS3 {
-	if o == nil || o.S3 == nil {
+	if o == nil || IsNil(o.S3) {
 		var ret SourceS3
 		return ret
 	}
@@ -484,7 +487,7 @@ func (o *Source) GetS3() SourceS3 {
 // GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetS3Ok() (*SourceS3, bool) {
-	if o == nil || o.S3 == nil {
+	if o == nil || IsNil(o.S3) {
 		return nil, false
 	}
 	return o.S3, true
@@ -492,7 +495,7 @@ func (o *Source) GetS3Ok() (*SourceS3, bool) {
 
 // HasS3 returns a boolean if a field has been set.
 func (o *Source) HasS3() bool {
-	if o != nil && o.S3 != nil {
+	if o != nil && !IsNil(o.S3) {
 		return true
 	}
 
@@ -506,7 +509,7 @@ func (o *Source) SetS3(v SourceS3) {
 
 // GetSnowflake returns the Snowflake field value if set, zero value otherwise.
 func (o *Source) GetSnowflake() SourceSnowflake {
-	if o == nil || o.Snowflake == nil {
+	if o == nil || IsNil(o.Snowflake) {
 		var ret SourceSnowflake
 		return ret
 	}
@@ -516,7 +519,7 @@ func (o *Source) GetSnowflake() SourceSnowflake {
 // GetSnowflakeOk returns a tuple with the Snowflake field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetSnowflakeOk() (*SourceSnowflake, bool) {
-	if o == nil || o.Snowflake == nil {
+	if o == nil || IsNil(o.Snowflake) {
 		return nil, false
 	}
 	return o.Snowflake, true
@@ -524,7 +527,7 @@ func (o *Source) GetSnowflakeOk() (*SourceSnowflake, bool) {
 
 // HasSnowflake returns a boolean if a field has been set.
 func (o *Source) HasSnowflake() bool {
-	if o != nil && o.Snowflake != nil {
+	if o != nil && !IsNil(o.Snowflake) {
 		return true
 	}
 
@@ -538,7 +541,7 @@ func (o *Source) SetSnowflake(v SourceSnowflake) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Source) GetStatus() Status {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret Status
 		return ret
 	}
@@ -548,7 +551,7 @@ func (o *Source) GetStatus() Status {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetStatusOk() (*Status, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -556,7 +559,7 @@ func (o *Source) GetStatusOk() (*Status, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Source) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -570,7 +573,7 @@ func (o *Source) SetStatus(v Status) {
 
 // GetSuspendedAt returns the SuspendedAt field value if set, zero value otherwise.
 func (o *Source) GetSuspendedAt() string {
-	if o == nil || o.SuspendedAt == nil {
+	if o == nil || IsNil(o.SuspendedAt) {
 		var ret string
 		return ret
 	}
@@ -580,7 +583,7 @@ func (o *Source) GetSuspendedAt() string {
 // GetSuspendedAtOk returns a tuple with the SuspendedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetSuspendedAtOk() (*string, bool) {
-	if o == nil || o.SuspendedAt == nil {
+	if o == nil || IsNil(o.SuspendedAt) {
 		return nil, false
 	}
 	return o.SuspendedAt, true
@@ -588,7 +591,7 @@ func (o *Source) GetSuspendedAtOk() (*string, bool) {
 
 // HasSuspendedAt returns a boolean if a field has been set.
 func (o *Source) HasSuspendedAt() bool {
-	if o != nil && o.SuspendedAt != nil {
+	if o != nil && !IsNil(o.SuspendedAt) {
 		return true
 	}
 
@@ -602,7 +605,7 @@ func (o *Source) SetSuspendedAt(v string) {
 
 // GetSystem returns the System field value if set, zero value otherwise.
 func (o *Source) GetSystem() SourceSystem {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		var ret SourceSystem
 		return ret
 	}
@@ -612,7 +615,7 @@ func (o *Source) GetSystem() SourceSystem {
 // GetSystemOk returns a tuple with the System field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetSystemOk() (*SourceSystem, bool) {
-	if o == nil || o.System == nil {
+	if o == nil || IsNil(o.System) {
 		return nil, false
 	}
 	return o.System, true
@@ -620,7 +623,7 @@ func (o *Source) GetSystemOk() (*SourceSystem, bool) {
 
 // HasSystem returns a boolean if a field has been set.
 func (o *Source) HasSystem() bool {
-	if o != nil && o.System != nil {
+	if o != nil && !IsNil(o.System) {
 		return true
 	}
 
@@ -633,62 +636,66 @@ func (o *Source) SetSystem(v SourceSystem) {
 }
 
 func (o Source) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AzureBlobStorage != nil {
-		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
-	}
-	if o.AzureEventHubs != nil {
-		toSerialize["azure_event_hubs"] = o.AzureEventHubs
-	}
-	if o.AzureServiceBus != nil {
-		toSerialize["azure_service_bus"] = o.AzureServiceBus
-	}
-	if o.Dynamodb != nil {
-		toSerialize["dynamodb"] = o.Dynamodb
-	}
-	if o.FileUpload != nil {
-		toSerialize["file_upload"] = o.FileUpload
-	}
-	if o.FormatParams != nil {
-		toSerialize["format_params"] = o.FormatParams
-	}
-	if o.Gcs != nil {
-		toSerialize["gcs"] = o.Gcs
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.IngestTransformation != nil {
-		toSerialize["ingest_transformation"] = o.IngestTransformation
-	}
-	if o.IntegrationName != nil {
-		toSerialize["integration_name"] = o.IntegrationName
-	}
-	if o.Kafka != nil {
-		toSerialize["kafka"] = o.Kafka
-	}
-	if o.Kinesis != nil {
-		toSerialize["kinesis"] = o.Kinesis
-	}
-	if o.Mongodb != nil {
-		toSerialize["mongodb"] = o.Mongodb
-	}
-	if o.S3 != nil {
-		toSerialize["s3"] = o.S3
-	}
-	if o.Snowflake != nil {
-		toSerialize["snowflake"] = o.Snowflake
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.SuspendedAt != nil {
-		toSerialize["suspended_at"] = o.SuspendedAt
-	}
-	if o.System != nil {
-		toSerialize["system"] = o.System
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Source) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AzureBlobStorage) {
+		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
+	}
+	if !IsNil(o.AzureEventHubs) {
+		toSerialize["azure_event_hubs"] = o.AzureEventHubs
+	}
+	if !IsNil(o.AzureServiceBus) {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
+	}
+	if !IsNil(o.Dynamodb) {
+		toSerialize["dynamodb"] = o.Dynamodb
+	}
+	if !IsNil(o.FileUpload) {
+		toSerialize["file_upload"] = o.FileUpload
+	}
+	if !IsNil(o.FormatParams) {
+		toSerialize["format_params"] = o.FormatParams
+	}
+	if !IsNil(o.Gcs) {
+		toSerialize["gcs"] = o.Gcs
+	}
+	// skip: id is readOnly
+	if !IsNil(o.IngestTransformation) {
+		toSerialize["ingest_transformation"] = o.IngestTransformation
+	}
+	if !IsNil(o.IntegrationName) {
+		toSerialize["integration_name"] = o.IntegrationName
+	}
+	if !IsNil(o.Kafka) {
+		toSerialize["kafka"] = o.Kafka
+	}
+	if !IsNil(o.Kinesis) {
+		toSerialize["kinesis"] = o.Kinesis
+	}
+	if !IsNil(o.Mongodb) {
+		toSerialize["mongodb"] = o.Mongodb
+	}
+	if !IsNil(o.S3) {
+		toSerialize["s3"] = o.S3
+	}
+	if !IsNil(o.Snowflake) {
+		toSerialize["snowflake"] = o.Snowflake
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	// skip: suspended_at is readOnly
+	if !IsNil(o.System) {
+		toSerialize["system"] = o.System
+	}
+	return toSerialize, nil
 }
 
 type NullableSource struct {

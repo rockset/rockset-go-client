@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteDocumentsRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteDocumentsRequest{}
+
 // DeleteDocumentsRequest struct for DeleteDocumentsRequest
 type DeleteDocumentsRequest struct {
 	// Array of IDs of documents to be deleted.
@@ -51,7 +54,7 @@ func (o *DeleteDocumentsRequest) GetData() []DeleteDocumentsRequestData {
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *DeleteDocumentsRequest) GetDataOk() ([]DeleteDocumentsRequestData, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Data, true
@@ -63,11 +66,17 @@ func (o *DeleteDocumentsRequest) SetData(v []DeleteDocumentsRequestData) {
 }
 
 func (o DeleteDocumentsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteDocumentsRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["data"] = o.Data
+	return toSerialize, nil
 }
 
 type NullableDeleteDocumentsRequest struct {

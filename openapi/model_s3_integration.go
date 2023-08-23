@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the S3Integration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &S3Integration{}
+
 // S3Integration struct for S3Integration
 type S3Integration struct {
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
@@ -39,7 +42,7 @@ func NewS3IntegrationWithDefaults() *S3Integration {
 
 // GetAwsAccessKey returns the AwsAccessKey field value if set, zero value otherwise.
 func (o *S3Integration) GetAwsAccessKey() AwsAccessKey {
-	if o == nil || o.AwsAccessKey == nil {
+	if o == nil || IsNil(o.AwsAccessKey) {
 		var ret AwsAccessKey
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *S3Integration) GetAwsAccessKey() AwsAccessKey {
 // GetAwsAccessKeyOk returns a tuple with the AwsAccessKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *S3Integration) GetAwsAccessKeyOk() (*AwsAccessKey, bool) {
-	if o == nil || o.AwsAccessKey == nil {
+	if o == nil || IsNil(o.AwsAccessKey) {
 		return nil, false
 	}
 	return o.AwsAccessKey, true
@@ -57,7 +60,7 @@ func (o *S3Integration) GetAwsAccessKeyOk() (*AwsAccessKey, bool) {
 
 // HasAwsAccessKey returns a boolean if a field has been set.
 func (o *S3Integration) HasAwsAccessKey() bool {
-	if o != nil && o.AwsAccessKey != nil {
+	if o != nil && !IsNil(o.AwsAccessKey) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *S3Integration) SetAwsAccessKey(v AwsAccessKey) {
 
 // GetAwsRole returns the AwsRole field value if set, zero value otherwise.
 func (o *S3Integration) GetAwsRole() AwsRole {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		var ret AwsRole
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *S3Integration) GetAwsRole() AwsRole {
 // GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *S3Integration) GetAwsRoleOk() (*AwsRole, bool) {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		return nil, false
 	}
 	return o.AwsRole, true
@@ -89,7 +92,7 @@ func (o *S3Integration) GetAwsRoleOk() (*AwsRole, bool) {
 
 // HasAwsRole returns a boolean if a field has been set.
 func (o *S3Integration) HasAwsRole() bool {
-	if o != nil && o.AwsRole != nil {
+	if o != nil && !IsNil(o.AwsRole) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *S3Integration) SetAwsRole(v AwsRole) {
 }
 
 func (o S3Integration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsAccessKey != nil {
-		toSerialize["aws_access_key"] = o.AwsAccessKey
-	}
-	if o.AwsRole != nil {
-		toSerialize["aws_role"] = o.AwsRole
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o S3Integration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsAccessKey) {
+		toSerialize["aws_access_key"] = o.AwsAccessKey
+	}
+	if !IsNil(o.AwsRole) {
+		toSerialize["aws_role"] = o.AwsRole
+	}
+	return toSerialize, nil
 }
 
 type NullableS3Integration struct {

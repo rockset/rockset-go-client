@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetCollectionCommit type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetCollectionCommit{}
+
 // GetCollectionCommit struct for GetCollectionCommit
 type GetCollectionCommit struct {
 	Data *GetCollectionCommitData `json:"data,omitempty"`
@@ -39,7 +42,7 @@ func NewGetCollectionCommitWithDefaults() *GetCollectionCommit {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *GetCollectionCommit) GetData() GetCollectionCommitData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret GetCollectionCommitData
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *GetCollectionCommit) GetData() GetCollectionCommitData {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetCollectionCommit) GetDataOk() (*GetCollectionCommitData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -57,7 +60,7 @@ func (o *GetCollectionCommit) GetDataOk() (*GetCollectionCommitData, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *GetCollectionCommit) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *GetCollectionCommit) SetData(v GetCollectionCommitData) {
 
 // GetOffsets returns the Offsets field value if set, zero value otherwise.
 func (o *GetCollectionCommit) GetOffsets() Offsets {
-	if o == nil || o.Offsets == nil {
+	if o == nil || IsNil(o.Offsets) {
 		var ret Offsets
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *GetCollectionCommit) GetOffsets() Offsets {
 // GetOffsetsOk returns a tuple with the Offsets field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetCollectionCommit) GetOffsetsOk() (*Offsets, bool) {
-	if o == nil || o.Offsets == nil {
+	if o == nil || IsNil(o.Offsets) {
 		return nil, false
 	}
 	return o.Offsets, true
@@ -89,7 +92,7 @@ func (o *GetCollectionCommit) GetOffsetsOk() (*Offsets, bool) {
 
 // HasOffsets returns a boolean if a field has been set.
 func (o *GetCollectionCommit) HasOffsets() bool {
-	if o != nil && o.Offsets != nil {
+	if o != nil && !IsNil(o.Offsets) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *GetCollectionCommit) SetOffsets(v Offsets) {
 }
 
 func (o GetCollectionCommit) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
-	}
-	if o.Offsets != nil {
-		toSerialize["offsets"] = o.Offsets
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetCollectionCommit) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	if !IsNil(o.Offsets) {
+		toSerialize["offsets"] = o.Offsets
+	}
+	return toSerialize, nil
 }
 
 type NullableGetCollectionCommit struct {

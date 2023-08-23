@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusAzureEventHubs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusAzureEventHubs{}
+
 // StatusAzureEventHubs struct for StatusAzureEventHubs
 type StatusAzureEventHubs struct {
 	// Time at which the last document was consumed.
@@ -45,7 +48,7 @@ func NewStatusAzureEventHubsWithDefaults() *StatusAzureEventHubs {
 
 // GetLastConsumedTime returns the LastConsumedTime field value if set, zero value otherwise.
 func (o *StatusAzureEventHubs) GetLastConsumedTime() string {
-	if o == nil || o.LastConsumedTime == nil {
+	if o == nil || IsNil(o.LastConsumedTime) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *StatusAzureEventHubs) GetLastConsumedTime() string {
 // GetLastConsumedTimeOk returns a tuple with the LastConsumedTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureEventHubs) GetLastConsumedTimeOk() (*string, bool) {
-	if o == nil || o.LastConsumedTime == nil {
+	if o == nil || IsNil(o.LastConsumedTime) {
 		return nil, false
 	}
 	return o.LastConsumedTime, true
@@ -63,7 +66,7 @@ func (o *StatusAzureEventHubs) GetLastConsumedTimeOk() (*string, bool) {
 
 // HasLastConsumedTime returns a boolean if a field has been set.
 func (o *StatusAzureEventHubs) HasLastConsumedTime() bool {
-	if o != nil && o.LastConsumedTime != nil {
+	if o != nil && !IsNil(o.LastConsumedTime) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *StatusAzureEventHubs) SetLastConsumedTime(v string) {
 
 // GetNumDocumentsProcessed returns the NumDocumentsProcessed field value if set, zero value otherwise.
 func (o *StatusAzureEventHubs) GetNumDocumentsProcessed() int64 {
-	if o == nil || o.NumDocumentsProcessed == nil {
+	if o == nil || IsNil(o.NumDocumentsProcessed) {
 		var ret int64
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *StatusAzureEventHubs) GetNumDocumentsProcessed() int64 {
 // GetNumDocumentsProcessedOk returns a tuple with the NumDocumentsProcessed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureEventHubs) GetNumDocumentsProcessedOk() (*int64, bool) {
-	if o == nil || o.NumDocumentsProcessed == nil {
+	if o == nil || IsNil(o.NumDocumentsProcessed) {
 		return nil, false
 	}
 	return o.NumDocumentsProcessed, true
@@ -95,7 +98,7 @@ func (o *StatusAzureEventHubs) GetNumDocumentsProcessedOk() (*int64, bool) {
 
 // HasNumDocumentsProcessed returns a boolean if a field has been set.
 func (o *StatusAzureEventHubs) HasNumDocumentsProcessed() bool {
-	if o != nil && o.NumDocumentsProcessed != nil {
+	if o != nil && !IsNil(o.NumDocumentsProcessed) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *StatusAzureEventHubs) SetNumDocumentsProcessed(v int64) {
 
 // GetPartitions returns the Partitions field value if set, zero value otherwise.
 func (o *StatusAzureEventHubs) GetPartitions() []StatusAzureEventHubsPartition {
-	if o == nil || o.Partitions == nil {
+	if o == nil || IsNil(o.Partitions) {
 		var ret []StatusAzureEventHubsPartition
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *StatusAzureEventHubs) GetPartitions() []StatusAzureEventHubsPartition {
 // GetPartitionsOk returns a tuple with the Partitions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureEventHubs) GetPartitionsOk() ([]StatusAzureEventHubsPartition, bool) {
-	if o == nil || o.Partitions == nil {
+	if o == nil || IsNil(o.Partitions) {
 		return nil, false
 	}
 	return o.Partitions, true
@@ -127,7 +130,7 @@ func (o *StatusAzureEventHubs) GetPartitionsOk() ([]StatusAzureEventHubsPartitio
 
 // HasPartitions returns a boolean if a field has been set.
 func (o *StatusAzureEventHubs) HasPartitions() bool {
-	if o != nil && o.Partitions != nil {
+	if o != nil && !IsNil(o.Partitions) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *StatusAzureEventHubs) SetPartitions(v []StatusAzureEventHubsPartition) 
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *StatusAzureEventHubs) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *StatusAzureEventHubs) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusAzureEventHubs) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -159,7 +162,7 @@ func (o *StatusAzureEventHubs) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *StatusAzureEventHubs) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *StatusAzureEventHubs) SetState(v string) {
 }
 
 func (o StatusAzureEventHubs) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LastConsumedTime != nil {
-		toSerialize["last_consumed_time"] = o.LastConsumedTime
-	}
-	if o.NumDocumentsProcessed != nil {
-		toSerialize["num_documents_processed"] = o.NumDocumentsProcessed
-	}
-	if o.Partitions != nil {
-		toSerialize["partitions"] = o.Partitions
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusAzureEventHubs) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LastConsumedTime) {
+		toSerialize["last_consumed_time"] = o.LastConsumedTime
+	}
+	if !IsNil(o.NumDocumentsProcessed) {
+		toSerialize["num_documents_processed"] = o.NumDocumentsProcessed
+	}
+	if !IsNil(o.Partitions) {
+		toSerialize["partitions"] = o.Partitions
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusAzureEventHubs struct {

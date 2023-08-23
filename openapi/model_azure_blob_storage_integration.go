@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AzureBlobStorageIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AzureBlobStorageIntegration{}
+
 // AzureBlobStorageIntegration struct for AzureBlobStorageIntegration
 type AzureBlobStorageIntegration struct {
 	// Credentials for the Azure Blob Service.
@@ -51,7 +54,7 @@ func (o *AzureBlobStorageIntegration) GetConnectionString() string {
 // GetConnectionStringOk returns a tuple with the ConnectionString field value
 // and a boolean to check if the value has been set.
 func (o *AzureBlobStorageIntegration) GetConnectionStringOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ConnectionString, true
@@ -63,11 +66,17 @@ func (o *AzureBlobStorageIntegration) SetConnectionString(v string) {
 }
 
 func (o AzureBlobStorageIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["connection_string"] = o.ConnectionString
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AzureBlobStorageIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["connection_string"] = o.ConnectionString
+	return toSerialize, nil
 }
 
 type NullableAzureBlobStorageIntegration struct {

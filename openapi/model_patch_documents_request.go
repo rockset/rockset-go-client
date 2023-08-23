@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchDocumentsRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchDocumentsRequest{}
+
 // PatchDocumentsRequest struct for PatchDocumentsRequest
 type PatchDocumentsRequest struct {
 	// List of patches to be applied.
@@ -51,7 +54,7 @@ func (o *PatchDocumentsRequest) GetData() []PatchDocument {
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *PatchDocumentsRequest) GetDataOk() ([]PatchDocument, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Data, true
@@ -63,11 +66,17 @@ func (o *PatchDocumentsRequest) SetData(v []PatchDocument) {
 }
 
 func (o PatchDocumentsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchDocumentsRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["data"] = o.Data
+	return toSerialize, nil
 }
 
 type NullablePatchDocumentsRequest struct {

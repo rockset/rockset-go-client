@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusDynamoDbV2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusDynamoDbV2{}
+
 // StatusDynamoDbV2 struct for StatusDynamoDbV2
 type StatusDynamoDbV2 struct {
 	InitialDumpCompletionPercentage *float64 `json:"initial_dump_completion_percentage,omitempty"`
@@ -42,7 +45,7 @@ func NewStatusDynamoDbV2WithDefaults() *StatusDynamoDbV2 {
 
 // GetInitialDumpCompletionPercentage returns the InitialDumpCompletionPercentage field value if set, zero value otherwise.
 func (o *StatusDynamoDbV2) GetInitialDumpCompletionPercentage() float64 {
-	if o == nil || o.InitialDumpCompletionPercentage == nil {
+	if o == nil || IsNil(o.InitialDumpCompletionPercentage) {
 		var ret float64
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *StatusDynamoDbV2) GetInitialDumpCompletionPercentage() float64 {
 // GetInitialDumpCompletionPercentageOk returns a tuple with the InitialDumpCompletionPercentage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDbV2) GetInitialDumpCompletionPercentageOk() (*float64, bool) {
-	if o == nil || o.InitialDumpCompletionPercentage == nil {
+	if o == nil || IsNil(o.InitialDumpCompletionPercentage) {
 		return nil, false
 	}
 	return o.InitialDumpCompletionPercentage, true
@@ -60,7 +63,7 @@ func (o *StatusDynamoDbV2) GetInitialDumpCompletionPercentageOk() (*float64, boo
 
 // HasInitialDumpCompletionPercentage returns a boolean if a field has been set.
 func (o *StatusDynamoDbV2) HasInitialDumpCompletionPercentage() bool {
-	if o != nil && o.InitialDumpCompletionPercentage != nil {
+	if o != nil && !IsNil(o.InitialDumpCompletionPercentage) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *StatusDynamoDbV2) SetInitialDumpCompletionPercentage(v float64) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *StatusDynamoDbV2) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *StatusDynamoDbV2) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDbV2) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -92,7 +95,7 @@ func (o *StatusDynamoDbV2) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *StatusDynamoDbV2) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *StatusDynamoDbV2) SetState(v string) {
 
 // GetStreamLastProcessedAt returns the StreamLastProcessedAt field value if set, zero value otherwise.
 func (o *StatusDynamoDbV2) GetStreamLastProcessedAt() string {
-	if o == nil || o.StreamLastProcessedAt == nil {
+	if o == nil || IsNil(o.StreamLastProcessedAt) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *StatusDynamoDbV2) GetStreamLastProcessedAt() string {
 // GetStreamLastProcessedAtOk returns a tuple with the StreamLastProcessedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDbV2) GetStreamLastProcessedAtOk() (*string, bool) {
-	if o == nil || o.StreamLastProcessedAt == nil {
+	if o == nil || IsNil(o.StreamLastProcessedAt) {
 		return nil, false
 	}
 	return o.StreamLastProcessedAt, true
@@ -124,7 +127,7 @@ func (o *StatusDynamoDbV2) GetStreamLastProcessedAtOk() (*string, bool) {
 
 // HasStreamLastProcessedAt returns a boolean if a field has been set.
 func (o *StatusDynamoDbV2) HasStreamLastProcessedAt() bool {
-	if o != nil && o.StreamLastProcessedAt != nil {
+	if o != nil && !IsNil(o.StreamLastProcessedAt) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *StatusDynamoDbV2) SetStreamLastProcessedAt(v string) {
 }
 
 func (o StatusDynamoDbV2) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InitialDumpCompletionPercentage != nil {
-		toSerialize["initial_dump_completion_percentage"] = o.InitialDumpCompletionPercentage
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.StreamLastProcessedAt != nil {
-		toSerialize["stream_last_processed_at"] = o.StreamLastProcessedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusDynamoDbV2) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InitialDumpCompletionPercentage) {
+		toSerialize["initial_dump_completion_percentage"] = o.InitialDumpCompletionPercentage
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.StreamLastProcessedAt) {
+		toSerialize["stream_last_processed_at"] = o.StreamLastProcessedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusDynamoDbV2 struct {

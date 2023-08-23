@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Offsets type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Offsets{}
+
 // Offsets struct for Offsets
 type Offsets struct {
 	// An encoded value representing the most recent offsets that have been committed. If the fence offset is less than or equal to the commit, then passed is true.
@@ -39,7 +42,7 @@ func NewOffsetsWithDefaults() *Offsets {
 
 // GetCommit returns the Commit field value if set, zero value otherwise.
 func (o *Offsets) GetCommit() string {
-	if o == nil || o.Commit == nil {
+	if o == nil || IsNil(o.Commit) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *Offsets) GetCommit() string {
 // GetCommitOk returns a tuple with the Commit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Offsets) GetCommitOk() (*string, bool) {
-	if o == nil || o.Commit == nil {
+	if o == nil || IsNil(o.Commit) {
 		return nil, false
 	}
 	return o.Commit, true
@@ -57,7 +60,7 @@ func (o *Offsets) GetCommitOk() (*string, bool) {
 
 // HasCommit returns a boolean if a field has been set.
 func (o *Offsets) HasCommit() bool {
-	if o != nil && o.Commit != nil {
+	if o != nil && !IsNil(o.Commit) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *Offsets) SetCommit(v string) {
 }
 
 func (o Offsets) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Commit != nil {
-		toSerialize["commit"] = o.Commit
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Offsets) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Commit) {
+		toSerialize["commit"] = o.Commit
+	}
+	return toSerialize, nil
 }
 
 type NullableOffsets struct {

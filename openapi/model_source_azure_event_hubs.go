@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceAzureEventHubs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceAzureEventHubs{}
+
 // SourceAzureEventHubs struct for SourceAzureEventHubs
 type SourceAzureEventHubs struct {
 	// Name of the hub which rockset should ingest from.
@@ -42,7 +45,7 @@ func NewSourceAzureEventHubsWithDefaults() *SourceAzureEventHubs {
 
 // GetHubId returns the HubId field value if set, zero value otherwise.
 func (o *SourceAzureEventHubs) GetHubId() string {
-	if o == nil || o.HubId == nil {
+	if o == nil || IsNil(o.HubId) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *SourceAzureEventHubs) GetHubId() string {
 // GetHubIdOk returns a tuple with the HubId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureEventHubs) GetHubIdOk() (*string, bool) {
-	if o == nil || o.HubId == nil {
+	if o == nil || IsNil(o.HubId) {
 		return nil, false
 	}
 	return o.HubId, true
@@ -60,7 +63,7 @@ func (o *SourceAzureEventHubs) GetHubIdOk() (*string, bool) {
 
 // HasHubId returns a boolean if a field has been set.
 func (o *SourceAzureEventHubs) HasHubId() bool {
-	if o != nil && o.HubId != nil {
+	if o != nil && !IsNil(o.HubId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *SourceAzureEventHubs) SetHubId(v string) {
 
 // GetOffsetResetPolicy returns the OffsetResetPolicy field value if set, zero value otherwise.
 func (o *SourceAzureEventHubs) GetOffsetResetPolicy() string {
-	if o == nil || o.OffsetResetPolicy == nil {
+	if o == nil || IsNil(o.OffsetResetPolicy) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *SourceAzureEventHubs) GetOffsetResetPolicy() string {
 // GetOffsetResetPolicyOk returns a tuple with the OffsetResetPolicy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureEventHubs) GetOffsetResetPolicyOk() (*string, bool) {
-	if o == nil || o.OffsetResetPolicy == nil {
+	if o == nil || IsNil(o.OffsetResetPolicy) {
 		return nil, false
 	}
 	return o.OffsetResetPolicy, true
@@ -92,7 +95,7 @@ func (o *SourceAzureEventHubs) GetOffsetResetPolicyOk() (*string, bool) {
 
 // HasOffsetResetPolicy returns a boolean if a field has been set.
 func (o *SourceAzureEventHubs) HasOffsetResetPolicy() bool {
-	if o != nil && o.OffsetResetPolicy != nil {
+	if o != nil && !IsNil(o.OffsetResetPolicy) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *SourceAzureEventHubs) SetOffsetResetPolicy(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SourceAzureEventHubs) GetStatus() StatusAzureEventHubs {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StatusAzureEventHubs
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *SourceAzureEventHubs) GetStatus() StatusAzureEventHubs {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureEventHubs) GetStatusOk() (*StatusAzureEventHubs, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -124,7 +127,7 @@ func (o *SourceAzureEventHubs) GetStatusOk() (*StatusAzureEventHubs, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SourceAzureEventHubs) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *SourceAzureEventHubs) SetStatus(v StatusAzureEventHubs) {
 }
 
 func (o SourceAzureEventHubs) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HubId != nil {
-		toSerialize["hub_id"] = o.HubId
-	}
-	if o.OffsetResetPolicy != nil {
-		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceAzureEventHubs) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HubId) {
+		toSerialize["hub_id"] = o.HubId
+	}
+	if !IsNil(o.OffsetResetPolicy) {
+		toSerialize["offset_reset_policy"] = o.OffsetResetPolicy
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceAzureEventHubs struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CollectionStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionStats{}
+
 // CollectionStats struct for CollectionStats
 type CollectionStats struct {
 	// Total number of bytes inserted into the collection during bulk.
@@ -69,7 +72,7 @@ func NewCollectionStatsWithDefaults() *CollectionStats {
 
 // GetBulkBytesInserted returns the BulkBytesInserted field value if set, zero value otherwise.
 func (o *CollectionStats) GetBulkBytesInserted() int64 {
-	if o == nil || o.BulkBytesInserted == nil {
+	if o == nil || IsNil(o.BulkBytesInserted) {
 		var ret int64
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *CollectionStats) GetBulkBytesInserted() int64 {
 // GetBulkBytesInsertedOk returns a tuple with the BulkBytesInserted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetBulkBytesInsertedOk() (*int64, bool) {
-	if o == nil || o.BulkBytesInserted == nil {
+	if o == nil || IsNil(o.BulkBytesInserted) {
 		return nil, false
 	}
 	return o.BulkBytesInserted, true
@@ -87,7 +90,7 @@ func (o *CollectionStats) GetBulkBytesInsertedOk() (*int64, bool) {
 
 // HasBulkBytesInserted returns a boolean if a field has been set.
 func (o *CollectionStats) HasBulkBytesInserted() bool {
-	if o != nil && o.BulkBytesInserted != nil {
+	if o != nil && !IsNil(o.BulkBytesInserted) {
 		return true
 	}
 
@@ -101,7 +104,7 @@ func (o *CollectionStats) SetBulkBytesInserted(v int64) {
 
 // GetBulkBytesOverwritten returns the BulkBytesOverwritten field value if set, zero value otherwise.
 func (o *CollectionStats) GetBulkBytesOverwritten() int64 {
-	if o == nil || o.BulkBytesOverwritten == nil {
+	if o == nil || IsNil(o.BulkBytesOverwritten) {
 		var ret int64
 		return ret
 	}
@@ -111,7 +114,7 @@ func (o *CollectionStats) GetBulkBytesOverwritten() int64 {
 // GetBulkBytesOverwrittenOk returns a tuple with the BulkBytesOverwritten field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetBulkBytesOverwrittenOk() (*int64, bool) {
-	if o == nil || o.BulkBytesOverwritten == nil {
+	if o == nil || IsNil(o.BulkBytesOverwritten) {
 		return nil, false
 	}
 	return o.BulkBytesOverwritten, true
@@ -119,7 +122,7 @@ func (o *CollectionStats) GetBulkBytesOverwrittenOk() (*int64, bool) {
 
 // HasBulkBytesOverwritten returns a boolean if a field has been set.
 func (o *CollectionStats) HasBulkBytesOverwritten() bool {
-	if o != nil && o.BulkBytesOverwritten != nil {
+	if o != nil && !IsNil(o.BulkBytesOverwritten) {
 		return true
 	}
 
@@ -133,7 +136,7 @@ func (o *CollectionStats) SetBulkBytesOverwritten(v int64) {
 
 // GetBytesInserted returns the BytesInserted field value if set, zero value otherwise.
 func (o *CollectionStats) GetBytesInserted() int64 {
-	if o == nil || o.BytesInserted == nil {
+	if o == nil || IsNil(o.BytesInserted) {
 		var ret int64
 		return ret
 	}
@@ -143,7 +146,7 @@ func (o *CollectionStats) GetBytesInserted() int64 {
 // GetBytesInsertedOk returns a tuple with the BytesInserted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetBytesInsertedOk() (*int64, bool) {
-	if o == nil || o.BytesInserted == nil {
+	if o == nil || IsNil(o.BytesInserted) {
 		return nil, false
 	}
 	return o.BytesInserted, true
@@ -151,7 +154,7 @@ func (o *CollectionStats) GetBytesInsertedOk() (*int64, bool) {
 
 // HasBytesInserted returns a boolean if a field has been set.
 func (o *CollectionStats) HasBytesInserted() bool {
-	if o != nil && o.BytesInserted != nil {
+	if o != nil && !IsNil(o.BytesInserted) {
 		return true
 	}
 
@@ -165,7 +168,7 @@ func (o *CollectionStats) SetBytesInserted(v int64) {
 
 // GetBytesOverwritten returns the BytesOverwritten field value if set, zero value otherwise.
 func (o *CollectionStats) GetBytesOverwritten() int64 {
-	if o == nil || o.BytesOverwritten == nil {
+	if o == nil || IsNil(o.BytesOverwritten) {
 		var ret int64
 		return ret
 	}
@@ -175,7 +178,7 @@ func (o *CollectionStats) GetBytesOverwritten() int64 {
 // GetBytesOverwrittenOk returns a tuple with the BytesOverwritten field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetBytesOverwrittenOk() (*int64, bool) {
-	if o == nil || o.BytesOverwritten == nil {
+	if o == nil || IsNil(o.BytesOverwritten) {
 		return nil, false
 	}
 	return o.BytesOverwritten, true
@@ -183,7 +186,7 @@ func (o *CollectionStats) GetBytesOverwrittenOk() (*int64, bool) {
 
 // HasBytesOverwritten returns a boolean if a field has been set.
 func (o *CollectionStats) HasBytesOverwritten() bool {
-	if o != nil && o.BytesOverwritten != nil {
+	if o != nil && !IsNil(o.BytesOverwritten) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *CollectionStats) SetBytesOverwritten(v int64) {
 
 // GetColumnIndexSize returns the ColumnIndexSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetColumnIndexSize() int64 {
-	if o == nil || o.ColumnIndexSize == nil {
+	if o == nil || IsNil(o.ColumnIndexSize) {
 		var ret int64
 		return ret
 	}
@@ -207,7 +210,7 @@ func (o *CollectionStats) GetColumnIndexSize() int64 {
 // GetColumnIndexSizeOk returns a tuple with the ColumnIndexSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetColumnIndexSizeOk() (*int64, bool) {
-	if o == nil || o.ColumnIndexSize == nil {
+	if o == nil || IsNil(o.ColumnIndexSize) {
 		return nil, false
 	}
 	return o.ColumnIndexSize, true
@@ -215,7 +218,7 @@ func (o *CollectionStats) GetColumnIndexSizeOk() (*int64, bool) {
 
 // HasColumnIndexSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasColumnIndexSize() bool {
-	if o != nil && o.ColumnIndexSize != nil {
+	if o != nil && !IsNil(o.ColumnIndexSize) {
 		return true
 	}
 
@@ -229,7 +232,7 @@ func (o *CollectionStats) SetColumnIndexSize(v int64) {
 
 // GetDocCount returns the DocCount field value if set, zero value otherwise.
 func (o *CollectionStats) GetDocCount() int64 {
-	if o == nil || o.DocCount == nil {
+	if o == nil || IsNil(o.DocCount) {
 		var ret int64
 		return ret
 	}
@@ -239,7 +242,7 @@ func (o *CollectionStats) GetDocCount() int64 {
 // GetDocCountOk returns a tuple with the DocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetDocCountOk() (*int64, bool) {
-	if o == nil || o.DocCount == nil {
+	if o == nil || IsNil(o.DocCount) {
 		return nil, false
 	}
 	return o.DocCount, true
@@ -247,7 +250,7 @@ func (o *CollectionStats) GetDocCountOk() (*int64, bool) {
 
 // HasDocCount returns a boolean if a field has been set.
 func (o *CollectionStats) HasDocCount() bool {
-	if o != nil && o.DocCount != nil {
+	if o != nil && !IsNil(o.DocCount) {
 		return true
 	}
 
@@ -261,7 +264,7 @@ func (o *CollectionStats) SetDocCount(v int64) {
 
 // GetFillProgress returns the FillProgress field value if set, zero value otherwise.
 func (o *CollectionStats) GetFillProgress() float64 {
-	if o == nil || o.FillProgress == nil {
+	if o == nil || IsNil(o.FillProgress) {
 		var ret float64
 		return ret
 	}
@@ -271,7 +274,7 @@ func (o *CollectionStats) GetFillProgress() float64 {
 // GetFillProgressOk returns a tuple with the FillProgress field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetFillProgressOk() (*float64, bool) {
-	if o == nil || o.FillProgress == nil {
+	if o == nil || IsNil(o.FillProgress) {
 		return nil, false
 	}
 	return o.FillProgress, true
@@ -279,7 +282,7 @@ func (o *CollectionStats) GetFillProgressOk() (*float64, bool) {
 
 // HasFillProgress returns a boolean if a field has been set.
 func (o *CollectionStats) HasFillProgress() bool {
-	if o != nil && o.FillProgress != nil {
+	if o != nil && !IsNil(o.FillProgress) {
 		return true
 	}
 
@@ -293,7 +296,7 @@ func (o *CollectionStats) SetFillProgress(v float64) {
 
 // GetInvertedIndexSize returns the InvertedIndexSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetInvertedIndexSize() int64 {
-	if o == nil || o.InvertedIndexSize == nil {
+	if o == nil || IsNil(o.InvertedIndexSize) {
 		var ret int64
 		return ret
 	}
@@ -303,7 +306,7 @@ func (o *CollectionStats) GetInvertedIndexSize() int64 {
 // GetInvertedIndexSizeOk returns a tuple with the InvertedIndexSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetInvertedIndexSizeOk() (*int64, bool) {
-	if o == nil || o.InvertedIndexSize == nil {
+	if o == nil || IsNil(o.InvertedIndexSize) {
 		return nil, false
 	}
 	return o.InvertedIndexSize, true
@@ -311,7 +314,7 @@ func (o *CollectionStats) GetInvertedIndexSizeOk() (*int64, bool) {
 
 // HasInvertedIndexSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasInvertedIndexSize() bool {
-	if o != nil && o.InvertedIndexSize != nil {
+	if o != nil && !IsNil(o.InvertedIndexSize) {
 		return true
 	}
 
@@ -325,7 +328,7 @@ func (o *CollectionStats) SetInvertedIndexSize(v int64) {
 
 // GetLastQueriedMs returns the LastQueriedMs field value if set, zero value otherwise.
 func (o *CollectionStats) GetLastQueriedMs() int64 {
-	if o == nil || o.LastQueriedMs == nil {
+	if o == nil || IsNil(o.LastQueriedMs) {
 		var ret int64
 		return ret
 	}
@@ -335,7 +338,7 @@ func (o *CollectionStats) GetLastQueriedMs() int64 {
 // GetLastQueriedMsOk returns a tuple with the LastQueriedMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetLastQueriedMsOk() (*int64, bool) {
-	if o == nil || o.LastQueriedMs == nil {
+	if o == nil || IsNil(o.LastQueriedMs) {
 		return nil, false
 	}
 	return o.LastQueriedMs, true
@@ -343,7 +346,7 @@ func (o *CollectionStats) GetLastQueriedMsOk() (*int64, bool) {
 
 // HasLastQueriedMs returns a boolean if a field has been set.
 func (o *CollectionStats) HasLastQueriedMs() bool {
-	if o != nil && o.LastQueriedMs != nil {
+	if o != nil && !IsNil(o.LastQueriedMs) {
 		return true
 	}
 
@@ -357,7 +360,7 @@ func (o *CollectionStats) SetLastQueriedMs(v int64) {
 
 // GetLastUpdatedMs returns the LastUpdatedMs field value if set, zero value otherwise.
 func (o *CollectionStats) GetLastUpdatedMs() int64 {
-	if o == nil || o.LastUpdatedMs == nil {
+	if o == nil || IsNil(o.LastUpdatedMs) {
 		var ret int64
 		return ret
 	}
@@ -367,7 +370,7 @@ func (o *CollectionStats) GetLastUpdatedMs() int64 {
 // GetLastUpdatedMsOk returns a tuple with the LastUpdatedMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetLastUpdatedMsOk() (*int64, bool) {
-	if o == nil || o.LastUpdatedMs == nil {
+	if o == nil || IsNil(o.LastUpdatedMs) {
 		return nil, false
 	}
 	return o.LastUpdatedMs, true
@@ -375,7 +378,7 @@ func (o *CollectionStats) GetLastUpdatedMsOk() (*int64, bool) {
 
 // HasLastUpdatedMs returns a boolean if a field has been set.
 func (o *CollectionStats) HasLastUpdatedMs() bool {
-	if o != nil && o.LastUpdatedMs != nil {
+	if o != nil && !IsNil(o.LastUpdatedMs) {
 		return true
 	}
 
@@ -389,7 +392,7 @@ func (o *CollectionStats) SetLastUpdatedMs(v int64) {
 
 // GetPurgedDocCount returns the PurgedDocCount field value if set, zero value otherwise.
 func (o *CollectionStats) GetPurgedDocCount() int64 {
-	if o == nil || o.PurgedDocCount == nil {
+	if o == nil || IsNil(o.PurgedDocCount) {
 		var ret int64
 		return ret
 	}
@@ -399,7 +402,7 @@ func (o *CollectionStats) GetPurgedDocCount() int64 {
 // GetPurgedDocCountOk returns a tuple with the PurgedDocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetPurgedDocCountOk() (*int64, bool) {
-	if o == nil || o.PurgedDocCount == nil {
+	if o == nil || IsNil(o.PurgedDocCount) {
 		return nil, false
 	}
 	return o.PurgedDocCount, true
@@ -407,7 +410,7 @@ func (o *CollectionStats) GetPurgedDocCountOk() (*int64, bool) {
 
 // HasPurgedDocCount returns a boolean if a field has been set.
 func (o *CollectionStats) HasPurgedDocCount() bool {
-	if o != nil && o.PurgedDocCount != nil {
+	if o != nil && !IsNil(o.PurgedDocCount) {
 		return true
 	}
 
@@ -421,7 +424,7 @@ func (o *CollectionStats) SetPurgedDocCount(v int64) {
 
 // GetPurgedDocSize returns the PurgedDocSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetPurgedDocSize() int64 {
-	if o == nil || o.PurgedDocSize == nil {
+	if o == nil || IsNil(o.PurgedDocSize) {
 		var ret int64
 		return ret
 	}
@@ -431,7 +434,7 @@ func (o *CollectionStats) GetPurgedDocSize() int64 {
 // GetPurgedDocSizeOk returns a tuple with the PurgedDocSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetPurgedDocSizeOk() (*int64, bool) {
-	if o == nil || o.PurgedDocSize == nil {
+	if o == nil || IsNil(o.PurgedDocSize) {
 		return nil, false
 	}
 	return o.PurgedDocSize, true
@@ -439,7 +442,7 @@ func (o *CollectionStats) GetPurgedDocSizeOk() (*int64, bool) {
 
 // HasPurgedDocSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasPurgedDocSize() bool {
-	if o != nil && o.PurgedDocSize != nil {
+	if o != nil && !IsNil(o.PurgedDocSize) {
 		return true
 	}
 
@@ -453,7 +456,7 @@ func (o *CollectionStats) SetPurgedDocSize(v int64) {
 
 // GetRangeIndexSize returns the RangeIndexSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetRangeIndexSize() int64 {
-	if o == nil || o.RangeIndexSize == nil {
+	if o == nil || IsNil(o.RangeIndexSize) {
 		var ret int64
 		return ret
 	}
@@ -463,7 +466,7 @@ func (o *CollectionStats) GetRangeIndexSize() int64 {
 // GetRangeIndexSizeOk returns a tuple with the RangeIndexSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetRangeIndexSizeOk() (*int64, bool) {
-	if o == nil || o.RangeIndexSize == nil {
+	if o == nil || IsNil(o.RangeIndexSize) {
 		return nil, false
 	}
 	return o.RangeIndexSize, true
@@ -471,7 +474,7 @@ func (o *CollectionStats) GetRangeIndexSizeOk() (*int64, bool) {
 
 // HasRangeIndexSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasRangeIndexSize() bool {
-	if o != nil && o.RangeIndexSize != nil {
+	if o != nil && !IsNil(o.RangeIndexSize) {
 		return true
 	}
 
@@ -485,7 +488,7 @@ func (o *CollectionStats) SetRangeIndexSize(v int64) {
 
 // GetRowIndexSize returns the RowIndexSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetRowIndexSize() int64 {
-	if o == nil || o.RowIndexSize == nil {
+	if o == nil || IsNil(o.RowIndexSize) {
 		var ret int64
 		return ret
 	}
@@ -495,7 +498,7 @@ func (o *CollectionStats) GetRowIndexSize() int64 {
 // GetRowIndexSizeOk returns a tuple with the RowIndexSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetRowIndexSizeOk() (*int64, bool) {
-	if o == nil || o.RowIndexSize == nil {
+	if o == nil || IsNil(o.RowIndexSize) {
 		return nil, false
 	}
 	return o.RowIndexSize, true
@@ -503,7 +506,7 @@ func (o *CollectionStats) GetRowIndexSizeOk() (*int64, bool) {
 
 // HasRowIndexSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasRowIndexSize() bool {
-	if o != nil && o.RowIndexSize != nil {
+	if o != nil && !IsNil(o.RowIndexSize) {
 		return true
 	}
 
@@ -517,7 +520,7 @@ func (o *CollectionStats) SetRowIndexSize(v int64) {
 
 // GetTotalIndexSize returns the TotalIndexSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetTotalIndexSize() int64 {
-	if o == nil || o.TotalIndexSize == nil {
+	if o == nil || IsNil(o.TotalIndexSize) {
 		var ret int64
 		return ret
 	}
@@ -527,7 +530,7 @@ func (o *CollectionStats) GetTotalIndexSize() int64 {
 // GetTotalIndexSizeOk returns a tuple with the TotalIndexSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetTotalIndexSizeOk() (*int64, bool) {
-	if o == nil || o.TotalIndexSize == nil {
+	if o == nil || IsNil(o.TotalIndexSize) {
 		return nil, false
 	}
 	return o.TotalIndexSize, true
@@ -535,7 +538,7 @@ func (o *CollectionStats) GetTotalIndexSizeOk() (*int64, bool) {
 
 // HasTotalIndexSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasTotalIndexSize() bool {
-	if o != nil && o.TotalIndexSize != nil {
+	if o != nil && !IsNil(o.TotalIndexSize) {
 		return true
 	}
 
@@ -549,7 +552,7 @@ func (o *CollectionStats) SetTotalIndexSize(v int64) {
 
 // GetTotalSize returns the TotalSize field value if set, zero value otherwise.
 func (o *CollectionStats) GetTotalSize() int64 {
-	if o == nil || o.TotalSize == nil {
+	if o == nil || IsNil(o.TotalSize) {
 		var ret int64
 		return ret
 	}
@@ -559,7 +562,7 @@ func (o *CollectionStats) GetTotalSize() int64 {
 // GetTotalSizeOk returns a tuple with the TotalSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionStats) GetTotalSizeOk() (*int64, bool) {
-	if o == nil || o.TotalSize == nil {
+	if o == nil || IsNil(o.TotalSize) {
 		return nil, false
 	}
 	return o.TotalSize, true
@@ -567,7 +570,7 @@ func (o *CollectionStats) GetTotalSizeOk() (*int64, bool) {
 
 // HasTotalSize returns a boolean if a field has been set.
 func (o *CollectionStats) HasTotalSize() bool {
-	if o != nil && o.TotalSize != nil {
+	if o != nil && !IsNil(o.TotalSize) {
 		return true
 	}
 
@@ -580,56 +583,64 @@ func (o *CollectionStats) SetTotalSize(v int64) {
 }
 
 func (o CollectionStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.BulkBytesInserted != nil {
-		toSerialize["bulk_bytes_inserted"] = o.BulkBytesInserted
-	}
-	if o.BulkBytesOverwritten != nil {
-		toSerialize["bulk_bytes_overwritten"] = o.BulkBytesOverwritten
-	}
-	if o.BytesInserted != nil {
-		toSerialize["bytes_inserted"] = o.BytesInserted
-	}
-	if o.BytesOverwritten != nil {
-		toSerialize["bytes_overwritten"] = o.BytesOverwritten
-	}
-	if o.ColumnIndexSize != nil {
-		toSerialize["column_index_size"] = o.ColumnIndexSize
-	}
-	if o.DocCount != nil {
-		toSerialize["doc_count"] = o.DocCount
-	}
-	if o.FillProgress != nil {
-		toSerialize["fill_progress"] = o.FillProgress
-	}
-	if o.InvertedIndexSize != nil {
-		toSerialize["inverted_index_size"] = o.InvertedIndexSize
-	}
-	if o.LastQueriedMs != nil {
-		toSerialize["last_queried_ms"] = o.LastQueriedMs
-	}
-	if o.LastUpdatedMs != nil {
-		toSerialize["last_updated_ms"] = o.LastUpdatedMs
-	}
-	if o.PurgedDocCount != nil {
-		toSerialize["purged_doc_count"] = o.PurgedDocCount
-	}
-	if o.PurgedDocSize != nil {
-		toSerialize["purged_doc_size"] = o.PurgedDocSize
-	}
-	if o.RangeIndexSize != nil {
-		toSerialize["range_index_size"] = o.RangeIndexSize
-	}
-	if o.RowIndexSize != nil {
-		toSerialize["row_index_size"] = o.RowIndexSize
-	}
-	if o.TotalIndexSize != nil {
-		toSerialize["total_index_size"] = o.TotalIndexSize
-	}
-	if o.TotalSize != nil {
-		toSerialize["total_size"] = o.TotalSize
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BulkBytesInserted) {
+		toSerialize["bulk_bytes_inserted"] = o.BulkBytesInserted
+	}
+	if !IsNil(o.BulkBytesOverwritten) {
+		toSerialize["bulk_bytes_overwritten"] = o.BulkBytesOverwritten
+	}
+	if !IsNil(o.BytesInserted) {
+		toSerialize["bytes_inserted"] = o.BytesInserted
+	}
+	if !IsNil(o.BytesOverwritten) {
+		toSerialize["bytes_overwritten"] = o.BytesOverwritten
+	}
+	if !IsNil(o.ColumnIndexSize) {
+		toSerialize["column_index_size"] = o.ColumnIndexSize
+	}
+	if !IsNil(o.DocCount) {
+		toSerialize["doc_count"] = o.DocCount
+	}
+	if !IsNil(o.FillProgress) {
+		toSerialize["fill_progress"] = o.FillProgress
+	}
+	if !IsNil(o.InvertedIndexSize) {
+		toSerialize["inverted_index_size"] = o.InvertedIndexSize
+	}
+	if !IsNil(o.LastQueriedMs) {
+		toSerialize["last_queried_ms"] = o.LastQueriedMs
+	}
+	if !IsNil(o.LastUpdatedMs) {
+		toSerialize["last_updated_ms"] = o.LastUpdatedMs
+	}
+	if !IsNil(o.PurgedDocCount) {
+		toSerialize["purged_doc_count"] = o.PurgedDocCount
+	}
+	if !IsNil(o.PurgedDocSize) {
+		toSerialize["purged_doc_size"] = o.PurgedDocSize
+	}
+	if !IsNil(o.RangeIndexSize) {
+		toSerialize["range_index_size"] = o.RangeIndexSize
+	}
+	if !IsNil(o.RowIndexSize) {
+		toSerialize["row_index_size"] = o.RowIndexSize
+	}
+	if !IsNil(o.TotalIndexSize) {
+		toSerialize["total_index_size"] = o.TotalIndexSize
+	}
+	if !IsNil(o.TotalSize) {
+		toSerialize["total_size"] = o.TotalSize
+	}
+	return toSerialize, nil
 }
 
 type NullableCollectionStats struct {

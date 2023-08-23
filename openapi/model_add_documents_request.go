@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AddDocumentsRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AddDocumentsRequest{}
+
 // AddDocumentsRequest struct for AddDocumentsRequest
 type AddDocumentsRequest struct {
 	// Array of documents to be added to the collection.
@@ -51,7 +54,7 @@ func (o *AddDocumentsRequest) GetData() []map[string]interface{} {
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *AddDocumentsRequest) GetDataOk() ([]map[string]interface{}, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Data, true
@@ -63,11 +66,17 @@ func (o *AddDocumentsRequest) SetData(v []map[string]interface{}) {
 }
 
 func (o AddDocumentsRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AddDocumentsRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["data"] = o.Data
+	return toSerialize, nil
 }
 
 type NullableAddDocumentsRequest struct {

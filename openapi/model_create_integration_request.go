@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateIntegrationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateIntegrationRequest{}
+
 // CreateIntegrationRequest struct for CreateIntegrationRequest
 type CreateIntegrationRequest struct {
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
@@ -52,7 +55,7 @@ func NewCreateIntegrationRequestWithDefaults() *CreateIntegrationRequest {
 
 // GetAzureBlobStorage returns the AzureBlobStorage field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegration {
-	if o == nil || o.AzureBlobStorage == nil {
+	if o == nil || IsNil(o.AzureBlobStorage) {
 		var ret AzureBlobStorageIntegration
 		return ret
 	}
@@ -62,7 +65,7 @@ func (o *CreateIntegrationRequest) GetAzureBlobStorage() AzureBlobStorageIntegra
 // GetAzureBlobStorageOk returns a tuple with the AzureBlobStorage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageIntegration, bool) {
-	if o == nil || o.AzureBlobStorage == nil {
+	if o == nil || IsNil(o.AzureBlobStorage) {
 		return nil, false
 	}
 	return o.AzureBlobStorage, true
@@ -70,7 +73,7 @@ func (o *CreateIntegrationRequest) GetAzureBlobStorageOk() (*AzureBlobStorageInt
 
 // HasAzureBlobStorage returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasAzureBlobStorage() bool {
-	if o != nil && o.AzureBlobStorage != nil {
+	if o != nil && !IsNil(o.AzureBlobStorage) {
 		return true
 	}
 
@@ -84,7 +87,7 @@ func (o *CreateIntegrationRequest) SetAzureBlobStorage(v AzureBlobStorageIntegra
 
 // GetAzureEventHubs returns the AzureEventHubs field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration {
-	if o == nil || o.AzureEventHubs == nil {
+	if o == nil || IsNil(o.AzureEventHubs) {
 		var ret AzureEventHubsIntegration
 		return ret
 	}
@@ -94,7 +97,7 @@ func (o *CreateIntegrationRequest) GetAzureEventHubs() AzureEventHubsIntegration
 // GetAzureEventHubsOk returns a tuple with the AzureEventHubs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegration, bool) {
-	if o == nil || o.AzureEventHubs == nil {
+	if o == nil || IsNil(o.AzureEventHubs) {
 		return nil, false
 	}
 	return o.AzureEventHubs, true
@@ -102,7 +105,7 @@ func (o *CreateIntegrationRequest) GetAzureEventHubsOk() (*AzureEventHubsIntegra
 
 // HasAzureEventHubs returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasAzureEventHubs() bool {
-	if o != nil && o.AzureEventHubs != nil {
+	if o != nil && !IsNil(o.AzureEventHubs) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *CreateIntegrationRequest) SetAzureEventHubs(v AzureEventHubsIntegration
 
 // GetAzureServiceBus returns the AzureServiceBus field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegration {
-	if o == nil || o.AzureServiceBus == nil {
+	if o == nil || IsNil(o.AzureServiceBus) {
 		var ret AzureServiceBusIntegration
 		return ret
 	}
@@ -126,7 +129,7 @@ func (o *CreateIntegrationRequest) GetAzureServiceBus() AzureServiceBusIntegrati
 // GetAzureServiceBusOk returns a tuple with the AzureServiceBus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusIntegration, bool) {
-	if o == nil || o.AzureServiceBus == nil {
+	if o == nil || IsNil(o.AzureServiceBus) {
 		return nil, false
 	}
 	return o.AzureServiceBus, true
@@ -134,7 +137,7 @@ func (o *CreateIntegrationRequest) GetAzureServiceBusOk() (*AzureServiceBusInteg
 
 // HasAzureServiceBus returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasAzureServiceBus() bool {
-	if o != nil && o.AzureServiceBus != nil {
+	if o != nil && !IsNil(o.AzureServiceBus) {
 		return true
 	}
 
@@ -148,7 +151,7 @@ func (o *CreateIntegrationRequest) SetAzureServiceBus(v AzureServiceBusIntegrati
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -158,7 +161,7 @@ func (o *CreateIntegrationRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -166,7 +169,7 @@ func (o *CreateIntegrationRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -180,7 +183,7 @@ func (o *CreateIntegrationRequest) SetDescription(v string) {
 
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetDynamodb() DynamodbIntegration {
-	if o == nil || o.Dynamodb == nil {
+	if o == nil || IsNil(o.Dynamodb) {
 		var ret DynamodbIntegration
 		return ret
 	}
@@ -190,7 +193,7 @@ func (o *CreateIntegrationRequest) GetDynamodb() DynamodbIntegration {
 // GetDynamodbOk returns a tuple with the Dynamodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetDynamodbOk() (*DynamodbIntegration, bool) {
-	if o == nil || o.Dynamodb == nil {
+	if o == nil || IsNil(o.Dynamodb) {
 		return nil, false
 	}
 	return o.Dynamodb, true
@@ -198,7 +201,7 @@ func (o *CreateIntegrationRequest) GetDynamodbOk() (*DynamodbIntegration, bool) 
 
 // HasDynamodb returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasDynamodb() bool {
-	if o != nil && o.Dynamodb != nil {
+	if o != nil && !IsNil(o.Dynamodb) {
 		return true
 	}
 
@@ -212,7 +215,7 @@ func (o *CreateIntegrationRequest) SetDynamodb(v DynamodbIntegration) {
 
 // GetGcs returns the Gcs field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetGcs() GcsIntegration {
-	if o == nil || o.Gcs == nil {
+	if o == nil || IsNil(o.Gcs) {
 		var ret GcsIntegration
 		return ret
 	}
@@ -222,7 +225,7 @@ func (o *CreateIntegrationRequest) GetGcs() GcsIntegration {
 // GetGcsOk returns a tuple with the Gcs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetGcsOk() (*GcsIntegration, bool) {
-	if o == nil || o.Gcs == nil {
+	if o == nil || IsNil(o.Gcs) {
 		return nil, false
 	}
 	return o.Gcs, true
@@ -230,7 +233,7 @@ func (o *CreateIntegrationRequest) GetGcsOk() (*GcsIntegration, bool) {
 
 // HasGcs returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasGcs() bool {
-	if o != nil && o.Gcs != nil {
+	if o != nil && !IsNil(o.Gcs) {
 		return true
 	}
 
@@ -244,7 +247,7 @@ func (o *CreateIntegrationRequest) SetGcs(v GcsIntegration) {
 
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetKafka() KafkaIntegration {
-	if o == nil || o.Kafka == nil {
+	if o == nil || IsNil(o.Kafka) {
 		var ret KafkaIntegration
 		return ret
 	}
@@ -254,7 +257,7 @@ func (o *CreateIntegrationRequest) GetKafka() KafkaIntegration {
 // GetKafkaOk returns a tuple with the Kafka field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetKafkaOk() (*KafkaIntegration, bool) {
-	if o == nil || o.Kafka == nil {
+	if o == nil || IsNil(o.Kafka) {
 		return nil, false
 	}
 	return o.Kafka, true
@@ -262,7 +265,7 @@ func (o *CreateIntegrationRequest) GetKafkaOk() (*KafkaIntegration, bool) {
 
 // HasKafka returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasKafka() bool {
-	if o != nil && o.Kafka != nil {
+	if o != nil && !IsNil(o.Kafka) {
 		return true
 	}
 
@@ -276,7 +279,7 @@ func (o *CreateIntegrationRequest) SetKafka(v KafkaIntegration) {
 
 // GetKinesis returns the Kinesis field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetKinesis() KinesisIntegration {
-	if o == nil || o.Kinesis == nil {
+	if o == nil || IsNil(o.Kinesis) {
 		var ret KinesisIntegration
 		return ret
 	}
@@ -286,7 +289,7 @@ func (o *CreateIntegrationRequest) GetKinesis() KinesisIntegration {
 // GetKinesisOk returns a tuple with the Kinesis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetKinesisOk() (*KinesisIntegration, bool) {
-	if o == nil || o.Kinesis == nil {
+	if o == nil || IsNil(o.Kinesis) {
 		return nil, false
 	}
 	return o.Kinesis, true
@@ -294,7 +297,7 @@ func (o *CreateIntegrationRequest) GetKinesisOk() (*KinesisIntegration, bool) {
 
 // HasKinesis returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasKinesis() bool {
-	if o != nil && o.Kinesis != nil {
+	if o != nil && !IsNil(o.Kinesis) {
 		return true
 	}
 
@@ -308,7 +311,7 @@ func (o *CreateIntegrationRequest) SetKinesis(v KinesisIntegration) {
 
 // GetMongodb returns the Mongodb field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetMongodb() MongoDbIntegration {
-	if o == nil || o.Mongodb == nil {
+	if o == nil || IsNil(o.Mongodb) {
 		var ret MongoDbIntegration
 		return ret
 	}
@@ -318,7 +321,7 @@ func (o *CreateIntegrationRequest) GetMongodb() MongoDbIntegration {
 // GetMongodbOk returns a tuple with the Mongodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetMongodbOk() (*MongoDbIntegration, bool) {
-	if o == nil || o.Mongodb == nil {
+	if o == nil || IsNil(o.Mongodb) {
 		return nil, false
 	}
 	return o.Mongodb, true
@@ -326,7 +329,7 @@ func (o *CreateIntegrationRequest) GetMongodbOk() (*MongoDbIntegration, bool) {
 
 // HasMongodb returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasMongodb() bool {
-	if o != nil && o.Mongodb != nil {
+	if o != nil && !IsNil(o.Mongodb) {
 		return true
 	}
 
@@ -351,7 +354,7 @@ func (o *CreateIntegrationRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -364,7 +367,7 @@ func (o *CreateIntegrationRequest) SetName(v string) {
 
 // GetS3 returns the S3 field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetS3() S3Integration {
-	if o == nil || o.S3 == nil {
+	if o == nil || IsNil(o.S3) {
 		var ret S3Integration
 		return ret
 	}
@@ -374,7 +377,7 @@ func (o *CreateIntegrationRequest) GetS3() S3Integration {
 // GetS3Ok returns a tuple with the S3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetS3Ok() (*S3Integration, bool) {
-	if o == nil || o.S3 == nil {
+	if o == nil || IsNil(o.S3) {
 		return nil, false
 	}
 	return o.S3, true
@@ -382,7 +385,7 @@ func (o *CreateIntegrationRequest) GetS3Ok() (*S3Integration, bool) {
 
 // HasS3 returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasS3() bool {
-	if o != nil && o.S3 != nil {
+	if o != nil && !IsNil(o.S3) {
 		return true
 	}
 
@@ -396,7 +399,7 @@ func (o *CreateIntegrationRequest) SetS3(v S3Integration) {
 
 // GetSnowflake returns the Snowflake field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetSnowflake() SnowflakeIntegration {
-	if o == nil || o.Snowflake == nil {
+	if o == nil || IsNil(o.Snowflake) {
 		var ret SnowflakeIntegration
 		return ret
 	}
@@ -406,7 +409,7 @@ func (o *CreateIntegrationRequest) GetSnowflake() SnowflakeIntegration {
 // GetSnowflakeOk returns a tuple with the Snowflake field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateIntegrationRequest) GetSnowflakeOk() (*SnowflakeIntegration, bool) {
-	if o == nil || o.Snowflake == nil {
+	if o == nil || IsNil(o.Snowflake) {
 		return nil, false
 	}
 	return o.Snowflake, true
@@ -414,7 +417,7 @@ func (o *CreateIntegrationRequest) GetSnowflakeOk() (*SnowflakeIntegration, bool
 
 // HasSnowflake returns a boolean if a field has been set.
 func (o *CreateIntegrationRequest) HasSnowflake() bool {
-	if o != nil && o.Snowflake != nil {
+	if o != nil && !IsNil(o.Snowflake) {
 		return true
 	}
 
@@ -427,44 +430,50 @@ func (o *CreateIntegrationRequest) SetSnowflake(v SnowflakeIntegration) {
 }
 
 func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AzureBlobStorage != nil {
-		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
-	}
-	if o.AzureEventHubs != nil {
-		toSerialize["azure_event_hubs"] = o.AzureEventHubs
-	}
-	if o.AzureServiceBus != nil {
-		toSerialize["azure_service_bus"] = o.AzureServiceBus
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Dynamodb != nil {
-		toSerialize["dynamodb"] = o.Dynamodb
-	}
-	if o.Gcs != nil {
-		toSerialize["gcs"] = o.Gcs
-	}
-	if o.Kafka != nil {
-		toSerialize["kafka"] = o.Kafka
-	}
-	if o.Kinesis != nil {
-		toSerialize["kinesis"] = o.Kinesis
-	}
-	if o.Mongodb != nil {
-		toSerialize["mongodb"] = o.Mongodb
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.S3 != nil {
-		toSerialize["s3"] = o.S3
-	}
-	if o.Snowflake != nil {
-		toSerialize["snowflake"] = o.Snowflake
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateIntegrationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AzureBlobStorage) {
+		toSerialize["azure_blob_storage"] = o.AzureBlobStorage
+	}
+	if !IsNil(o.AzureEventHubs) {
+		toSerialize["azure_event_hubs"] = o.AzureEventHubs
+	}
+	if !IsNil(o.AzureServiceBus) {
+		toSerialize["azure_service_bus"] = o.AzureServiceBus
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Dynamodb) {
+		toSerialize["dynamodb"] = o.Dynamodb
+	}
+	if !IsNil(o.Gcs) {
+		toSerialize["gcs"] = o.Gcs
+	}
+	if !IsNil(o.Kafka) {
+		toSerialize["kafka"] = o.Kafka
+	}
+	if !IsNil(o.Kinesis) {
+		toSerialize["kinesis"] = o.Kinesis
+	}
+	if !IsNil(o.Mongodb) {
+		toSerialize["mongodb"] = o.Mongodb
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.S3) {
+		toSerialize["s3"] = o.S3
+	}
+	if !IsNil(o.Snowflake) {
+		toSerialize["snowflake"] = o.Snowflake
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateIntegrationRequest struct {

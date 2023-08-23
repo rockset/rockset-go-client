@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateCollectionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateCollectionRequest{}
+
 // CreateCollectionRequest struct for CreateCollectionRequest
 type CreateCollectionRequest struct {
 	// Deprecated. List of clustering fields. Use CLUSTER BY clause in `field_mapping_query` instead.
@@ -53,7 +56,7 @@ func NewCreateCollectionRequestWithDefaults() *CreateCollectionRequest {
 
 // GetClusteringKey returns the ClusteringKey field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition {
-	if o == nil || o.ClusteringKey == nil {
+	if o == nil || IsNil(o.ClusteringKey) {
 		var ret []FieldPartition
 		return ret
 	}
@@ -63,7 +66,7 @@ func (o *CreateCollectionRequest) GetClusteringKey() []FieldPartition {
 // GetClusteringKeyOk returns a tuple with the ClusteringKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetClusteringKeyOk() ([]FieldPartition, bool) {
-	if o == nil || o.ClusteringKey == nil {
+	if o == nil || IsNil(o.ClusteringKey) {
 		return nil, false
 	}
 	return o.ClusteringKey, true
@@ -71,7 +74,7 @@ func (o *CreateCollectionRequest) GetClusteringKeyOk() ([]FieldPartition, bool) 
 
 // HasClusteringKey returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasClusteringKey() bool {
-	if o != nil && o.ClusteringKey != nil {
+	if o != nil && !IsNil(o.ClusteringKey) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *CreateCollectionRequest) SetClusteringKey(v []FieldPartition) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *CreateCollectionRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -103,7 +106,7 @@ func (o *CreateCollectionRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *CreateCollectionRequest) SetDescription(v string) {
 
 // GetEventTimeInfo returns the EventTimeInfo field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetEventTimeInfo() EventTimeInfo {
-	if o == nil || o.EventTimeInfo == nil {
+	if o == nil || IsNil(o.EventTimeInfo) {
 		var ret EventTimeInfo
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *CreateCollectionRequest) GetEventTimeInfo() EventTimeInfo {
 // GetEventTimeInfoOk returns a tuple with the EventTimeInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetEventTimeInfoOk() (*EventTimeInfo, bool) {
-	if o == nil || o.EventTimeInfo == nil {
+	if o == nil || IsNil(o.EventTimeInfo) {
 		return nil, false
 	}
 	return o.EventTimeInfo, true
@@ -135,7 +138,7 @@ func (o *CreateCollectionRequest) GetEventTimeInfoOk() (*EventTimeInfo, bool) {
 
 // HasEventTimeInfo returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasEventTimeInfo() bool {
-	if o != nil && o.EventTimeInfo != nil {
+	if o != nil && !IsNil(o.EventTimeInfo) {
 		return true
 	}
 
@@ -149,7 +152,7 @@ func (o *CreateCollectionRequest) SetEventTimeInfo(v EventTimeInfo) {
 
 // GetFieldMappingQuery returns the FieldMappingQuery field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetFieldMappingQuery() FieldMappingQuery {
-	if o == nil || o.FieldMappingQuery == nil {
+	if o == nil || IsNil(o.FieldMappingQuery) {
 		var ret FieldMappingQuery
 		return ret
 	}
@@ -159,7 +162,7 @@ func (o *CreateCollectionRequest) GetFieldMappingQuery() FieldMappingQuery {
 // GetFieldMappingQueryOk returns a tuple with the FieldMappingQuery field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetFieldMappingQueryOk() (*FieldMappingQuery, bool) {
-	if o == nil || o.FieldMappingQuery == nil {
+	if o == nil || IsNil(o.FieldMappingQuery) {
 		return nil, false
 	}
 	return o.FieldMappingQuery, true
@@ -167,7 +170,7 @@ func (o *CreateCollectionRequest) GetFieldMappingQueryOk() (*FieldMappingQuery, 
 
 // HasFieldMappingQuery returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasFieldMappingQuery() bool {
-	if o != nil && o.FieldMappingQuery != nil {
+	if o != nil && !IsNil(o.FieldMappingQuery) {
 		return true
 	}
 
@@ -181,7 +184,7 @@ func (o *CreateCollectionRequest) SetFieldMappingQuery(v FieldMappingQuery) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -191,7 +194,7 @@ func (o *CreateCollectionRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -199,7 +202,7 @@ func (o *CreateCollectionRequest) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -213,7 +216,7 @@ func (o *CreateCollectionRequest) SetName(v string) {
 
 // GetRetentionSecs returns the RetentionSecs field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetRetentionSecs() int64 {
-	if o == nil || o.RetentionSecs == nil {
+	if o == nil || IsNil(o.RetentionSecs) {
 		var ret int64
 		return ret
 	}
@@ -223,7 +226,7 @@ func (o *CreateCollectionRequest) GetRetentionSecs() int64 {
 // GetRetentionSecsOk returns a tuple with the RetentionSecs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetRetentionSecsOk() (*int64, bool) {
-	if o == nil || o.RetentionSecs == nil {
+	if o == nil || IsNil(o.RetentionSecs) {
 		return nil, false
 	}
 	return o.RetentionSecs, true
@@ -231,7 +234,7 @@ func (o *CreateCollectionRequest) GetRetentionSecsOk() (*int64, bool) {
 
 // HasRetentionSecs returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasRetentionSecs() bool {
-	if o != nil && o.RetentionSecs != nil {
+	if o != nil && !IsNil(o.RetentionSecs) {
 		return true
 	}
 
@@ -245,7 +248,7 @@ func (o *CreateCollectionRequest) SetRetentionSecs(v int64) {
 
 // GetSourceDownloadSoftLimitBytes returns the SourceDownloadSoftLimitBytes field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytes() int64 {
-	if o == nil || o.SourceDownloadSoftLimitBytes == nil {
+	if o == nil || IsNil(o.SourceDownloadSoftLimitBytes) {
 		var ret int64
 		return ret
 	}
@@ -255,7 +258,7 @@ func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytes() int64 {
 // GetSourceDownloadSoftLimitBytesOk returns a tuple with the SourceDownloadSoftLimitBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytesOk() (*int64, bool) {
-	if o == nil || o.SourceDownloadSoftLimitBytes == nil {
+	if o == nil || IsNil(o.SourceDownloadSoftLimitBytes) {
 		return nil, false
 	}
 	return o.SourceDownloadSoftLimitBytes, true
@@ -263,7 +266,7 @@ func (o *CreateCollectionRequest) GetSourceDownloadSoftLimitBytesOk() (*int64, b
 
 // HasSourceDownloadSoftLimitBytes returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasSourceDownloadSoftLimitBytes() bool {
-	if o != nil && o.SourceDownloadSoftLimitBytes != nil {
+	if o != nil && !IsNil(o.SourceDownloadSoftLimitBytes) {
 		return true
 	}
 
@@ -277,7 +280,7 @@ func (o *CreateCollectionRequest) SetSourceDownloadSoftLimitBytes(v int64) {
 
 // GetSources returns the Sources field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetSources() []Source {
-	if o == nil || o.Sources == nil {
+	if o == nil || IsNil(o.Sources) {
 		var ret []Source
 		return ret
 	}
@@ -287,7 +290,7 @@ func (o *CreateCollectionRequest) GetSources() []Source {
 // GetSourcesOk returns a tuple with the Sources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetSourcesOk() ([]Source, bool) {
-	if o == nil || o.Sources == nil {
+	if o == nil || IsNil(o.Sources) {
 		return nil, false
 	}
 	return o.Sources, true
@@ -295,7 +298,7 @@ func (o *CreateCollectionRequest) GetSourcesOk() ([]Source, bool) {
 
 // HasSources returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasSources() bool {
-	if o != nil && o.Sources != nil {
+	if o != nil && !IsNil(o.Sources) {
 		return true
 	}
 
@@ -309,7 +312,7 @@ func (o *CreateCollectionRequest) SetSources(v []Source) {
 
 // GetStorageCompressionType returns the StorageCompressionType field value if set, zero value otherwise.
 func (o *CreateCollectionRequest) GetStorageCompressionType() string {
-	if o == nil || o.StorageCompressionType == nil {
+	if o == nil || IsNil(o.StorageCompressionType) {
 		var ret string
 		return ret
 	}
@@ -319,7 +322,7 @@ func (o *CreateCollectionRequest) GetStorageCompressionType() string {
 // GetStorageCompressionTypeOk returns a tuple with the StorageCompressionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCollectionRequest) GetStorageCompressionTypeOk() (*string, bool) {
-	if o == nil || o.StorageCompressionType == nil {
+	if o == nil || IsNil(o.StorageCompressionType) {
 		return nil, false
 	}
 	return o.StorageCompressionType, true
@@ -327,7 +330,7 @@ func (o *CreateCollectionRequest) GetStorageCompressionTypeOk() (*string, bool) 
 
 // HasStorageCompressionType returns a boolean if a field has been set.
 func (o *CreateCollectionRequest) HasStorageCompressionType() bool {
-	if o != nil && o.StorageCompressionType != nil {
+	if o != nil && !IsNil(o.StorageCompressionType) {
 		return true
 	}
 
@@ -340,35 +343,43 @@ func (o *CreateCollectionRequest) SetStorageCompressionType(v string) {
 }
 
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ClusteringKey != nil {
-		toSerialize["clustering_key"] = o.ClusteringKey
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.EventTimeInfo != nil {
-		toSerialize["event_time_info"] = o.EventTimeInfo
-	}
-	if o.FieldMappingQuery != nil {
-		toSerialize["field_mapping_query"] = o.FieldMappingQuery
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.RetentionSecs != nil {
-		toSerialize["retention_secs"] = o.RetentionSecs
-	}
-	if o.SourceDownloadSoftLimitBytes != nil {
-		toSerialize["source_download_soft_limit_bytes"] = o.SourceDownloadSoftLimitBytes
-	}
-	if o.Sources != nil {
-		toSerialize["sources"] = o.Sources
-	}
-	if o.StorageCompressionType != nil {
-		toSerialize["storage_compression_type"] = o.StorageCompressionType
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateCollectionRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ClusteringKey) {
+		toSerialize["clustering_key"] = o.ClusteringKey
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.EventTimeInfo) {
+		toSerialize["event_time_info"] = o.EventTimeInfo
+	}
+	if !IsNil(o.FieldMappingQuery) {
+		toSerialize["field_mapping_query"] = o.FieldMappingQuery
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.RetentionSecs) {
+		toSerialize["retention_secs"] = o.RetentionSecs
+	}
+	if !IsNil(o.SourceDownloadSoftLimitBytes) {
+		toSerialize["source_download_soft_limit_bytes"] = o.SourceDownloadSoftLimitBytes
+	}
+	if !IsNil(o.Sources) {
+		toSerialize["sources"] = o.Sources
+	}
+	if !IsNil(o.StorageCompressionType) {
+		toSerialize["storage_compression_type"] = o.StorageCompressionType
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateCollectionRequest struct {

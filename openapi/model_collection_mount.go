@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CollectionMount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CollectionMount{}
+
 // CollectionMount struct for CollectionMount
 type CollectionMount struct {
 	// Collection path.
@@ -56,7 +59,7 @@ func NewCollectionMountWithDefaults() *CollectionMount {
 
 // GetCollectionPath returns the CollectionPath field value if set, zero value otherwise.
 func (o *CollectionMount) GetCollectionPath() string {
-	if o == nil || o.CollectionPath == nil {
+	if o == nil || IsNil(o.CollectionPath) {
 		var ret string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *CollectionMount) GetCollectionPath() string {
 // GetCollectionPathOk returns a tuple with the CollectionPath field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetCollectionPathOk() (*string, bool) {
-	if o == nil || o.CollectionPath == nil {
+	if o == nil || IsNil(o.CollectionPath) {
 		return nil, false
 	}
 	return o.CollectionPath, true
@@ -74,7 +77,7 @@ func (o *CollectionMount) GetCollectionPathOk() (*string, bool) {
 
 // HasCollectionPath returns a boolean if a field has been set.
 func (o *CollectionMount) HasCollectionPath() bool {
-	if o != nil && o.CollectionPath != nil {
+	if o != nil && !IsNil(o.CollectionPath) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *CollectionMount) SetCollectionPath(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *CollectionMount) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *CollectionMount) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -106,7 +109,7 @@ func (o *CollectionMount) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *CollectionMount) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *CollectionMount) SetCreatedAt(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *CollectionMount) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *CollectionMount) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -138,7 +141,7 @@ func (o *CollectionMount) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *CollectionMount) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *CollectionMount) SetId(v string) {
 
 // GetLastRefreshTimeMillis returns the LastRefreshTimeMillis field value if set, zero value otherwise.
 func (o *CollectionMount) GetLastRefreshTimeMillis() int64 {
-	if o == nil || o.LastRefreshTimeMillis == nil {
+	if o == nil || IsNil(o.LastRefreshTimeMillis) {
 		var ret int64
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *CollectionMount) GetLastRefreshTimeMillis() int64 {
 // GetLastRefreshTimeMillisOk returns a tuple with the LastRefreshTimeMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetLastRefreshTimeMillisOk() (*int64, bool) {
-	if o == nil || o.LastRefreshTimeMillis == nil {
+	if o == nil || IsNil(o.LastRefreshTimeMillis) {
 		return nil, false
 	}
 	return o.LastRefreshTimeMillis, true
@@ -170,7 +173,7 @@ func (o *CollectionMount) GetLastRefreshTimeMillisOk() (*int64, bool) {
 
 // HasLastRefreshTimeMillis returns a boolean if a field has been set.
 func (o *CollectionMount) HasLastRefreshTimeMillis() bool {
-	if o != nil && o.LastRefreshTimeMillis != nil {
+	if o != nil && !IsNil(o.LastRefreshTimeMillis) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *CollectionMount) SetLastRefreshTimeMillis(v int64) {
 
 // GetRrn returns the Rrn field value if set, zero value otherwise.
 func (o *CollectionMount) GetRrn() string {
-	if o == nil || o.Rrn == nil {
+	if o == nil || IsNil(o.Rrn) {
 		var ret string
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *CollectionMount) GetRrn() string {
 // GetRrnOk returns a tuple with the Rrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetRrnOk() (*string, bool) {
-	if o == nil || o.Rrn == nil {
+	if o == nil || IsNil(o.Rrn) {
 		return nil, false
 	}
 	return o.Rrn, true
@@ -202,7 +205,7 @@ func (o *CollectionMount) GetRrnOk() (*string, bool) {
 
 // HasRrn returns a boolean if a field has been set.
 func (o *CollectionMount) HasRrn() bool {
-	if o != nil && o.Rrn != nil {
+	if o != nil && !IsNil(o.Rrn) {
 		return true
 	}
 
@@ -216,7 +219,7 @@ func (o *CollectionMount) SetRrn(v string) {
 
 // GetSnapshotExpirationTimeMillis returns the SnapshotExpirationTimeMillis field value if set, zero value otherwise.
 func (o *CollectionMount) GetSnapshotExpirationTimeMillis() int64 {
-	if o == nil || o.SnapshotExpirationTimeMillis == nil {
+	if o == nil || IsNil(o.SnapshotExpirationTimeMillis) {
 		var ret int64
 		return ret
 	}
@@ -226,7 +229,7 @@ func (o *CollectionMount) GetSnapshotExpirationTimeMillis() int64 {
 // GetSnapshotExpirationTimeMillisOk returns a tuple with the SnapshotExpirationTimeMillis field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetSnapshotExpirationTimeMillisOk() (*int64, bool) {
-	if o == nil || o.SnapshotExpirationTimeMillis == nil {
+	if o == nil || IsNil(o.SnapshotExpirationTimeMillis) {
 		return nil, false
 	}
 	return o.SnapshotExpirationTimeMillis, true
@@ -234,7 +237,7 @@ func (o *CollectionMount) GetSnapshotExpirationTimeMillisOk() (*int64, bool) {
 
 // HasSnapshotExpirationTimeMillis returns a boolean if a field has been set.
 func (o *CollectionMount) HasSnapshotExpirationTimeMillis() bool {
-	if o != nil && o.SnapshotExpirationTimeMillis != nil {
+	if o != nil && !IsNil(o.SnapshotExpirationTimeMillis) {
 		return true
 	}
 
@@ -248,7 +251,7 @@ func (o *CollectionMount) SetSnapshotExpirationTimeMillis(v int64) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *CollectionMount) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -258,7 +261,7 @@ func (o *CollectionMount) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -266,7 +269,7 @@ func (o *CollectionMount) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *CollectionMount) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -280,7 +283,7 @@ func (o *CollectionMount) SetState(v string) {
 
 // GetStats returns the Stats field value if set, zero value otherwise.
 func (o *CollectionMount) GetStats() CollectionMountStats {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		var ret CollectionMountStats
 		return ret
 	}
@@ -290,7 +293,7 @@ func (o *CollectionMount) GetStats() CollectionMountStats {
 // GetStatsOk returns a tuple with the Stats field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetStatsOk() (*CollectionMountStats, bool) {
-	if o == nil || o.Stats == nil {
+	if o == nil || IsNil(o.Stats) {
 		return nil, false
 	}
 	return o.Stats, true
@@ -298,7 +301,7 @@ func (o *CollectionMount) GetStatsOk() (*CollectionMountStats, bool) {
 
 // HasStats returns a boolean if a field has been set.
 func (o *CollectionMount) HasStats() bool {
-	if o != nil && o.Stats != nil {
+	if o != nil && !IsNil(o.Stats) {
 		return true
 	}
 
@@ -312,7 +315,7 @@ func (o *CollectionMount) SetStats(v CollectionMountStats) {
 
 // GetVirtualInstanceId returns the VirtualInstanceId field value if set, zero value otherwise.
 func (o *CollectionMount) GetVirtualInstanceId() string {
-	if o == nil || o.VirtualInstanceId == nil {
+	if o == nil || IsNil(o.VirtualInstanceId) {
 		var ret string
 		return ret
 	}
@@ -322,7 +325,7 @@ func (o *CollectionMount) GetVirtualInstanceId() string {
 // GetVirtualInstanceIdOk returns a tuple with the VirtualInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetVirtualInstanceIdOk() (*string, bool) {
-	if o == nil || o.VirtualInstanceId == nil {
+	if o == nil || IsNil(o.VirtualInstanceId) {
 		return nil, false
 	}
 	return o.VirtualInstanceId, true
@@ -330,7 +333,7 @@ func (o *CollectionMount) GetVirtualInstanceIdOk() (*string, bool) {
 
 // HasVirtualInstanceId returns a boolean if a field has been set.
 func (o *CollectionMount) HasVirtualInstanceId() bool {
-	if o != nil && o.VirtualInstanceId != nil {
+	if o != nil && !IsNil(o.VirtualInstanceId) {
 		return true
 	}
 
@@ -344,7 +347,7 @@ func (o *CollectionMount) SetVirtualInstanceId(v string) {
 
 // GetVirtualInstanceRrn returns the VirtualInstanceRrn field value if set, zero value otherwise.
 func (o *CollectionMount) GetVirtualInstanceRrn() string {
-	if o == nil || o.VirtualInstanceRrn == nil {
+	if o == nil || IsNil(o.VirtualInstanceRrn) {
 		var ret string
 		return ret
 	}
@@ -354,7 +357,7 @@ func (o *CollectionMount) GetVirtualInstanceRrn() string {
 // GetVirtualInstanceRrnOk returns a tuple with the VirtualInstanceRrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CollectionMount) GetVirtualInstanceRrnOk() (*string, bool) {
-	if o == nil || o.VirtualInstanceRrn == nil {
+	if o == nil || IsNil(o.VirtualInstanceRrn) {
 		return nil, false
 	}
 	return o.VirtualInstanceRrn, true
@@ -362,7 +365,7 @@ func (o *CollectionMount) GetVirtualInstanceRrnOk() (*string, bool) {
 
 // HasVirtualInstanceRrn returns a boolean if a field has been set.
 func (o *CollectionMount) HasVirtualInstanceRrn() bool {
-	if o != nil && o.VirtualInstanceRrn != nil {
+	if o != nil && !IsNil(o.VirtualInstanceRrn) {
 		return true
 	}
 
@@ -375,38 +378,46 @@ func (o *CollectionMount) SetVirtualInstanceRrn(v string) {
 }
 
 func (o CollectionMount) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CollectionPath != nil {
-		toSerialize["collection_path"] = o.CollectionPath
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.LastRefreshTimeMillis != nil {
-		toSerialize["last_refresh_time_millis"] = o.LastRefreshTimeMillis
-	}
-	if o.Rrn != nil {
-		toSerialize["rrn"] = o.Rrn
-	}
-	if o.SnapshotExpirationTimeMillis != nil {
-		toSerialize["snapshot_expiration_time_millis"] = o.SnapshotExpirationTimeMillis
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Stats != nil {
-		toSerialize["stats"] = o.Stats
-	}
-	if o.VirtualInstanceId != nil {
-		toSerialize["virtual_instance_id"] = o.VirtualInstanceId
-	}
-	if o.VirtualInstanceRrn != nil {
-		toSerialize["virtual_instance_rrn"] = o.VirtualInstanceRrn
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CollectionMount) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CollectionPath) {
+		toSerialize["collection_path"] = o.CollectionPath
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.LastRefreshTimeMillis) {
+		toSerialize["last_refresh_time_millis"] = o.LastRefreshTimeMillis
+	}
+	if !IsNil(o.Rrn) {
+		toSerialize["rrn"] = o.Rrn
+	}
+	if !IsNil(o.SnapshotExpirationTimeMillis) {
+		toSerialize["snapshot_expiration_time_millis"] = o.SnapshotExpirationTimeMillis
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Stats) {
+		toSerialize["stats"] = o.Stats
+	}
+	if !IsNil(o.VirtualInstanceId) {
+		toSerialize["virtual_instance_id"] = o.VirtualInstanceId
+	}
+	if !IsNil(o.VirtualInstanceRrn) {
+		toSerialize["virtual_instance_rrn"] = o.VirtualInstanceRrn
+	}
+	return toSerialize, nil
 }
 
 type NullableCollectionMount struct {

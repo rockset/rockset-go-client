@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryLambdaStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryLambdaStats{}
+
 // QueryLambdaStats struct for QueryLambdaStats
 type QueryLambdaStats struct {
 	// ISO-8601 date.
@@ -45,7 +48,7 @@ func NewQueryLambdaStatsWithDefaults() *QueryLambdaStats {
 
 // GetLastExecuted returns the LastExecuted field value if set, zero value otherwise.
 func (o *QueryLambdaStats) GetLastExecuted() string {
-	if o == nil || o.LastExecuted == nil {
+	if o == nil || IsNil(o.LastExecuted) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *QueryLambdaStats) GetLastExecuted() string {
 // GetLastExecutedOk returns a tuple with the LastExecuted field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaStats) GetLastExecutedOk() (*string, bool) {
-	if o == nil || o.LastExecuted == nil {
+	if o == nil || IsNil(o.LastExecuted) {
 		return nil, false
 	}
 	return o.LastExecuted, true
@@ -63,7 +66,7 @@ func (o *QueryLambdaStats) GetLastExecutedOk() (*string, bool) {
 
 // HasLastExecuted returns a boolean if a field has been set.
 func (o *QueryLambdaStats) HasLastExecuted() bool {
-	if o != nil && o.LastExecuted != nil {
+	if o != nil && !IsNil(o.LastExecuted) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *QueryLambdaStats) SetLastExecuted(v string) {
 
 // GetLastExecutedBy returns the LastExecutedBy field value if set, zero value otherwise.
 func (o *QueryLambdaStats) GetLastExecutedBy() string {
-	if o == nil || o.LastExecutedBy == nil {
+	if o == nil || IsNil(o.LastExecutedBy) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *QueryLambdaStats) GetLastExecutedBy() string {
 // GetLastExecutedByOk returns a tuple with the LastExecutedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaStats) GetLastExecutedByOk() (*string, bool) {
-	if o == nil || o.LastExecutedBy == nil {
+	if o == nil || IsNil(o.LastExecutedBy) {
 		return nil, false
 	}
 	return o.LastExecutedBy, true
@@ -95,7 +98,7 @@ func (o *QueryLambdaStats) GetLastExecutedByOk() (*string, bool) {
 
 // HasLastExecutedBy returns a boolean if a field has been set.
 func (o *QueryLambdaStats) HasLastExecutedBy() bool {
-	if o != nil && o.LastExecutedBy != nil {
+	if o != nil && !IsNil(o.LastExecutedBy) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *QueryLambdaStats) SetLastExecutedBy(v string) {
 
 // GetLastExecutionError returns the LastExecutionError field value if set, zero value otherwise.
 func (o *QueryLambdaStats) GetLastExecutionError() string {
-	if o == nil || o.LastExecutionError == nil {
+	if o == nil || IsNil(o.LastExecutionError) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *QueryLambdaStats) GetLastExecutionError() string {
 // GetLastExecutionErrorOk returns a tuple with the LastExecutionError field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaStats) GetLastExecutionErrorOk() (*string, bool) {
-	if o == nil || o.LastExecutionError == nil {
+	if o == nil || IsNil(o.LastExecutionError) {
 		return nil, false
 	}
 	return o.LastExecutionError, true
@@ -127,7 +130,7 @@ func (o *QueryLambdaStats) GetLastExecutionErrorOk() (*string, bool) {
 
 // HasLastExecutionError returns a boolean if a field has been set.
 func (o *QueryLambdaStats) HasLastExecutionError() bool {
-	if o != nil && o.LastExecutionError != nil {
+	if o != nil && !IsNil(o.LastExecutionError) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *QueryLambdaStats) SetLastExecutionError(v string) {
 
 // GetLastExecutionErrorMessage returns the LastExecutionErrorMessage field value if set, zero value otherwise.
 func (o *QueryLambdaStats) GetLastExecutionErrorMessage() string {
-	if o == nil || o.LastExecutionErrorMessage == nil {
+	if o == nil || IsNil(o.LastExecutionErrorMessage) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *QueryLambdaStats) GetLastExecutionErrorMessage() string {
 // GetLastExecutionErrorMessageOk returns a tuple with the LastExecutionErrorMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambdaStats) GetLastExecutionErrorMessageOk() (*string, bool) {
-	if o == nil || o.LastExecutionErrorMessage == nil {
+	if o == nil || IsNil(o.LastExecutionErrorMessage) {
 		return nil, false
 	}
 	return o.LastExecutionErrorMessage, true
@@ -159,7 +162,7 @@ func (o *QueryLambdaStats) GetLastExecutionErrorMessageOk() (*string, bool) {
 
 // HasLastExecutionErrorMessage returns a boolean if a field has been set.
 func (o *QueryLambdaStats) HasLastExecutionErrorMessage() bool {
-	if o != nil && o.LastExecutionErrorMessage != nil {
+	if o != nil && !IsNil(o.LastExecutionErrorMessage) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *QueryLambdaStats) SetLastExecutionErrorMessage(v string) {
 }
 
 func (o QueryLambdaStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LastExecuted != nil {
-		toSerialize["last_executed"] = o.LastExecuted
-	}
-	if o.LastExecutedBy != nil {
-		toSerialize["last_executed_by"] = o.LastExecutedBy
-	}
-	if o.LastExecutionError != nil {
-		toSerialize["last_execution_error"] = o.LastExecutionError
-	}
-	if o.LastExecutionErrorMessage != nil {
-		toSerialize["last_execution_error_message"] = o.LastExecutionErrorMessage
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryLambdaStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LastExecuted) {
+		toSerialize["last_executed"] = o.LastExecuted
+	}
+	if !IsNil(o.LastExecutedBy) {
+		toSerialize["last_executed_by"] = o.LastExecutedBy
+	}
+	if !IsNil(o.LastExecutionError) {
+		toSerialize["last_execution_error"] = o.LastExecutionError
+	}
+	if !IsNil(o.LastExecutionErrorMessage) {
+		toSerialize["last_execution_error_message"] = o.LastExecutionErrorMessage
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryLambdaStats struct {

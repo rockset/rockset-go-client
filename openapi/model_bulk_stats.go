@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BulkStats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BulkStats{}
+
 // BulkStats struct for BulkStats
 type BulkStats struct {
 	// Size in bytes of documents downloaded from source during an ongoing or completed bulk ingest. This includes documents that are dropped and reingested.
@@ -67,7 +70,7 @@ func NewBulkStatsWithDefaults() *BulkStats {
 
 // GetDataDownloadedBytes returns the DataDownloadedBytes field value if set, zero value otherwise.
 func (o *BulkStats) GetDataDownloadedBytes() int64 {
-	if o == nil || o.DataDownloadedBytes == nil {
+	if o == nil || IsNil(o.DataDownloadedBytes) {
 		var ret int64
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *BulkStats) GetDataDownloadedBytes() int64 {
 // GetDataDownloadedBytesOk returns a tuple with the DataDownloadedBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetDataDownloadedBytesOk() (*int64, bool) {
-	if o == nil || o.DataDownloadedBytes == nil {
+	if o == nil || IsNil(o.DataDownloadedBytes) {
 		return nil, false
 	}
 	return o.DataDownloadedBytes, true
@@ -85,7 +88,7 @@ func (o *BulkStats) GetDataDownloadedBytesOk() (*int64, bool) {
 
 // HasDataDownloadedBytes returns a boolean if a field has been set.
 func (o *BulkStats) HasDataDownloadedBytes() bool {
-	if o != nil && o.DataDownloadedBytes != nil {
+	if o != nil && !IsNil(o.DataDownloadedBytes) {
 		return true
 	}
 
@@ -99,7 +102,7 @@ func (o *BulkStats) SetDataDownloadedBytes(v int64) {
 
 // GetDataIndexedBytes returns the DataIndexedBytes field value if set, zero value otherwise.
 func (o *BulkStats) GetDataIndexedBytes() int64 {
-	if o == nil || o.DataIndexedBytes == nil {
+	if o == nil || IsNil(o.DataIndexedBytes) {
 		var ret int64
 		return ret
 	}
@@ -109,7 +112,7 @@ func (o *BulkStats) GetDataIndexedBytes() int64 {
 // GetDataIndexedBytesOk returns a tuple with the DataIndexedBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetDataIndexedBytesOk() (*int64, bool) {
-	if o == nil || o.DataIndexedBytes == nil {
+	if o == nil || IsNil(o.DataIndexedBytes) {
 		return nil, false
 	}
 	return o.DataIndexedBytes, true
@@ -117,7 +120,7 @@ func (o *BulkStats) GetDataIndexedBytesOk() (*int64, bool) {
 
 // HasDataIndexedBytes returns a boolean if a field has been set.
 func (o *BulkStats) HasDataIndexedBytes() bool {
-	if o != nil && o.DataIndexedBytes != nil {
+	if o != nil && !IsNil(o.DataIndexedBytes) {
 		return true
 	}
 
@@ -131,7 +134,7 @@ func (o *BulkStats) SetDataIndexedBytes(v int64) {
 
 // GetDataIndexedThroughputBytes returns the DataIndexedThroughputBytes field value if set, zero value otherwise.
 func (o *BulkStats) GetDataIndexedThroughputBytes() float64 {
-	if o == nil || o.DataIndexedThroughputBytes == nil {
+	if o == nil || IsNil(o.DataIndexedThroughputBytes) {
 		var ret float64
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *BulkStats) GetDataIndexedThroughputBytes() float64 {
 // GetDataIndexedThroughputBytesOk returns a tuple with the DataIndexedThroughputBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetDataIndexedThroughputBytesOk() (*float64, bool) {
-	if o == nil || o.DataIndexedThroughputBytes == nil {
+	if o == nil || IsNil(o.DataIndexedThroughputBytes) {
 		return nil, false
 	}
 	return o.DataIndexedThroughputBytes, true
@@ -149,7 +152,7 @@ func (o *BulkStats) GetDataIndexedThroughputBytesOk() (*float64, bool) {
 
 // HasDataIndexedThroughputBytes returns a boolean if a field has been set.
 func (o *BulkStats) HasDataIndexedThroughputBytes() bool {
-	if o != nil && o.DataIndexedThroughputBytes != nil {
+	if o != nil && !IsNil(o.DataIndexedThroughputBytes) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *BulkStats) SetDataIndexedThroughputBytes(v float64) {
 
 // GetDocumentsDownloaded returns the DocumentsDownloaded field value if set, zero value otherwise.
 func (o *BulkStats) GetDocumentsDownloaded() int64 {
-	if o == nil || o.DocumentsDownloaded == nil {
+	if o == nil || IsNil(o.DocumentsDownloaded) {
 		var ret int64
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *BulkStats) GetDocumentsDownloaded() int64 {
 // GetDocumentsDownloadedOk returns a tuple with the DocumentsDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetDocumentsDownloadedOk() (*int64, bool) {
-	if o == nil || o.DocumentsDownloaded == nil {
+	if o == nil || IsNil(o.DocumentsDownloaded) {
 		return nil, false
 	}
 	return o.DocumentsDownloaded, true
@@ -181,7 +184,7 @@ func (o *BulkStats) GetDocumentsDownloadedOk() (*int64, bool) {
 
 // HasDocumentsDownloaded returns a boolean if a field has been set.
 func (o *BulkStats) HasDocumentsDownloaded() bool {
-	if o != nil && o.DocumentsDownloaded != nil {
+	if o != nil && !IsNil(o.DocumentsDownloaded) {
 		return true
 	}
 
@@ -195,7 +198,7 @@ func (o *BulkStats) SetDocumentsDownloaded(v int64) {
 
 // GetDownloadComputeMs returns the DownloadComputeMs field value if set, zero value otherwise.
 func (o *BulkStats) GetDownloadComputeMs() int64 {
-	if o == nil || o.DownloadComputeMs == nil {
+	if o == nil || IsNil(o.DownloadComputeMs) {
 		var ret int64
 		return ret
 	}
@@ -205,7 +208,7 @@ func (o *BulkStats) GetDownloadComputeMs() int64 {
 // GetDownloadComputeMsOk returns a tuple with the DownloadComputeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetDownloadComputeMsOk() (*int64, bool) {
-	if o == nil || o.DownloadComputeMs == nil {
+	if o == nil || IsNil(o.DownloadComputeMs) {
 		return nil, false
 	}
 	return o.DownloadComputeMs, true
@@ -213,7 +216,7 @@ func (o *BulkStats) GetDownloadComputeMsOk() (*int64, bool) {
 
 // HasDownloadComputeMs returns a boolean if a field has been set.
 func (o *BulkStats) HasDownloadComputeMs() bool {
-	if o != nil && o.DownloadComputeMs != nil {
+	if o != nil && !IsNil(o.DownloadComputeMs) {
 		return true
 	}
 
@@ -227,7 +230,7 @@ func (o *BulkStats) SetDownloadComputeMs(v int64) {
 
 // GetDownloadingStageDoneAt returns the DownloadingStageDoneAt field value if set, zero value otherwise.
 func (o *BulkStats) GetDownloadingStageDoneAt() string {
-	if o == nil || o.DownloadingStageDoneAt == nil {
+	if o == nil || IsNil(o.DownloadingStageDoneAt) {
 		var ret string
 		return ret
 	}
@@ -237,7 +240,7 @@ func (o *BulkStats) GetDownloadingStageDoneAt() string {
 // GetDownloadingStageDoneAtOk returns a tuple with the DownloadingStageDoneAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetDownloadingStageDoneAtOk() (*string, bool) {
-	if o == nil || o.DownloadingStageDoneAt == nil {
+	if o == nil || IsNil(o.DownloadingStageDoneAt) {
 		return nil, false
 	}
 	return o.DownloadingStageDoneAt, true
@@ -245,7 +248,7 @@ func (o *BulkStats) GetDownloadingStageDoneAtOk() (*string, bool) {
 
 // HasDownloadingStageDoneAt returns a boolean if a field has been set.
 func (o *BulkStats) HasDownloadingStageDoneAt() bool {
-	if o != nil && o.DownloadingStageDoneAt != nil {
+	if o != nil && !IsNil(o.DownloadingStageDoneAt) {
 		return true
 	}
 
@@ -259,7 +262,7 @@ func (o *BulkStats) SetDownloadingStageDoneAt(v string) {
 
 // GetFinalizingStageDoneAt returns the FinalizingStageDoneAt field value if set, zero value otherwise.
 func (o *BulkStats) GetFinalizingStageDoneAt() string {
-	if o == nil || o.FinalizingStageDoneAt == nil {
+	if o == nil || IsNil(o.FinalizingStageDoneAt) {
 		var ret string
 		return ret
 	}
@@ -269,7 +272,7 @@ func (o *BulkStats) GetFinalizingStageDoneAt() string {
 // GetFinalizingStageDoneAtOk returns a tuple with the FinalizingStageDoneAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetFinalizingStageDoneAtOk() (*string, bool) {
-	if o == nil || o.FinalizingStageDoneAt == nil {
+	if o == nil || IsNil(o.FinalizingStageDoneAt) {
 		return nil, false
 	}
 	return o.FinalizingStageDoneAt, true
@@ -277,7 +280,7 @@ func (o *BulkStats) GetFinalizingStageDoneAtOk() (*string, bool) {
 
 // HasFinalizingStageDoneAt returns a boolean if a field has been set.
 func (o *BulkStats) HasFinalizingStageDoneAt() bool {
-	if o != nil && o.FinalizingStageDoneAt != nil {
+	if o != nil && !IsNil(o.FinalizingStageDoneAt) {
 		return true
 	}
 
@@ -291,7 +294,7 @@ func (o *BulkStats) SetFinalizingStageDoneAt(v string) {
 
 // GetIndexComputeMs returns the IndexComputeMs field value if set, zero value otherwise.
 func (o *BulkStats) GetIndexComputeMs() int64 {
-	if o == nil || o.IndexComputeMs == nil {
+	if o == nil || IsNil(o.IndexComputeMs) {
 		var ret int64
 		return ret
 	}
@@ -301,7 +304,7 @@ func (o *BulkStats) GetIndexComputeMs() int64 {
 // GetIndexComputeMsOk returns a tuple with the IndexComputeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetIndexComputeMsOk() (*int64, bool) {
-	if o == nil || o.IndexComputeMs == nil {
+	if o == nil || IsNil(o.IndexComputeMs) {
 		return nil, false
 	}
 	return o.IndexComputeMs, true
@@ -309,7 +312,7 @@ func (o *BulkStats) GetIndexComputeMsOk() (*int64, bool) {
 
 // HasIndexComputeMs returns a boolean if a field has been set.
 func (o *BulkStats) HasIndexComputeMs() bool {
-	if o != nil && o.IndexComputeMs != nil {
+	if o != nil && !IsNil(o.IndexComputeMs) {
 		return true
 	}
 
@@ -323,7 +326,7 @@ func (o *BulkStats) SetIndexComputeMs(v int64) {
 
 // GetIndexingStageDoneAt returns the IndexingStageDoneAt field value if set, zero value otherwise.
 func (o *BulkStats) GetIndexingStageDoneAt() string {
-	if o == nil || o.IndexingStageDoneAt == nil {
+	if o == nil || IsNil(o.IndexingStageDoneAt) {
 		var ret string
 		return ret
 	}
@@ -333,7 +336,7 @@ func (o *BulkStats) GetIndexingStageDoneAt() string {
 // GetIndexingStageDoneAtOk returns a tuple with the IndexingStageDoneAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetIndexingStageDoneAtOk() (*string, bool) {
-	if o == nil || o.IndexingStageDoneAt == nil {
+	if o == nil || IsNil(o.IndexingStageDoneAt) {
 		return nil, false
 	}
 	return o.IndexingStageDoneAt, true
@@ -341,7 +344,7 @@ func (o *BulkStats) GetIndexingStageDoneAtOk() (*string, bool) {
 
 // HasIndexingStageDoneAt returns a boolean if a field has been set.
 func (o *BulkStats) HasIndexingStageDoneAt() bool {
-	if o != nil && o.IndexingStageDoneAt != nil {
+	if o != nil && !IsNil(o.IndexingStageDoneAt) {
 		return true
 	}
 
@@ -355,7 +358,7 @@ func (o *BulkStats) SetIndexingStageDoneAt(v string) {
 
 // GetInitializingStageDoneAt returns the InitializingStageDoneAt field value if set, zero value otherwise.
 func (o *BulkStats) GetInitializingStageDoneAt() string {
-	if o == nil || o.InitializingStageDoneAt == nil {
+	if o == nil || IsNil(o.InitializingStageDoneAt) {
 		var ret string
 		return ret
 	}
@@ -365,7 +368,7 @@ func (o *BulkStats) GetInitializingStageDoneAt() string {
 // GetInitializingStageDoneAtOk returns a tuple with the InitializingStageDoneAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetInitializingStageDoneAtOk() (*string, bool) {
-	if o == nil || o.InitializingStageDoneAt == nil {
+	if o == nil || IsNil(o.InitializingStageDoneAt) {
 		return nil, false
 	}
 	return o.InitializingStageDoneAt, true
@@ -373,7 +376,7 @@ func (o *BulkStats) GetInitializingStageDoneAtOk() (*string, bool) {
 
 // HasInitializingStageDoneAt returns a boolean if a field has been set.
 func (o *BulkStats) HasInitializingStageDoneAt() bool {
-	if o != nil && o.InitializingStageDoneAt != nil {
+	if o != nil && !IsNil(o.InitializingStageDoneAt) {
 		return true
 	}
 
@@ -387,7 +390,7 @@ func (o *BulkStats) SetInitializingStageDoneAt(v string) {
 
 // GetPreIndexSizeBytes returns the PreIndexSizeBytes field value if set, zero value otherwise.
 func (o *BulkStats) GetPreIndexSizeBytes() int64 {
-	if o == nil || o.PreIndexSizeBytes == nil {
+	if o == nil || IsNil(o.PreIndexSizeBytes) {
 		var ret int64
 		return ret
 	}
@@ -397,7 +400,7 @@ func (o *BulkStats) GetPreIndexSizeBytes() int64 {
 // GetPreIndexSizeBytesOk returns a tuple with the PreIndexSizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetPreIndexSizeBytesOk() (*int64, bool) {
-	if o == nil || o.PreIndexSizeBytes == nil {
+	if o == nil || IsNil(o.PreIndexSizeBytes) {
 		return nil, false
 	}
 	return o.PreIndexSizeBytes, true
@@ -405,7 +408,7 @@ func (o *BulkStats) GetPreIndexSizeBytesOk() (*int64, bool) {
 
 // HasPreIndexSizeBytes returns a boolean if a field has been set.
 func (o *BulkStats) HasPreIndexSizeBytes() bool {
-	if o != nil && o.PreIndexSizeBytes != nil {
+	if o != nil && !IsNil(o.PreIndexSizeBytes) {
 		return true
 	}
 
@@ -419,7 +422,7 @@ func (o *BulkStats) SetPreIndexSizeBytes(v int64) {
 
 // GetProvisioningStageDoneAt returns the ProvisioningStageDoneAt field value if set, zero value otherwise.
 func (o *BulkStats) GetProvisioningStageDoneAt() string {
-	if o == nil || o.ProvisioningStageDoneAt == nil {
+	if o == nil || IsNil(o.ProvisioningStageDoneAt) {
 		var ret string
 		return ret
 	}
@@ -429,7 +432,7 @@ func (o *BulkStats) GetProvisioningStageDoneAt() string {
 // GetProvisioningStageDoneAtOk returns a tuple with the ProvisioningStageDoneAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetProvisioningStageDoneAtOk() (*string, bool) {
-	if o == nil || o.ProvisioningStageDoneAt == nil {
+	if o == nil || IsNil(o.ProvisioningStageDoneAt) {
 		return nil, false
 	}
 	return o.ProvisioningStageDoneAt, true
@@ -437,7 +440,7 @@ func (o *BulkStats) GetProvisioningStageDoneAtOk() (*string, bool) {
 
 // HasProvisioningStageDoneAt returns a boolean if a field has been set.
 func (o *BulkStats) HasProvisioningStageDoneAt() bool {
-	if o != nil && o.ProvisioningStageDoneAt != nil {
+	if o != nil && !IsNil(o.ProvisioningStageDoneAt) {
 		return true
 	}
 
@@ -451,7 +454,7 @@ func (o *BulkStats) SetProvisioningStageDoneAt(v string) {
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise.
 func (o *BulkStats) GetStartedAt() string {
-	if o == nil || o.StartedAt == nil {
+	if o == nil || IsNil(o.StartedAt) {
 		var ret string
 		return ret
 	}
@@ -461,7 +464,7 @@ func (o *BulkStats) GetStartedAt() string {
 // GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetStartedAtOk() (*string, bool) {
-	if o == nil || o.StartedAt == nil {
+	if o == nil || IsNil(o.StartedAt) {
 		return nil, false
 	}
 	return o.StartedAt, true
@@ -469,7 +472,7 @@ func (o *BulkStats) GetStartedAtOk() (*string, bool) {
 
 // HasStartedAt returns a boolean if a field has been set.
 func (o *BulkStats) HasStartedAt() bool {
-	if o != nil && o.StartedAt != nil {
+	if o != nil && !IsNil(o.StartedAt) {
 		return true
 	}
 
@@ -483,7 +486,7 @@ func (o *BulkStats) SetStartedAt(v string) {
 
 // GetTotalIndexSizeBytes returns the TotalIndexSizeBytes field value if set, zero value otherwise.
 func (o *BulkStats) GetTotalIndexSizeBytes() int64 {
-	if o == nil || o.TotalIndexSizeBytes == nil {
+	if o == nil || IsNil(o.TotalIndexSizeBytes) {
 		var ret int64
 		return ret
 	}
@@ -493,7 +496,7 @@ func (o *BulkStats) GetTotalIndexSizeBytes() int64 {
 // GetTotalIndexSizeBytesOk returns a tuple with the TotalIndexSizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetTotalIndexSizeBytesOk() (*int64, bool) {
-	if o == nil || o.TotalIndexSizeBytes == nil {
+	if o == nil || IsNil(o.TotalIndexSizeBytes) {
 		return nil, false
 	}
 	return o.TotalIndexSizeBytes, true
@@ -501,7 +504,7 @@ func (o *BulkStats) GetTotalIndexSizeBytesOk() (*int64, bool) {
 
 // HasTotalIndexSizeBytes returns a boolean if a field has been set.
 func (o *BulkStats) HasTotalIndexSizeBytes() bool {
-	if o != nil && o.TotalIndexSizeBytes != nil {
+	if o != nil && !IsNil(o.TotalIndexSizeBytes) {
 		return true
 	}
 
@@ -515,7 +518,7 @@ func (o *BulkStats) SetTotalIndexSizeBytes(v int64) {
 
 // GetTransformationComputeMs returns the TransformationComputeMs field value if set, zero value otherwise.
 func (o *BulkStats) GetTransformationComputeMs() int64 {
-	if o == nil || o.TransformationComputeMs == nil {
+	if o == nil || IsNil(o.TransformationComputeMs) {
 		var ret int64
 		return ret
 	}
@@ -525,7 +528,7 @@ func (o *BulkStats) GetTransformationComputeMs() int64 {
 // GetTransformationComputeMsOk returns a tuple with the TransformationComputeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BulkStats) GetTransformationComputeMsOk() (*int64, bool) {
-	if o == nil || o.TransformationComputeMs == nil {
+	if o == nil || IsNil(o.TransformationComputeMs) {
 		return nil, false
 	}
 	return o.TransformationComputeMs, true
@@ -533,7 +536,7 @@ func (o *BulkStats) GetTransformationComputeMsOk() (*int64, bool) {
 
 // HasTransformationComputeMs returns a boolean if a field has been set.
 func (o *BulkStats) HasTransformationComputeMs() bool {
-	if o != nil && o.TransformationComputeMs != nil {
+	if o != nil && !IsNil(o.TransformationComputeMs) {
 		return true
 	}
 
@@ -546,53 +549,61 @@ func (o *BulkStats) SetTransformationComputeMs(v int64) {
 }
 
 func (o BulkStats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DataDownloadedBytes != nil {
-		toSerialize["data_downloaded_bytes"] = o.DataDownloadedBytes
-	}
-	if o.DataIndexedBytes != nil {
-		toSerialize["data_indexed_bytes"] = o.DataIndexedBytes
-	}
-	if o.DataIndexedThroughputBytes != nil {
-		toSerialize["data_indexed_throughput_bytes"] = o.DataIndexedThroughputBytes
-	}
-	if o.DocumentsDownloaded != nil {
-		toSerialize["documents_downloaded"] = o.DocumentsDownloaded
-	}
-	if o.DownloadComputeMs != nil {
-		toSerialize["download_compute_ms"] = o.DownloadComputeMs
-	}
-	if o.DownloadingStageDoneAt != nil {
-		toSerialize["downloading_stage_done_at"] = o.DownloadingStageDoneAt
-	}
-	if o.FinalizingStageDoneAt != nil {
-		toSerialize["finalizing_stage_done_at"] = o.FinalizingStageDoneAt
-	}
-	if o.IndexComputeMs != nil {
-		toSerialize["index_compute_ms"] = o.IndexComputeMs
-	}
-	if o.IndexingStageDoneAt != nil {
-		toSerialize["indexing_stage_done_at"] = o.IndexingStageDoneAt
-	}
-	if o.InitializingStageDoneAt != nil {
-		toSerialize["initializing_stage_done_at"] = o.InitializingStageDoneAt
-	}
-	if o.PreIndexSizeBytes != nil {
-		toSerialize["pre_index_size_bytes"] = o.PreIndexSizeBytes
-	}
-	if o.ProvisioningStageDoneAt != nil {
-		toSerialize["provisioning_stage_done_at"] = o.ProvisioningStageDoneAt
-	}
-	if o.StartedAt != nil {
-		toSerialize["started_at"] = o.StartedAt
-	}
-	if o.TotalIndexSizeBytes != nil {
-		toSerialize["total_index_size_bytes"] = o.TotalIndexSizeBytes
-	}
-	if o.TransformationComputeMs != nil {
-		toSerialize["transformation_compute_ms"] = o.TransformationComputeMs
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BulkStats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DataDownloadedBytes) {
+		toSerialize["data_downloaded_bytes"] = o.DataDownloadedBytes
+	}
+	if !IsNil(o.DataIndexedBytes) {
+		toSerialize["data_indexed_bytes"] = o.DataIndexedBytes
+	}
+	if !IsNil(o.DataIndexedThroughputBytes) {
+		toSerialize["data_indexed_throughput_bytes"] = o.DataIndexedThroughputBytes
+	}
+	if !IsNil(o.DocumentsDownloaded) {
+		toSerialize["documents_downloaded"] = o.DocumentsDownloaded
+	}
+	if !IsNil(o.DownloadComputeMs) {
+		toSerialize["download_compute_ms"] = o.DownloadComputeMs
+	}
+	if !IsNil(o.DownloadingStageDoneAt) {
+		toSerialize["downloading_stage_done_at"] = o.DownloadingStageDoneAt
+	}
+	if !IsNil(o.FinalizingStageDoneAt) {
+		toSerialize["finalizing_stage_done_at"] = o.FinalizingStageDoneAt
+	}
+	if !IsNil(o.IndexComputeMs) {
+		toSerialize["index_compute_ms"] = o.IndexComputeMs
+	}
+	if !IsNil(o.IndexingStageDoneAt) {
+		toSerialize["indexing_stage_done_at"] = o.IndexingStageDoneAt
+	}
+	if !IsNil(o.InitializingStageDoneAt) {
+		toSerialize["initializing_stage_done_at"] = o.InitializingStageDoneAt
+	}
+	if !IsNil(o.PreIndexSizeBytes) {
+		toSerialize["pre_index_size_bytes"] = o.PreIndexSizeBytes
+	}
+	if !IsNil(o.ProvisioningStageDoneAt) {
+		toSerialize["provisioning_stage_done_at"] = o.ProvisioningStageDoneAt
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.TotalIndexSizeBytes) {
+		toSerialize["total_index_size_bytes"] = o.TotalIndexSizeBytes
+	}
+	if !IsNil(o.TransformationComputeMs) {
+		toSerialize["transformation_compute_ms"] = o.TransformationComputeMs
+	}
+	return toSerialize, nil
 }
 
 type NullableBulkStats struct {

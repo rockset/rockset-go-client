@@ -1368,7 +1368,8 @@ paths:
         required: true
         schema:
           type: string
-      - description: Cursor to current page. If unset, will default to the first page.
+      - description: "Cursor to current page. If unset, will default to the first\
+          \ page."
         in: query
         name: cursor
         schema:
@@ -8070,8 +8071,8 @@ paths:
       tags:
       - Query Lambdas
     post:
-      description: Create a tag for a specific Query Lambda version, or update that
-        tag if it already exists.
+      description: "Create a tag for a specific Query Lambda version, or update that\
+        \ tag if it already exists."
       operationId: createQueryLambdaTag
       parameters:
       - description: name of the workspace
@@ -9828,11 +9829,11 @@ components:
   schemas:
     AddDocumentsRequest:
       example:
-        data: '[{ "field": "value" }]'
+        data: "[{ \"field\": \"value\" }]"
       properties:
         data:
           description: Array of documents to be added to the collection.
-          example: '[{ "field": "value" }]'
+          example: "[{ \"field\": \"value\" }]"
           items:
             properties: {}
             type: object
@@ -9883,7 +9884,7 @@ components:
     Alias:
       example:
         workspace: commons
-        collections: '["commons.foo", "prod.demo"]'
+        collections: "[\"commons.foo\", \"prod.demo\"]"
         creator_email: xyz@rockset.com
         name: demo
         created_at: 2001-08-28T00:23:41Z
@@ -9894,7 +9895,7 @@ components:
       properties:
         collections:
           description: List of fully qualified collection names referenced by alias.
-          example: '["commons.foo", "prod.demo"]'
+          example: "[\"commons.foo\", \"prod.demo\"]"
           items:
             type: string
           type: array
@@ -9965,8 +9966,8 @@ components:
           example: 2001-08-28T00:23:41Z
           type: string
         key:
-          description: This field will only be populated with the full key when creating
-            an API key. Otherwise, it will be an API key identifier of 6 characters.
+          description: "This field will only be populated with the full key when creating\
+            \ an API key. Otherwise, it will be an API key identifier of 6 characters."
           example: aB35kD
           type: string
         last_access_time:
@@ -9978,8 +9979,8 @@ components:
           example: my-key
           type: string
         role:
-          description: Role specifying access control. If not specified, API key will
-            have access to all of the associated user's roles.
+          description: "Role specifying access control. If not specified, API key\
+            \ will have access to all of the associated user's roles."
           example: read-only
           type: string
         state:
@@ -10000,29 +10001,29 @@ components:
         timeout_ms: 1
       properties:
         client_timeout_ms:
-          description: 'If the query completes before the client timeout, the results
-            are returned. Otherwise if the client timeout is exceeded, the query id
-            will be returned, and the query will continue to run in the background
-            for up to 30 minutes. (The 30 minute timeout can be configured lower with
-            timeout_ms.) `async_options.client_timeout_ms` only applies when `async`
-            is true. The default value of `client_timeout_ms` is 0, so async query
-            requests will immediately return with a query id by default. '
+          description: "If the query completes before the client timeout, the results\
+            \ are returned. Otherwise if the client timeout is exceeded, the query\
+            \ id will be returned, and the query will continue to run in the background\
+            \ for up to 30 minutes. (The 30 minute timeout can be configured lower\
+            \ with timeout_ms.) `async_options.client_timeout_ms` only applies when\
+            \ `async` is true. The default value of `client_timeout_ms` is 0, so async\
+            \ query requests will immediately return with a query id by default. "
           format: int64
           type: integer
         max_initial_results:
-          description: '[DEPRECATED] Use the query request `max_initial_results` instead.
-            The maximum number of results you will receive as a client. If the query
-            exceeds this limit, the remaining results can be requested using a returned
-            pagination cursor. In addition, there is a maximum response size of 100MiB
-            so fewer than `max_results` may be returned.'
+          description: "[DEPRECATED] Use the query request `max_initial_results` instead.\
+            \ The maximum number of results you will receive as a client. If the query\
+            \ exceeds this limit, the remaining results can be requested using a returned\
+            \ pagination cursor. In addition, there is a maximum response size of\
+            \ 100MiB so fewer than `max_results` may be returned."
           format: int64
           type: integer
         timeout_ms:
-          description: '[DEPRECATED] Use the query request `timeout_ms` instead. The
-            maximum amount of time that the system will attempt to complete query
-            execution before aborting the query and returning an error. This must
-            be set to a value that is greater than or equal to the client timeout,
-            and the maximum value of this timeout is 30 minutes.'
+          description: "[DEPRECATED] Use the query request `timeout_ms` instead. The\
+            \ maximum amount of time that the system will attempt to complete query\
+            \ execution before aborting the query and returning an error. This must\
+            \ be set to a value that is greater than or equal to the client timeout,\
+            \ and the maximum value of this timeout is 30 minutes."
           format: int64
           type: integer
       type: object
@@ -10220,10 +10221,10 @@ components:
           example: 2001-08-28T00:23:41Z
           type: string
         pre_index_size_bytes:
-          description: Size in bytes of documents before being indexed. This is the
-            total size of documents after decompression, transformations, and dropping.
-            This is equal to data_indexed_bytes after the indexing stage is done unless
-            there are retries during indexing the data.
+          description: "Size in bytes of documents before being indexed. This is the\
+            \ total size of documents after decompression, transformations, and dropping.\
+            \ This is equal to data_indexed_bytes after the indexing stage is done\
+            \ unless there are retries during indexing the data."
           example: 8000000
           format: int64
           type: integer
@@ -10311,7 +10312,7 @@ components:
         workspace: commons
         aliases:
         - workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -10320,7 +10321,7 @@ components:
           modified_at: 2001-08-28T00:23:42Z
           created_by_apikey_name: created_by_apikey_name
         - workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -10333,7 +10334,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -10356,17 +10357,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -10483,7 +10484,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -10506,17 +10507,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -10631,10 +10632,10 @@ components:
           suspended_at: 2019-01-15T21:48:23Z
         insert_only: true
         clustering_key:
-        - keys: '["value1", "value2"]'
+        - keys: "[\"value1\", \"value2\"]"
           type: AUTO
           field_name: address.city.zipcode
-        - keys: '["value1", "value2"]'
+        - keys: "[\"value1\", \"value2\"]"
           type: AUTO
           field_name: address.city.zipcode
         created_at: 2001-08-28T00:23:41Z
@@ -10768,10 +10769,10 @@ components:
           description: Whether the collection is insert only or not.
           type: boolean
         name:
-          description: Unique identifer for collection, can contain alphanumeric or
-            dash characters.
+          description: "Unique identifer for collection, can contain alphanumeric\
+            \ or dash characters."
           example: global-transactions
-          pattern: ^[A-Za-z0-9_\-.]+$
+          pattern: "^[A-Za-z0-9_\\-.]+$"
           type: string
         read_only:
           description: Whether the collection is read-only or not.
@@ -10899,7 +10900,7 @@ components:
         last_queried_ms: 1535101119334
       properties:
         last_queried_ms:
-          description: Milliseconds since Unix epoch Jan 1, 1970.
+          description: "Milliseconds since Unix epoch Jan 1, 1970."
           example: 1535101119334
           format: int64
           type: integer
@@ -10964,12 +10965,12 @@ components:
           format: int64
           type: integer
         last_queried_ms:
-          description: Milliseconds since Unix epoch Jan 1, 1970.
+          description: "Milliseconds since Unix epoch Jan 1, 1970."
           example: 1535101119334
           format: int64
           type: integer
         last_updated_ms:
-          description: Milliseconds since Unix epoch Jan 1, 1970.
+          description: "Milliseconds since Unix epoch Jan 1, 1970."
           example: 1535101094433
           format: int64
           type: integer
@@ -11006,13 +11007,13 @@ components:
       type: object
     CreateAliasRequest:
       example:
-        collections: '["commons.foo", "prod.demo"]'
+        collections: "[\"commons.foo\", \"prod.demo\"]"
         name: aliasName
         description: version alias
       properties:
         collections:
           description: List of fully qualified collection names referenced by alias.
-          example: '["commons.foo", "prod.demo"]'
+          example: "[\"commons.foo\", \"prod.demo\"]"
           items:
             type: string
           type: array
@@ -11032,7 +11033,7 @@ components:
       example:
         data:
           workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -11079,11 +11080,11 @@ components:
       type: object
     CreateCollectionMountRequest:
       example:
-        collection_paths: '["commons.foo", "commons.bar"]'
+        collection_paths: "[\"commons.foo\", \"commons.bar\"]"
       properties:
         collection_paths:
           description: Collections to mount.
-          example: '["commons.foo", "commons.bar"]'
+          example: "[\"commons.foo\", \"commons.bar\"]"
           items:
             type: string
           type: array
@@ -11129,7 +11130,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -11152,17 +11153,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -11279,7 +11280,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -11302,17 +11303,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -11434,10 +11435,10 @@ components:
         source_download_soft_limit_bytes: 0
         name: global-transactions
         clustering_key:
-        - keys: '["value1", "value2"]'
+        - keys: "[\"value1\", \"value2\"]"
           type: AUTO
           field_name: address.city.zipcode
-        - keys: '["value1", "value2"]'
+        - keys: "[\"value1\", \"value2\"]"
           type: AUTO
           field_name: address.city.zipcode
         description: transactions from stores worldwide
@@ -11457,13 +11458,13 @@ components:
         field_mapping_query:
           $ref: '#/components/schemas/FieldMappingQuery'
         name:
-          description: Unique identifier for collection, can contain alphanumeric
-            or dash characters.
+          description: "Unique identifier for collection, can contain alphanumeric\
+            \ or dash characters."
           example: global-transactions
           type: string
         retention_secs:
-          description: Number of seconds after which data is purged, based on event
-            time.
+          description: "Number of seconds after which data is purged, based on event\
+            \ time."
           example: 1000000
           format: int64
           minimum: 1
@@ -11493,7 +11494,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -11502,7 +11503,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -11515,7 +11516,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -11538,17 +11539,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -11665,7 +11666,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -11688,17 +11689,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -11813,10 +11814,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -11940,7 +11941,7 @@ components:
           gcp_service_account:
             service_account_key_file_json: service_account_key_file_json
         kafka:
-          source_status_by_topic: '{"topic-a": "DORMANT"}'
+          source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
           kafka_topic_names:
           - kafka_topic_names
           - kafka_topic_names
@@ -12070,7 +12071,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -12079,7 +12080,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -12092,7 +12093,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -12115,17 +12116,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -12242,7 +12243,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -12265,17 +12266,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -12390,10 +12391,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -12490,7 +12491,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -12499,7 +12500,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -12512,7 +12513,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -12535,17 +12536,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -12662,7 +12663,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -12685,17 +12686,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -12810,10 +12811,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -12909,7 +12910,7 @@ components:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
           kafka:
-            source_status_by_topic: '{"topic-a": "DORMANT"}'
+            source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -13012,13 +13013,13 @@ components:
       type: object
     CreateUserRequest:
       example:
-        roles: '["admin", "member", "read-only"]'
+        roles: "[\"admin\", \"member\", \"read-only\"]"
         last_name: Doe
         first_name: John
         email: hello@rockset.com
       properties:
         email:
-          description: User email, must be unique.
+          description: "User email, must be unique."
           example: hello@rockset.com
           type: string
         first_name:
@@ -13031,7 +13032,7 @@ components:
           type: string
         roles:
           description: List of roles for a given user.
-          example: '["admin", "member", "read-only"]'
+          example: "[\"admin\", \"member\", \"read-only\"]"
           items:
             type: string
           type: array
@@ -13042,7 +13043,7 @@ components:
     CreateUserResponse:
       example:
         data:
-          roles: '["admin", "member", "read-only"]'
+          roles: "[\"admin\", \"member\", \"read-only\"]"
           created_at: 2001-08-28T00:23:41Z
           last_name: Doe
           state: ACTIVE
@@ -13080,7 +13081,8 @@ components:
           owner_email: abc@rockset.com
           path: path
           workspace: commons
-          entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           query_sql: SELECT * FROM commons.foo
           creator_email: xyz@rockset.com
           name: demo
@@ -13112,8 +13114,8 @@ components:
           example: VI serving prod traffic
           type: string
         enable_remount_on_resume:
-          description: When a Virtual Instance is resumed, it will remount all collections
-            that were mounted when the Virtual Instance was suspended.
+          description: "When a Virtual Instance is resumed, it will remount all collections\
+            \ that were mounted when the Virtual Instance was suspended."
           example: true
           type: boolean
         mount_refresh_interval_seconds:
@@ -13124,8 +13126,8 @@ components:
           format: int32
           type: integer
         name:
-          description: Unique identifier for virtual instance, can contain alphanumeric
-            or dash characters.
+          description: "Unique identifier for virtual instance, can contain alphanumeric\
+            \ or dash characters."
           example: prod_vi
           type: string
         type:
@@ -13210,21 +13212,21 @@ components:
       example:
         escapeChar: \
         quoteChar: '"'
-        columnNames: '["c1", "c2", "c3"]'
-        columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+        columnNames: "[\"c1\", \"c2\", \"c3\"]"
+        columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
         firstLineAsColumnNames: true
         encoding: UTF-8
-        separator: ','
+        separator: ","
       properties:
         columnNames:
           description: Names of columns.
-          example: '["c1", "c2", "c3"]'
+          example: "[\"c1\", \"c2\", \"c3\"]"
           items:
             type: string
           type: array
         columnTypes:
           description: Names of columns.
-          example: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+          example: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
           items:
             enum:
             - UNKNOWN
@@ -13241,12 +13243,12 @@ components:
             type: string
           type: array
         encoding:
-          description: 'One of: UTF-8, ISO_8859_1, UTF-16.'
+          description: "One of: UTF-8, ISO_8859_1, UTF-16."
           example: UTF-8
           type: string
         escapeChar:
-          description: escape character removes any special meaning from the following
-            character,default is '\'
+          description: "escape character removes any special meaning from the following\
+            \ character,default is '\\'"
           example: \
           type: string
         firstLineAsColumnNames:
@@ -13254,20 +13256,20 @@ components:
           example: true
           type: boolean
         quoteChar:
-          description: character within which a cell value is enclosed,null character
-            if no such character, default is '"'
+          description: "character within which a cell value is enclosed,null character\
+            \ if no such character, default is '\"'"
           example: '"'
           type: string
         separator:
           description: A single character that is the column separator.
-          example: ','
+          example: ","
           type: string
       type: object
     DeleteAliasResponse:
       example:
         data:
           workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -13303,7 +13305,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -13312,7 +13314,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -13325,7 +13327,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -13348,17 +13350,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -13475,7 +13477,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -13498,17 +13500,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -13623,10 +13625,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -13842,7 +13844,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -13851,7 +13853,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -13864,7 +13866,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -13887,17 +13889,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -14014,7 +14016,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -14037,17 +14039,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -14162,10 +14164,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -14262,7 +14264,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -14271,7 +14273,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -14284,7 +14286,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -14307,17 +14309,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -14434,7 +14436,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -14457,17 +14459,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -14582,10 +14584,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -14681,7 +14683,7 @@ components:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
           kafka:
-            source_status_by_topic: '{"topic-a": "DORMANT"}'
+            source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -14722,7 +14724,7 @@ components:
             - collections
             stats:
               last_executed_by: '...@rockset.com'
-              last_execution_error_message: '[error message]'
+              last_execution_error_message: "[error message]"
               last_execution_error: 2001-08-28T00:23:41Z
               last_executed: 2001-08-28T00:23:41Z
             name: myQuery
@@ -14757,7 +14759,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -14780,17 +14782,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -14910,7 +14912,7 @@ components:
     DeleteUserResponse:
       example:
         data:
-          roles: '["admin", "member", "read-only"]'
+          roles: "[\"admin\", \"member\", \"read-only\"]"
           created_at: 2001-08-28T00:23:41Z
           last_name: Doe
           state: ACTIVE
@@ -14926,7 +14928,8 @@ components:
           owner_email: abc@rockset.com
           path: path
           workspace: commons
-          entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           query_sql: SELECT * FROM commons.foo
           creator_email: xyz@rockset.com
           name: demo
@@ -15113,12 +15116,12 @@ components:
           example: timestamp
           type: string
         format:
-          description: 'Format of time field, can be one of: milliseconds_since_epoch,
-            seconds_since_epoch.'
+          description: "Format of time field, can be one of: milliseconds_since_epoch,\
+            \ seconds_since_epoch."
           example: seconds_since_epoch
           type: string
         time_zone:
-          description: Default time zone, in standard IANA format.
+          description: "Default time zone, in standard IANA format."
           example: UTC
           type: string
       required:
@@ -15168,20 +15171,20 @@ components:
           value: 85beb391
       properties:
         async:
-          description: 'If true, the query will run asynchronously for up to 30 minutes.
-            The query request will immediately return with a query id that can be
-            used to retrieve the query status and results. If false or not specified,
-            the query will return with results once completed or timeout after 2 minutes.
-            (To return results directly for shorter queries while still allowing a
-            timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) '
+          description: "If true, the query will run asynchronously for up to 30 minutes.\
+            \ The query request will immediately return with a query id that can be\
+            \ used to retrieve the query status and results. If false or not specified,\
+            \ the query will return with results once completed or timeout after 2\
+            \ minutes. (To return results directly for shorter queries while still\
+            \ allowing a timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) "
           type: boolean
         async_options:
           $ref: '#/components/schemas/AsyncQueryOptions'
         debug_threshold_ms:
-          description: If query execution takes longer than this value, debug information
-            will be logged. If the query text includes the DEBUG hint and this parameter
-            is also provided, only this value will be used and the DEBUG hint will
-            be ignored.
+          description: "If query execution takes longer than this value, debug information\
+            \ will be logged. If the query text includes the DEBUG hint and this parameter\
+            \ is also provided, only this value will be used and the DEBUG hint will\
+            \ be ignored."
           format: int64
           type: integer
         default_row_limit:
@@ -15189,19 +15192,19 @@ components:
           format: int32
           type: integer
         initial_paginate_response_doc_count:
-          description: '[DEPRECATED] Use `max_initial_results` instead. Number of
-            documents to return in addition to paginating for this query call. Only
-            relevant if `paginate` flag is also set.'
+          description: "[DEPRECATED] Use `max_initial_results` instead. Number of\
+            \ documents to return in addition to paginating for this query call. Only\
+            \ relevant if `paginate` flag is also set."
           format: int32
           type: integer
         max_initial_results:
-          description: This limits the maximum number of results in the initial response.
-            A pagination cursor is returned if the number of results exceeds `max_initial_results`.
-            If `max_initial_results` is not set, all results will be returned in the
-            initial response up to 4 million. If `max_initial_results` is set, the
-            value must be between 0 and 100,000. If the query is async and `client_timeout_ms`
-            is exceeded, `max_initial_results` does not apply since none of the results
-            will be returned with the initial response.
+          description: "This limits the maximum number of results in the initial response.\
+            \ A pagination cursor is returned if the number of results exceeds `max_initial_results`.\
+            \ If `max_initial_results` is not set, all results will be returned in\
+            \ the initial response up to 4 million. If `max_initial_results` is set,\
+            \ the value must be between 0 and 100,000. If the query is async and `client_timeout_ms`\
+            \ is exceeded, `max_initial_results` does not apply since none of the\
+            \ results will be returned with the initial response."
           format: int64
           type: integer
         paginate:
@@ -15214,10 +15217,10 @@ components:
             $ref: '#/components/schemas/QueryParameter'
           type: array
         timeout_ms:
-          description: If a query exceeds the specified timeout, the query will automatically
-            stop and return an error. The query timeout defaults to a maximum of 2
-            minutes. If `async` is true, the query timeout defaults to a maximum of
-            30 minutes.
+          description: "If a query exceeds the specified timeout, the query will automatically\
+            \ stop and return an error. The query timeout defaults to a maximum of\
+            \ 2 minutes. If `async` is true, the query timeout defaults to a maximum\
+            \ of 30 minutes."
           format: int64
           type: integer
         virtual_instance_id:
@@ -15229,7 +15232,7 @@ components:
         sql: sql
       properties:
         sql:
-          description: SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input.
+          description: "SELECT * EXCEPT (name), SHA256(name) AS name_anon FROM _input."
           example: sql
           type: string
       type: object
@@ -15258,8 +15261,8 @@ components:
             $ref: '#/components/schemas/InputField'
           type: array
         is_drop_all_fields:
-          description: A boolean that determines whether to drop all fields in this
-            document. If set, input and output fields should not be set
+          description: "A boolean that determines whether to drop all fields in this\
+            \ document. If set, input and output fields should not be set"
           example: true
           type: boolean
         name:
@@ -15271,18 +15274,18 @@ components:
       type: object
     FieldPartition:
       example:
-        keys: '["value1", "value2"]'
+        keys: "[\"value1\", \"value2\"]"
         type: AUTO
         field_name: address.city.zipcode
       properties:
         field_name:
-          description: The name of a field, parsed as a SQL qualified name.
+          description: "The name of a field, parsed as a SQL qualified name."
           example: address.city.zipcode
           type: string
         keys:
           description: The values for partitioning of a field. Unneeded if the partition
             type is AUTO.
-          example: '["value1", "value2"]'
+          example: "[\"value1\", \"value2\"]"
           items:
             type: string
           type: array
@@ -15304,17 +15307,17 @@ components:
         csv:
           escapeChar: \
           quoteChar: '"'
-          columnNames: '["c1", "c2", "c3"]'
-          columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+          columnNames: "[\"c1\", \"c2\", \"c3\"]"
+          columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
           firstLineAsColumnNames: true
           encoding: UTF-8
-          separator: ','
+          separator: ","
         postgres_dms: true
         json: true
         mssql_dms: true
         oracle_dms: true
         mysql_dms: true
-        avro: '{}'
+        avro: "{}"
       properties:
         avro:
           type: object
@@ -15357,7 +15360,7 @@ components:
       example:
         data:
           workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -15416,11 +15419,11 @@ components:
       type: object
     GetCollectionCommitRequest:
       example:
-        name: '["f1:0:14:9:7092","f1:0:14:9:7093"]'
+        name: "[\"f1:0:14:9:7092\",\"f1:0:14:9:7093\"]"
       properties:
         name:
           description: a list of zero or more collection offset fences
-          example: '["f1:0:14:9:7092","f1:0:14:9:7093"]'
+          example: "[\"f1:0:14:9:7092\",\"f1:0:14:9:7093\"]"
           items:
             type: string
           type: array
@@ -15433,7 +15436,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -15442,7 +15445,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -15455,7 +15458,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -15478,17 +15481,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -15605,7 +15608,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -15628,17 +15631,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -15753,10 +15756,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -15907,7 +15910,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -15916,7 +15919,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -15929,7 +15932,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -15952,17 +15955,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -16079,7 +16082,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -16102,17 +16105,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -16227,10 +16230,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -16327,7 +16330,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -16336,7 +16339,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -16349,7 +16352,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -16372,17 +16375,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -16499,7 +16502,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -16522,17 +16525,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -16647,10 +16650,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -16746,7 +16749,7 @@ components:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
           kafka:
-            source_status_by_topic: '{"topic-a": "DORMANT"}'
+            source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -16808,7 +16811,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -16831,17 +16834,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -16964,7 +16967,8 @@ components:
           owner_email: abc@rockset.com
           path: path
           workspace: commons
-          entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           query_sql: SELECT * FROM commons.foo
           creator_email: xyz@rockset.com
           name: demo
@@ -17027,7 +17031,7 @@ components:
         field_name: address.city.zipcode
       properties:
         field_name:
-          description: The name of a field, parsed as a SQL qualified name.
+          description: "The name of a field, parsed as a SQL qualified name."
           example: address.city.zipcode
           type: string
         if_missing:
@@ -17038,7 +17042,7 @@ components:
           example: SKIP
           type: string
         is_drop:
-          description: If true, then drop fieldName from the document.
+          description: "If true, then drop fieldName from the document."
           example: true
           type: boolean
         param:
@@ -17102,7 +17106,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -17111,7 +17115,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -17124,7 +17128,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -17147,17 +17151,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -17274,7 +17278,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -17297,17 +17301,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -17422,10 +17426,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -17522,7 +17526,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -17531,7 +17535,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -17544,7 +17548,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -17567,17 +17571,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -17694,7 +17698,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -17717,17 +17721,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -17842,10 +17846,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -17941,7 +17945,7 @@ components:
           gcp_service_account:
             service_account_key_file_json: service_account_key_file_json
         kafka:
-          source_status_by_topic: '{"topic-a": "DORMANT"}'
+          source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
           kafka_topic_names:
           - kafka_topic_names
           - kafka_topic_names
@@ -18020,7 +18024,7 @@ components:
       type: object
     KafkaIntegration:
       example:
-        source_status_by_topic: '{"topic-a": "DORMANT"}'
+        source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
         kafka_topic_names:
         - kafka_topic_names
         - kafka_topic_names
@@ -18069,7 +18073,7 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/StatusKafka'
           description: The status of the Kafka source by topic.
-          example: '{"topic-a": "DORMANT"}'
+          example: "{\"topic-a\": \"DORMANT\"}"
           readOnly: true
           type: object
         use_v3:
@@ -18103,7 +18107,7 @@ components:
       example:
         data:
         - workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -18112,7 +18116,7 @@ components:
           modified_at: 2001-08-28T00:23:42Z
           created_by_apikey_name: created_by_apikey_name
         - workspace: commons
-          collections: '["commons.foo", "prod.demo"]'
+          collections: "[\"commons.foo\", \"prod.demo\"]"
           creator_email: xyz@rockset.com
           name: demo
           created_at: 2001-08-28T00:23:41Z
@@ -18195,7 +18199,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -18204,7 +18208,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -18217,7 +18221,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -18240,17 +18244,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -18367,7 +18371,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -18390,17 +18394,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -18515,10 +18519,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -18615,7 +18619,7 @@ components:
           workspace: commons
           aliases:
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -18624,7 +18628,7 @@ components:
             modified_at: 2001-08-28T00:23:42Z
             created_by_apikey_name: created_by_apikey_name
           - workspace: commons
-            collections: '["commons.foo", "prod.demo"]'
+            collections: "[\"commons.foo\", \"prod.demo\"]"
             creator_email: xyz@rockset.com
             name: demo
             created_at: 2001-08-28T00:23:41Z
@@ -18637,7 +18641,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -18660,17 +18664,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -18787,7 +18791,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               object_count_total: 4
-              prefixes: '["/transactions", "/stores"]'
+              prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
               prefix: prefix/to/keys
               pattern: prefix/to/**/keys/*.format
@@ -18810,17 +18814,17 @@ components:
               csv:
                 escapeChar: \
                 quoteChar: '"'
-                columnNames: '["c1", "c2", "c3"]'
-                columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                 firstLineAsColumnNames: true
                 encoding: UTF-8
-                separator: ','
+                separator: ","
               postgres_dms: true
               json: true
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
-              avro: '{}'
+              avro: "{}"
             azure_blob_storage:
               container: server-logs
               prefix: prefix/to/blobs
@@ -18935,10 +18939,10 @@ components:
             suspended_at: 2019-01-15T21:48:23Z
           insert_only: true
           clustering_key:
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
-          - keys: '["value1", "value2"]'
+          - keys: "[\"value1\", \"value2\"]"
             type: AUTO
             field_name: address.city.zipcode
           created_at: 2001-08-28T00:23:41Z
@@ -19092,7 +19096,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -19101,7 +19105,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -19114,7 +19118,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -19137,17 +19141,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -19264,7 +19268,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -19287,17 +19291,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -19412,10 +19416,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -19512,7 +19516,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -19521,7 +19525,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -19534,7 +19538,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -19557,17 +19561,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -19684,7 +19688,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -19707,17 +19711,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -19832,10 +19836,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -19931,7 +19935,7 @@ components:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
           kafka:
-            source_status_by_topic: '{"topic-a": "DORMANT"}'
+            source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -20006,7 +20010,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -20015,7 +20019,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -20028,7 +20032,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -20051,17 +20055,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -20178,7 +20182,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -20201,17 +20205,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -20326,10 +20330,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -20426,7 +20430,7 @@ components:
             workspace: commons
             aliases:
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -20435,7 +20439,7 @@ components:
               modified_at: 2001-08-28T00:23:42Z
               created_by_apikey_name: created_by_apikey_name
             - workspace: commons
-              collections: '["commons.foo", "prod.demo"]'
+              collections: "[\"commons.foo\", \"prod.demo\"]"
               creator_email: xyz@rockset.com
               name: demo
               created_at: 2001-08-28T00:23:41Z
@@ -20448,7 +20452,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -20471,17 +20475,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -20598,7 +20602,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 object_count_total: 4
-                prefixes: '["/transactions", "/stores"]'
+                prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
                 prefix: prefix/to/keys
                 pattern: prefix/to/**/keys/*.format
@@ -20621,17 +20625,17 @@ components:
                 csv:
                   escapeChar: \
                   quoteChar: '"'
-                  columnNames: '["c1", "c2", "c3"]'
-                  columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+                  columnNames: "[\"c1\", \"c2\", \"c3\"]"
+                  columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
                   firstLineAsColumnNames: true
                   encoding: UTF-8
-                  separator: ','
+                  separator: ","
                 postgres_dms: true
                 json: true
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
-                avro: '{}'
+                avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 prefix: prefix/to/blobs
@@ -20746,10 +20750,10 @@ components:
               suspended_at: 2019-01-15T21:48:23Z
             insert_only: true
             clustering_key:
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
-            - keys: '["value1", "value2"]'
+            - keys: "[\"value1\", \"value2\"]"
               type: AUTO
               field_name: address.city.zipcode
             created_at: 2001-08-28T00:23:41Z
@@ -20845,7 +20849,7 @@ components:
             gcp_service_account:
               service_account_key_file_json: service_account_key_file_json
           kafka:
-            source_status_by_topic: '{"topic-a": "DORMANT"}'
+            source_status_by_topic: "{\"topic-a\": \"DORMANT\"}"
             kafka_topic_names:
             - kafka_topic_names
             - kafka_topic_names
@@ -20938,7 +20942,7 @@ components:
             - collections
             stats:
               last_executed_by: '...@rockset.com'
-              last_execution_error_message: '[error message]'
+              last_execution_error_message: "[error message]"
               last_execution_error: 2001-08-28T00:23:41Z
               last_executed: 2001-08-28T00:23:41Z
             name: myQuery
@@ -20966,7 +20970,7 @@ components:
             - collections
             stats:
               last_executed_by: '...@rockset.com'
-              last_execution_error_message: '[error message]'
+              last_execution_error_message: "[error message]"
               last_execution_error: 2001-08-28T00:23:41Z
               last_executed: 2001-08-28T00:23:41Z
             name: myQuery
@@ -21002,7 +21006,7 @@ components:
           - collections
           stats:
             last_executed_by: '...@rockset.com'
-            last_execution_error_message: '[error message]'
+            last_execution_error_message: "[error message]"
             last_execution_error: 2001-08-28T00:23:41Z
             last_executed: 2001-08-28T00:23:41Z
           name: myQuery
@@ -21028,7 +21032,7 @@ components:
           - collections
           stats:
             last_executed_by: '...@rockset.com'
-            last_execution_error_message: '[error message]'
+            last_execution_error_message: "[error message]"
             last_execution_error: 2001-08-28T00:23:41Z
             last_executed: 2001-08-28T00:23:41Z
           name: myQuery
@@ -21068,7 +21072,7 @@ components:
             - collections
             stats:
               last_executed_by: '...@rockset.com'
-              last_execution_error_message: '[error message]'
+              last_execution_error_message: "[error message]"
               last_execution_error: 2001-08-28T00:23:41Z
               last_executed: 2001-08-28T00:23:41Z
             name: myQuery
@@ -21103,7 +21107,7 @@ components:
             - collections
             stats:
               last_executed_by: '...@rockset.com'
-              last_execution_error_message: '[error message]'
+              last_execution_error_message: "[error message]"
               last_execution_error: 2001-08-28T00:23:41Z
               last_executed: 2001-08-28T00:23:41Z
             name: myQuery
@@ -21175,7 +21179,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -21198,17 +21202,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -21325,7 +21329,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             object_count_total: 4
-            prefixes: '["/transactions", "/stores"]'
+            prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
             prefix: prefix/to/keys
             pattern: prefix/to/**/keys/*.format
@@ -21348,17 +21352,17 @@ components:
             csv:
               escapeChar: \
               quoteChar: '"'
-              columnNames: '["c1", "c2", "c3"]'
-              columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+              columnNames: "[\"c1\", \"c2\", \"c3\"]"
+              columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
               firstLineAsColumnNames: true
               encoding: UTF-8
-              separator: ','
+              separator: ","
             postgres_dms: true
             json: true
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
-            avro: '{}'
+            avro: "{}"
           azure_blob_storage:
             container: server-logs
             prefix: prefix/to/blobs
@@ -21493,13 +21497,13 @@ components:
     ListUsersResponse:
       example:
         data:
-        - roles: '["admin", "member", "read-only"]'
+        - roles: "[\"admin\", \"member\", \"read-only\"]"
           created_at: 2001-08-28T00:23:41Z
           last_name: Doe
           state: ACTIVE
           first_name: John
           email: hello@rockset.com
-        - roles: '["admin", "member", "read-only"]'
+        - roles: "[\"admin\", \"member\", \"read-only\"]"
           created_at: 2001-08-28T00:23:41Z
           last_name: Doe
           state: ACTIVE
@@ -21518,7 +21522,8 @@ components:
         - owner_email: abc@rockset.com
           path: path
           workspace: commons
-          entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           query_sql: SELECT * FROM commons.foo
           creator_email: xyz@rockset.com
           name: demo
@@ -21530,7 +21535,8 @@ components:
         - owner_email: abc@rockset.com
           path: path
           workspace: commons
-          entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           query_sql: SELECT * FROM commons.foo
           creator_email: xyz@rockset.com
           name: demo
@@ -21638,9 +21644,9 @@ components:
         commit: f1:0:14:9:7093
       properties:
         commit:
-          description: An encoded value representing the most recent offsets that
-            have been committed. If the fence offset is less than or equal to the
-            commit, then passed is true.
+          description: "An encoded value representing the most recent offsets that\
+            \ have been committed. If the fence offset is less than or equal to the\
+            \ commit, then passed is true."
           example: f1:0:14:9:7093
           type: string
       type: object
@@ -21653,12 +21659,12 @@ components:
         external_id: <hash>
         id: rockset
         rockset_user: <id>
-        display_name: Rockset, Inc
-        clusters: '[{ ... }]'
+        display_name: "Rockset, Inc"
+        clusters: "[{ ... }]"
       properties:
         clusters:
           description: List of clusters associated with this org.
-          example: '[{ ... }]'
+          example: "[{ ... }]"
           items:
             $ref: '#/components/schemas/Cluster'
           type: array
@@ -21668,7 +21674,7 @@ components:
           type: string
         display_name:
           description: Name of the organization.
-          example: Rockset, Inc
+          example: "Rockset, Inc"
           type: string
         external_id:
           description: Organization's unique external ID within Rockset.
@@ -21700,8 +21706,8 @@ components:
           external_id: <hash>
           id: rockset
           rockset_user: <id>
-          display_name: Rockset, Inc
-          clusters: '[{ ... }]'
+          display_name: "Rockset, Inc"
+          clusters: "[{ ... }]"
       properties:
         data:
           $ref: '#/components/schemas/Organization'
@@ -21714,11 +21720,11 @@ components:
         field_name: zip_hash
       properties:
         field_name:
-          description: The name of a field, parsed as a SQL qualified name.
+          description: "The name of a field, parsed as a SQL qualified name."
           example: zip_hash
           type: string
         on_error:
-          description: 'Error in Mapping execution: ''skip'' or ''fail''.'
+          description: "Error in Mapping execution: 'skip' or 'fail'."
           enum:
           - SKIP
           - FAIL
@@ -21876,13 +21882,13 @@ components:
         value: baz
       properties:
         from:
-          description: '[JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901)
-            referencing a location in the target document. Required for `COPY` and
-            `MOVE` operations.'
+          description: "[JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901)\
+            \ referencing a location in the target document. Required for `COPY` and\
+            \ `MOVE` operations."
           type: string
         op:
-          description: '[JSON Patch operation](https://datatracker.ietf.org/doc/html/rfc6902#page-4)
-            to be performed in this patch. Case insensitive.'
+          description: "[JSON Patch operation](https://datatracker.ietf.org/doc/html/rfc6902#page-4)\
+            \ to be performed in this patch. Case insensitive."
           enum:
           - ADD
           - REPLACE
@@ -21894,13 +21900,14 @@ components:
           example: ADD
           type: string
         path:
-          description: '[JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901)
-            referencing a location in the target document where the operation is performed'
+          description: "[JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901)\
+            \ referencing a location in the target document where the operation is\
+            \ performed"
           example: /foo/bar
           type: string
         value:
-          description: Value used in the patch operation. Required for `ADD`, `REPLACE`,
-            `TEST`, and `INCREMENT` operations.
+          description: "Value used in the patch operation. Required for `ADD`, `REPLACE`,\
+            \ `TEST`, and `INCREMENT` operations."
           example: baz
           properties: {}
           type: object
@@ -21971,9 +21978,9 @@ components:
           example: CREATE_COLLECTION_WS
           type: string
         cluster:
-          description: Cluster ID (`usw2a1` for us-west-2, `use1a1` for us-east-1,
-            `euc1a1` for eu-central-1) for which the action is allowed. Defaults to
-            '*All*' if not specified.
+          description: "Cluster ID (`usw2a1` for us-west-2, `use1a1` for us-east-1,\
+            \ `euc1a1` for eu-central-1) for which the action is allowed. Defaults\
+            \ to '*All*' if not specified."
           example: '*ALL*'
           type: string
         resource_name:
@@ -21989,13 +21996,13 @@ components:
         type: ResourceExceeded
       properties:
         message:
-          description: A message associated with the error, containing more information
-            about it.
+          description: "A message associated with the error, containing more information\
+            \ about it."
           example: Too many rows
           type: string
         status_code:
-          description: The HTTP status code associated with this error, had it been
-            sent as the response status code
+          description: "The HTTP status code associated with this error, had it been\
+            \ sent as the response status code"
           example: 429
           format: int32
           type: integer
@@ -22103,7 +22110,7 @@ components:
           - collections
           stats:
             last_executed_by: '...@rockset.com'
-            last_execution_error_message: '[error message]'
+            last_execution_error_message: "[error message]"
             last_execution_error: 2001-08-28T00:23:41Z
             last_executed: 2001-08-28T00:23:41Z
           name: myQuery
@@ -22183,7 +22190,7 @@ components:
     QueryLambdaStats:
       example:
         last_executed_by: '...@rockset.com'
-        last_execution_error_message: '[error message]'
+        last_execution_error_message: "[error message]"
         last_execution_error: 2001-08-28T00:23:41Z
         last_executed: 2001-08-28T00:23:41Z
       properties:
@@ -22201,7 +22208,7 @@ components:
           type: string
         last_execution_error_message:
           description: Error message associated with last failed execution.
-          example: '[error message]'
+          example: "[error message]"
           type: string
       type: object
     QueryLambdaTag:
@@ -22215,7 +22222,7 @@ components:
           - collections
           stats:
             last_executed_by: '...@rockset.com'
-            last_execution_error_message: '[error message]'
+            last_execution_error_message: "[error message]"
             last_execution_error: 2001-08-28T00:23:41Z
             last_executed: 2001-08-28T00:23:41Z
           name: myQuery
@@ -22254,7 +22261,7 @@ components:
             - collections
             stats:
               last_executed_by: '...@rockset.com'
-              last_execution_error_message: '[error message]'
+              last_execution_error_message: "[error message]"
               last_execution_error: 2001-08-28T00:23:41Z
               last_executed: 2001-08-28T00:23:41Z
             name: myQuery
@@ -22286,7 +22293,7 @@ components:
         - collections
         stats:
           last_executed_by: '...@rockset.com'
-          last_execution_error_message: '[error message]'
+          last_execution_error_message: "[error message]"
           last_execution_error: 2001-08-28T00:23:41Z
           last_executed: 2001-08-28T00:23:41Z
         name: myQuery
@@ -22364,7 +22371,7 @@ components:
           - collections
           stats:
             last_executed_by: '...@rockset.com'
-            last_execution_error_message: '[error message]'
+            last_execution_error_message: "[error message]"
             last_execution_error: 2001-08-28T00:23:41Z
             last_executed: 2001-08-28T00:23:41Z
           name: myQuery
@@ -22397,8 +22404,8 @@ components:
           next_page_link: https://api.rs2.usw2.rockset.com/....
         results_total_doc_count: 0
         results:
-        - '{}'
-        - '{}'
+        - "{}"
+        - "{}"
       properties:
         pagination:
           $ref: '#/components/schemas/PaginationInfo'
@@ -22459,39 +22466,39 @@ components:
             value: 85beb391
       properties:
         async:
-          description: 'If true, the query will run asynchronously for up to 30 minutes.
-            The query request will immediately return with a query id that can be
-            used to retrieve the query status and results. If false or not specified,
-            the query will return with results once completed or timeout after 2 minutes.
-            (To return results directly for shorter queries while still allowing a
-            timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) '
+          description: "If true, the query will run asynchronously for up to 30 minutes.\
+            \ The query request will immediately return with a query id that can be\
+            \ used to retrieve the query status and results. If false or not specified,\
+            \ the query will return with results once completed or timeout after 2\
+            \ minutes. (To return results directly for shorter queries while still\
+            \ allowing a timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) "
           type: boolean
         async_options:
           $ref: '#/components/schemas/AsyncQueryOptions'
         debug_threshold_ms:
-          description: If query execution takes longer than this value, debug information
-            will be logged. If the query text includes the DEBUG hint and this parameter
-            is also provided, only this value will be used and the DEBUG hint will
-            be ignored.
+          description: "If query execution takes longer than this value, debug information\
+            \ will be logged. If the query text includes the DEBUG hint and this parameter\
+            \ is also provided, only this value will be used and the DEBUG hint will\
+            \ be ignored."
           format: int64
           type: integer
         max_initial_results:
-          description: This limits the maximum number of results in the initial response.
-            A pagination cursor is returned if the number of results exceeds `max_initial_results`.
-            If `max_initial_results` is not set, all results will be returned in the
-            initial response up to 4 million. If `max_initial_results` is set, the
-            value must be between 0 and 100,000. If the query is async and `client_timeout_ms`
-            is exceeded, `max_initial_results` does not apply since none of the results
-            will be returned with the initial response.
+          description: "This limits the maximum number of results in the initial response.\
+            \ A pagination cursor is returned if the number of results exceeds `max_initial_results`.\
+            \ If `max_initial_results` is not set, all results will be returned in\
+            \ the initial response up to 4 million. If `max_initial_results` is set,\
+            \ the value must be between 0 and 100,000. If the query is async and `client_timeout_ms`\
+            \ is exceeded, `max_initial_results` does not apply since none of the\
+            \ results will be returned with the initial response."
           format: int64
           type: integer
         sql:
           $ref: '#/components/schemas/QueryRequestSql'
         timeout_ms:
-          description: If a query exceeds the specified timeout, the query will automatically
-            stop and return an error. The query timeout defaults to a maximum of 2
-            minutes. If `async` is true, the query timeout defaults to a maximum of
-            30 minutes.
+          description: "If a query exceeds the specified timeout, the query will automatically\
+            \ stop and return an error. The query timeout defaults to a maximum of\
+            \ 2 minutes. If `async` is true, the query timeout defaults to a maximum\
+            \ of 30 minutes."
           format: int64
           type: integer
       required:
@@ -22516,9 +22523,9 @@ components:
           format: int32
           type: integer
         initial_paginate_response_doc_count:
-          description: '[DEPRECATED] Use `max_initial_results` instead. Number of
-            documents to return in addition to paginating for this query call. Only
-            relevant if `paginate` flag is also set.'
+          description: "[DEPRECATED] Use `max_initial_results` instead. Number of\
+            \ documents to return in addition to paginating for this query call. Only\
+            \ relevant if `paginate` flag is also set."
           format: int32
           type: integer
         parameters:
@@ -22567,8 +22574,8 @@ components:
         - name: _id
           type: string
         results:
-        - '{}'
-        - '{}'
+        - "{}"
+        - "{}"
         status: RUNNING
       properties:
         collections:
@@ -22583,8 +22590,8 @@ components:
             $ref: '#/components/schemas/QueryFieldType'
           type: array
         last_offset:
-          description: If this was a write query, this is the log offset the query
-            was written to.
+          description: "If this was a write query, this is the log offset the query\
+            \ was written to."
           type: string
         pagination:
           $ref: '#/components/schemas/PaginationInfo'
@@ -22613,8 +22620,8 @@ components:
         stats:
           $ref: '#/components/schemas/QueryResponseStats'
         status:
-          description: 'Status of query execution. Possible values: `QUEUED`, `RUNNING`,
-            `COMPLETED`, `ERROR`.'
+          description: "Status of query execution. Possible values: `QUEUED`, `RUNNING`,\
+            \ `COMPLETED`, `ERROR`."
           enum:
           - QUEUED
           - RUNNING
@@ -22798,8 +22805,8 @@ components:
           example: acme-marketing-test-account.snowflakecomputing.com
           type: string
         user_role:
-          description: Snowflake user role. If unspecified, will use the default user
-            role.
+          description: "Snowflake user role. If unspecified, will use the default\
+            \ user role."
           type: string
         username:
           description: Snowflake database username.
@@ -22820,7 +22827,7 @@ components:
           bucket: s3://customer-account-info
           object_count_downloaded: 2
           object_count_total: 4
-          prefixes: '["/transactions", "/stores"]'
+          prefixes: "[\"/transactions\", \"/stores\"]"
           object_bytes_downloaded: 9
           prefix: prefix/to/keys
           pattern: prefix/to/**/keys/*.format
@@ -22843,17 +22850,17 @@ components:
           csv:
             escapeChar: \
             quoteChar: '"'
-            columnNames: '["c1", "c2", "c3"]'
-            columnTypes: '["BOOLEAN", "INTEGER", "FLOAT", "STRING"]'
+            columnNames: "[\"c1\", \"c2\", \"c3\"]"
+            columnTypes: "[\"BOOLEAN\", \"INTEGER\", \"FLOAT\", \"STRING\"]"
             firstLineAsColumnNames: true
             encoding: UTF-8
-            separator: ','
+            separator: ","
           postgres_dms: true
           json: true
           mssql_dms: true
           oracle_dms: true
           mysql_dms: true
-          avro: '{}'
+          avro: "{}"
         azure_blob_storage:
           container: server-logs
           prefix: prefix/to/blobs
@@ -23005,7 +23012,7 @@ components:
         status:
           $ref: '#/components/schemas/Status'
         suspended_at:
-          description: ISO-8601 date when source was suspended, if suspended
+          description: "ISO-8601 date when source was suspended, if suspended"
           example: 2019-01-15T21:48:23Z
           readOnly: true
           type: string
@@ -23119,8 +23126,8 @@ components:
           state: SCANNING_TABLE
       properties:
         aws_region:
-          description: AWS region name of DynamoDB table, by default us-west-2 is
-            used.
+          description: "AWS region name of DynamoDB table, by default us-west-2 is\
+            \ used."
           example: us-east-2
           type: string
         current_status:
@@ -23255,8 +23262,8 @@ components:
         - dms_primary_key
       properties:
         aws_region:
-          description: AWS region name of Kinesis stream, by default us-west-2 is
-            used.
+          description: "AWS region name of Kinesis stream, by default us-west-2 is\
+            \ used."
           example: us-east-2
           type: string
         dms_primary_key:
@@ -23265,8 +23272,8 @@ components:
             type: string
           type: array
         offset_reset_policy:
-          description: For non-DMS streams, Rockset can tail from the earliest end
-            or latest end of kinesis source.
+          description: "For non-DMS streams, Rockset can tail from the earliest end\
+            \ or latest end of kinesis source."
           enum:
           - LATEST
           - EARLIEST
@@ -23321,7 +23328,7 @@ components:
         bucket: s3://customer-account-info
         object_count_downloaded: 2
         object_count_total: 4
-        prefixes: '["/transactions", "/stores"]'
+        prefixes: "[\"/transactions\", \"/stores\"]"
         object_bytes_downloaded: 9
         prefix: prefix/to/keys
         pattern: prefix/to/**/keys/*.format
@@ -23359,7 +23366,7 @@ components:
           type: string
         prefixes:
           description: List of prefixes to paths from which data should be ingested.
-          example: '["/transactions", "/stores"]'
+          example: "[\"/transactions\", \"/stores\"]"
           items:
             type: string
           readOnly: true
@@ -23442,8 +23449,8 @@ components:
         result_set_document_count: 1235
       properties:
         elapsed_time_ms:
-          description: Total execution time (including time queued) of the query,
-            in milliseconds.
+          description: "Total execution time (including time queued) of the query,\
+            \ in milliseconds."
           example: 128
           format: int64
           type: integer
@@ -23460,7 +23467,7 @@ components:
           format: int64
           type: integer
         throttled_time_ms:
-          description: Time query spent queued, in milliseconds.
+          description: "Time query spent queued, in milliseconds."
           example: 16
           format: int64
           type: integer
@@ -23855,12 +23862,12 @@ components:
       type: object
     UpdateAliasRequest:
       example:
-        collections: '["commons.foo", "prod.demo"]'
+        collections: "[\"commons.foo\", \"prod.demo\"]"
         description: version alias
       properties:
         collections:
           description: List of fully qualified collection names referenced by alias.
-          example: '["commons.foo", "prod.demo"]'
+          example: "[\"commons.foo\", \"prod.demo\"]"
           items:
             type: string
           type: array
@@ -23982,7 +23989,7 @@ components:
       type: object
     UpdateUserRequest:
       example:
-        roles: '["admin", "member", "read-only"]'
+        roles: "[\"admin\", \"member\", \"read-only\"]"
         last_name: Doe
         first_name: John
       properties:
@@ -23996,7 +24003,7 @@ components:
           type: string
         roles:
           description: New list of roles for a given user.
-          example: '["admin", "member", "read-only"]'
+          example: "[\"admin\", \"member\", \"read-only\"]"
           items:
             type: string
           type: array
@@ -24023,7 +24030,8 @@ components:
           owner_email: abc@rockset.com
           path: path
           workspace: commons
-          entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           query_sql: SELECT * FROM commons.foo
           creator_email: xyz@rockset.com
           name: demo
@@ -24066,8 +24074,8 @@ components:
           example: VI for prod traffic
           type: string
         enable_remount_on_resume:
-          description: When a Virtual Instance is resumed, it will remount all collections
-            that were mounted when the Virtual Instance was suspended.
+          description: "When a Virtual Instance is resumed, it will remount all collections\
+            \ that were mounted when the Virtual Instance was suspended."
           example: true
           type: boolean
         mount_refresh_interval_seconds:
@@ -24131,7 +24139,7 @@ components:
       type: object
     User:
       example:
-        roles: '["admin", "member", "read-only"]'
+        roles: "[\"admin\", \"member\", \"read-only\"]"
         created_at: 2001-08-28T00:23:41Z
         last_name: Doe
         state: ACTIVE
@@ -24156,7 +24164,7 @@ components:
           type: string
         roles:
           description: List of roles for a given user.
-          example: '["admin", "member", "read-only"]'
+          example: "[\"admin\", \"member\", \"read-only\"]"
           items:
             type: string
           type: array
@@ -24169,18 +24177,18 @@ components:
       type: object
     ValidateQueryResponse:
       example:
-        collections: '["commons.foo"]'
-        parameters: '["foo"]'
+        collections: "[\"commons.foo\"]"
+        parameters: "[\"foo\"]"
       properties:
         collections:
           description: List of collections specified in query.
-          example: '["commons.foo"]'
+          example: "[\"commons.foo\"]"
           items:
             type: string
           type: array
         parameters:
           description: List of parameters specified in query.
-          example: '["foo"]'
+          example: "[\"foo\"]"
           items:
             type: string
           type: array
@@ -24193,7 +24201,8 @@ components:
         owner_email: abc@rockset.com
         path: path
         workspace: commons
-        entities: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+        entities: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+          ]"
         query_sql: SELECT * FROM commons.foo
         creator_email: xyz@rockset.com
         name: demo
@@ -24220,9 +24229,10 @@ components:
           example: view referencing collection in workspace
           type: string
         entities:
-          description: List of entities referenced by view. An entity can be a view,
-            alias or collection.
-          example: '["common.foo_view", "prod.demo_alias", "dev.user_collection"]'
+          description: "List of entities referenced by view. An entity can be a view,\
+            \ alias or collection."
+          example: "[\"common.foo_view\", \"prod.demo_alias\", \"dev.user_collection\"\
+            ]"
           items:
             type: string
           type: array
@@ -24235,7 +24245,7 @@ components:
           example: demo
           type: string
         owner_email:
-          description: 'Email of the owner, note: deprecated and will always be null.'
+          description: "Email of the owner, note: deprecated and will always be null."
           example: abc@rockset.com
           type: string
         path:
@@ -24344,8 +24354,8 @@ components:
           readOnly: true
           type: string
         enable_remount_on_resume:
-          description: When a Virtual Instance is resumed, it will remount all collections
-            that were mounted when the Virtual Instance was suspended.
+          description: "When a Virtual Instance is resumed, it will remount all collections\
+            \ that were mounted when the Virtual Instance was suspended."
           example: true
           type: boolean
         id:
@@ -24400,7 +24410,7 @@ components:
         last_queried_ms: 1535101119334
       properties:
         last_queried_ms:
-          description: Milliseconds since Unix epoch Jan 1, 1970.
+          description: "Milliseconds since Unix epoch Jan 1, 1970."
           example: 1535101119334
           format: int64
           type: integer

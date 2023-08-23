@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryLambda type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryLambda{}
+
 // QueryLambda struct for QueryLambda
 type QueryLambda struct {
 	// Collections/aliases queried by underlying SQL query.
@@ -50,7 +53,7 @@ func NewQueryLambdaWithDefaults() *QueryLambda {
 
 // GetCollections returns the Collections field value if set, zero value otherwise.
 func (o *QueryLambda) GetCollections() []string {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		var ret []string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *QueryLambda) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetCollectionsOk() ([]string, bool) {
-	if o == nil || o.Collections == nil {
+	if o == nil || IsNil(o.Collections) {
 		return nil, false
 	}
 	return o.Collections, true
@@ -68,7 +71,7 @@ func (o *QueryLambda) GetCollectionsOk() ([]string, bool) {
 
 // HasCollections returns a boolean if a field has been set.
 func (o *QueryLambda) HasCollections() bool {
-	if o != nil && o.Collections != nil {
+	if o != nil && !IsNil(o.Collections) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *QueryLambda) SetCollections(v []string) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *QueryLambda) GetLastUpdated() string {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *QueryLambda) GetLastUpdated() string {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -100,7 +103,7 @@ func (o *QueryLambda) GetLastUpdatedOk() (*string, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *QueryLambda) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *QueryLambda) SetLastUpdated(v string) {
 
 // GetLastUpdatedBy returns the LastUpdatedBy field value if set, zero value otherwise.
 func (o *QueryLambda) GetLastUpdatedBy() string {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		var ret string
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *QueryLambda) GetLastUpdatedBy() string {
 // GetLastUpdatedByOk returns a tuple with the LastUpdatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetLastUpdatedByOk() (*string, bool) {
-	if o == nil || o.LastUpdatedBy == nil {
+	if o == nil || IsNil(o.LastUpdatedBy) {
 		return nil, false
 	}
 	return o.LastUpdatedBy, true
@@ -132,7 +135,7 @@ func (o *QueryLambda) GetLastUpdatedByOk() (*string, bool) {
 
 // HasLastUpdatedBy returns a boolean if a field has been set.
 func (o *QueryLambda) HasLastUpdatedBy() bool {
-	if o != nil && o.LastUpdatedBy != nil {
+	if o != nil && !IsNil(o.LastUpdatedBy) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *QueryLambda) SetLastUpdatedBy(v string) {
 
 // GetLatestVersion returns the LatestVersion field value if set, zero value otherwise.
 func (o *QueryLambda) GetLatestVersion() QueryLambdaVersion {
-	if o == nil || o.LatestVersion == nil {
+	if o == nil || IsNil(o.LatestVersion) {
 		var ret QueryLambdaVersion
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *QueryLambda) GetLatestVersion() QueryLambdaVersion {
 // GetLatestVersionOk returns a tuple with the LatestVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetLatestVersionOk() (*QueryLambdaVersion, bool) {
-	if o == nil || o.LatestVersion == nil {
+	if o == nil || IsNil(o.LatestVersion) {
 		return nil, false
 	}
 	return o.LatestVersion, true
@@ -164,7 +167,7 @@ func (o *QueryLambda) GetLatestVersionOk() (*QueryLambdaVersion, bool) {
 
 // HasLatestVersion returns a boolean if a field has been set.
 func (o *QueryLambda) HasLatestVersion() bool {
-	if o != nil && o.LatestVersion != nil {
+	if o != nil && !IsNil(o.LatestVersion) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *QueryLambda) SetLatestVersion(v QueryLambdaVersion) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *QueryLambda) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *QueryLambda) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -196,7 +199,7 @@ func (o *QueryLambda) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *QueryLambda) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -210,7 +213,7 @@ func (o *QueryLambda) SetName(v string) {
 
 // GetVersionCount returns the VersionCount field value if set, zero value otherwise.
 func (o *QueryLambda) GetVersionCount() int32 {
-	if o == nil || o.VersionCount == nil {
+	if o == nil || IsNil(o.VersionCount) {
 		var ret int32
 		return ret
 	}
@@ -220,7 +223,7 @@ func (o *QueryLambda) GetVersionCount() int32 {
 // GetVersionCountOk returns a tuple with the VersionCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetVersionCountOk() (*int32, bool) {
-	if o == nil || o.VersionCount == nil {
+	if o == nil || IsNil(o.VersionCount) {
 		return nil, false
 	}
 	return o.VersionCount, true
@@ -228,7 +231,7 @@ func (o *QueryLambda) GetVersionCountOk() (*int32, bool) {
 
 // HasVersionCount returns a boolean if a field has been set.
 func (o *QueryLambda) HasVersionCount() bool {
-	if o != nil && o.VersionCount != nil {
+	if o != nil && !IsNil(o.VersionCount) {
 		return true
 	}
 
@@ -242,7 +245,7 @@ func (o *QueryLambda) SetVersionCount(v int32) {
 
 // GetWorkspace returns the Workspace field value if set, zero value otherwise.
 func (o *QueryLambda) GetWorkspace() string {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		var ret string
 		return ret
 	}
@@ -252,7 +255,7 @@ func (o *QueryLambda) GetWorkspace() string {
 // GetWorkspaceOk returns a tuple with the Workspace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryLambda) GetWorkspaceOk() (*string, bool) {
-	if o == nil || o.Workspace == nil {
+	if o == nil || IsNil(o.Workspace) {
 		return nil, false
 	}
 	return o.Workspace, true
@@ -260,7 +263,7 @@ func (o *QueryLambda) GetWorkspaceOk() (*string, bool) {
 
 // HasWorkspace returns a boolean if a field has been set.
 func (o *QueryLambda) HasWorkspace() bool {
-	if o != nil && o.Workspace != nil {
+	if o != nil && !IsNil(o.Workspace) {
 		return true
 	}
 
@@ -273,29 +276,37 @@ func (o *QueryLambda) SetWorkspace(v string) {
 }
 
 func (o QueryLambda) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Collections != nil {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.LastUpdatedBy != nil {
-		toSerialize["last_updated_by"] = o.LastUpdatedBy
-	}
-	if o.LatestVersion != nil {
-		toSerialize["latest_version"] = o.LatestVersion
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.VersionCount != nil {
-		toSerialize["version_count"] = o.VersionCount
-	}
-	if o.Workspace != nil {
-		toSerialize["workspace"] = o.Workspace
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryLambda) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Collections) {
+		toSerialize["collections"] = o.Collections
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.LastUpdatedBy) {
+		toSerialize["last_updated_by"] = o.LastUpdatedBy
+	}
+	if !IsNil(o.LatestVersion) {
+		toSerialize["latest_version"] = o.LatestVersion
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.VersionCount) {
+		toSerialize["version_count"] = o.VersionCount
+	}
+	if !IsNil(o.Workspace) {
+		toSerialize["workspace"] = o.Workspace
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryLambda struct {

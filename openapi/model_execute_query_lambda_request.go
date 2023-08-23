@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ExecuteQueryLambdaRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ExecuteQueryLambdaRequest{}
+
 // ExecuteQueryLambdaRequest struct for ExecuteQueryLambdaRequest
 type ExecuteQueryLambdaRequest struct {
 	// If true, the query will run asynchronously for up to 30 minutes. The query request will immediately return with a query id that can be used to retrieve the query status and results. If false or not specified, the query will return with results once completed or timeout after 2 minutes. (To return results directly for shorter queries while still allowing a timeout of up to 30 minutes, set `async_options.client_timeout_ms`.) 
@@ -56,7 +59,7 @@ func NewExecuteQueryLambdaRequestWithDefaults() *ExecuteQueryLambdaRequest {
 
 // GetAsync returns the Async field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetAsync() bool {
-	if o == nil || o.Async == nil {
+	if o == nil || IsNil(o.Async) {
 		var ret bool
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *ExecuteQueryLambdaRequest) GetAsync() bool {
 // GetAsyncOk returns a tuple with the Async field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetAsyncOk() (*bool, bool) {
-	if o == nil || o.Async == nil {
+	if o == nil || IsNil(o.Async) {
 		return nil, false
 	}
 	return o.Async, true
@@ -74,7 +77,7 @@ func (o *ExecuteQueryLambdaRequest) GetAsyncOk() (*bool, bool) {
 
 // HasAsync returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasAsync() bool {
-	if o != nil && o.Async != nil {
+	if o != nil && !IsNil(o.Async) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *ExecuteQueryLambdaRequest) SetAsync(v bool) {
 
 // GetAsyncOptions returns the AsyncOptions field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions {
-	if o == nil || o.AsyncOptions == nil {
+	if o == nil || IsNil(o.AsyncOptions) {
 		var ret AsyncQueryOptions
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *ExecuteQueryLambdaRequest) GetAsyncOptions() AsyncQueryOptions {
 // GetAsyncOptionsOk returns a tuple with the AsyncOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, bool) {
-	if o == nil || o.AsyncOptions == nil {
+	if o == nil || IsNil(o.AsyncOptions) {
 		return nil, false
 	}
 	return o.AsyncOptions, true
@@ -106,7 +109,7 @@ func (o *ExecuteQueryLambdaRequest) GetAsyncOptionsOk() (*AsyncQueryOptions, boo
 
 // HasAsyncOptions returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasAsyncOptions() bool {
-	if o != nil && o.AsyncOptions != nil {
+	if o != nil && !IsNil(o.AsyncOptions) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *ExecuteQueryLambdaRequest) SetAsyncOptions(v AsyncQueryOptions) {
 
 // GetDebugThresholdMs returns the DebugThresholdMs field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetDebugThresholdMs() int64 {
-	if o == nil || o.DebugThresholdMs == nil {
+	if o == nil || IsNil(o.DebugThresholdMs) {
 		var ret int64
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *ExecuteQueryLambdaRequest) GetDebugThresholdMs() int64 {
 // GetDebugThresholdMsOk returns a tuple with the DebugThresholdMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetDebugThresholdMsOk() (*int64, bool) {
-	if o == nil || o.DebugThresholdMs == nil {
+	if o == nil || IsNil(o.DebugThresholdMs) {
 		return nil, false
 	}
 	return o.DebugThresholdMs, true
@@ -138,7 +141,7 @@ func (o *ExecuteQueryLambdaRequest) GetDebugThresholdMsOk() (*int64, bool) {
 
 // HasDebugThresholdMs returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasDebugThresholdMs() bool {
-	if o != nil && o.DebugThresholdMs != nil {
+	if o != nil && !IsNil(o.DebugThresholdMs) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *ExecuteQueryLambdaRequest) SetDebugThresholdMs(v int64) {
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetDefaultRowLimit() int32 {
-	if o == nil || o.DefaultRowLimit == nil {
+	if o == nil || IsNil(o.DefaultRowLimit) {
 		var ret int32
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *ExecuteQueryLambdaRequest) GetDefaultRowLimit() int32 {
 // GetDefaultRowLimitOk returns a tuple with the DefaultRowLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetDefaultRowLimitOk() (*int32, bool) {
-	if o == nil || o.DefaultRowLimit == nil {
+	if o == nil || IsNil(o.DefaultRowLimit) {
 		return nil, false
 	}
 	return o.DefaultRowLimit, true
@@ -170,7 +173,7 @@ func (o *ExecuteQueryLambdaRequest) GetDefaultRowLimitOk() (*int32, bool) {
 
 // HasDefaultRowLimit returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasDefaultRowLimit() bool {
-	if o != nil && o.DefaultRowLimit != nil {
+	if o != nil && !IsNil(o.DefaultRowLimit) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *ExecuteQueryLambdaRequest) SetDefaultRowLimit(v int32) {
 
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCount() int32 {
-	if o == nil || o.InitialPaginateResponseDocCount == nil {
+	if o == nil || IsNil(o.InitialPaginateResponseDocCount) {
 		var ret int32
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCount() int32 {
 // GetInitialPaginateResponseDocCountOk returns a tuple with the InitialPaginateResponseDocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCountOk() (*int32, bool) {
-	if o == nil || o.InitialPaginateResponseDocCount == nil {
+	if o == nil || IsNil(o.InitialPaginateResponseDocCount) {
 		return nil, false
 	}
 	return o.InitialPaginateResponseDocCount, true
@@ -202,7 +205,7 @@ func (o *ExecuteQueryLambdaRequest) GetInitialPaginateResponseDocCountOk() (*int
 
 // HasInitialPaginateResponseDocCount returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasInitialPaginateResponseDocCount() bool {
-	if o != nil && o.InitialPaginateResponseDocCount != nil {
+	if o != nil && !IsNil(o.InitialPaginateResponseDocCount) {
 		return true
 	}
 
@@ -216,7 +219,7 @@ func (o *ExecuteQueryLambdaRequest) SetInitialPaginateResponseDocCount(v int32) 
 
 // GetMaxInitialResults returns the MaxInitialResults field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetMaxInitialResults() int64 {
-	if o == nil || o.MaxInitialResults == nil {
+	if o == nil || IsNil(o.MaxInitialResults) {
 		var ret int64
 		return ret
 	}
@@ -226,7 +229,7 @@ func (o *ExecuteQueryLambdaRequest) GetMaxInitialResults() int64 {
 // GetMaxInitialResultsOk returns a tuple with the MaxInitialResults field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetMaxInitialResultsOk() (*int64, bool) {
-	if o == nil || o.MaxInitialResults == nil {
+	if o == nil || IsNil(o.MaxInitialResults) {
 		return nil, false
 	}
 	return o.MaxInitialResults, true
@@ -234,7 +237,7 @@ func (o *ExecuteQueryLambdaRequest) GetMaxInitialResultsOk() (*int64, bool) {
 
 // HasMaxInitialResults returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasMaxInitialResults() bool {
-	if o != nil && o.MaxInitialResults != nil {
+	if o != nil && !IsNil(o.MaxInitialResults) {
 		return true
 	}
 
@@ -248,7 +251,7 @@ func (o *ExecuteQueryLambdaRequest) SetMaxInitialResults(v int64) {
 
 // GetPaginate returns the Paginate field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetPaginate() bool {
-	if o == nil || o.Paginate == nil {
+	if o == nil || IsNil(o.Paginate) {
 		var ret bool
 		return ret
 	}
@@ -258,7 +261,7 @@ func (o *ExecuteQueryLambdaRequest) GetPaginate() bool {
 // GetPaginateOk returns a tuple with the Paginate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool) {
-	if o == nil || o.Paginate == nil {
+	if o == nil || IsNil(o.Paginate) {
 		return nil, false
 	}
 	return o.Paginate, true
@@ -266,7 +269,7 @@ func (o *ExecuteQueryLambdaRequest) GetPaginateOk() (*bool, bool) {
 
 // HasPaginate returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasPaginate() bool {
-	if o != nil && o.Paginate != nil {
+	if o != nil && !IsNil(o.Paginate) {
 		return true
 	}
 
@@ -280,7 +283,7 @@ func (o *ExecuteQueryLambdaRequest) SetPaginate(v bool) {
 
 // GetParameters returns the Parameters field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		var ret []QueryParameter
 		return ret
 	}
@@ -290,7 +293,7 @@ func (o *ExecuteQueryLambdaRequest) GetParameters() []QueryParameter {
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		return nil, false
 	}
 	return o.Parameters, true
@@ -298,7 +301,7 @@ func (o *ExecuteQueryLambdaRequest) GetParametersOk() ([]QueryParameter, bool) {
 
 // HasParameters returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
+	if o != nil && !IsNil(o.Parameters) {
 		return true
 	}
 
@@ -312,7 +315,7 @@ func (o *ExecuteQueryLambdaRequest) SetParameters(v []QueryParameter) {
 
 // GetTimeoutMs returns the TimeoutMs field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetTimeoutMs() int64 {
-	if o == nil || o.TimeoutMs == nil {
+	if o == nil || IsNil(o.TimeoutMs) {
 		var ret int64
 		return ret
 	}
@@ -322,7 +325,7 @@ func (o *ExecuteQueryLambdaRequest) GetTimeoutMs() int64 {
 // GetTimeoutMsOk returns a tuple with the TimeoutMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetTimeoutMsOk() (*int64, bool) {
-	if o == nil || o.TimeoutMs == nil {
+	if o == nil || IsNil(o.TimeoutMs) {
 		return nil, false
 	}
 	return o.TimeoutMs, true
@@ -330,7 +333,7 @@ func (o *ExecuteQueryLambdaRequest) GetTimeoutMsOk() (*int64, bool) {
 
 // HasTimeoutMs returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasTimeoutMs() bool {
-	if o != nil && o.TimeoutMs != nil {
+	if o != nil && !IsNil(o.TimeoutMs) {
 		return true
 	}
 
@@ -344,7 +347,7 @@ func (o *ExecuteQueryLambdaRequest) SetTimeoutMs(v int64) {
 
 // GetVirtualInstanceId returns the VirtualInstanceId field value if set, zero value otherwise.
 func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceId() string {
-	if o == nil || o.VirtualInstanceId == nil {
+	if o == nil || IsNil(o.VirtualInstanceId) {
 		var ret string
 		return ret
 	}
@@ -354,7 +357,7 @@ func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceId() string {
 // GetVirtualInstanceIdOk returns a tuple with the VirtualInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceIdOk() (*string, bool) {
-	if o == nil || o.VirtualInstanceId == nil {
+	if o == nil || IsNil(o.VirtualInstanceId) {
 		return nil, false
 	}
 	return o.VirtualInstanceId, true
@@ -362,7 +365,7 @@ func (o *ExecuteQueryLambdaRequest) GetVirtualInstanceIdOk() (*string, bool) {
 
 // HasVirtualInstanceId returns a boolean if a field has been set.
 func (o *ExecuteQueryLambdaRequest) HasVirtualInstanceId() bool {
-	if o != nil && o.VirtualInstanceId != nil {
+	if o != nil && !IsNil(o.VirtualInstanceId) {
 		return true
 	}
 
@@ -375,38 +378,46 @@ func (o *ExecuteQueryLambdaRequest) SetVirtualInstanceId(v string) {
 }
 
 func (o ExecuteQueryLambdaRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Async != nil {
-		toSerialize["async"] = o.Async
-	}
-	if o.AsyncOptions != nil {
-		toSerialize["async_options"] = o.AsyncOptions
-	}
-	if o.DebugThresholdMs != nil {
-		toSerialize["debug_threshold_ms"] = o.DebugThresholdMs
-	}
-	if o.DefaultRowLimit != nil {
-		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.InitialPaginateResponseDocCount != nil {
-		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
-	}
-	if o.MaxInitialResults != nil {
-		toSerialize["max_initial_results"] = o.MaxInitialResults
-	}
-	if o.Paginate != nil {
-		toSerialize["paginate"] = o.Paginate
-	}
-	if o.Parameters != nil {
-		toSerialize["parameters"] = o.Parameters
-	}
-	if o.TimeoutMs != nil {
-		toSerialize["timeout_ms"] = o.TimeoutMs
-	}
-	if o.VirtualInstanceId != nil {
-		toSerialize["virtual_instance_id"] = o.VirtualInstanceId
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ExecuteQueryLambdaRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Async) {
+		toSerialize["async"] = o.Async
+	}
+	if !IsNil(o.AsyncOptions) {
+		toSerialize["async_options"] = o.AsyncOptions
+	}
+	if !IsNil(o.DebugThresholdMs) {
+		toSerialize["debug_threshold_ms"] = o.DebugThresholdMs
+	}
+	if !IsNil(o.DefaultRowLimit) {
+		toSerialize["default_row_limit"] = o.DefaultRowLimit
+	}
+	if !IsNil(o.InitialPaginateResponseDocCount) {
+		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
+	}
+	if !IsNil(o.MaxInitialResults) {
+		toSerialize["max_initial_results"] = o.MaxInitialResults
+	}
+	if !IsNil(o.Paginate) {
+		toSerialize["paginate"] = o.Paginate
+	}
+	if !IsNil(o.Parameters) {
+		toSerialize["parameters"] = o.Parameters
+	}
+	if !IsNil(o.TimeoutMs) {
+		toSerialize["timeout_ms"] = o.TimeoutMs
+	}
+	if !IsNil(o.VirtualInstanceId) {
+		toSerialize["virtual_instance_id"] = o.VirtualInstanceId
+	}
+	return toSerialize, nil
 }
 
 type NullableExecuteQueryLambdaRequest struct {

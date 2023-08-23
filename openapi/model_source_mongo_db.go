@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceMongoDb type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceMongoDb{}
+
 // SourceMongoDb struct for SourceMongoDb
 type SourceMongoDb struct {
 	// MongoDB collection name.
@@ -57,7 +60,7 @@ func (o *SourceMongoDb) GetCollectionName() string {
 // GetCollectionNameOk returns a tuple with the CollectionName field value
 // and a boolean to check if the value has been set.
 func (o *SourceMongoDb) GetCollectionNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CollectionName, true
@@ -81,7 +84,7 @@ func (o *SourceMongoDb) GetDatabaseName() string {
 // GetDatabaseNameOk returns a tuple with the DatabaseName field value
 // and a boolean to check if the value has been set.
 func (o *SourceMongoDb) GetDatabaseNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.DatabaseName, true
@@ -94,7 +97,7 @@ func (o *SourceMongoDb) SetDatabaseName(v string) {
 
 // GetRetrieveFullDocument returns the RetrieveFullDocument field value if set, zero value otherwise.
 func (o *SourceMongoDb) GetRetrieveFullDocument() bool {
-	if o == nil || o.RetrieveFullDocument == nil {
+	if o == nil || IsNil(o.RetrieveFullDocument) {
 		var ret bool
 		return ret
 	}
@@ -104,7 +107,7 @@ func (o *SourceMongoDb) GetRetrieveFullDocument() bool {
 // GetRetrieveFullDocumentOk returns a tuple with the RetrieveFullDocument field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceMongoDb) GetRetrieveFullDocumentOk() (*bool, bool) {
-	if o == nil || o.RetrieveFullDocument == nil {
+	if o == nil || IsNil(o.RetrieveFullDocument) {
 		return nil, false
 	}
 	return o.RetrieveFullDocument, true
@@ -112,7 +115,7 @@ func (o *SourceMongoDb) GetRetrieveFullDocumentOk() (*bool, bool) {
 
 // HasRetrieveFullDocument returns a boolean if a field has been set.
 func (o *SourceMongoDb) HasRetrieveFullDocument() bool {
-	if o != nil && o.RetrieveFullDocument != nil {
+	if o != nil && !IsNil(o.RetrieveFullDocument) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *SourceMongoDb) SetRetrieveFullDocument(v bool) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SourceMongoDb) GetStatus() StatusMongoDb {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StatusMongoDb
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *SourceMongoDb) GetStatus() StatusMongoDb {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceMongoDb) GetStatusOk() (*StatusMongoDb, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -144,7 +147,7 @@ func (o *SourceMongoDb) GetStatusOk() (*StatusMongoDb, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SourceMongoDb) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -157,20 +160,24 @@ func (o *SourceMongoDb) SetStatus(v StatusMongoDb) {
 }
 
 func (o SourceMongoDb) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["collection_name"] = o.CollectionName
-	}
-	if true {
-		toSerialize["database_name"] = o.DatabaseName
-	}
-	if o.RetrieveFullDocument != nil {
-		toSerialize["retrieve_full_document"] = o.RetrieveFullDocument
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceMongoDb) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["collection_name"] = o.CollectionName
+	toSerialize["database_name"] = o.DatabaseName
+	if !IsNil(o.RetrieveFullDocument) {
+		toSerialize["retrieve_full_document"] = o.RetrieveFullDocument
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceMongoDb struct {

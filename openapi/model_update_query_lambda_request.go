@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateQueryLambdaRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateQueryLambdaRequest{}
+
 // UpdateQueryLambdaRequest struct for UpdateQueryLambdaRequest
 type UpdateQueryLambdaRequest struct {
 	// Optional description.
@@ -41,7 +44,7 @@ func NewUpdateQueryLambdaRequestWithDefaults() *UpdateQueryLambdaRequest {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UpdateQueryLambdaRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *UpdateQueryLambdaRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateQueryLambdaRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -59,7 +62,7 @@ func (o *UpdateQueryLambdaRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateQueryLambdaRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *UpdateQueryLambdaRequest) SetDescription(v string) {
 
 // GetIsPublic returns the IsPublic field value if set, zero value otherwise.
 func (o *UpdateQueryLambdaRequest) GetIsPublic() bool {
-	if o == nil || o.IsPublic == nil {
+	if o == nil || IsNil(o.IsPublic) {
 		var ret bool
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *UpdateQueryLambdaRequest) GetIsPublic() bool {
 // GetIsPublicOk returns a tuple with the IsPublic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateQueryLambdaRequest) GetIsPublicOk() (*bool, bool) {
-	if o == nil || o.IsPublic == nil {
+	if o == nil || IsNil(o.IsPublic) {
 		return nil, false
 	}
 	return o.IsPublic, true
@@ -91,7 +94,7 @@ func (o *UpdateQueryLambdaRequest) GetIsPublicOk() (*bool, bool) {
 
 // HasIsPublic returns a boolean if a field has been set.
 func (o *UpdateQueryLambdaRequest) HasIsPublic() bool {
-	if o != nil && o.IsPublic != nil {
+	if o != nil && !IsNil(o.IsPublic) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *UpdateQueryLambdaRequest) SetIsPublic(v bool) {
 
 // GetSql returns the Sql field value if set, zero value otherwise.
 func (o *UpdateQueryLambdaRequest) GetSql() QueryLambdaSql {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		var ret QueryLambdaSql
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *UpdateQueryLambdaRequest) GetSql() QueryLambdaSql {
 // GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool) {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		return nil, false
 	}
 	return o.Sql, true
@@ -123,7 +126,7 @@ func (o *UpdateQueryLambdaRequest) GetSqlOk() (*QueryLambdaSql, bool) {
 
 // HasSql returns a boolean if a field has been set.
 func (o *UpdateQueryLambdaRequest) HasSql() bool {
-	if o != nil && o.Sql != nil {
+	if o != nil && !IsNil(o.Sql) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *UpdateQueryLambdaRequest) SetSql(v QueryLambdaSql) {
 }
 
 func (o UpdateQueryLambdaRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.IsPublic != nil {
-		toSerialize["is_public"] = o.IsPublic
-	}
-	if o.Sql != nil {
-		toSerialize["sql"] = o.Sql
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateQueryLambdaRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.IsPublic) {
+		toSerialize["is_public"] = o.IsPublic
+	}
+	if !IsNil(o.Sql) {
+		toSerialize["sql"] = o.Sql
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateQueryLambdaRequest struct {

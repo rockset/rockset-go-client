@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceAzureServiceBus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceAzureServiceBus{}
+
 // SourceAzureServiceBus struct for SourceAzureServiceBus
 type SourceAzureServiceBus struct {
 	Status *StatusAzureServiceBus `json:"status,omitempty"`
@@ -42,7 +45,7 @@ func NewSourceAzureServiceBusWithDefaults() *SourceAzureServiceBus {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SourceAzureServiceBus) GetStatus() StatusAzureServiceBus {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StatusAzureServiceBus
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *SourceAzureServiceBus) GetStatus() StatusAzureServiceBus {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureServiceBus) GetStatusOk() (*StatusAzureServiceBus, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -60,7 +63,7 @@ func (o *SourceAzureServiceBus) GetStatusOk() (*StatusAzureServiceBus, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SourceAzureServiceBus) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *SourceAzureServiceBus) SetStatus(v StatusAzureServiceBus) {
 
 // GetSubscription returns the Subscription field value if set, zero value otherwise.
 func (o *SourceAzureServiceBus) GetSubscription() string {
-	if o == nil || o.Subscription == nil {
+	if o == nil || IsNil(o.Subscription) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *SourceAzureServiceBus) GetSubscription() string {
 // GetSubscriptionOk returns a tuple with the Subscription field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureServiceBus) GetSubscriptionOk() (*string, bool) {
-	if o == nil || o.Subscription == nil {
+	if o == nil || IsNil(o.Subscription) {
 		return nil, false
 	}
 	return o.Subscription, true
@@ -92,7 +95,7 @@ func (o *SourceAzureServiceBus) GetSubscriptionOk() (*string, bool) {
 
 // HasSubscription returns a boolean if a field has been set.
 func (o *SourceAzureServiceBus) HasSubscription() bool {
-	if o != nil && o.Subscription != nil {
+	if o != nil && !IsNil(o.Subscription) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *SourceAzureServiceBus) SetSubscription(v string) {
 
 // GetTopic returns the Topic field value if set, zero value otherwise.
 func (o *SourceAzureServiceBus) GetTopic() string {
-	if o == nil || o.Topic == nil {
+	if o == nil || IsNil(o.Topic) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *SourceAzureServiceBus) GetTopic() string {
 // GetTopicOk returns a tuple with the Topic field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceAzureServiceBus) GetTopicOk() (*string, bool) {
-	if o == nil || o.Topic == nil {
+	if o == nil || IsNil(o.Topic) {
 		return nil, false
 	}
 	return o.Topic, true
@@ -124,7 +127,7 @@ func (o *SourceAzureServiceBus) GetTopicOk() (*string, bool) {
 
 // HasTopic returns a boolean if a field has been set.
 func (o *SourceAzureServiceBus) HasTopic() bool {
-	if o != nil && o.Topic != nil {
+	if o != nil && !IsNil(o.Topic) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *SourceAzureServiceBus) SetTopic(v string) {
 }
 
 func (o SourceAzureServiceBus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Subscription != nil {
-		toSerialize["subscription"] = o.Subscription
-	}
-	if o.Topic != nil {
-		toSerialize["topic"] = o.Topic
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceAzureServiceBus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Subscription) {
+		toSerialize["subscription"] = o.Subscription
+	}
+	if !IsNil(o.Topic) {
+		toSerialize["topic"] = o.Topic
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceAzureServiceBus struct {

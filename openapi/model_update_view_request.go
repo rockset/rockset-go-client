@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateViewRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateViewRequest{}
+
 // UpdateViewRequest struct for UpdateViewRequest
 type UpdateViewRequest struct {
 	// Optional description.
@@ -42,7 +45,7 @@ func NewUpdateViewRequestWithDefaults() *UpdateViewRequest {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UpdateViewRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *UpdateViewRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateViewRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -60,7 +63,7 @@ func (o *UpdateViewRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateViewRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *UpdateViewRequest) GetQuery() string {
 // GetQueryOk returns a tuple with the Query field value
 // and a boolean to check if the value has been set.
 func (o *UpdateViewRequest) GetQueryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Query, true
@@ -97,14 +100,20 @@ func (o *UpdateViewRequest) SetQuery(v string) {
 }
 
 func (o UpdateViewRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["query"] = o.Query
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateViewRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["query"] = o.Query
+	return toSerialize, nil
 }
 
 type NullableUpdateViewRequest struct {

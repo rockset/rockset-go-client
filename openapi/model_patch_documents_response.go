@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchDocumentsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchDocumentsResponse{}
+
 // PatchDocumentsResponse struct for PatchDocumentsResponse
 type PatchDocumentsResponse struct {
 	Data []DocumentStatus `json:"data"`
@@ -52,7 +55,7 @@ func (o *PatchDocumentsResponse) GetData() []DocumentStatus {
 // GetDataOk returns a tuple with the Data field value
 // and a boolean to check if the value has been set.
 func (o *PatchDocumentsResponse) GetDataOk() ([]DocumentStatus, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Data, true
@@ -65,7 +68,7 @@ func (o *PatchDocumentsResponse) SetData(v []DocumentStatus) {
 
 // GetLastOffset returns the LastOffset field value if set, zero value otherwise.
 func (o *PatchDocumentsResponse) GetLastOffset() string {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *PatchDocumentsResponse) GetLastOffset() string {
 // GetLastOffsetOk returns a tuple with the LastOffset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchDocumentsResponse) GetLastOffsetOk() (*string, bool) {
-	if o == nil || o.LastOffset == nil {
+	if o == nil || IsNil(o.LastOffset) {
 		return nil, false
 	}
 	return o.LastOffset, true
@@ -83,7 +86,7 @@ func (o *PatchDocumentsResponse) GetLastOffsetOk() (*string, bool) {
 
 // HasLastOffset returns a boolean if a field has been set.
 func (o *PatchDocumentsResponse) HasLastOffset() bool {
-	if o != nil && o.LastOffset != nil {
+	if o != nil && !IsNil(o.LastOffset) {
 		return true
 	}
 
@@ -96,14 +99,20 @@ func (o *PatchDocumentsResponse) SetLastOffset(v string) {
 }
 
 func (o PatchDocumentsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["data"] = o.Data
-	}
-	if o.LastOffset != nil {
-		toSerialize["last_offset"] = o.LastOffset
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchDocumentsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["data"] = o.Data
+	if !IsNil(o.LastOffset) {
+		toSerialize["last_offset"] = o.LastOffset
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchDocumentsResponse struct {

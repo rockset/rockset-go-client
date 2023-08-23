@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceSnowflake type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceSnowflake{}
+
 // SourceSnowflake struct for SourceSnowflake
 type SourceSnowflake struct {
 	// Name of the snowflake database.
@@ -60,7 +63,7 @@ func (o *SourceSnowflake) GetDatabase() string {
 // GetDatabaseOk returns a tuple with the Database field value
 // and a boolean to check if the value has been set.
 func (o *SourceSnowflake) GetDatabaseOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Database, true
@@ -84,7 +87,7 @@ func (o *SourceSnowflake) GetSchema() string {
 // GetSchemaOk returns a tuple with the Schema field value
 // and a boolean to check if the value has been set.
 func (o *SourceSnowflake) GetSchemaOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Schema, true
@@ -97,7 +100,7 @@ func (o *SourceSnowflake) SetSchema(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *SourceSnowflake) GetStatus() StatusSnowflake {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret StatusSnowflake
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *SourceSnowflake) GetStatus() StatusSnowflake {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceSnowflake) GetStatusOk() (*StatusSnowflake, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -115,7 +118,7 @@ func (o *SourceSnowflake) GetStatusOk() (*StatusSnowflake, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *SourceSnowflake) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *SourceSnowflake) GetTableName() string {
 // GetTableNameOk returns a tuple with the TableName field value
 // and a boolean to check if the value has been set.
 func (o *SourceSnowflake) GetTableNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TableName, true
@@ -153,7 +156,7 @@ func (o *SourceSnowflake) SetTableName(v string) {
 
 // GetWarehouse returns the Warehouse field value if set, zero value otherwise.
 func (o *SourceSnowflake) GetWarehouse() string {
-	if o == nil || o.Warehouse == nil {
+	if o == nil || IsNil(o.Warehouse) {
 		var ret string
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *SourceSnowflake) GetWarehouse() string {
 // GetWarehouseOk returns a tuple with the Warehouse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceSnowflake) GetWarehouseOk() (*string, bool) {
-	if o == nil || o.Warehouse == nil {
+	if o == nil || IsNil(o.Warehouse) {
 		return nil, false
 	}
 	return o.Warehouse, true
@@ -171,7 +174,7 @@ func (o *SourceSnowflake) GetWarehouseOk() (*string, bool) {
 
 // HasWarehouse returns a boolean if a field has been set.
 func (o *SourceSnowflake) HasWarehouse() bool {
-	if o != nil && o.Warehouse != nil {
+	if o != nil && !IsNil(o.Warehouse) {
 		return true
 	}
 
@@ -184,23 +187,25 @@ func (o *SourceSnowflake) SetWarehouse(v string) {
 }
 
 func (o SourceSnowflake) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["database"] = o.Database
-	}
-	if true {
-		toSerialize["schema"] = o.Schema
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["table_name"] = o.TableName
-	}
-	if o.Warehouse != nil {
-		toSerialize["warehouse"] = o.Warehouse
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceSnowflake) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["database"] = o.Database
+	toSerialize["schema"] = o.Schema
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	toSerialize["table_name"] = o.TableName
+	if !IsNil(o.Warehouse) {
+		toSerialize["warehouse"] = o.Warehouse
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceSnowflake struct {

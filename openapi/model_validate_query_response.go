@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ValidateQueryResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ValidateQueryResponse{}
+
 // ValidateQueryResponse struct for ValidateQueryResponse
 type ValidateQueryResponse struct {
 	// List of collections specified in query.
@@ -54,7 +57,7 @@ func (o *ValidateQueryResponse) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value
 // and a boolean to check if the value has been set.
 func (o *ValidateQueryResponse) GetCollectionsOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Collections, true
@@ -78,7 +81,7 @@ func (o *ValidateQueryResponse) GetParameters() []string {
 // GetParametersOk returns a tuple with the Parameters field value
 // and a boolean to check if the value has been set.
 func (o *ValidateQueryResponse) GetParametersOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Parameters, true
@@ -90,14 +93,18 @@ func (o *ValidateQueryResponse) SetParameters(v []string) {
 }
 
 func (o ValidateQueryResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["collections"] = o.Collections
-	}
-	if true {
-		toSerialize["parameters"] = o.Parameters
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ValidateQueryResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["collections"] = o.Collections
+	toSerialize["parameters"] = o.Parameters
+	return toSerialize, nil
 }
 
 type NullableValidateQueryResponse struct {

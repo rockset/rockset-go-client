@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PatchOperation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PatchOperation{}
+
 // PatchOperation struct for PatchOperation
 type PatchOperation struct {
 	// [JSON Pointer](https://datatracker.ietf.org/doc/html/rfc6901) referencing a location in the target document. Required for `COPY` and `MOVE` operations.
@@ -47,7 +50,7 @@ func NewPatchOperationWithDefaults() *PatchOperation {
 
 // GetFrom returns the From field value if set, zero value otherwise.
 func (o *PatchOperation) GetFrom() string {
-	if o == nil || o.From == nil {
+	if o == nil || IsNil(o.From) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *PatchOperation) GetFrom() string {
 // GetFromOk returns a tuple with the From field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchOperation) GetFromOk() (*string, bool) {
-	if o == nil || o.From == nil {
+	if o == nil || IsNil(o.From) {
 		return nil, false
 	}
 	return o.From, true
@@ -65,7 +68,7 @@ func (o *PatchOperation) GetFromOk() (*string, bool) {
 
 // HasFrom returns a boolean if a field has been set.
 func (o *PatchOperation) HasFrom() bool {
-	if o != nil && o.From != nil {
+	if o != nil && !IsNil(o.From) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *PatchOperation) GetOp() string {
 // GetOpOk returns a tuple with the Op field value
 // and a boolean to check if the value has been set.
 func (o *PatchOperation) GetOpOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Op, true
@@ -114,7 +117,7 @@ func (o *PatchOperation) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *PatchOperation) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true
@@ -127,7 +130,7 @@ func (o *PatchOperation) SetPath(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *PatchOperation) GetValue() map[string]interface{} {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -137,15 +140,15 @@ func (o *PatchOperation) GetValue() map[string]interface{} {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PatchOperation) GetValueOk() (map[string]interface{}, bool) {
-	if o == nil || o.Value == nil {
-		return nil, false
+	if o == nil || IsNil(o.Value) {
+		return map[string]interface{}{}, false
 	}
 	return o.Value, true
 }
 
 // HasValue returns a boolean if a field has been set.
 func (o *PatchOperation) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -158,20 +161,24 @@ func (o *PatchOperation) SetValue(v map[string]interface{}) {
 }
 
 func (o PatchOperation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.From != nil {
-		toSerialize["from"] = o.From
-	}
-	if true {
-		toSerialize["op"] = o.Op
-	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PatchOperation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.From) {
+		toSerialize["from"] = o.From
+	}
+	toSerialize["op"] = o.Op
+	toSerialize["path"] = o.Path
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	return toSerialize, nil
 }
 
 type NullablePatchOperation struct {

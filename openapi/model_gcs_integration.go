@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GcsIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GcsIntegration{}
+
 // GcsIntegration struct for GcsIntegration
 type GcsIntegration struct {
 	GcpServiceAccount *GcpServiceAccount `json:"gcp_service_account,omitempty"`
@@ -38,7 +41,7 @@ func NewGcsIntegrationWithDefaults() *GcsIntegration {
 
 // GetGcpServiceAccount returns the GcpServiceAccount field value if set, zero value otherwise.
 func (o *GcsIntegration) GetGcpServiceAccount() GcpServiceAccount {
-	if o == nil || o.GcpServiceAccount == nil {
+	if o == nil || IsNil(o.GcpServiceAccount) {
 		var ret GcpServiceAccount
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *GcsIntegration) GetGcpServiceAccount() GcpServiceAccount {
 // GetGcpServiceAccountOk returns a tuple with the GcpServiceAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GcsIntegration) GetGcpServiceAccountOk() (*GcpServiceAccount, bool) {
-	if o == nil || o.GcpServiceAccount == nil {
+	if o == nil || IsNil(o.GcpServiceAccount) {
 		return nil, false
 	}
 	return o.GcpServiceAccount, true
@@ -56,7 +59,7 @@ func (o *GcsIntegration) GetGcpServiceAccountOk() (*GcpServiceAccount, bool) {
 
 // HasGcpServiceAccount returns a boolean if a field has been set.
 func (o *GcsIntegration) HasGcpServiceAccount() bool {
-	if o != nil && o.GcpServiceAccount != nil {
+	if o != nil && !IsNil(o.GcpServiceAccount) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *GcsIntegration) SetGcpServiceAccount(v GcpServiceAccount) {
 }
 
 func (o GcsIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.GcpServiceAccount != nil {
-		toSerialize["gcp_service_account"] = o.GcpServiceAccount
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GcsIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.GcpServiceAccount) {
+		toSerialize["gcp_service_account"] = o.GcpServiceAccount
+	}
+	return toSerialize, nil
 }
 
 type NullableGcsIntegration struct {

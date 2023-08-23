@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FieldMappingV2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FieldMappingV2{}
+
 // FieldMappingV2 struct for FieldMappingV2
 type FieldMappingV2 struct {
 	// A List of InputField for this mapping.
@@ -44,7 +47,7 @@ func NewFieldMappingV2WithDefaults() *FieldMappingV2 {
 
 // GetInputFields returns the InputFields field value if set, zero value otherwise.
 func (o *FieldMappingV2) GetInputFields() []InputField {
-	if o == nil || o.InputFields == nil {
+	if o == nil || IsNil(o.InputFields) {
 		var ret []InputField
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *FieldMappingV2) GetInputFields() []InputField {
 // GetInputFieldsOk returns a tuple with the InputFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldMappingV2) GetInputFieldsOk() ([]InputField, bool) {
-	if o == nil || o.InputFields == nil {
+	if o == nil || IsNil(o.InputFields) {
 		return nil, false
 	}
 	return o.InputFields, true
@@ -62,7 +65,7 @@ func (o *FieldMappingV2) GetInputFieldsOk() ([]InputField, bool) {
 
 // HasInputFields returns a boolean if a field has been set.
 func (o *FieldMappingV2) HasInputFields() bool {
-	if o != nil && o.InputFields != nil {
+	if o != nil && !IsNil(o.InputFields) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *FieldMappingV2) SetInputFields(v []InputField) {
 
 // GetIsDropAllFields returns the IsDropAllFields field value if set, zero value otherwise.
 func (o *FieldMappingV2) GetIsDropAllFields() bool {
-	if o == nil || o.IsDropAllFields == nil {
+	if o == nil || IsNil(o.IsDropAllFields) {
 		var ret bool
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *FieldMappingV2) GetIsDropAllFields() bool {
 // GetIsDropAllFieldsOk returns a tuple with the IsDropAllFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldMappingV2) GetIsDropAllFieldsOk() (*bool, bool) {
-	if o == nil || o.IsDropAllFields == nil {
+	if o == nil || IsNil(o.IsDropAllFields) {
 		return nil, false
 	}
 	return o.IsDropAllFields, true
@@ -94,7 +97,7 @@ func (o *FieldMappingV2) GetIsDropAllFieldsOk() (*bool, bool) {
 
 // HasIsDropAllFields returns a boolean if a field has been set.
 func (o *FieldMappingV2) HasIsDropAllFields() bool {
-	if o != nil && o.IsDropAllFields != nil {
+	if o != nil && !IsNil(o.IsDropAllFields) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *FieldMappingV2) SetIsDropAllFields(v bool) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *FieldMappingV2) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *FieldMappingV2) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldMappingV2) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -126,7 +129,7 @@ func (o *FieldMappingV2) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *FieldMappingV2) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *FieldMappingV2) SetName(v string) {
 
 // GetOutputField returns the OutputField field value if set, zero value otherwise.
 func (o *FieldMappingV2) GetOutputField() OutputField {
-	if o == nil || o.OutputField == nil {
+	if o == nil || IsNil(o.OutputField) {
 		var ret OutputField
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *FieldMappingV2) GetOutputField() OutputField {
 // GetOutputFieldOk returns a tuple with the OutputField field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FieldMappingV2) GetOutputFieldOk() (*OutputField, bool) {
-	if o == nil || o.OutputField == nil {
+	if o == nil || IsNil(o.OutputField) {
 		return nil, false
 	}
 	return o.OutputField, true
@@ -158,7 +161,7 @@ func (o *FieldMappingV2) GetOutputFieldOk() (*OutputField, bool) {
 
 // HasOutputField returns a boolean if a field has been set.
 func (o *FieldMappingV2) HasOutputField() bool {
-	if o != nil && o.OutputField != nil {
+	if o != nil && !IsNil(o.OutputField) {
 		return true
 	}
 
@@ -171,20 +174,28 @@ func (o *FieldMappingV2) SetOutputField(v OutputField) {
 }
 
 func (o FieldMappingV2) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InputFields != nil {
-		toSerialize["input_fields"] = o.InputFields
-	}
-	if o.IsDropAllFields != nil {
-		toSerialize["is_drop_all_fields"] = o.IsDropAllFields
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.OutputField != nil {
-		toSerialize["output_field"] = o.OutputField
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FieldMappingV2) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InputFields) {
+		toSerialize["input_fields"] = o.InputFields
+	}
+	if !IsNil(o.IsDropAllFields) {
+		toSerialize["is_drop_all_fields"] = o.IsDropAllFields
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.OutputField) {
+		toSerialize["output_field"] = o.OutputField
+	}
+	return toSerialize, nil
 }
 
 type NullableFieldMappingV2 struct {

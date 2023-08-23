@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GcpServiceAccount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GcpServiceAccount{}
+
 // GcpServiceAccount struct for GcpServiceAccount
 type GcpServiceAccount struct {
 	// Contents of JSON Service Account key file.
@@ -51,7 +54,7 @@ func (o *GcpServiceAccount) GetServiceAccountKeyFileJson() string {
 // GetServiceAccountKeyFileJsonOk returns a tuple with the ServiceAccountKeyFileJson field value
 // and a boolean to check if the value has been set.
 func (o *GcpServiceAccount) GetServiceAccountKeyFileJsonOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ServiceAccountKeyFileJson, true
@@ -63,11 +66,17 @@ func (o *GcpServiceAccount) SetServiceAccountKeyFileJson(v string) {
 }
 
 func (o GcpServiceAccount) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["service_account_key_file_json"] = o.ServiceAccountKeyFileJson
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GcpServiceAccount) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["service_account_key_file_json"] = o.ServiceAccountKeyFileJson
+	return toSerialize, nil
 }
 
 type NullableGcpServiceAccount struct {

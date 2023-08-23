@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ErrorModel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorModel{}
+
 // ErrorModel Describes details about an error
 type ErrorModel struct {
 	// Column where the error happened (if applicable).
@@ -51,7 +54,7 @@ func NewErrorModelWithDefaults() *ErrorModel {
 
 // GetColumn returns the Column field value if set, zero value otherwise.
 func (o *ErrorModel) GetColumn() int32 {
-	if o == nil || o.Column == nil {
+	if o == nil || IsNil(o.Column) {
 		var ret int32
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *ErrorModel) GetColumn() int32 {
 // GetColumnOk returns a tuple with the Column field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetColumnOk() (*int32, bool) {
-	if o == nil || o.Column == nil {
+	if o == nil || IsNil(o.Column) {
 		return nil, false
 	}
 	return o.Column, true
@@ -69,7 +72,7 @@ func (o *ErrorModel) GetColumnOk() (*int32, bool) {
 
 // HasColumn returns a boolean if a field has been set.
 func (o *ErrorModel) HasColumn() bool {
-	if o != nil && o.Column != nil {
+	if o != nil && !IsNil(o.Column) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *ErrorModel) SetColumn(v int32) {
 
 // GetErrorId returns the ErrorId field value if set, zero value otherwise.
 func (o *ErrorModel) GetErrorId() string {
-	if o == nil || o.ErrorId == nil {
+	if o == nil || IsNil(o.ErrorId) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *ErrorModel) GetErrorId() string {
 // GetErrorIdOk returns a tuple with the ErrorId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetErrorIdOk() (*string, bool) {
-	if o == nil || o.ErrorId == nil {
+	if o == nil || IsNil(o.ErrorId) {
 		return nil, false
 	}
 	return o.ErrorId, true
@@ -101,7 +104,7 @@ func (o *ErrorModel) GetErrorIdOk() (*string, bool) {
 
 // HasErrorId returns a boolean if a field has been set.
 func (o *ErrorModel) HasErrorId() bool {
-	if o != nil && o.ErrorId != nil {
+	if o != nil && !IsNil(o.ErrorId) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *ErrorModel) SetErrorId(v string) {
 
 // GetLine returns the Line field value if set, zero value otherwise.
 func (o *ErrorModel) GetLine() int32 {
-	if o == nil || o.Line == nil {
+	if o == nil || IsNil(o.Line) {
 		var ret int32
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *ErrorModel) GetLine() int32 {
 // GetLineOk returns a tuple with the Line field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetLineOk() (*int32, bool) {
-	if o == nil || o.Line == nil {
+	if o == nil || IsNil(o.Line) {
 		return nil, false
 	}
 	return o.Line, true
@@ -133,7 +136,7 @@ func (o *ErrorModel) GetLineOk() (*int32, bool) {
 
 // HasLine returns a boolean if a field has been set.
 func (o *ErrorModel) HasLine() bool {
-	if o != nil && o.Line != nil {
+	if o != nil && !IsNil(o.Line) {
 		return true
 	}
 
@@ -147,7 +150,7 @@ func (o *ErrorModel) SetLine(v int32) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ErrorModel) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -157,7 +160,7 @@ func (o *ErrorModel) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -165,7 +168,7 @@ func (o *ErrorModel) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ErrorModel) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -179,7 +182,7 @@ func (o *ErrorModel) SetMessage(v string) {
 
 // GetQueryId returns the QueryId field value if set, zero value otherwise.
 func (o *ErrorModel) GetQueryId() string {
-	if o == nil || o.QueryId == nil {
+	if o == nil || IsNil(o.QueryId) {
 		var ret string
 		return ret
 	}
@@ -189,7 +192,7 @@ func (o *ErrorModel) GetQueryId() string {
 // GetQueryIdOk returns a tuple with the QueryId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetQueryIdOk() (*string, bool) {
-	if o == nil || o.QueryId == nil {
+	if o == nil || IsNil(o.QueryId) {
 		return nil, false
 	}
 	return o.QueryId, true
@@ -197,7 +200,7 @@ func (o *ErrorModel) GetQueryIdOk() (*string, bool) {
 
 // HasQueryId returns a boolean if a field has been set.
 func (o *ErrorModel) HasQueryId() bool {
-	if o != nil && o.QueryId != nil {
+	if o != nil && !IsNil(o.QueryId) {
 		return true
 	}
 
@@ -211,7 +214,7 @@ func (o *ErrorModel) SetQueryId(v string) {
 
 // GetTraceId returns the TraceId field value if set, zero value otherwise.
 func (o *ErrorModel) GetTraceId() string {
-	if o == nil || o.TraceId == nil {
+	if o == nil || IsNil(o.TraceId) {
 		var ret string
 		return ret
 	}
@@ -221,7 +224,7 @@ func (o *ErrorModel) GetTraceId() string {
 // GetTraceIdOk returns a tuple with the TraceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetTraceIdOk() (*string, bool) {
-	if o == nil || o.TraceId == nil {
+	if o == nil || IsNil(o.TraceId) {
 		return nil, false
 	}
 	return o.TraceId, true
@@ -229,7 +232,7 @@ func (o *ErrorModel) GetTraceIdOk() (*string, bool) {
 
 // HasTraceId returns a boolean if a field has been set.
 func (o *ErrorModel) HasTraceId() bool {
-	if o != nil && o.TraceId != nil {
+	if o != nil && !IsNil(o.TraceId) {
 		return true
 	}
 
@@ -243,7 +246,7 @@ func (o *ErrorModel) SetTraceId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ErrorModel) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -253,7 +256,7 @@ func (o *ErrorModel) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorModel) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -261,7 +264,7 @@ func (o *ErrorModel) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ErrorModel) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -274,29 +277,37 @@ func (o *ErrorModel) SetType(v string) {
 }
 
 func (o ErrorModel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Column != nil {
-		toSerialize["column"] = o.Column
-	}
-	if o.ErrorId != nil {
-		toSerialize["error_id"] = o.ErrorId
-	}
-	if o.Line != nil {
-		toSerialize["line"] = o.Line
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.QueryId != nil {
-		toSerialize["query_id"] = o.QueryId
-	}
-	if o.TraceId != nil {
-		toSerialize["trace_id"] = o.TraceId
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ErrorModel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Column) {
+		toSerialize["column"] = o.Column
+	}
+	if !IsNil(o.ErrorId) {
+		toSerialize["error_id"] = o.ErrorId
+	}
+	if !IsNil(o.Line) {
+		toSerialize["line"] = o.Line
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.QueryId) {
+		toSerialize["query_id"] = o.QueryId
+	}
+	if !IsNil(o.TraceId) {
+		toSerialize["trace_id"] = o.TraceId
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	return toSerialize, nil
 }
 
 type NullableErrorModel struct {

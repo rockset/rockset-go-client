@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SqlExpression type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SqlExpression{}
+
 // SqlExpression struct for SqlExpression
 type SqlExpression struct {
 	// The name of a sql function.
@@ -39,7 +42,7 @@ func NewSqlExpressionWithDefaults() *SqlExpression {
 
 // GetSql returns the Sql field value if set, zero value otherwise.
 func (o *SqlExpression) GetSql() string {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *SqlExpression) GetSql() string {
 // GetSqlOk returns a tuple with the Sql field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SqlExpression) GetSqlOk() (*string, bool) {
-	if o == nil || o.Sql == nil {
+	if o == nil || IsNil(o.Sql) {
 		return nil, false
 	}
 	return o.Sql, true
@@ -57,7 +60,7 @@ func (o *SqlExpression) GetSqlOk() (*string, bool) {
 
 // HasSql returns a boolean if a field has been set.
 func (o *SqlExpression) HasSql() bool {
-	if o != nil && o.Sql != nil {
+	if o != nil && !IsNil(o.Sql) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *SqlExpression) SetSql(v string) {
 }
 
 func (o SqlExpression) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Sql != nil {
-		toSerialize["sql"] = o.Sql
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SqlExpression) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Sql) {
+		toSerialize["sql"] = o.Sql
+	}
+	return toSerialize, nil
 }
 
 type NullableSqlExpression struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateRoleRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateRoleRequest{}
+
 // UpdateRoleRequest struct for UpdateRoleRequest
 type UpdateRoleRequest struct {
 	// Description for the role.
@@ -41,7 +44,7 @@ func NewUpdateRoleRequestWithDefaults() *UpdateRoleRequest {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UpdateRoleRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *UpdateRoleRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateRoleRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -59,7 +62,7 @@ func (o *UpdateRoleRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UpdateRoleRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *UpdateRoleRequest) SetDescription(v string) {
 
 // GetPrivileges returns the Privileges field value if set, zero value otherwise.
 func (o *UpdateRoleRequest) GetPrivileges() []Privilege {
-	if o == nil || o.Privileges == nil {
+	if o == nil || IsNil(o.Privileges) {
 		var ret []Privilege
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *UpdateRoleRequest) GetPrivileges() []Privilege {
 // GetPrivilegesOk returns a tuple with the Privileges field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateRoleRequest) GetPrivilegesOk() ([]Privilege, bool) {
-	if o == nil || o.Privileges == nil {
+	if o == nil || IsNil(o.Privileges) {
 		return nil, false
 	}
 	return o.Privileges, true
@@ -91,7 +94,7 @@ func (o *UpdateRoleRequest) GetPrivilegesOk() ([]Privilege, bool) {
 
 // HasPrivileges returns a boolean if a field has been set.
 func (o *UpdateRoleRequest) HasPrivileges() bool {
-	if o != nil && o.Privileges != nil {
+	if o != nil && !IsNil(o.Privileges) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *UpdateRoleRequest) SetPrivileges(v []Privilege) {
 }
 
 func (o UpdateRoleRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Privileges != nil {
-		toSerialize["privileges"] = o.Privileges
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateRoleRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Privileges) {
+		toSerialize["privileges"] = o.Privileges
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateRoleRequest struct {

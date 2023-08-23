@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryPaginationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryPaginationResponse{}
+
 // QueryPaginationResponse struct for QueryPaginationResponse
 type QueryPaginationResponse struct {
 	Pagination *PaginationInfo `json:"pagination,omitempty"`
@@ -42,7 +45,7 @@ func NewQueryPaginationResponseWithDefaults() *QueryPaginationResponse {
 
 // GetPagination returns the Pagination field value if set, zero value otherwise.
 func (o *QueryPaginationResponse) GetPagination() PaginationInfo {
-	if o == nil || o.Pagination == nil {
+	if o == nil || IsNil(o.Pagination) {
 		var ret PaginationInfo
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *QueryPaginationResponse) GetPagination() PaginationInfo {
 // GetPaginationOk returns a tuple with the Pagination field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryPaginationResponse) GetPaginationOk() (*PaginationInfo, bool) {
-	if o == nil || o.Pagination == nil {
+	if o == nil || IsNil(o.Pagination) {
 		return nil, false
 	}
 	return o.Pagination, true
@@ -60,7 +63,7 @@ func (o *QueryPaginationResponse) GetPaginationOk() (*PaginationInfo, bool) {
 
 // HasPagination returns a boolean if a field has been set.
 func (o *QueryPaginationResponse) HasPagination() bool {
-	if o != nil && o.Pagination != nil {
+	if o != nil && !IsNil(o.Pagination) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *QueryPaginationResponse) SetPagination(v PaginationInfo) {
 
 // GetResults returns the Results field value if set, zero value otherwise.
 func (o *QueryPaginationResponse) GetResults() []map[string]interface{} {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		var ret []map[string]interface{}
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *QueryPaginationResponse) GetResults() []map[string]interface{} {
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryPaginationResponse) GetResultsOk() ([]map[string]interface{}, bool) {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
 	return o.Results, true
@@ -92,7 +95,7 @@ func (o *QueryPaginationResponse) GetResultsOk() ([]map[string]interface{}, bool
 
 // HasResults returns a boolean if a field has been set.
 func (o *QueryPaginationResponse) HasResults() bool {
-	if o != nil && o.Results != nil {
+	if o != nil && !IsNil(o.Results) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *QueryPaginationResponse) SetResults(v []map[string]interface{}) {
 
 // GetResultsTotalDocCount returns the ResultsTotalDocCount field value if set, zero value otherwise.
 func (o *QueryPaginationResponse) GetResultsTotalDocCount() int64 {
-	if o == nil || o.ResultsTotalDocCount == nil {
+	if o == nil || IsNil(o.ResultsTotalDocCount) {
 		var ret int64
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *QueryPaginationResponse) GetResultsTotalDocCount() int64 {
 // GetResultsTotalDocCountOk returns a tuple with the ResultsTotalDocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryPaginationResponse) GetResultsTotalDocCountOk() (*int64, bool) {
-	if o == nil || o.ResultsTotalDocCount == nil {
+	if o == nil || IsNil(o.ResultsTotalDocCount) {
 		return nil, false
 	}
 	return o.ResultsTotalDocCount, true
@@ -124,7 +127,7 @@ func (o *QueryPaginationResponse) GetResultsTotalDocCountOk() (*int64, bool) {
 
 // HasResultsTotalDocCount returns a boolean if a field has been set.
 func (o *QueryPaginationResponse) HasResultsTotalDocCount() bool {
-	if o != nil && o.ResultsTotalDocCount != nil {
+	if o != nil && !IsNil(o.ResultsTotalDocCount) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *QueryPaginationResponse) SetResultsTotalDocCount(v int64) {
 }
 
 func (o QueryPaginationResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Pagination != nil {
-		toSerialize["pagination"] = o.Pagination
-	}
-	if o.Results != nil {
-		toSerialize["results"] = o.Results
-	}
-	if o.ResultsTotalDocCount != nil {
-		toSerialize["results_total_doc_count"] = o.ResultsTotalDocCount
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryPaginationResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Pagination) {
+		toSerialize["pagination"] = o.Pagination
+	}
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
+	if !IsNil(o.ResultsTotalDocCount) {
+		toSerialize["results_total_doc_count"] = o.ResultsTotalDocCount
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryPaginationResponse struct {

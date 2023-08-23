@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateAliasRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateAliasRequest{}
+
 // CreateAliasRequest struct for CreateAliasRequest
 type CreateAliasRequest struct {
 	// List of fully qualified collection names referenced by alias.
@@ -56,7 +59,7 @@ func (o *CreateAliasRequest) GetCollections() []string {
 // GetCollectionsOk returns a tuple with the Collections field value
 // and a boolean to check if the value has been set.
 func (o *CreateAliasRequest) GetCollectionsOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Collections, true
@@ -69,7 +72,7 @@ func (o *CreateAliasRequest) SetCollections(v []string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *CreateAliasRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -79,7 +82,7 @@ func (o *CreateAliasRequest) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateAliasRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -87,7 +90,7 @@ func (o *CreateAliasRequest) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *CreateAliasRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *CreateAliasRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateAliasRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -124,17 +127,21 @@ func (o *CreateAliasRequest) SetName(v string) {
 }
 
 func (o CreateAliasRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["collections"] = o.Collections
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateAliasRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["collections"] = o.Collections
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["name"] = o.Name
+	return toSerialize, nil
 }
 
 type NullableCreateAliasRequest struct {

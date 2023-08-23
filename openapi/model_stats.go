@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Stats type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Stats{}
+
 // Stats struct for Stats
 type Stats struct {
 	// Total execution time (including time queued) of the query, in milliseconds.
@@ -45,7 +48,7 @@ func NewStatsWithDefaults() *Stats {
 
 // GetElapsedTimeMs returns the ElapsedTimeMs field value if set, zero value otherwise.
 func (o *Stats) GetElapsedTimeMs() int64 {
-	if o == nil || o.ElapsedTimeMs == nil {
+	if o == nil || IsNil(o.ElapsedTimeMs) {
 		var ret int64
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *Stats) GetElapsedTimeMs() int64 {
 // GetElapsedTimeMsOk returns a tuple with the ElapsedTimeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stats) GetElapsedTimeMsOk() (*int64, bool) {
-	if o == nil || o.ElapsedTimeMs == nil {
+	if o == nil || IsNil(o.ElapsedTimeMs) {
 		return nil, false
 	}
 	return o.ElapsedTimeMs, true
@@ -63,7 +66,7 @@ func (o *Stats) GetElapsedTimeMsOk() (*int64, bool) {
 
 // HasElapsedTimeMs returns a boolean if a field has been set.
 func (o *Stats) HasElapsedTimeMs() bool {
-	if o != nil && o.ElapsedTimeMs != nil {
+	if o != nil && !IsNil(o.ElapsedTimeMs) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *Stats) SetElapsedTimeMs(v int64) {
 
 // GetResultSetBytesSize returns the ResultSetBytesSize field value if set, zero value otherwise.
 func (o *Stats) GetResultSetBytesSize() int64 {
-	if o == nil || o.ResultSetBytesSize == nil {
+	if o == nil || IsNil(o.ResultSetBytesSize) {
 		var ret int64
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *Stats) GetResultSetBytesSize() int64 {
 // GetResultSetBytesSizeOk returns a tuple with the ResultSetBytesSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stats) GetResultSetBytesSizeOk() (*int64, bool) {
-	if o == nil || o.ResultSetBytesSize == nil {
+	if o == nil || IsNil(o.ResultSetBytesSize) {
 		return nil, false
 	}
 	return o.ResultSetBytesSize, true
@@ -95,7 +98,7 @@ func (o *Stats) GetResultSetBytesSizeOk() (*int64, bool) {
 
 // HasResultSetBytesSize returns a boolean if a field has been set.
 func (o *Stats) HasResultSetBytesSize() bool {
-	if o != nil && o.ResultSetBytesSize != nil {
+	if o != nil && !IsNil(o.ResultSetBytesSize) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *Stats) SetResultSetBytesSize(v int64) {
 
 // GetResultSetDocumentCount returns the ResultSetDocumentCount field value if set, zero value otherwise.
 func (o *Stats) GetResultSetDocumentCount() int64 {
-	if o == nil || o.ResultSetDocumentCount == nil {
+	if o == nil || IsNil(o.ResultSetDocumentCount) {
 		var ret int64
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *Stats) GetResultSetDocumentCount() int64 {
 // GetResultSetDocumentCountOk returns a tuple with the ResultSetDocumentCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stats) GetResultSetDocumentCountOk() (*int64, bool) {
-	if o == nil || o.ResultSetDocumentCount == nil {
+	if o == nil || IsNil(o.ResultSetDocumentCount) {
 		return nil, false
 	}
 	return o.ResultSetDocumentCount, true
@@ -127,7 +130,7 @@ func (o *Stats) GetResultSetDocumentCountOk() (*int64, bool) {
 
 // HasResultSetDocumentCount returns a boolean if a field has been set.
 func (o *Stats) HasResultSetDocumentCount() bool {
-	if o != nil && o.ResultSetDocumentCount != nil {
+	if o != nil && !IsNil(o.ResultSetDocumentCount) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *Stats) SetResultSetDocumentCount(v int64) {
 
 // GetThrottledTimeMs returns the ThrottledTimeMs field value if set, zero value otherwise.
 func (o *Stats) GetThrottledTimeMs() int64 {
-	if o == nil || o.ThrottledTimeMs == nil {
+	if o == nil || IsNil(o.ThrottledTimeMs) {
 		var ret int64
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *Stats) GetThrottledTimeMs() int64 {
 // GetThrottledTimeMsOk returns a tuple with the ThrottledTimeMs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Stats) GetThrottledTimeMsOk() (*int64, bool) {
-	if o == nil || o.ThrottledTimeMs == nil {
+	if o == nil || IsNil(o.ThrottledTimeMs) {
 		return nil, false
 	}
 	return o.ThrottledTimeMs, true
@@ -159,7 +162,7 @@ func (o *Stats) GetThrottledTimeMsOk() (*int64, bool) {
 
 // HasThrottledTimeMs returns a boolean if a field has been set.
 func (o *Stats) HasThrottledTimeMs() bool {
-	if o != nil && o.ThrottledTimeMs != nil {
+	if o != nil && !IsNil(o.ThrottledTimeMs) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *Stats) SetThrottledTimeMs(v int64) {
 }
 
 func (o Stats) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ElapsedTimeMs != nil {
-		toSerialize["elapsed_time_ms"] = o.ElapsedTimeMs
-	}
-	if o.ResultSetBytesSize != nil {
-		toSerialize["result_set_bytes_size"] = o.ResultSetBytesSize
-	}
-	if o.ResultSetDocumentCount != nil {
-		toSerialize["result_set_document_count"] = o.ResultSetDocumentCount
-	}
-	if o.ThrottledTimeMs != nil {
-		toSerialize["throttled_time_ms"] = o.ThrottledTimeMs
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Stats) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ElapsedTimeMs) {
+		toSerialize["elapsed_time_ms"] = o.ElapsedTimeMs
+	}
+	if !IsNil(o.ResultSetBytesSize) {
+		toSerialize["result_set_bytes_size"] = o.ResultSetBytesSize
+	}
+	if !IsNil(o.ResultSetDocumentCount) {
+		toSerialize["result_set_document_count"] = o.ResultSetDocumentCount
+	}
+	if !IsNil(o.ThrottledTimeMs) {
+		toSerialize["throttled_time_ms"] = o.ThrottledTimeMs
+	}
+	return toSerialize, nil
 }
 
 type NullableStats struct {

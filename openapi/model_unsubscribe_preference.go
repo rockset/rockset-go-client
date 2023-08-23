@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UnsubscribePreference type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UnsubscribePreference{}
+
 // UnsubscribePreference Notification preferences for the user.
 type UnsubscribePreference struct {
 	// The type of notification to be unsubscribed from.
@@ -51,7 +54,7 @@ func (o *UnsubscribePreference) GetNotificationType() string {
 // GetNotificationTypeOk returns a tuple with the NotificationType field value
 // and a boolean to check if the value has been set.
 func (o *UnsubscribePreference) GetNotificationTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.NotificationType, true
@@ -63,11 +66,17 @@ func (o *UnsubscribePreference) SetNotificationType(v string) {
 }
 
 func (o UnsubscribePreference) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["notificationType"] = o.NotificationType
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UnsubscribePreference) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["notificationType"] = o.NotificationType
+	return toSerialize, nil
 }
 
 type NullableUnsubscribePreference struct {

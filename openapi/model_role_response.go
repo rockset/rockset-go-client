@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RoleResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RoleResponse{}
+
 // RoleResponse struct for RoleResponse
 type RoleResponse struct {
 	Data *Role `json:"data,omitempty"`
@@ -38,7 +41,7 @@ func NewRoleResponseWithDefaults() *RoleResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *RoleResponse) GetData() Role {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret Role
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *RoleResponse) GetData() Role {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RoleResponse) GetDataOk() (*Role, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -56,7 +59,7 @@ func (o *RoleResponse) GetDataOk() (*Role, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *RoleResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *RoleResponse) SetData(v Role) {
 }
 
 func (o RoleResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RoleResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableRoleResponse struct {

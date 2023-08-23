@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetViewResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetViewResponse{}
+
 // GetViewResponse struct for GetViewResponse
 type GetViewResponse struct {
 	Data *View `json:"data,omitempty"`
@@ -38,7 +41,7 @@ func NewGetViewResponseWithDefaults() *GetViewResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *GetViewResponse) GetData() View {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret View
 		return ret
 	}
@@ -48,7 +51,7 @@ func (o *GetViewResponse) GetData() View {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetViewResponse) GetDataOk() (*View, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -56,7 +59,7 @@ func (o *GetViewResponse) GetDataOk() (*View, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *GetViewResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -69,11 +72,19 @@ func (o *GetViewResponse) SetData(v View) {
 }
 
 func (o GetViewResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetViewResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableGetViewResponse struct {

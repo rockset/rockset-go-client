@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceS3 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceS3{}
+
 // SourceS3 struct for SourceS3
 type SourceS3 struct {
 	// Address of S3 bucket containing data.
@@ -63,7 +66,7 @@ func (o *SourceS3) GetBucket() string {
 // GetBucketOk returns a tuple with the Bucket field value
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetBucketOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Bucket, true
@@ -76,7 +79,7 @@ func (o *SourceS3) SetBucket(v string) {
 
 // GetObjectBytesDownloaded returns the ObjectBytesDownloaded field value if set, zero value otherwise.
 func (o *SourceS3) GetObjectBytesDownloaded() int64 {
-	if o == nil || o.ObjectBytesDownloaded == nil {
+	if o == nil || IsNil(o.ObjectBytesDownloaded) {
 		var ret int64
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *SourceS3) GetObjectBytesDownloaded() int64 {
 // GetObjectBytesDownloadedOk returns a tuple with the ObjectBytesDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetObjectBytesDownloadedOk() (*int64, bool) {
-	if o == nil || o.ObjectBytesDownloaded == nil {
+	if o == nil || IsNil(o.ObjectBytesDownloaded) {
 		return nil, false
 	}
 	return o.ObjectBytesDownloaded, true
@@ -94,7 +97,7 @@ func (o *SourceS3) GetObjectBytesDownloadedOk() (*int64, bool) {
 
 // HasObjectBytesDownloaded returns a boolean if a field has been set.
 func (o *SourceS3) HasObjectBytesDownloaded() bool {
-	if o != nil && o.ObjectBytesDownloaded != nil {
+	if o != nil && !IsNil(o.ObjectBytesDownloaded) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *SourceS3) SetObjectBytesDownloaded(v int64) {
 
 // GetObjectBytesTotal returns the ObjectBytesTotal field value if set, zero value otherwise.
 func (o *SourceS3) GetObjectBytesTotal() int64 {
-	if o == nil || o.ObjectBytesTotal == nil {
+	if o == nil || IsNil(o.ObjectBytesTotal) {
 		var ret int64
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *SourceS3) GetObjectBytesTotal() int64 {
 // GetObjectBytesTotalOk returns a tuple with the ObjectBytesTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetObjectBytesTotalOk() (*int64, bool) {
-	if o == nil || o.ObjectBytesTotal == nil {
+	if o == nil || IsNil(o.ObjectBytesTotal) {
 		return nil, false
 	}
 	return o.ObjectBytesTotal, true
@@ -126,7 +129,7 @@ func (o *SourceS3) GetObjectBytesTotalOk() (*int64, bool) {
 
 // HasObjectBytesTotal returns a boolean if a field has been set.
 func (o *SourceS3) HasObjectBytesTotal() bool {
-	if o != nil && o.ObjectBytesTotal != nil {
+	if o != nil && !IsNil(o.ObjectBytesTotal) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *SourceS3) SetObjectBytesTotal(v int64) {
 
 // GetObjectCountDownloaded returns the ObjectCountDownloaded field value if set, zero value otherwise.
 func (o *SourceS3) GetObjectCountDownloaded() int64 {
-	if o == nil || o.ObjectCountDownloaded == nil {
+	if o == nil || IsNil(o.ObjectCountDownloaded) {
 		var ret int64
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *SourceS3) GetObjectCountDownloaded() int64 {
 // GetObjectCountDownloadedOk returns a tuple with the ObjectCountDownloaded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetObjectCountDownloadedOk() (*int64, bool) {
-	if o == nil || o.ObjectCountDownloaded == nil {
+	if o == nil || IsNil(o.ObjectCountDownloaded) {
 		return nil, false
 	}
 	return o.ObjectCountDownloaded, true
@@ -158,7 +161,7 @@ func (o *SourceS3) GetObjectCountDownloadedOk() (*int64, bool) {
 
 // HasObjectCountDownloaded returns a boolean if a field has been set.
 func (o *SourceS3) HasObjectCountDownloaded() bool {
-	if o != nil && o.ObjectCountDownloaded != nil {
+	if o != nil && !IsNil(o.ObjectCountDownloaded) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *SourceS3) SetObjectCountDownloaded(v int64) {
 
 // GetObjectCountTotal returns the ObjectCountTotal field value if set, zero value otherwise.
 func (o *SourceS3) GetObjectCountTotal() int64 {
-	if o == nil || o.ObjectCountTotal == nil {
+	if o == nil || IsNil(o.ObjectCountTotal) {
 		var ret int64
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *SourceS3) GetObjectCountTotal() int64 {
 // GetObjectCountTotalOk returns a tuple with the ObjectCountTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetObjectCountTotalOk() (*int64, bool) {
-	if o == nil || o.ObjectCountTotal == nil {
+	if o == nil || IsNil(o.ObjectCountTotal) {
 		return nil, false
 	}
 	return o.ObjectCountTotal, true
@@ -190,7 +193,7 @@ func (o *SourceS3) GetObjectCountTotalOk() (*int64, bool) {
 
 // HasObjectCountTotal returns a boolean if a field has been set.
 func (o *SourceS3) HasObjectCountTotal() bool {
-	if o != nil && o.ObjectCountTotal != nil {
+	if o != nil && !IsNil(o.ObjectCountTotal) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *SourceS3) SetObjectCountTotal(v int64) {
 
 // GetPattern returns the Pattern field value if set, zero value otherwise.
 func (o *SourceS3) GetPattern() string {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		var ret string
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *SourceS3) GetPattern() string {
 // GetPatternOk returns a tuple with the Pattern field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetPatternOk() (*string, bool) {
-	if o == nil || o.Pattern == nil {
+	if o == nil || IsNil(o.Pattern) {
 		return nil, false
 	}
 	return o.Pattern, true
@@ -222,7 +225,7 @@ func (o *SourceS3) GetPatternOk() (*string, bool) {
 
 // HasPattern returns a boolean if a field has been set.
 func (o *SourceS3) HasPattern() bool {
-	if o != nil && o.Pattern != nil {
+	if o != nil && !IsNil(o.Pattern) {
 		return true
 	}
 
@@ -236,7 +239,7 @@ func (o *SourceS3) SetPattern(v string) {
 
 // GetPrefix returns the Prefix field value if set, zero value otherwise.
 func (o *SourceS3) GetPrefix() string {
-	if o == nil || o.Prefix == nil {
+	if o == nil || IsNil(o.Prefix) {
 		var ret string
 		return ret
 	}
@@ -246,7 +249,7 @@ func (o *SourceS3) GetPrefix() string {
 // GetPrefixOk returns a tuple with the Prefix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetPrefixOk() (*string, bool) {
-	if o == nil || o.Prefix == nil {
+	if o == nil || IsNil(o.Prefix) {
 		return nil, false
 	}
 	return o.Prefix, true
@@ -254,7 +257,7 @@ func (o *SourceS3) GetPrefixOk() (*string, bool) {
 
 // HasPrefix returns a boolean if a field has been set.
 func (o *SourceS3) HasPrefix() bool {
-	if o != nil && o.Prefix != nil {
+	if o != nil && !IsNil(o.Prefix) {
 		return true
 	}
 
@@ -268,7 +271,7 @@ func (o *SourceS3) SetPrefix(v string) {
 
 // GetPrefixes returns the Prefixes field value if set, zero value otherwise.
 func (o *SourceS3) GetPrefixes() []string {
-	if o == nil || o.Prefixes == nil {
+	if o == nil || IsNil(o.Prefixes) {
 		var ret []string
 		return ret
 	}
@@ -278,7 +281,7 @@ func (o *SourceS3) GetPrefixes() []string {
 // GetPrefixesOk returns a tuple with the Prefixes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetPrefixesOk() ([]string, bool) {
-	if o == nil || o.Prefixes == nil {
+	if o == nil || IsNil(o.Prefixes) {
 		return nil, false
 	}
 	return o.Prefixes, true
@@ -286,7 +289,7 @@ func (o *SourceS3) GetPrefixesOk() ([]string, bool) {
 
 // HasPrefixes returns a boolean if a field has been set.
 func (o *SourceS3) HasPrefixes() bool {
-	if o != nil && o.Prefixes != nil {
+	if o != nil && !IsNil(o.Prefixes) {
 		return true
 	}
 
@@ -300,7 +303,7 @@ func (o *SourceS3) SetPrefixes(v []string) {
 
 // GetRegion returns the Region field value if set, zero value otherwise.
 func (o *SourceS3) GetRegion() string {
-	if o == nil || o.Region == nil {
+	if o == nil || IsNil(o.Region) {
 		var ret string
 		return ret
 	}
@@ -310,7 +313,7 @@ func (o *SourceS3) GetRegion() string {
 // GetRegionOk returns a tuple with the Region field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceS3) GetRegionOk() (*string, bool) {
-	if o == nil || o.Region == nil {
+	if o == nil || IsNil(o.Region) {
 		return nil, false
 	}
 	return o.Region, true
@@ -318,7 +321,7 @@ func (o *SourceS3) GetRegionOk() (*string, bool) {
 
 // HasRegion returns a boolean if a field has been set.
 func (o *SourceS3) HasRegion() bool {
-	if o != nil && o.Region != nil {
+	if o != nil && !IsNil(o.Region) {
 		return true
 	}
 
@@ -331,35 +334,31 @@ func (o *SourceS3) SetRegion(v string) {
 }
 
 func (o SourceS3) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["bucket"] = o.Bucket
-	}
-	if o.ObjectBytesDownloaded != nil {
-		toSerialize["object_bytes_downloaded"] = o.ObjectBytesDownloaded
-	}
-	if o.ObjectBytesTotal != nil {
-		toSerialize["object_bytes_total"] = o.ObjectBytesTotal
-	}
-	if o.ObjectCountDownloaded != nil {
-		toSerialize["object_count_downloaded"] = o.ObjectCountDownloaded
-	}
-	if o.ObjectCountTotal != nil {
-		toSerialize["object_count_total"] = o.ObjectCountTotal
-	}
-	if o.Pattern != nil {
-		toSerialize["pattern"] = o.Pattern
-	}
-	if o.Prefix != nil {
-		toSerialize["prefix"] = o.Prefix
-	}
-	if o.Prefixes != nil {
-		toSerialize["prefixes"] = o.Prefixes
-	}
-	if o.Region != nil {
-		toSerialize["region"] = o.Region
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceS3) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["bucket"] = o.Bucket
+	// skip: object_bytes_downloaded is readOnly
+	// skip: object_bytes_total is readOnly
+	// skip: object_count_downloaded is readOnly
+	// skip: object_count_total is readOnly
+	if !IsNil(o.Pattern) {
+		toSerialize["pattern"] = o.Pattern
+	}
+	if !IsNil(o.Prefix) {
+		toSerialize["prefix"] = o.Prefix
+	}
+	// skip: prefixes is readOnly
+	if !IsNil(o.Region) {
+		toSerialize["region"] = o.Region
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceS3 struct {

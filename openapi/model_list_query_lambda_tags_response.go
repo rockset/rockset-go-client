@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ListQueryLambdaTagsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListQueryLambdaTagsResponse{}
+
 // ListQueryLambdaTagsResponse struct for ListQueryLambdaTagsResponse
 type ListQueryLambdaTagsResponse struct {
 	// List of all tags associated with a Query Lambda.
@@ -39,7 +42,7 @@ func NewListQueryLambdaTagsResponseWithDefaults() *ListQueryLambdaTagsResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *ListQueryLambdaTagsResponse) GetData() []QueryLambdaTag {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []QueryLambdaTag
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ListQueryLambdaTagsResponse) GetData() []QueryLambdaTag {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListQueryLambdaTagsResponse) GetDataOk() ([]QueryLambdaTag, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -57,7 +60,7 @@ func (o *ListQueryLambdaTagsResponse) GetDataOk() ([]QueryLambdaTag, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *ListQueryLambdaTagsResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ListQueryLambdaTagsResponse) SetData(v []QueryLambdaTag) {
 }
 
 func (o ListQueryLambdaTagsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListQueryLambdaTagsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableListQueryLambdaTagsResponse struct {

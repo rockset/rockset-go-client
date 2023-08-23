@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ListRolesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListRolesResponse{}
+
 // ListRolesResponse struct for ListRolesResponse
 type ListRolesResponse struct {
 	// List of all roles.
@@ -39,7 +42,7 @@ func NewListRolesResponseWithDefaults() *ListRolesResponse {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *ListRolesResponse) GetData() []Role {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []Role
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ListRolesResponse) GetData() []Role {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListRolesResponse) GetDataOk() ([]Role, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -57,7 +60,7 @@ func (o *ListRolesResponse) GetDataOk() ([]Role, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *ListRolesResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ListRolesResponse) SetData(v []Role) {
 }
 
 func (o ListRolesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListRolesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableListRolesResponse struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KinesisIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KinesisIntegration{}
+
 // KinesisIntegration struct for KinesisIntegration
 type KinesisIntegration struct {
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
@@ -39,7 +42,7 @@ func NewKinesisIntegrationWithDefaults() *KinesisIntegration {
 
 // GetAwsAccessKey returns the AwsAccessKey field value if set, zero value otherwise.
 func (o *KinesisIntegration) GetAwsAccessKey() AwsAccessKey {
-	if o == nil || o.AwsAccessKey == nil {
+	if o == nil || IsNil(o.AwsAccessKey) {
 		var ret AwsAccessKey
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *KinesisIntegration) GetAwsAccessKey() AwsAccessKey {
 // GetAwsAccessKeyOk returns a tuple with the AwsAccessKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KinesisIntegration) GetAwsAccessKeyOk() (*AwsAccessKey, bool) {
-	if o == nil || o.AwsAccessKey == nil {
+	if o == nil || IsNil(o.AwsAccessKey) {
 		return nil, false
 	}
 	return o.AwsAccessKey, true
@@ -57,7 +60,7 @@ func (o *KinesisIntegration) GetAwsAccessKeyOk() (*AwsAccessKey, bool) {
 
 // HasAwsAccessKey returns a boolean if a field has been set.
 func (o *KinesisIntegration) HasAwsAccessKey() bool {
-	if o != nil && o.AwsAccessKey != nil {
+	if o != nil && !IsNil(o.AwsAccessKey) {
 		return true
 	}
 
@@ -71,7 +74,7 @@ func (o *KinesisIntegration) SetAwsAccessKey(v AwsAccessKey) {
 
 // GetAwsRole returns the AwsRole field value if set, zero value otherwise.
 func (o *KinesisIntegration) GetAwsRole() AwsRole {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		var ret AwsRole
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *KinesisIntegration) GetAwsRole() AwsRole {
 // GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KinesisIntegration) GetAwsRoleOk() (*AwsRole, bool) {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		return nil, false
 	}
 	return o.AwsRole, true
@@ -89,7 +92,7 @@ func (o *KinesisIntegration) GetAwsRoleOk() (*AwsRole, bool) {
 
 // HasAwsRole returns a boolean if a field has been set.
 func (o *KinesisIntegration) HasAwsRole() bool {
-	if o != nil && o.AwsRole != nil {
+	if o != nil && !IsNil(o.AwsRole) {
 		return true
 	}
 
@@ -102,14 +105,22 @@ func (o *KinesisIntegration) SetAwsRole(v AwsRole) {
 }
 
 func (o KinesisIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsAccessKey != nil {
-		toSerialize["aws_access_key"] = o.AwsAccessKey
-	}
-	if o.AwsRole != nil {
-		toSerialize["aws_role"] = o.AwsRole
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KinesisIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsAccessKey) {
+		toSerialize["aws_access_key"] = o.AwsAccessKey
+	}
+	if !IsNil(o.AwsRole) {
+		toSerialize["aws_role"] = o.AwsRole
+	}
+	return toSerialize, nil
 }
 
 type NullableKinesisIntegration struct {

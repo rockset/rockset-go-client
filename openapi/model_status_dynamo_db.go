@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusDynamoDb type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusDynamoDb{}
+
 // StatusDynamoDb struct for StatusDynamoDb
 type StatusDynamoDb struct {
 	// DynamoDb scan end time.
@@ -49,7 +52,7 @@ func NewStatusDynamoDbWithDefaults() *StatusDynamoDb {
 
 // GetScanEndTime returns the ScanEndTime field value if set, zero value otherwise.
 func (o *StatusDynamoDb) GetScanEndTime() string {
-	if o == nil || o.ScanEndTime == nil {
+	if o == nil || IsNil(o.ScanEndTime) {
 		var ret string
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *StatusDynamoDb) GetScanEndTime() string {
 // GetScanEndTimeOk returns a tuple with the ScanEndTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDb) GetScanEndTimeOk() (*string, bool) {
-	if o == nil || o.ScanEndTime == nil {
+	if o == nil || IsNil(o.ScanEndTime) {
 		return nil, false
 	}
 	return o.ScanEndTime, true
@@ -67,7 +70,7 @@ func (o *StatusDynamoDb) GetScanEndTimeOk() (*string, bool) {
 
 // HasScanEndTime returns a boolean if a field has been set.
 func (o *StatusDynamoDb) HasScanEndTime() bool {
-	if o != nil && o.ScanEndTime != nil {
+	if o != nil && !IsNil(o.ScanEndTime) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *StatusDynamoDb) SetScanEndTime(v string) {
 
 // GetScanRecordsProcessed returns the ScanRecordsProcessed field value if set, zero value otherwise.
 func (o *StatusDynamoDb) GetScanRecordsProcessed() int64 {
-	if o == nil || o.ScanRecordsProcessed == nil {
+	if o == nil || IsNil(o.ScanRecordsProcessed) {
 		var ret int64
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *StatusDynamoDb) GetScanRecordsProcessed() int64 {
 // GetScanRecordsProcessedOk returns a tuple with the ScanRecordsProcessed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDb) GetScanRecordsProcessedOk() (*int64, bool) {
-	if o == nil || o.ScanRecordsProcessed == nil {
+	if o == nil || IsNil(o.ScanRecordsProcessed) {
 		return nil, false
 	}
 	return o.ScanRecordsProcessed, true
@@ -99,7 +102,7 @@ func (o *StatusDynamoDb) GetScanRecordsProcessedOk() (*int64, bool) {
 
 // HasScanRecordsProcessed returns a boolean if a field has been set.
 func (o *StatusDynamoDb) HasScanRecordsProcessed() bool {
-	if o != nil && o.ScanRecordsProcessed != nil {
+	if o != nil && !IsNil(o.ScanRecordsProcessed) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *StatusDynamoDb) SetScanRecordsProcessed(v int64) {
 
 // GetScanStartTime returns the ScanStartTime field value if set, zero value otherwise.
 func (o *StatusDynamoDb) GetScanStartTime() string {
-	if o == nil || o.ScanStartTime == nil {
+	if o == nil || IsNil(o.ScanStartTime) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *StatusDynamoDb) GetScanStartTime() string {
 // GetScanStartTimeOk returns a tuple with the ScanStartTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDb) GetScanStartTimeOk() (*string, bool) {
-	if o == nil || o.ScanStartTime == nil {
+	if o == nil || IsNil(o.ScanStartTime) {
 		return nil, false
 	}
 	return o.ScanStartTime, true
@@ -131,7 +134,7 @@ func (o *StatusDynamoDb) GetScanStartTimeOk() (*string, bool) {
 
 // HasScanStartTime returns a boolean if a field has been set.
 func (o *StatusDynamoDb) HasScanStartTime() bool {
-	if o != nil && o.ScanStartTime != nil {
+	if o != nil && !IsNil(o.ScanStartTime) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *StatusDynamoDb) SetScanStartTime(v string) {
 
 // GetScanTotalRecords returns the ScanTotalRecords field value if set, zero value otherwise.
 func (o *StatusDynamoDb) GetScanTotalRecords() int64 {
-	if o == nil || o.ScanTotalRecords == nil {
+	if o == nil || IsNil(o.ScanTotalRecords) {
 		var ret int64
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *StatusDynamoDb) GetScanTotalRecords() int64 {
 // GetScanTotalRecordsOk returns a tuple with the ScanTotalRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDb) GetScanTotalRecordsOk() (*int64, bool) {
-	if o == nil || o.ScanTotalRecords == nil {
+	if o == nil || IsNil(o.ScanTotalRecords) {
 		return nil, false
 	}
 	return o.ScanTotalRecords, true
@@ -163,7 +166,7 @@ func (o *StatusDynamoDb) GetScanTotalRecordsOk() (*int64, bool) {
 
 // HasScanTotalRecords returns a boolean if a field has been set.
 func (o *StatusDynamoDb) HasScanTotalRecords() bool {
-	if o != nil && o.ScanTotalRecords != nil {
+	if o != nil && !IsNil(o.ScanTotalRecords) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *StatusDynamoDb) SetScanTotalRecords(v int64) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *StatusDynamoDb) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *StatusDynamoDb) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDb) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -195,7 +198,7 @@ func (o *StatusDynamoDb) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *StatusDynamoDb) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -209,7 +212,7 @@ func (o *StatusDynamoDb) SetState(v string) {
 
 // GetStreamLastProcessedAt returns the StreamLastProcessedAt field value if set, zero value otherwise.
 func (o *StatusDynamoDb) GetStreamLastProcessedAt() string {
-	if o == nil || o.StreamLastProcessedAt == nil {
+	if o == nil || IsNil(o.StreamLastProcessedAt) {
 		var ret string
 		return ret
 	}
@@ -219,7 +222,7 @@ func (o *StatusDynamoDb) GetStreamLastProcessedAt() string {
 // GetStreamLastProcessedAtOk returns a tuple with the StreamLastProcessedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusDynamoDb) GetStreamLastProcessedAtOk() (*string, bool) {
-	if o == nil || o.StreamLastProcessedAt == nil {
+	if o == nil || IsNil(o.StreamLastProcessedAt) {
 		return nil, false
 	}
 	return o.StreamLastProcessedAt, true
@@ -227,7 +230,7 @@ func (o *StatusDynamoDb) GetStreamLastProcessedAtOk() (*string, bool) {
 
 // HasStreamLastProcessedAt returns a boolean if a field has been set.
 func (o *StatusDynamoDb) HasStreamLastProcessedAt() bool {
-	if o != nil && o.StreamLastProcessedAt != nil {
+	if o != nil && !IsNil(o.StreamLastProcessedAt) {
 		return true
 	}
 
@@ -240,26 +243,34 @@ func (o *StatusDynamoDb) SetStreamLastProcessedAt(v string) {
 }
 
 func (o StatusDynamoDb) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ScanEndTime != nil {
-		toSerialize["scan_end_time"] = o.ScanEndTime
-	}
-	if o.ScanRecordsProcessed != nil {
-		toSerialize["scan_records_processed"] = o.ScanRecordsProcessed
-	}
-	if o.ScanStartTime != nil {
-		toSerialize["scan_start_time"] = o.ScanStartTime
-	}
-	if o.ScanTotalRecords != nil {
-		toSerialize["scan_total_records"] = o.ScanTotalRecords
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.StreamLastProcessedAt != nil {
-		toSerialize["stream_last_processed_at"] = o.StreamLastProcessedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusDynamoDb) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ScanEndTime) {
+		toSerialize["scan_end_time"] = o.ScanEndTime
+	}
+	if !IsNil(o.ScanRecordsProcessed) {
+		toSerialize["scan_records_processed"] = o.ScanRecordsProcessed
+	}
+	if !IsNil(o.ScanStartTime) {
+		toSerialize["scan_start_time"] = o.ScanStartTime
+	}
+	if !IsNil(o.ScanTotalRecords) {
+		toSerialize["scan_total_records"] = o.ScanTotalRecords
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.StreamLastProcessedAt) {
+		toSerialize["stream_last_processed_at"] = o.StreamLastProcessedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusDynamoDb struct {

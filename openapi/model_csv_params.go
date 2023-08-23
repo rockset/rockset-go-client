@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CsvParams type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CsvParams{}
+
 // CsvParams struct for CsvParams
 type CsvParams struct {
 	// Names of columns.
@@ -51,7 +54,7 @@ func NewCsvParamsWithDefaults() *CsvParams {
 
 // GetColumnNames returns the ColumnNames field value if set, zero value otherwise.
 func (o *CsvParams) GetColumnNames() []string {
-	if o == nil || o.ColumnNames == nil {
+	if o == nil || IsNil(o.ColumnNames) {
 		var ret []string
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *CsvParams) GetColumnNames() []string {
 // GetColumnNamesOk returns a tuple with the ColumnNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetColumnNamesOk() ([]string, bool) {
-	if o == nil || o.ColumnNames == nil {
+	if o == nil || IsNil(o.ColumnNames) {
 		return nil, false
 	}
 	return o.ColumnNames, true
@@ -69,7 +72,7 @@ func (o *CsvParams) GetColumnNamesOk() ([]string, bool) {
 
 // HasColumnNames returns a boolean if a field has been set.
 func (o *CsvParams) HasColumnNames() bool {
-	if o != nil && o.ColumnNames != nil {
+	if o != nil && !IsNil(o.ColumnNames) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *CsvParams) SetColumnNames(v []string) {
 
 // GetColumnTypes returns the ColumnTypes field value if set, zero value otherwise.
 func (o *CsvParams) GetColumnTypes() []string {
-	if o == nil || o.ColumnTypes == nil {
+	if o == nil || IsNil(o.ColumnTypes) {
 		var ret []string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *CsvParams) GetColumnTypes() []string {
 // GetColumnTypesOk returns a tuple with the ColumnTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetColumnTypesOk() ([]string, bool) {
-	if o == nil || o.ColumnTypes == nil {
+	if o == nil || IsNil(o.ColumnTypes) {
 		return nil, false
 	}
 	return o.ColumnTypes, true
@@ -101,7 +104,7 @@ func (o *CsvParams) GetColumnTypesOk() ([]string, bool) {
 
 // HasColumnTypes returns a boolean if a field has been set.
 func (o *CsvParams) HasColumnTypes() bool {
-	if o != nil && o.ColumnTypes != nil {
+	if o != nil && !IsNil(o.ColumnTypes) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *CsvParams) SetColumnTypes(v []string) {
 
 // GetEncoding returns the Encoding field value if set, zero value otherwise.
 func (o *CsvParams) GetEncoding() string {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		var ret string
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *CsvParams) GetEncoding() string {
 // GetEncodingOk returns a tuple with the Encoding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetEncodingOk() (*string, bool) {
-	if o == nil || o.Encoding == nil {
+	if o == nil || IsNil(o.Encoding) {
 		return nil, false
 	}
 	return o.Encoding, true
@@ -133,7 +136,7 @@ func (o *CsvParams) GetEncodingOk() (*string, bool) {
 
 // HasEncoding returns a boolean if a field has been set.
 func (o *CsvParams) HasEncoding() bool {
-	if o != nil && o.Encoding != nil {
+	if o != nil && !IsNil(o.Encoding) {
 		return true
 	}
 
@@ -147,7 +150,7 @@ func (o *CsvParams) SetEncoding(v string) {
 
 // GetEscapeChar returns the EscapeChar field value if set, zero value otherwise.
 func (o *CsvParams) GetEscapeChar() string {
-	if o == nil || o.EscapeChar == nil {
+	if o == nil || IsNil(o.EscapeChar) {
 		var ret string
 		return ret
 	}
@@ -157,7 +160,7 @@ func (o *CsvParams) GetEscapeChar() string {
 // GetEscapeCharOk returns a tuple with the EscapeChar field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetEscapeCharOk() (*string, bool) {
-	if o == nil || o.EscapeChar == nil {
+	if o == nil || IsNil(o.EscapeChar) {
 		return nil, false
 	}
 	return o.EscapeChar, true
@@ -165,7 +168,7 @@ func (o *CsvParams) GetEscapeCharOk() (*string, bool) {
 
 // HasEscapeChar returns a boolean if a field has been set.
 func (o *CsvParams) HasEscapeChar() bool {
-	if o != nil && o.EscapeChar != nil {
+	if o != nil && !IsNil(o.EscapeChar) {
 		return true
 	}
 
@@ -179,7 +182,7 @@ func (o *CsvParams) SetEscapeChar(v string) {
 
 // GetFirstLineAsColumnNames returns the FirstLineAsColumnNames field value if set, zero value otherwise.
 func (o *CsvParams) GetFirstLineAsColumnNames() bool {
-	if o == nil || o.FirstLineAsColumnNames == nil {
+	if o == nil || IsNil(o.FirstLineAsColumnNames) {
 		var ret bool
 		return ret
 	}
@@ -189,7 +192,7 @@ func (o *CsvParams) GetFirstLineAsColumnNames() bool {
 // GetFirstLineAsColumnNamesOk returns a tuple with the FirstLineAsColumnNames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetFirstLineAsColumnNamesOk() (*bool, bool) {
-	if o == nil || o.FirstLineAsColumnNames == nil {
+	if o == nil || IsNil(o.FirstLineAsColumnNames) {
 		return nil, false
 	}
 	return o.FirstLineAsColumnNames, true
@@ -197,7 +200,7 @@ func (o *CsvParams) GetFirstLineAsColumnNamesOk() (*bool, bool) {
 
 // HasFirstLineAsColumnNames returns a boolean if a field has been set.
 func (o *CsvParams) HasFirstLineAsColumnNames() bool {
-	if o != nil && o.FirstLineAsColumnNames != nil {
+	if o != nil && !IsNil(o.FirstLineAsColumnNames) {
 		return true
 	}
 
@@ -211,7 +214,7 @@ func (o *CsvParams) SetFirstLineAsColumnNames(v bool) {
 
 // GetQuoteChar returns the QuoteChar field value if set, zero value otherwise.
 func (o *CsvParams) GetQuoteChar() string {
-	if o == nil || o.QuoteChar == nil {
+	if o == nil || IsNil(o.QuoteChar) {
 		var ret string
 		return ret
 	}
@@ -221,7 +224,7 @@ func (o *CsvParams) GetQuoteChar() string {
 // GetQuoteCharOk returns a tuple with the QuoteChar field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetQuoteCharOk() (*string, bool) {
-	if o == nil || o.QuoteChar == nil {
+	if o == nil || IsNil(o.QuoteChar) {
 		return nil, false
 	}
 	return o.QuoteChar, true
@@ -229,7 +232,7 @@ func (o *CsvParams) GetQuoteCharOk() (*string, bool) {
 
 // HasQuoteChar returns a boolean if a field has been set.
 func (o *CsvParams) HasQuoteChar() bool {
-	if o != nil && o.QuoteChar != nil {
+	if o != nil && !IsNil(o.QuoteChar) {
 		return true
 	}
 
@@ -243,7 +246,7 @@ func (o *CsvParams) SetQuoteChar(v string) {
 
 // GetSeparator returns the Separator field value if set, zero value otherwise.
 func (o *CsvParams) GetSeparator() string {
-	if o == nil || o.Separator == nil {
+	if o == nil || IsNil(o.Separator) {
 		var ret string
 		return ret
 	}
@@ -253,7 +256,7 @@ func (o *CsvParams) GetSeparator() string {
 // GetSeparatorOk returns a tuple with the Separator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CsvParams) GetSeparatorOk() (*string, bool) {
-	if o == nil || o.Separator == nil {
+	if o == nil || IsNil(o.Separator) {
 		return nil, false
 	}
 	return o.Separator, true
@@ -261,7 +264,7 @@ func (o *CsvParams) GetSeparatorOk() (*string, bool) {
 
 // HasSeparator returns a boolean if a field has been set.
 func (o *CsvParams) HasSeparator() bool {
-	if o != nil && o.Separator != nil {
+	if o != nil && !IsNil(o.Separator) {
 		return true
 	}
 
@@ -274,29 +277,37 @@ func (o *CsvParams) SetSeparator(v string) {
 }
 
 func (o CsvParams) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ColumnNames != nil {
-		toSerialize["columnNames"] = o.ColumnNames
-	}
-	if o.ColumnTypes != nil {
-		toSerialize["columnTypes"] = o.ColumnTypes
-	}
-	if o.Encoding != nil {
-		toSerialize["encoding"] = o.Encoding
-	}
-	if o.EscapeChar != nil {
-		toSerialize["escapeChar"] = o.EscapeChar
-	}
-	if o.FirstLineAsColumnNames != nil {
-		toSerialize["firstLineAsColumnNames"] = o.FirstLineAsColumnNames
-	}
-	if o.QuoteChar != nil {
-		toSerialize["quoteChar"] = o.QuoteChar
-	}
-	if o.Separator != nil {
-		toSerialize["separator"] = o.Separator
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CsvParams) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ColumnNames) {
+		toSerialize["columnNames"] = o.ColumnNames
+	}
+	if !IsNil(o.ColumnTypes) {
+		toSerialize["columnTypes"] = o.ColumnTypes
+	}
+	if !IsNil(o.Encoding) {
+		toSerialize["encoding"] = o.Encoding
+	}
+	if !IsNil(o.EscapeChar) {
+		toSerialize["escapeChar"] = o.EscapeChar
+	}
+	if !IsNil(o.FirstLineAsColumnNames) {
+		toSerialize["firstLineAsColumnNames"] = o.FirstLineAsColumnNames
+	}
+	if !IsNil(o.QuoteChar) {
+		toSerialize["quoteChar"] = o.QuoteChar
+	}
+	if !IsNil(o.Separator) {
+		toSerialize["separator"] = o.Separator
+	}
+	return toSerialize, nil
 }
 
 type NullableCsvParams struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdateUnsubscribePreferencesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdateUnsubscribePreferencesResponse{}
+
 // UpdateUnsubscribePreferencesResponse struct for UpdateUnsubscribePreferencesResponse
 type UpdateUnsubscribePreferencesResponse struct {
 	// List of notification preferences.
@@ -39,7 +42,7 @@ func NewUpdateUnsubscribePreferencesResponseWithDefaults() *UpdateUnsubscribePre
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *UpdateUnsubscribePreferencesResponse) GetData() []UnsubscribePreference {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret []UnsubscribePreference
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *UpdateUnsubscribePreferencesResponse) GetData() []UnsubscribePreference
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdateUnsubscribePreferencesResponse) GetDataOk() ([]UnsubscribePreference, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -57,7 +60,7 @@ func (o *UpdateUnsubscribePreferencesResponse) GetDataOk() ([]UnsubscribePrefere
 
 // HasData returns a boolean if a field has been set.
 func (o *UpdateUnsubscribePreferencesResponse) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *UpdateUnsubscribePreferencesResponse) SetData(v []UnsubscribePreference
 }
 
 func (o UpdateUnsubscribePreferencesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Data != nil {
-		toSerialize["data"] = o.Data
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdateUnsubscribePreferencesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Data) {
+		toSerialize["data"] = o.Data
+	}
+	return toSerialize, nil
 }
 
 type NullableUpdateUnsubscribePreferencesResponse struct {

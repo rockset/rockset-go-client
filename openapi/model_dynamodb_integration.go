@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DynamodbIntegration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DynamodbIntegration{}
+
 // DynamodbIntegration struct for DynamodbIntegration
 type DynamodbIntegration struct {
 	AwsAccessKey *AwsAccessKey `json:"aws_access_key,omitempty"`
@@ -41,7 +44,7 @@ func NewDynamodbIntegrationWithDefaults() *DynamodbIntegration {
 
 // GetAwsAccessKey returns the AwsAccessKey field value if set, zero value otherwise.
 func (o *DynamodbIntegration) GetAwsAccessKey() AwsAccessKey {
-	if o == nil || o.AwsAccessKey == nil {
+	if o == nil || IsNil(o.AwsAccessKey) {
 		var ret AwsAccessKey
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *DynamodbIntegration) GetAwsAccessKey() AwsAccessKey {
 // GetAwsAccessKeyOk returns a tuple with the AwsAccessKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DynamodbIntegration) GetAwsAccessKeyOk() (*AwsAccessKey, bool) {
-	if o == nil || o.AwsAccessKey == nil {
+	if o == nil || IsNil(o.AwsAccessKey) {
 		return nil, false
 	}
 	return o.AwsAccessKey, true
@@ -59,7 +62,7 @@ func (o *DynamodbIntegration) GetAwsAccessKeyOk() (*AwsAccessKey, bool) {
 
 // HasAwsAccessKey returns a boolean if a field has been set.
 func (o *DynamodbIntegration) HasAwsAccessKey() bool {
-	if o != nil && o.AwsAccessKey != nil {
+	if o != nil && !IsNil(o.AwsAccessKey) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *DynamodbIntegration) SetAwsAccessKey(v AwsAccessKey) {
 
 // GetAwsRole returns the AwsRole field value if set, zero value otherwise.
 func (o *DynamodbIntegration) GetAwsRole() AwsRole {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		var ret AwsRole
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *DynamodbIntegration) GetAwsRole() AwsRole {
 // GetAwsRoleOk returns a tuple with the AwsRole field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DynamodbIntegration) GetAwsRoleOk() (*AwsRole, bool) {
-	if o == nil || o.AwsRole == nil {
+	if o == nil || IsNil(o.AwsRole) {
 		return nil, false
 	}
 	return o.AwsRole, true
@@ -91,7 +94,7 @@ func (o *DynamodbIntegration) GetAwsRoleOk() (*AwsRole, bool) {
 
 // HasAwsRole returns a boolean if a field has been set.
 func (o *DynamodbIntegration) HasAwsRole() bool {
-	if o != nil && o.AwsRole != nil {
+	if o != nil && !IsNil(o.AwsRole) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *DynamodbIntegration) SetAwsRole(v AwsRole) {
 
 // GetS3ExportBucketName returns the S3ExportBucketName field value if set, zero value otherwise.
 func (o *DynamodbIntegration) GetS3ExportBucketName() string {
-	if o == nil || o.S3ExportBucketName == nil {
+	if o == nil || IsNil(o.S3ExportBucketName) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *DynamodbIntegration) GetS3ExportBucketName() string {
 // GetS3ExportBucketNameOk returns a tuple with the S3ExportBucketName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DynamodbIntegration) GetS3ExportBucketNameOk() (*string, bool) {
-	if o == nil || o.S3ExportBucketName == nil {
+	if o == nil || IsNil(o.S3ExportBucketName) {
 		return nil, false
 	}
 	return o.S3ExportBucketName, true
@@ -123,7 +126,7 @@ func (o *DynamodbIntegration) GetS3ExportBucketNameOk() (*string, bool) {
 
 // HasS3ExportBucketName returns a boolean if a field has been set.
 func (o *DynamodbIntegration) HasS3ExportBucketName() bool {
-	if o != nil && o.S3ExportBucketName != nil {
+	if o != nil && !IsNil(o.S3ExportBucketName) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *DynamodbIntegration) SetS3ExportBucketName(v string) {
 }
 
 func (o DynamodbIntegration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AwsAccessKey != nil {
-		toSerialize["aws_access_key"] = o.AwsAccessKey
-	}
-	if o.AwsRole != nil {
-		toSerialize["aws_role"] = o.AwsRole
-	}
-	if o.S3ExportBucketName != nil {
-		toSerialize["s3_export_bucket_name"] = o.S3ExportBucketName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DynamodbIntegration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AwsAccessKey) {
+		toSerialize["aws_access_key"] = o.AwsAccessKey
+	}
+	if !IsNil(o.AwsRole) {
+		toSerialize["aws_role"] = o.AwsRole
+	}
+	if !IsNil(o.S3ExportBucketName) {
+		toSerialize["s3_export_bucket_name"] = o.S3ExportBucketName
+	}
+	return toSerialize, nil
 }
 
 type NullableDynamodbIntegration struct {

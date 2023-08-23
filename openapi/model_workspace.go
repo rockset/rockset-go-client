@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Workspace type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Workspace{}
+
 // Workspace Workspaces are organizational containers for collections.
 type Workspace struct {
 	// Number of collections that are immediate children of workspace.
@@ -47,7 +50,7 @@ func NewWorkspaceWithDefaults() *Workspace {
 
 // GetCollectionCount returns the CollectionCount field value if set, zero value otherwise.
 func (o *Workspace) GetCollectionCount() int64 {
-	if o == nil || o.CollectionCount == nil {
+	if o == nil || IsNil(o.CollectionCount) {
 		var ret int64
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *Workspace) GetCollectionCount() int64 {
 // GetCollectionCountOk returns a tuple with the CollectionCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Workspace) GetCollectionCountOk() (*int64, bool) {
-	if o == nil || o.CollectionCount == nil {
+	if o == nil || IsNil(o.CollectionCount) {
 		return nil, false
 	}
 	return o.CollectionCount, true
@@ -65,7 +68,7 @@ func (o *Workspace) GetCollectionCountOk() (*int64, bool) {
 
 // HasCollectionCount returns a boolean if a field has been set.
 func (o *Workspace) HasCollectionCount() bool {
-	if o != nil && o.CollectionCount != nil {
+	if o != nil && !IsNil(o.CollectionCount) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *Workspace) SetCollectionCount(v int64) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Workspace) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *Workspace) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Workspace) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -97,7 +100,7 @@ func (o *Workspace) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Workspace) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *Workspace) SetCreatedAt(v string) {
 
 // GetCreatedBy returns the CreatedBy field value if set, zero value otherwise.
 func (o *Workspace) GetCreatedBy() string {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		var ret string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *Workspace) GetCreatedBy() string {
 // GetCreatedByOk returns a tuple with the CreatedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Workspace) GetCreatedByOk() (*string, bool) {
-	if o == nil || o.CreatedBy == nil {
+	if o == nil || IsNil(o.CreatedBy) {
 		return nil, false
 	}
 	return o.CreatedBy, true
@@ -129,7 +132,7 @@ func (o *Workspace) GetCreatedByOk() (*string, bool) {
 
 // HasCreatedBy returns a boolean if a field has been set.
 func (o *Workspace) HasCreatedBy() bool {
-	if o != nil && o.CreatedBy != nil {
+	if o != nil && !IsNil(o.CreatedBy) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *Workspace) SetCreatedBy(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Workspace) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *Workspace) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Workspace) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -161,7 +164,7 @@ func (o *Workspace) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Workspace) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *Workspace) SetDescription(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Workspace) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *Workspace) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Workspace) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -193,7 +196,7 @@ func (o *Workspace) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Workspace) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *Workspace) SetName(v string) {
 }
 
 func (o Workspace) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CollectionCount != nil {
-		toSerialize["collection_count"] = o.CollectionCount
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.CreatedBy != nil {
-		toSerialize["created_by"] = o.CreatedBy
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Workspace) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CollectionCount) {
+		toSerialize["collection_count"] = o.CollectionCount
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.CreatedBy) {
+		toSerialize["created_by"] = o.CreatedBy
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	return toSerialize, nil
 }
 
 type NullableWorkspace struct {

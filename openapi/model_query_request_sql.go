@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryRequestSql type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryRequestSql{}
+
 // QueryRequestSql struct for QueryRequestSql
 type QueryRequestSql struct {
 	// Row limit to use. Limits specified in the query text will override this default.
@@ -46,7 +49,7 @@ func NewQueryRequestSqlWithDefaults() *QueryRequestSql {
 
 // GetDefaultRowLimit returns the DefaultRowLimit field value if set, zero value otherwise.
 func (o *QueryRequestSql) GetDefaultRowLimit() int32 {
-	if o == nil || o.DefaultRowLimit == nil {
+	if o == nil || IsNil(o.DefaultRowLimit) {
 		var ret int32
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *QueryRequestSql) GetDefaultRowLimit() int32 {
 // GetDefaultRowLimitOk returns a tuple with the DefaultRowLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequestSql) GetDefaultRowLimitOk() (*int32, bool) {
-	if o == nil || o.DefaultRowLimit == nil {
+	if o == nil || IsNil(o.DefaultRowLimit) {
 		return nil, false
 	}
 	return o.DefaultRowLimit, true
@@ -64,7 +67,7 @@ func (o *QueryRequestSql) GetDefaultRowLimitOk() (*int32, bool) {
 
 // HasDefaultRowLimit returns a boolean if a field has been set.
 func (o *QueryRequestSql) HasDefaultRowLimit() bool {
-	if o != nil && o.DefaultRowLimit != nil {
+	if o != nil && !IsNil(o.DefaultRowLimit) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *QueryRequestSql) SetDefaultRowLimit(v int32) {
 
 // GetInitialPaginateResponseDocCount returns the InitialPaginateResponseDocCount field value if set, zero value otherwise.
 func (o *QueryRequestSql) GetInitialPaginateResponseDocCount() int32 {
-	if o == nil || o.InitialPaginateResponseDocCount == nil {
+	if o == nil || IsNil(o.InitialPaginateResponseDocCount) {
 		var ret int32
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *QueryRequestSql) GetInitialPaginateResponseDocCount() int32 {
 // GetInitialPaginateResponseDocCountOk returns a tuple with the InitialPaginateResponseDocCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequestSql) GetInitialPaginateResponseDocCountOk() (*int32, bool) {
-	if o == nil || o.InitialPaginateResponseDocCount == nil {
+	if o == nil || IsNil(o.InitialPaginateResponseDocCount) {
 		return nil, false
 	}
 	return o.InitialPaginateResponseDocCount, true
@@ -96,7 +99,7 @@ func (o *QueryRequestSql) GetInitialPaginateResponseDocCountOk() (*int32, bool) 
 
 // HasInitialPaginateResponseDocCount returns a boolean if a field has been set.
 func (o *QueryRequestSql) HasInitialPaginateResponseDocCount() bool {
-	if o != nil && o.InitialPaginateResponseDocCount != nil {
+	if o != nil && !IsNil(o.InitialPaginateResponseDocCount) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *QueryRequestSql) SetInitialPaginateResponseDocCount(v int32) {
 
 // GetParameters returns the Parameters field value if set, zero value otherwise.
 func (o *QueryRequestSql) GetParameters() []QueryParameter {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		var ret []QueryParameter
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *QueryRequestSql) GetParameters() []QueryParameter {
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryRequestSql) GetParametersOk() ([]QueryParameter, bool) {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		return nil, false
 	}
 	return o.Parameters, true
@@ -128,7 +131,7 @@ func (o *QueryRequestSql) GetParametersOk() ([]QueryParameter, bool) {
 
 // HasParameters returns a boolean if a field has been set.
 func (o *QueryRequestSql) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
+	if o != nil && !IsNil(o.Parameters) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *QueryRequestSql) GetQuery() string {
 // GetQueryOk returns a tuple with the Query field value
 // and a boolean to check if the value has been set.
 func (o *QueryRequestSql) GetQueryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Query, true
@@ -165,20 +168,26 @@ func (o *QueryRequestSql) SetQuery(v string) {
 }
 
 func (o QueryRequestSql) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DefaultRowLimit != nil {
-		toSerialize["default_row_limit"] = o.DefaultRowLimit
-	}
-	if o.InitialPaginateResponseDocCount != nil {
-		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
-	}
-	if o.Parameters != nil {
-		toSerialize["parameters"] = o.Parameters
-	}
-	if true {
-		toSerialize["query"] = o.Query
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryRequestSql) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DefaultRowLimit) {
+		toSerialize["default_row_limit"] = o.DefaultRowLimit
+	}
+	if !IsNil(o.InitialPaginateResponseDocCount) {
+		toSerialize["initial_paginate_response_doc_count"] = o.InitialPaginateResponseDocCount
+	}
+	if !IsNil(o.Parameters) {
+		toSerialize["parameters"] = o.Parameters
+	}
+	toSerialize["query"] = o.Query
+	return toSerialize, nil
 }
 
 type NullableQueryRequestSql struct {

@@ -14,6 +14,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the QueryError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &QueryError{}
+
 // QueryError struct for QueryError
 type QueryError struct {
 	// A message associated with the error, containing more information about it.
@@ -43,7 +46,7 @@ func NewQueryErrorWithDefaults() *QueryError {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *QueryError) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *QueryError) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryError) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -61,7 +64,7 @@ func (o *QueryError) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *QueryError) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *QueryError) SetMessage(v string) {
 
 // GetStatusCode returns the StatusCode field value if set, zero value otherwise.
 func (o *QueryError) GetStatusCode() int32 {
-	if o == nil || o.StatusCode == nil {
+	if o == nil || IsNil(o.StatusCode) {
 		var ret int32
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *QueryError) GetStatusCode() int32 {
 // GetStatusCodeOk returns a tuple with the StatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryError) GetStatusCodeOk() (*int32, bool) {
-	if o == nil || o.StatusCode == nil {
+	if o == nil || IsNil(o.StatusCode) {
 		return nil, false
 	}
 	return o.StatusCode, true
@@ -93,7 +96,7 @@ func (o *QueryError) GetStatusCodeOk() (*int32, bool) {
 
 // HasStatusCode returns a boolean if a field has been set.
 func (o *QueryError) HasStatusCode() bool {
-	if o != nil && o.StatusCode != nil {
+	if o != nil && !IsNil(o.StatusCode) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *QueryError) SetStatusCode(v int32) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *QueryError) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *QueryError) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *QueryError) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -125,7 +128,7 @@ func (o *QueryError) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *QueryError) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *QueryError) SetType(v string) {
 }
 
 func (o QueryError) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.StatusCode != nil {
-		toSerialize["status_code"] = o.StatusCode
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o QueryError) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.StatusCode) {
+		toSerialize["status_code"] = o.StatusCode
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	return toSerialize, nil
 }
 
 type NullableQueryError struct {
