@@ -1,10 +1,11 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/suite"
 	"testing"
 
 	"github.com/fatih/structs"
+	"github.com/stretchr/testify/suite"
+
 	"github.com/rockset/rockset-go-client"
 )
 
@@ -55,6 +56,7 @@ func (s *DocumentIntegrationSuite) TearDownSuite() {
 
 func (s *DocumentIntegrationSuite) TestAddDocument() {
 	ctx := testCtx()
+	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
 	type doc struct {
 		Foo string `json:"foo"`
@@ -65,7 +67,7 @@ func (s *DocumentIntegrationSuite) TestAddDocument() {
 		structs.Map(doc{Foo: "foo"}),
 	}
 
-	res, err := s.rc.AddDocuments(ctx, s.ws, s.collection, docs)
+	res, err := rc.AddDocuments(ctx, s.ws, s.collection, docs)
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.id = res[0].GetId()
@@ -73,6 +75,8 @@ func (s *DocumentIntegrationSuite) TestAddDocument() {
 
 func (s *DocumentIntegrationSuite) TestPatchDocument() {
 	ctx := testCtx()
+	rc, _ := vcrTestClient(s.T(), s.T().Name())
+	s.T().Logf("t: %s", s.T().Name())
 
 	patches := []rockset.PatchDocument{
 		{
@@ -86,7 +90,7 @@ func (s *DocumentIntegrationSuite) TestPatchDocument() {
 			},
 		},
 	}
-	res, err := s.rc.PatchDocuments(ctx, s.ws, s.collection, patches)
+	res, err := rc.PatchDocuments(ctx, s.ws, s.collection, patches)
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.Assert().Equal("PATCHED", res[0].GetStatus())
@@ -96,8 +100,9 @@ func (s *DocumentIntegrationSuite) TestPatchDocument() {
 // but we want the operations in alphabetical order, add/patch/remove (delete).
 func (s *DocumentIntegrationSuite) TestRemoveDocument() {
 	ctx := testCtx()
+	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
-	res, err := s.rc.DeleteDocuments(ctx, s.ws, s.collection, []string{s.id})
+	res, err := rc.DeleteDocuments(ctx, s.ws, s.collection, []string{s.id})
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.Assert().Equal("DELETED", res[0].GetStatus())

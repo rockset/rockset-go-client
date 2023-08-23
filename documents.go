@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 
 	"github.com/rockset/rockset-go-client/openapi"
 )
@@ -24,7 +25,6 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 	var httpResp *http.Response
 	var resp *openapi.AddDocumentsResponse
 
-	log := zerolog.Ctx(ctx)
 	q := rc.DocumentsApi.AddDocuments(ctx, workspace, collection)
 
 	// TODO should the method accept []map[string]interface{} instead?
@@ -97,8 +97,6 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 		return nil, err
 	}
 
-	log := zerolog.Ctx(ctx)
-
 	// should this accept all 2xx status codes?
 	if resp.StatusCode == http.StatusOK {
 		var pdr openapi.PatchDocumentsResponse
@@ -141,11 +139,14 @@ func (rc *RockClient) patchDocumentsRequest(ctx context.Context, ws, collection 
 		return nil, err
 	}
 
-	req.Header.Set("Authorization", "apikey "+rc.RockConfig.APIKey)
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("x-rockset-version", Version)
 	req.Header.Set("User-Agent", rc.RockConfig.cfg.UserAgent)
+
+	// copy all default headers
+	for k, v := range rc.RockConfig.cfg.DefaultHeader {
+		req.Header.Set(k, v)
+	}
 
 	return req, nil
 }
