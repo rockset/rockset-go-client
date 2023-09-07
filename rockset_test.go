@@ -3,15 +3,18 @@ package rockset_test
 import (
 	"context"
 	"fmt"
-	"github.com/seborama/govcr/v13"
-	"github.com/seborama/govcr/v13/cassette/track"
 	"math/rand"
 	"os"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/aws/aws-sdk-go-v2/config"
+	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/rs/zerolog"
+	"github.com/seborama/govcr/v14"
+	"github.com/seborama/govcr/v14/cassette/track"
+	"github.com/seborama/govcr/v14/fileio"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
@@ -104,34 +107,55 @@ func vcrTestClient(t *testing.T, name string) (*rockset.RockClient, func(string)
 	return rc, fn
 }
 
+const vcrBucket = "rockset-go-tests"
+
+func vcrBucketPath(name string) string {
+	return fmt.Sprintf("/%s/vcr/%s/%s.cassette.gz", vcrBucket, rockset.Version, name)
+}
+
 func vcrClient(name string) (*rockset.RockClient, func(string) string, error) {
+	return vcrClientWrapper(strings.ToLower(os.Getenv("VCR_MODE")), name)
+}
+
+func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) string, error) {
 	randFn := randomName
 	options := []rockset.RockOption{rockset.WithUserAgent("rockset-go-integration-tests")}
 	var settings []govcr.Setting
-	path := fmt.Sprintf("vcr/%s.cassette.gz", name)
+	path := vcrBucketPath(name)
 
-	switch mode := strings.ToLower(os.Getenv("VCR_MODE")); mode {
-	case "record": // remove cassette to force a new one to be created
+	// VCR cassettes are in S3 bucket rockset-go-tests (in us-west-2)
+	cfg, err := config.LoadDefaultConfig(context.Background(), config.WithRegion("us-west-2"))
+	if err != nil {
+		return nil, nil, err
+	}
+	s3Client := s3.NewFromConfig(cfg, func(o *s3.Options) { o.UsePathStyle = true })
+
+	switch mode {
+	case "record":
+		// remove cassette to force a new one to be created
+		//res, err := s3Client.DeleteObject(context.Background(), &s3.DeleteObjectInput{
+		//	Bucket: aws.String(""),
+		//	Key:    "",
+		//})
 		randFn = func(pfx string) string {
-			return fmt.Sprintf("%s_go", pfx)
+			return fmt.Sprintf("go_%s", pfx)
 		}
-		// ignore errors
-		_ = os.Remove(path)
 		settings = vcrSettings(false)
 	case "offline", "": // quick run using a recorded response
 		randFn = func(pfx string) string {
-			return fmt.Sprintf("%s_go", pfx)
+			return fmt.Sprintf("go_%s", pfx)
 		}
 		settings = vcrSettings(true)
 		options = append(options, rockset.WithAPIKey("fake"),
 			rockset.WithAPIServer("fake"), rockset.WithRetry(&testRetrier{}))
 	case "online": // for running everything live
 		settings = vcrSettings(false)
+		settings = append(settings, govcr.WithLiveOnlyMode(), govcr.WithReadOnlyMode())
 	default:
 		return nil, nil, fmt.Errorf("unknown VCR_MODE: %s", mode)
 	}
 
-	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path), settings...)
+	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path).WithStore(fileio.NewAWS(s3Client)), settings...)
 	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()),
 		rockset.WithCustomHeader("x-rockset-test", "go-client"))
 

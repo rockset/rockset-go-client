@@ -125,7 +125,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance() {
 	)
 	s.Require().NoError(err)
 	s.vID = vi.GetId()
-	s.T().Logf("vi %s is created", s.vID)
+	s.T().Logf("vi %s (%s) is created", vi.GetName(), vi.GetId())
 
 	err = s.rc.WaitUntilVirtualInstanceActive(ctx, s.vID)
 	s.Require().NoError(err)
