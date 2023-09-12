@@ -97,11 +97,11 @@ func Example_s3() {
 	fmt.Printf("integration deleted: %s\n", r.GetName())
 
 	// Output:
-	// integration created: example_s3_go
-	// collection created: example_s3_go
-	// collection ready: example_s3_go
-	// collection name: example_s3_go
-	// collection deleted: example_s3_go
-	// collection gone: example_s3_go
-	// integration deleted: example_s3_go
+	// integration created: go_example_s3
+	// collection created: go_example_s3
+	// collection ready: go_example_s3
+	// collection name: go_example_s3
+	// collection deleted: go_example_s3
+	// collection gone: go_example_s3
+	// integration deleted: go_example_s3
 }

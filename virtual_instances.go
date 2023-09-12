@@ -20,6 +20,15 @@ const (
 	VirtualInstanceSuspended              = "SUSPENDED"
 	VirtualInstanceResuming               = "RESUMING"
 	VirtualInstanceDeleted                = "DELETED"
+
+	MountCreating             = "CREATING"
+	MountActive               = "ACTIVE"
+	MountRefreshing           = "REFRESHING"
+	MountExpired              = "EXPIRED"
+	MountDeleting             = "DELETING"
+	MountSwitchingRefreshType = "SWITCHING_REFRESH_TYPE"
+	MountSuspended            = "SUSPENDED"
+	MountSuspending           = "SUSPENDING"
 )
 
 // CreateVirtualInstance creates a new virtual instance.
@@ -27,7 +36,8 @@ const (
 // create a virtual instance that will never refresh the mounts.
 //
 // REST API documentation https://rockset.com/docs/rest-api/#createvirtualinstance
-func (rc *RockClient) CreateVirtualInstance(ctx context.Context, name string, options ...option.VirtualInstanceOption) (openapi.VirtualInstance, error) {
+func (rc *RockClient) CreateVirtualInstance(ctx context.Context, name string,
+	options ...option.VirtualInstanceOption) (openapi.VirtualInstance, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.CreateVirtualInstanceResponse
@@ -53,6 +63,9 @@ func (rc *RockClient) CreateVirtualInstance(ctx context.Context, name string, op
 	if opts.MountRefreshInterval != nil {
 		s := int32(opts.MountRefreshInterval.Seconds())
 		req.MountRefreshIntervalSeconds = &s
+	}
+	if opts.EnableRemountOnResume != nil {
+		req.EnableRemountOnResume = opts.EnableRemountOnResume
 	}
 
 	q := rc.VirtualInstancesApi.CreateVirtualInstance(ctx)
@@ -156,12 +169,29 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	q := rc.VirtualInstancesApi.SetVirtualInstance(ctx, vID)
 	req := openapi.NewUpdateVirtualInstanceRequest()
 
+	if opts.Name != nil {
+		req.Name = opts.Name
+	}
+	if opts.Description != nil {
+		req.Description = opts.Description
+	}
 	if opts.Size != nil {
 		req.NewSize = opts.Size
 	}
+	if opts.AutoSuspend != nil {
+		s := int32(opts.AutoSuspend.Seconds())
+		req.AutoSuspendSeconds = &s
+	}
+	if opts.MountRefreshInterval != nil {
+		s := int32(opts.MountRefreshInterval.Seconds())
+		req.MountRefreshIntervalSeconds = &s
+	}
+	if opts.EnableRemountOnResume != nil {
+		req.EnableRemountOnResume = opts.EnableRemountOnResume
+	}
 
 	err = rc.Retry(ctx, func() error {
-		resp, httpResp, err = q.Execute()
+		resp, httpResp, err = q.Body(*req).Execute()
 
 		return NewErrorWithStatusCode(err, httpResp)
 	})
@@ -219,41 +249,19 @@ func (rc *RockClient) ResumeVirtualInstance(ctx context.Context, vID string) (op
 	return resp.GetData(), nil
 }
 
-// ExecuteQueryOnVirtualInstance executes the SQL query on a specific virtual instance instead of the main virtual instance.
+// ExecuteQueryOnVirtualInstance executes the SQL query on a specific virtual instance instead of the main
+// virtual instance.
 //
 // REST API documentation https://rockset.com/docs/rest-api/#queryvirtualinstance
-func (rc *RockClient) ExecuteQueryOnVirtualInstance(ctx context.Context, vID string, sql string, options ...option.QueryOption) (openapi.QueryResponse, error) {
-	var err error
-	var httpResp *http.Response
-	var resp *openapi.QueryResponse
-
-	queryRequest := openapi.NewQueryRequestWithDefaults()
-	queryRequest.Sql = openapi.QueryRequestSql{Query: sql}
-	queryRequest.Sql.Parameters = []openapi.QueryParameter{}
-
-	for _, o := range options {
-		o(queryRequest)
-	}
-
-	q := rc.VirtualInstancesApi.QueryVirtualInstance(ctx, vID)
-
-	err = rc.Retry(ctx, func() error {
-		resp, httpResp, err = q.Body(*queryRequest).Execute()
-
-		return NewErrorWithStatusCode(err, httpResp)
-	})
-
-	if err != nil {
-		return openapi.QueryResponse{}, err
-	}
-
-	return *resp, nil
+func (rc *RockClient) ExecuteQueryOnVirtualInstance(ctx context.Context, vID string, sql string,
+	options ...option.QueryOption) (openapi.QueryResponse, error) {
+	return queryWrapper(ctx, rc, vID, sql, options...)
 }
 
-// GetVirtualInstanceQueries lists actively queued and running queries for a particular Virtual Instance.
+// ListVirtualInstanceQueries lists actively queued and running queries for a particular Virtual Instance.
 //
 // REST API documentation
-func (rc *RockClient) GetVirtualInstanceQueries(ctx context.Context, vID string) ([]openapi.QueryInfo, error) {
+func (rc *RockClient) ListVirtualInstanceQueries(ctx context.Context, vID string) ([]openapi.QueryInfo, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.ListQueriesResponse
@@ -299,7 +307,8 @@ func (rc *RockClient) ListCollectionMounts(ctx context.Context, vID string) ([]o
 // GetCollectionMount gets a mount on this virtual instance.
 //
 // REST API documentation https://rockset.com/docs/rest-api/#getcollectionmount
-func (rc *RockClient) GetCollectionMount(ctx context.Context, vID, collectionPath string) (openapi.CollectionMount, error) {
+func (rc *RockClient) GetCollectionMount(ctx context.Context, vID,
+	collectionPath string) (openapi.CollectionMount, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.CollectionMountResponse
@@ -319,10 +328,12 @@ func (rc *RockClient) GetCollectionMount(ctx context.Context, vID, collectionPat
 	return *resp.Data, nil
 }
 
-// MountCollection mounts collections on a virtual instance.
+// MountCollections mounts collections on a virtual instance, where the collections are listed as
+// workspace.collection.
 //
 // REST API documentation https://rockset.com/docs/rest-api/#mountcollection
-func (rc *RockClient) MountCollection(ctx context.Context, vID string, collectionPaths []string) ([]openapi.CollectionMount, error) {
+func (rc *RockClient) MountCollections(ctx context.Context, vID string,
+	collectionPaths []string) ([]openapi.CollectionMount, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.CreateCollectionMountsResponse
@@ -348,7 +359,8 @@ func (rc *RockClient) MountCollection(ctx context.Context, vID string, collectio
 // UnmountCollection unmount a collection from a virtual instance.
 //
 // REST API documentation https://rockset.com/docs/rest-api/#unmountcollection
-func (rc *RockClient) UnmountCollection(ctx context.Context, vID string, collectionPath string) (openapi.CollectionMount, error) {
+func (rc *RockClient) UnmountCollection(ctx context.Context, vID string,
+	collectionPath string) (openapi.CollectionMount, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.CollectionMountResponse
