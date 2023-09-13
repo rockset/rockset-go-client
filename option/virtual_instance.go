@@ -4,10 +4,12 @@ import "time"
 
 // VirtualInstanceOptions contains the optional settings for a virtual instance.
 type VirtualInstanceOptions struct {
-	Description          *string
-	Size                 *string
-	MountRefreshInterval *time.Duration
-	AutoSuspend          *time.Duration
+	Description           *string
+	Size                  *string
+	MountRefreshInterval  *time.Duration
+	AutoSuspend           *time.Duration
+	EnableRemountOnResume *bool
+	Name                  *string
 }
 
 type VirtualInstanceOption func(*VirtualInstanceOptions)
@@ -48,6 +50,20 @@ func WithVirtualInstanceSize(size VirtualInstanceSize) VirtualInstanceOption {
 	return func(o *VirtualInstanceOptions) {
 		t := size.String()
 		o.Size = &t
+	}
+}
+
+// WithVirtualInstanceName is used to set a new name for the virtual instance.
+func WithVirtualInstanceName(name string) VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		o.Name = &name
+	}
+}
+
+// WithVirtualInstanceDescription is used to set a description for the virtual instance.
+func WithVirtualInstanceDescription(desc string) VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		o.Description = &desc
 	}
 }
 

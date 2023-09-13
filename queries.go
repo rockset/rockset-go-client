@@ -2,9 +2,10 @@ package rockset
 
 import (
 	"context"
+	"net/http"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
-	"net/http"
 )
 
 type QueryState string
@@ -20,11 +21,23 @@ const (
 // Query executes a sql query with optional option.QueryOption
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
+	return queryWrapper(ctx, rc, "", sql, options...)
+}
+
+func queryWrapper(ctx context.Context, rc *RockClient, vID, sql string,
+	options ...option.QueryOption) (openapi.QueryResponse, error) {
 	var err error
 	var httpResp *http.Response
 	var response *openapi.QueryResponse
+	var plainQuery openapi.ApiQueryRequest
+	var viQuery openapi.ApiQueryVirtualInstanceRequest
 
-	q := rc.QueriesApi.Query(ctx)
+	if vID == "" {
+		plainQuery = rc.QueriesApi.Query(ctx)
+	} else {
+		viQuery = rc.VirtualInstancesApi.QueryVirtualInstance(ctx, vID)
+	}
+
 	queryRequest := openapi.NewQueryRequestWithDefaults()
 	queryRequest.Sql = openapi.QueryRequestSql{Query: sql}
 	queryRequest.Sql.Parameters = []openapi.QueryParameter{}
@@ -34,7 +47,11 @@ func (rc *RockClient) Query(ctx context.Context, sql string,
 	}
 
 	err = rc.Retry(ctx, func() error {
-		response, httpResp, err = q.Body(*queryRequest).Execute()
+		if vID == "" {
+			response, httpResp, err = plainQuery.Body(*queryRequest).Execute()
+		} else {
+			response, httpResp, err = viQuery.Body(*queryRequest).Execute()
+		}
 
 		return NewErrorWithStatusCode(err, httpResp)
 	})

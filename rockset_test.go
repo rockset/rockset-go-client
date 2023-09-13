@@ -119,7 +119,10 @@ func vcrClient(name string) (*rockset.RockClient, func(string) string, error) {
 
 func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) string, error) {
 	randFn := randomName
-	options := []rockset.RockOption{rockset.WithUserAgent("rockset-go-integration-tests")}
+	options := []rockset.RockOption{
+		rockset.WithUserAgent("rockset-go-integration-tests"),
+		rockset.WithCustomHeader("x-rockset-test", "go-client"),
+	}
 	var settings []govcr.Setting
 	path := vcrBucketPath(name)
 
@@ -149,8 +152,10 @@ func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) stri
 		options = append(options, rockset.WithAPIKey("fake"),
 			rockset.WithAPIServer("fake"), rockset.WithRetry(&testRetrier{}))
 	case "online": // for running everything live
-		settings = vcrSettings(false)
-		settings = append(settings, govcr.WithLiveOnlyMode(), govcr.WithReadOnlyMode())
+		settings = append(vcrSettings(false), govcr.WithLiveOnlyMode(), govcr.WithReadOnlyMode())
+	case "disabled":
+		rc, err := rockset.NewClient(options...)
+		return rc, randFn, err
 	default:
 		return nil, nil, fmt.Errorf("unknown VCR_MODE: %s", mode)
 	}

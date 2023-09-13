@@ -4,8 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/rockset/rockset-go-client/option"
 	"github.com/rs/zerolog"
+
+	"github.com/rockset/rockset-go-client/option"
 )
 
 const (
@@ -92,6 +93,16 @@ func (rc *RockClient) WaitUntilVirtualInstanceSuspended(ctx context.Context, id 
 		func(ctx context.Context) (string, error) {
 			vi, err := rc.GetVirtualInstance(ctx, id)
 			return vi.GetState(), err
+		}))
+}
+
+// WaitUntilMountActive waits until the collection mount is active, and queries can be issued to it on the
+// virtual instance.
+func (rc *RockClient) WaitUntilMountActive(ctx context.Context, vID, workspace, collection string) error {
+	return rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{MountActive},
+		func(ctx context.Context) (string, error) {
+			cm, err := rc.GetCollectionMount(ctx, vID, workspace+"."+collection)
+			return cm.GetState(), err
 		}))
 }
 

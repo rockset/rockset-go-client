@@ -56,7 +56,7 @@ func ExampleRockClient_query() {
 	}
 
 	r, err := rc.Query(ctx, "SELECT * FROM commons._events where label = :label",
-		option.WithRowLimit(10),
+		option.WithDefaultRowLimit(10),
 		option.WithParameter("label", "string", "QUERY_SUCCESS"))
 	if err != nil {
 		log.Fatal(err)
