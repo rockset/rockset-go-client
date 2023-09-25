@@ -9,7 +9,7 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/go-zookeeper/zk v1.0.3
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/rs/zerolog v1.30.0
+	github.com/rs/zerolog v1.31.0
 	github.com/seborama/govcr/v14 v14.0.0
 	github.com/stretchr/testify v1.8.4
 )
