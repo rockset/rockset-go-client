@@ -4,7 +4,7 @@ go 1.20
 
 require (
 	github.com/aws/aws-sdk-go-v2/config v1.18.39
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.38.5
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.39.0
 	github.com/confluentinc/confluent-kafka-go v1.9.2
 	github.com/fatih/structs v1.1.0
 	github.com/go-zookeeper/zk v1.0.3
