@@ -208,7 +208,7 @@ func TestWriterIntegration(t *testing.T) {
 
 	const writeCount uint64 = 10_000
 
-	name := randomName("write")
+	name := test.RandomName("write")
 	t.Logf("writing %d documents to %s", writeCount, name)
 	t0 := time.Now()
 

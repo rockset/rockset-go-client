@@ -1,62 +1,35 @@
-package rockset
+package retry
 
 import (
 	"context"
-	"errors"
 	"math/rand"
 	"time"
 
 	"github.com/rs/zerolog"
 )
 
-// RetryFunc is the function Retrier will call as long as it returns an error which is retryable.
-type RetryFunc func() (err error)
-
-// RetryCheck is the function Retrier will call until the RetryFunc returns false or an error.
-type RetryCheck func() (retry bool, err error)
-
-// Retrier is the interface used by the RockClient convenience methods to retry an operation
-// which returned a rockset.Error which is Retryable().
-type Retrier interface {
-	// Retry will retry retryFn if it returns an error which is retryable
-	Retry(ctx context.Context, retryFn RetryFunc) error
-	// RetryWithCheck will retry checkFn until it returns false or an error
-	RetryWithCheck(ctx context.Context, checkFunc RetryCheck) error
-}
-
-// RetryableError is an error which can be retried if Retryable() returns true.
-type RetryableError interface {
-	error
-	Retryable() bool
-}
-
-// DefaultRetryableErrorCheck returns true if err is an error that is retryable, i.e. implements RetryableError.
-// This function is used to determine which errors to retry for the convenience methods on the RockClient.
-func DefaultRetryableErrorCheck(err error) bool {
-	var re RetryableError
-	if errors.As(err, &re) {
-		return re.Retryable()
-	}
-
-	return false
-}
-
-// ExponentialRetry is used to perform API cal retries with exponential backoff
-type ExponentialRetry struct {
+// Exponential is used to perform API call retries with exponential backoff.
+type Exponential struct {
 	// MaxBackoff is the max time the exponential backoff can wait
 	MaxBackoff time.Duration
 	// WaitInterval is the initial interval wait between consecutive calls
 	WaitInterval time.Duration
 	// JitterFraction is the fraction of wait interval to use as jitter [0,1.0]
 	JitterFraction float64
-	// RetryableErrorCheck is the function that determines if an error should be retried. If nil, it uses the RetryableError().
+	// RetryableErrorCheck is the function that determines if an error should be retried.
+	// If nil, it uses the RetryableError().
 	RetryableErrorCheck func(error) bool
+}
+
+// NewExponential creates a new Retrier which uses exponential backoff.
+func NewExponential() Exponential {
+	return Exponential{}
 }
 
 // Retry retries retryFn until it returns an error. Uses exponential backoff.
 // If the retryFn returns an error, it is wrapped in an Error, which implements RetryableError
 // so the RetryableErrorCheck can determine if it should retry the operation.
-func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
+func (r Exponential) Retry(ctx context.Context, retryFn Func) error {
 	t0 := time.Now()
 	log := zerolog.Ctx(ctx)
 
@@ -117,7 +90,7 @@ func (r ExponentialRetry) Retry(ctx context.Context, retryFn RetryFunc) error {
 
 // RetryWithCheck will retry checkFn until it returns false or an error. If checkFn returns false, RetryWithCheck will
 // return nil, otherwise it'll return the error.
-func (r ExponentialRetry) RetryWithCheck(ctx context.Context, checkFn RetryCheck) error {
+func (r Exponential) RetryWithCheck(ctx context.Context, checkFn CheckFn) error {
 	t0 := time.Now()
 	log := zerolog.Ctx(ctx)
 

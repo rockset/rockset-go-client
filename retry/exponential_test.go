@@ -1,6 +1,7 @@
-package rockset_test
+package retry_test
 
 import (
+	"context"
 	"errors"
 	"io"
 	"net/http"
@@ -10,10 +11,9 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/rockset/rockset-go-client"
 	rockerr "github.com/rockset/rockset-go-client/errors"
-	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/rockset/rockset-go-client/retry"
 )
 
 func fakeError(code int) error {
@@ -36,10 +36,10 @@ func TestExponentialRetrySuite(t *testing.T) {
 }
 
 func (s *ExponentialRetrySuite) TestDefaultRetry() {
-	ctx := test.Context()
+	ctx := context.TODO()
 	var count int
 
-	err := rockset.ExponentialRetry{
+	err := retry.Exponential{
 		MaxBackoff:   time.Second,
 		WaitInterval: time.Millisecond,
 	}.Retry(ctx, func() error {
@@ -54,9 +54,9 @@ func (s *ExponentialRetrySuite) TestDefaultRetry() {
 }
 
 func (s *ExponentialRetrySuite) TestDefaultRetryWithFailure() {
-	ctx := test.Context()
+	ctx := context.TODO()
 
-	err := rockset.ExponentialRetry{
+	err := retry.Exponential{
 		MaxBackoff:   time.Second,
 		WaitInterval: time.Millisecond,
 	}.Retry(ctx, func() error {
@@ -73,13 +73,13 @@ func (r retryableErr) Error() string   { return r.err }
 func (r retryableErr) Retryable() bool { return true }
 
 func (s *ExponentialRetrySuite) TestDefaultRetryFn() {
-	ctx := test.Context()
+	ctx := context.TODO()
 	var count int
 
-	err := rockset.ExponentialRetry{
+	err := retry.Exponential{
 		MaxBackoff:          time.Second,
 		WaitInterval:        time.Millisecond,
-		RetryableErrorCheck: rockset.DefaultRetryableErrorCheck,
+		RetryableErrorCheck: retry.DefaultRetryableErrorCheck,
 	}.Retry(ctx, func() error {
 		count++
 		if count > 2 {
@@ -92,10 +92,10 @@ func (s *ExponentialRetrySuite) TestDefaultRetryFn() {
 }
 
 func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFn() {
-	ctx := test.Context()
+	ctx := context.TODO()
 	var count int
 
-	err := rockset.ExponentialRetry{
+	err := retry.Exponential{
 		MaxBackoff:   time.Second,
 		WaitInterval: time.Millisecond,
 		RetryableErrorCheck: func(err error) bool {
@@ -113,10 +113,10 @@ func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFn() {
 }
 
 func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheck() {
-	ctx := test.Context()
+	ctx := context.TODO()
 
 	var i int
-	err := rockset.ExponentialRetry{
+	err := retry.Exponential{
 		MaxBackoff:   time.Second,
 		WaitInterval: time.Millisecond,
 	}.RetryWithCheck(ctx, func() (bool, error) {
