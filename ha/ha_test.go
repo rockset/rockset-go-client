@@ -1,4 +1,4 @@
-package rockset_test
+package ha_test
 
 import (
 	"context"
@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/ha"
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
@@ -32,8 +33,8 @@ func (s *HASuite) TestHA_Integration() {
 
 	rs2 := test.Client(s.T())
 
-	ha := rockset.NewHA(use1a1, rs2)
-	res, errs := ha.Query(ctx, "SELECT * FROM commons._events LIMIT 10")
+	client := ha.New(use1a1, rs2)
+	res, errs := client.Query(ctx, "SELECT * FROM commons._events LIMIT 10")
 	s.Len(errs, 0)
 
 	s.Equal("commons._events", (res.Collections)[0])
@@ -42,23 +43,23 @@ func (s *HASuite) TestHA_Integration() {
 func (s *HASuite) TestContextFail() {
 	a := createMock("1", time.Second, nil)
 	b := createMock("2", time.Second, nil)
-	ha := rockset.NewHA(a, b)
+	client := ha.New(a, b)
 
 	ctx := test.Context()
 	c, cancel := context.WithTimeout(ctx, time.Millisecond)
 	defer cancel()
 
-	_, err := ha.Query(c, "SELECT 1")
+	_, err := client.Query(c, "SELECT 1")
 	s.Len(err, 1)
 }
 
 func (s *HASuite) TestHA() {
 	for _, t := range s.tests {
 		mocks := createMocks(t.queries)
-		ha := rockset.NewHA(mocks...)
+		client := ha.New(mocks...)
 		ctx := test.Context()
 		s.Run(t.name, func() {
-			res, errs := ha.Query(ctx, "SELECT 1")
+			res, errs := client.Query(ctx, "SELECT 1")
 			s.Equal(len(t.exErrors), len(errs))
 			if res.QueryId == nil {
 				s.Equal("", t.exID)
@@ -69,7 +70,7 @@ func (s *HASuite) TestHA() {
 	}
 }
 
-func createMock(queryID string, delay time.Duration, err error) rockset.Querier {
+func createMock(queryID string, delay time.Duration, err error) ha.Querier {
 	var mQ mockQuerier
 	call := mQ.On("Query", mock.Anything, mock.Anything, mock.Anything)
 	call.After(delay)
@@ -80,14 +81,15 @@ func createMock(queryID string, delay time.Duration, err error) rockset.Querier 
 	return &mQ
 }
 
-func createMocks(queries []query) []rockset.Querier {
-	var mocks []rockset.Querier
+func createMocks(queries []query) []ha.Querier {
+	var mocks []ha.Querier
 	for _, q := range queries {
 		mocks = append(mocks, createMock(q.id, q.delay, q.err))
 	}
 	return mocks
 }
 
+// TODO replace with counterfeiter
 type mockQuerier struct {
 	mock.Mock
 }

@@ -1,7 +1,8 @@
-package rockset
+package ha
 
 import (
 	"context"
+	"errors"
 	"sync"
 
 	"github.com/rs/zerolog"
@@ -11,19 +12,23 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
+// Querier is an interface implemented by the rockset.RockClient
 type Querier interface {
 	Query(context.Context, string, ...option.QueryOption) (openapi.QueryResponse, error)
 }
 
-type HA struct {
+type Client struct {
 	clients []Querier
 }
 
-func NewHA(client ...Querier) *HA {
-	return &HA{client}
+// New creates a new HA query client, and takes a list of rockset.RockClient which will be used for running
+// queries in parallel.
+func New(client ...Querier) *Client {
+	return &Client{client}
 }
 
-func (ha *HA) Query(ctx context.Context, query string, options ...option.QueryOption) (openapi.QueryResponse, []error) {
+// Query executes a SQL query in parallel, and returns the first response.
+func (ha *Client) Query(ctx context.Context, query string, options ...option.QueryOption) (openapi.QueryResponse, []error) {
 	log := zerolog.Ctx(ctx)
 
 	var wg sync.WaitGroup
@@ -65,7 +70,7 @@ func (ha *HA) Query(ctx context.Context, query string, options ...option.QueryOp
 
 func returnFirst(ctx context.Context, resultCh chan openapi.QueryResponse,
 	errorCh chan error) (openapi.QueryResponse, []error) {
-	var errors []error
+	var errs []error
 	for {
 		select {
 		case res, ok := <-resultCh:
@@ -77,12 +82,12 @@ func returnFirst(ctx context.Context, resultCh chan openapi.QueryResponse,
 			}
 
 			// log any error we got BEFORE the successful response
-			for _, err := range errors {
+			for _, err := range errs {
 				log.Error().Err(err).Msg("before the response")
 			}
 			// log any error we got AFTER the successful response
 			for err := range errorCh {
-				if err != context.Canceled {
+				if errors.Is(err, context.Canceled) {
 					log.Error().Err(err).Msg("after the response")
 				}
 			}
@@ -90,15 +95,15 @@ func returnFirst(ctx context.Context, resultCh chan openapi.QueryResponse,
 			return res, nil
 		case <-ctx.Done():
 			log.Error().Err(ctx.Err()).Msg("context cancelled")
-			errors = append(errors, ctx.Err())
+			errs = append(errs, ctx.Err())
 
-			return openapi.QueryResponse{}, errors
+			return openapi.QueryResponse{}, errs
 		case err, ok := <-errorCh:
 			// if the errorCh is closed, ok will be false, and it is time to call it a day
 			if !ok {
-				return openapi.QueryResponse{}, errors
+				return openapi.QueryResponse{}, errs
 			}
-			errors = append(errors, err)
+			errs = append(errs, err)
 		}
 	}
 }
