@@ -32,9 +32,9 @@ func TestConfluentCloudIntegrationSuite(t *testing.T) {
 
 	s := ConfluentCloudIntegrationSuite{
 		rc:               test.Client(t),
-		integrationName:  randomName("integration"),
-		ws:               randomName("cc"),
-		coll:             randomName("cc"),
+		integrationName:  test.RandomName("integration"),
+		ws:               test.RandomName("cc"),
+		coll:             test.RandomName("cc"),
 		topic:            "test_json",
 		bootstrapServers: test.SkipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
 		confluentKey:     test.SkipUnlessEnvSet(t, "CC_KEY"),
@@ -50,7 +50,7 @@ func (s *ConfluentCloudIntegrationSuite) SetupSuite() {
 	s.Require().NoError(err)
 
 	_, err = s.rc.CreateKafkaIntegration(ctx, s.integrationName,
-		option.WithKafkaIntegrationDescription(description()),
+		option.WithKafkaIntegrationDescription(test.Description()),
 		option.WithKafkaV3(),
 		option.WithKafkaBootstrapServers(s.bootstrapServers),
 		option.WithKafkaSecurityConfig(s.confluentKey, s.confluentSecret),
@@ -75,7 +75,7 @@ func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {
 	ctx := test.Context()
 
 	_, err := s.rc.CreateKafkaCollection(ctx, s.ws, s.coll,
-		option.WithCollectionDescription(description()),
+		option.WithCollectionDescription(test.Description()),
 		option.WithCollectionRetention(time.Hour),
 		option.WithKafkaSource(s.integrationName, s.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
 			option.WithKafkaSourceV3(),

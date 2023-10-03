@@ -43,9 +43,9 @@ func TestKafkaIntegrationSuite(t *testing.T) {
 		rc: test.Client(t),
 		kc: kafkaConfig{
 			topic:           "test_json",
-			integrationName: randomName("kafka"),
-			workspace:       randomName("kafka"),
-			collection:      randomName("kafka"),
+			integrationName: test.RandomName("kafka"),
+			workspace:       test.RandomName("kafka"),
+			collection:      test.RandomName("kafka"),
 		},
 		bootstrapServers: test.SkipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
 		confluentKey:     test.SkipUnlessEnvSet(t, "CC_KEY"),

@@ -31,7 +31,7 @@ func TestSuiteWorkspace(t *testing.T) {
 func (s *SuiteWorkspace) SetupSuite() {
 	ctx := test.Context()
 	_, err := s.rc.CreateWorkspace(ctx, s.ws,
-		option.WithWorkspaceDescription(description()))
+		option.WithWorkspaceDescription(test.Description()))
 	s.Require().NoError(err)
 	err = s.rc.WaitUntilWorkspaceAvailable(ctx, s.ws)
 	s.Require().NoError(err)
@@ -54,14 +54,14 @@ func (s *SuiteWorkspace) TestGetWorkspace() {
 
 func (s *SuiteWorkspace) TestGetPersistentWorkspace() {
 	ctx := test.Context()
-	ws, err := s.rc.GetWorkspace(ctx, persistentWorkspace)
+	ws, err := s.rc.GetWorkspace(ctx, test.PersistentWorkspace)
 	s.Require().NoError(err)
-	s.Require().Equal(persistentWorkspace, ws.GetName())
+	s.Require().Equal(test.PersistentWorkspace, ws.GetName())
 }
 
 func (s *SuiteWorkspace) TestGetNonExistingWorkspace() {
 	ctx := test.Context()
-	_, err := s.rc.GetWorkspace(ctx, randomString(16))
+	_, err := s.rc.GetWorkspace(ctx, test.RandomString(16))
 	s.Require().Error(err)
 	var re rockerr.Error
 	s.Require().True(errors.As(err, &re))

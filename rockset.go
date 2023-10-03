@@ -15,6 +15,7 @@ import (
 	"github.com/rs/zerolog"
 
 	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/rockset/rockset-go-client/retry"
 )
 
 const (
@@ -31,7 +32,7 @@ const (
 // RockConfig contains the configurable options for the RockClient.
 type RockConfig struct {
 	// Retrier is the retry function used to retry API calls.
-	Retrier
+	retry.Retrier
 	// APIKey is the API key to use for authentication
 	APIKey string
 	// APIServer is the API server to connect to
@@ -64,7 +65,7 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 
 	rc := RockConfig{
 		cfg:       cfg,
-		Retrier:   ExponentialRetry{},
+		Retrier:   retry.NewExponential(),
 		APIKey:    os.Getenv(APIKeyEnvironmentVariableName),
 		APIServer: os.Getenv(APIServerEnvironmentVariableName),
 	}
@@ -135,22 +136,22 @@ func WithCustomHeader(key, value string) RockOption {
 	}
 }
 
-// WithRetry sets the Retrier the RockClient uses to retry requests which return a Error that can be retried.
-// The errors which can be retried are configurable using the ExponentialRetry field RetryableErrorCheck.
+// WithRetry sets the Retrier the RockClient uses to retry requests which return an Error that can be retried.
+// The errors which can be retried are configurable using the Exponential field RetryableErrorCheck.
 //
-//	er := rockset.ExponentialRetry{
+//	exp := rockset.Exponential{
 //		RetryableErrorCheck: func(err error) bool {
 //			return error.Is(err, io.ErrUnexpectedEOF)
 //		}
 //	}
-//	rc, err := rockset.NewClient(rockset.WithRetry(er))
-//	//handle error
+//	rc, err := rockset.NewClient(rockset.WithRetry(exp))
+//	// handle error
 //	err = rc.Retry(ctx, func() error{
 //		// call that will be retried if it returns io.ErrUnexpectedEOF
 //	})
 //
 // This would retry all io.ErrUnexpectedEOF errors
-func WithRetry(r Retrier) RockOption {
+func WithRetry(r retry.Retrier) RockOption {
 	return func(rc *RockConfig) {
 		rc.Retrier = r
 	}

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/rockset/rockset-go-client/retry"
 
 	"github.com/rs/zerolog"
 
@@ -157,7 +158,7 @@ func (rc *RockClient) WaitUntilCollectionHasDocuments(ctx context.Context, works
 }
 
 // resourceIsAvailable implements RetryFn to wait until the resource is present
-func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error) RetryCheck {
+func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
 	return func() (bool, error) {
 		err := fn(ctx)
 
@@ -180,7 +181,7 @@ func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error
 }
 
 // resourceIsGone implements RetryFn to wait until the resource is gone
-func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) RetryCheck {
+func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
 	return func() (bool, error) {
 		err := fn(ctx)
 
@@ -202,7 +203,7 @@ func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) Ret
 }
 
 // resourceHasState implements RetryFn to wait until the resource is has the desired state
-func resourceHasState[T comparable](ctx context.Context, states []T, fn func(ctx context.Context) (T, error)) RetryCheck {
+func resourceHasState[T comparable](ctx context.Context, states []T, fn func(ctx context.Context) (T, error)) retry.CheckFn {
 	return func() (bool, error) {
 		zl := zerolog.Ctx(ctx)
 		state, err := fn(ctx)
@@ -227,7 +228,7 @@ type docWaiter struct {
 	prevCount int64
 }
 
-func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name string, count int64) RetryCheck {
+func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name string, count int64) retry.CheckFn {
 	d.prevCount = -1
 	return func() (bool, error) {
 		zl := zerolog.Ctx(ctx)
@@ -258,7 +259,7 @@ func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name st
 	}
 }
 
-func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name string, count int64) RetryCheck {
+func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name string, count int64) retry.CheckFn {
 	return func() (bool, error) {
 		zl := zerolog.Ctx(ctx)
 		c, err := d.rc.GetCollection(ctx, workspace, name)

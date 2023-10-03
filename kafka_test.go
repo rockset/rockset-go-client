@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/require"
 	"io"
@@ -26,7 +27,7 @@ type kafkaConfig struct {
 
 func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kafkaConfig) {
 	i, err := rc.CreateKafkaIntegration(ctx, kc.integrationName, option.WithKafkaDataFormat(option.KafkaFormatJSON),
-		option.WithKafkaIntegrationTopic(kc.topic), option.WithKafkaIntegrationDescription(description()))
+		option.WithKafkaIntegrationTopic(kc.topic), option.WithKafkaIntegrationDescription(test.Description()))
 	require.NoError(t, err)
 
 	u := fmt.Sprintf("https://%s", os.Getenv("ROCKSET_APISERVER"))
@@ -55,7 +56,7 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 
 	_, err = rc.CreateKafkaCollection(ctx, kc.workspace, kc.collection,
 		option.WithKafkaSource(kc.integrationName, kc.topic, option.KafkaStartingOffsetEarliest, option.WithJSONFormat()),
-		option.WithCollectionDescription(description()))
+		option.WithCollectionDescription(test.Description()))
 	require.NoError(t, err)
 
 	t.Log("waiting for collection to start receiving documents...")

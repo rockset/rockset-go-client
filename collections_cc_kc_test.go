@@ -33,7 +33,7 @@ func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
 	test.SkipUnlessIntegrationTest(t)
 	test.SkipUnlessDocker(t)
 
-	name := randomName("cckc")
+	name := test.RandomName("cckc")
 
 	s := ConfluentCloudWithKafkaConnectIntegrationSuite{
 		rc: test.Client(t),

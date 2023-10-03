@@ -35,8 +35,8 @@ func (s *RoleIntegrationSuite) TestCreateRole() {
 	ctx := test.Context()
 
 	role, err := s.rc.CreateRole(ctx, s.name,
-		option.WithRoleDescription(description()),
-		option.WithWorkspacePrivilege(option.ListResourcesWs, persistentWorkspace),
+		option.WithRoleDescription(test.Description()),
+		option.WithWorkspacePrivilege(option.ListResourcesWs, test.PersistentWorkspace),
 	)
 	s.NoError(err)
 	s.Equal(s.name, role.GetRoleName())

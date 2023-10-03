@@ -61,9 +61,9 @@ func (s *CollectionTestSuite) BeforeTest(suiteName, testName string) {
 func (s *CollectionTestSuite) TestGetCollection() {
 	ctx := test.Context()
 
-	collection, err := s.rc.GetCollection(ctx, persistentWorkspace, persistentCollection)
+	collection, err := s.rc.GetCollection(ctx, test.PersistentWorkspace, test.PersistentCollection)
 	s.NoError(err)
-	s.Equal(persistentCollection, collection.GetName())
+	s.Equal(test.PersistentCollection, collection.GetName())
 }
 
 func (s *CollectionTestSuite) TestListAllCollections() {
@@ -78,15 +78,15 @@ func (s *CollectionTestSuite) TestListAllCollections() {
 func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 	ctx := test.Context()
 
-	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace(persistentWorkspace))
+	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace(test.PersistentWorkspace))
 	s.NoError(err)
 
-	s.T().Logf("collections in %s: %d", persistentWorkspace, len(collections))
+	s.T().Logf("collections in %s: %d", test.PersistentWorkspace, len(collections))
 }
 
 func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
 	ctx := test.Context()
-	name := randomName("cities")
+	name := test.RandomName("cities")
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
 		option.WithSampleDataset(dataset.Cities))
@@ -99,7 +99,7 @@ func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
 
 func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
 	ctx := test.Context()
-	name := randomName("movies")
+	name := test.RandomName("movies")
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
 		option.WithStorageCompressionType(option.StorageCompressionLZ4),
@@ -113,7 +113,7 @@ func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
 
 func (s *CollectionTestSuite) TestUpdateCollection() {
 	ctx := test.Context()
-	name := randomName("update")
+	name := test.RandomName("update")
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
 		option.WithStorageCompressionType(option.StorageCompressionZSTD),

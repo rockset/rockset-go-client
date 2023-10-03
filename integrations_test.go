@@ -60,7 +60,7 @@ func (s *IntegrationTestSuite) TestCreateS3Integration() {
 
 	_, err := s.rc.CreateS3Integration(ctx, s.s3Integration,
 		option.AWSRole("arn:aws:iam::469279130686:role/rockset-s3-integration"),
-		option.WithS3IntegrationDescription(description()))
+		option.WithS3IntegrationDescription(test.Description()))
 	s.Require().NoError(err)
 
 	err = s.rc.DeleteIntegration(ctx, s.s3Integration)
@@ -73,7 +73,7 @@ func (s *IntegrationTestSuite) TestCreateGCSIntegration() {
 	ctx := test.Context()
 
 	_, err := s.rc.CreateGCSIntegration(ctx, s.gcsIntegration, saKeyFile,
-		option.WithGCSIntegrationDescription(description()))
+		option.WithGCSIntegrationDescription(test.Description()))
 	s.Require().NoError(err)
 
 	err = s.rc.DeleteIntegration(ctx, s.gcsIntegration)

@@ -18,7 +18,7 @@ func TestRockClient_CreateQueryLambda(t *testing.T) {
 	name := randomName("ql")
 
 	ql, err := rc.CreateQueryLambda(ctx, ws, name, "SELECT 1",
-		option.WithDefaultParameter("", "", ""), option.WithQueryLambdaDescription(description()))
+		option.WithDefaultParameter("", "", ""), option.WithQueryLambdaDescription(test.Description()))
 	require.NoError(t, err)
 
 	defer func() {
@@ -44,7 +44,7 @@ func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 	ctx := test.Context()
 
-	version, err := rc.GetQueryLambdaVersionByTag(ctx, persistentWorkspace, qlName, qlTag)
+	version, err := rc.GetQueryLambdaVersionByTag(ctx, test.PersistentWorkspace, qlName, qlTag)
 	require.NoError(t, err)
 	assert.Equal(t, qlVersion, version.Version.GetVersion())
 }
@@ -53,7 +53,7 @@ func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 	ctx := test.Context()
 
-	version, err := rc.GetQueryLambdaVersion(ctx, persistentWorkspace, qlName, qlVersion)
+	version, err := rc.GetQueryLambdaVersion(ctx, test.PersistentWorkspace, qlName, qlVersion)
 	require.NoError(t, err)
 	assert.Equal(t, qlName, version.GetName())
 }
@@ -74,11 +74,11 @@ func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 	ctx := test.Context()
 
-	lambdas, err := rc.ListQueryLambdas(ctx, option.WithQueryLambdaWorkspace(persistentWorkspace))
+	lambdas, err := rc.ListQueryLambdas(ctx, option.WithQueryLambdaWorkspace(test.PersistentWorkspace))
 	require.NoError(t, err)
 
 	for _, l := range lambdas {
-		assert.Equal(t, persistentWorkspace, l.GetWorkspace())
+		assert.Equal(t, test.PersistentWorkspace, l.GetWorkspace())
 	}
 }
 
@@ -86,7 +86,7 @@ func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 	ctx := test.Context()
 
-	versions, err := rc.ListQueryLambdaVersions(ctx, persistentWorkspace, qlName)
+	versions, err := rc.ListQueryLambdaVersions(ctx, test.PersistentWorkspace, qlName)
 	require.NoError(t, err)
 
 	for _, l := range versions {
@@ -98,7 +98,7 @@ func TestRockClient_ListQueryLambdaTags(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 	ctx := test.Context()
 
-	tags, err := rc.ListQueryLambdaTags(ctx, persistentWorkspace, qlName)
+	tags, err := rc.ListQueryLambdaTags(ctx, test.PersistentWorkspace, qlName)
 	require.NoError(t, err)
 
 	for _, tag := range tags {

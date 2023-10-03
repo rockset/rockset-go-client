@@ -13,7 +13,7 @@ func TestListViews(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 	ctx := test.Context()
 
-	_, err := rc.ListViews(ctx, option.WithViewWorkspace(persistentWorkspace))
+	_, err := rc.ListViews(ctx, option.WithViewWorkspace(test.PersistentWorkspace))
 	require.NoError(t, err)
 }
 
@@ -22,12 +22,12 @@ func TestViewCRUD(t *testing.T) {
 	ctx := test.Context()
 
 	ws := "acc"
-	name := randomName("view")
+	name := test.RandomName("view")
 	query := "select * from commons._events where _events.kind = 'COLLECTION'"
 	_, err := rc.CreateView(ctx, ws, name, query)
 	require.NoError(t, err)
 
-	_, err = rc.UpdateView(ctx, ws, name, query, option.WithViewDescription(description()))
+	_, err = rc.UpdateView(ctx, ws, name, query, option.WithViewDescription(test.Description()))
 	require.NoError(t, err)
 
 	err = rc.DeleteView(ctx, ws, name)
