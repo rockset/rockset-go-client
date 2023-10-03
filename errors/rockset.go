@@ -1,9 +1,10 @@
-package rockset
+package errors
 
 import (
 	"errors"
-	"github.com/rockset/rockset-go-client/openapi"
 	"net/http"
+
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 // Error is an error returned by the Rockset REST API.
@@ -16,8 +17,8 @@ type Error struct {
 	StatusCode int
 }
 
-// NewError wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError
-func NewError(err error) Error {
+// New wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError
+func New(err error) Error {
 	var re = Error{Cause: err}
 
 	var ge *openapi.GenericOpenAPIError
@@ -30,14 +31,14 @@ func NewError(err error) Error {
 	return re
 }
 
-// NewErrorWithStatusCode wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError,
-// and can be retried if the HTTP response StatusCode is in RetryableErrors. If err is nil, NewErrorWithStatusCode() returns nil.
-func NewErrorWithStatusCode(err error, response *http.Response) error {
+// NewWithStatusCode wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError,
+// and can be retried if the HTTP response StatusCode is in RetryableErrors. If err is nil, NewWithStatusCode() returns nil.
+func NewWithStatusCode(err error, response *http.Response) error {
 	if err == nil {
 		return nil
 	}
 
-	e := NewError(err)
+	e := New(err)
 	if response != nil {
 		e.StatusCode = response.StatusCode
 	}

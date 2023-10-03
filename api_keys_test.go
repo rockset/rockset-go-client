@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -31,20 +32,20 @@ func TestSuiteAPIKey(t *testing.T) {
 const IntegrationTestRole = "integration-test"
 
 func (s *SuiteAPIKey) SetupSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	key, err := s.rc.CreateAPIKey(ctx, s.keyName, option.WithRole(IntegrationTestRole))
 	s.Require().NoError(err)
 	s.key = key
 }
 
 func (s *SuiteAPIKey) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	err := s.rc.DeleteAPIKey(ctx, s.keyName)
 	s.Require().NoError(err)
 }
 
 func (s *SuiteAPIKey) TestGetAPIKey() {
-	ctx := testCtx()
+	ctx := test.Context()
 	key, err := s.rc.GetAPIKey(ctx, s.keyName)
 	s.Require().NoError(err)
 	s.Equal(6, len(key.GetKey()), "key hash should be 6 characters")
@@ -53,14 +54,14 @@ func (s *SuiteAPIKey) TestGetAPIKey() {
 }
 
 func (s *SuiteAPIKey) TestUpdateAPIKey() {
-	ctx := testCtx()
+	ctx := test.Context()
 	key, err := s.rc.UpdateAPIKey(ctx, s.keyName, option.State(option.KeySuspended))
 	s.Require().NoError(err)
 	s.NotEqual(option.KeyActive, key.GetState())
 }
 
 func (s *SuiteAPIKey) TestListAPIKeys() {
-	ctx := testCtx()
+	ctx := test.Context()
 	keys, err := s.rc.ListAPIKeys(ctx)
 	s.Require().NoError(err)
 

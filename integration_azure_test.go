@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 )
 
 type AzureIntegrationsSuite struct {
@@ -16,7 +17,7 @@ type AzureIntegrationsSuite struct {
 }
 
 func (s *AzureIntegrationsSuite) TestAzureBlob() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateAzureBlobStorageIntegration(ctx, s.integrationName, s.connectionString)
 	s.Require().NoError(err)
@@ -30,7 +31,7 @@ func (s *AzureIntegrationsSuite) TestAzureBlob() {
 }
 
 func (s *AzureIntegrationsSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	// cleanup the integration if it is still around
 	_, err := s.rc.GetIntegration(ctx, s.integrationName)
@@ -42,7 +43,7 @@ func (s *AzureIntegrationsSuite) TearDownSuite() {
 }
 
 func TestAzureIntegrations(t *testing.T) {
-	connectionString := skipUnlessEnvSet(t, "AZURE_CONNECTION_STRING")
+	connectionString := test.SkipUnlessEnvSet(t, "AZURE_CONNECTION_STRING")
 	rc, randomName := vcrTestClient(t, t.Name())
 
 	s := AzureIntegrationsSuite{

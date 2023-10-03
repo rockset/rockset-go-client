@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -27,23 +28,23 @@ type ConfluentCloudIntegrationSuite struct {
 // Test creating an integration and collection for Confluent Cloud
 func TestConfluentCloudIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
-	skipUnlessIntegrationTest(t)
+	test.SkipUnlessIntegrationTest(t)
 
 	s := ConfluentCloudIntegrationSuite{
-		rc:               testClient(t),
+		rc:               test.Client(t),
 		integrationName:  randomName("integration"),
 		ws:               randomName("cc"),
 		coll:             randomName("cc"),
 		topic:            "test_json",
-		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
-		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
-		confluentSecret:  skipUnlessEnvSet(t, "CC_SECRET"),
+		bootstrapServers: test.SkipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
+		confluentKey:     test.SkipUnlessEnvSet(t, "CC_KEY"),
+		confluentSecret:  test.SkipUnlessEnvSet(t, "CC_SECRET"),
 	}
 	suite.Run(t, &s)
 }
 
 func (s *ConfluentCloudIntegrationSuite) SetupSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
@@ -61,7 +62,7 @@ func (s *ConfluentCloudIntegrationSuite) SetupSuite() {
 }
 
 func (s *ConfluentCloudIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := s.rc.DeleteIntegration(ctx, s.integrationName)
 	s.NoError(err)
@@ -71,7 +72,7 @@ func (s *ConfluentCloudIntegrationSuite) TearDownSuite() {
 }
 
 func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateKafkaCollection(ctx, s.ws, s.coll,
 		option.WithCollectionDescription(description()),
@@ -92,7 +93,7 @@ func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {
 }
 
 func (s *ConfluentCloudIntegrationSuite) TestDeleteCollection() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := s.rc.DeleteCollection(ctx, s.ws, s.coll)
 	s.Require().NoError(err)

@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/rockset/rockset-go-client"
+	rockerr "github.com/rockset/rockset-go-client/errors"
+	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 // for anyone poking around in the code, rockset.sleep() only works for this test org as no sane person would want
@@ -30,21 +33,21 @@ func (s *QueryIntegrationSuite) BeforeTest(suiteName, testName string) {
 }
 
 func (s *QueryIntegrationSuite) TestQuery() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.Query(ctx, "SELECT 1")
 	s.Require().NoError(err)
 }
 
 func (s *QueryIntegrationSuite) TestListQueries() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.ListActiveQueries(ctx)
 	s.Require().NoError(err)
 }
 
 func (s *QueryIntegrationSuite) TestAsyncQuery() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
 		option.WithAsync(),
@@ -59,7 +62,7 @@ func (s *QueryIntegrationSuite) TestAsyncQuery() {
 }
 
 func (s *QueryIntegrationSuite) TestAsyncQueryWithClientTimeout() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
 		option.WithAsync(),
@@ -76,20 +79,20 @@ func (s *QueryIntegrationSuite) TestAsyncQueryWithClientTimeout() {
 }
 
 func (s *QueryIntegrationSuite) TestQueryWithTimeout() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.Query(ctx, slowQuery,
 		option.WithTimeout(1000),
 	)
 	s.Require().Error(err)
 
-	var re rockset.Error
+	var re rockerr.Error
 	s.Require().True(errors.As(err, &re))
 	s.Assert().Equal("QUERY_TIMEOUT", *re.Type)
 }
 
 func (s *QueryIntegrationSuite) TestCancelQuery() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	resp, err := s.rc.Query(ctx, slowQuery,
 		option.WithAsync(),
@@ -106,7 +109,7 @@ func (s *QueryIntegrationSuite) TestCancelQuery() {
 }
 
 func (s *QueryIntegrationSuite) TestValidateQuery() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.ValidateQuery(ctx, "SELECT 1")
 	s.Require().NoError(err)

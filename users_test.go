@@ -8,6 +8,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -31,14 +32,14 @@ func TestUserIntegration(t *testing.T) {
 }
 
 func (s *UserIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := s.rc.DeleteUser(ctx, s.email)
 	s.Require().NoError(err)
 }
 
 func (s *UserIntegrationSuite) TestCreateUser() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	user, err := s.rc.CreateUser(ctx, s.email, []string{rockset.ReadOnlyRole})
 	s.Require().NoError(err)
@@ -46,7 +47,7 @@ func (s *UserIntegrationSuite) TestCreateUser() {
 }
 
 func (s *UserIntegrationSuite) TestGetCurrentUser() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	user, err := s.rc.GetCurrentUser(ctx)
 	s.Require().NoError(err)
@@ -54,7 +55,7 @@ func (s *UserIntegrationSuite) TestGetCurrentUser() {
 }
 
 func (s *UserIntegrationSuite) TestGetUser() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	user, err := s.rc.GetUser(ctx, s.email)
 	s.Require().NoError(err)
@@ -63,7 +64,7 @@ func (s *UserIntegrationSuite) TestGetUser() {
 }
 
 func (s *UserIntegrationSuite) TestListUsers() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	users, err := s.rc.ListUsers(ctx)
 	s.Require().NoError(err)
@@ -78,7 +79,7 @@ func (s *UserIntegrationSuite) TestListUsers() {
 }
 
 func (s *UserIntegrationSuite) TestUpdateUser() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.UpdateUser(ctx, s.email, []string{rockset.MemberRole},
 		option.WithUserFirstName("first"), option.WithUserLastName("last"))

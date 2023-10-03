@@ -6,6 +6,7 @@ import (
 
 	"github.com/rs/zerolog"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -38,7 +39,7 @@ func (rc *RockClient) CreateAlias(ctx context.Context, workspace, alias string, 
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -60,7 +61,7 @@ func (rc *RockClient) DeleteAlias(ctx context.Context, workspace, alias string) 
 	err := rc.Retry(ctx, func() error {
 		_, httpResp, err := q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	log.Debug().Str("alias", alias).Msg("alias deleted")
@@ -81,7 +82,7 @@ func (rc *RockClient) GetAlias(ctx context.Context, workspace, alias string) (op
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -113,14 +114,14 @@ func (rc *RockClient) ListAliases(ctx context.Context, options ...option.ListAli
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp)
+			return rockerr.NewWithStatusCode(err, httpResp)
 		})
 	} else {
 		q := rc.AliasesApi.WorkspaceAliases(ctx, opts.Workspace)
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp)
+			return rockerr.NewWithStatusCode(err, httpResp)
 		})
 	}
 
@@ -156,7 +157,7 @@ func (rc *RockClient) UpdateAlias(ctx context.Context, workspace, alias string, 
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

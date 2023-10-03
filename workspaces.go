@@ -6,6 +6,7 @@ import (
 
 	"github.com/rs/zerolog"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -34,7 +35,7 @@ func (rc *RockClient) CreateWorkspace(ctx context.Context, workspace string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -58,7 +59,7 @@ func (rc *RockClient) GetWorkspace(ctx context.Context, workspace string) (opena
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -84,7 +85,7 @@ func (rc *RockClient) ListWorkspaces(ctx context.Context) ([]openapi.Workspace, 
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -106,7 +107,7 @@ func (rc *RockClient) DeleteWorkspace(ctx context.Context, name string) error {
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

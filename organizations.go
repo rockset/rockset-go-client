@@ -6,6 +6,7 @@ import (
 
 	"github.com/rs/zerolog"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
@@ -20,7 +21,7 @@ func (rc *RockClient) GetOrganization(ctx context.Context) (openapi.Organization
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

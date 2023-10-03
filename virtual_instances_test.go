@@ -10,6 +10,7 @@ import (
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/dataset"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -35,7 +36,7 @@ func TestVirtualInstance(t *testing.T) {
 }
 
 func (s *VirtualInstanceSuite) TestListQueries() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	queries, err := s.rc.ListVirtualInstanceQueries(ctx, s.vID)
 	s.Require().NoError(err)
@@ -45,7 +46,7 @@ func (s *VirtualInstanceSuite) TestListQueries() {
 }
 
 func (s *VirtualInstanceSuite) TestGetCollectionMount() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	mount, err := s.rc.GetCollectionMount(ctx, s.vID, "commons.movie_releases")
 	s.Require().NoError(err)
@@ -53,7 +54,7 @@ func (s *VirtualInstanceSuite) TestGetCollectionMount() {
 }
 
 func (s *VirtualInstanceSuite) TestListCollectionMounts() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	mounts, err := s.rc.ListCollectionMounts(ctx, s.vID)
 	s.Require().NoError(err)
@@ -61,7 +62,7 @@ func (s *VirtualInstanceSuite) TestListCollectionMounts() {
 }
 
 func (s *VirtualInstanceSuite) TestExecuteQuery() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	result, err := s.rc.ExecuteQueryOnVirtualInstance(ctx, s.vID,
 		"SELECT * from commons._events LIMIT 10")
@@ -70,7 +71,7 @@ func (s *VirtualInstanceSuite) TestExecuteQuery() {
 }
 
 func (s *VirtualInstanceSuite) TestGetVirtualInstance() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	// make sure we can access the VI using both the plain id and the RRN
 	rocksetTestVIs := []string{
@@ -88,7 +89,7 @@ func (s *VirtualInstanceSuite) TestGetVirtualInstance() {
 }
 
 func (s *VirtualInstanceSuite) TestListVirtualInstances() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	vis, err := s.rc.ListVirtualInstances(ctx)
 	s.Require().NoError(err)
@@ -119,7 +120,7 @@ func TestVirtualInstanceIntegration(t *testing.T) {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_0_Create() {
-	ctx := testCtx()
+	ctx := test.Context()
 	t0 := time.Now()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
@@ -140,7 +141,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_0_Create() {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
-	ctx := testCtx()
+	ctx := test.Context()
 	t0 := time.Now()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
@@ -169,7 +170,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_2_Mount() {
-	ctx := testCtx()
+	ctx := test.Context()
 	t0 := time.Now()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
@@ -190,7 +191,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_2_Mount() {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_3_Query() {
-	ctx := testCtx()
+	ctx := test.Context()
 	t0 := time.Now()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
@@ -208,7 +209,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_3_Query() {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_4_Unmount() {
-	ctx := testCtx()
+	ctx := test.Context()
 	t0 := time.Now()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
@@ -225,7 +226,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_4_Unmount() {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_5_Suspend() {
-	ctx := testCtx()
+	ctx := test.Context()
 	t0 := time.Now()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
@@ -258,7 +259,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_5_Suspend() {
 }
 
 func (s *VirtualInstanceIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := s.rc.DeleteCollection(ctx, s.workspace, s.collection)
 	s.Assert().NoError(err)

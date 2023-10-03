@@ -11,25 +11,26 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
 func (s *HASuite) TestHA_Integration() {
-	skipUnlessIntegrationTest(s.T())
+	test.SkipUnlessIntegrationTest(s.T())
 	const apikeyName = "ROCKSET_APIKEY_USE1A1" //nolint
 	apikey := os.Getenv(apikeyName)
 	if apikey == "" {
 		s.T().Skipf("skipping test as %s is not set", apikeyName)
 	}
 
-	ctx := testCtx()
+	ctx := test.Context()
 
 	use1a1, err := rockset.NewClient(rockset.WithAPIServer("https://api.use1a1.rockset.com"),
 		rockset.WithAPIKey(apikey))
 	s.NoError(err)
 
-	rs2 := testClient(s.T())
+	rs2 := test.Client(s.T())
 
 	ha := rockset.NewHA(use1a1, rs2)
 	res, errs := ha.Query(ctx, "SELECT * FROM commons._events LIMIT 10")
@@ -43,7 +44,7 @@ func (s *HASuite) TestContextFail() {
 	b := createMock("2", time.Second, nil)
 	ha := rockset.NewHA(a, b)
 
-	ctx := testCtx()
+	ctx := test.Context()
 	c, cancel := context.WithTimeout(ctx, time.Millisecond)
 	defer cancel()
 
@@ -55,7 +56,7 @@ func (s *HASuite) TestHA() {
 	for _, t := range s.tests {
 		mocks := createMocks(t.queries)
 		ha := rockset.NewHA(mocks...)
-		ctx := testCtx()
+		ctx := test.Context()
 		s.Run(t.name, func() {
 			res, errs := ha.Query(ctx, "SELECT 1")
 			s.Equal(len(t.exErrors), len(errs))
@@ -91,7 +92,7 @@ type mockQuerier struct {
 	mock.Mock
 }
 
-type test struct {
+type queryTest struct {
 	name     string
 	queries  []query
 	exID     string
@@ -112,7 +113,7 @@ func (m *mockQuerier) Query(ctx context.Context, query string,
 
 type HASuite struct {
 	suite.Suite
-	tests []test
+	tests []queryTest
 }
 
 func TestHaSuite(t *testing.T) {
@@ -125,7 +126,7 @@ func (s *HASuite) SetupTest() {
 }
 
 func (s *HASuite) SetupSuite() {
-	tests := []test{
+	tests := []queryTest{
 		{
 			name:     "FirstFastest",
 			exID:     "1",

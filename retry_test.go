@@ -2,20 +2,23 @@ package rockset_test
 
 import (
 	"errors"
-	"github.com/rockset/rockset-go-client/openapi"
-	"github.com/stretchr/testify/suite"
 	"io"
 	"net/http"
 	"strings"
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/suite"
+
 	"github.com/rockset/rockset-go-client"
+	rockerr "github.com/rockset/rockset-go-client/errors"
+	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 func fakeError(code int) error {
 	t := strings.Join(strings.Fields(http.StatusText(code)), "")
-	return rockset.Error{
+	return rockerr.Error{
 		ErrorModel: &openapi.ErrorModel{
 			Type: &t,
 		},
@@ -33,7 +36,7 @@ func TestExponentialRetrySuite(t *testing.T) {
 }
 
 func (s *ExponentialRetrySuite) TestDefaultRetry() {
-	ctx := testCtx()
+	ctx := test.Context()
 	var count int
 
 	err := rockset.ExponentialRetry{
@@ -51,7 +54,7 @@ func (s *ExponentialRetrySuite) TestDefaultRetry() {
 }
 
 func (s *ExponentialRetrySuite) TestDefaultRetryWithFailure() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := rockset.ExponentialRetry{
 		MaxBackoff:   time.Second,
@@ -70,7 +73,7 @@ func (r retryableErr) Error() string   { return r.err }
 func (r retryableErr) Retryable() bool { return true }
 
 func (s *ExponentialRetrySuite) TestDefaultRetryFn() {
-	ctx := testCtx()
+	ctx := test.Context()
 	var count int
 
 	err := rockset.ExponentialRetry{
@@ -89,7 +92,7 @@ func (s *ExponentialRetrySuite) TestDefaultRetryFn() {
 }
 
 func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFn() {
-	ctx := testCtx()
+	ctx := test.Context()
 	var count int
 
 	err := rockset.ExponentialRetry{
@@ -110,7 +113,7 @@ func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFn() {
 }
 
 func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheck() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	var i int
 	err := rockset.ExponentialRetry{

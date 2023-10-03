@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -32,7 +33,7 @@ func (rc *RockClient) CreateAPIKey(ctx context.Context, keyName string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = createReq.Body(*b).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -69,7 +70,7 @@ func (rc *RockClient) GetAPIKey(ctx context.Context, name string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -102,7 +103,7 @@ func (rc *RockClient) DeleteAPIKey(ctx context.Context, keyName string, options 
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -136,7 +137,7 @@ func (rc *RockClient) ListAPIKeys(ctx context.Context, options ...option.APIKeyO
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = getReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -176,7 +177,7 @@ func (rc *RockClient) UpdateAPIKey(ctx context.Context, keyName string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = updateReq.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

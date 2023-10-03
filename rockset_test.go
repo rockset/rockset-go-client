@@ -3,6 +3,7 @@ package rockset_test
 import (
 	"context"
 	"fmt"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"math/rand"
 	"os"
 	"strings"
@@ -20,53 +21,6 @@ import (
 
 	"github.com/rockset/rockset-go-client"
 )
-
-// APIKeyEnvironmentVariableName is the environment variable name for the API key
-const APIKeyEnvironmentVariableName = "ROCKSET_APIKEY" //nolint
-
-// APIServerEnvironmentVariableName is the environment variable name for the API server
-const APIServerEnvironmentVariableName = "ROCKSET_APISERVER"
-
-// helper function to skip unless ROCKSET_APIKEY is set
-func skipUnlessIntegrationTest(t *testing.T) {
-	_ = skipUnlessEnvSet(t, rockset.APIKeyEnvironmentVariableName)
-}
-
-func skipUnlessEnvSet(t *testing.T, envName string) string {
-	env := os.Getenv(envName)
-	if env == "" {
-		t.Skipf("skipping as %s is not set", envName)
-	}
-
-	return env
-}
-
-func skipUnlessDocker(t *testing.T) {
-	_, err := os.Stat("/var/run/docker.sock")
-	if os.IsNotExist(err) {
-		t.Skip("docker socket not present, skipping")
-	}
-	assert.NoError(t, err)
-}
-
-// helper function to create a context with a zerolog logger
-func testCtx() context.Context {
-	return testCtxWithLevel(zerolog.WarnLevel)
-}
-
-func testCtxWithLevel(lvl zerolog.Level) context.Context {
-	ctx := context.Background()
-	console := zerolog.ConsoleWriter{Out: os.Stderr, TimeFormat: time.RFC3339}
-	log := zerolog.New(console).Level(lvl).With().Timestamp().Logger()
-
-	return log.WithContext(ctx)
-}
-
-func testClient(t *testing.T) *rockset.RockClient {
-	rc, err := rockset.NewClient(rockset.WithUserAgent("rockset-go-integration-tests"))
-	require.NoError(t, err)
-	return rc
-}
 
 // testRetrier is used with VCR to retry as fast as possible, as the responses are recorded
 type testRetrier struct{}
@@ -264,7 +218,7 @@ func randomName(prefix string) string {
 // TestTemplate is used as a copypasta for new tests
 func TestTemplate(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
-	ctx := testCtx()
+	ctx := test.Context()
 	log := zerolog.Ctx(ctx)
 
 	org, err := rc.GetOrganization(ctx)
@@ -274,9 +228,9 @@ func TestTemplate(t *testing.T) {
 }
 
 func TestRockClient_withAPIKey(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	test.SkipUnlessIntegrationTest(t)
 
-	ctx := testCtx()
+	ctx := test.Context()
 	log := zerolog.Ctx(ctx)
 
 	key := os.Getenv(rockset.APIKeyEnvironmentVariableName)
@@ -320,10 +274,10 @@ func TestRockClient_withoutAPIServer(t *testing.T) {
 const USW2A1 = "api.usw2a1.rockset.com"
 
 func TestRockClient_withAPIServer(t *testing.T) {
-	skipUnlessIntegrationTest(t)
+	test.SkipUnlessIntegrationTest(t)
 	// TODO this should use VCR too
 
-	ctx := testCtx()
+	ctx := test.Context()
 	log := zerolog.Ctx(ctx)
 
 	// this is messing with the environment
@@ -348,7 +302,7 @@ func TestRockClient_withAPIServer(t *testing.T) {
 func TestRockClient_withAPIServerEnv(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
 
-	ctx := testCtx()
+	ctx := test.Context()
 	log := zerolog.Ctx(ctx)
 
 	// this is messing with the environment
@@ -369,7 +323,7 @@ func TestRockClient_withAPIServerEnv(t *testing.T) {
 
 func TestRockClient_Ping(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := rc.Ping(ctx)
 	require.NoError(t, err)

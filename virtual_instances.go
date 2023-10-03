@@ -5,6 +5,7 @@ import (
 	"github.com/rs/zerolog"
 	"net/http"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -73,7 +74,7 @@ func (rc *RockClient) CreateVirtualInstance(ctx context.Context, name string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -96,7 +97,7 @@ func (rc *RockClient) DeleteVirtualInstance(ctx context.Context, vID string) (op
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -119,7 +120,7 @@ func (rc *RockClient) GetVirtualInstance(ctx context.Context, vID string) (opena
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -142,7 +143,7 @@ func (rc *RockClient) ListVirtualInstances(ctx context.Context) ([]openapi.Virtu
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -193,7 +194,7 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -216,7 +217,7 @@ func (rc *RockClient) SuspendVirtualInstance(ctx context.Context, vID string) (o
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -239,7 +240,7 @@ func (rc *RockClient) ResumeVirtualInstance(ctx context.Context, vID string) (op
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -271,7 +272,7 @@ func (rc *RockClient) ListVirtualInstanceQueries(ctx context.Context, vID string
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -294,7 +295,7 @@ func (rc *RockClient) ListCollectionMounts(ctx context.Context, vID string) ([]o
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -318,7 +319,7 @@ func (rc *RockClient) GetCollectionMount(ctx context.Context, vID,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -346,7 +347,7 @@ func (rc *RockClient) MountCollections(ctx context.Context, vID string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -370,7 +371,7 @@ func (rc *RockClient) UnmountCollection(ctx context.Context, vID string,
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

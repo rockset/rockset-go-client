@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -25,13 +26,13 @@ func TestRoleIntegration(t *testing.T) {
 }
 
 func (s *RoleIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	err := s.rc.DeleteRole(ctx, s.name)
 	s.NoError(err)
 }
 
 func (s *RoleIntegrationSuite) TestCreateRole() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	role, err := s.rc.CreateRole(ctx, s.name,
 		option.WithRoleDescription(description()),
@@ -42,7 +43,7 @@ func (s *RoleIntegrationSuite) TestCreateRole() {
 }
 
 func (s *RoleIntegrationSuite) TestGetRole() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	role, err := s.rc.GetRole(ctx, s.name)
 	s.NoError(err)
@@ -50,14 +51,14 @@ func (s *RoleIntegrationSuite) TestGetRole() {
 }
 
 func (s *RoleIntegrationSuite) TestGetMissingRole() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.GetRole(ctx, "non-existing-role")
 	s.Error(err)
 }
 
 func (s *RoleIntegrationSuite) TestListRoles() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	roles, err := s.rc.ListRoles(ctx)
 	s.NoError(err)
@@ -72,7 +73,7 @@ func (s *RoleIntegrationSuite) TestListRoles() {
 }
 
 func (s *RoleIntegrationSuite) TestUpdate() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	role, err := s.rc.UpdateRole(ctx, s.name,
 		option.WithGlobalPrivilege(option.ListRolesGlobal),

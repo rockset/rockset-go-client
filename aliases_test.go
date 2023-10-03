@@ -1,11 +1,12 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/suite"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/option"
@@ -24,7 +25,7 @@ func TestAliasIntegrationSuite(t *testing.T) {
 }
 
 func (s *AliasIntegrationSuite) TestGetAlias() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	alias, err := s.rc.GetAlias(ctx, persistentWorkspace, persistentAlias)
 	require.NoError(s.T(), err)
@@ -32,7 +33,7 @@ func (s *AliasIntegrationSuite) TestGetAlias() {
 }
 
 func (s *AliasIntegrationSuite) TestListAliases() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	aliases, err := s.rc.ListAliases(ctx)
 	require.NoError(s.T(), err)
@@ -42,7 +43,7 @@ func (s *AliasIntegrationSuite) TestListAliases() {
 }
 
 func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	aliases, err := s.rc.ListAliases(ctx, option.WithAliasWorkspace(persistentWorkspace))
 	require.NoError(s.T(), err)
@@ -52,7 +53,7 @@ func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
 }
 
 func (s *AliasIntegrationSuite) TestAliases() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateAlias(ctx, persistentWorkspace, s.alias, []string{"commons._events"})
 	require.NoError(s.T(), err)

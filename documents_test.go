@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 )
 
 type DocumentIntegrationSuite struct {
@@ -29,7 +30,7 @@ func TestDocumentSuite(t *testing.T) {
 }
 
 func (s *DocumentIntegrationSuite) SetupSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
@@ -42,7 +43,7 @@ func (s *DocumentIntegrationSuite) SetupSuite() {
 }
 
 func (s *DocumentIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	err := s.rc.DeleteCollection(ctx, s.ws, s.collection)
 	s.Require().NoError(err)
@@ -55,7 +56,7 @@ func (s *DocumentIntegrationSuite) TearDownSuite() {
 }
 
 func (s *DocumentIntegrationSuite) TestAddDocument() {
-	ctx := testCtx()
+	ctx := test.Context()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
 	type doc struct {
@@ -74,7 +75,7 @@ func (s *DocumentIntegrationSuite) TestAddDocument() {
 }
 
 func (s *DocumentIntegrationSuite) TestPatchDocument() {
-	ctx := testCtx()
+	ctx := test.Context()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 	s.T().Logf("t: %s", s.T().Name())
 
@@ -99,7 +100,7 @@ func (s *DocumentIntegrationSuite) TestPatchDocument() {
 // TestRemoveDocument should really be named TestDeleteDocument as the call is DeleteDocuments()
 // but we want the operations in alphabetical order, add/patch/remove (delete).
 func (s *DocumentIntegrationSuite) TestRemoveDocument() {
-	ctx := testCtx()
+	ctx := test.Context()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
 
 	res, err := rc.DeleteDocuments(ctx, s.ws, s.collection, []string{s.id})

@@ -4,8 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/rs/zerolog"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -164,7 +166,7 @@ func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error
 			return false, nil
 		}
 
-		var re Error
+		var re rockerr.Error
 		if errors.As(err, &re) {
 			if re.IsNotFoundError() {
 				// the resource is not present, retry
@@ -187,7 +189,7 @@ func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) Ret
 			return true, nil
 		}
 
-		var re Error
+		var re rockerr.Error
 		if errors.As(err, &re) {
 			if re.IsNotFoundError() {
 				// the resource is no longer present
@@ -231,7 +233,7 @@ func (d *docWaiter) collectionHasNewDocs(ctx context.Context, workspace, name st
 		zl := zerolog.Ctx(ctx)
 		c, err := d.rc.GetCollection(ctx, workspace, name)
 		if err != nil {
-			re := NewError(err)
+			re := rockerr.New(err)
 			if re.Retryable() {
 				return true, nil
 			}
@@ -261,7 +263,7 @@ func (d *docWaiter) collectionHasDocs(ctx context.Context, workspace, name strin
 		zl := zerolog.Ctx(ctx)
 		c, err := d.rc.GetCollection(ctx, workspace, name)
 		if err != nil {
-			re := NewError(err)
+			re := rockerr.New(err)
 			if re.Retryable() {
 				return true, nil
 			}
