@@ -1,4 +1,4 @@
-package rockset_test
+package writer_test
 
 import (
 	"context"
@@ -14,6 +14,7 @@ import (
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rockset/rockset-go-client/writer"
 )
 
 type testObject struct {
@@ -21,6 +22,7 @@ type testObject struct {
 	Bar string
 }
 
+// TODO replace with counterfeiter
 type fakeAdder struct {
 	m     sync.Mutex
 	count int
@@ -56,19 +58,19 @@ func TestWriterSuite(t *testing.T) {
 
 func (s *WriterSuite) TestWriter() {
 	ctx := test.Context()
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		BatchDocumentCount: 30,
 		FlushInterval:      time.Millisecond * 50,
 	}
 	fa := &fakeAdder{}
-	w, err := rockset.NewWriter(c, fa)
+	w, err := writer.New(c, fa)
 	s.Require().NoError(err)
 
 	go w.Run(ctx)
 
 	const writeCount uint64 = 100
 	for i := uint64(0); i < writeCount; i++ {
-		w.C() <- rockset.WriteRequest{
+		w.C() <- writer.Request{
 			Workspace:  "workspace",
 			Collection: "collection",
 			Data:       testObject{Foo: i},
@@ -84,23 +86,23 @@ func (s *WriterSuite) TestWriter() {
 
 func (s *WriterSuite) TestCancellation() {
 	ctx, cancel := context.WithCancel(test.Context())
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		BatchDocumentCount: 30,
 		FlushInterval:      time.Millisecond * 20,
 	}
 	fa := &fakeAdder{}
-	w, err := rockset.NewWriter(c, fa)
+	w, err := writer.New(c, fa)
 	s.Require().NoError(err)
 
 	go w.Run(ctx)
 
-	w.C() <- rockset.WriteRequest{
+	w.C() <- writer.Request{
 		Workspace:  "workspace",
 		Collection: "collection",
 		Data:       testObject{},
 	}
 	time.Sleep(30 * time.Millisecond)
-	w.C() <- rockset.WriteRequest{
+	w.C() <- writer.Request{
 		Workspace:  "workspace",
 		Collection: "collection",
 		Data:       testObject{},
@@ -115,19 +117,19 @@ func (s *WriterSuite) TestCancellation() {
 
 func (s *WriterSuite) TestShutdown() {
 	ctx := test.Context()
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		BatchDocumentCount: 30,
 		FlushInterval:      time.Millisecond * 500,
 	}
 	fa := &fakeAdder{}
-	w, err := rockset.NewWriter(c, fa)
+	w, err := writer.New(c, fa)
 	s.Require().NoError(err)
 
 	go w.Run(ctx)
 
 	const writeCount uint64 = 100
 	for i := uint64(0); i < writeCount; i++ {
-		w.C() <- rockset.WriteRequest{
+		w.C() <- writer.Request{
 			Workspace:  "workspace",
 			Collection: "collection",
 			Data:       testObject{Foo: i},
@@ -142,7 +144,7 @@ func (s *WriterSuite) TestShutdown() {
 }
 
 func BenchmarkWriter10(b *testing.B) {
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		FlushInterval: time.Millisecond * 500,
 	}
 
@@ -150,7 +152,7 @@ func BenchmarkWriter10(b *testing.B) {
 }
 
 func BenchmarkWriter50(b *testing.B) {
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		FlushInterval: time.Millisecond * 500,
 	}
 
@@ -158,22 +160,22 @@ func BenchmarkWriter50(b *testing.B) {
 }
 
 func BenchmarkWriter100(b *testing.B) {
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		FlushInterval: time.Millisecond * 500,
 	}
 
 	benchmarkWriter(b, c)
 }
 
-func benchmarkWriter(b *testing.B, c rockset.WriterConfig) {
+func benchmarkWriter(b *testing.B, c writer.Config) {
 	ctx := test.Context()
 	fa := &fakeAdder{}
-	w, err := rockset.NewWriter(c, fa)
+	w, err := writer.New(c, fa)
 	require.NoError(b, err)
 
 	go w.Run(ctx)
 
-	doc := rockset.WriteRequest{
+	doc := writer.Request{
 		Workspace:  "workspace",
 		Collection: "collection",
 		Data:       testObject{},
@@ -197,11 +199,11 @@ func TestWriterIntegration(t *testing.T) {
 	rc, err := rockset.NewClient()
 	require.Nil(t, err)
 
-	c := rockset.WriterConfig{
+	c := writer.Config{
 		FlushInterval: time.Millisecond * 200,
 		Workers:       4,
 	}
-	w, err := rockset.NewWriter(c, rc)
+	w, err := writer.New(c, rc)
 	require.NoError(t, err)
 
 	go w.Run(ctx)
@@ -213,7 +215,7 @@ func TestWriterIntegration(t *testing.T) {
 	t0 := time.Now()
 
 	for i := uint64(0); i < writeCount; i++ {
-		w.C() <- rockset.WriteRequest{
+		w.C() <- writer.Request{
 			Workspace:  "commons",
 			Collection: "writetest",
 			Data:       testObject{i, name},
