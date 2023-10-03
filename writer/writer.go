@@ -1,4 +1,4 @@
-package rockset
+package writer
 
 import (
 	"context"
@@ -19,8 +19,8 @@ const (
 	DefaultFlushInterval = time.Second
 )
 
-// WriterConfig is a struct containing the configurable parameters for a Writer
-type WriterConfig struct {
+// Config is a struct containing the configurable parameters for a Writer
+type Config struct {
 	// BatchDocumentCount is the max document count to send in one request. Must be less than or equal to MaxDocumentCount
 	BatchDocumentCount uint64
 
@@ -32,7 +32,8 @@ type WriterConfig struct {
 	FlushInterval time.Duration
 }
 
-func (c WriterConfig) Validate() error {
+// Validate validates a Config
+func (c Config) Validate() error {
 	if c.BatchDocumentCount < 1 {
 		return fmt.Errorf("document count must be greater than 0")
 	}
@@ -47,11 +48,11 @@ func (c WriterConfig) Validate() error {
 	return nil
 }
 
-// Writer is a helper that writes structs to Rockset collections
+// Writer is a helper package that writes documents to Rockset collections
 type Writer struct {
 	adder  DocumentAdder
-	config WriterConfig
-	stats  WriteStats
+	config Config
+	stats  Stats
 
 	buffers      map[string]map[string][]interface{}
 	bufferedDocs uint64
@@ -63,12 +64,12 @@ type Writer struct {
 	workers int
 
 	addDocRequests chan addDocRequest
-	writeRequests  chan WriteRequest
+	writeRequests  chan Request
 	stop           chan struct{}
 }
 
-// WriteRequest contains the data to be written to a Rockset collection
-type WriteRequest struct {
+// Request contains the data to be written to the Rockset collection in the request
+type Request struct {
 	Workspace  string
 	Collection string
 	Data       interface{}
@@ -80,19 +81,19 @@ type addDocRequest struct {
 	data       []interface{}
 }
 
-// WriteStats holds counters for the documents written to Rockset
-type WriteStats struct {
+// Stats holds counters for the documents written to Rockset
+type Stats struct {
 	DocumentCount uint64
 	ErrorCount    uint64
 }
 
-// DocumentAdder is the interface used to write documents to Rockset, and is implemented by the RockClient.
+// DocumentAdder is the interface used to write documents to Rockset, and is implemented by rockset.RockClient.
 type DocumentAdder interface {
 	AddDocuments(ctx context.Context, workspace, collection string, docs []interface{}) ([]openapi.DocumentStatus, error)
 }
 
-// NewWriter creates a new Writer
-func NewWriter(conf WriterConfig, client DocumentAdder) (*Writer, error) {
+// New creates a new Writer
+func New(conf Config, client DocumentAdder) (*Writer, error) {
 	// set defaults if the zero value is used
 	if conf.Workers == 0 {
 		conf.Workers = 1
@@ -110,31 +111,31 @@ func NewWriter(conf WriterConfig, client DocumentAdder) (*Writer, error) {
 	return &Writer{
 		adder:          client,
 		wg:             sync.WaitGroup{},
-		writeRequests:  make(chan WriteRequest, conf.BatchDocumentCount),
+		writeRequests:  make(chan Request, conf.BatchDocumentCount),
 		addDocRequests: make(chan addDocRequest, conf.Workers),
 		stop:           make(chan struct{}, 1),
 		buffers:        make(map[string]map[string][]interface{}),
 		config:         conf,
-		stats:          WriteStats{},
+		stats:          Stats{},
 	}, nil
 }
 
-// C returns the WriteRequest channel, which is used to send documents to be added to Rockset.
-func (w *Writer) C() chan<- WriteRequest {
+// C returns the Request channel, which is used to send documents to be added to Rockset.
+func (w *Writer) C() chan<- Request {
 	return w.writeRequests
 }
 
-// Stop cleanly stops the Writer and flushes any buffered item, and closes the WriteRequest channel.
+// Stop cleanly stops the Writer and flushes any buffered item, and closes the Request channel.
 func (w *Writer) Stop() {
 	w.stop <- struct{}{}
 }
 
 // Run starts the reader loop that gets write requests from the channel and batches them
-// so the workers can add them to the collection(s). It starts the number Worker specified in the WriterConfig,
+// so the workers can add them to the collection(s). It starts the number Worker specified in the Config,
 // but more can be started it if the number of collections written to is large.
 //
 // rs, _ := rockset.NewClient()
-// w := NewWriter(WriterConfig{}, rs.Documents)
+// w := writer.New(Config{}, rs.Documents)
 // go w.Run(ctx)
 // ...
 // w.Stop()
@@ -274,7 +275,7 @@ func (w *Writer) Wait() {
 }
 
 // Stats returns a struct with document write statistics
-func (w *Writer) Stats() WriteStats {
+func (w *Writer) Stats() Stats {
 	w.m.Lock()
 	stats := w.stats
 	defer w.m.Unlock()
@@ -288,8 +289,8 @@ func (w *Writer) Workers() int {
 	return w.workers
 }
 
-// buffer adds WriteRequest into a per workspace and collection buffer
-func (w *Writer) buffer(r WriteRequest) {
+// buffer adds Request into a per workspace and collection buffer
+func (w *Writer) buffer(r Request) {
 	wsBuffer, found := w.buffers[r.Workspace]
 	if !found {
 		wsBuffer = make(map[string][]interface{})
@@ -311,7 +312,7 @@ func (w *Writer) flush() {
 			}
 		}
 	}
-	// TODO: benchmark to see if it is faster to delete keys as they are flushed instead of creating a new map
+	// TODO use clear() once we update to go1.21
 	w.buffers = make(map[string]map[string][]interface{})
 	w.bufferedDocs = 0
 }
