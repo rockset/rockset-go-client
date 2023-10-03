@@ -38,6 +38,13 @@ func WithNoMountRefresh() VirtualInstanceOption {
 	}
 }
 
+// WithRemountOnResume sets remount on Virtual Instance resume.
+func WithRemountOnResume(remount bool) VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		o.EnableRemountOnResume = &remount
+	}
+}
+
 // WithAutoSuspend duration without queries after which the virtual instance is suspended. Minimum time is 15 minutes.
 func WithAutoSuspend(d time.Duration) VirtualInstanceOption {
 	return func(o *VirtualInstanceOptions) {
