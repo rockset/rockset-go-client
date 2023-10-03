@@ -2,10 +2,12 @@ package rockset_test
 
 import (
 	"fmt"
-	"github.com/stretchr/testify/suite"
 	"testing"
 
+	"github.com/stretchr/testify/suite"
+
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -30,7 +32,7 @@ func (s *IntegrationTestSuite) BeforeTest(suiteName, testName string) {
 }
 
 func (s *IntegrationTestSuite) TearDown() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	// clean up any lingering integrations
 	_ = s.rc.DeleteIntegration(ctx, s.s3Integration)
@@ -38,7 +40,7 @@ func (s *IntegrationTestSuite) TearDown() {
 }
 
 func (s *IntegrationTestSuite) TestGetIntegration() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	const iName = "acc-kafka-integration"
 	integration, err := s.rc.GetIntegration(ctx, iName)
@@ -47,14 +49,14 @@ func (s *IntegrationTestSuite) TestGetIntegration() {
 }
 
 func (s *IntegrationTestSuite) TestListIntegrations() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.ListIntegrations(ctx)
 	s.NoError(err)
 }
 
 func (s *IntegrationTestSuite) TestCreateS3Integration() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateS3Integration(ctx, s.s3Integration,
 		option.AWSRole("arn:aws:iam::469279130686:role/rockset-s3-integration"),
@@ -66,9 +68,9 @@ func (s *IntegrationTestSuite) TestCreateS3Integration() {
 }
 
 func (s *IntegrationTestSuite) TestCreateGCSIntegration() {
-	saKeyFile := skipUnlessEnvSet(s.T(), "GCP_SA_KEY_JSON")
+	saKeyFile := test.SkipUnlessEnvSet(s.T(), "GCP_SA_KEY_JSON")
 
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := s.rc.CreateGCSIntegration(ctx, s.gcsIntegration, saKeyFile,
 		option.WithGCSIntegrationDescription(description()))

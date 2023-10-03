@@ -8,6 +8,7 @@ import (
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/dataset"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -25,7 +26,7 @@ func TestCollectionIntegrationSuite(t *testing.T) {
 }
 
 func (s *CollectionTestSuite) SetupSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	_, err := s.rc.CreateWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
 
@@ -34,7 +35,7 @@ func (s *CollectionTestSuite) SetupSuite() {
 }
 
 func (s *CollectionTestSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	var deleted []string
 
 	for _, c := range s.collections {
@@ -58,7 +59,7 @@ func (s *CollectionTestSuite) BeforeTest(suiteName, testName string) {
 }
 
 func (s *CollectionTestSuite) TestGetCollection() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	collection, err := s.rc.GetCollection(ctx, persistentWorkspace, persistentCollection)
 	s.NoError(err)
@@ -66,7 +67,7 @@ func (s *CollectionTestSuite) TestGetCollection() {
 }
 
 func (s *CollectionTestSuite) TestListAllCollections() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	collections, err := s.rc.ListCollections(ctx)
 	s.NoError(err)
@@ -75,7 +76,7 @@ func (s *CollectionTestSuite) TestListAllCollections() {
 }
 
 func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	collections, err := s.rc.ListCollections(ctx, option.WithWorkspace(persistentWorkspace))
 	s.NoError(err)
@@ -84,7 +85,7 @@ func (s *CollectionTestSuite) TestListCollectionsInWorkspace() {
 }
 
 func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
-	ctx := testCtx()
+	ctx := test.Context()
 	name := randomName("cities")
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
@@ -97,7 +98,7 @@ func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
 }
 
 func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
-	ctx := testCtx()
+	ctx := test.Context()
 	name := randomName("movies")
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,
@@ -111,7 +112,7 @@ func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
 }
 
 func (s *CollectionTestSuite) TestUpdateCollection() {
-	ctx := testCtx()
+	ctx := test.Context()
 	name := randomName("update")
 
 	_, err := s.rc.CreateCollection(ctx, s.ws, name,

@@ -3,12 +3,14 @@ package rockset
 import (
 	"context"
 	"fmt"
-	"github.com/rockset/rockset-go-client/openapi"
-	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
+	
+	rockerr "github.com/rockset/rockset-go-client/errors"
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 type WaitTestSuite struct {
@@ -29,7 +31,7 @@ func (s *WaitTestSuite) TestResourceIsAvailable() {
 
 		switch counter {
 		case 0:
-			return Error{
+			return rockerr.Error{
 				ErrorModel: &openapi.ErrorModel{},
 				StatusCode: http.StatusNotFound,
 				Cause:      fmt.Errorf("resource not present"),
@@ -65,7 +67,7 @@ func (s *WaitTestSuite) TestResourceIsGone() {
 		case 0:
 			return nil
 		case 1:
-			return Error{
+			return rockerr.Error{
 				ErrorModel: &openapi.ErrorModel{},
 				StatusCode: http.StatusNotFound,
 				Cause:      fmt.Errorf("resource not present"),

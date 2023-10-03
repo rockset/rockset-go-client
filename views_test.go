@@ -5,12 +5,13 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
 func TestListViews(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err := rc.ListViews(ctx, option.WithViewWorkspace(persistentWorkspace))
 	require.NoError(t, err)
@@ -18,7 +19,7 @@ func TestListViews(t *testing.T) {
 
 func TestViewCRUD(t *testing.T) {
 	rc, _ := vcrTestClient(t, t.Name())
-	ctx := testCtx()
+	ctx := test.Context()
 
 	ws := "acc"
 	name := randomName("view")

@@ -5,15 +5,18 @@ package rockset_test
 import (
 	"errors"
 	"fmt"
+	"testing"
+	"time"
+
 	"github.com/confluentinc/confluent-kafka-go/kafka"
 	"github.com/go-zookeeper/zk"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
-	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/option"
 	"github.com/stretchr/testify/suite"
-	"testing"
-	"time"
+
+	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 type KafkaIntegrationSuite struct {
@@ -33,32 +36,32 @@ type KafkaIntegrationSuite struct {
 // Test creating an integration and collection for a self-managed kafka with local kafka-connect
 func TestKafkaIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
-	skipUnlessIntegrationTest(t)
-	skipUnlessDocker(t)
+	test.SkipUnlessIntegrationTest(t)
+	test.SkipUnlessDocker(t)
 
 	s := KafkaIntegrationSuite{
-		rc: testClient(t),
+		rc: test.Client(t),
 		kc: kafkaConfig{
 			topic:           "test_json",
 			integrationName: randomName("kafka"),
 			workspace:       randomName("kafka"),
 			collection:      randomName("kafka"),
 		},
-		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
-		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
-		confluentSecret:  skipUnlessEnvSet(t, "CC_SECRET"),
+		bootstrapServers: test.SkipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
+		confluentKey:     test.SkipUnlessEnvSet(t, "CC_KEY"),
+		confluentSecret:  test.SkipUnlessEnvSet(t, "CC_SECRET"),
 	}
 	suite.Run(t, &s)
 }
 
 func (s *KafkaIntegrationSuite) TestKafka() {
-	ctx := testCtx()
+	ctx := test.Context()
 	testKafka(ctx, s.T(), s.rc, s.kc)
 }
 
 func (s *KafkaIntegrationSuite) SetupSuite() {
 	var err error
-	ctx := testCtx()
+	ctx := test.Context()
 
 	_, err = s.rc.CreateWorkspace(ctx, s.kc.workspace)
 	s.dockerPool, err = dockertest.NewPool("")
@@ -177,7 +180,7 @@ func (s *KafkaIntegrationSuite) SetupSuite() {
 }
 
 func (s *KafkaIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	var err error
 
 	if err = s.rc.DeleteCollection(ctx, s.kc.workspace, s.kc.collection); err == nil {

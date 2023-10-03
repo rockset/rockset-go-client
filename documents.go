@@ -11,6 +11,7 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
@@ -39,7 +40,7 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -85,7 +86,7 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 	err = rc.Retry(ctx, func() error {
 		resp, err = rc.RockConfig.cfg.HTTPClient.Do(req)
 
-		return NewErrorWithStatusCode(err, resp)
+		return rockerr.NewWithStatusCode(err, resp)
 	})
 	if err != nil {
 		return nil, err
@@ -117,7 +118,7 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 		return nil, fmt.Errorf("failed to unmarshal response: %w", err)
 	}
 
-	return nil, Error{
+	return nil, rockerr.Error{
 		ErrorModel: &em,
 		Cause:      fmt.Errorf("unexpected http response (%d): %s", resp.StatusCode, resp.Status),
 	}
@@ -180,7 +181,7 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

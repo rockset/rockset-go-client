@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -53,7 +54,7 @@ func queryWrapper(ctx context.Context, rc *RockClient, vID, sql string,
 			response, httpResp, err = viQuery.Body(*queryRequest).Execute()
 		}
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -83,7 +84,7 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	err = rc.Retry(ctx, func() error {
 		r, httpResp, err = q.Body(*rq).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -104,7 +105,7 @@ func (rc *RockClient) GetQueryInfo(ctx context.Context, queryID string) (openapi
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -125,7 +126,7 @@ func (rc *RockClient) GetQueryResults(ctx context.Context, queryID string) (open
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -146,7 +147,7 @@ func (rc *RockClient) ListActiveQueries(ctx context.Context) ([]openapi.QueryInf
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	return response.Data, nil
@@ -163,7 +164,7 @@ func (rc *RockClient) CancelQuery(ctx context.Context, queryID string) (openapi.
 	err = rc.Retry(ctx, func() error {
 		response, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	return *response.Data, nil

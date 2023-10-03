@@ -6,6 +6,7 @@ import (
 
 	"github.com/rs/zerolog"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -34,7 +35,7 @@ func (rc *RockClient) CreateView(ctx context.Context, workspace, view, query str
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -71,7 +72,7 @@ func (rc *RockClient) UpdateView(ctx context.Context, workspace, view, query str
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -97,7 +98,7 @@ func (rc *RockClient) DeleteView(ctx context.Context, workspace, view string) er
 	err = rc.Retry(ctx, func() error {
 		_, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {
@@ -129,7 +130,7 @@ func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewO
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp)
+			return rockerr.NewWithStatusCode(err, httpResp)
 		})
 	} else {
 		q := rc.ViewsApi.WorkspaceViews(ctx, opts.Workspace)
@@ -137,7 +138,7 @@ func (rc *RockClient) ListViews(ctx context.Context, options ...option.ListViewO
 		err = rc.Retry(ctx, func() error {
 			resp, httpResp, err = q.Execute()
 
-			return NewErrorWithStatusCode(err, httpResp)
+			return rockerr.NewWithStatusCode(err, httpResp)
 		})
 	}
 
@@ -164,7 +165,7 @@ func (rc *RockClient) GetView(ctx context.Context, workspace, name string) (open
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Execute()
 
-		return NewErrorWithStatusCode(err, httpResp)
+		return rockerr.NewWithStatusCode(err, httpResp)
 	})
 
 	if err != nil {

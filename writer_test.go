@@ -2,17 +2,18 @@ package rockset_test
 
 import (
 	"context"
-	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
 	"sync"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 type testObject struct {
@@ -54,7 +55,7 @@ func TestWriterSuite(t *testing.T) {
 }
 
 func (s *WriterSuite) TestWriter() {
-	ctx := testCtx()
+	ctx := test.Context()
 	c := rockset.WriterConfig{
 		BatchDocumentCount: 30,
 		FlushInterval:      time.Millisecond * 50,
@@ -82,7 +83,7 @@ func (s *WriterSuite) TestWriter() {
 }
 
 func (s *WriterSuite) TestCancellation() {
-	ctx, cancel := context.WithCancel(testCtx())
+	ctx, cancel := context.WithCancel(test.Context())
 	c := rockset.WriterConfig{
 		BatchDocumentCount: 30,
 		FlushInterval:      time.Millisecond * 20,
@@ -113,7 +114,7 @@ func (s *WriterSuite) TestCancellation() {
 }
 
 func (s *WriterSuite) TestShutdown() {
-	ctx := testCtx()
+	ctx := test.Context()
 	c := rockset.WriterConfig{
 		BatchDocumentCount: 30,
 		FlushInterval:      time.Millisecond * 500,
@@ -165,7 +166,7 @@ func BenchmarkWriter100(b *testing.B) {
 }
 
 func benchmarkWriter(b *testing.B, c rockset.WriterConfig) {
-	ctx := testCtx()
+	ctx := test.Context()
 	fa := &fakeAdder{}
 	w, err := rockset.NewWriter(c, fa)
 	require.NoError(b, err)
@@ -190,8 +191,8 @@ func benchmarkWriter(b *testing.B, c rockset.WriterConfig) {
 // go tool pprof -http=:8080 cpu.out
 
 func TestWriterIntegration(t *testing.T) {
-	skipUnlessIntegrationTest(t)
-	ctx := testCtx()
+	test.SkipUnlessIntegrationTest(t)
+	ctx := test.Context()
 
 	rc, err := rockset.NewClient()
 	require.Nil(t, err)

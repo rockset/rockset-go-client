@@ -4,13 +4,16 @@ package rockset_test
 
 import (
 	"context"
-	"github.com/ory/dockertest/v3"
-	"github.com/ory/dockertest/v3/docker"
-	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/suite"
 	"testing"
 	"time"
+
+	"github.com/ory/dockertest/v3"
+	"github.com/ory/dockertest/v3/docker"
+	"github.com/stretchr/testify/suite"
+
+	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 type ConfluentCloudWithKafkaConnectIntegrationSuite struct {
@@ -27,35 +30,35 @@ type ConfluentCloudWithKafkaConnectIntegrationSuite struct {
 // Test creating an integration and collection for Confluent Cloud with a local kafka-connect
 func TestConfluentCloudWithKafkaConnectIntegrationSuite(t *testing.T) {
 	t.Skip("skipping kafka tests - too flakey :(")
-	skipUnlessIntegrationTest(t)
-	skipUnlessDocker(t)
+	test.SkipUnlessIntegrationTest(t)
+	test.SkipUnlessDocker(t)
 
 	name := randomName("cckc")
 
 	s := ConfluentCloudWithKafkaConnectIntegrationSuite{
-		rc: testClient(t),
+		rc: test.Client(t),
 		kc: kafkaConfig{
 			topic:           "test_json",
 			integrationName: name,
 			workspace:       name,
 			collection:      name,
 		},
-		bootstrapServers: skipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
-		confluentKey:     skipUnlessEnvSet(t, "CC_KEY"),
-		confluentSecret:  skipUnlessEnvSet(t, "CC_SECRET"),
+		bootstrapServers: test.SkipUnlessEnvSet(t, "CC_BOOTSTRAP_SERVERS"),
+		confluentKey:     test.SkipUnlessEnvSet(t, "CC_KEY"),
+		confluentSecret:  test.SkipUnlessEnvSet(t, "CC_SECRET"),
 	}
 	suite.Run(t, &s)
 }
 
 func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TestKafka() {
-	ctx := testCtx()
+	ctx := test.Context()
 	c, cancel := context.WithTimeout(ctx, 5*time.Minute)
 	defer cancel()
 	testKafka(c, s.T(), s.rc, s.kc)
 }
 
 func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) SetupSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	var err error
 
 	_, err = s.rc.CreateWorkspace(ctx, s.kc.workspace)
@@ -89,7 +92,7 @@ func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) SetupSuite() {
 }
 
 func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 
 	// TODO don't hardcode the URL
 	if err := deleteConnector("http://localhost:8083/connectors", s.kc.integrationName); err == nil {

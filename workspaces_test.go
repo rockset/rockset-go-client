@@ -7,6 +7,8 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	rockerr "github.com/rockset/rockset-go-client/errors"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -27,7 +29,7 @@ func TestSuiteWorkspace(t *testing.T) {
 }
 
 func (s *SuiteWorkspace) SetupSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	_, err := s.rc.CreateWorkspace(ctx, s.ws,
 		option.WithWorkspaceDescription(description()))
 	s.Require().NoError(err)
@@ -36,7 +38,7 @@ func (s *SuiteWorkspace) SetupSuite() {
 }
 
 func (s *SuiteWorkspace) TearDownSuite() {
-	ctx := testCtx()
+	ctx := test.Context()
 	err := s.rc.DeleteWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
 	err = s.rc.WaitUntilWorkspaceGone(ctx, s.ws)
@@ -44,30 +46,30 @@ func (s *SuiteWorkspace) TearDownSuite() {
 }
 
 func (s *SuiteWorkspace) TestGetWorkspace() {
-	ctx := testCtx()
+	ctx := test.Context()
 	ws, err := s.rc.GetWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
 	s.Require().Equal(s.ws, ws.GetName())
 }
 
 func (s *SuiteWorkspace) TestGetPersistentWorkspace() {
-	ctx := testCtx()
+	ctx := test.Context()
 	ws, err := s.rc.GetWorkspace(ctx, persistentWorkspace)
 	s.Require().NoError(err)
 	s.Require().Equal(persistentWorkspace, ws.GetName())
 }
 
 func (s *SuiteWorkspace) TestGetNonExistingWorkspace() {
-	ctx := testCtx()
+	ctx := test.Context()
 	_, err := s.rc.GetWorkspace(ctx, randomString(16))
 	s.Require().Error(err)
-	var re rockset.Error
+	var re rockerr.Error
 	s.Require().True(errors.As(err, &re))
 	s.Assert().True(re.IsNotFoundError())
 }
 
 func (s *SuiteWorkspace) TestListWorkspace() {
-	ctx := testCtx()
+	ctx := test.Context()
 	list, err := s.rc.ListWorkspaces(ctx)
 	s.Require().NoError(err)
 	s.Require().NotEmpty(list)
