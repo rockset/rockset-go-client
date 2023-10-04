@@ -9,16 +9,6 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-type QueryState string
-
-const (
-	QueryQueued    QueryState = "QUEUED"
-	QueryRunning   QueryState = "RUNNING"
-	QueryError     QueryState = "ERROR"
-	QueryCompleted QueryState = "COMPLETED"
-	QueryCancelled QueryState = "CANCELLED"
-)
-
 // Query executes a sql query with optional option.QueryOption
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {

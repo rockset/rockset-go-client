@@ -8,6 +8,7 @@ require (
 	github.com/confluentinc/confluent-kafka-go v1.9.2
 	github.com/fatih/structs v1.1.0
 	github.com/go-zookeeper/zk v1.0.3
+	github.com/maxbrunsfeld/counterfeiter/v6 v6.7.0
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/rs/zerolog v1.31.0
 	github.com/seborama/govcr/v14 v14.0.0
@@ -43,7 +44,6 @@ require (
 	github.com/docker/go-connections v0.4.0 // indirect
 	github.com/docker/go-units v0.4.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
-	github.com/google/go-cmp v0.5.9 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
@@ -51,7 +51,6 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
-	github.com/maxbrunsfeld/counterfeiter/v6 v6.7.0 // indirect
 	github.com/mitchellh/mapstructure v1.4.1 // indirect
 	github.com/moby/term v0.0.0-20201216013528-df9cb8a40635 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect

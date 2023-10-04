@@ -5,13 +5,13 @@ import (
 
 	"github.com/rs/zerolog"
 
-	"github.com/rockset/rockset-go-client"
 	rockerr "github.com/rockset/rockset-go-client/errors"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 // UntilCollectionReady waits until the collection is ready.
 func (w *Waiter) UntilCollectionReady(ctx context.Context, workspace, name string) error {
-	return w.rc.RetryWithCheck(ctx, resourceHasState(ctx, []string{rockset.CollectionStatusReady},
+	return w.rc.RetryWithCheck(ctx, ResourceHasState(ctx, []string{option.CollectionStatusReady},
 		func(ctx context.Context) (string, error) {
 			c, err := w.rc.GetCollection(ctx, workspace, name)
 			return c.GetStatus(), err
@@ -21,7 +21,7 @@ func (w *Waiter) UntilCollectionReady(ctx context.Context, workspace, name strin
 // UntilCollectionGone waits until a collection marked for deletion is gone, i.e. GetCollection()
 // returns "not found".
 func (w *Waiter) UntilCollectionGone(ctx context.Context, workspace, name string) error {
-	return w.rc.RetryWithCheck(ctx, resourceIsGone(ctx, func(ctx context.Context) error {
+	return w.rc.RetryWithCheck(ctx, ResourceIsGone(ctx, func(ctx context.Context) error {
 		_, err := w.rc.GetCollection(ctx, workspace, name)
 		return err
 	}))

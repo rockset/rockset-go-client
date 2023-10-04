@@ -2,10 +2,12 @@ package wait_test
 
 import (
 	"context"
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/wait"
-	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestWait_untilAliasReady(t *testing.T) {
@@ -15,9 +17,7 @@ func TestWait_untilAliasReady(t *testing.T) {
 	rs.GetAliasReturnsOnCall(0, openapi.Alias{}, NotFoundErr)
 	rs.GetAliasReturnsOnCall(1, openapi.Alias{}, nil)
 
-	w := wait.New(&rs)
-
-	err := w.UntilAliasAvailable(ctx, "workspace", "alias")
+	err := wait.New(&rs).UntilAliasAvailable(ctx, "workspace", "alias")
 	assert.NoError(t, err)
 	assert.Equal(t, 2, rs.GetAliasCallCount())
 }
@@ -29,9 +29,7 @@ func TestWait_untilAliasGone(t *testing.T) {
 	rs.GetAliasReturnsOnCall(0, openapi.Alias{}, nil)
 	rs.GetAliasReturnsOnCall(1, openapi.Alias{}, NotFoundErr)
 
-	w := wait.New(&rs)
-
-	err := w.UntilAliasGone(ctx, "workspace", "alias")
+	err := wait.New(&rs).UntilAliasGone(ctx, "workspace", "alias")
 	assert.NoError(t, err)
 	assert.Equal(t, 2, rs.GetAliasCallCount())
 }

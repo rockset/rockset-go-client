@@ -12,24 +12,30 @@ import (
 )
 
 type Waiter struct {
-	rc Rocksetter
+	rc ResourceGetter
 }
 
 //go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
 
-//counterfeiter:generate -o fake . Rocksetter
-type Rocksetter interface {
+//counterfeiter:generate -o fake . ResourceGetter
+type ResourceGetter interface {
 	retry.Retrier
 	GetAlias(ctx context.Context, workspace string, name string) (openapi.Alias, error)
 	GetCollection(ctx context.Context, workspace string, name string) (openapi.Collection, error)
+	GetCollectionMount(ctx context.Context, id, collectionPath string) (openapi.CollectionMount, error)
+	GetIntegration(ctx context.Context, name string) (openapi.Integration, error)
+	GetQueryInfo(ctx context.Context, queryID string) (openapi.QueryInfo, error)
+	GetView(ctx context.Context, workspace, name string) (openapi.View, error)
+	GetVirtualInstance(ctx context.Context, id string) (openapi.VirtualInstance, error)
+	GetWorkspace(ctx context.Context, name string) (openapi.Workspace, error)
 }
 
-func New(rs Rocksetter) *Waiter {
+func New(rs ResourceGetter) *Waiter {
 	return &Waiter{rs}
 }
 
-// resourceHasState implements RetryFn to wait until the resource has the desired state
-func resourceHasState[T comparable](ctx context.Context, states []T,
+// ResourceHasState implements RetryFn to wait until the resource has the desired state
+func ResourceHasState[T comparable](ctx context.Context, states []T,
 	fn func(ctx context.Context) (T, error)) retry.CheckFn {
 	return func() (bool, error) {
 		zl := zerolog.Ctx(ctx)
@@ -50,8 +56,8 @@ func resourceHasState[T comparable](ctx context.Context, states []T,
 	}
 }
 
-// resourceIsAvailable implements RetryFn to wait until the resource is present
-func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
+// ResourceIsAvailable implements RetryFn to wait until the resource is present
+func ResourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
 	return func() (bool, error) {
 		err := fn(ctx)
 
@@ -73,8 +79,8 @@ func resourceIsAvailable(ctx context.Context, fn func(ctx context.Context) error
 	}
 }
 
-// resourceIsGone implements RetryFn to wait until the resource is gone
-func resourceIsGone(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
+// ResourceIsGone implements RetryFn to wait until the resource is gone
+func ResourceIsGone(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
 	return func() (bool, error) {
 		err := fn(ctx)
 

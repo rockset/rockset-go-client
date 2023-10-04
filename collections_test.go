@@ -2,7 +2,6 @@ package rockset_test
 
 import (
 	"fmt"
-	"github.com/rockset/rockset-go-client/wait"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -31,7 +30,7 @@ func (s *CollectionTestSuite) SetupSuite() {
 	_, err := s.rc.CreateWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilWorkspaceAvailable(ctx, s.ws)
+	err = s.rc.Wait.UntilWorkspaceAvailable(ctx, s.ws)
 	s.Require().NoError(err)
 }
 
@@ -46,9 +45,8 @@ func (s *CollectionTestSuite) TearDownSuite() {
 		}
 	}
 
-	w := wait.New(s.rc)
 	for _, c := range deleted {
-		err := w.UntilCollectionGone(ctx, s.ws, c)
+		err := s.rc.Wait.UntilCollectionGone(ctx, s.ws, c)
 		s.NoError(err)
 	}
 
@@ -95,8 +93,7 @@ func (s *CollectionTestSuite) TestCreateSampleCitiesCollection() {
 	s.Require().NoError(err)
 	s.collections = append(s.collections, name)
 
-	w := wait.New(s.rc)
-	err = w.UntilCollectionHasDocuments(ctx, s.ws, name, int64(145_658))
+	err = s.rc.Wait.UntilCollectionHasDocuments(ctx, s.ws, name, int64(145_658))
 	s.NoError(err)
 }
 
@@ -110,8 +107,7 @@ func (s *CollectionTestSuite) TestCreateSampleMoviesCollection() {
 	s.Require().NoError(err)
 	s.collections = append(s.collections, name)
 
-	w := wait.New(s.rc)
-	err = w.UntilCollectionHasDocuments(ctx, s.ws, name, int64(2_830))
+	err = s.rc.Wait.UntilCollectionHasDocuments(ctx, s.ws, name, int64(2_830))
 	s.NoError(err)
 }
 
@@ -126,8 +122,7 @@ func (s *CollectionTestSuite) TestUpdateCollection() {
 	s.Require().NoError(err)
 	s.collections = append(s.collections, name)
 
-	w := wait.New(s.rc)
-	err = w.UntilCollectionReady(ctx, s.ws, name)
+	err = s.rc.Wait.UntilCollectionReady(ctx, s.ws, name)
 	s.Require().NoError(err)
 
 	_, err = s.rc.UpdateCollection(ctx, s.ws, name,

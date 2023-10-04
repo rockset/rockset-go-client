@@ -5,7 +5,6 @@ package rockset_test
 import (
 	"errors"
 	"fmt"
-	"github.com/rockset/rockset-go-client/wait"
 	"testing"
 	"time"
 
@@ -188,8 +187,7 @@ func (s *KafkaIntegrationSuite) TearDownSuite() {
 		s.T().Logf("deleted collection %s.%s", s.kc.workspace, s.kc.collection)
 	}
 
-	w := wait.New(s.rc)
-	err = w.UntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
+	err = s.rc.Wait.UntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
 	s.Require().NoError(err)
 
 	if err := s.rc.DeleteIntegration(ctx, s.kc.integrationName); err == nil {

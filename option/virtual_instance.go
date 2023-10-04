@@ -2,6 +2,26 @@ package option
 
 import "time"
 
+const (
+	VirtualInstanceInitializing           = "INITIALIZING"
+	VirtualInstanceProvisioningResources  = "PROVISIONING_RESOURCES"
+	VirtualInstanceRebalancingCollections = "REBALANCING_COLLECTIONS"
+	VirtualInstanceActive                 = "ACTIVE"
+	VirtualInstanceSuspending             = "SUSPENDING"
+	VirtualInstanceSuspended              = "SUSPENDED"
+	VirtualInstanceResuming               = "RESUMING"
+	VirtualInstanceDeleted                = "DELETED"
+
+	MountCreating             = "CREATING"
+	MountActive               = "ACTIVE"
+	MountRefreshing           = "REFRESHING"
+	MountExpired              = "EXPIRED"
+	MountDeleting             = "DELETING"
+	MountSwitchingRefreshType = "SWITCHING_REFRESH_TYPE"
+	MountSuspended            = "SUSPENDED"
+	MountSuspending           = "SUSPENDING"
+)
+
 // VirtualInstanceOptions contains the optional settings for a virtual instance.
 type VirtualInstanceOptions struct {
 	Description           *string

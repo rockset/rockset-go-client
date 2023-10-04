@@ -33,7 +33,7 @@ func (s *SuiteWorkspace) SetupSuite() {
 	_, err := s.rc.CreateWorkspace(ctx, s.ws,
 		option.WithWorkspaceDescription(test.Description()))
 	s.Require().NoError(err)
-	err = s.rc.WaitUntilWorkspaceAvailable(ctx, s.ws)
+	err = s.rc.Wait.UntilWorkspaceAvailable(ctx, s.ws)
 	s.Require().NoError(err)
 }
 
@@ -41,7 +41,7 @@ func (s *SuiteWorkspace) TearDownSuite() {
 	ctx := test.Context()
 	err := s.rc.DeleteWorkspace(ctx, s.ws)
 	s.Require().NoError(err)
-	err = s.rc.WaitUntilWorkspaceGone(ctx, s.ws)
+	err = s.rc.Wait.UntilWorkspaceGone(ctx, s.ws)
 	s.Require().NoError(err)
 }
 

@@ -58,12 +58,12 @@ func (s *AliasIntegrationSuite) TestAliases() {
 	_, err := s.rc.CreateAlias(ctx, test.PersistentWorkspace, s.alias, []string{"commons._events"})
 	require.NoError(s.T(), err)
 
-	err = s.rc.WaitUntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
+	err = s.rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
 
 	// update
 
-	err = s.rc.WaitUntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
+	err = s.rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
 
 	err = s.rc.DeleteAlias(ctx, test.PersistentWorkspace, s.alias)
