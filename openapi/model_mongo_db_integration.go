@@ -21,6 +21,7 @@ var _ MappedNullable = &MongoDbIntegration{}
 type MongoDbIntegration struct {
 	// MongoDB connection URI string.
 	ConnectionUri string `json:"connection_uri"`
+	Tls *TLSConfig `json:"tls,omitempty"`
 }
 
 // NewMongoDbIntegration instantiates a new MongoDbIntegration object
@@ -65,6 +66,38 @@ func (o *MongoDbIntegration) SetConnectionUri(v string) {
 	o.ConnectionUri = v
 }
 
+// GetTls returns the Tls field value if set, zero value otherwise.
+func (o *MongoDbIntegration) GetTls() TLSConfig {
+	if o == nil || IsNil(o.Tls) {
+		var ret TLSConfig
+		return ret
+	}
+	return *o.Tls
+}
+
+// GetTlsOk returns a tuple with the Tls field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MongoDbIntegration) GetTlsOk() (*TLSConfig, bool) {
+	if o == nil || IsNil(o.Tls) {
+		return nil, false
+	}
+	return o.Tls, true
+}
+
+// HasTls returns a boolean if a field has been set.
+func (o *MongoDbIntegration) HasTls() bool {
+	if o != nil && !IsNil(o.Tls) {
+		return true
+	}
+
+	return false
+}
+
+// SetTls gets a reference to the given TLSConfig and assigns it to the Tls field.
+func (o *MongoDbIntegration) SetTls(v TLSConfig) {
+	o.Tls = &v
+}
+
 func (o MongoDbIntegration) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -76,6 +109,9 @@ func (o MongoDbIntegration) MarshalJSON() ([]byte, error) {
 func (o MongoDbIntegration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["connection_uri"] = o.ConnectionUri
+	if !IsNil(o.Tls) {
+		toSerialize["tls"] = o.Tls
+	}
 	return toSerialize, nil
 }
 

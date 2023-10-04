@@ -19,10 +19,8 @@ var _ MappedNullable = &SourceSnapshot{}
 
 // SourceSnapshot struct for SourceSnapshot
 type SourceSnapshot struct {
-	// Path of source collection to restore the snapshot from.
-	SourceCollectionPath *string `json:"source_collection_path,omitempty"`
-	// Snapshot id of the snapshot that the new collection will be created from.
-	SourceSnapshotId *string `json:"source_snapshot_id,omitempty"`
+	// RRN of the snapshot that the new collection will be created from.
+	SourceSnapshotRrn *string `json:"source_snapshot_rrn,omitempty"`
 }
 
 // NewSourceSnapshot instantiates a new SourceSnapshot object
@@ -42,68 +40,36 @@ func NewSourceSnapshotWithDefaults() *SourceSnapshot {
 	return &this
 }
 
-// GetSourceCollectionPath returns the SourceCollectionPath field value if set, zero value otherwise.
-func (o *SourceSnapshot) GetSourceCollectionPath() string {
-	if o == nil || IsNil(o.SourceCollectionPath) {
+// GetSourceSnapshotRrn returns the SourceSnapshotRrn field value if set, zero value otherwise.
+func (o *SourceSnapshot) GetSourceSnapshotRrn() string {
+	if o == nil || IsNil(o.SourceSnapshotRrn) {
 		var ret string
 		return ret
 	}
-	return *o.SourceCollectionPath
+	return *o.SourceSnapshotRrn
 }
 
-// GetSourceCollectionPathOk returns a tuple with the SourceCollectionPath field value if set, nil otherwise
+// GetSourceSnapshotRrnOk returns a tuple with the SourceSnapshotRrn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceSnapshot) GetSourceCollectionPathOk() (*string, bool) {
-	if o == nil || IsNil(o.SourceCollectionPath) {
+func (o *SourceSnapshot) GetSourceSnapshotRrnOk() (*string, bool) {
+	if o == nil || IsNil(o.SourceSnapshotRrn) {
 		return nil, false
 	}
-	return o.SourceCollectionPath, true
+	return o.SourceSnapshotRrn, true
 }
 
-// HasSourceCollectionPath returns a boolean if a field has been set.
-func (o *SourceSnapshot) HasSourceCollectionPath() bool {
-	if o != nil && !IsNil(o.SourceCollectionPath) {
+// HasSourceSnapshotRrn returns a boolean if a field has been set.
+func (o *SourceSnapshot) HasSourceSnapshotRrn() bool {
+	if o != nil && !IsNil(o.SourceSnapshotRrn) {
 		return true
 	}
 
 	return false
 }
 
-// SetSourceCollectionPath gets a reference to the given string and assigns it to the SourceCollectionPath field.
-func (o *SourceSnapshot) SetSourceCollectionPath(v string) {
-	o.SourceCollectionPath = &v
-}
-
-// GetSourceSnapshotId returns the SourceSnapshotId field value if set, zero value otherwise.
-func (o *SourceSnapshot) GetSourceSnapshotId() string {
-	if o == nil || IsNil(o.SourceSnapshotId) {
-		var ret string
-		return ret
-	}
-	return *o.SourceSnapshotId
-}
-
-// GetSourceSnapshotIdOk returns a tuple with the SourceSnapshotId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceSnapshot) GetSourceSnapshotIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SourceSnapshotId) {
-		return nil, false
-	}
-	return o.SourceSnapshotId, true
-}
-
-// HasSourceSnapshotId returns a boolean if a field has been set.
-func (o *SourceSnapshot) HasSourceSnapshotId() bool {
-	if o != nil && !IsNil(o.SourceSnapshotId) {
-		return true
-	}
-
-	return false
-}
-
-// SetSourceSnapshotId gets a reference to the given string and assigns it to the SourceSnapshotId field.
-func (o *SourceSnapshot) SetSourceSnapshotId(v string) {
-	o.SourceSnapshotId = &v
+// SetSourceSnapshotRrn gets a reference to the given string and assigns it to the SourceSnapshotRrn field.
+func (o *SourceSnapshot) SetSourceSnapshotRrn(v string) {
+	o.SourceSnapshotRrn = &v
 }
 
 func (o SourceSnapshot) MarshalJSON() ([]byte, error) {
@@ -116,11 +82,8 @@ func (o SourceSnapshot) MarshalJSON() ([]byte, error) {
 
 func (o SourceSnapshot) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.SourceCollectionPath) {
-		toSerialize["source_collection_path"] = o.SourceCollectionPath
-	}
-	if !IsNil(o.SourceSnapshotId) {
-		toSerialize["source_snapshot_id"] = o.SourceSnapshotId
+	if !IsNil(o.SourceSnapshotRrn) {
+		toSerialize["source_snapshot_rrn"] = o.SourceSnapshotRrn
 	}
 	return toSerialize, nil
 }

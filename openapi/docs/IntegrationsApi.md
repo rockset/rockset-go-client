@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteIntegration**](IntegrationsApi.md#DeleteIntegration) | **Delete** /v1/orgs/self/integrations/{integration} | Delete Integration
 [**GetIntegration**](IntegrationsApi.md#GetIntegration) | **Get** /v1/orgs/self/integrations/{integration} | Retrieve Integration
 [**ListIntegrations**](IntegrationsApi.md#ListIntegrations) | **Get** /v1/orgs/self/integrations | List Integrations
+[**UpdateIntegration**](IntegrationsApi.md#UpdateIntegration) | **Put** /v1/orgs/self/integrations/{integration} | Update Integration
 
 
 
@@ -271,6 +272,78 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateIntegration
+
+> UpdateIntegrationResponse UpdateIntegration(ctx, integration).Body(body).Execute()
+
+Update Integration
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/rockset/rockset-go-client"
+)
+
+func main() {
+    integration := "integration_example" // string | 
+    body := *openapiclient.NewUpdateIntegrationRequest() // UpdateIntegrationRequest | integration configuration
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IntegrationsApi.UpdateIntegration(context.Background(), integration).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsApi.UpdateIntegration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateIntegration`: UpdateIntegrationResponse
+    fmt.Fprintf(os.Stdout, "Response from `IntegrationsApi.UpdateIntegration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**integration** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateIntegrationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **body** | [**UpdateIntegrationRequest**](UpdateIntegrationRequest.md) | integration configuration | 
+
+### Return type
+
+[**UpdateIntegrationResponse**](UpdateIntegrationResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

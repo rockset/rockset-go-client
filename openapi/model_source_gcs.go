@@ -29,6 +29,7 @@ type SourceGcs struct {
 	Pattern *string `json:"pattern,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
+	Settings *SourceGcsSettings `json:"settings,omitempty"`
 }
 
 // NewSourceGcs instantiates a new SourceGcs object
@@ -272,6 +273,38 @@ func (o *SourceGcs) SetPrefix(v string) {
 	o.Prefix = &v
 }
 
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *SourceGcs) GetSettings() SourceGcsSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret SourceGcsSettings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceGcs) GetSettingsOk() (*SourceGcsSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *SourceGcs) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given SourceGcsSettings and assigns it to the Settings field.
+func (o *SourceGcs) SetSettings(v SourceGcsSettings) {
+	o.Settings = &v
+}
+
 func (o SourceGcs) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -294,6 +327,9 @@ func (o SourceGcs) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Prefix) {
 		toSerialize["prefix"] = o.Prefix
+	}
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
 	}
 	return toSerialize, nil
 }

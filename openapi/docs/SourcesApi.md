@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**ListCollectionSources**](SourcesApi.md#ListCollectionSources) | **Get** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources | List sources in collection
 [**ResumeSource**](SourcesApi.md#ResumeSource) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}/resume | Resume source ingest
 [**SuspendSource**](SourcesApi.md#SuspendSource) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source}/suspend | Suspend source ingest
+[**UpdateSource**](SourcesApi.md#UpdateSource) | **Put** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources/{source} | Update a collection source
 
 
 
@@ -391,7 +392,7 @@ No authorization required
 
 ## SuspendSource
 
-> GetSourceResponse SuspendSource(ctx, workspace, collection, source).Execute()
+> GetSourceResponse SuspendSource(ctx, workspace, collection, source).Body(body).Execute()
 
 Suspend source ingest
 
@@ -413,10 +414,11 @@ func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
     collection := "collection_example" // string | name of the collection
     source := "source_example" // string | id of source
+    body := *openapiclient.NewSuspendSourceRequest() // SuspendSourceRequest | JSON object (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SourcesApi.SuspendSource(context.Background(), workspace, collection, source).Execute()
+    resp, r, err := apiClient.SourcesApi.SuspendSource(context.Background(), workspace, collection, source).Body(body).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.SuspendSource``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -446,6 +448,7 @@ Name | Type | Description  | Notes
 
 
 
+ **body** | [**SuspendSourceRequest**](SuspendSourceRequest.md) | JSON object | 
 
 ### Return type
 
@@ -457,7 +460,85 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateSource
+
+> GetSourceResponse UpdateSource(ctx, workspace, collection, source).Body(body).Execute()
+
+Update a collection source
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/rockset/rockset-go-client"
+)
+
+func main() {
+    workspace := "workspace_example" // string | name of the workspace (default to "commons")
+    collection := "collection_example" // string | name of the collection
+    source := "source_example" // string | id of source
+    body := *openapiclient.NewSourceBase() // SourceBase | JSON object
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesApi.UpdateSource(context.Background(), workspace, collection, source).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.UpdateSource``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateSource`: GetSourceResponse
+    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.UpdateSource`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
+**collection** | **string** | name of the collection | 
+**source** | **string** | id of source | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateSourceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **body** | [**SourceBase**](SourceBase.md) | JSON object | 
+
+### Return type
+
+[**GetSourceResponse**](GetSourceResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

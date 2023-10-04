@@ -43,11 +43,15 @@ type Collection struct {
 	ReadOnly *bool `json:"read_only,omitempty"`
 	// Number of seconds after which data is purged based on event time.
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
+	// Collection RRN.
+	Rrn *string `json:"rrn,omitempty"`
 	// List of sources from which collection ingests.
 	Sources []Source `json:"sources,omitempty"`
 	Stats *CollectionStats `json:"stats,omitempty"`
 	// Current status of collection.
 	Status *string `json:"status,omitempty"`
+	// RocksDB storage compression type.
+	StorageCompressionType *string `json:"storage_compression_type,omitempty"`
 	// Name of the workspace that the collection is in.
 	Workspace *string `json:"workspace,omitempty"`
 }
@@ -485,6 +489,38 @@ func (o *Collection) SetRetentionSecs(v int64) {
 	o.RetentionSecs = &v
 }
 
+// GetRrn returns the Rrn field value if set, zero value otherwise.
+func (o *Collection) GetRrn() string {
+	if o == nil || IsNil(o.Rrn) {
+		var ret string
+		return ret
+	}
+	return *o.Rrn
+}
+
+// GetRrnOk returns a tuple with the Rrn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetRrnOk() (*string, bool) {
+	if o == nil || IsNil(o.Rrn) {
+		return nil, false
+	}
+	return o.Rrn, true
+}
+
+// HasRrn returns a boolean if a field has been set.
+func (o *Collection) HasRrn() bool {
+	if o != nil && !IsNil(o.Rrn) {
+		return true
+	}
+
+	return false
+}
+
+// SetRrn gets a reference to the given string and assigns it to the Rrn field.
+func (o *Collection) SetRrn(v string) {
+	o.Rrn = &v
+}
+
 // GetSources returns the Sources field value if set, zero value otherwise.
 func (o *Collection) GetSources() []Source {
 	if o == nil || IsNil(o.Sources) {
@@ -581,6 +617,38 @@ func (o *Collection) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetStorageCompressionType returns the StorageCompressionType field value if set, zero value otherwise.
+func (o *Collection) GetStorageCompressionType() string {
+	if o == nil || IsNil(o.StorageCompressionType) {
+		var ret string
+		return ret
+	}
+	return *o.StorageCompressionType
+}
+
+// GetStorageCompressionTypeOk returns a tuple with the StorageCompressionType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Collection) GetStorageCompressionTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.StorageCompressionType) {
+		return nil, false
+	}
+	return o.StorageCompressionType, true
+}
+
+// HasStorageCompressionType returns a boolean if a field has been set.
+func (o *Collection) HasStorageCompressionType() bool {
+	if o != nil && !IsNil(o.StorageCompressionType) {
+		return true
+	}
+
+	return false
+}
+
+// SetStorageCompressionType gets a reference to the given string and assigns it to the StorageCompressionType field.
+func (o *Collection) SetStorageCompressionType(v string) {
+	o.StorageCompressionType = &v
+}
+
 // GetWorkspace returns the Workspace field value if set, zero value otherwise.
 func (o *Collection) GetWorkspace() string {
 	if o == nil || IsNil(o.Workspace) {
@@ -662,6 +730,9 @@ func (o Collection) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RetentionSecs) {
 		toSerialize["retention_secs"] = o.RetentionSecs
 	}
+	if !IsNil(o.Rrn) {
+		toSerialize["rrn"] = o.Rrn
+	}
 	if !IsNil(o.Sources) {
 		toSerialize["sources"] = o.Sources
 	}
@@ -670,6 +741,9 @@ func (o Collection) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.StorageCompressionType) {
+		toSerialize["storage_compression_type"] = o.StorageCompressionType
 	}
 	if !IsNil(o.Workspace) {
 		toSerialize["workspace"] = o.Workspace

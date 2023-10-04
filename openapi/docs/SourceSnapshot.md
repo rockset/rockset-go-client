@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SourceCollectionPath** | Pointer to **string** | Path of source collection to restore the snapshot from. | [optional] 
-**SourceSnapshotId** | Pointer to **string** | Snapshot id of the snapshot that the new collection will be created from. | [optional] 
+**SourceSnapshotRrn** | Pointer to **string** | RRN of the snapshot that the new collection will be created from. | [optional] 
 
 ## Methods
 
@@ -26,55 +25,30 @@ NewSourceSnapshotWithDefaults instantiates a new SourceSnapshot object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetSourceCollectionPath
+### GetSourceSnapshotRrn
 
-`func (o *SourceSnapshot) GetSourceCollectionPath() string`
+`func (o *SourceSnapshot) GetSourceSnapshotRrn() string`
 
-GetSourceCollectionPath returns the SourceCollectionPath field if non-nil, zero value otherwise.
+GetSourceSnapshotRrn returns the SourceSnapshotRrn field if non-nil, zero value otherwise.
 
-### GetSourceCollectionPathOk
+### GetSourceSnapshotRrnOk
 
-`func (o *SourceSnapshot) GetSourceCollectionPathOk() (*string, bool)`
+`func (o *SourceSnapshot) GetSourceSnapshotRrnOk() (*string, bool)`
 
-GetSourceCollectionPathOk returns a tuple with the SourceCollectionPath field if it's non-nil, zero value otherwise
+GetSourceSnapshotRrnOk returns a tuple with the SourceSnapshotRrn field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSourceCollectionPath
+### SetSourceSnapshotRrn
 
-`func (o *SourceSnapshot) SetSourceCollectionPath(v string)`
+`func (o *SourceSnapshot) SetSourceSnapshotRrn(v string)`
 
-SetSourceCollectionPath sets SourceCollectionPath field to given value.
+SetSourceSnapshotRrn sets SourceSnapshotRrn field to given value.
 
-### HasSourceCollectionPath
+### HasSourceSnapshotRrn
 
-`func (o *SourceSnapshot) HasSourceCollectionPath() bool`
+`func (o *SourceSnapshot) HasSourceSnapshotRrn() bool`
 
-HasSourceCollectionPath returns a boolean if a field has been set.
-
-### GetSourceSnapshotId
-
-`func (o *SourceSnapshot) GetSourceSnapshotId() string`
-
-GetSourceSnapshotId returns the SourceSnapshotId field if non-nil, zero value otherwise.
-
-### GetSourceSnapshotIdOk
-
-`func (o *SourceSnapshot) GetSourceSnapshotIdOk() (*string, bool)`
-
-GetSourceSnapshotIdOk returns a tuple with the SourceSnapshotId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSourceSnapshotId
-
-`func (o *SourceSnapshot) SetSourceSnapshotId(v string)`
-
-SetSourceSnapshotId sets SourceSnapshotId field to given value.
-
-### HasSourceSnapshotId
-
-`func (o *SourceSnapshot) HasSourceSnapshotId() bool`
-
-HasSourceSnapshotId returns a boolean if a field has been set.
+HasSourceSnapshotRrn returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

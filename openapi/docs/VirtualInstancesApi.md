@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**CreateVirtualInstance**](VirtualInstancesApi.md#CreateVirtualInstance) | **Post** /v1/orgs/self/virtualinstances | Create Virtual Instance
 [**DeleteVirtualInstance**](VirtualInstancesApi.md#DeleteVirtualInstance) | **Delete** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Delete Virtual Instance
 [**GetCollectionMount**](VirtualInstancesApi.md#GetCollectionMount) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts/{collectionPath} | Get Collection Mount
+[**GetMountOffsets**](VirtualInstancesApi.md#GetMountOffsets) | **Post** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts/{collectionPath}/offsets/commit | Get Collection Commit
 [**GetVirtualInstance**](VirtualInstancesApi.md#GetVirtualInstance) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId} | Retrieve Virtual Instance
 [**GetVirtualInstanceQueries**](VirtualInstancesApi.md#GetVirtualInstanceQueries) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/queries | List Queries
 [**ListCollectionMounts**](VirtualInstancesApi.md#ListCollectionMounts) | **Get** /v1/orgs/self/virtualinstances/{virtualInstanceId}/mounts | List Collection Mounts
@@ -222,6 +223,81 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetMountOffsets
+
+> GetCollectionCommit GetMountOffsets(ctx, virtualInstanceId, collectionPath).Body(body).Execute()
+
+Get Collection Commit
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/rockset/rockset-go-client"
+)
+
+func main() {
+    virtualInstanceId := "virtualInstanceId_example" // string | Virtual Instance RRN
+    collectionPath := "collectionPath_example" // string | 
+    body := *openapiclient.NewGetCollectionCommitRequest() // GetCollectionCommitRequest | JSON object
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.VirtualInstancesApi.GetMountOffsets(context.Background(), virtualInstanceId, collectionPath).Body(body).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `VirtualInstancesApi.GetMountOffsets``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetMountOffsets`: GetCollectionCommit
+    fmt.Fprintf(os.Stdout, "Response from `VirtualInstancesApi.GetMountOffsets`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**virtualInstanceId** | **string** | Virtual Instance RRN | 
+**collectionPath** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetMountOffsetsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **body** | [**GetCollectionCommitRequest**](GetCollectionCommitRequest.md) | JSON object | 
+
+### Return type
+
+[**GetCollectionCommit**](GetCollectionCommit.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
