@@ -57,7 +57,7 @@ func (s *ConfluentCloudIntegrationSuite) SetupSuite() {
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilKafkaIntegrationActive(ctx, s.integrationName)
+	err = s.rc.Wait.UntilKafkaIntegrationActive(ctx, s.integrationName)
 	s.Require().NoError(err)
 }
 
@@ -83,12 +83,12 @@ func (s *ConfluentCloudIntegrationSuite) TestCreateJSONCollection() {
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionReady(ctx, s.ws, s.coll)
+	err = s.rc.Wait.UntilCollectionReady(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 
 	// TODO(pmenglund) this should write a document to kafka so we don't need a data generator
 	//  in Confluent Cloud
-	err = s.rc.WaitUntilCollectionHasNewDocuments(ctx, s.ws, s.coll, 1)
+	err = s.rc.Wait.UntilCollectionHasNewDocuments(ctx, s.ws, s.coll, 1)
 	s.Require().NoError(err)
 }
 
@@ -98,6 +98,6 @@ func (s *ConfluentCloudIntegrationSuite) TestDeleteCollection() {
 	err := s.rc.DeleteCollection(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilCollectionGone(ctx, s.ws, s.coll)
+	err = s.rc.Wait.UntilCollectionGone(ctx, s.ws, s.coll)
 	s.Require().NoError(err)
 }

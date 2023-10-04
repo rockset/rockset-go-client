@@ -54,7 +54,7 @@ func (s *QueryIntegrationSuite) TestAsyncQuery() {
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilQueryCompleted(ctx, *resp.QueryId)
+	err = s.rc.Wait.UntilQueryDone(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 
 	_, err = s.rc.GetQueryResults(ctx, *resp.QueryId)
@@ -71,7 +71,7 @@ func (s *QueryIntegrationSuite) TestAsyncQueryWithClientTimeout() {
 	)
 	s.Require().NoError(err)
 
-	err = s.rc.WaitUntilQueryCompleted(ctx, *resp.QueryId)
+	err = s.rc.Wait.UntilQueryDone(ctx, *resp.QueryId)
 	s.Require().NoError(err)
 
 	_, err = s.rc.GetQueryResults(ctx, *resp.QueryId)

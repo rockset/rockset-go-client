@@ -103,7 +103,7 @@ func (s *ConfluentCloudWithKafkaConnectIntegrationSuite) TearDownSuite() {
 		s.T().Logf("deleted collection %s.%s", s.kc.workspace, s.kc.collection)
 	}
 
-	err := s.rc.WaitUntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
+	err := s.rc.Wait.UntilCollectionGone(ctx, s.kc.workspace, s.kc.collection)
 	s.Require().NoError(err)
 
 	if err := s.rc.DeleteIntegration(ctx, s.kc.integrationName); err == nil {

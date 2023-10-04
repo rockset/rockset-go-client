@@ -51,7 +51,7 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 	require.NoError(t, err)
 
 	t.Log("waiting for integration to be ready...")
-	err = rc.WaitUntilKafkaIntegrationActive(ctx, kc.integrationName)
+	err = rc.Wait.UntilKafkaIntegrationActive(ctx, kc.integrationName)
 	require.NoError(t, err)
 
 	_, err = rc.CreateKafkaCollection(ctx, kc.workspace, kc.collection,
@@ -60,7 +60,7 @@ func testKafka(ctx context.Context, t *testing.T, rc *rockset.RockClient, kc kaf
 	require.NoError(t, err)
 
 	t.Log("waiting for collection to start receiving documents...")
-	err = rc.WaitUntilCollectionHasNewDocuments(ctx, kc.workspace, kc.collection, 1)
+	err = rc.Wait.UntilCollectionHasNewDocuments(ctx, kc.workspace, kc.collection, 1)
 	require.NoError(t, err)
 
 	t.Log("done")

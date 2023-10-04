@@ -56,14 +56,14 @@ func Example_s3() {
 	fmt.Printf("collection created: %s\n", c.GetName())
 
 	// wait until collection is ready
-	err = rc.WaitUntilCollectionReady(ctx, workspace, collectionName)
+	err = rc.Wait.UntilCollectionReady(ctx, workspace, collectionName)
 	if err != nil {
 		log.Fatalf("failed to wait for collection to be ready: %v", err)
 	}
 	fmt.Printf("collection ready: %s\n", c.GetName())
 
 	// wait until there are at least 3 new documents in the collection
-	err = rc.WaitUntilCollectionHasDocuments(ctx, workspace, collectionName, 3)
+	err = rc.Wait.UntilCollectionHasDocuments(ctx, workspace, collectionName, 3)
 	if err != nil {
 		log.Fatalf("failed to wait for new documents: %v", err)
 	}
@@ -83,7 +83,7 @@ func Example_s3() {
 	fmt.Printf("collection deleted: %s\n", c.GetName())
 
 	// wait until the collection is gone
-	err = rc.WaitUntilCollectionGone(ctx, workspace, collectionName)
+	err = rc.Wait.UntilCollectionGone(ctx, workspace, collectionName)
 	if err != nil {
 		log.Fatalf("failed to wait for collection to be gone: %v", err)
 	}

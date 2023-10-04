@@ -7,6 +7,12 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
+const (
+	CollectionStatusCreated     = "CREATED"
+	CollectionStatusInitialized = "INITIALIZED"
+	CollectionStatusReady       = "READY"
+)
+
 type ListCollectionOptions struct {
 	Workspace *string
 }

@@ -135,7 +135,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_0_Create() {
 	s.T().Logf("vi %s / %s is created (%s)", vi.GetId(), vi.GetName(), time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilVirtualInstanceActive(ctx, s.vID)
+	err = s.rc.Wait.UntilVirtualInstanceActive(ctx, s.vID)
 	s.Require().NoError(err)
 	s.T().Logf("vi %s is active (%s)", s.vID, time.Since(t0))
 	t0 = time.Now()
@@ -152,7 +152,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
 	s.T().Logf("workspace %s is created (%s)", s.workspace, time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilWorkspaceAvailable(ctx, s.workspace)
+	err = s.rc.Wait.UntilWorkspaceAvailable(ctx, s.workspace)
 	s.Require().NoError(err)
 	s.T().Logf("workspace %s is available (%s)", s.workspace, time.Since(t0))
 	t0 = time.Now()
@@ -163,7 +163,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
 	s.T().Logf("collection %s.%s is created (%s)", s.workspace, s.collection, time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilCollectionHasDocuments(ctx, s.workspace, s.collection, 2_830)
+	err = s.rc.Wait.UntilCollectionHasDocuments(ctx, s.workspace, s.collection, 2_830)
 	s.Require().NoError(err)
 	s.T().Log("collection has documents", time.Since(t0))
 	t0 = time.Now()
@@ -180,12 +180,12 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_2_Mount() {
 	s.T().Logf("collection %s.%s is mounted on %s (%s)", s.workspace, s.collection, s.vID, time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilCollectionReady(ctx, s.workspace, s.collection)
+	err = s.rc.Wait.UntilCollectionReady(ctx, s.workspace, s.collection)
 	s.Require().NoError(err)
 	s.T().Logf("collection %s.%s is ready (%s)", s.workspace, s.collection, time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilMountActive(ctx, s.vID, s.workspace, s.collection)
+	err = s.rc.Wait.UntilMountActive(ctx, s.vID, s.workspace, s.collection)
 	s.Require().NoError(err)
 	s.T().Logf("mount is active: %s", time.Since(t0))
 	t0 = time.Now()
@@ -236,7 +236,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_5_Suspend() {
 	s.T().Logf("vi is suspending (%s)", time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilVirtualInstanceSuspended(ctx, s.vID)
+	err = s.rc.Wait.UntilVirtualInstanceSuspended(ctx, s.vID)
 	s.Require().NoError(err)
 	s.T().Logf("vi is suspended (%s)", time.Since(t0))
 	t0 = time.Now()
@@ -246,7 +246,7 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_5_Suspend() {
 	s.T().Logf("vi is resuming (%s)", time.Since(t0))
 	t0 = time.Now()
 
-	err = rc.WaitUntilVirtualInstanceActive(ctx, s.vID)
+	err = s.rc.Wait.UntilVirtualInstanceActive(ctx, s.vID)
 	s.Require().NoError(err)
 	s.T().Logf("vi is active (%s)", time.Since(t0))
 	t0 = time.Now()
@@ -265,13 +265,13 @@ func (s *VirtualInstanceIntegrationSuite) TearDownSuite() {
 	err := s.rc.DeleteCollection(ctx, s.workspace, s.collection)
 	s.Assert().NoError(err)
 
-	err = s.rc.WaitUntilCollectionGone(ctx, s.workspace, s.collection)
+	err = s.rc.Wait.UntilCollectionGone(ctx, s.workspace, s.collection)
 	s.Assert().NoError(err)
 
 	err = s.rc.DeleteWorkspace(ctx, s.workspace)
 	s.Assert().NoError(err)
 
-	err = s.rc.WaitUntilWorkspaceGone(ctx, s.workspace)
+	err = s.rc.Wait.UntilWorkspaceGone(ctx, s.workspace)
 	s.Assert().NoError(err)
 
 	_, err = s.rc.DeleteVirtualInstance(ctx, s.vID)

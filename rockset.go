@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/rockset/rockset-go-client/wait"
 	"io"
 	"net/http"
 	"net/http/httputil"
@@ -33,6 +34,8 @@ const (
 type RockConfig struct {
 	// Retrier is the retry function used to retry API calls.
 	retry.Retrier
+	// Wait is the helper to wait for resources
+	Wait *wait.Waiter
 	// APIKey is the API key to use for authentication
 	APIKey string
 	// APIServer is the API server to connect to
@@ -99,10 +102,13 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}
 	cfg.AddDefaultHeader("Authorization", "apikey "+rc.APIKey)
 
-	return &RockClient{
+	client := RockClient{
 		RockConfig: rc,
 		APIClient:  openapi.NewAPIClient(rc.cfg),
-	}, nil
+	}
+	client.Wait = wait.New(&client)
+
+	return &client, nil
 }
 
 // RockOption is the type for RockClient options.

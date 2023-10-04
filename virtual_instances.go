@@ -10,28 +10,6 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// https://docs.rockset.com/rest-api/#virtual-instances
-
-const (
-	VirtualInstanceInitializing           = "INITIALIZING"
-	VirtualInstanceProvisioningResources  = "PROVISIONING_RESOURCES"
-	VirtualInstanceRebalancingCollections = "REBALANCING_COLLECTIONS"
-	VirtualInstanceActive                 = "ACTIVE"
-	VirtualInstanceSuspending             = "SUSPENDING"
-	VirtualInstanceSuspended              = "SUSPENDED"
-	VirtualInstanceResuming               = "RESUMING"
-	VirtualInstanceDeleted                = "DELETED"
-
-	MountCreating             = "CREATING"
-	MountActive               = "ACTIVE"
-	MountRefreshing           = "REFRESHING"
-	MountExpired              = "EXPIRED"
-	MountDeleting             = "DELETING"
-	MountSwitchingRefreshType = "SWITCHING_REFRESH_TYPE"
-	MountSuspended            = "SUSPENDED"
-	MountSuspending           = "SUSPENDING"
-)
-
 // CreateVirtualInstance creates a new virtual instance.
 // Note that not supplying option.WithMountRefreshInterval() or option.WithContinuousMountRefresh() will
 // create a virtual instance that will never refresh the mounts.

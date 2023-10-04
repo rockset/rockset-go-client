@@ -1,17 +1,36 @@
-package rockset
+package wait_test
 
 import (
 	"context"
 	"fmt"
+	"github.com/rockset/rockset-go-client/wait"
 	"net/http"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
-	
+
 	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/rockset/rockset-go-client/retry"
+	"github.com/rockset/rockset-go-client/wait/fake"
 )
+
+var NotFoundErr = rockerr.Error{
+	ErrorModel: openapi.NewErrorModel(),
+	StatusCode: http.StatusNotFound,
+}
+
+// return a fake Rockset client with an ExponentialRetry that doesn't back off
+func fakeRocksetClient() fake.FakeResourceGetter {
+	return fake.FakeResourceGetter{
+		RetryWithCheckStub: retry.Exponential{
+			MaxBackoff:   time.Millisecond,
+			WaitInterval: time.Millisecond,
+		}.RetryWithCheck,
+	}
+}
 
 type WaitTestSuite struct {
 	suite.Suite
@@ -26,7 +45,7 @@ func (s *WaitTestSuite) TestResourceIsAvailable() {
 	ctx := context.TODO()
 	var counter int
 
-	rc := resourceIsAvailable(ctx, func(ctx context.Context) error {
+	rc := wait.ResourceIsAvailable(ctx, func(ctx context.Context) error {
 		defer func() { counter++ }()
 
 		switch counter {
@@ -60,7 +79,7 @@ func (s *WaitTestSuite) TestResourceIsGone() {
 	ctx := context.TODO()
 	var counter int
 
-	rc := resourceIsGone(ctx, func(ctx context.Context) error {
+	rc := wait.ResourceIsGone(ctx, func(ctx context.Context) error {
 		defer func() { counter++ }()
 
 		switch counter {
@@ -94,7 +113,7 @@ func (s *WaitTestSuite) TestResourceHasState() {
 	ctx := context.TODO()
 	var counter int
 
-	rc := resourceHasState(ctx, []string{"foo", "bar"}, func(ctx context.Context) (string, error) {
+	rc := wait.ResourceHasState(ctx, []string{"foo", "bar"}, func(ctx context.Context) (string, error) {
 		defer func() { counter++ }()
 
 		switch counter {

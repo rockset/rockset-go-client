@@ -2,6 +2,16 @@ package option
 
 import "github.com/rockset/rockset-go-client/openapi"
 
+type QueryState string
+
+const (
+	QueryQueued    QueryState = "QUEUED"
+	QueryRunning   QueryState = "RUNNING"
+	QueryError     QueryState = "ERROR"
+	QueryCompleted QueryState = "COMPLETED"
+	QueryCancelled QueryState = "CANCELLED"
+)
+
 type QueryOption func(request *openapi.QueryRequest)
 
 // WithDefaultRowLimit sets the row limit to use. Limits specified in the query text will override this default.
