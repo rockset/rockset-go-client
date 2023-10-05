@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **ObjectCountTotal** | Pointer to **int64** |  | [optional] [readonly] 
 **Pattern** | Pointer to **string** | Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified. | [optional] 
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
+**Settings** | Pointer to [**SourceGcsSettings**](SourceGcsSettings.md) |  | [optional] 
 
 ## Methods
 
@@ -205,6 +206,31 @@ SetPrefix sets Prefix field to given value.
 `func (o *SourceGcs) HasPrefix() bool`
 
 HasPrefix returns a boolean if a field has been set.
+
+### GetSettings
+
+`func (o *SourceGcs) GetSettings() SourceGcsSettings`
+
+GetSettings returns the Settings field if non-nil, zero value otherwise.
+
+### GetSettingsOk
+
+`func (o *SourceGcs) GetSettingsOk() (*SourceGcsSettings, bool)`
+
+GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSettings
+
+`func (o *SourceGcs) SetSettings(v SourceGcsSettings)`
+
+SetSettings sets Settings field to given value.
+
+### HasSettings
+
+`func (o *SourceGcs) HasSettings() bool`
+
+HasSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

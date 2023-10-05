@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **Kafka** | Pointer to [**SourceKafka**](SourceKafka.md) |  | [optional] 
 **Kinesis** | Pointer to [**SourceKinesis**](SourceKinesis.md) |  | [optional] 
 **Mongodb** | Pointer to [**SourceMongoDb**](SourceMongoDb.md) |  | [optional] 
+**ResumeAt** | Pointer to **string** | ISO-8601 date when source would be auto resumed, if suspended | [optional] [readonly] 
 **S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
 **Snowflake** | Pointer to [**SourceSnowflake**](SourceSnowflake.md) |  | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
@@ -366,6 +367,31 @@ SetMongodb sets Mongodb field to given value.
 `func (o *Source) HasMongodb() bool`
 
 HasMongodb returns a boolean if a field has been set.
+
+### GetResumeAt
+
+`func (o *Source) GetResumeAt() string`
+
+GetResumeAt returns the ResumeAt field if non-nil, zero value otherwise.
+
+### GetResumeAtOk
+
+`func (o *Source) GetResumeAtOk() (*string, bool)`
+
+GetResumeAtOk returns a tuple with the ResumeAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResumeAt
+
+`func (o *Source) SetResumeAt(v string)`
+
+SetResumeAt sets ResumeAt field to given value.
+
+### HasResumeAt
+
+`func (o *Source) HasResumeAt() bool`
+
+HasResumeAt returns a boolean if a field has been set.
 
 ### GetS3
 

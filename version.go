@@ -1,4 +1,4 @@
 package rockset
 
 // Version is the Rockset client version
-const Version = "0.21.2"
+const Version = "0.22.0"

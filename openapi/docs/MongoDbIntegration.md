@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ConnectionUri** | **string** | MongoDB connection URI string. | 
+**Tls** | Pointer to [**TLSConfig**](TLSConfig.md) |  | [optional] 
 
 ## Methods
 
@@ -44,6 +45,31 @@ and a boolean to check if the value has been set.
 
 SetConnectionUri sets ConnectionUri field to given value.
 
+
+### GetTls
+
+`func (o *MongoDbIntegration) GetTls() TLSConfig`
+
+GetTls returns the Tls field if non-nil, zero value otherwise.
+
+### GetTlsOk
+
+`func (o *MongoDbIntegration) GetTlsOk() (*TLSConfig, bool)`
+
+GetTlsOk returns a tuple with the Tls field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTls
+
+`func (o *MongoDbIntegration) SetTls(v TLSConfig)`
+
+SetTls sets Tls field to given value.
+
+### HasTls
+
+`func (o *MongoDbIntegration) HasTls() bool`
+
+HasTls returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -33,6 +33,7 @@ type SourceS3 struct {
 	Prefixes []string `json:"prefixes,omitempty"`
 	// AWS region containing source bucket.
 	Region *string `json:"region,omitempty"`
+	Settings *SourceS3Settings `json:"settings,omitempty"`
 }
 
 // NewSourceS3 instantiates a new SourceS3 object
@@ -333,6 +334,38 @@ func (o *SourceS3) SetRegion(v string) {
 	o.Region = &v
 }
 
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *SourceS3) GetSettings() SourceS3Settings {
+	if o == nil || IsNil(o.Settings) {
+		var ret SourceS3Settings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceS3) GetSettingsOk() (*SourceS3Settings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *SourceS3) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given SourceS3Settings and assigns it to the Settings field.
+func (o *SourceS3) SetSettings(v SourceS3Settings) {
+	o.Settings = &v
+}
+
 func (o SourceS3) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -357,6 +390,9 @@ func (o SourceS3) ToMap() (map[string]interface{}, error) {
 	// skip: prefixes is readOnly
 	if !IsNil(o.Region) {
 		toSerialize["region"] = o.Region
+	}
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
 	}
 	return toSerialize, nil
 }

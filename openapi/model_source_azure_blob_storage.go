@@ -28,6 +28,7 @@ type SourceAzureBlobStorage struct {
 	Pattern *string `json:"pattern,omitempty"`
 	// Prefix that selects blobs to ingest.
 	Prefix *string `json:"prefix,omitempty"`
+	Settings *SourceAzBlobStorageSettings `json:"settings,omitempty"`
 }
 
 // NewSourceAzureBlobStorage instantiates a new SourceAzureBlobStorage object
@@ -239,6 +240,38 @@ func (o *SourceAzureBlobStorage) SetPrefix(v string) {
 	o.Prefix = &v
 }
 
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *SourceAzureBlobStorage) GetSettings() SourceAzBlobStorageSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret SourceAzBlobStorageSettings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceAzureBlobStorage) GetSettingsOk() (*SourceAzBlobStorageSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *SourceAzureBlobStorage) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given SourceAzBlobStorageSettings and assigns it to the Settings field.
+func (o *SourceAzureBlobStorage) SetSettings(v SourceAzBlobStorageSettings) {
+	o.Settings = &v
+}
+
 func (o SourceAzureBlobStorage) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -260,6 +293,9 @@ func (o SourceAzureBlobStorage) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Prefix) {
 		toSerialize["prefix"] = o.Prefix
+	}
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
 	}
 	return toSerialize, nil
 }

@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **Prefix** | Pointer to **string** | Prefix that selects keys to ingest. | [optional] 
 **Prefixes** | Pointer to **[]string** | List of prefixes to paths from which data should be ingested. | [optional] [readonly] 
 **Region** | Pointer to **string** | AWS region containing source bucket. | [optional] 
+**Settings** | Pointer to [**SourceS3Settings**](SourceS3Settings.md) |  | [optional] 
 
 ## Methods
 
@@ -252,6 +253,31 @@ SetRegion sets Region field to given value.
 `func (o *SourceS3) HasRegion() bool`
 
 HasRegion returns a boolean if a field has been set.
+
+### GetSettings
+
+`func (o *SourceS3) GetSettings() SourceS3Settings`
+
+GetSettings returns the Settings field if non-nil, zero value otherwise.
+
+### GetSettingsOk
+
+`func (o *SourceS3) GetSettingsOk() (*SourceS3Settings, bool)`
+
+GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSettings
+
+`func (o *SourceS3) SetSettings(v SourceS3Settings)`
+
+SetSettings sets Settings field to given value.
+
+### HasSettings
+
+`func (o *SourceS3) HasSettings() bool`
+
+HasSettings returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

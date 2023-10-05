@@ -17,9 +17,11 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Unique identifer for collection, can contain alphanumeric or dash characters. | [optional] 
 **ReadOnly** | Pointer to **bool** | Whether the collection is read-only or not. | [optional] 
 **RetentionSecs** | Pointer to **int64** | Number of seconds after which data is purged based on event time. | [optional] 
+**Rrn** | Pointer to **string** | Collection RRN. | [optional] 
 **Sources** | Pointer to [**[]Source**](Source.md) | List of sources from which collection ingests. | [optional] 
 **Stats** | Pointer to [**CollectionStats**](CollectionStats.md) |  | [optional] 
 **Status** | Pointer to **string** | Current status of collection. | [optional] 
+**StorageCompressionType** | Pointer to **string** | RocksDB storage compression type. | [optional] 
 **Workspace** | Pointer to **string** | Name of the workspace that the collection is in. | [optional] 
 
 ## Methods
@@ -366,6 +368,31 @@ SetRetentionSecs sets RetentionSecs field to given value.
 
 HasRetentionSecs returns a boolean if a field has been set.
 
+### GetRrn
+
+`func (o *Collection) GetRrn() string`
+
+GetRrn returns the Rrn field if non-nil, zero value otherwise.
+
+### GetRrnOk
+
+`func (o *Collection) GetRrnOk() (*string, bool)`
+
+GetRrnOk returns a tuple with the Rrn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRrn
+
+`func (o *Collection) SetRrn(v string)`
+
+SetRrn sets Rrn field to given value.
+
+### HasRrn
+
+`func (o *Collection) HasRrn() bool`
+
+HasRrn returns a boolean if a field has been set.
+
 ### GetSources
 
 `func (o *Collection) GetSources() []Source`
@@ -440,6 +467,31 @@ SetStatus sets Status field to given value.
 `func (o *Collection) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetStorageCompressionType
+
+`func (o *Collection) GetStorageCompressionType() string`
+
+GetStorageCompressionType returns the StorageCompressionType field if non-nil, zero value otherwise.
+
+### GetStorageCompressionTypeOk
+
+`func (o *Collection) GetStorageCompressionTypeOk() (*string, bool)`
+
+GetStorageCompressionTypeOk returns a tuple with the StorageCompressionType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStorageCompressionType
+
+`func (o *Collection) SetStorageCompressionType(v string)`
+
+SetStorageCompressionType sets StorageCompressionType field to given value.
+
+### HasStorageCompressionType
+
+`func (o *Collection) HasStorageCompressionType() bool`
+
+HasStorageCompressionType returns a boolean if a field has been set.
 
 ### GetWorkspace
 

@@ -34,6 +34,8 @@ type Source struct {
 	Kafka *SourceKafka `json:"kafka,omitempty"`
 	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
 	Mongodb *SourceMongoDb `json:"mongodb,omitempty"`
+	// ISO-8601 date when source would be auto resumed, if suspended
+	ResumeAt *string `json:"resume_at,omitempty"`
 	S3 *SourceS3 `json:"s3,omitempty"`
 	Snowflake *SourceSnowflake `json:"snowflake,omitempty"`
 	Status *Status `json:"status,omitempty"`
@@ -475,6 +477,38 @@ func (o *Source) SetMongodb(v SourceMongoDb) {
 	o.Mongodb = &v
 }
 
+// GetResumeAt returns the ResumeAt field value if set, zero value otherwise.
+func (o *Source) GetResumeAt() string {
+	if o == nil || IsNil(o.ResumeAt) {
+		var ret string
+		return ret
+	}
+	return *o.ResumeAt
+}
+
+// GetResumeAtOk returns a tuple with the ResumeAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetResumeAtOk() (*string, bool) {
+	if o == nil || IsNil(o.ResumeAt) {
+		return nil, false
+	}
+	return o.ResumeAt, true
+}
+
+// HasResumeAt returns a boolean if a field has been set.
+func (o *Source) HasResumeAt() bool {
+	if o != nil && !IsNil(o.ResumeAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetResumeAt gets a reference to the given string and assigns it to the ResumeAt field.
+func (o *Source) SetResumeAt(v string) {
+	o.ResumeAt = &v
+}
+
 // GetS3 returns the S3 field value if set, zero value otherwise.
 func (o *Source) GetS3() SourceS3 {
 	if o == nil || IsNil(o.S3) {
@@ -682,6 +716,7 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Mongodb) {
 		toSerialize["mongodb"] = o.Mongodb
 	}
+	// skip: resume_at is readOnly
 	if !IsNil(o.S3) {
 		toSerialize["s3"] = o.S3
 	}
