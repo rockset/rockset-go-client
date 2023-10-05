@@ -59,34 +59,36 @@ const (
 	ListRolesGlobal
 	GrantRevokeRoleGlobal
 	CreateVirtualInstanceGlobal
+	CreateQueryLogsCollectionGlobal
 )
 
 var globalActions = map[string]GlobalAction{
-	"ALL_GLOBAL_ACTIONS":           AllGlobalActions,
-	"GET_ORG_GLOBAL":               GetOrgGlobal,
-	"GET_CURRENT_USER_GLOBAL":      GetCurrentUserGlobal,
-	"INVITE_USER_GLOBAL":           InviteUserGlobal,
-	"DELETE_USER_GLOBAL":           DeleteUserGlobal,
-	"LIST_USERS_GLOBAL":            ListUsersGlobal,
-	"GET_BILLING_GLOBAL":           GetBillingGlobal,
-	"UPDATE_BILLING_GLOBAL":        UpdateBillingGlobal,
-	"UPDATE_SETTINGS_GLOBAL":       UpdateSettingsGlobal,
-	"GET_METRICS_GLOBAL":           GetMetricsGlobal,
-	"UPDATE_VI_GLOBAL":             UpdateViGlobal,
-	"LIST_VI_GLOBAL":               ListViGlobal,
-	"CREATE_WS_GLOBAL":             CreateWsGlobal,
-	"LIST_WS_GLOBAL":               ListWsGlobal,
-	"CREATE_INTEGRATION_GLOBAL":    CreateIntegrationGlobal,
-	"DELETE_INTEGRATION_GLOBAL":    DeleteIntegrationGlobal,
-	"LIST_INTEGRATIONS_GLOBAL":     ListIntegrationsGlobal,
-	"UPDATE_RESOURCE_OWNER_GLOBAL": UpdateResourceOwnerGlobal,
-	"CREATE_API_KEY_GLOBAL":        CreateAPIKeyGlobal,
-	"CREATE_ROLE_GLOBAL":           CreateRoleGlobal,
-	"UPDATE_ROLE_GLOBAL":           UpdateRoleGlobal,
-	"DELETE_ROLE_GLOBAL":           DeleteRoleGlobal,
-	"LIST_ROLES_GLOBAL":            ListRolesGlobal,
-	"GRANT_REVOKE_ROLE_GLOBAL":     GrantRevokeRoleGlobal,
-	"CREATE_VI_GLOBAL":             CreateVirtualInstanceGlobal,
+	"ALL_GLOBAL_ACTIONS":                  AllGlobalActions,
+	"GET_ORG_GLOBAL":                      GetOrgGlobal,
+	"GET_CURRENT_USER_GLOBAL":             GetCurrentUserGlobal,
+	"INVITE_USER_GLOBAL":                  InviteUserGlobal,
+	"DELETE_USER_GLOBAL":                  DeleteUserGlobal,
+	"LIST_USERS_GLOBAL":                   ListUsersGlobal,
+	"GET_BILLING_GLOBAL":                  GetBillingGlobal,
+	"UPDATE_BILLING_GLOBAL":               UpdateBillingGlobal,
+	"UPDATE_SETTINGS_GLOBAL":              UpdateSettingsGlobal,
+	"GET_METRICS_GLOBAL":                  GetMetricsGlobal,
+	"UPDATE_VI_GLOBAL":                    UpdateViGlobal,
+	"LIST_VI_GLOBAL":                      ListViGlobal,
+	"CREATE_WS_GLOBAL":                    CreateWsGlobal,
+	"LIST_WS_GLOBAL":                      ListWsGlobal,
+	"CREATE_INTEGRATION_GLOBAL":           CreateIntegrationGlobal,
+	"DELETE_INTEGRATION_GLOBAL":           DeleteIntegrationGlobal,
+	"LIST_INTEGRATIONS_GLOBAL":            ListIntegrationsGlobal,
+	"UPDATE_RESOURCE_OWNER_GLOBAL":        UpdateResourceOwnerGlobal,
+	"CREATE_API_KEY_GLOBAL":               CreateAPIKeyGlobal,
+	"CREATE_ROLE_GLOBAL":                  CreateRoleGlobal,
+	"UPDATE_ROLE_GLOBAL":                  UpdateRoleGlobal,
+	"DELETE_ROLE_GLOBAL":                  DeleteRoleGlobal,
+	"LIST_ROLES_GLOBAL":                   ListRolesGlobal,
+	"GRANT_REVOKE_ROLE_GLOBAL":            GrantRevokeRoleGlobal,
+	"CREATE_VI_GLOBAL":                    CreateVirtualInstanceGlobal,
+	"CREATE_QUERY_LOGS_COLLECTION_GLOBAL": CreateQueryLogsCollectionGlobal,
 }
 
 // IntegrationAction is the type for actions that operate on integrations.
@@ -160,23 +162,33 @@ const (
 	ExecuteQueryLambdaWs
 	CreateViewWs
 	DeleteViewWs
+	CreateSnapshotWs
+	CreateScheduledLambdaWs
+	DeleteScheduledLambdaWs
+	CreateSimilarityIndexWs
+	DeleteSimilarityIndexWs
 )
 
 var wsActions = map[string]WorkspaceAction{
-	"ALL_WORKSPACE_ACTIONS":   AllWorkspaceActions,
-	"DELETE_WS":               DeleteWs,
-	"QUERY_DATA_WS":           QueryDataWs,
-	"WRITE_DATA_WS":           WriteDataWs,
-	"CREATE_COLLECTION_WS":    CreateCollectionWs,
-	"DELETE_COLLECTION_WS":    DeleteCollectionWs,
-	"CREATE_ALIAS_WS":         CreateAliasWs,
-	"DELETE_ALIAS_WS":         DeleteAliasWs,
-	"LIST_RESOURCES_WS":       ListResourcesWs,
-	"CREATE_QUERY_LAMBDA_WS":  CreateQueryLambdaWs,
-	"DELETE_QUERY_LAMBDA_WS":  DeleteQueryLambdaWs,
-	"EXECUTE_QUERY_LAMBDA_WS": ExecuteQueryLambdaWs,
-	"CREATE_VIEW_WS":          CreateViewWs,
-	"DELETE_VIEW_WS":          DeleteViewWs,
+	"ALL_WORKSPACE_ACTIONS":      AllWorkspaceActions,
+	"DELETE_WS":                  DeleteWs,
+	"QUERY_DATA_WS":              QueryDataWs,
+	"WRITE_DATA_WS":              WriteDataWs,
+	"CREATE_COLLECTION_WS":       CreateCollectionWs,
+	"DELETE_COLLECTION_WS":       DeleteCollectionWs,
+	"CREATE_ALIAS_WS":            CreateAliasWs,
+	"DELETE_ALIAS_WS":            DeleteAliasWs,
+	"LIST_RESOURCES_WS":          ListResourcesWs,
+	"CREATE_QUERY_LAMBDA_WS":     CreateQueryLambdaWs,
+	"DELETE_QUERY_LAMBDA_WS":     DeleteQueryLambdaWs,
+	"EXECUTE_QUERY_LAMBDA_WS":    ExecuteQueryLambdaWs,
+	"CREATE_VIEW_WS":             CreateViewWs,
+	"DELETE_VIEW_WS":             DeleteViewWs,
+	"CREATE_SNAPSHOT_WS":         CreateSnapshotWs,
+	"CREATE_SCHEDULED_LAMBDA_WS": CreateScheduledLambdaWs,
+	"DELETE_SCHEDULED_LAMBDA_WS": DeleteScheduledLambdaWs,
+	"CREATE_SIMILARITY_INDEX_WS": CreateSimilarityIndexWs,
+	"DELETE_SIMILARITY_INDEX_WS": DeleteSimilarityIndexWs,
 }
 
 // VirtualInstanceAction is the type for actions that operate on virtual instances.
