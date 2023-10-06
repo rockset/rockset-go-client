@@ -2,6 +2,7 @@ package errors_test
 
 import (
 	"errors"
+	"github.com/rockset/rockset-go-client/openapi"
 	"net/http"
 	"testing"
 
@@ -27,10 +28,39 @@ func TestError_IsNotFoundError(t *testing.T) {
 }
 
 func TestError_NilHTTPResponse(t *testing.T) {
-	err := rockerr.NewWithStatusCode(errors.New("test error"), nil)
+	e := errors.New("test error")
+	err := rockerr.NewWithStatusCode(e, nil)
 
 	var re rockerr.Error
 	require.True(t, errors.As(err, &re))
 	assert.False(t, re.IsNotFoundError())
-	assert.Equal(t, 0, re.StatusCode)
+	assert.False(t, re.RateLimited())
+	assert.False(t, re.Retryable())
+	assert.Equal(t, e, re.Unwrap())
+	assert.Equal(t, "test error", err.Error())
+}
+
+func TestError_HTTPResponse(t *testing.T) {
+	e := errors.New("test error")
+	err := rockerr.NewWithStatusCode(e, &http.Response{StatusCode: http.StatusTooManyRequests})
+
+	var re rockerr.Error
+	require.True(t, errors.As(err, &re))
+
+	re.ErrorModel = &openapi.ErrorModel{
+		Message: openapi.PtrString("api error"),
+	}
+
+	assert.False(t, re.IsNotFoundError())
+	assert.True(t, re.RateLimited())
+	assert.True(t, re.Retryable())
+	assert.Equal(t, e, re.Unwrap())
+	assert.Equal(t, "api error", re.Error())
+	assert.Equal(t, "test error", err.Error())
+}
+
+func TestError_Nil(t *testing.T) {
+	err := rockerr.NewWithStatusCode(nil, nil)
+
+	assert.Nil(t, err)
 }

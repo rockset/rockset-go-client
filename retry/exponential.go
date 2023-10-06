@@ -26,6 +26,8 @@ func NewExponential() Exponential {
 	return Exponential{}
 }
 
+const DefaultJitterFraction = .05
+
 // Retry retries retryFn until it returns an error. Uses exponential backoff.
 // If the retryFn returns an error, it is wrapped in an Error, which implements RetryableError
 // so the RetryableErrorCheck can determine if it should retry the operation.
@@ -41,7 +43,7 @@ func (r Exponential) Retry(ctx context.Context, retryFn Func) error {
 	if r.WaitInterval != 0 {
 		waitInterval = r.WaitInterval
 	}
-	jitterFraction := .05
+	jitterFraction := DefaultJitterFraction
 	if r.JitterFraction != 0 {
 		jitterFraction = r.JitterFraction
 	}
@@ -102,7 +104,7 @@ func (r Exponential) RetryWithCheck(ctx context.Context, checkFn CheckFn) error 
 	if r.WaitInterval != 0 {
 		waitInterval = r.WaitInterval
 	}
-	jitterFraction := .05
+	jitterFraction := DefaultJitterFraction
 	if r.JitterFraction != 0 {
 		jitterFraction = r.JitterFraction
 	}

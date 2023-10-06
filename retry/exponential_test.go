@@ -39,10 +39,12 @@ func (s *ExponentialRetrySuite) TestDefaultRetry() {
 	ctx := context.TODO()
 	var count int
 
-	err := retry.Exponential{
-		MaxBackoff:   time.Second,
-		WaitInterval: time.Millisecond,
-	}.Retry(ctx, func() error {
+	exp := retry.NewExponential()
+	exp.JitterFraction = 0.04
+	exp.MaxBackoff = time.Second
+	exp.WaitInterval = time.Millisecond
+
+	err := exp.Retry(ctx, func() error {
 		count++
 		if count > 2 {
 			return nil
@@ -112,6 +114,24 @@ func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFn() {
 	s.Assert().NoError(err)
 }
 
+func (s *ExponentialRetrySuite) TestExponentialRetry_RetryFnCancelled() {
+	ctx, cancel := context.WithTimeout(context.TODO(), time.Millisecond)
+
+	err := retry.Exponential{
+		MaxBackoff:   time.Second,
+		WaitInterval: time.Millisecond,
+		RetryableErrorCheck: func(_ error) bool {
+			// always retry, forever
+			return true
+		},
+	}.Retry(ctx, func() error {
+		cancel()
+		return errors.New("error")
+	})
+
+	s.Assert().ErrorIs(err, context.Canceled)
+}
+
 func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheck() {
 	ctx := context.TODO()
 
@@ -129,4 +149,32 @@ func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheck() {
 	})
 
 	s.Assert().NoError(err)
+}
+
+func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheckError() {
+	ctx := context.TODO()
+
+	err := retry.Exponential{
+		MaxBackoff:   time.Second,
+		WaitInterval: time.Millisecond,
+	}.RetryWithCheck(ctx, func() (bool, error) {
+		return false, errors.New("error")
+	})
+
+	s.Assert().Error(err)
+}
+
+func (s *ExponentialRetrySuite) TestExponentialRetry_RetryWithCheckCancelled() {
+	ctx, cancel := context.WithTimeout(context.TODO(), time.Millisecond)
+
+	err := retry.Exponential{
+		MaxBackoff:   time.Second,
+		WaitInterval: time.Millisecond,
+	}.RetryWithCheck(ctx, func() (bool, error) {
+		cancel()
+		time.Sleep(time.Millisecond)
+		return true, nil
+	})
+
+	s.Assert().ErrorIs(err, context.Canceled)
 }
