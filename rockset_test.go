@@ -1,7 +1,7 @@
 package rockset_test
 
 import (
-	"fmt"
+	"github.com/stretchr/testify/suite"
 	"os"
 	"testing"
 
@@ -25,98 +25,94 @@ func TestTemplate(t *testing.T) {
 	log.Debug().Str("org", org.GetDisplayName())
 }
 
-func TestRockClient_withAPIKey(t *testing.T) {
-	test.SkipUnlessIntegrationTest(t)
-
-	ctx := test.Context()
-	log := zerolog.Ctx(ctx)
-
-	key := os.Getenv(rockset.APIKeyEnvironmentVariableName)
-	err := os.Unsetenv(rockset.APIKeyEnvironmentVariableName)
-	require.NoError(t, err)
-
-	defer func() {
-		if err = os.Setenv(rockset.APIKeyEnvironmentVariableName, key); err != nil {
-			panic("failed to reset environment")
-		}
-	}()
-
-	rc, err := rockset.NewClient(rockset.WithAPIKey(key))
-	require.NoError(t, err)
-
-	org, err := rc.GetOrganization(ctx)
-	require.NoError(t, err)
-
-	log.Debug().Str("org", org.GetDisplayName())
+type RockOptionSuite struct {
+	suite.Suite
+	savedAPIKey    string
+	savedAPIServer string
 }
 
-func TestRockClient_withoutAPIServer(t *testing.T) {
-	// this is messing with the environment
-	oldEnv, set := os.LookupEnv(rockset.APIServerEnvironmentVariableName)
-	if set {
-		defer func() {
-			if err := os.Setenv(rockset.APIServerEnvironmentVariableName, oldEnv); err != nil {
-				t.Errorf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
-			}
-		}()
-		err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
-		require.NoError(t, err)
+func TestRockOptions(t *testing.T) {
+	s := RockOptionSuite{
+		// save API key & server
+		savedAPIKey:    os.Getenv(rockset.APIKeyEnvironmentVariableName),
+		savedAPIServer: os.Getenv(rockset.APIServerEnvironmentVariableName),
 	}
+	suite.Run(t, &s)
+}
 
-	_, err := rockset.NewClient()
-	if assert.Error(t, err) {
-		assert.Equal(t, "you must specify an API server", err.Error())
+func (s *RockOptionSuite) TearDownSuite() {
+	// restore API key & server
+	if s.savedAPIKey != "" {
+		s.NoError(os.Setenv(rockset.APIKeyEnvironmentVariableName, s.savedAPIKey))
+	}
+	if s.savedAPIServer != "" {
+		s.NoError(os.Setenv(rockset.APIServerEnvironmentVariableName, s.savedAPIServer))
 	}
 }
 
-const USW2A1 = "api.usw2a1.rockset.com"
-
-func TestRockClient_withAPIServer(t *testing.T) {
-	test.SkipUnlessIntegrationTest(t)
-	// TODO this should use VCR too
-
-	ctx := test.Context()
-	log := zerolog.Ctx(ctx)
-
-	// this is messing with the environment
-	oldEnv := os.Getenv(rockset.APIServerEnvironmentVariableName)
-	defer func() {
-		if err := os.Setenv(rockset.APIServerEnvironmentVariableName, oldEnv); err != nil {
-			t.Errorf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
-		}
-	}()
-	err := os.Unsetenv(rockset.APIServerEnvironmentVariableName)
-	require.NoError(t, err)
-
-	rc, err := rockset.NewClient(rockset.WithAPIServer(fmt.Sprintf("https://%s/", USW2A1)))
-	require.NoError(t, err)
-
-	org, err := rc.GetOrganization(ctx)
-	require.NoError(t, err)
-
-	log.Debug().Str("org", org.GetDisplayName())
+func (s *RockOptionSuite) SetupTest() {
+	// clear env before each test
+	s.NoError(os.Unsetenv(rockset.APIKeyEnvironmentVariableName))
+	s.NoError(os.Unsetenv(rockset.APIServerEnvironmentVariableName))
 }
 
-func TestRockClient_withAPIServerEnv(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
+func (s *RockOptionSuite) TestMissingCreds() {
+	_, err := rockset.NewClient(rockset.WithAPIServer("server"))
+	s.ErrorIs(err, rockset.NoAPICredentialsErr)
+}
 
-	ctx := test.Context()
-	log := zerolog.Ctx(ctx)
+func (s *RockOptionSuite) TestMissingServer() {
+	_, err := rockset.NewClient(rockset.WithAPIKey("key"))
+	s.ErrorIs(err, rockset.NoAPIServerErr)
+}
 
-	// this is messing with the environment
-	oldEnv := os.Getenv(rockset.APIServerEnvironmentVariableName)
-	defer func() {
-		if err := os.Setenv(rockset.APIServerEnvironmentVariableName, oldEnv); err != nil {
-			t.Logf("failed to reset environment variable %s: %v", rockset.APIServerEnvironmentVariableName, err)
-		}
-	}()
-	err := os.Setenv(rockset.APIServerEnvironmentVariableName, USW2A1)
-	require.NoError(t, err)
+func (s *RockOptionSuite) TestLastCredWins() {
+	rc, err := rockset.NewClient(
+		rockset.WithAPIServer("server"),
+		rockset.WithBearerToken("token", "org"),
+		rockset.WithAPIKey("key"),
+	)
+	s.NoError(err)
+	s.Equal("key", rc.APIKey)
+	s.Equal("", rc.Token)
+	s.Equal("", rc.Organization)
+}
 
-	org, err := rc.GetOrganization(ctx)
-	require.NoError(t, err)
+func (s *RockOptionSuite) TestExplicitKeyOverridesEnv() {
+	s.NoError(os.Setenv(rockset.APIKeyEnvironmentVariableName, "env"))
+	rc, err := rockset.NewClient(rockset.WithAPIServer("server"), rockset.WithAPIKey("key"))
+	s.NoError(err)
+	s.Equal("key", rc.APIKey)
+}
 
-	log.Debug().Str("org", org.GetDisplayName())
+func (s *RockOptionSuite) TestExplicitServerOverridesEnv() {
+	s.NoError(os.Setenv(rockset.APIKeyEnvironmentVariableName, "env"))
+	rc, err := rockset.NewClient(rockset.WithAPIServer("server"), rockset.WithAPIKey("key"))
+	s.NoError(err)
+	s.Equal("server", rc.APIServer)
+}
+
+func (s *RockOptionSuite) TestBearerToken() {
+	token := "bearer token"
+	org := "rockset org"
+
+	rc, err := rockset.NewClient(rockset.WithBearerToken(token, org), rockset.WithAPIServer("server"))
+	s.NoError(err)
+	s.Equal(token, rc.Token)
+	s.Equal(org, rc.Organization)
+	s.Equal("", rc.APIKey)
+}
+
+func (s *RockOptionSuite) TestBearerTokenWithEnv() {
+	s.NoError(os.Setenv(rockset.APIKeyEnvironmentVariableName, "env"))
+	token := "bearer token"
+	org := "rockset org"
+
+	rc, err := rockset.NewClient(rockset.WithBearerToken(token, org), rockset.WithAPIServer("server"))
+	s.NoError(err)
+	s.Equal(token, rc.Token)
+	s.Equal(org, rc.Organization)
+	s.Equal("", rc.APIKey)
 }
 
 func TestRockClient_Ping(t *testing.T) {
