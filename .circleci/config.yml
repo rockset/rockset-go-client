@@ -33,7 +33,7 @@ workflows:
 jobs:
   validation:
     docker:
-      - image: cimg/go:1.20
+      - image: cimg/go:1.21
     steps:
       - checkout
       - run: go generate ./...
@@ -54,7 +54,7 @@ jobs:
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   integration:
     docker:
-      - image: cimg/go:1.20
+      - image: cimg/go:1.21
     steps:
       - checkout
       - run: go install github.com/mattn/goveralls@latest
@@ -64,7 +64,7 @@ jobs:
       - run: goveralls -coverprofile=cover.out -service=circle-ci
   release:
     docker:
-      - image: cimg/go:1.20
+      - image: cimg/go:1.21
     steps:
       - checkout
       - run: go mod download
