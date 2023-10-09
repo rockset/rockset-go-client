@@ -40,7 +40,11 @@ type RockConfig struct {
 	APIKey string
 	// APIServer is the API server to connect to
 	APIServer string
-	cfg       *openapi.Configuration
+	// Token is an OAuth2 ID token
+	Token string
+	// Organization is the Rockset org, which is required when authenticating using Token
+	Organization string
+	cfg          *openapi.Configuration
 }
 
 // RockClient is the client struct for making APi calls to Rockset.
@@ -78,7 +82,7 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}
 
 	if rc.APIServer == "" {
-		return nil, fmt.Errorf("you must specify an API server")
+		return nil, NoAPIServerErr
 	}
 
 	u, err := url.Parse(rc.APIServer)
@@ -97,10 +101,16 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg.Host = rc.APIServer
 	cfg.Scheme = "https" // we do not allow setting the scheme from the URL as we only support HTTPS
 
-	if rc.APIKey == "" {
-		return nil, errors.New("no API key provided")
+	if rc.APIKey == "" && rc.Token == "" {
+		return nil, NoAPICredentialsErr
+	} else if rc.APIKey != "" && rc.Token != "" {
+		return nil, DuplicateCredentialsErr
+	} else if rc.APIKey != "" {
+		cfg.AddDefaultHeader("Authorization", "apikey "+rc.APIKey)
+	} else {
+		cfg.AddDefaultHeader("Authorization", "bearer "+rc.Token)
+		cfg.AddDefaultHeader("organization", rc.Organization)
 	}
-	cfg.AddDefaultHeader("Authorization", "apikey "+rc.APIKey)
 
 	client := RockClient{
 		RockConfig: rc,
@@ -111,13 +121,21 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	return &client, nil
 }
 
+var (
+	NoAPICredentialsErr     = errors.New("no API credentials provided")
+	DuplicateCredentialsErr = errors.New("duplicate API credentials provided")
+	NoAPIServerErr          = errors.New("no API server provided")
+)
+
 // RockOption is the type for RockClient options.
 type RockOption func(rc *RockConfig)
 
-// WithAPIKey sets the API key to use
+// WithAPIKey sets the API key to use, and removes the bearer token.
 func WithAPIKey(apiKey string) RockOption {
 	return func(rc *RockConfig) {
 		rc.APIKey = apiKey
+		rc.Token = ""
+		rc.Organization = ""
 	}
 }
 
@@ -125,6 +143,16 @@ func WithAPIKey(apiKey string) RockOption {
 func WithAPIServer(server string) RockOption {
 	return func(rc *RockConfig) {
 		rc.APIServer = server
+	}
+}
+
+// WithBearerToken uses authorization using a bearer token, which requires specifying the organization.
+// Removes the API key, if set.
+func WithBearerToken(token, org string) RockOption {
+	return func(rc *RockConfig) {
+		rc.Token = token
+		rc.Organization = org
+		rc.APIKey = ""
 	}
 }
 
