@@ -41,15 +41,23 @@ func WithIntegrationPrivilege(action IntegrationAction, integration string) Role
 	}
 }
 
-// WithWorkspacePrivilege is used to add a workspace action to a role. If WithCluster isn't specified, the privilege
-// applied to all clusters. Only the last WithCluster is what is used.
-func WithWorkspacePrivilege(action WorkspaceAction, workspace string, options ...ClusterPrivileges) RoleOption {
-	return func(o *RoleOptions) {
-		a := action.String()
+// WithVirtualInstancePrivilege is used to add a virtual instance action to a role.
+// If WithCluster isn't specified, the privilege applied to all clusters. Only the last WithCluster is what is used.
+func WithVirtualInstancePrivilege(action VirtualInstanceAction, vID string, options ...ClusterPrivileges) RoleOption {
+	return resourcePrivilege(action.String(), vID, options)
+}
 
+// WithWorkspacePrivilege is used to add a workspace action to a role.
+// If WithCluster isn't specified, the privilege applied to all clusters. Only the last WithCluster is what is used.
+func WithWorkspacePrivilege(action WorkspaceAction, workspace string, options ...ClusterPrivileges) RoleOption {
+	return resourcePrivilege(action.String(), workspace, options)
+}
+
+func resourcePrivilege(action, resource string, options []ClusterPrivileges) func(o *RoleOptions) {
+	return func(o *RoleOptions) {
 		p := openapi.Privilege{
-			Action:       &a,
-			ResourceName: &workspace,
+			Action:       &action,
+			ResourceName: &resource,
 			Cluster:      openapi.PtrString(AllClusters),
 		}
 
