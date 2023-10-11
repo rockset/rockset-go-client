@@ -2,6 +2,8 @@ package wait_test
 
 import (
 	"context"
+	rockerr "github.com/rockset/rockset-go-client/errors"
+	"net/http"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -60,13 +62,31 @@ func TestWait_untilMountActive(t *testing.T) {
 	assert.Equal(t, 2, rs.GetCollectionMountCallCount())
 }
 
-func TestWait_untilMountGone(t *testing.T) {
+func TestWait_untilMountGone404(t *testing.T) {
 	ctx := context.TODO()
 
 	rs := fakeRocksetClient()
 	rs.GetCollectionMountReturnsOnCall(0, openapi.CollectionMount{State: openapi.PtrString(option.MountActive)}, nil)
 	rs.GetCollectionMountReturnsOnCall(1, openapi.CollectionMount{State: openapi.PtrString(option.MountDeleting)}, nil)
 	rs.GetCollectionMountReturnsOnCall(2, openapi.CollectionMount{}, NotFoundErr)
+
+	err := wait.New(&rs).UntilMountGone(ctx, "id", "workspace", "collection")
+	assert.NoError(t, err)
+	assert.Equal(t, 3, rs.GetCollectionMountCallCount())
+}
+
+func TestWait_untilMountGone400(t *testing.T) {
+	// TODO(pme) once ORC-3594 is fixed, this test can be removed
+	ctx := context.TODO()
+
+	msg := "Collection persistent.patch is not mounted on virtual instance 3b5d1aeb-5645-495e-a328-adee6a037824."
+	e404 := rockerr.Error{ErrorModel: openapi.NewErrorModel(), StatusCode: http.StatusBadRequest}
+	e404.ErrorModel.Message = &msg
+
+	rs := fakeRocksetClient()
+	rs.GetCollectionMountReturnsOnCall(0, openapi.CollectionMount{State: openapi.PtrString(option.MountActive)}, nil)
+	rs.GetCollectionMountReturnsOnCall(1, openapi.CollectionMount{State: openapi.PtrString(option.MountDeleting)}, nil)
+	rs.GetCollectionMountReturnsOnCall(2, openapi.CollectionMount{}, e404)
 
 	err := wait.New(&rs).UntilMountGone(ctx, "id", "workspace", "collection")
 	assert.NoError(t, err)

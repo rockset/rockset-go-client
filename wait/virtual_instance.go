@@ -2,6 +2,10 @@ package wait
 
 import (
 	"context"
+	"errors"
+	rockerr "github.com/rockset/rockset-go-client/errors"
+	"github.com/rockset/rockset-go-client/retry"
+	"regexp"
 
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -44,8 +48,37 @@ func (w *Waiter) UntilMountActive(ctx context.Context, vID, workspace, collectio
 
 // UntilMountGone waits until the collection mount is gone.
 func (w *Waiter) UntilMountGone(ctx context.Context, vID, workspace, collection string) error {
-	return w.rc.RetryWithCheck(ctx, ResourceIsGone(ctx, func(ctx context.Context) error {
+	// TODO this can't use ResourceIsGone as the API returns 400 instead of the expected 404 when the
+	//  mount doesn't exist
+	return w.rc.RetryWithCheck(ctx, mountIsGone(ctx, func(ctx context.Context) error {
 		_, err := w.rc.GetCollectionMount(ctx, vID, workspace+"."+collection)
 		return err
 	}))
+}
+
+var mountRe = regexp.MustCompile("Collection .* is not mounted on virtual instance .*")
+
+// TODO(pme) once ORC-3594 is fixed, this test can be removed
+func mountIsGone(ctx context.Context, fn func(ctx context.Context) error) retry.CheckFn {
+	return func() (bool, error) {
+		err := fn(ctx)
+
+		if err == nil {
+			// the resource is still present, retry the operation
+			return true, nil
+		}
+
+		var re rockerr.Error
+		if errors.As(err, &re) {
+			if re.IsNotFoundError() {
+				// the resource is no longer present
+				return false, nil
+			}
+			if mountRe.MatchString(re.GetMessage()) {
+				return false, nil
+			}
+		}
+
+		return false, err
+	}
 }
