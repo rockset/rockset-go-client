@@ -126,7 +126,6 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_0_Create() {
 
 	vi, err := rc.CreateVirtualInstance(ctx, s.name,
 		option.WithVirtualInstanceSize(option.SizeSmall),
-		option.WithNoMountRefresh(),
 		option.WithRemountOnResume(true),
 		option.WithAutoSuspend(15*time.Minute),
 	)
