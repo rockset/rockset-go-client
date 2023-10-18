@@ -39,10 +39,6 @@ func (rc *RockClient) CreateVirtualInstance(ctx context.Context, name string,
 		zl.Info().Int32("s", s).Dur("d", *opts.AutoSuspend).Msg("auto suspend")
 		req.AutoSuspendSeconds = &s
 	}
-	if opts.MountRefreshInterval != nil {
-		s := int32(opts.MountRefreshInterval.Seconds())
-		req.MountRefreshIntervalSeconds = &s
-	}
 	if opts.EnableRemountOnResume != nil {
 		req.EnableRemountOnResume = opts.EnableRemountOnResume
 	}
@@ -160,10 +156,6 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	if opts.AutoSuspend != nil {
 		s := int32(opts.AutoSuspend.Seconds())
 		req.AutoSuspendSeconds = &s
-	}
-	if opts.MountRefreshInterval != nil {
-		s := int32(opts.MountRefreshInterval.Seconds())
-		req.MountRefreshIntervalSeconds = &s
 	}
 	if opts.EnableRemountOnResume != nil {
 		req.EnableRemountOnResume = opts.EnableRemountOnResume
