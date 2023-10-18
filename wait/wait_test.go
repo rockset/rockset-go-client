@@ -96,24 +96,27 @@ func (s *WaitTestSuite) TestResourceIsGone() {
 		}
 	})
 
-	retry, err := rc()
-	assert.True(s.T(), retry)
+	r, err := rc()
+	assert.True(s.T(), r)
 	assert.NoError(s.T(), err)
 
-	retry, err = rc()
-	assert.False(s.T(), retry)
+	r, err = rc()
+	assert.False(s.T(), r)
 	assert.NoError(s.T(), err)
 
-	retry, err = rc()
-	assert.False(s.T(), retry)
+	r, err = rc()
+	assert.False(s.T(), r)
 	assert.Error(s.T(), err)
 }
 
+type state string
+
+func (s state) String() string { return string(s) }
 func (s *WaitTestSuite) TestResourceHasState() {
 	ctx := context.TODO()
 	var counter int
 
-	rc := wait.ResourceHasState(ctx, []string{"foo", "bar"}, func(ctx context.Context) (string, error) {
+	rc := wait.ResourceHasState(ctx, []state{"foo", "bar"}, nil, func(ctx context.Context) (state, error) {
 		defer func() { counter++ }()
 
 		switch counter {
@@ -126,15 +129,45 @@ func (s *WaitTestSuite) TestResourceHasState() {
 		}
 	})
 
-	retry, err := rc()
-	assert.True(s.T(), retry)
+	r, err := rc()
+	assert.True(s.T(), r)
 	assert.NoError(s.T(), err)
 
-	retry, err = rc()
-	assert.False(s.T(), retry)
+	r, err = rc()
+	assert.False(s.T(), r)
 	assert.NoError(s.T(), err)
 
-	retry, err = rc()
-	assert.False(s.T(), retry)
+	r, err = rc()
+	assert.False(s.T(), r)
 	assert.Error(s.T(), err)
+}
+
+func (s *WaitTestSuite) TestResourceHasState_badState() {
+	ctx := context.TODO()
+	var counter int
+
+	rc := wait.ResourceHasState(ctx, []state{"foo", "bar"}, []state{"err"}, func(ctx context.Context) (state, error) {
+		defer func() { counter++ }()
+
+		switch counter {
+		case 0:
+			return "baz", nil
+		case 1:
+			return "bar", nil
+		default:
+			return "err", nil
+		}
+	})
+
+	r, err := rc()
+	assert.True(s.T(), r)
+	assert.NoError(s.T(), err)
+
+	r, err = rc()
+	assert.False(s.T(), r)
+	assert.NoError(s.T(), err)
+
+	r, err = rc()
+	assert.False(s.T(), r)
+	assert.ErrorIs(s.T(), err, rockerr.ErrBadWaitState)
 }

@@ -7,10 +7,14 @@ import (
 	"github.com/rockset/rockset-go-client/openapi"
 )
 
+type CollectionStatus string
+
+func (c CollectionStatus) String() string { return string(c) }
+
 const (
-	CollectionStatusCreated     = "CREATED"
-	CollectionStatusInitialized = "INITIALIZED"
-	CollectionStatusReady       = "READY"
+	CollectionStatusCreated     CollectionStatus = "CREATED"
+	CollectionStatusInitialized CollectionStatus = "INITIALIZED"
+	CollectionStatusReady       CollectionStatus = "READY"
 )
 
 type ListCollectionOptions struct {

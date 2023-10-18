@@ -4,6 +4,8 @@ import "github.com/rockset/rockset-go-client/openapi"
 
 type QueryState string
 
+func (q QueryState) String() string { return string(q) }
+
 const (
 	QueryQueued    QueryState = "QUEUED"
 	QueryRunning   QueryState = "RUNNING"

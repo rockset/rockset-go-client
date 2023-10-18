@@ -2,24 +2,32 @@ package option
 
 import "time"
 
-const (
-	VirtualInstanceInitializing           = "INITIALIZING"
-	VirtualInstanceProvisioningResources  = "PROVISIONING_RESOURCES"
-	VirtualInstanceRebalancingCollections = "REBALANCING_COLLECTIONS"
-	VirtualInstanceActive                 = "ACTIVE"
-	VirtualInstanceSuspending             = "SUSPENDING"
-	VirtualInstanceSuspended              = "SUSPENDED"
-	VirtualInstanceResuming               = "RESUMING"
-	VirtualInstanceDeleted                = "DELETED"
+type VirtualInstanceState string
 
-	MountCreating             = "CREATING"
-	MountActive               = "ACTIVE"
-	MountRefreshing           = "REFRESHING"
-	MountExpired              = "EXPIRED"
-	MountDeleting             = "DELETING"
-	MountSwitchingRefreshType = "SWITCHING_REFRESH_TYPE"
-	MountSuspended            = "SUSPENDED"
-	MountSuspending           = "SUSPENDING"
+func (v VirtualInstanceState) String() string { return string(v) }
+
+type MountState string
+
+func (m MountState) String() string { return string(m) }
+
+const (
+	VirtualInstanceInitializing           VirtualInstanceState = "INITIALIZING"
+	VirtualInstanceProvisioningResources  VirtualInstanceState = "PROVISIONING_RESOURCES"
+	VirtualInstanceRebalancingCollections VirtualInstanceState = "REBALANCING_COLLECTIONS"
+	VirtualInstanceActive                 VirtualInstanceState = "ACTIVE"
+	VirtualInstanceSuspending             VirtualInstanceState = "SUSPENDING"
+	VirtualInstanceSuspended              VirtualInstanceState = "SUSPENDED"
+	VirtualInstanceResuming               VirtualInstanceState = "RESUMING"
+	VirtualInstanceDeleted                VirtualInstanceState = "DELETED"
+
+	MountCreating             MountState = "CREATING"
+	MountActive               MountState = "ACTIVE"
+	MountRefreshing           MountState = "REFRESHING"
+	MountExpired              MountState = "EXPIRED"
+	MountDeleting             MountState = "DELETING"
+	MountSwitchingRefreshType MountState = "SWITCHING_REFRESH_TYPE"
+	MountSuspended            MountState = "SUSPENDED"
+	MountSuspending           MountState = "SUSPENDING"
 )
 
 // VirtualInstanceOptions contains the optional settings for a virtual instance.

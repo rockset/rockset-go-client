@@ -84,6 +84,22 @@ type FakeResourceGetter struct {
 		result1 openapi.QueryInfo
 		result2 error
 	}
+	GetQueryLambdaVersionStub        func(context.Context, string, string, string) (openapi.QueryLambdaVersion, error)
+	getQueryLambdaVersionMutex       sync.RWMutex
+	getQueryLambdaVersionArgsForCall []struct {
+		arg1 context.Context
+		arg2 string
+		arg3 string
+		arg4 string
+	}
+	getQueryLambdaVersionReturns struct {
+		result1 openapi.QueryLambdaVersion
+		result2 error
+	}
+	getQueryLambdaVersionReturnsOnCall map[int]struct {
+		result1 openapi.QueryLambdaVersion
+		result2 error
+	}
 	GetViewStub        func(context.Context, string, string) (openapi.View, error)
 	getViewMutex       sync.RWMutex
 	getViewArgsForCall []struct {
@@ -483,6 +499,73 @@ func (fake *FakeResourceGetter) GetQueryInfoReturnsOnCall(i int, result1 openapi
 	}{result1, result2}
 }
 
+func (fake *FakeResourceGetter) GetQueryLambdaVersion(arg1 context.Context, arg2 string, arg3 string, arg4 string) (openapi.QueryLambdaVersion, error) {
+	fake.getQueryLambdaVersionMutex.Lock()
+	ret, specificReturn := fake.getQueryLambdaVersionReturnsOnCall[len(fake.getQueryLambdaVersionArgsForCall)]
+	fake.getQueryLambdaVersionArgsForCall = append(fake.getQueryLambdaVersionArgsForCall, struct {
+		arg1 context.Context
+		arg2 string
+		arg3 string
+		arg4 string
+	}{arg1, arg2, arg3, arg4})
+	stub := fake.GetQueryLambdaVersionStub
+	fakeReturns := fake.getQueryLambdaVersionReturns
+	fake.recordInvocation("GetQueryLambdaVersion", []interface{}{arg1, arg2, arg3, arg4})
+	fake.getQueryLambdaVersionMutex.Unlock()
+	if stub != nil {
+		return stub(arg1, arg2, arg3, arg4)
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fakeReturns.result1, fakeReturns.result2
+}
+
+func (fake *FakeResourceGetter) GetQueryLambdaVersionCallCount() int {
+	fake.getQueryLambdaVersionMutex.RLock()
+	defer fake.getQueryLambdaVersionMutex.RUnlock()
+	return len(fake.getQueryLambdaVersionArgsForCall)
+}
+
+func (fake *FakeResourceGetter) GetQueryLambdaVersionCalls(stub func(context.Context, string, string, string) (openapi.QueryLambdaVersion, error)) {
+	fake.getQueryLambdaVersionMutex.Lock()
+	defer fake.getQueryLambdaVersionMutex.Unlock()
+	fake.GetQueryLambdaVersionStub = stub
+}
+
+func (fake *FakeResourceGetter) GetQueryLambdaVersionArgsForCall(i int) (context.Context, string, string, string) {
+	fake.getQueryLambdaVersionMutex.RLock()
+	defer fake.getQueryLambdaVersionMutex.RUnlock()
+	argsForCall := fake.getQueryLambdaVersionArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2, argsForCall.arg3, argsForCall.arg4
+}
+
+func (fake *FakeResourceGetter) GetQueryLambdaVersionReturns(result1 openapi.QueryLambdaVersion, result2 error) {
+	fake.getQueryLambdaVersionMutex.Lock()
+	defer fake.getQueryLambdaVersionMutex.Unlock()
+	fake.GetQueryLambdaVersionStub = nil
+	fake.getQueryLambdaVersionReturns = struct {
+		result1 openapi.QueryLambdaVersion
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeResourceGetter) GetQueryLambdaVersionReturnsOnCall(i int, result1 openapi.QueryLambdaVersion, result2 error) {
+	fake.getQueryLambdaVersionMutex.Lock()
+	defer fake.getQueryLambdaVersionMutex.Unlock()
+	fake.GetQueryLambdaVersionStub = nil
+	if fake.getQueryLambdaVersionReturnsOnCall == nil {
+		fake.getQueryLambdaVersionReturnsOnCall = make(map[int]struct {
+			result1 openapi.QueryLambdaVersion
+			result2 error
+		})
+	}
+	fake.getQueryLambdaVersionReturnsOnCall[i] = struct {
+		result1 openapi.QueryLambdaVersion
+		result2 error
+	}{result1, result2}
+}
+
 func (fake *FakeResourceGetter) GetView(arg1 context.Context, arg2 string, arg3 string) (openapi.View, error) {
 	fake.getViewMutex.Lock()
 	ret, specificReturn := fake.getViewReturnsOnCall[len(fake.getViewArgsForCall)]
@@ -816,6 +899,8 @@ func (fake *FakeResourceGetter) Invocations() map[string][][]interface{} {
 	defer fake.getIntegrationMutex.RUnlock()
 	fake.getQueryInfoMutex.RLock()
 	defer fake.getQueryInfoMutex.RUnlock()
+	fake.getQueryLambdaVersionMutex.RLock()
+	defer fake.getQueryLambdaVersionMutex.RUnlock()
 	fake.getViewMutex.RLock()
 	defer fake.getViewMutex.RUnlock()
 	fake.getVirtualInstanceMutex.RLock()

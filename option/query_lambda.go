@@ -2,6 +2,15 @@ package option
 
 import "github.com/rockset/rockset-go-client/openapi"
 
+type QueryLambdaState string
+
+func (q QueryLambdaState) String() string { return string(q) }
+
+const (
+	QueryLambdaActive  QueryLambdaState = "ACTIVE"
+	QueryLambdaInvalid QueryLambdaState = "INVALID"
+)
+
 type ExecuteQueryLambdaRequest struct {
 	openapi.ExecuteQueryLambdaRequest
 	Tag     string
