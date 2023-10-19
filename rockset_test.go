@@ -1,13 +1,13 @@
 package rockset_test
 
 import (
-	"github.com/stretchr/testify/suite"
 	"os"
 	"testing"
 
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
@@ -58,12 +58,12 @@ func (s *RockOptionSuite) SetupTest() {
 
 func (s *RockOptionSuite) TestMissingCreds() {
 	_, err := rockset.NewClient(rockset.WithAPIServer("server"))
-	s.ErrorIs(err, rockset.NoAPICredentialsErr)
+	s.ErrorIs(err, rockset.ErrNoAPICredentials)
 }
 
 func (s *RockOptionSuite) TestMissingServer() {
 	_, err := rockset.NewClient(rockset.WithAPIKey("key"))
-	s.ErrorIs(err, rockset.NoAPIServerErr)
+	s.ErrorIs(err, rockset.ErrNoAPIServer)
 }
 
 func (s *RockOptionSuite) TestLastCredWins() {

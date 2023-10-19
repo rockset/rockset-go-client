@@ -3,7 +3,6 @@ package wait_test
 import (
 	"context"
 	"fmt"
-	"github.com/rockset/rockset-go-client/wait"
 	"net/http"
 	"testing"
 	"time"
@@ -14,13 +13,21 @@ import (
 	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/retry"
+	"github.com/rockset/rockset-go-client/wait"
 	"github.com/rockset/rockset-go-client/wait/fake"
 )
 
-var NotFoundErr = rockerr.Error{
+var ErrNotFound = rockerr.Error{
 	ErrorModel: openapi.NewErrorModel(),
 	StatusCode: http.StatusNotFound,
 }
+
+func stringPtr[T fmt.Stringer](status T) *string {
+	s := status.String()
+	return &s
+}
+
+var emptyString = ""
 
 // return a fake Rockset client with an ExponentialRetry that doesn't back off
 func fakeRocksetClient() fake.FakeResourceGetter {

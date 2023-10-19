@@ -17,7 +17,8 @@ func (w *Waiter) UntilQueryLambdaVersionGone(ctx context.Context, workspace, nam
 // UntilQueryLambdaVersionActive waits until the Virtual Instance is active.
 func (w *Waiter) UntilQueryLambdaVersionActive(ctx context.Context, workspace, name, version string) error {
 	return w.rc.RetryWithCheck(ctx,
-		ResourceHasState(ctx, []option.QueryLambdaState{option.QueryLambdaActive}, []option.QueryLambdaState{option.QueryLambdaInvalid},
+		ResourceHasState(ctx,
+			[]option.QueryLambdaState{option.QueryLambdaActive}, []option.QueryLambdaState{option.QueryLambdaInvalid},
 			func(ctx context.Context) (option.QueryLambdaState, error) {
 				ql, err := w.rc.GetQueryLambdaVersion(ctx, workspace, name, version)
 				return option.QueryLambdaState(ql.GetState()), err

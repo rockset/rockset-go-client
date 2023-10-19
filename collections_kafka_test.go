@@ -59,11 +59,13 @@ func (s *KafkaIntegrationSuite) TestKafka() {
 	testKafka(ctx, s.T(), s.rc, s.kc)
 }
 
+//nolint:funlen
 func (s *KafkaIntegrationSuite) SetupSuite() {
 	var err error
 	ctx := test.Context()
 
 	_, err = s.rc.CreateWorkspace(ctx, s.kc.workspace)
+	s.Require().NoError(err)
 	s.dockerPool, err = dockertest.NewPool("")
 	s.Require().NoError(err)
 
@@ -86,6 +88,7 @@ func (s *KafkaIntegrationSuite) SetupSuite() {
 	s.Require().NoError(err, "could not connect zookeeper")
 	defer conn.Close()
 
+	//nolint:exhaustive
 	retryFn := func() error {
 		switch conn.State() {
 		case zk.StateHasSession, zk.StateConnected:

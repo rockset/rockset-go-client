@@ -2,12 +2,12 @@ package wait_test
 
 import (
 	"context"
-	"github.com/rockset/rockset-go-client/option"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
 	"github.com/rockset/rockset-go-client/openapi"
+	"github.com/rockset/rockset-go-client/option"
 	"github.com/rockset/rockset-go-client/wait"
 )
 

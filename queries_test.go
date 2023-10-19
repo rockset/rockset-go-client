@@ -15,7 +15,8 @@ import (
 
 // for anyone poking around in the code, rockset.sleep() only works for this test org as no sane person would want
 // to add a sleep in their query
-const slowQuery = `script {{{ import * as rockset from "/rockset"; export function delay(x) { rockset.sleep(x); return x; } }}} select _script.delay(2000, q) from unnest([1] as q)`
+const slowQuery = `script {{{ import * as rockset from "/rockset"; export function delay(x) ` +
+	`{ rockset.sleep(x); return x; } }}} select _script.delay(2000, q) from unnest([1] as q)`
 
 type QueryIntegrationSuite struct {
 	suite.Suite
@@ -23,7 +24,6 @@ type QueryIntegrationSuite struct {
 }
 
 func TestQueryIntegration(t *testing.T) {
-
 	s := QueryIntegrationSuite{}
 	suite.Run(t, &s)
 }

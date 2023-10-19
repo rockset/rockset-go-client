@@ -2,7 +2,6 @@ package errors_test
 
 import (
 	"errors"
-	"github.com/rockset/rockset-go-client/openapi"
 	"net/http"
 	"testing"
 
@@ -11,6 +10,7 @@ import (
 
 	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 func TestError_IsNotFoundError(t *testing.T) {

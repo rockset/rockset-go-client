@@ -14,7 +14,7 @@ func TestWait_untilAliasReady(t *testing.T) {
 	ctx := context.TODO()
 
 	rs := fakeRocksetClient()
-	rs.GetAliasReturnsOnCall(0, openapi.Alias{}, NotFoundErr)
+	rs.GetAliasReturnsOnCall(0, openapi.Alias{}, ErrNotFound)
 	rs.GetAliasReturnsOnCall(1, openapi.Alias{}, nil)
 
 	err := wait.New(&rs).UntilAliasAvailable(ctx, "workspace", "alias")
@@ -27,7 +27,7 @@ func TestWait_untilAliasGone(t *testing.T) {
 
 	rs := fakeRocksetClient()
 	rs.GetAliasReturnsOnCall(0, openapi.Alias{}, nil)
-	rs.GetAliasReturnsOnCall(1, openapi.Alias{}, NotFoundErr)
+	rs.GetAliasReturnsOnCall(1, openapi.Alias{}, ErrNotFound)
 
 	err := wait.New(&rs).UntilAliasGone(ctx, "workspace", "alias")
 	assert.NoError(t, err)

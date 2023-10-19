@@ -82,7 +82,8 @@ func (s *RoleIntegrationSuite) TestUpdate() {
 		option.WithIntegrationPrivilege(option.CreateCollectionIntegration, "test"),
 		option.WithWorkspacePrivilege(option.QueryDataWs, "commons"),
 		option.WithWorkspacePrivilege(option.CreateViewWs, "commons", option.WithCluster("usw2a1")),
-		option.WithVirtualInstancePrivilege(option.QueryVirtualInstanceAction, rocksetCircleCIMainVI, option.WithCluster("usw2a1")),
+		option.WithVirtualInstancePrivilege(option.QueryVirtualInstanceAction, rocksetCircleCIMainVI,
+			option.WithCluster("usw2a1")),
 	)
 	s.NoError(err)
 	s.Equal(s.name, role.GetRoleName())

@@ -3,11 +3,11 @@ package wait
 import (
 	"context"
 	"errors"
-	rockerr "github.com/rockset/rockset-go-client/errors"
-	"github.com/rockset/rockset-go-client/retry"
 	"regexp"
 
+	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rockset/rockset-go-client/retry"
 )
 
 // UntilVirtualInstanceActive waits until the Virtual Instance is active.
@@ -29,7 +29,8 @@ func (w *Waiter) UntilVirtualInstanceGone(ctx context.Context, id string) error 
 
 // UntilVirtualInstanceSuspended waits until the Virtual Instance is suspended.
 func (w *Waiter) UntilVirtualInstanceSuspended(ctx context.Context, id string) error {
-	return w.rc.RetryWithCheck(ctx, ResourceHasState(ctx, []option.VirtualInstanceState{option.VirtualInstanceSuspended}, nil,
+	return w.rc.RetryWithCheck(ctx, ResourceHasState(ctx,
+		[]option.VirtualInstanceState{option.VirtualInstanceSuspended}, nil,
 		func(ctx context.Context) (option.VirtualInstanceState, error) {
 			vi, err := w.rc.GetVirtualInstance(ctx, id)
 			return option.VirtualInstanceState(vi.GetState()), err
