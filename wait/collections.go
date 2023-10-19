@@ -11,10 +11,10 @@ import (
 
 // UntilCollectionReady waits until the collection is ready.
 func (w *Waiter) UntilCollectionReady(ctx context.Context, workspace, name string) error {
-	return w.rc.RetryWithCheck(ctx, ResourceHasState(ctx, []string{option.CollectionStatusReady},
-		func(ctx context.Context) (string, error) {
+	return w.rc.RetryWithCheck(ctx, ResourceHasState(ctx, []option.CollectionStatus{option.CollectionStatusReady}, nil,
+		func(ctx context.Context) (option.CollectionStatus, error) {
 			c, err := w.rc.GetCollection(ctx, workspace, name)
-			return c.GetStatus(), err
+			return option.CollectionStatus(c.GetStatus()), err
 		}))
 }
 

@@ -15,9 +15,9 @@ func TestWait_untilCollectionReady(t *testing.T) {
 	ctx := context.TODO()
 
 	rs := fakeRocksetClient()
-	rs.GetCollectionReturnsOnCall(0, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusInitialized)}, nil)
-	rs.GetCollectionReturnsOnCall(1, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusCreated)}, nil)
-	rs.GetCollectionReturnsOnCall(2, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusReady)}, nil)
+	rs.GetCollectionReturnsOnCall(0, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusInitialized.String())}, nil)
+	rs.GetCollectionReturnsOnCall(1, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusCreated.String())}, nil)
+	rs.GetCollectionReturnsOnCall(2, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusReady.String())}, nil)
 
 	err := wait.New(&rs).UntilCollectionReady(ctx, "workspace", "collection")
 	assert.NoError(t, err)
@@ -28,7 +28,7 @@ func TestWait_untilCollectionGone(t *testing.T) {
 	ctx := context.TODO()
 
 	rs := fakeRocksetClient()
-	rs.GetCollectionReturnsOnCall(0, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusReady)}, nil)
+	rs.GetCollectionReturnsOnCall(0, openapi.Collection{Status: openapi.PtrString(option.CollectionStatusReady.String())}, nil)
 	rs.GetCollectionReturnsOnCall(1, openapi.Collection{}, NotFoundErr)
 
 	err := wait.New(&rs).UntilCollectionGone(ctx, "workspace", "collection")

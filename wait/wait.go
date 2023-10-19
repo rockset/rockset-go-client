@@ -3,7 +3,7 @@ package wait
 import (
 	"context"
 	"errors"
-
+	"fmt"
 	"github.com/rs/zerolog"
 
 	rockerr "github.com/rockset/rockset-go-client/errors"
@@ -25,6 +25,7 @@ type ResourceGetter interface {
 	GetCollectionMount(ctx context.Context, id, collectionPath string) (openapi.CollectionMount, error)
 	GetIntegration(ctx context.Context, name string) (openapi.Integration, error)
 	GetQueryInfo(ctx context.Context, queryID string) (openapi.QueryInfo, error)
+	GetQueryLambdaVersion(ctx context.Context, workspace, name, version string) (openapi.QueryLambdaVersion, error)
 	GetView(ctx context.Context, workspace, name string) (openapi.View, error)
 	GetVirtualInstance(ctx context.Context, id string) (openapi.VirtualInstance, error)
 	GetWorkspace(ctx context.Context, name string) (openapi.Workspace, error)
@@ -34,8 +35,12 @@ func New(rs ResourceGetter) *Waiter {
 	return &Waiter{rs}
 }
 
-// ResourceHasState implements RetryFn to wait until the resource has the desired state
-func ResourceHasState[T comparable](ctx context.Context, states []T,
+var ErrBadWaitState = errors.New("encountered bad state while waiting")
+
+// ResourceHasState implements RetryFn to wait until the resource has the desired state, and if a bad state is
+// encountered it will return ErrBadWaitState
+func ResourceHasState[T fmt.Stringer](ctx context.Context, validStates, badStates []T,
+	// TODO should T be Stringer instead? Then all
 	fn func(ctx context.Context) (T, error)) retry.CheckFn {
 	return func() (bool, error) {
 		zl := zerolog.Ctx(ctx)
@@ -44,9 +49,14 @@ func ResourceHasState[T comparable](ctx context.Context, states []T,
 			return false, err
 		}
 
-		for _, s := range states {
-			if state == s {
+		for _, s := range validStates {
+			if state.String() == s.String() {
 				return false, nil
+			}
+		}
+		for _, s := range badStates {
+			if state.String() == s.String() {
+				return false, rockerr.NewBadWaitStateError(state.String()) // fmt.Errorf("%w: %v", ErrBadWaitState, state)
 			}
 		}
 
