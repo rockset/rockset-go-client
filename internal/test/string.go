@@ -16,6 +16,7 @@ const PersistentAlias = "getalias"
 
 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 
+//nolint:gosec
 var seededRand = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 // StringWithCharset creates a random string with length and charset
@@ -32,6 +33,8 @@ func RandomString(length int) string {
 	return stringWithCharset(length, charset)
 }
 
+const randomNameLength = 6
+
 func RandomName(prefix string) string {
 	num, found := os.LookupEnv(buildNum)
 	if !found {
@@ -42,7 +45,7 @@ func RandomName(prefix string) string {
 		}
 	}
 
-	return fmt.Sprintf("go_%s_%s_%s", num, prefix, RandomString(6))
+	return fmt.Sprintf("go_%s_%s_%s", num, prefix, RandomString(randomNameLength))
 }
 
 func Description() string {

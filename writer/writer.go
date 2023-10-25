@@ -140,6 +140,8 @@ func (w *Writer) Stop() {
 // ...
 // w.Stop()
 // w.Wait()
+//
+//nolint:funlen
 func (w *Writer) Run(ctx context.Context) {
 	// TODO: should this panic if started more than once?
 	w.wg.Add(1)
@@ -291,10 +293,9 @@ func (w *Writer) Workers() int {
 
 // buffer adds Request into a per workspace and collection buffer
 func (w *Writer) buffer(r Request) {
-	wsBuffer, found := w.buffers[r.Workspace]
+	_, found := w.buffers[r.Workspace]
 	if !found {
-		wsBuffer = make(map[string][]interface{})
-		w.buffers[r.Workspace] = wsBuffer
+		w.buffers[r.Workspace] = make(map[string][]interface{})
 	}
 
 	w.buffers[r.Workspace][r.Collection] = append(w.buffers[r.Workspace][r.Collection], structs.Map(r.Data))

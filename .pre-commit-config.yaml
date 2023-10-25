@@ -1,0 +1,30 @@
+repos:
+-   repo: local
+    hooks:
+      - id: gofmt
+        name: "go fmt"
+        entry: gofmt
+        language: system
+        'types_or': [go]
+        args: ["-w", "-s"]
+        require_serial: false
+        additional_dependencies: []
+        minimum_pre_commit_version: 2.9.2
+      - id: govet
+        name: "go vet"
+        entry: go
+        language: system
+        'types_or': [go]
+        args: ["vet", "./..."]
+        require_serial: false
+        pass_filenames: false
+        additional_dependencies: []
+        minimum_pre_commit_version: 2.9.2
+      - id: golangci-lint
+        name: golangci-lint
+        description: Fast linters runner for Go. Note that only modified files are linted, so linters like 'unused' that need to scan all files won't work as expected.
+        entry: golangci-lint run --new-from-rev HEAD --fix
+        types: [go]
+        language: golang
+        require_serial: true
+        pass_filenames: false

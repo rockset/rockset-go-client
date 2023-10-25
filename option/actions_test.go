@@ -1,9 +1,11 @@
 package option_test
 
 import (
-	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"github.com/rockset/rockset-go-client/option"
 )
 
 func TestGetGlobalAction(t *testing.T) {

@@ -28,7 +28,8 @@ func New(client ...Querier) *Client {
 }
 
 // Query executes a SQL query in parallel, and returns the first response.
-func (ha *Client) Query(ctx context.Context, query string, options ...option.QueryOption) (openapi.QueryResponse, []error) {
+func (ha *Client) Query(ctx context.Context, query string,
+	options ...option.QueryOption) (openapi.QueryResponse, []error) {
 	log := zerolog.Ctx(ctx)
 
 	var wg sync.WaitGroup

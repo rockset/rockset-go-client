@@ -137,7 +137,6 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_0_Create() {
 	err = s.rc.Wait.UntilVirtualInstanceActive(ctx, s.vID)
 	s.Require().NoError(err)
 	s.T().Logf("vi %s is active (%s)", s.vID, time.Since(t0))
-	t0 = time.Now()
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
@@ -165,8 +164,6 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_1_Collection() {
 	err = s.rc.Wait.UntilCollectionHasDocuments(ctx, s.workspace, s.collection, 2_830)
 	s.Require().NoError(err)
 	s.T().Log("collection has documents", time.Since(t0))
-	t0 = time.Now()
-
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_2_Mount() {
@@ -187,7 +184,6 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_2_Mount() {
 	err = s.rc.Wait.UntilMountActive(ctx, s.vID, s.workspace, s.collection)
 	s.Require().NoError(err)
 	s.T().Logf("mount is active: %s", time.Since(t0))
-	t0 = time.Now()
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_3_Query() {
@@ -205,7 +201,6 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_3_Query() {
 	s.Require().NoError(err)
 	s.T().Logf("listed queries (%s)", time.Since(t0))
 	s.NotEmpty(queries)
-	t0 = time.Now()
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_4_Unmount() {
@@ -222,7 +217,6 @@ func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_4_Unmount() {
 	_, err = rc.UnmountCollection(ctx, s.vID, s.path)
 	s.Require().NoError(err)
 	s.T().Logf("unmounted (%s)", time.Since(t0))
-	t0 = time.Now()
 }
 
 func (s *VirtualInstanceIntegrationSuite) TestVirtualInstance_5_Suspend() {

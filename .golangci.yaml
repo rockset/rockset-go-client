@@ -2,8 +2,7 @@ run:
   concurrency: 4
   timeout: 1m
   skip-dirs:
-    - client
-    - models
+    - openapi
 
 linters-settings:
   gci:
@@ -16,8 +15,6 @@ linters-settings:
 
 linters:
   enable:
-    - deadcode
-    - depguard
     - dogsled
     - errcheck
     - exportloopref
@@ -42,11 +39,9 @@ linters:
     - nolintlint
     - rowserrcheck
     - staticcheck
-    - structcheck
     - stylecheck
     - typecheck
     - unconvert
     - unparam
     - unused
-    - varcheck
     - whitespace

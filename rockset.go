@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/rockset/rockset-go-client/wait"
 	"io"
 	"net/http"
 	"net/http/httputil"
@@ -17,6 +16,7 @@ import (
 
 	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/retry"
+	"github.com/rockset/rockset-go-client/wait"
 )
 
 const (
@@ -82,7 +82,7 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	}
 
 	if rc.APIServer == "" {
-		return nil, NoAPIServerErr
+		return nil, ErrNoAPIServer
 	}
 
 	u, err := url.Parse(rc.APIServer)
@@ -102,9 +102,9 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 	cfg.Scheme = "https" // we do not allow setting the scheme from the URL as we only support HTTPS
 
 	if rc.APIKey == "" && rc.Token == "" {
-		return nil, NoAPICredentialsErr
+		return nil, ErrNoAPICredentials
 	} else if rc.APIKey != "" && rc.Token != "" {
-		return nil, DuplicateCredentialsErr
+		return nil, ErrDuplicateCredentials
 	} else if rc.APIKey != "" {
 		cfg.AddDefaultHeader("Authorization", "apikey "+rc.APIKey)
 	} else {
@@ -122,9 +122,9 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 }
 
 var (
-	NoAPICredentialsErr     = errors.New("no API credentials provided")
-	DuplicateCredentialsErr = errors.New("duplicate API credentials provided")
-	NoAPIServerErr          = errors.New("no API server provided")
+	ErrNoAPICredentials     = errors.New("no API credentials provided")
+	ErrDuplicateCredentials = errors.New("duplicate API credentials provided")
+	ErrNoAPIServer          = errors.New("no API server provided")
 )
 
 // RockOption is the type for RockClient options.

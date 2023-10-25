@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+
 	"github.com/rs/zerolog"
 
 	rockerr "github.com/rockset/rockset-go-client/errors"
@@ -34,8 +35,6 @@ type ResourceGetter interface {
 func New(rs ResourceGetter) *Waiter {
 	return &Waiter{rs}
 }
-
-var ErrBadWaitState = errors.New("encountered bad state while waiting")
 
 // ResourceHasState implements RetryFn to wait until the resource has the desired state, and if a bad state is
 // encountered it will return ErrBadWaitState

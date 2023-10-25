@@ -85,7 +85,8 @@ func (rc *RockClient) DeleteCollection(ctx context.Context, workspace, name stri
 
 // UpdateCollection updates a collection. Only the option.WithCollectionDescription and
 // option.WithIngestTransformation can be used, and any other option will return an error.
-func (rc *RockClient) UpdateCollection(ctx context.Context, workspace, name string, options ...option.CollectionOption) (openapi.Collection, error) {
+func (rc *RockClient) UpdateCollection(ctx context.Context, workspace, name string,
+	options ...option.CollectionOption) (openapi.Collection, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.GetCollectionResponse
@@ -167,7 +168,8 @@ func (rc *RockClient) UpdateCollection(ctx context.Context, workspace, name stri
 //		    ),
 //		    option.WithS3Prefix("cities.csv"),
 //		  ),
-//	   option.WithKafkaSource("kafka-integration-name", "topic", option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
+//	   option.WithKafkaSource("kafka-integration-name", "topic",
+//	   option.KafkaStartingOffsetEarliest, option.WithJSONFormat(),
 //	     option.WithKafkaSourceV3(),
 //	   ),
 //	   option.WithCollectionRetention(time.Hour),

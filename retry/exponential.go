@@ -80,6 +80,7 @@ func (r Exponential) Retry(ctx context.Context, retryFn Func) error {
 			return ctx.Err()
 		case t := <-t.C:
 			log.Trace().Str("t", t.String()).Msg("wait time")
+			//nolint:gosec
 			var jitter = time.Duration(jitterFraction*rand.Float64()) * waitInterval
 			waitInterval *= 2
 			waitInterval += jitter
@@ -135,6 +136,7 @@ func (r Exponential) RetryWithCheck(ctx context.Context, checkFn CheckFn) error 
 			return ctx.Err()
 		case t := <-t.C:
 			log.Trace().Str("t", t.String()).Msg("wait time")
+			//nolint:gosec
 			var jitter = time.Duration(jitterFraction*rand.Float64()) * waitInterval
 			waitInterval *= 2
 			waitInterval += jitter

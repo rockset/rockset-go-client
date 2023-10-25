@@ -1,7 +1,6 @@
 package rockset_test
 
 import (
-	"github.com/rockset/rockset-go-client/internal/test"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -9,6 +8,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 

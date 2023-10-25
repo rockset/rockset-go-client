@@ -7,15 +7,17 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/rockset/rockset-go-client"
-	"github.com/rockset/rockset-go-client/internal/test"
-	"github.com/rockset/rockset-go-client/option"
-	"github.com/stretchr/testify/require"
 	"io"
 	"log"
 	"net/http"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/require"
+
+	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/option"
 )
 
 type kafkaConfig struct {
@@ -103,7 +105,12 @@ func createConnector(url, name string, cfg ConnectorConfig) error {
 	}
 
 	c := http.Client{}
-	resp, err := c.Post(url, "application/json", bytes.NewReader(body))
+	req, err := http.NewRequestWithContext(context.TODO(), http.MethodPost, url, bytes.NewReader(body))
+	if err != nil {
+		return err
+	}
+
+	resp, err := c.Do(req)
 	if err != nil {
 		return err
 	}
@@ -121,7 +128,7 @@ func createConnector(url, name string, cfg ConnectorConfig) error {
 }
 func deleteConnector(url, name string) error {
 	c := http.Client{}
-	r, err := http.NewRequest(http.MethodDelete, fmt.Sprintf("%s/%s", url, name), nil)
+	r, err := http.NewRequestWithContext(context.TODO(), http.MethodDelete, fmt.Sprintf("%s/%s", url, name), nil)
 	if err != nil {
 		return err
 	}
@@ -146,7 +153,11 @@ func deleteConnector(url, name string) error {
 func waitForKafkaConnect(t *testing.T, url string) func() error {
 	return func() error {
 		c := http.Client{}
-		resp, err := c.Get(url)
+		req, err := http.NewRequestWithContext(context.TODO(), http.MethodGet, url, nil)
+		if err != nil {
+			return err
+		}
+		resp, err := c.Do(req)
 		if err != nil {
 			return err
 		}
@@ -224,7 +235,8 @@ func connectParams(prefix, bootstrapServers, username, password string) []string
 		fmt.Sprintf("CONNECT_%sSSL_ENDPOINT_IDENTIFICATION_ALGORITHM=https", prefix),
 		fmt.Sprintf("CONNECT_%sSECURITY_PROTOCOL=SASL_SSL", prefix),
 		fmt.Sprintf("CONNECT_%sSASL_MECHANISM=PLAIN", prefix),
-		fmt.Sprintf(`CONNECT_%sSASL_JAAS_CONFIG=org.apache.kafka.common.security.plain.PlainLoginModule required username="%s" password="%s";`, prefix, username, password),
+		fmt.Sprintf(`CONNECT_%sSASL_JAAS_CONFIG=org.apache.kafka.common.security.plain.PlainLoginModule `+
+			`required username="%s" password="%s";`, prefix, username, password),
 		fmt.Sprintf("CONNECT_%sREQUEST_TIMEOUT_MS=20000", prefix),
 		fmt.Sprintf("CONNECT_%sRETRY_BACKOFF_MS=500", prefix),
 	}

@@ -31,7 +31,6 @@ type ExponentialRetrySuite struct {
 }
 
 func TestExponentialRetrySuite(t *testing.T) {
-
 	suite.Run(t, &ExponentialRetrySuite{})
 }
 

@@ -32,7 +32,8 @@ func New(err error) Error {
 }
 
 // NewWithStatusCode wraps err in an Error that provides better error messages than the openapi.GenericOpenAPIError,
-// and can be retried if the HTTP response StatusCode is in RetryableErrors. If err is nil, NewWithStatusCode() returns nil.
+// and can be retried if the HTTP response StatusCode is in RetryableErrors. If err is nil,
+// NewWithStatusCode() returns nil.
 func NewWithStatusCode(err error, response *http.Response) error {
 	if err == nil {
 		return nil
