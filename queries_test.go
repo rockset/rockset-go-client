@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/suite"
 
@@ -82,7 +83,7 @@ func (s *QueryIntegrationSuite) TestQueryWithTimeout() {
 	ctx := test.Context()
 
 	_, err := s.rc.Query(ctx, slowQuery,
-		option.WithTimeout(1000),
+		option.WithTimeout(100*time.Millisecond),
 	)
 	s.Require().Error(err)
 
