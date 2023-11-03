@@ -69,3 +69,36 @@ func (p Paginator) Query(ctx context.Context, documentCh chan<- map[string]any, 
 
 	return nil
 }
+
+// GetQueryResults gets all query results from the previously executed query with queryID,
+// and sends the result to the document channel, which is closed once everything has been retrieved.
+func (p Paginator) GetQueryResults(ctx context.Context, documentCh chan<- map[string]any, queryID string) error {
+	defer close(documentCh)
+
+	var cursor string
+	for {
+		var options []option.QueryResultOption
+		if cursor != "" {
+			options = append(options, option.WithQueryResultCursor(cursor))
+		}
+
+		res, err := p.rc.GetQueryResults(ctx, queryID, options...)
+		if err != nil {
+			return err
+		}
+
+		// TODO if the query hasn't finished running, this could optionally go into wait loop
+
+		// send documents from the current batch
+		for _, doc := range res.Results {
+			documentCh <- doc
+		}
+		cursor = res.Pagination.GetNextCursor()
+
+		if cursor == "" {
+			break
+		}
+	}
+
+	return nil
+}
