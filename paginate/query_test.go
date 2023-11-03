@@ -27,7 +27,7 @@ func TestQueryPaginated_integration(t *testing.T) {
 	wg.Add(1)
 	var count int
 	go func() {
-		for _ = range docs {
+		for range docs {
 			count++
 		}
 		wg.Done()
@@ -66,7 +66,7 @@ func TestQueryPaginated(t *testing.T) {
 	wg.Add(1)
 	var count int
 	go func() {
-		for _ = range docs {
+		for range docs {
 			count++
 		}
 		wg.Done()
@@ -95,7 +95,7 @@ func TestQueryPaginated_queryError(t *testing.T) {
 	wg.Add(1)
 	var count int
 	go func() {
-		for _ = range docs {
+		for range docs {
 			count++
 		}
 		wg.Done()
@@ -132,7 +132,7 @@ func TestQueryPaginated_paginationError(t *testing.T) {
 	wg.Add(1)
 	var count int
 	go func() {
-		for _ = range docs {
+		for range docs {
 			count++
 		}
 		wg.Done()
@@ -145,4 +145,46 @@ func TestQueryPaginated_paginationError(t *testing.T) {
 	assert.Equal(t, 2, count)
 	assert.Equal(t, 1, rc.QueryCallCount())
 	assert.Equal(t, 1, rc.GetQueryResultsCallCount())
+}
+
+func TestPaginator_GetQueryResults(t *testing.T) {
+	ctx := test.Context()
+
+	rc := &fake.FakeRockClient{}
+	rc.GetQueryResultsReturnsOnCall(0, openapi.QueryPaginationResponse{
+		Pagination: &openapi.PaginationInfo{
+			NextCursor: openapi.PtrString("foo"),
+		},
+		Results: []map[string]interface{}{
+			{"0": "0", "1": "1"},
+		},
+	}, nil)
+	rc.GetQueryResultsReturnsOnCall(1, openapi.QueryPaginationResponse{
+		Pagination: &openapi.PaginationInfo{
+			NextCursor: openapi.PtrString(""),
+		},
+		Results: []map[string]interface{}{
+			{"2": "2", "3": "3"},
+		},
+	}, nil)
+	docs := make(chan map[string]any, 100)
+
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	var count int
+	go func() {
+		for range docs {
+			count++
+		}
+		wg.Done()
+	}()
+
+	p := paginate.New(rc)
+
+	err := p.GetQueryResults(ctx, docs, "id")
+	assert.NoError(t, err)
+
+	wg.Wait()
+	assert.Equal(t, 2, count)
+	assert.Equal(t, 2, rc.GetQueryResultsCallCount())
 }
