@@ -2,6 +2,8 @@ package option
 
 type KeyState string
 
+func (k KeyState) String() string { return string(k) }
+
 const (
 	KeyActive    KeyState = "ACTIVE"
 	KeySuspended KeyState = "SUSPENDED"
