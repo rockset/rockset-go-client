@@ -17,7 +17,8 @@ func TestWait_untilQueryLambdaActive(t *testing.T) {
 
 	rs := fakeRocksetClient()
 	rs.GetQueryLambdaVersionReturnsOnCall(0, openapi.QueryLambdaVersion{State: &emptyString}, nil)
-	rs.GetQueryLambdaVersionReturnsOnCall(1, openapi.QueryLambdaVersion{State: stringPtr(option.QueryLambdaActive)}, nil)
+	rs.GetQueryLambdaVersionReturnsOnCall(1, openapi.QueryLambdaVersion{
+		State: stringPtr(option.QueryLambdaActive)}, nil)
 
 	err := wait.New(&rs).UntilQueryLambdaVersionActive(ctx, "ws", "ql", "v")
 	assert.NoError(t, err)
@@ -29,7 +30,8 @@ func TestWait_untilQueryLambdaActive_invalid(t *testing.T) {
 
 	rs := fakeRocksetClient()
 	rs.GetQueryLambdaVersionReturnsOnCall(0, openapi.QueryLambdaVersion{State: &emptyString}, nil)
-	rs.GetQueryLambdaVersionReturnsOnCall(1, openapi.QueryLambdaVersion{State: stringPtr(option.QueryLambdaInvalid)}, nil)
+	rs.GetQueryLambdaVersionReturnsOnCall(1, openapi.QueryLambdaVersion{
+		State: stringPtr(option.QueryLambdaInvalidSQL)}, nil)
 
 	err := wait.New(&rs).UntilQueryLambdaVersionActive(ctx, "ws", "ql", "v")
 	assert.ErrorIs(t, err, rockerr.ErrBadWaitState)

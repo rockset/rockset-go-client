@@ -7,8 +7,8 @@ type QueryLambdaState string
 func (q QueryLambdaState) String() string { return string(q) }
 
 const (
-	QueryLambdaActive  QueryLambdaState = "ACTIVE"
-	QueryLambdaInvalid QueryLambdaState = "INVALID"
+	QueryLambdaActive     QueryLambdaState = "ACTIVE"
+	QueryLambdaInvalidSQL QueryLambdaState = "INVALID_SQL"
 )
 
 type ExecuteQueryLambdaRequest struct {
