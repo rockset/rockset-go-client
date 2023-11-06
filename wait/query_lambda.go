@@ -18,7 +18,7 @@ func (w *Waiter) UntilQueryLambdaVersionGone(ctx context.Context, workspace, nam
 func (w *Waiter) UntilQueryLambdaVersionActive(ctx context.Context, workspace, name, version string) error {
 	return w.rc.RetryWithCheck(ctx,
 		ResourceHasState(ctx,
-			[]option.QueryLambdaState{option.QueryLambdaActive}, []option.QueryLambdaState{option.QueryLambdaInvalid},
+			[]option.QueryLambdaState{option.QueryLambdaActive}, []option.QueryLambdaState{option.QueryLambdaInvalidSQL},
 			func(ctx context.Context) (option.QueryLambdaState, error) {
 				ql, err := w.rc.GetQueryLambdaVersion(ctx, workspace, name, version)
 				return option.QueryLambdaState(ql.GetState()), err
