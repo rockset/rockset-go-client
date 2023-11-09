@@ -2,6 +2,7 @@ package wait
 
 import (
 	"context"
+	"time"
 
 	"github.com/rockset/rockset-go-client/option"
 )
@@ -14,7 +15,8 @@ func (w *Waiter) UntilQueryLambdaVersionGone(ctx context.Context, workspace, nam
 	}))
 }
 
-// UntilQueryLambdaVersionActive waits until the Virtual Instance is active.
+// UntilQueryLambdaVersionActive waits until the query lambda version is active. Returns an error if the query lambda
+// contains invalid SQL.
 func (w *Waiter) UntilQueryLambdaVersionActive(ctx context.Context, workspace, name, version string) error {
 	return w.rc.RetryWithCheck(ctx,
 		ResourceHasState(ctx,
@@ -24,3 +26,18 @@ func (w *Waiter) UntilQueryLambdaVersionActive(ctx context.Context, workspace, n
 				return option.QueryLambdaState(ql.GetState()), err
 			}))
 }
+
+// UntilQueryLambdaTagPropagated waits until the query lambda tag has been propagated throughout the system.
+func (w *Waiter) UntilQueryLambdaTagPropagated(ctx context.Context, workspace, name, tag string) error {
+	t := time.NewTimer(queryLambdaTagPropagation) // eww
+	defer t.Stop()
+
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-t.C:
+		return nil
+	}
+}
+
+const queryLambdaTagPropagation = 2 * time.Minute
