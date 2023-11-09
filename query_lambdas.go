@@ -120,9 +120,16 @@ func (rc *RockClient) UpdateQueryLambda(ctx context.Context, workspace, name, sq
 	return resp.GetData(), nil
 }
 
-// CreateQueryLambdaTag creates a new tag for the query lambda version.
+// CreateQueryLambdaTag creates a new tag for a specific query lambda version, or update the tag if it already exists.
+// Note that the tag propagation takes time, and the wait.UntilQueryLambdaTagPropagated() method should be called
+// after updating an existing tag, to avoid eventual consistency issues.
 //
-// https://docs.rockset.com/rest-api/#createquerylambdatag
+// If strong consistency of the version is required when executing a query lambda,
+// option.WithVersion() must be used, e.g.
+//
+//	r, err := rc.ExecuteQueryLambda(ctx, ws, ql, option.WithVersion("f79fc3eae5c823bb"))
+//
+// https://docs.rockset.com/documentation/reference/createquerylambdatag
 func (rc *RockClient) CreateQueryLambdaTag(ctx context.Context, workspace, name, version,
 	tag string) (openapi.QueryLambdaTag, error) {
 	var err error
@@ -190,7 +197,16 @@ func (rc *RockClient) DeleteQueryLambdaTag(ctx context.Context, workspace, name,
 	return nil
 }
 
-// ExecuteQueryLambda executes a query lambda with optional query options.
+// ExecuteQueryLambda executes a query lambda with optional query options. If neither option.WithTag() nor
+// option.WithVersion() is used, it makes the call using option.WithTag(LatestTag)
+//
+// If strong consistency of the version is required when executing a query lambda,
+// option.WithVersion() must be used, e.g.
+//
+//	r, err := rc.ExecuteQueryLambda(ctx, ws, ql, option.WithVersion("f79fc3eae5c823bb"))
+//
+// https://docs.rockset.com/documentation/reference/executequerylambdabytag
+// https://docs.rockset.com/documentation/reference/executequerylambda
 func (rc *RockClient) ExecuteQueryLambda(ctx context.Context, workspace, name string,
 	options ...option.QueryLambdaOption) (openapi.QueryResponse, error) {
 	req := option.ExecuteQueryLambdaRequest{
