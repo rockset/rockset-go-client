@@ -9,7 +9,11 @@ import (
 	"github.com/rockset/rockset-go-client/option"
 )
 
-// Query executes a sql query with optional option.QueryOption
+// Query executes a sql query with optional option.QueryOption. If you want to execute the query on a specific
+// virtual instance instead of the main virtual instance,
+// either add the option.WithVirtualInstance() option, or use ExecuteQueryOnVirtualInstance() method.
+//
+//	result, err := rc.Query(ctx, "SELECT * FROM _commons._events", option.WithVirtualInstance(vID)
 func (rc *RockClient) Query(ctx context.Context, sql string,
 	options ...option.QueryOption) (openapi.QueryResponse, error) {
 	return queryWrapper(ctx, rc, "", sql, options...)
@@ -23,25 +27,34 @@ func queryWrapper(ctx context.Context, rc *RockClient, vID, sql string,
 	var plainQuery openapi.ApiQueryRequest
 	var viQuery openapi.ApiQueryVirtualInstanceRequest
 
-	if vID == "" {
-		plainQuery = rc.QueriesApi.Query(ctx)
-	} else {
-		viQuery = rc.VirtualInstancesApi.QueryVirtualInstance(ctx, vID)
-	}
-
 	queryRequest := openapi.NewQueryRequestWithDefaults()
 	queryRequest.Sql = openapi.QueryRequestSql{Query: sql}
 	queryRequest.Sql.Parameters = []openapi.QueryParameter{}
 
+	request := option.QueryOptions{
+		QueryRequest: queryRequest,
+	}
+
 	for _, o := range options {
-		o(queryRequest)
+		o(&request)
+	}
+
+	if vID != "" {
+		// a VI was specified in ExecuteQueryOnVirtualInstance
+		viQuery = rc.VirtualInstancesApi.QueryVirtualInstance(ctx, vID)
+	} else if request.VirtualInstance != nil {
+		// an option was used to specify the VI
+		viQuery = rc.VirtualInstancesApi.QueryVirtualInstance(ctx, *request.VirtualInstance)
+	} else {
+		// no VI specified, execute on main VI
+		plainQuery = rc.QueriesApi.Query(ctx)
 	}
 
 	err = rc.Retry(ctx, func() error {
-		if vID == "" {
-			response, httpResp, err = plainQuery.Body(*queryRequest).Execute()
-		} else {
+		if vID != "" || request.VirtualInstance != nil {
 			response, httpResp, err = viQuery.Body(*queryRequest).Execute()
+		} else {
+			response, httpResp, err = plainQuery.Body(*queryRequest).Execute()
 		}
 
 		return rockerr.NewWithStatusCode(err, httpResp)
@@ -67,8 +80,12 @@ func (rc *RockClient) ValidateQuery(ctx context.Context, sql string,
 	rq.Sql = openapi.QueryRequestSql{Query: sql}
 	rq.Sql.Parameters = []openapi.QueryParameter{}
 
+	request := option.QueryOptions{
+		QueryRequest: rq,
+	}
+
 	for _, o := range options {
-		o(rq)
+		o(&request)
 	}
 
 	err = rc.Retry(ctx, func() error {
