@@ -29,7 +29,7 @@ func (w *Waiter) UntilQueryLambdaVersionActive(ctx context.Context, workspace, n
 
 // UntilQueryLambdaTagPropagated waits until the query lambda tag has been propagated throughout the system.
 func (w *Waiter) UntilQueryLambdaTagPropagated(ctx context.Context, workspace, name, tag string) error {
-	t := time.NewTimer(queryLambdaTagPropagation) // eww
+	t := time.NewTimer(w.QueryLambdaTagPropagation) // eww
 	defer t.Stop()
 
 	select {
@@ -39,5 +39,3 @@ func (w *Waiter) UntilQueryLambdaTagPropagated(ctx context.Context, workspace, n
 		return nil
 	}
 }
-
-const queryLambdaTagPropagation = 2 * time.Minute

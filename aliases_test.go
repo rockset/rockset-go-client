@@ -55,13 +55,16 @@ func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
 func (s *AliasIntegrationSuite) TestAliases() {
 	ctx := test.Context()
 
-	_, err := s.rc.CreateAlias(ctx, test.PersistentWorkspace, s.alias, []string{"commons._events"})
+	_, err := s.rc.CreateAlias(ctx, test.PersistentWorkspace, s.alias, []string{"commons._events"},
+		option.WithAliasDescription("original"))
 	require.NoError(s.T(), err)
 
 	err = s.rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
 
-	// update
+	err = s.rc.UpdateAlias(ctx, test.PersistentWorkspace, s.alias, []string{"commons._events"},
+		option.WithAliasDescription("updated"))
+	require.NoError(s.T(), err)
 
 	err = s.rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
 	require.NoError(s.T(), err)
