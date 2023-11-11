@@ -115,3 +115,20 @@ func (s *QueryIntegrationSuite) TestValidateQuery() {
 	_, err := s.rc.ValidateQuery(ctx, "SELECT 1")
 	s.Require().NoError(err)
 }
+
+func (s *QueryIntegrationSuite) TestQueryWithVirtualInstance() {
+	ctx := test.Context()
+
+	vis, err := s.rc.ListVirtualInstances(ctx)
+	s.Require().NoError(err)
+	var mainVI string
+	for _, vi := range vis {
+		if vi.GetName() == "main" {
+			mainVI = vi.GetId()
+		}
+	}
+	s.Require().NotEmpty(mainVI)
+
+	_, err = s.rc.Query(ctx, "SELECT 1", option.WithVirtualInstance(mainVI))
+	s.Require().NoError(err)
+}
