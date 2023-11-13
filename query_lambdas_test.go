@@ -2,106 +2,141 @@ package rockset_test
 
 import (
 	"testing"
+	"time"
 
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/suite"
 
+	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
+	"github.com/rockset/rockset-go-client/wait"
 )
 
-func TestRockClient_CreateQueryLambda(t *testing.T) {
-	rc, randomName := vcrTestClient(t, t.Name())
-
-	ctx := test.Context()
-	ws := "acc"
-	name := randomName("ql")
-
-	ql, err := rc.CreateQueryLambda(ctx, ws, name, "SELECT 1",
-		option.WithDefaultParameter("", "", ""), option.WithQueryLambdaDescription(test.Description()))
-	require.NoError(t, err)
-
-	defer func() {
-		err := rc.DeleteQueryLambda(ctx, ws, name)
-		assert.NoError(t, err)
-	}()
-
-	assert.Equal(t, name, ql.GetName())
-
-	ql, err = rc.UpdateQueryLambda(ctx, ws, name, "SELECT 2",
-		option.WithDefaultParameter("dummy", "string", "foo"))
-	assert.NoError(t, err)
+type QueryLambdaSuite struct {
+	suite.Suite
+	rc      *rockset.RockClient
+	tag     string
+	name    string
+	ws      string
+	version string
 }
 
-// test fixtures
-const (
-	qlName    = "events"
-	qlVersion = "0eb7783c81ef339e"
-	qlTag     = "test"
-)
+func TestQueryLambdaSuite(t *testing.T) {
+	rc, nameGenerator := vcrTestClient(t, t.Name())
 
-func TestRockClient_GetQueryLambdaVersionByTag(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
-	ctx := test.Context()
-
-	version, err := rc.GetQueryLambdaVersionByTag(ctx, test.PersistentWorkspace, qlName, qlTag)
-	require.NoError(t, err)
-	assert.Equal(t, qlVersion, version.Version.GetVersion())
-}
-
-func TestRockClient_GetQueryLambdaVersion(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
-	ctx := test.Context()
-
-	version, err := rc.GetQueryLambdaVersion(ctx, test.PersistentWorkspace, qlName, qlVersion)
-	require.NoError(t, err)
-	assert.Equal(t, qlName, version.GetName())
-}
-
-func TestRockClient_ListQueryLambdas(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
-	ctx := test.Context()
-
-	lambdas, err := rc.ListQueryLambdas(ctx)
-	require.NoError(t, err)
-
-	for _, l := range lambdas {
-		t.Logf("lambda: %s", l.GetName())
+	s := QueryLambdaSuite{
+		rc:   rc,
+		tag:  nameGenerator("tag"),
+		name: nameGenerator("ql"),
+		ws:   "commons",
 	}
+	suite.Run(t, &s)
 }
 
-func TestRockClient_ListQueryLambdas_workspace(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
+func (s *QueryLambdaSuite) TearDownSuite() {
 	ctx := test.Context()
 
-	lambdas, err := rc.ListQueryLambdas(ctx, option.WithQueryLambdaWorkspace(test.PersistentWorkspace))
-	require.NoError(t, err)
-
-	for _, l := range lambdas {
-		assert.Equal(t, test.PersistentWorkspace, l.GetWorkspace())
-	}
+	//make sure we clean up
+	_ = s.rc.DeleteQueryLambda(ctx, s.ws, s.name)
 }
 
-func TestRockClient_ListQueryLambdaVersions(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
+func (s *QueryLambdaSuite) Test_0_Create() {
 	ctx := test.Context()
 
-	versions, err := rc.ListQueryLambdaVersions(ctx, test.PersistentWorkspace, qlName)
-	require.NoError(t, err)
+	ql, err := s.rc.CreateQueryLambda(ctx, s.ws, s.name, "SELECT 1",
+		option.WithQueryLambdaDescription("create"))
+	s.Require().NoError(err)
+	s.Equal(s.name, ql.GetName())
+	s.version = ql.GetVersion()
 
-	for _, l := range versions {
-		t.Logf("version: %s", l.GetVersion())
-	}
+	w := wait.New(s.rc)
+	err = w.UntilQueryLambdaVersionActive(ctx, s.ws, s.name, s.version)
+	s.Require().NoError(err)
 }
 
-func TestRockClient_ListQueryLambdaTags(t *testing.T) {
-	rc, _ := vcrTestClient(t, t.Name())
+func (s *QueryLambdaSuite) Test_1_CreateTag() {
 	ctx := test.Context()
 
-	tags, err := rc.ListQueryLambdaTags(ctx, test.PersistentWorkspace, qlName)
-	require.NoError(t, err)
+	tag, err := s.rc.CreateQueryLambdaTag(ctx, s.ws, s.name, s.version, s.tag)
+	s.Require().NoError(err)
+	s.Equal(s.tag, tag.GetTagName())
+	v := tag.GetVersion()
+	s.Equal(s.version, v.GetVersion())
 
-	for _, tag := range tags {
-		t.Logf("tag: %s", tag.GetTagName())
-	}
+	w := wait.New(s.rc)
+	w.QueryLambdaTagPropagation = time.Microsecond
+	err = w.UntilQueryLambdaTagPropagated(ctx, s.ws, s.name, s.tag)
+	s.Require().NoError(err)
+}
+
+func (s *QueryLambdaSuite) Test_2_GetVersion() {
+	ctx := test.Context()
+
+	ql, err := s.rc.GetQueryLambdaVersion(ctx, s.ws, s.name, s.version)
+	s.Require().NoError(err)
+	s.Equal(s.name, ql.GetName())
+}
+
+func (s *QueryLambdaSuite) Test_3_GetTag() {
+	ctx := test.Context()
+
+	ql, err := s.rc.GetQueryLambdaVersionByTag(ctx, s.ws, s.name, s.tag)
+	s.Require().NoError(err)
+	v := ql.GetVersion()
+	s.Equal(s.version, v.GetVersion())
+}
+
+func (s *QueryLambdaSuite) Test_4_List() {
+	ctx := test.Context()
+
+	qls, err := s.rc.ListQueryLambdas(ctx)
+	s.Require().NoError(err)
+	s.NotEmpty(qls)
+
+	qls, err = s.rc.ListQueryLambdas(ctx, option.WithQueryLambdaWorkspace(s.ws))
+	s.Require().NoError(err)
+	s.NotEmpty(qls)
+
+	tags, err := s.rc.ListQueryLambdaTags(ctx, s.ws, s.name)
+	s.Require().NoError(err)
+	s.NotEmpty(tags)
+
+	versions, err := s.rc.ListQueryLambdaVersions(ctx, s.ws, s.name)
+	s.Require().NoError(err)
+	s.NotEmpty(versions)
+}
+
+func (s *QueryLambdaSuite) Test_5_Update() {
+	ctx := test.Context()
+
+	ql, err := s.rc.UpdateQueryLambda(ctx, s.ws, s.name, "SELECT 2", option.WithQueryLambdaDescription("updated"))
+	s.Require().NoError(err)
+	s.Equal("updated", ql.GetDescription())
+	s.version = ql.GetVersion()
+}
+
+func (s *QueryLambdaSuite) Test_6_Execute() {
+	ctx := test.Context()
+
+	_, err := s.rc.ExecuteQueryLambda(ctx, s.ws, s.name, option.WithQueryLambdaRowLimit(100))
+	s.NoError(err)
+
+	_, err = s.rc.ExecuteQueryLambda(ctx, s.ws, s.name, option.WithTag(s.tag))
+	s.NoError(err)
+
+	_, err = s.rc.ExecuteQueryLambda(ctx, s.ws, s.name, option.WithVersion(s.version))
+	s.NoError(err)
+}
+
+func (s *QueryLambdaSuite) Test_9_Delete() {
+	ctx := test.Context()
+
+	err := s.rc.DeleteQueryLambdaTag(ctx, s.ws, s.name, s.tag)
+	s.NoError(err)
+
+	err = s.rc.DeleteQueryLambdaVersion(ctx, s.ws, s.name, s.version)
+	s.NoError(err)
+
+	err = s.rc.DeleteQueryLambda(ctx, s.ws, s.name)
+	s.NoError(err)
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/rs/zerolog"
 
@@ -13,7 +14,8 @@ import (
 )
 
 type Waiter struct {
-	rc ResourceGetter
+	rc                        ResourceGetter
+	QueryLambdaTagPropagation time.Duration
 }
 
 //go:generate go run github.com/maxbrunsfeld/counterfeiter/v6 -generate
@@ -32,8 +34,10 @@ type ResourceGetter interface {
 	GetWorkspace(ctx context.Context, name string) (openapi.Workspace, error)
 }
 
+const queryLambdaTagPropagation = 2 * time.Minute
+
 func New(rs ResourceGetter) *Waiter {
-	return &Waiter{rs}
+	return &Waiter{rs, queryLambdaTagPropagation}
 }
 
 // ResourceHasState implements RetryFn to wait until the resource has the desired state, and if a bad state is
