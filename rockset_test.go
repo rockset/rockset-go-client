@@ -1,6 +1,8 @@
 package rockset_test
 
 import (
+	"context"
+	"net/http"
 	"os"
 	"testing"
 
@@ -10,7 +12,9 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
+	"github.com/rockset/rockset-go-client/fake"
 	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/openapi"
 )
 
 // TestTemplate is used as a copypasta for new tests
@@ -23,6 +27,28 @@ func TestTemplate(t *testing.T) {
 	require.NoError(t, err)
 
 	log.Debug().Str("org", org.GetDisplayName())
+}
+
+// TestFake is an example on how to use a fake RockClient to test. It takes a lot of setup,
+// but gives you more control than the VCR client.
+func TestFake(t *testing.T) {
+	f := fake.NewAPIClient()
+	org := f.OrganizationsApi.(*fake.FakeOrganizationsApi)
+	org.GetOrganizationReturns(openapi.ApiGetOrganizationRequest{
+		ApiService: org,
+	})
+	org.GetOrganizationExecuteReturns(&openapi.OrganizationResponse{
+		Data: &openapi.Organization{
+			DisplayName: openapi.PtrString("rockset"),
+		},
+	}, &http.Response{}, nil)
+
+	rc, err := rockset.NewClient(rockset.WithAPIClient(f))
+	assert.NoError(t, err)
+
+	o, err := rc.GetOrganization(context.TODO())
+	assert.NoError(t, err)
+	assert.Equal(t, "rockset", o.GetDisplayName())
 }
 
 type RockOptionSuite struct {

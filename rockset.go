@@ -45,6 +45,7 @@ type RockConfig struct {
 	// Organization is the Rockset org, which is required when authenticating using Token
 	Organization string
 	cfg          *openapi.Configuration
+	APIClient    *openapi.APIClient
 }
 
 // RockClient is the client struct for making APi calls to Rockset.
@@ -79,6 +80,17 @@ func NewClient(options ...RockOption) (*RockClient, error) {
 
 	for _, o := range options {
 		o(&rc)
+	}
+
+	// if we have an APIClient then we assume it is a fake, and no further setup is required
+	if rc.APIClient != nil {
+		client := RockClient{
+			RockConfig: rc,
+			APIClient:  rc.APIClient,
+		}
+
+		client.Wait = wait.New(&client)
+		return &client, nil
 	}
 
 	if rc.APIServer == "" {
@@ -143,6 +155,16 @@ func WithAPIKey(apiKey string) RockOption {
 func WithAPIServer(server string) RockOption {
 	return func(rc *RockConfig) {
 		rc.APIServer = server
+	}
+}
+
+// WithAPIClient sets the openapi.APIClient to use, which can be used in testing to use a fake client.
+//
+//	f := fake.NewAPIClient()
+//	rc, err := rockset.NewRockClient(rockset.WithAPIClient(f)
+func WithAPIClient(c *openapi.APIClient) RockOption {
+	return func(rc *RockConfig) {
+		rc.APIClient = c
 	}
 }
 
