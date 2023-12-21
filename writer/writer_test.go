@@ -58,9 +58,10 @@ func TestWriterSuite(t *testing.T) {
 
 func (s *WriterSuite) TestWriter() {
 	ctx := test.Context()
+	flushInterval := time.Millisecond * 50
 	c := writer.Config{
 		BatchDocumentCount: 30,
-		FlushInterval:      time.Millisecond * 50,
+		FlushInterval:      flushInterval,
 	}
 	fa := &fakeAdder{}
 	w, err := writer.New(c, fa)
@@ -68,6 +69,7 @@ func (s *WriterSuite) TestWriter() {
 
 	go w.Run(ctx)
 
+	// write enough documents that the writer will have to flush using the ticker
 	const writeCount uint64 = 100
 	for i := uint64(0); i < writeCount; i++ {
 		w.C() <- writer.Request{
@@ -76,6 +78,10 @@ func (s *WriterSuite) TestWriter() {
 			Data:       testObject{Foo: i},
 		}
 	}
+
+	// wait for the ticker to flush the documents
+	time.Sleep(flushInterval + time.Millisecond*20)
+	s.Equal(writeCount, w.Stats().DocumentCount)
 
 	w.Stop()
 	w.Wait()

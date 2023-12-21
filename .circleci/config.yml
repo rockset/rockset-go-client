@@ -43,7 +43,7 @@ jobs:
       - run: go vet ./...
   test:
     docker:
-      - image: cimg/go:1.20
+      - image: cimg/go:1.21
     steps:
       - checkout
       - run: go install github.com/mattn/goveralls@latest

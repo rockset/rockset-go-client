@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 
 	rockerr "github.com/rockset/rockset-go-client/errors"
 	"github.com/rockset/rockset-go-client/openapi"
@@ -47,6 +46,7 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 		return nil, err
 	}
 
+	log := zerolog.Ctx(ctx)
 	logDocumentStatuses(log.Trace(), resp.GetData()).Msg("added documents")
 
 	return resp.GetData(), nil
@@ -97,6 +97,8 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 	if err != nil {
 		return nil, err
 	}
+
+	log := zerolog.Ctx(ctx)
 
 	// should this accept all 2xx status codes?
 	if resp.StatusCode == http.StatusOK {
@@ -168,7 +170,6 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 	var httpResp *http.Response
 	var resp *openapi.DeleteDocumentsResponse
 
-	log := zerolog.Ctx(ctx)
 	q := rc.DocumentsApi.DeleteDocuments(ctx, workspace, collection)
 
 	ids := make([]openapi.DeleteDocumentsRequestData, len(docIDs))
@@ -188,6 +189,7 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 		return nil, err
 	}
 
+	log := zerolog.Ctx(ctx)
 	logDocumentStatuses(log.Trace(), resp.GetData()).Msg("deleted documents")
 
 	return resp.GetData(), nil
