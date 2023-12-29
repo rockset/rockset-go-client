@@ -57,8 +57,8 @@ type Writer struct {
 	buffers      map[string]map[string][]interface{}
 	bufferedDocs uint64
 
-	m       sync.Mutex
-	timeout *time.Timer
+	m      sync.Mutex
+	ticker *time.Ticker
 
 	wg      sync.WaitGroup
 	workers int
@@ -147,17 +147,16 @@ func (w *Writer) Run(ctx context.Context) {
 	w.wg.Add(1)
 	defer w.wg.Done()
 
-	// start one worker
-	var i uint64
-	for ; i <= w.config.Workers; i++ {
+	// start workers
+	for i := uint64(0); i <= w.config.Workers; i++ {
 		go w.Worker(ctx)
 	}
 
 	log := zerolog.Ctx(ctx)
 
-	// start the timer and make sure we don't leave it behind
-	w.timeout = time.NewTimer(w.config.FlushInterval)
-	defer w.timeout.Stop()
+	// start the ticker and make sure we don't leave it behind
+	w.ticker = time.NewTicker(w.config.FlushInterval)
+	defer w.ticker.Stop()
 
 	for {
 		select {
@@ -205,20 +204,22 @@ func (w *Writer) Run(ctx context.Context) {
 			}
 
 			return
-		case <-w.timeout.C:
-			// the interval timer has fired, and it is time to flush any buffered documents
+		case <-w.ticker.C:
+			// the ticker has fired, and it is time to flush any buffered documents
 			if w.bufferedDocs > 0 {
-				log.Debug().Uint64("counter", w.bufferedDocs).Msg("flushing documents due to timeout")
+				log.Debug().Uint64("counter", w.bufferedDocs).
+					Str("interval", w.config.FlushInterval.String()).Msg("flushing documents due to timeout")
 				w.flush()
 			}
-			// restart the timer
-			w.timeout.Reset(w.config.FlushInterval)
 		case r := <-w.writeRequests:
 			// read a write request off the channel and buffer it
 			w.buffer(r)
 			if w.bufferedDocs >= w.config.BatchDocumentCount {
-				log.Debug().Uint64("counter", w.bufferedDocs).Msg("flushing documents due to batch size")
+				log.Debug().Uint64("counter", w.bufferedDocs).Uint64("size", w.config.BatchDocumentCount).
+					Msg("flushing documents due to batch size")
 				w.flush()
+				// reset ticker after flushing
+				w.ticker.Reset(w.config.FlushInterval)
 			}
 		}
 	}
@@ -302,18 +303,18 @@ func (w *Writer) buffer(r Request) {
 	w.bufferedDocs++
 }
 
+// flush takes the buffered documents and sends them to the workers
 func (w *Writer) flush() {
-	w.timeout.Stop()
-	for ws, colls := range w.buffers {
-		for coll, data := range colls {
+	for ws, collections := range w.buffers {
+		for collection, data := range collections {
 			w.addDocRequests <- addDocRequest{
 				workspace:  ws,
-				collection: coll,
+				collection: collection,
 				data:       data,
 			}
 		}
 	}
-	// TODO use clear() once we update to go1.21
-	w.buffers = make(map[string]map[string][]interface{})
+
+	clear(w.buffers)
 	w.bufferedDocs = 0
 }
