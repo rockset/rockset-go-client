@@ -34,7 +34,7 @@ func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) stri
 		rockset.WithCustomHeader("x-rockset-test", "go-client"),
 	}
 	var settings []govcr.Setting
-	path := fmt.Sprintf("./testing_assets/cassettes/%s/%s.cassette.gz", rockset.Version, name)
+	path := fmt.Sprintf("./testing_assets/cassettes/%s.cassette.gz", name)
 
 	switch mode {
 	case "record":
@@ -66,16 +66,6 @@ func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) stri
 	return rc, randFn, err
 }
 
-// stripPatchVersion removes the patch version from a SemVer string
-func stripPatchVersion(v string) string {
-	fields := strings.Split(v, ".")
-	if len(fields) != 3 {
-		panic("malformed version string: " + v)
-	}
-
-	return strings.Join(fields[:2], ".")
-}
-
 // VCR settings that exclude the HTTP header Authorization and ignores the patch version
 func vcrSettings(offline bool) []govcr.Setting {
 	const authHeader = "Authorization"
@@ -84,15 +74,6 @@ func vcrSettings(offline bool) []govcr.Setting {
 			func(httpRequest, trackRequest *track.Request) bool {
 				httpRequest.Header.Del(authHeader)
 				trackRequest.Header.Del(authHeader)
-
-				v := httpRequest.Header.Get(rockset.HeaderVersionName)
-				v = stripPatchVersion(v)
-				httpRequest.Header.Set(rockset.HeaderVersionName, v)
-
-				v = trackRequest.Header.Get(rockset.HeaderVersionName)
-				v = stripPatchVersion(v)
-				trackRequest.Header.Set(rockset.HeaderVersionName, v)
-
 				return govcr.DefaultHeaderMatcher(httpRequest, trackRequest)
 			},
 		),
