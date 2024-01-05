@@ -1,17 +1,13 @@
 package rockset_test
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"strings"
 	"testing"
 
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/seborama/govcr/v14"
 	"github.com/seborama/govcr/v14/cassette/track"
-	"github.com/seborama/govcr/v14/fileio"
 	"github.com/stretchr/testify/require"
 
 	"github.com/rockset/rockset-go-client"
@@ -27,12 +23,6 @@ func vcrTestClient(t *testing.T, name string) (*rockset.RockClient, func(string)
 	return rc, fn
 }
 
-const vcrBucket = "rockset-go-tests"
-
-func vcrBucketPath(name string) string {
-	return fmt.Sprintf("/%s/vcr/%s/%s.cassette.gz", vcrBucket, rockset.Version, name)
-}
-
 func vcrClient(name string) (*rockset.RockClient, func(string) string, error) {
 	return vcrClientWrapper(strings.ToLower(os.Getenv("VCR_MODE")), name)
 }
@@ -44,14 +34,7 @@ func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) stri
 		rockset.WithCustomHeader("x-rockset-test", "go-client"),
 	}
 	var settings []govcr.Setting
-	path := vcrBucketPath(name)
-
-	// VCR cassettes are in S3 bucket rockset-go-tests (in us-west-2)
-	cfg, err := config.LoadDefaultConfig(context.Background(), config.WithRegion("us-west-2"))
-	if err != nil {
-		return nil, nil, err
-	}
-	s3Client := s3.NewFromConfig(cfg, func(o *s3.Options) { o.UsePathStyle = true })
+	path := fmt.Sprintf("./testing_assets/cassettes/%s/%s.cassette.gz", rockset.Version, name)
 
 	switch mode {
 	case "record":
@@ -75,7 +58,7 @@ func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) stri
 		return nil, nil, fmt.Errorf("unknown VCR_MODE: %s", mode)
 	}
 
-	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path).WithStore(fileio.NewAWS(s3Client)), settings...)
+	vcr := govcr.NewVCR(govcr.NewCassetteLoader(path), settings...)
 	options = append(options, rockset.WithHTTPClient(vcr.HTTPClient()),
 		rockset.WithCustomHeader("x-rockset-test", "go-client"))
 
