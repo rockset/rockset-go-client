@@ -34,7 +34,7 @@ func vcrClientWrapper(mode, name string) (*rockset.RockClient, func(string) stri
 		rockset.WithCustomHeader("x-rockset-test", "go-client"),
 	}
 	var settings []govcr.Setting
-	path := fmt.Sprintf("./testing_assets/cassettes/%s.cassette.gz", name)
+	path := fmt.Sprintf("./testdata/cassettes/%s.cassette.gz", name)
 
 	switch mode {
 	case "record":
