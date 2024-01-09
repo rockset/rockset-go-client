@@ -18,17 +18,17 @@ require (
 	github.com/Microsoft/go-winio v0.6.0 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/aws/aws-sdk-go-v2 v1.24.1 // indirect
-	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.5.0 // indirect
+	github.com/aws/aws-sdk-go-v2/aws/protocol/eventstream v1.5.4 // indirect
 	github.com/aws/aws-sdk-go-v2/config v1.26.3 // indirect
 	github.com/aws/aws-sdk-go-v2/feature/s3/manager v1.11.74 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/configsources v1.2.10 // indirect
 	github.com/aws/aws-sdk-go-v2/internal/endpoints/v2 v2.5.10 // indirect
-	github.com/aws/aws-sdk-go-v2/internal/v4a v1.2.2 // indirect
+	github.com/aws/aws-sdk-go-v2/internal/v4a v1.2.10 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/accept-encoding v1.10.4 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.2.2 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.2.10 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.10.10 // indirect
-	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.16.2 // indirect
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.42.1 // indirect
+	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.16.10 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.48.0 // indirect
 	github.com/aws/smithy-go v1.19.0 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/containerd/continuity v0.3.0 // indirect
