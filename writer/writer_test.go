@@ -62,6 +62,7 @@ func (s *WriterSuite) TestWriter() {
 	c := writer.Config{
 		BatchDocumentCount: 30,
 		FlushInterval:      flushInterval,
+		ConversionFn:       writer.JSONConversion,
 	}
 	fa := &fakeAdder{}
 	w, err := writer.New(c, fa)
