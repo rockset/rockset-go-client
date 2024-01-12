@@ -2,6 +2,7 @@ package writer
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"sync"
 	"time"
@@ -30,6 +31,9 @@ type Config struct {
 	Workers uint64
 	// FlushInterval is the longest interval to wait before flushing buffered documents.
 	FlushInterval time.Duration
+	// ConversionFn is a function that converts the data in a Request into a map[string]any.
+	// If not set, struct.Map() is used.
+	ConversionFn func(any) (map[string]any, error)
 }
 
 // Validate validates a Config
@@ -54,7 +58,7 @@ type Writer struct {
 	config Config
 	stats  Stats
 
-	buffers      map[string]map[string][]interface{}
+	buffers      map[string]map[string][]any
 	bufferedDocs uint64
 
 	m      sync.Mutex
@@ -68,17 +72,18 @@ type Writer struct {
 	stop           chan struct{}
 }
 
-// Request contains the data to be written to the Rockset collection in the request
+// Request contains a single document to be written to Rockset
 type Request struct {
 	Workspace  string
 	Collection string
-	Data       interface{}
+	Data       any
 }
 
+// addDocRequest contains a list of documents to be written to Rockset
 type addDocRequest struct {
 	workspace  string
 	collection string
-	data       []interface{}
+	data       []any
 }
 
 // Stats holds counters for the documents written to Rockset
@@ -104,6 +109,9 @@ func New(conf Config, client DocumentAdder) (*Writer, error) {
 	if conf.FlushInterval == 0 {
 		conf.FlushInterval = DefaultFlushInterval
 	}
+	if conf.ConversionFn == nil {
+		conf.ConversionFn = StructConversion
+	}
 
 	if err := conf.Validate(); err != nil {
 		return nil, err
@@ -114,7 +122,7 @@ func New(conf Config, client DocumentAdder) (*Writer, error) {
 		writeRequests:  make(chan Request, conf.BatchDocumentCount),
 		addDocRequests: make(chan addDocRequest, conf.Workers),
 		stop:           make(chan struct{}, 1),
-		buffers:        make(map[string]map[string][]interface{}),
+		buffers:        make(map[string]map[string][]any),
 		config:         conf,
 		stats:          Stats{},
 	}, nil
@@ -168,7 +176,7 @@ func (w *Writer) Run(ctx context.Context) {
 			// this can add more than BatchSize to the payload, but as this is the last
 			// time it runs it should be ok
 			for r := range w.writeRequests {
-				w.buffer(r)
+				w.buffer(r, log)
 			}
 			w.flush()
 			close(w.addDocRequests)
@@ -213,7 +221,7 @@ func (w *Writer) Run(ctx context.Context) {
 			}
 		case r := <-w.writeRequests:
 			// read a write request off the channel and buffer it
-			w.buffer(r)
+			w.buffer(r, log)
 			if w.bufferedDocs >= w.config.BatchDocumentCount {
 				log.Debug().Uint64("counter", w.bufferedDocs).Uint64("size", w.config.BatchDocumentCount).
 					Msg("flushing documents due to batch size")
@@ -293,13 +301,22 @@ func (w *Writer) Workers() int {
 }
 
 // buffer adds Request into a per workspace and collection buffer
-func (w *Writer) buffer(r Request) {
+func (w *Writer) buffer(r Request, log *zerolog.Logger) {
 	_, found := w.buffers[r.Workspace]
 	if !found {
-		w.buffers[r.Workspace] = make(map[string][]interface{})
+		w.buffers[r.Workspace] = make(map[string][]any)
 	}
 
-	w.buffers[r.Workspace][r.Collection] = append(w.buffers[r.Workspace][r.Collection], structs.Map(r.Data))
+	doc, err := w.config.ConversionFn(r.Data)
+	if err != nil {
+		log.Error().Err(err).Msg("error preparing document")
+		w.m.Lock()
+		w.stats.ErrorCount++
+		w.m.Unlock()
+		return
+	}
+
+	w.buffers[r.Workspace][r.Collection] = append(w.buffers[r.Workspace][r.Collection], doc)
 	w.bufferedDocs++
 }
 
@@ -317,4 +334,24 @@ func (w *Writer) flush() {
 
 	clear(w.buffers)
 	w.bufferedDocs = 0
+}
+
+// JSONConversion converts any to a map[string]any using json.Marshal and then json.Unmarshal
+func JSONConversion(a any) (map[string]any, error) {
+	data, err := json.Marshal(a)
+	if err != nil {
+		return nil, err
+	}
+
+	var m map[string]any
+	if err = json.Unmarshal(data, &m); err != nil {
+		return nil, err
+	}
+
+	return m, nil
+}
+
+// StructConversion converts any to a map[string]any using structs.Map, which doesn't honor json tags
+func StructConversion(a any) (map[string]any, error) {
+	return structs.Map(a), nil
 }
