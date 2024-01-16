@@ -95,7 +95,7 @@ func (s *WriterSuite) TestCancellation() {
 	ctx, cancel := context.WithCancel(test.Context())
 	c := writer.Config{
 		BatchDocumentCount: 30,
-		FlushInterval:      time.Millisecond * 20,
+		FlushInterval:      time.Millisecond * 30,
 	}
 	fa := &fakeAdder{}
 	w, err := writer.New(c, fa)
@@ -108,7 +108,7 @@ func (s *WriterSuite) TestCancellation() {
 		Collection: "collection",
 		Data:       testObject{},
 	}
-	time.Sleep(30 * time.Millisecond)
+	time.Sleep(40 * time.Millisecond)
 	w.C() <- writer.Request{
 		Workspace:  "workspace",
 		Collection: "collection",
