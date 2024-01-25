@@ -20,7 +20,7 @@ var _ MappedNullable = &SourceBase{}
 // SourceBase struct for SourceBase
 type SourceBase struct {
 	AzureBlobStorage *SourceAzBlobStorageBase `json:"azure_blob_storage,omitempty"`
-	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
+	Dynamodb *SourceDynamoDbBase `json:"dynamodb,omitempty"`
 	Gcs *SourceGcsBase `json:"gcs,omitempty"`
 	S3 *SourceS3Base `json:"s3,omitempty"`
 }
@@ -75,9 +75,9 @@ func (o *SourceBase) SetAzureBlobStorage(v SourceAzBlobStorageBase) {
 }
 
 // GetDynamodb returns the Dynamodb field value if set, zero value otherwise.
-func (o *SourceBase) GetDynamodb() SourceDynamoDb {
+func (o *SourceBase) GetDynamodb() SourceDynamoDbBase {
 	if o == nil || IsNil(o.Dynamodb) {
-		var ret SourceDynamoDb
+		var ret SourceDynamoDbBase
 		return ret
 	}
 	return *o.Dynamodb
@@ -85,7 +85,7 @@ func (o *SourceBase) GetDynamodb() SourceDynamoDb {
 
 // GetDynamodbOk returns a tuple with the Dynamodb field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceBase) GetDynamodbOk() (*SourceDynamoDb, bool) {
+func (o *SourceBase) GetDynamodbOk() (*SourceDynamoDbBase, bool) {
 	if o == nil || IsNil(o.Dynamodb) {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *SourceBase) HasDynamodb() bool {
 	return false
 }
 
-// SetDynamodb gets a reference to the given SourceDynamoDb and assigns it to the Dynamodb field.
-func (o *SourceBase) SetDynamodb(v SourceDynamoDb) {
+// SetDynamodb gets a reference to the given SourceDynamoDbBase and assigns it to the Dynamodb field.
+func (o *SourceBase) SetDynamodb(v SourceDynamoDbBase) {
 	o.Dynamodb = &v
 }
 

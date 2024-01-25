@@ -37,11 +37,13 @@ type Source struct {
 	// ISO-8601 date when source would be auto resumed, if suspended
 	ResumeAt *string `json:"resume_at,omitempty"`
 	S3 *SourceS3 `json:"s3,omitempty"`
+	Snapshot *SourceSnapshot `json:"snapshot,omitempty"`
 	Snowflake *SourceSnowflake `json:"snowflake,omitempty"`
 	Status *Status `json:"status,omitempty"`
 	// ISO-8601 date when source was suspended, if suspended
 	SuspendedAt *string `json:"suspended_at,omitempty"`
 	System *SourceSystem `json:"system,omitempty"`
+	WriteApi map[string]interface{} `json:"write_api,omitempty"`
 }
 
 // NewSource instantiates a new Source object
@@ -541,6 +543,38 @@ func (o *Source) SetS3(v SourceS3) {
 	o.S3 = &v
 }
 
+// GetSnapshot returns the Snapshot field value if set, zero value otherwise.
+func (o *Source) GetSnapshot() SourceSnapshot {
+	if o == nil || IsNil(o.Snapshot) {
+		var ret SourceSnapshot
+		return ret
+	}
+	return *o.Snapshot
+}
+
+// GetSnapshotOk returns a tuple with the Snapshot field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetSnapshotOk() (*SourceSnapshot, bool) {
+	if o == nil || IsNil(o.Snapshot) {
+		return nil, false
+	}
+	return o.Snapshot, true
+}
+
+// HasSnapshot returns a boolean if a field has been set.
+func (o *Source) HasSnapshot() bool {
+	if o != nil && !IsNil(o.Snapshot) {
+		return true
+	}
+
+	return false
+}
+
+// SetSnapshot gets a reference to the given SourceSnapshot and assigns it to the Snapshot field.
+func (o *Source) SetSnapshot(v SourceSnapshot) {
+	o.Snapshot = &v
+}
+
 // GetSnowflake returns the Snowflake field value if set, zero value otherwise.
 func (o *Source) GetSnowflake() SourceSnowflake {
 	if o == nil || IsNil(o.Snowflake) {
@@ -669,6 +703,38 @@ func (o *Source) SetSystem(v SourceSystem) {
 	o.System = &v
 }
 
+// GetWriteApi returns the WriteApi field value if set, zero value otherwise.
+func (o *Source) GetWriteApi() map[string]interface{} {
+	if o == nil || IsNil(o.WriteApi) {
+		var ret map[string]interface{}
+		return ret
+	}
+	return o.WriteApi
+}
+
+// GetWriteApiOk returns a tuple with the WriteApi field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Source) GetWriteApiOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.WriteApi) {
+		return map[string]interface{}{}, false
+	}
+	return o.WriteApi, true
+}
+
+// HasWriteApi returns a boolean if a field has been set.
+func (o *Source) HasWriteApi() bool {
+	if o != nil && !IsNil(o.WriteApi) {
+		return true
+	}
+
+	return false
+}
+
+// SetWriteApi gets a reference to the given map[string]interface{} and assigns it to the WriteApi field.
+func (o *Source) SetWriteApi(v map[string]interface{}) {
+	o.WriteApi = v
+}
+
 func (o Source) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -720,6 +786,9 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.S3) {
 		toSerialize["s3"] = o.S3
 	}
+	if !IsNil(o.Snapshot) {
+		toSerialize["snapshot"] = o.Snapshot
+	}
 	if !IsNil(o.Snowflake) {
 		toSerialize["snowflake"] = o.Snowflake
 	}
@@ -729,6 +798,9 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 	// skip: suspended_at is readOnly
 	if !IsNil(o.System) {
 		toSerialize["system"] = o.System
+	}
+	if !IsNil(o.WriteApi) {
+		toSerialize["write_api"] = o.WriteApi
 	}
 	return toSerialize, nil
 }

@@ -11,6 +11,7 @@ api_integrations.go
 api_organizations.go
 api_queries.go
 api_query_lambdas.go
+api_scheduled_lambdas.go
 api_shared_lambdas.go
 api_sources.go
 api_users.go
@@ -54,6 +55,7 @@ docs/CreateIntegrationResponse.md
 docs/CreateQueryLambdaRequest.md
 docs/CreateQueryLambdaTagRequest.md
 docs/CreateRoleRequest.md
+docs/CreateScheduledLambdaRequest.md
 docs/CreateUserRequest.md
 docs/CreateUserResponse.md
 docs/CreateViewRequest.md
@@ -84,6 +86,7 @@ docs/ErrorModel.md
 docs/EventTimeInfo.md
 docs/ExecutePublicQueryLambdaRequest.md
 docs/ExecuteQueryLambdaRequest.md
+docs/ExecutionStatus.md
 docs/FieldMappingQuery.md
 docs/FieldMappingV2.md
 docs/FieldPartition.md
@@ -159,6 +162,9 @@ docs/ResumeVirtualInstanceResponse.md
 docs/Role.md
 docs/RoleResponse.md
 docs/S3Integration.md
+docs/ScheduledLambda.md
+docs/ScheduledLambdaResponse.md
+docs/ScheduledLambdasApi.md
 docs/SchemaRegistryConfig.md
 docs/SharedLambdasApi.md
 docs/SnowflakeIntegration.md
@@ -170,6 +176,8 @@ docs/SourceAzureEventHubs.md
 docs/SourceAzureServiceBus.md
 docs/SourceBase.md
 docs/SourceDynamoDb.md
+docs/SourceDynamoDbBase.md
+docs/SourceDynamoDbSettings.md
 docs/SourceFileUpload.md
 docs/SourceGcs.md
 docs/SourceGcsBase.md
@@ -209,6 +217,7 @@ docs/UpdateIntegrationRequest.md
 docs/UpdateIntegrationResponse.md
 docs/UpdateQueryLambdaRequest.md
 docs/UpdateRoleRequest.md
+docs/UpdateScheduledLambdaRequest.md
 docs/UpdateUnsubscribePreferencesRequest.md
 docs/UpdateUnsubscribePreferencesResponse.md
 docs/UpdateUserRequest.md
@@ -262,6 +271,7 @@ model_create_integration_response.go
 model_create_query_lambda_request.go
 model_create_query_lambda_tag_request.go
 model_create_role_request.go
+model_create_scheduled_lambda_request.go
 model_create_user_request.go
 model_create_user_response.go
 model_create_view_request.go
@@ -290,6 +300,7 @@ model_error_model.go
 model_event_time_info.go
 model_execute_public_query_lambda_request.go
 model_execute_query_lambda_request.go
+model_execution_status.go
 model_field_mapping_query.go
 model_field_mapping_v2.go
 model_field_partition.go
@@ -361,6 +372,8 @@ model_resume_virtual_instance_response.go
 model_role.go
 model_role_response.go
 model_s3_integration.go
+model_scheduled_lambda.go
+model_scheduled_lambda_response.go
 model_schema_registry_config.go
 model_snowflake_integration.go
 model_source.go
@@ -371,6 +384,8 @@ model_source_azure_event_hubs.go
 model_source_azure_service_bus.go
 model_source_base.go
 model_source_dynamo_db.go
+model_source_dynamo_db_base.go
+model_source_dynamo_db_settings.go
 model_source_file_upload.go
 model_source_gcs.go
 model_source_gcs_base.go
@@ -409,6 +424,7 @@ model_update_integration_request.go
 model_update_integration_response.go
 model_update_query_lambda_request.go
 model_update_role_request.go
+model_update_scheduled_lambda_request.go
 model_update_unsubscribe_preferences_request.go
 model_update_unsubscribe_preferences_response.go
 model_update_user_request.go
