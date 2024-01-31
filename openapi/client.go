@@ -67,6 +67,8 @@ type APIClient struct {
 
 	QueryLambdasApi QueryLambdasApi
 
+	ScheduledLambdasApi ScheduledLambdasApi
+
 	SharedLambdasApi SharedLambdasApi
 
 	SourcesApi SourcesApi
@@ -105,6 +107,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.OrganizationsApi = (*OrganizationsApiService)(&c.common)
 	c.QueriesApi = (*QueriesApiService)(&c.common)
 	c.QueryLambdasApi = (*QueryLambdasApiService)(&c.common)
+	c.ScheduledLambdasApi = (*ScheduledLambdasApiService)(&c.common)
 	c.SharedLambdasApi = (*SharedLambdasApiService)(&c.common)
 	c.SourcesApi = (*SourcesApiService)(&c.common)
 	c.UsersApi = (*UsersApiService)(&c.common)

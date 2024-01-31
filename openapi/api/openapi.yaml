@@ -23,8 +23,10 @@ tags:
 - name: Documents
 - name: Integrations
 - name: Organizations
+- name: Organization Settings
 - name: Queries
 - name: Query Lambdas
+- name: Scheduled Lambdas
 - name: Shared Lambdas
 - name: Sources
 - name: Users
@@ -3655,7 +3657,8 @@ paths:
       tags:
       - Queries
     post:
-      description: Make a SQL query to Rockset.
+      description: Make a SQL query to Rockset. If you want to issue the query to
+        a specific Virtual Instance use this https://docs.rockset.com/documentation/reference/queryvirtualinstance
       operationId: query
       requestBody:
         content:
@@ -5811,6 +5814,354 @@ paths:
       summary: Execute Query Lambda By Version
       tags:
       - Query Lambdas
+      x-codegen-request-body-name: body
+  /v1/orgs/self/ws/{workspace}/scheduled_lambdas:
+    post:
+      description: Create a scheduled lambda mapping for your organization.
+      operationId: createScheduledLambda
+      parameters:
+      - description: name of the workspace
+        in: path
+        name: workspace
+        required: true
+        schema:
+          default: commons
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledLambdaRequest'
+        description: JSON Object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledLambdaResponse'
+          description: scheduled lambda mapping created successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Create a Scheduled Lambda mapping
+      tags:
+      - Scheduled Lambdas
+      x-rename: create
+      x-codegen-request-body-name: body
+  /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId}:
+    delete:
+      description: Delete a scheduled lambda mapping for your organization.
+      operationId: deleteScheduledLambda
+      parameters:
+      - description: name of the workspace
+        in: path
+        name: workspace
+        required: true
+        schema:
+          default: commons
+          type: string
+      - description: Scheduled Lambda RRN
+        in: path
+        name: scheduledLambdaId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledLambdaResponse'
+          description: scheduled lambda mapping deleted successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Delete a Scheduled Lambda mapping
+      tags:
+      - Scheduled Lambdas
+      x-rename: delete
+    post:
+      description: Update a scheduled lambda mapping for your organization.
+      operationId: updateScheduledLambda
+      parameters:
+      - description: name of the workspace
+        in: path
+        name: workspace
+        required: true
+        schema:
+          default: commons
+          type: string
+      - description: Scheduled Lambda RRN
+        in: path
+        name: scheduledLambdaId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateScheduledLambdaRequest'
+        description: JSON Object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledLambdaResponse'
+          description: scheduled lambda mapping updated successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Update a Scheduled Lambda mapping
+      tags:
+      - Scheduled Lambdas
+      x-rename: update
       x-codegen-request-body-name: body
   /v1/public/shared_lambdas/{public_access_id}:
     post:
@@ -9558,7 +9909,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorModel'
           description: not ready
-      summary: Execute SQL Query
+      summary: Execute SQL Query on a specific Virtual Instance
       tags:
       - Virtual Instances
       x-codegen-request-body-name: body
@@ -10411,6 +10762,7 @@ components:
           - NANO
           - SHARED
           - MILLI
+          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -10430,6 +10782,7 @@ components:
           - NANO
           - SHARED
           - MILLI
+          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -10630,6 +10983,7 @@ components:
             type: ResourceExceeded
           query_id: 5b596206-c632-4a08-8343-0c560f7ef7f1
           stats:
+            result_set_file_count: 1235
             throttled_time_ms: 16
             result_set_bytes_size: 1235
             elapsed_time_ms: 128
@@ -10699,7 +11053,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -10734,16 +11088,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -10756,6 +11112,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -10773,6 +11131,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -10792,7 +11151,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -10803,6 +11162,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -10842,6 +11202,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -10856,7 +11219,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -10891,16 +11254,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -10913,6 +11278,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -10930,6 +11297,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -10949,7 +11317,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -10960,6 +11328,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -10999,6 +11368,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -11441,9 +11813,15 @@ components:
       example:
         role: role
         name: my-app
+        expiry_time: 2001-08-28T00:23:41Z
         created_by: created_by
       properties:
         created_by:
+          type: string
+        expiry_time:
+          description: "If provided, the API key will automatically expire at this\
+            \ time (ISO-8601 format). Requires premium."
+          example: 2001-08-28T00:23:41Z
           type: string
         name:
           description: Name for this API key.
@@ -11522,7 +11900,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -11557,16 +11935,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -11579,6 +11959,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -11596,6 +11978,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -11615,7 +11998,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -11626,6 +12009,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -11665,6 +12049,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -11679,7 +12066,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -11714,16 +12101,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -11736,6 +12125,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -11753,6 +12144,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -11772,7 +12164,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -11783,6 +12175,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -11822,6 +12215,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -11870,9 +12266,11 @@ components:
           type: string
         retention_secs:
           description: "Number of seconds after which data is purged, based on event\
-            \ time."
+            \ time. Minimum allowable value is 3600s/1 hour. The maximum value is\
+            \ strictly less than 10 years."
           example: 1000000
           format: int64
+          maximum: 315359999
           minimum: 3600
           type: integer
         source_download_soft_limit_bytes:
@@ -11922,7 +12320,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -11957,16 +12355,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -11979,6 +12379,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -11996,6 +12398,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -12015,7 +12418,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -12026,6 +12429,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -12065,6 +12469,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -12079,7 +12486,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -12114,16 +12521,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -12136,6 +12545,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -12153,6 +12564,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -12172,7 +12584,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -12183,6 +12595,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -12222,6 +12635,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -12357,6 +12773,27 @@ components:
             aws_external_id: external id of aws
             aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
           username: username
+        is_write_enabled: true
+        azure_blob_storage:
+          connection_string: |-
+            BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
+            SharedAccessSignature=<KeyValue>
+        description: AWS account with event data for the data science team.
+        kinesis:
+          aws_access_key:
+            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
+            aws_secret_access_key: wJal....
+          aws_role:
+            aws_external_id: external id of aws
+            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
+        dynamodb:
+          s3_export_bucket_name: s3_export_bucket_name
+          aws_access_key:
+            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
+            aws_secret_access_key: wJal....
+          aws_role:
+            aws_external_id: external id of aws
+            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
         azure_event_hubs:
           connection_string: Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>
         gcs:
@@ -12381,21 +12818,9 @@ components:
           bootstrap_servers: localhost:9092
           connection_string: connection_string
           use_v3: true
-        azure_blob_storage:
-          connection_string: |-
-            BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
-            SharedAccessSignature=<KeyValue>
         azure_service_bus:
           connection_string: Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>
         name: event-logs
-        description: AWS account with event data for the data science team.
-        kinesis:
-          aws_access_key:
-            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
-            aws_secret_access_key: wJal....
-          aws_role:
-            aws_external_id: external id of aws
-            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
         mongodb:
           connection_uri: mongodb+srv://<username>:<password>@server.example.com/
           tls:
@@ -12413,14 +12838,6 @@ components:
               -----BEGIN CERTIFICATE-----
               ....
               -----END CERTIFICATE-----
-        dynamodb:
-          s3_export_bucket_name: s3_export_bucket_name
-          aws_access_key:
-            aws_access_key_id: AKIAIOSFODNN7EXAMPLE
-            aws_secret_access_key: wJal....
-          aws_role:
-            aws_external_id: external id of aws
-            aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
       properties:
         azure_blob_storage:
           $ref: '#/components/schemas/AzureBlobStorageIntegration'
@@ -12436,6 +12853,9 @@ components:
           $ref: '#/components/schemas/DynamodbIntegration'
         gcs:
           $ref: '#/components/schemas/GcsIntegration'
+        is_write_enabled:
+          description: is write access enabled for this integration.
+          type: boolean
         kafka:
           $ref: '#/components/schemas/KafkaIntegration'
         kinesis:
@@ -12477,6 +12897,7 @@ components:
               aws_external_id: external id of aws
               aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             username: username
+          is_write_enabled: true
           azure_blob_storage:
             connection_string: |-
               BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -12530,7 +12951,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -12565,16 +12986,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -12587,6 +13010,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -12604,6 +13029,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -12623,7 +13049,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -12634,6 +13060,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -12673,6 +13100,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -12687,7 +13117,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -12722,16 +13152,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -12744,6 +13176,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -12761,6 +13195,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -12780,7 +13215,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -12791,6 +13226,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -12830,6 +13266,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -12966,7 +13405,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -13001,16 +13440,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -13023,6 +13464,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -13040,6 +13483,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -13059,7 +13503,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -13070,6 +13514,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -13109,6 +13554,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -13123,7 +13571,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -13158,16 +13606,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -13180,6 +13630,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -13197,6 +13649,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -13216,7 +13669,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -13227,6 +13680,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -13266,6 +13720,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -13495,6 +13952,63 @@ components:
           example: read_write
           type: string
       type: object
+    CreateScheduledLambdaRequest:
+      example:
+        apikey: qoiwkjndksd
+        webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+        ql_name: ql_name
+        total_times_to_execute: 1
+        cron_string: '* * * * *'
+        tag: production
+        webhook_payload: webhook_payload
+        version: abcdef1234
+        webhook_auth_header: bearer qiowjkjkdskdskldio
+      properties:
+        apikey:
+          description: The apikey to use when triggering execution of the associated
+            query lambda.
+          example: qoiwkjndksd
+          type: string
+        cron_string:
+          description: The UNIX-formatted cron string for this scheduled query lambda.
+          example: '* * * * *'
+          type: string
+        ql_name:
+          description: The name of the QL to use for scheduled execution.
+          example: ql_name
+          type: string
+        tag:
+          description: The QL tag to use for scheduled execution.
+          example: production
+          type: string
+        total_times_to_execute:
+          description: "The number of times to execute this scheduled query lambda.\
+            \ Once this scheduled query lambda has been executed this many times,\
+            \ it will no longer be executed."
+          example: 1
+          format: int64
+          type: integer
+        version:
+          description: The version of the QL to use for scheduled execution.
+          example: abcdef1234
+          type: string
+        webhook_auth_header:
+          description: The value to use as the authorization header when hitting the
+            webhook.
+          example: bearer qiowjkjkdskdskldio
+          type: string
+        webhook_payload:
+          description: The payload that should be sent to the webhook. JSON format.
+          type: string
+        webhook_url:
+          description: The URL of the webhook that should be triggered after this
+            scheduled query lambda completes.
+          example: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+          type: string
+      required:
+      - cron_string
+      - ql_name
+      type: object
     CreateUserRequest:
       example:
         roles: "[\"admin\", \"member\", \"read-only\"]"
@@ -13581,10 +14095,12 @@ components:
       type: object
     CreateVirtualInstanceRequest:
       example:
-        mount_refresh_interval_seconds: 3600
+        instance_class: MO_IL
+        mount_refresh_interval_seconds: 0
         name: prod_vi
         description: VI serving prod traffic
         auto_suspend_seconds: 3600
+        mount_type: LIVE
         type: LARGE
         enable_remount_on_resume: true
       properties:
@@ -13602,13 +14118,31 @@ components:
             \ that were mounted when the Virtual Instance was suspended."
           example: true
           type: boolean
+        instance_class:
+          description: Virtual Instance Class. Use `MO_IL` for Memory Optimized and
+            `GP_IL` for General Purpose instance class.
+          enum:
+          - MO_IL
+          - GP_IL
+          example: MO_IL
+          type: string
         mount_refresh_interval_seconds:
-          description: Number of seconds between data refreshes for mounts on this
-            Virtual Instance. A value of 0 means continuous refresh and a value of
-            null means never refresh.
-          example: 3600
+          description: DEPRECATED. Use `mount_type` instead. Number of seconds between
+            data refreshes for mounts on this Virtual Instance. The only valid values
+            are 0 and null. 0 means the data will be refreshed continuously and null
+            means the data will never refresh.
+          example: 0
           format: int32
           type: integer
+        mount_type:
+          description: The mount type of collections that this Virtual Instance will
+            query. Live mounted collections stay up-to-date with the underlying collection
+            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+          enum:
+          - LIVE
+          - STATIC
+          example: LIVE
+          type: string
         name:
           description: "Unique identifier for virtual instance, can contain alphanumeric\
             \ or dash characters."
@@ -13621,6 +14155,7 @@ components:
           - NANO
           - SHARED
           - MILLI
+          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -13643,15 +14178,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -13811,7 +14349,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -13846,16 +14384,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -13868,6 +14408,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -13885,6 +14427,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -13904,7 +14447,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -13915,6 +14458,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -13954,6 +14498,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -13968,7 +14515,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -14003,16 +14550,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -14025,6 +14574,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -14042,6 +14593,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -14061,7 +14613,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -14072,6 +14624,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -14111,6 +14664,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -14313,6 +14869,7 @@ components:
               aws_external_id: external id of aws
               aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             username: username
+          is_write_enabled: true
           azure_blob_storage:
             connection_string: |-
               BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -14366,7 +14923,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -14401,16 +14958,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -14423,6 +14982,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -14440,6 +15001,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -14459,7 +15021,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -14470,6 +15032,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -14509,6 +15072,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -14523,7 +15089,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -14558,16 +15124,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -14580,6 +15148,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -14597,6 +15167,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -14616,7 +15187,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -14627,6 +15198,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -14666,6 +15238,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -14802,7 +15377,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -14837,16 +15412,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -14859,6 +15436,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -14876,6 +15455,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -14895,7 +15475,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -14906,6 +15486,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -14945,6 +15526,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -14959,7 +15543,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -14994,16 +15578,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -15016,6 +15602,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -15033,6 +15621,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -15052,7 +15641,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -15063,6 +15652,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -15102,6 +15692,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -15306,7 +15899,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -15341,16 +15934,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -15363,6 +15958,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -15380,6 +15977,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -15399,7 +15997,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -15410,6 +16008,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -15449,6 +16048,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -15505,15 +16107,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -15638,9 +16243,9 @@ components:
           - NOTIMPLEMENTEDYET
           - RESOURCEEXCEEDED
           - ALREADYEXISTS
-          - NOTALLOWED
+          - METHODNOTALLOWED
           - NOTACCEPTABLE
-          - NOTSUPPORTED
+          - UNSUPPORTEDMEDIATYPE
           - NOTFOUND
           - DEPENDENTRESOURCES
           - QUERY_ERROR
@@ -15781,6 +16386,22 @@ components:
           description: Virtual instance on which to run the query.
           type: string
       type: object
+    ExecutionStatus:
+      example:
+        state: ERROR
+        message: message
+      properties:
+        message:
+          description: Message describing the execution status.
+          type: string
+        state:
+          description: The scheduled query lambda execution status
+          enum:
+          - WARNING
+          - ERROR
+          example: ERROR
+          type: string
+      type: object
     FieldMappingQuery:
       example:
         sql: sql
@@ -15871,10 +16492,13 @@ components:
         mssql_dms: true
         oracle_dms: true
         mysql_dms: true
+        bson: true
         avro: "{}"
       properties:
         avro:
           type: object
+        bson:
+          type: boolean
         csv:
           $ref: '#/components/schemas/CsvParams'
         json:
@@ -16012,7 +16636,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -16047,16 +16671,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -16069,6 +16695,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -16086,6 +16714,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -16105,7 +16734,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -16116,6 +16745,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -16155,6 +16785,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -16169,7 +16802,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -16204,16 +16837,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -16226,6 +16861,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -16243,6 +16880,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -16262,7 +16900,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -16273,6 +16911,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -16312,6 +16951,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -16449,6 +17091,7 @@ components:
               aws_external_id: external id of aws
               aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             username: username
+          is_write_enabled: true
           azure_blob_storage:
             connection_string: |-
               BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -16502,7 +17145,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -16537,16 +17180,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -16559,6 +17204,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -16576,6 +17223,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -16595,7 +17243,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -16606,6 +17254,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -16645,6 +17294,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -16659,7 +17311,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -16694,16 +17346,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -16716,6 +17370,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -16733,6 +17389,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -16752,7 +17409,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -16763,6 +17420,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -16802,6 +17460,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -16938,7 +17599,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -16973,16 +17634,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -16995,6 +17658,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -17012,6 +17677,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -17031,7 +17697,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -17042,6 +17708,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -17081,6 +17748,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -17095,7 +17765,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -17130,16 +17800,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -17152,6 +17824,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -17169,6 +17843,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -17188,7 +17863,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -17199,6 +17874,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -17238,6 +17914,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -17410,6 +18089,7 @@ components:
             type: ResourceExceeded
           query_id: 5b596206-c632-4a08-8343-0c560f7ef7f1
           stats:
+            result_set_file_count: 1235
             throttled_time_ms: 16
             result_set_bytes_size: 1235
             elapsed_time_ms: 128
@@ -17428,7 +18108,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -17463,16 +18143,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -17485,6 +18167,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -17502,6 +18186,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -17521,7 +18206,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -17532,6 +18217,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -17571,6 +18257,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -17614,15 +18303,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -17699,6 +18391,7 @@ components:
             aws_external_id: external id of aws
             aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
           username: username
+        is_write_enabled: true
         azure_blob_storage:
           connection_string: |-
             BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -17752,7 +18445,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -17787,16 +18480,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -17809,6 +18504,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -17826,6 +18523,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -17845,7 +18543,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -17856,6 +18554,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -17895,6 +18594,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -17909,7 +18611,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -17944,16 +18646,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -17966,6 +18670,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -17983,6 +18689,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -18002,7 +18709,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -18013,6 +18720,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -18052,6 +18760,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -18188,7 +18899,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -18223,16 +18934,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -18245,6 +18958,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -18262,6 +18977,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -18281,7 +18997,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -18292,6 +19008,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -18331,6 +19048,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -18345,7 +19065,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -18380,16 +19100,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -18402,6 +19124,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -18419,6 +19143,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -18438,7 +19163,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -18449,6 +19174,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -18488,6 +19214,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -18671,6 +19400,9 @@ components:
           $ref: '#/components/schemas/DynamodbIntegration'
         gcs:
           $ref: '#/components/schemas/GcsIntegration'
+        is_write_enabled:
+          description: is write access enabled for this integration
+          type: boolean
         kafka:
           $ref: '#/components/schemas/KafkaIntegration'
         kinesis:
@@ -18892,7 +19624,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -18927,16 +19659,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -18949,6 +19683,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -18966,6 +19702,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -18985,7 +19722,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -18996,6 +19733,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -19035,6 +19773,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -19049,7 +19790,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -19084,16 +19825,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -19106,6 +19849,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -19123,6 +19868,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -19142,7 +19888,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -19153,6 +19899,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -19192,6 +19939,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -19328,7 +20078,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -19363,16 +20113,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -19385,6 +20137,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -19402,6 +20156,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -19421,7 +20176,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -19432,6 +20187,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -19471,6 +20227,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -19485,7 +20244,7 @@ components:
               bucket: s3://customer-account-info
               object_count_downloaded: 2
               settings:
-                s3_scan_frequency: 5min
+                s3_scan_frequency: PT5M
               object_count_total: 4
               prefixes: "[\"/transactions\", \"/stores\"]"
               object_bytes_downloaded: 9
@@ -19520,16 +20279,18 @@ components:
               mssql_dms: true
               oracle_dms: true
               mysql_dms: true
+              bson: true
               avro: "{}"
             azure_blob_storage:
               container: server-logs
               settings:
-                azblob_scan_frequency: 5min
+                azblob_scan_frequency: PT5M
               prefix: prefix/to/blobs
               pattern: prefix/to/**/keys/*.format
               blob_bytes_total: 0
               blob_count_total: 1
               blob_count_downloaded: 6
+            write_api: "{}"
             file_upload:
               file_name: file1.json
               file_size: 12345
@@ -19542,6 +20303,8 @@ components:
               - dms_primary_key
               - dms_primary_key
             dynamodb:
+              settings:
+                dynamodb_stream_poll_frequency: PT1S
               aws_region: us-east-2
               rcu: 1000
               current_status:
@@ -19559,6 +20322,7 @@ components:
                 state: SCANNING_TABLE
             integration_name: aws-integration
             system:
+              workspace: commons
               type: QUERY_LOGS
             azure_event_hubs:
               offset_reset_policy: EARLIEST
@@ -19578,7 +20342,7 @@ components:
               bucket: server-logs
               object_count_downloaded: 2
               settings:
-                gcs_scan_frequency: 5min
+                gcs_scan_frequency: PT5M
               object_count_total: 7
               object_bytes_downloaded: 5
               prefix: prefix/to/keys
@@ -19589,6 +20353,7 @@ components:
               offset_reset_policy: EARLIEST
               consumer_group_id: org-collection
               kafka_topic_name: example-topic
+              client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
               status:
                 num_documents_processed: 1337
                 last_consumed_time: 2001-08-28T00:23:41Z
@@ -19628,6 +20393,9 @@ components:
                 stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                 scan_records_processed: 1000
                 state: SCANNING_TABLE
+            snapshot:
+              source_collection_path: myWorkspace.myCollection
+              source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
             ingest_transformation:
               sql: sql
             status:
@@ -19768,6 +20536,7 @@ components:
               aws_external_id: external id of aws
               aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             username: username
+          is_write_enabled: true
           azure_blob_storage:
             connection_string: |-
               BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -19821,7 +20590,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -19856,16 +20625,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -19878,6 +20649,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -19895,6 +20668,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -19914,7 +20688,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -19925,6 +20699,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -19964,6 +20739,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -19978,7 +20756,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -20013,16 +20791,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -20035,6 +20815,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -20052,6 +20834,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -20071,7 +20854,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -20082,6 +20865,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -20121,6 +20905,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -20257,7 +21044,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -20292,16 +21079,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -20314,6 +21103,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -20331,6 +21122,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -20350,7 +21142,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -20361,6 +21153,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -20400,6 +21193,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -20414,7 +21210,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -20449,16 +21245,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -20471,6 +21269,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -20488,6 +21288,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -20507,7 +21308,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -20518,6 +21319,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -20557,6 +21359,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -20729,6 +21534,7 @@ components:
               aws_external_id: external id of aws
               aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             username: username
+          is_write_enabled: true
           azure_blob_storage:
             connection_string: |-
               BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -20782,7 +21588,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -20817,16 +21623,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -20839,6 +21647,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -20856,6 +21666,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -20875,7 +21686,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -20886,6 +21697,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -20925,6 +21737,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -20939,7 +21754,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -20974,16 +21789,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -20996,6 +21813,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -21013,6 +21832,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -21032,7 +21852,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -21043,6 +21863,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -21082,6 +21903,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -21218,7 +22042,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -21253,16 +22077,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -21275,6 +22101,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -21292,6 +22120,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -21311,7 +22140,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -21322,6 +22151,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -21361,6 +22191,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -21375,7 +22208,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -21410,16 +22243,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -21432,6 +22267,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -21449,6 +22286,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -21468,7 +22306,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -21479,6 +22317,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -21518,6 +22357,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -21693,6 +22535,7 @@ components:
             type: ResourceExceeded
           query_id: 5b596206-c632-4a08-8343-0c560f7ef7f1
           stats:
+            result_set_file_count: 1235
             throttled_time_ms: 16
             result_set_bytes_size: 1235
             elapsed_time_ms: 128
@@ -21714,6 +22557,7 @@ components:
             type: ResourceExceeded
           query_id: 5b596206-c632-4a08-8343-0c560f7ef7f1
           stats:
+            result_set_file_count: 1235
             throttled_time_ms: 16
             result_set_bytes_size: 1235
             elapsed_time_ms: 128
@@ -21976,7 +22820,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -22011,16 +22855,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -22033,6 +22879,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -22050,6 +22898,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -22069,7 +22918,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -22080,6 +22929,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -22119,6 +22969,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -22133,7 +22986,7 @@ components:
             bucket: s3://customer-account-info
             object_count_downloaded: 2
             settings:
-              s3_scan_frequency: 5min
+              s3_scan_frequency: PT5M
             object_count_total: 4
             prefixes: "[\"/transactions\", \"/stores\"]"
             object_bytes_downloaded: 9
@@ -22168,16 +23021,18 @@ components:
             mssql_dms: true
             oracle_dms: true
             mysql_dms: true
+            bson: true
             avro: "{}"
           azure_blob_storage:
             container: server-logs
             settings:
-              azblob_scan_frequency: 5min
+              azblob_scan_frequency: PT5M
             prefix: prefix/to/blobs
             pattern: prefix/to/**/keys/*.format
             blob_bytes_total: 0
             blob_count_total: 1
             blob_count_downloaded: 6
+          write_api: "{}"
           file_upload:
             file_name: file1.json
             file_size: 12345
@@ -22190,6 +23045,8 @@ components:
             - dms_primary_key
             - dms_primary_key
           dynamodb:
+            settings:
+              dynamodb_stream_poll_frequency: PT1S
             aws_region: us-east-2
             rcu: 1000
             current_status:
@@ -22207,6 +23064,7 @@ components:
               state: SCANNING_TABLE
           integration_name: aws-integration
           system:
+            workspace: commons
             type: QUERY_LOGS
           azure_event_hubs:
             offset_reset_policy: EARLIEST
@@ -22226,7 +23084,7 @@ components:
             bucket: server-logs
             object_count_downloaded: 2
             settings:
-              gcs_scan_frequency: 5min
+              gcs_scan_frequency: PT5M
             object_count_total: 7
             object_bytes_downloaded: 5
             prefix: prefix/to/keys
@@ -22237,6 +23095,7 @@ components:
             offset_reset_policy: EARLIEST
             consumer_group_id: org-collection
             kafka_topic_name: example-topic
+            client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
             status:
               num_documents_processed: 1337
               last_consumed_time: 2001-08-28T00:23:41Z
@@ -22276,6 +23135,9 @@ components:
               stream_last_insert_processed_at: 2019-01-15T21:48:23Z
               scan_records_processed: 1000
               state: SCANNING_TABLE
+          snapshot:
+            source_collection_path: myWorkspace.myCollection
+            source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
           ingest_transformation:
             sql: sql
           status:
@@ -22372,15 +23234,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -22395,15 +23260,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -22770,6 +23638,7 @@ components:
           - CREATE_INTEGRATION_GLOBAL
           - DELETE_INTEGRATION_GLOBAL
           - LIST_INTEGRATIONS_GLOBAL
+          - EXPORT_DATA_GLOBAL
           - UPDATE_RESOURCE_OWNER_GLOBAL
           - CREATE_API_KEY_GLOBAL
           - CREATE_ROLE_GLOBAL
@@ -22778,6 +23647,7 @@ components:
           - LIST_ROLES_GLOBAL
           - GRANT_REVOKE_ROLE_GLOBAL
           - CREATE_QUERY_LOGS_COLLECTION_GLOBAL
+          - CREATE_INGEST_LOGS_COLLECTION_GLOBAL
           - ALL_INTEGRATION_ACTIONS
           - CREATE_COLLECTION_INTEGRATION
           - ALL_WORKSPACE_ACTIONS
@@ -22786,6 +23656,7 @@ components:
           - WRITE_DATA_WS
           - CREATE_COLLECTION_WS
           - DELETE_COLLECTION_WS
+          - UPDATE_COLLECTION_WS
           - CREATE_ALIAS_WS
           - DELETE_ALIAS_WS
           - CREATE_SNAPSHOT_WS
@@ -22804,6 +23675,10 @@ components:
           - DELETE_VI
           - CREATE_SIMILARITY_INDEX_WS
           - DELETE_SIMILARITY_INDEX_WS
+          - CREATE_NETWORK_CONFIGURATION_GLOBAL
+          - DELETE_NETWORK_CONFIGURATION_GLOBAL
+          - LIST_NETWORK_CONFIGURATIONS_GLOBAL
+          - UPDATE_ORG_QUERY_ROUTING
           example: CREATE_COLLECTION_WS
           type: string
         cluster:
@@ -22873,6 +23748,7 @@ components:
           type: ResourceExceeded
         query_id: 5b596206-c632-4a08-8343-0c560f7ef7f1
         stats:
+          result_set_file_count: 1235
           throttled_time_ms: 16
           result_set_bytes_size: 1235
           elapsed_time_ms: 128
@@ -23488,15 +24364,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -23583,6 +24462,119 @@ components:
         aws_role:
           $ref: '#/components/schemas/AwsRole'
       type: object
+    ScheduledLambda:
+      example:
+        workspace: commons
+        query_execution_status:
+          state: ERROR
+          message: message
+        resume_permanent_error: true
+        webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+        total_times_to_execute: 5
+        last_completion_date: 2001-08-28T00:23:41Z
+        version: abcde1234
+        last_query_id: salkdjfsd-1jakdsjfksaj
+        rrn: rrn:sl:use1a1:123e4567-e89b-12d3-a456-556642440000
+        execution_count: 5
+        ql_name: example_ql
+        cron_string: '* * * * *'
+        tag: production
+        next_execution_date: 2001-08-28T00:23:41Z
+        webhook_payload: "{\"text\": \"A scheduled query lambda completed execution.\
+          \ Query ID: {{QUERY_ID}}, Initial results: {{QUERY_RESULTS}}\""
+      properties:
+        cron_string:
+          description: The UNIX-formatted cron string for this scheduled query lambda.
+          example: '* * * * *'
+          type: string
+        execution_count:
+          description: The number of times this scheduled QL has been executed.
+          example: 5
+          format: int64
+          type: integer
+        last_completion_date:
+          description: The last time this scheduled query lambda completed successfully.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        last_query_id:
+          description: The ID of the query that was triggered by this scheduled lambda's
+            last run.
+          example: salkdjfsd-1jakdsjfksaj
+          type: string
+        next_execution_date:
+          description: The next time this scheduled query lambda will be executed.
+          example: 2001-08-28T00:23:41Z
+          type: string
+        ql_name:
+          description: The name of the associated query lambda.
+          example: example_ql
+          type: string
+        query_execution_status:
+          $ref: '#/components/schemas/ExecutionStatus'
+        resume_permanent_error:
+          description: Boolean flag to allow a scheduled query lambda to resume execution
+            after being suspended due to execution failure. This flag will be unset
+            after scheduled lambda execution.
+          type: boolean
+        rrn:
+          description: Scheduled Lambda mapping RRN.
+          example: rrn:sl:use1a1:123e4567-e89b-12d3-a456-556642440000
+          type: string
+        tag:
+          description: The query lambda tag.
+          example: production
+          type: string
+        total_times_to_execute:
+          description: "The number of times to execute this scheduled query lambda.\
+            \ Once this scheduled query lambda has been executed this many times,\
+            \ it will no longer be executed."
+          example: 5
+          format: int64
+          type: integer
+        version:
+          description: The version of the associated query lambda.
+          example: abcde1234
+          type: string
+        webhook_payload:
+          description: The payload that should be sent to the webhook.
+          example: "{\"text\": \"A scheduled query lambda completed execution. Query\
+            \ ID: {{QUERY_ID}}, Initial results: {{QUERY_RESULTS}}\""
+          type: string
+        webhook_url:
+          description: The URL of the webhook that should be triggered after this
+            scheduled query lambda completes.
+          example: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+          type: string
+        workspace:
+          description: Workspace of the associated query lambda.
+          example: commons
+          type: string
+      type: object
+    ScheduledLambdaResponse:
+      example:
+        data:
+          workspace: commons
+          query_execution_status:
+            state: ERROR
+            message: message
+          resume_permanent_error: true
+          webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+          total_times_to_execute: 5
+          last_completion_date: 2001-08-28T00:23:41Z
+          version: abcde1234
+          last_query_id: salkdjfsd-1jakdsjfksaj
+          rrn: rrn:sl:use1a1:123e4567-e89b-12d3-a456-556642440000
+          execution_count: 5
+          ql_name: example_ql
+          cron_string: '* * * * *'
+          tag: production
+          next_execution_date: 2001-08-28T00:23:41Z
+          webhook_payload: "{\"text\": \"A scheduled query lambda completed execution.\
+            \ Query ID: {{QUERY_ID}}, Initial results: {{QUERY_RESULTS}}\""
+      properties:
+        data:
+          $ref: '#/components/schemas/ScheduledLambda'
+      type: object
     SchemaRegistryConfig:
       example:
         secret: secret
@@ -23656,7 +24648,7 @@ components:
           bucket: s3://customer-account-info
           object_count_downloaded: 2
           settings:
-            s3_scan_frequency: 5min
+            s3_scan_frequency: PT5M
           object_count_total: 4
           prefixes: "[\"/transactions\", \"/stores\"]"
           object_bytes_downloaded: 9
@@ -23691,16 +24683,18 @@ components:
           mssql_dms: true
           oracle_dms: true
           mysql_dms: true
+          bson: true
           avro: "{}"
         azure_blob_storage:
           container: server-logs
           settings:
-            azblob_scan_frequency: 5min
+            azblob_scan_frequency: PT5M
           prefix: prefix/to/blobs
           pattern: prefix/to/**/keys/*.format
           blob_bytes_total: 0
           blob_count_total: 1
           blob_count_downloaded: 6
+        write_api: "{}"
         file_upload:
           file_name: file1.json
           file_size: 12345
@@ -23713,6 +24707,8 @@ components:
           - dms_primary_key
           - dms_primary_key
         dynamodb:
+          settings:
+            dynamodb_stream_poll_frequency: PT1S
           aws_region: us-east-2
           rcu: 1000
           current_status:
@@ -23730,6 +24726,7 @@ components:
             state: SCANNING_TABLE
         integration_name: aws-integration
         system:
+          workspace: commons
           type: QUERY_LOGS
         azure_event_hubs:
           offset_reset_policy: EARLIEST
@@ -23749,7 +24746,7 @@ components:
           bucket: server-logs
           object_count_downloaded: 2
           settings:
-            gcs_scan_frequency: 5min
+            gcs_scan_frequency: PT5M
           object_count_total: 7
           object_bytes_downloaded: 5
           prefix: prefix/to/keys
@@ -23760,6 +24757,7 @@ components:
           offset_reset_policy: EARLIEST
           consumer_group_id: org-collection
           kafka_topic_name: example-topic
+          client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
           status:
             num_documents_processed: 1337
             last_consumed_time: 2001-08-28T00:23:41Z
@@ -23799,6 +24797,9 @@ components:
             stream_last_insert_processed_at: 2019-01-15T21:48:23Z
             scan_records_processed: 1000
             state: SCANNING_TABLE
+        snapshot:
+          source_collection_path: myWorkspace.myCollection
+          source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
         ingest_transformation:
           sql: sql
         status:
@@ -23848,6 +24849,8 @@ components:
           type: string
         s3:
           $ref: '#/components/schemas/SourceS3'
+        snapshot:
+          $ref: '#/components/schemas/SourceSnapshot'
         snowflake:
           $ref: '#/components/schemas/SourceSnowflake'
         status:
@@ -23859,33 +24862,38 @@ components:
           type: string
         system:
           $ref: '#/components/schemas/SourceSystem'
+        write_api:
+          type: object
       type: object
     SourceAzBlobStorageBase:
       example:
         settings:
-          azblob_scan_frequency: 5min
+          azblob_scan_frequency: PT5M
       properties:
         settings:
           $ref: '#/components/schemas/SourceAzBlobStorageSettings'
       type: object
     SourceAzBlobStorageSettings:
       example:
-        azblob_scan_frequency: 5min
+        azblob_scan_frequency: PT5M
       properties:
         azblob_scan_frequency:
           description: "Rockset scans an Azure blob Storage container based on a defined\
             \ time interval. The scan frequency determines the length of time between\
             \ a new scan and the previous scan. If the previous scan finds new objects\
             \ or updates to existing objects, Rockset immediately scans the bucket\
-            \ again after processing changes from the previous scan."
-          example: 5min
+            \ again after processing changes from the previous scan. Duration value\
+            \ is of type ISO 8601 (e.g. PT5H, PT4M, PT3S). It doesn't account for\
+            \ DST, leap seconds and leap years. Minimum value: PT1S. Maximum value:\
+            \ PT1H."
+          example: PT5M
           type: string
       type: object
     SourceAzureBlobStorage:
       example:
         container: server-logs
         settings:
-          azblob_scan_frequency: 5min
+          azblob_scan_frequency: PT5M
         prefix: prefix/to/blobs
         pattern: prefix/to/**/keys/*.format
         blob_bytes_total: 0
@@ -23977,34 +24985,21 @@ components:
       example:
         s3:
           settings:
-            s3_scan_frequency: 5min
+            s3_scan_frequency: PT5M
         gcs:
           settings:
-            gcs_scan_frequency: 5min
+            gcs_scan_frequency: PT5M
         azure_blob_storage:
           settings:
-            azblob_scan_frequency: 5min
+            azblob_scan_frequency: PT5M
         dynamodb:
-          aws_region: us-east-2
-          rcu: 1000
-          current_status:
-            initial_dump_completion_percentage: 0.73
-            stream_last_processed_at: 2019-01-15T21:48:23Z
-            state: PROCESSING_STREAM
-          use_scan_api: true
-          table_name: dynamodb_table_name
-          status:
-            scan_total_records: 2000
-            stream_last_processed_at: 2019-01-15T21:48:23Z
-            scan_start_time: 2001-08-28T00:23:41Z
-            scan_end_time: 2001-08-28T00:23:41Z
-            scan_records_processed: 1000
-            state: SCANNING_TABLE
+          settings:
+            dynamodb_stream_poll_frequency: PT1S
       properties:
         azure_blob_storage:
           $ref: '#/components/schemas/SourceAzBlobStorageBase'
         dynamodb:
-          $ref: '#/components/schemas/SourceDynamoDb'
+          $ref: '#/components/schemas/SourceDynamoDbBase'
         gcs:
           $ref: '#/components/schemas/SourceGcsBase'
         s3:
@@ -24012,6 +25007,8 @@ components:
       type: object
     SourceDynamoDb:
       example:
+        settings:
+          dynamodb_stream_poll_frequency: PT1S
         aws_region: us-east-2
         rcu: 1000
         current_status:
@@ -24040,6 +25037,8 @@ components:
           example: 1000
           format: int64
           type: integer
+        settings:
+          $ref: '#/components/schemas/SourceDynamoDbSettings'
         status:
           $ref: '#/components/schemas/StatusDynamoDb'
         table_name:
@@ -24051,6 +25050,31 @@ components:
           type: boolean
       required:
       - table_name
+      type: object
+    SourceDynamoDbBase:
+      example:
+        settings:
+          dynamodb_stream_poll_frequency: PT1S
+      properties:
+        settings:
+          $ref: '#/components/schemas/SourceDynamoDbSettings'
+      type: object
+    SourceDynamoDbSettings:
+      example:
+        dynamodb_stream_poll_frequency: PT1S
+      properties:
+        dynamodb_stream_poll_frequency:
+          description: "Each DynamoDB stream can have one to many shards, and Rockset\
+            \ polls each DynamoDB shard at a fixed rate. Decreasing the duration between\
+            \ polls helps reduce ingest latency, while increasing the duration can\
+            \ prevent  Rockset from keeping up with the updates. If the latency exceeds\
+            \ 24 hours (DynamoDB stream retention duration), Rockset will not be able\
+            \ to process all of the streaming updates. Each request also has a fixed\
+            \ price associated with it. Duration value is of type ISO 8601 (e.g. PT5H,\
+            \ PT4M, PT3S). It doesn't account for DST, leap seconds and leap years.\
+            \ Minimum value: PT0.25S. Maximum value: PT5M."
+          example: PT1S
+          type: string
       type: object
     SourceFileUpload:
       example:
@@ -24081,7 +25105,7 @@ components:
         bucket: server-logs
         object_count_downloaded: 2
         settings:
-          gcs_scan_frequency: 5min
+          gcs_scan_frequency: PT5M
         object_count_total: 7
         object_bytes_downloaded: 5
         prefix: prefix/to/keys
@@ -24123,22 +25147,24 @@ components:
     SourceGcsBase:
       example:
         settings:
-          gcs_scan_frequency: 5min
+          gcs_scan_frequency: PT5M
       properties:
         settings:
           $ref: '#/components/schemas/SourceGcsSettings'
       type: object
     SourceGcsSettings:
       example:
-        gcs_scan_frequency: 5min
+        gcs_scan_frequency: PT5M
       properties:
         gcs_scan_frequency:
           description: "Rockset scans a GCS bucket based on a defined time interval.\
             \ The scan frequency determines the length of time between a new scan\
             \ and the previous scan. If the previous scan finds new objects or updates\
             \ to existing objects, Rockset immediately scans the bucket again after\
-            \ processing changes from the previous scan."
-          example: 5min
+            \ processing changes from the previous scan. Duration value is of type\
+            \ ISO 8601 (e.g. PT5H, PT4M, PT3S). It doesn't account for DST, leap seconds\
+            \ and leap years. Minimum value: PT1S. Maximum value: PT1H."
+          example: PT5M
           type: string
       type: object
     SourceKafka:
@@ -24146,6 +25172,7 @@ components:
         offset_reset_policy: EARLIEST
         consumer_group_id: org-collection
         kafka_topic_name: example-topic
+        client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
         status:
           num_documents_processed: 1337
           last_consumed_time: 2001-08-28T00:23:41Z
@@ -24159,6 +25186,10 @@ components:
           state: ACTIVE
         use_v3: true
       properties:
+        client_id:
+          description: The kafka client id being used.
+          example: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
+          type: string
         consumer_group_id:
           description: The Kafka consumer group Id being used.
           example: org-collection
@@ -24256,7 +25287,7 @@ components:
         bucket: s3://customer-account-info
         object_count_downloaded: 2
         settings:
-          s3_scan_frequency: 5min
+          s3_scan_frequency: PT5M
         object_count_total: 4
         prefixes: "[\"/transactions\", \"/stores\"]"
         object_bytes_downloaded: 9
@@ -24295,7 +25326,8 @@ components:
           example: prefix/to/keys
           type: string
         prefixes:
-          description: List of prefixes to paths from which data should be ingested.
+          description: Deprecated in favor of `prefix`. List of prefixes to paths
+            from which data should be ingested.
           example: "[\"/transactions\", \"/stores\"]"
           items:
             type: string
@@ -24313,26 +25345,36 @@ components:
     SourceS3Base:
       example:
         settings:
-          s3_scan_frequency: 5min
+          s3_scan_frequency: PT5M
       properties:
         settings:
           $ref: '#/components/schemas/SourceS3Settings'
       type: object
     SourceS3Settings:
       example:
-        s3_scan_frequency: 5min
+        s3_scan_frequency: PT5M
       properties:
         s3_scan_frequency:
           description: "Rockset scans an S3 bucket based on a defined time interval.\
             \ The scan frequency determines the length of time between a new scan\
             \ and the previous scan. If the previous scan finds new objects or updates\
             \ to existing objects, Rockset immediately scans the bucket again after\
-            \ processing changes from the previous scan."
-          example: 5min
+            \ processing changes from the previous scan. Duration value is of type\
+            \ ISO 8601 (e.g. PT5H, PT4M, PT3S). It doesn't account for DST, leap seconds\
+            \ and leap years. Minimum value: PT1S. Maximum value: PT1H."
+          example: PT5M
           type: string
       type: object
     SourceSnapshot:
+      example:
+        source_collection_path: myWorkspace.myCollection
+        source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
       properties:
+        source_collection_path:
+          description: A representation of the workspace and collection where the
+            source snapshot originated.
+          example: myWorkspace.myCollection
+          type: string
         source_snapshot_rrn:
           description: RRN of the snapshot that the new collection will be created
             from.
@@ -24373,14 +25415,24 @@ components:
       type: object
     SourceSystem:
       example:
+        workspace: commons
         type: QUERY_LOGS
       properties:
         type:
           description: The type of this system source.
           enum:
           - QUERY_LOGS
+          - INGEST_LOGS
           example: QUERY_LOGS
           type: string
+        workspace:
+          description: "The workspace for which collections will have logs created.\
+            \ If unspecified, logs will be created for collections in all workspaces.\
+            \ Currently only supported for the INGEST_LOGS system source."
+          example: commons
+          type: string
+      type: object
+    SourceWriteApi:
       type: object
     SqlExpression:
       example:
@@ -24393,6 +25445,7 @@ components:
       type: object
     Stats:
       example:
+        result_set_file_count: 1235
         throttled_time_ms: 16
         result_set_bytes_size: 1235
         elapsed_time_ms: 128
@@ -24413,6 +25466,12 @@ components:
         result_set_document_count:
           description: Number of documents returned by the query. Only populated if
             `status` is `COMPLETE`.
+          example: 1235
+          format: int64
+          type: integer
+        result_set_file_count:
+          description: Number of files written by by the query. Only populated if
+            `status` is `COMPLETE` and the query is an export query.
           example: 1235
           format: int64
           type: integer
@@ -24786,15 +25845,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -24896,8 +25958,19 @@ components:
       type: object
     UpdateApiKeyRequest:
       example:
+        clear_expiry_time: true
         state: ACTIVE
+        expiry_time: 2001-08-28T00:23:41Z
       properties:
+        clear_expiry_time:
+          description: "If set to true, the expiration time for this key will be cleared."
+          example: true
+          type: boolean
+        expiry_time:
+          description: "If provided, the API key will automatically expire at this\
+            \ time (ISO-8601 format). Requires premium."
+          example: 2001-08-28T00:23:41Z
+          type: string
         state:
           description: State that the api key should be set to.
           enum:
@@ -24959,6 +26032,7 @@ components:
           username: username
         azure_event_hubs:
           connection_string: Endpoint=sb://<NamespaceName>.servicebus.windows.net/;SharedAccessKeyName=<KeyName>;SharedAccessKey=<KeyValue>
+        is_write_enabled: true
         gcs:
           gcp_service_account:
             service_account_key_file_json: service_account_key_file_json
@@ -25035,6 +26109,9 @@ components:
           $ref: '#/components/schemas/DynamodbIntegration'
         gcs:
           $ref: '#/components/schemas/GcsIntegration'
+        is_write_enabled:
+          description: is write access enabled for this integration.
+          type: boolean
         kafka:
           $ref: '#/components/schemas/KafkaIntegration'
         kinesis:
@@ -25070,6 +26147,7 @@ components:
               aws_external_id: external id of aws
               aws_role_arn: arn:aws:iam::2378964092:role/rockset-role
             username: username
+          is_write_enabled: true
           azure_blob_storage:
             connection_string: |-
               BlobEndpoint=https://<NamespaceName>.blob.core.windows.net;
@@ -25123,7 +26201,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -25158,16 +26236,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -25180,6 +26260,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -25197,6 +26279,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -25216,7 +26299,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -25227,6 +26310,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -25266,6 +26350,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -25280,7 +26367,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -25315,16 +26402,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -25337,6 +26426,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -25354,6 +26445,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -25373,7 +26465,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -25384,6 +26476,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -25423,6 +26516,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -25559,7 +26655,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -25594,16 +26690,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -25616,6 +26714,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -25633,6 +26733,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -25652,7 +26753,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -25663,6 +26764,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -25702,6 +26804,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -25716,7 +26821,7 @@ components:
                 bucket: s3://customer-account-info
                 object_count_downloaded: 2
                 settings:
-                  s3_scan_frequency: 5min
+                  s3_scan_frequency: PT5M
                 object_count_total: 4
                 prefixes: "[\"/transactions\", \"/stores\"]"
                 object_bytes_downloaded: 9
@@ -25751,16 +26856,18 @@ components:
                 mssql_dms: true
                 oracle_dms: true
                 mysql_dms: true
+                bson: true
                 avro: "{}"
               azure_blob_storage:
                 container: server-logs
                 settings:
-                  azblob_scan_frequency: 5min
+                  azblob_scan_frequency: PT5M
                 prefix: prefix/to/blobs
                 pattern: prefix/to/**/keys/*.format
                 blob_bytes_total: 0
                 blob_count_total: 1
                 blob_count_downloaded: 6
+              write_api: "{}"
               file_upload:
                 file_name: file1.json
                 file_size: 12345
@@ -25773,6 +26880,8 @@ components:
                 - dms_primary_key
                 - dms_primary_key
               dynamodb:
+                settings:
+                  dynamodb_stream_poll_frequency: PT1S
                 aws_region: us-east-2
                 rcu: 1000
                 current_status:
@@ -25790,6 +26899,7 @@ components:
                   state: SCANNING_TABLE
               integration_name: aws-integration
               system:
+                workspace: commons
                 type: QUERY_LOGS
               azure_event_hubs:
                 offset_reset_policy: EARLIEST
@@ -25809,7 +26919,7 @@ components:
                 bucket: server-logs
                 object_count_downloaded: 2
                 settings:
-                  gcs_scan_frequency: 5min
+                  gcs_scan_frequency: PT5M
                 object_count_total: 7
                 object_bytes_downloaded: 5
                 prefix: prefix/to/keys
@@ -25820,6 +26930,7 @@ components:
                 offset_reset_policy: EARLIEST
                 consumer_group_id: org-collection
                 kafka_topic_name: example-topic
+                client_id: cwc|0013a00001hSJ7oAAG|rockset-colln-consumer
                 status:
                   num_documents_processed: 1337
                   last_consumed_time: 2001-08-28T00:23:41Z
@@ -25859,6 +26970,9 @@ components:
                   stream_last_insert_processed_at: 2019-01-15T21:48:23Z
                   scan_records_processed: 1000
                   state: SCANNING_TABLE
+              snapshot:
+                source_collection_path: myWorkspace.myCollection
+                source_snapshot_rrn: rrn:snap:use1a1:123e4567-e89b-12d3-a456-556642440000
               ingest_transformation:
                 sql: sql
               status:
@@ -26058,6 +27172,44 @@ components:
             $ref: '#/components/schemas/Privilege'
           type: array
       type: object
+    UpdateScheduledLambdaRequest:
+      example:
+        apikey: qoiwkjndksd
+        resume_permanent_error: true
+        webhook_url: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+        total_times_to_execute: 1
+        webhook_payload: webhook_payload
+        webhook_auth_header: bearer qiowjkjkdskdskldio
+      properties:
+        apikey:
+          description: The apikey to use when triggering execution of the associated
+            query lambda.
+          example: qoiwkjndksd
+          type: string
+        resume_permanent_error:
+          description: Boolean flag to allow a scheduled query lambda to resume execution
+            after being suspended due to execution failure. This flag will be unset
+            after scheduled lambda execution.
+          type: boolean
+        total_times_to_execute:
+          description: The number of times to execute this scheduled query lambda.
+          example: 1
+          format: int64
+          type: integer
+        webhook_auth_header:
+          description: The value to use as the authorization header when hitting the
+            webhook.
+          example: bearer qiowjkjkdskdskldio
+          type: string
+        webhook_payload:
+          description: The payload that should be sent to the webhook. JSON format.
+          type: string
+        webhook_url:
+          description: The URL of the webhook that should be triggered after this
+            scheduled query lambda completes.
+          example: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
+          type: string
+      type: object
     UpdateUnsubscribePreferencesRequest:
       example:
         data:
@@ -26141,12 +27293,14 @@ components:
       type: object
     UpdateVirtualInstanceRequest:
       example:
+        instance_class: MO_IL
         auto_suspend_enabled: true
-        mount_refresh_interval_seconds: 3600
+        mount_refresh_interval_seconds: 0
         new_size: LARGE
         name: prod_vi
         description: VI for prod traffic
         auto_suspend_seconds: 3600
+        mount_type: LIVE
         enable_remount_on_resume: true
         auto_scaling_policy:
           min_size: LARGE
@@ -26156,11 +27310,13 @@ components:
         auto_scaling_policy:
           $ref: '#/components/schemas/AutoScalingPolicy'
         auto_suspend_enabled:
-          description: Whether auto-suspend should be enabled for this Virtual Instance.
+          description: Whether Query VI auto-suspend should be enabled for this Virtual
+            Instance.
           example: true
           type: boolean
         auto_suspend_seconds:
-          description: Number of seconds without queries after which the VI is suspended
+          description: Number of seconds without queries after which the Query VI
+            is suspended
           example: 3600
           format: int32
           type: integer
@@ -26173,13 +27329,31 @@ components:
             \ that were mounted when the Virtual Instance was suspended."
           example: true
           type: boolean
+        instance_class:
+          description: Virtual Instance Class. Use `MO_IL` for Memory Optimized and
+            `GP_IL` for General Purpose instance class.
+          enum:
+          - MO_IL
+          - GP_IL
+          example: MO_IL
+          type: string
         mount_refresh_interval_seconds:
-          description: Number of seconds between data refreshes for mounts on this
-            Virtual Instance. A value of 0 means continuous refresh and a value of
-            null means never refresh.
-          example: 3600
+          description: DEPRECATED. Use `mount_type` instead. Number of seconds between
+            data refreshes for mounts on this Virtual Instance. The only valid values
+            are 0 and null. 0 means the data will be refreshed continuously and null
+            means the data will never refresh.
+          example: 0
           format: int32
           type: integer
+        mount_type:
+          description: The mount type of collections that this Virtual Instance will
+            query. Live mounted collections stay up-to-date with the underlying collection
+            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+          enum:
+          - LIVE
+          - STATIC
+          example: LIVE
+          type: string
         name:
           description: New virtual instance name.
           example: prod_vi
@@ -26191,6 +27365,7 @@ components:
           - NANO
           - SHARED
           - MILLI
+          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -26211,15 +27386,18 @@ components:
           description: VI for prod traffic
           resumed_at: 2001-08-28T00:23:41Z
           current_size: MEDIUM
+          mount_type: LIVE
           created_by: hello@rockset.com
           enable_remount_on_resume: true
           auto_scaling_policy:
             min_size: LARGE
             enabled: true
             max_size: XLARGE2
+          current_instance_class: MO_IL
           default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           scaled_pod_count: 6
+          desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
             last_queried_ms: 1535101119334
@@ -26370,15 +27548,18 @@ components:
         description: VI for prod traffic
         resumed_at: 2001-08-28T00:23:41Z
         current_size: MEDIUM
+        mount_type: LIVE
         created_by: hello@rockset.com
         enable_remount_on_resume: true
         auto_scaling_policy:
           min_size: LARGE
           enabled: true
           max_size: XLARGE2
+        current_instance_class: MO_IL
         default_pod_count: 0
         rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
         scaled_pod_count: 6
+        desired_instance_class: MO_IL
         monitoring_enabled: true
         stats:
           last_queried_ms: 1535101119334
@@ -26403,6 +27584,15 @@ components:
           description: Creator of requested virtual instance.
           example: hello@rockset.com
           type: string
+        current_instance_class:
+          description: Virtual Instance Class. `MO_IL` represents Memory Optimized
+            and `GP_IL` represents General Purpose instance class.
+          enum:
+          - MO_BR
+          - MO_IL
+          - GP_IL
+          example: MO_IL
+          type: string
         current_size:
           description: Virtual instance current size.
           enum:
@@ -26410,6 +27600,7 @@ components:
           - NANO
           - SHARED
           - MILLI
+          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -26430,6 +27621,14 @@ components:
           description: Virtual instance description.
           example: VI for prod traffic
           type: string
+        desired_instance_class:
+          description: Virtual Instance Class.
+          enum:
+          - MO_BR
+          - MO_IL
+          - GP_IL
+          example: MO_IL
+          type: string
         desired_size:
           description: Virtual instance desired size.
           enum:
@@ -26437,6 +27636,7 @@ components:
           - NANO
           - SHARED
           - MILLI
+          - XSMALL
           - SMALL
           - MEDIUM
           - LARGE
@@ -26460,11 +27660,20 @@ components:
         monitoring_enabled:
           type: boolean
         mount_refresh_interval_seconds:
-          description: Number of seconds between data refreshes for mounts on this
-            Virtual Instance
+          description: DEPRECATED. Number of seconds between data refreshes for mounts
+            on this Virtual Instance
           example: 3600
           format: int32
           type: integer
+        mount_type:
+          description: The mount type of collections that this Virtual Instance will
+            query. Live mounted collections stay up-to-date with the underlying collection
+            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+          enum:
+          - LIVE
+          - STATIC
+          example: LIVE
+          type: string
         name:
           description: Virtual instance name.
           example: prod_vi

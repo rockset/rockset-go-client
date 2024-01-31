@@ -26,6 +26,8 @@ type CreateIntegrationRequest struct {
 	Description *string `json:"description,omitempty"`
 	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
 	Gcs *GcsIntegration `json:"gcs,omitempty"`
+	// is write access enabled for this integration.
+	IsWriteEnabled *bool `json:"is_write_enabled,omitempty"`
 	Kafka *KafkaIntegration `json:"kafka,omitempty"`
 	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
 	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
@@ -245,6 +247,38 @@ func (o *CreateIntegrationRequest) SetGcs(v GcsIntegration) {
 	o.Gcs = &v
 }
 
+// GetIsWriteEnabled returns the IsWriteEnabled field value if set, zero value otherwise.
+func (o *CreateIntegrationRequest) GetIsWriteEnabled() bool {
+	if o == nil || IsNil(o.IsWriteEnabled) {
+		var ret bool
+		return ret
+	}
+	return *o.IsWriteEnabled
+}
+
+// GetIsWriteEnabledOk returns a tuple with the IsWriteEnabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateIntegrationRequest) GetIsWriteEnabledOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsWriteEnabled) {
+		return nil, false
+	}
+	return o.IsWriteEnabled, true
+}
+
+// HasIsWriteEnabled returns a boolean if a field has been set.
+func (o *CreateIntegrationRequest) HasIsWriteEnabled() bool {
+	if o != nil && !IsNil(o.IsWriteEnabled) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsWriteEnabled gets a reference to the given bool and assigns it to the IsWriteEnabled field.
+func (o *CreateIntegrationRequest) SetIsWriteEnabled(v bool) {
+	o.IsWriteEnabled = &v
+}
+
 // GetKafka returns the Kafka field value if set, zero value otherwise.
 func (o *CreateIntegrationRequest) GetKafka() KafkaIntegration {
 	if o == nil || IsNil(o.Kafka) {
@@ -456,6 +490,9 @@ func (o CreateIntegrationRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Gcs) {
 		toSerialize["gcs"] = o.Gcs
+	}
+	if !IsNil(o.IsWriteEnabled) {
+		toSerialize["is_write_enabled"] = o.IsWriteEnabled
 	}
 	if !IsNil(o.Kafka) {
 		toSerialize["kafka"] = o.Kafka

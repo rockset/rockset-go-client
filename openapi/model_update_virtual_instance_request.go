@@ -20,16 +20,20 @@ var _ MappedNullable = &UpdateVirtualInstanceRequest{}
 // UpdateVirtualInstanceRequest struct for UpdateVirtualInstanceRequest
 type UpdateVirtualInstanceRequest struct {
 	AutoScalingPolicy *AutoScalingPolicy `json:"auto_scaling_policy,omitempty"`
-	// Whether auto-suspend should be enabled for this Virtual Instance.
+	// Whether Query VI auto-suspend should be enabled for this Virtual Instance.
 	AutoSuspendEnabled *bool `json:"auto_suspend_enabled,omitempty"`
-	// Number of seconds without queries after which the VI is suspended
+	// Number of seconds without queries after which the Query VI is suspended
 	AutoSuspendSeconds *int32 `json:"auto_suspend_seconds,omitempty"`
 	// New virtual instance description.
 	Description *string `json:"description,omitempty"`
 	// When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
 	EnableRemountOnResume *bool `json:"enable_remount_on_resume,omitempty"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh.
+	// Virtual Instance Class. Use `MO_IL` for Memory Optimized and `GP_IL` for General Purpose instance class.
+	InstanceClass *string `json:"instance_class,omitempty"`
+	// DEPRECATED. Use `mount_type` instead. Number of seconds between data refreshes for mounts on this Virtual Instance. The only valid values are 0 and null. 0 means the data will be refreshed continuously and null means the data will never refresh.
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
+	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+	MountType *string `json:"mount_type,omitempty"`
 	// New virtual instance name.
 	Name *string `json:"name,omitempty"`
 	// Requested virtual instance size.
@@ -213,6 +217,38 @@ func (o *UpdateVirtualInstanceRequest) SetEnableRemountOnResume(v bool) {
 	o.EnableRemountOnResume = &v
 }
 
+// GetInstanceClass returns the InstanceClass field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetInstanceClass() string {
+	if o == nil || IsNil(o.InstanceClass) {
+		var ret string
+		return ret
+	}
+	return *o.InstanceClass
+}
+
+// GetInstanceClassOk returns a tuple with the InstanceClass field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetInstanceClassOk() (*string, bool) {
+	if o == nil || IsNil(o.InstanceClass) {
+		return nil, false
+	}
+	return o.InstanceClass, true
+}
+
+// HasInstanceClass returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasInstanceClass() bool {
+	if o != nil && !IsNil(o.InstanceClass) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstanceClass gets a reference to the given string and assigns it to the InstanceClass field.
+func (o *UpdateVirtualInstanceRequest) SetInstanceClass(v string) {
+	o.InstanceClass = &v
+}
+
 // GetMountRefreshIntervalSeconds returns the MountRefreshIntervalSeconds field value if set, zero value otherwise.
 func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32 {
 	if o == nil || IsNil(o.MountRefreshIntervalSeconds) {
@@ -243,6 +279,38 @@ func (o *UpdateVirtualInstanceRequest) HasMountRefreshIntervalSeconds() bool {
 // SetMountRefreshIntervalSeconds gets a reference to the given int32 and assigns it to the MountRefreshIntervalSeconds field.
 func (o *UpdateVirtualInstanceRequest) SetMountRefreshIntervalSeconds(v int32) {
 	o.MountRefreshIntervalSeconds = &v
+}
+
+// GetMountType returns the MountType field value if set, zero value otherwise.
+func (o *UpdateVirtualInstanceRequest) GetMountType() string {
+	if o == nil || IsNil(o.MountType) {
+		var ret string
+		return ret
+	}
+	return *o.MountType
+}
+
+// GetMountTypeOk returns a tuple with the MountType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UpdateVirtualInstanceRequest) GetMountTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.MountType) {
+		return nil, false
+	}
+	return o.MountType, true
+}
+
+// HasMountType returns a boolean if a field has been set.
+func (o *UpdateVirtualInstanceRequest) HasMountType() bool {
+	if o != nil && !IsNil(o.MountType) {
+		return true
+	}
+
+	return false
+}
+
+// SetMountType gets a reference to the given string and assigns it to the MountType field.
+func (o *UpdateVirtualInstanceRequest) SetMountType(v string) {
+	o.MountType = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -334,8 +402,14 @@ func (o UpdateVirtualInstanceRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EnableRemountOnResume) {
 		toSerialize["enable_remount_on_resume"] = o.EnableRemountOnResume
 	}
+	if !IsNil(o.InstanceClass) {
+		toSerialize["instance_class"] = o.InstanceClass
+	}
 	if !IsNil(o.MountRefreshIntervalSeconds) {
 		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	if !IsNil(o.MountType) {
+		toSerialize["mount_type"] = o.MountType
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name

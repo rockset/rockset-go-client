@@ -19,10 +19,12 @@ Name | Type | Description | Notes
 **Mongodb** | Pointer to [**SourceMongoDb**](SourceMongoDb.md) |  | [optional] 
 **ResumeAt** | Pointer to **string** | ISO-8601 date when source would be auto resumed, if suspended | [optional] [readonly] 
 **S3** | Pointer to [**SourceS3**](SourceS3.md) |  | [optional] 
+**Snapshot** | Pointer to [**SourceSnapshot**](SourceSnapshot.md) |  | [optional] 
 **Snowflake** | Pointer to [**SourceSnowflake**](SourceSnowflake.md) |  | [optional] 
 **Status** | Pointer to [**Status**](Status.md) |  | [optional] 
 **SuspendedAt** | Pointer to **string** | ISO-8601 date when source was suspended, if suspended | [optional] [readonly] 
 **System** | Pointer to [**SourceSystem**](SourceSystem.md) |  | [optional] 
+**WriteApi** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -418,6 +420,31 @@ SetS3 sets S3 field to given value.
 
 HasS3 returns a boolean if a field has been set.
 
+### GetSnapshot
+
+`func (o *Source) GetSnapshot() SourceSnapshot`
+
+GetSnapshot returns the Snapshot field if non-nil, zero value otherwise.
+
+### GetSnapshotOk
+
+`func (o *Source) GetSnapshotOk() (*SourceSnapshot, bool)`
+
+GetSnapshotOk returns a tuple with the Snapshot field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSnapshot
+
+`func (o *Source) SetSnapshot(v SourceSnapshot)`
+
+SetSnapshot sets Snapshot field to given value.
+
+### HasSnapshot
+
+`func (o *Source) HasSnapshot() bool`
+
+HasSnapshot returns a boolean if a field has been set.
+
 ### GetSnowflake
 
 `func (o *Source) GetSnowflake() SourceSnowflake`
@@ -517,6 +544,31 @@ SetSystem sets System field to given value.
 `func (o *Source) HasSystem() bool`
 
 HasSystem returns a boolean if a field has been set.
+
+### GetWriteApi
+
+`func (o *Source) GetWriteApi() map[string]interface{}`
+
+GetWriteApi returns the WriteApi field if non-nil, zero value otherwise.
+
+### GetWriteApiOk
+
+`func (o *Source) GetWriteApiOk() (*map[string]interface{}, bool)`
+
+GetWriteApiOk returns a tuple with the WriteApi field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWriteApi
+
+`func (o *Source) SetWriteApi(v map[string]interface{})`
+
+SetWriteApi sets WriteApi field to given value.
+
+### HasWriteApi
+
+`func (o *Source) HasWriteApi() bool`
+
+HasWriteApi returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
