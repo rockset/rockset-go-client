@@ -49,6 +49,13 @@ func WithQueryLambdaParameter(name, valueType, value string) QueryLambdaOption {
 	}
 }
 
+// WithQueryLambdaRequest sets the query lambda request.
+func WithQueryLambdaRequest(r openapi.ExecuteQueryLambdaRequest) QueryLambdaOption {
+	return func(o *ExecuteQueryLambdaRequest) {
+		o.ExecuteQueryLambdaRequest = r
+	}
+}
+
 type ListQueryLambdaOptions struct {
 	Workspace *string
 }
