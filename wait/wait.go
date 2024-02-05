@@ -25,6 +25,8 @@ type ResourceGetter interface {
 	retry.Retrier
 	GetAlias(ctx context.Context, workspace string, name string) (openapi.Alias, error)
 	GetCollection(ctx context.Context, workspace string, name string) (openapi.Collection, error)
+	GetCollectionCommit(ctx context.Context, workspace string, name string,
+		offsets []string) (openapi.GetCollectionCommitData, error)
 	GetCollectionMount(ctx context.Context, id, collectionPath string) (openapi.CollectionMount, error)
 	GetIntegration(ctx context.Context, name string) (openapi.Integration, error)
 	GetQueryInfo(ctx context.Context, queryID string) (openapi.QueryInfo, error)
