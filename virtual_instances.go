@@ -161,6 +161,9 @@ func (rc *RockClient) UpdateVirtualInstance(ctx context.Context, vID string,
 	if opts.EnableRemountOnResume != nil {
 		req.EnableRemountOnResume = opts.EnableRemountOnResume
 	}
+	if opts.AutoScalingPolicy != nil {
+		req.AutoScalingPolicy = opts.AutoScalingPolicy
+	}
 
 	err = rc.Retry(ctx, func() error {
 		resp, httpResp, err = q.Body(*req).Execute()
