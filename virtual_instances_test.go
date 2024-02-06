@@ -6,11 +6,14 @@ import (
 	"testing"
 	"time"
 
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/dataset"
 	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
@@ -269,4 +272,31 @@ func (s *VirtualInstanceIntegrationSuite) TearDownSuite() {
 
 	_, err = s.rc.DeleteVirtualInstance(ctx, s.vID)
 	s.Assert().NoError(err)
+}
+
+func TestVirtualInstanceAutoScaling(t *testing.T) {
+	ctx := test.Context()
+	rc, _ := vcrTestClient(t, t.Name())
+
+	_, err := rc.UpdateVirtualInstance(ctx, rocksetCircleCIMainVI,
+		option.WithVirtualInstanceAutoScalingPolicy(openapi.AutoScalingPolicy{
+			Enabled: openapi.PtrBool(true),
+			MaxSize: openapi.PtrString("MEDIUM"),
+			MinSize: openapi.PtrString("XSMALL"),
+		}),
+	)
+	require.NoError(t, err)
+
+	vi, err := rc.GetVirtualInstance(ctx, rocksetCircleCIMainVI)
+	require.NoError(t, err)
+	assert.True(t, *vi.AutoScalingPolicy.Enabled)
+
+	_, err = rc.UpdateVirtualInstance(ctx, rocksetCircleCIMainVI,
+		option.WithVirtualInstanceAutoScalingPolicy(openapi.AutoScalingPolicy{
+			Enabled: openapi.PtrBool(false),
+			MaxSize: openapi.PtrString("MEDIUM"),
+			MinSize: openapi.PtrString("XSMALL"),
+		}),
+	)
+	require.NoError(t, err)
 }

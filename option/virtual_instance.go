@@ -1,6 +1,10 @@
 package option
 
-import "time"
+import (
+	"time"
+
+	"github.com/rockset/rockset-go-client/openapi"
+)
 
 type VirtualInstanceState string
 
@@ -37,6 +41,7 @@ type VirtualInstanceOptions struct {
 	AutoSuspend           *time.Duration
 	EnableRemountOnResume *bool
 	Name                  *string
+	AutoScalingPolicy     *openapi.AutoScalingPolicy
 }
 
 type VirtualInstanceOption func(*VirtualInstanceOptions)
@@ -77,6 +82,13 @@ func WithVirtualInstanceDescription(desc string) VirtualInstanceOption {
 	}
 }
 
+// WithVirtualInstanceAutoScalingPolicy sets the auto-scaling policy for the virtual instance.
+func WithVirtualInstanceAutoScalingPolicy(policy openapi.AutoScalingPolicy) VirtualInstanceOption {
+	return func(o *VirtualInstanceOptions) {
+		o.AutoScalingPolicy = &policy
+	}
+}
+
 // TODO: once the openapi-generator generates a custom type for each enum the below two types can be replaced
 // https://github.com/OpenAPITools/openapi-generator/issues/9567
 
@@ -91,6 +103,7 @@ const (
 	SizeNano     VirtualInstanceSize = "NANO"
 	SizeShared   VirtualInstanceSize = "SHARED"
 	SizeMilli    VirtualInstanceSize = "MILLI"
+	SizeXSmall   VirtualInstanceSize = "XSMALL"
 	SizeSmall    VirtualInstanceSize = "SMALL"
 	SizeMedium   VirtualInstanceSize = "MEDIUM"
 	SizeLarge    VirtualInstanceSize = "LARGE"
