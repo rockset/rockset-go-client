@@ -41,6 +41,22 @@ type FakeResourceGetter struct {
 		result1 openapi.Collection
 		result2 error
 	}
+	GetCollectionCommitStub        func(context.Context, string, string, []string) (openapi.GetCollectionCommitData, error)
+	getCollectionCommitMutex       sync.RWMutex
+	getCollectionCommitArgsForCall []struct {
+		arg1 context.Context
+		arg2 string
+		arg3 string
+		arg4 []string
+	}
+	getCollectionCommitReturns struct {
+		result1 openapi.GetCollectionCommitData
+		result2 error
+	}
+	getCollectionCommitReturnsOnCall map[int]struct {
+		result1 openapi.GetCollectionCommitData
+		result2 error
+	}
 	GetCollectionMountStub        func(context.Context, string, string) (openapi.CollectionMount, error)
 	getCollectionMountMutex       sync.RWMutex
 	getCollectionMountArgsForCall []struct {
@@ -299,6 +315,78 @@ func (fake *FakeResourceGetter) GetCollectionReturnsOnCall(i int, result1 openap
 	}
 	fake.getCollectionReturnsOnCall[i] = struct {
 		result1 openapi.Collection
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeResourceGetter) GetCollectionCommit(arg1 context.Context, arg2 string, arg3 string, arg4 []string) (openapi.GetCollectionCommitData, error) {
+	var arg4Copy []string
+	if arg4 != nil {
+		arg4Copy = make([]string, len(arg4))
+		copy(arg4Copy, arg4)
+	}
+	fake.getCollectionCommitMutex.Lock()
+	ret, specificReturn := fake.getCollectionCommitReturnsOnCall[len(fake.getCollectionCommitArgsForCall)]
+	fake.getCollectionCommitArgsForCall = append(fake.getCollectionCommitArgsForCall, struct {
+		arg1 context.Context
+		arg2 string
+		arg3 string
+		arg4 []string
+	}{arg1, arg2, arg3, arg4Copy})
+	stub := fake.GetCollectionCommitStub
+	fakeReturns := fake.getCollectionCommitReturns
+	fake.recordInvocation("GetCollectionCommit", []interface{}{arg1, arg2, arg3, arg4Copy})
+	fake.getCollectionCommitMutex.Unlock()
+	if stub != nil {
+		return stub(arg1, arg2, arg3, arg4)
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fakeReturns.result1, fakeReturns.result2
+}
+
+func (fake *FakeResourceGetter) GetCollectionCommitCallCount() int {
+	fake.getCollectionCommitMutex.RLock()
+	defer fake.getCollectionCommitMutex.RUnlock()
+	return len(fake.getCollectionCommitArgsForCall)
+}
+
+func (fake *FakeResourceGetter) GetCollectionCommitCalls(stub func(context.Context, string, string, []string) (openapi.GetCollectionCommitData, error)) {
+	fake.getCollectionCommitMutex.Lock()
+	defer fake.getCollectionCommitMutex.Unlock()
+	fake.GetCollectionCommitStub = stub
+}
+
+func (fake *FakeResourceGetter) GetCollectionCommitArgsForCall(i int) (context.Context, string, string, []string) {
+	fake.getCollectionCommitMutex.RLock()
+	defer fake.getCollectionCommitMutex.RUnlock()
+	argsForCall := fake.getCollectionCommitArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2, argsForCall.arg3, argsForCall.arg4
+}
+
+func (fake *FakeResourceGetter) GetCollectionCommitReturns(result1 openapi.GetCollectionCommitData, result2 error) {
+	fake.getCollectionCommitMutex.Lock()
+	defer fake.getCollectionCommitMutex.Unlock()
+	fake.GetCollectionCommitStub = nil
+	fake.getCollectionCommitReturns = struct {
+		result1 openapi.GetCollectionCommitData
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeResourceGetter) GetCollectionCommitReturnsOnCall(i int, result1 openapi.GetCollectionCommitData, result2 error) {
+	fake.getCollectionCommitMutex.Lock()
+	defer fake.getCollectionCommitMutex.Unlock()
+	fake.GetCollectionCommitStub = nil
+	if fake.getCollectionCommitReturnsOnCall == nil {
+		fake.getCollectionCommitReturnsOnCall = make(map[int]struct {
+			result1 openapi.GetCollectionCommitData
+			result2 error
+		})
+	}
+	fake.getCollectionCommitReturnsOnCall[i] = struct {
+		result1 openapi.GetCollectionCommitData
 		result2 error
 	}{result1, result2}
 }
@@ -893,6 +981,8 @@ func (fake *FakeResourceGetter) Invocations() map[string][][]interface{} {
 	defer fake.getAliasMutex.RUnlock()
 	fake.getCollectionMutex.RLock()
 	defer fake.getCollectionMutex.RUnlock()
+	fake.getCollectionCommitMutex.RLock()
+	defer fake.getCollectionCommitMutex.RUnlock()
 	fake.getCollectionMountMutex.RLock()
 	defer fake.getCollectionMountMutex.RUnlock()
 	fake.getIntegrationMutex.RLock()

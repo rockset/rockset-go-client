@@ -21,6 +21,27 @@ import (
 // REST API documentation https://docs.rockset.com/rest-api/#adddocuments
 func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection string,
 	docs []interface{}) ([]openapi.DocumentStatus, error) {
+	resp, err := rc.AddDocumentsWithOffset(ctx, workspace, collection, docs)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.GetData(), nil
+}
+
+// AddDocumentsWithOffset adds new documents to a collection, and returns the response with the offset(s),
+// which can be used to wait until the collection includes the documents at or after the specified offset(s).
+//
+//	response, err := rs.AddDocumentsWithOffset(ctx, "commons", "users", docs)
+//	if err != nil {
+//	    return err
+//	}
+//	w := wait.New(rs)
+//	err = w.UntilQueryable(ctx, "commons", "users", []string{response.GetLastOffset()})
+//
+// The added documents are now queryable in the collection.
+func (rc *RockClient) AddDocumentsWithOffset(ctx context.Context, workspace, collection string,
+	docs []interface{}) (openapi.AddDocumentsResponse, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.AddDocumentsResponse
@@ -43,13 +64,13 @@ func (rc *RockClient) AddDocuments(ctx context.Context, workspace, collection st
 	})
 
 	if err != nil {
-		return nil, err
+		return openapi.AddDocumentsResponse{}, err
 	}
 
 	log := zerolog.Ctx(ctx)
 	logDocumentStatuses(log.Trace(), resp.GetData()).Msg("added documents")
 
-	return resp.GetData(), nil
+	return *resp, nil
 }
 
 type patchDocumentRequest struct {
@@ -166,6 +187,27 @@ func closeAndLog(ctx context.Context, c io.Closer) {
 // REST API documentation https://docs.rockset.com/rest-api/#deletedocuments
 func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection string,
 	docIDs []string) ([]openapi.DocumentStatus, error) {
+	resp, err := rc.DeleteDocumentsWithOffset(ctx, workspace, collection, docIDs)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.GetData(), nil
+}
+
+// DeleteDocumentsWithOffset deletes documents from a collection, and returns the response with the offset(s),
+// which can be used to wait until the collection has been updated to include the specified offset(s).
+//
+//	response, err := rs.DeleteDocumentsWithOffset(ctx, "commons", "users", docIDs)
+//	if err != nil {
+//	    return err
+//	}
+//	w := wait.New(rs)
+//	err = w.UntilQueryable(ctx, "commons", "users", []string{response.GetLastOffset()})
+//
+// The added documents are now queryable in the collection.
+func (rc *RockClient) DeleteDocumentsWithOffset(ctx context.Context, workspace, collection string,
+	docIDs []string) (openapi.DeleteDocumentsResponse, error) {
 	var err error
 	var httpResp *http.Response
 	var resp *openapi.DeleteDocumentsResponse
@@ -186,13 +228,13 @@ func (rc *RockClient) DeleteDocuments(ctx context.Context, workspace, collection
 	})
 
 	if err != nil {
-		return nil, err
+		return openapi.DeleteDocumentsResponse{}, err
 	}
 
 	log := zerolog.Ctx(ctx)
 	logDocumentStatuses(log.Trace(), resp.GetData()).Msg("deleted documents")
 
-	return resp.GetData(), nil
+	return *resp, nil
 }
 
 func logDocumentStatuses(e *zerolog.Event, statuses []openapi.DocumentStatus) *zerolog.Event {

@@ -8,6 +8,7 @@ import (
 
 	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
+	"github.com/rockset/rockset-go-client/wait"
 )
 
 type DocumentIntegrationSuite struct {
@@ -74,10 +75,30 @@ func (s *DocumentIntegrationSuite) TestAddDocument() {
 	s.id = res[0].GetId()
 }
 
+func (s *DocumentIntegrationSuite) TestAddDocumentWithFence() {
+	ctx := test.Context()
+	rc, _ := vcrTestClient(s.T(), s.T().Name())
+
+	type doc struct {
+		Foo string `json:"foo"`
+		Bar bool   `json:"bar"`
+	}
+
+	var docs = []interface{}{
+		structs.Map(doc{Foo: "foo"}),
+	}
+
+	res, err := rc.AddDocumentsWithOffset(ctx, s.ws, s.collection, docs)
+	s.Require().NoError(err)
+
+	w := wait.New(rc)
+	err = w.UntilQueryable(ctx, s.ws, s.collection, []string{res.GetLastOffset()})
+	s.Require().NoError(err)
+}
+
 func (s *DocumentIntegrationSuite) TestPatchDocument() {
 	ctx := test.Context()
 	rc, _ := vcrTestClient(s.T(), s.T().Name())
-	s.T().Logf("t: %s", s.T().Name())
 
 	patches := []rockset.PatchDocument{
 		{

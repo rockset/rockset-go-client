@@ -32,6 +32,28 @@ func (rc *RockClient) GetCollection(ctx context.Context, workspace, name string)
 	return resp.GetData(), nil
 }
 
+// GetCollectionCommit determines if the collection includes data at or after the specified fence(s) for
+// close read-after-write semantics.
+func (rc *RockClient) GetCollectionCommit(ctx context.Context, workspace, name string,
+	offsets []string) (openapi.GetCollectionCommitData, error) {
+	var err error
+	var httpResp *http.Response
+	var resp *openapi.GetCollectionCommit
+	getReq := rc.CollectionsApi.GetCollectionOffsets(ctx, workspace, name)
+
+	err = rc.Retry(ctx, func() error {
+		resp, httpResp, err = getReq.Body(openapi.GetCollectionCommitRequest{Name: offsets}).Execute()
+
+		return rockerr.NewWithStatusCode(err, httpResp)
+	})
+
+	if err != nil {
+		return openapi.GetCollectionCommitData{}, err
+	}
+
+	return resp.GetData(), nil
+}
+
 // ListCollections lists all collections, or in a specific workspace is option.WithWorkspace() is used.
 func (rc *RockClient) ListCollections(ctx context.Context,
 	options ...option.ListCollectionOption) ([]openapi.Collection, error) {
