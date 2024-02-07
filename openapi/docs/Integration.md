@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Longer explanation for the integration. | [optional] 
 **Dynamodb** | Pointer to [**DynamodbIntegration**](DynamodbIntegration.md) |  | [optional] 
 **Gcs** | Pointer to [**GcsIntegration**](GcsIntegration.md) |  | [optional] 
+**IsWriteEnabled** | Pointer to **bool** | is write access enabled for this integration | [optional] 
 **Kafka** | Pointer to [**KafkaIntegration**](KafkaIntegration.md) |  | [optional] 
 **Kinesis** | Pointer to [**KinesisIntegration**](KinesisIntegration.md) |  | [optional] 
 **Mongodb** | Pointer to [**MongoDbIntegration**](MongoDbIntegration.md) |  | [optional] 
@@ -285,6 +286,31 @@ SetGcs sets Gcs field to given value.
 `func (o *Integration) HasGcs() bool`
 
 HasGcs returns a boolean if a field has been set.
+
+### GetIsWriteEnabled
+
+`func (o *Integration) GetIsWriteEnabled() bool`
+
+GetIsWriteEnabled returns the IsWriteEnabled field if non-nil, zero value otherwise.
+
+### GetIsWriteEnabledOk
+
+`func (o *Integration) GetIsWriteEnabledOk() (*bool, bool)`
+
+GetIsWriteEnabledOk returns a tuple with the IsWriteEnabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsWriteEnabled
+
+`func (o *Integration) SetIsWriteEnabled(v bool)`
+
+SetIsWriteEnabled sets IsWriteEnabled field to given value.
+
+### HasIsWriteEnabled
+
+`func (o *Integration) HasIsWriteEnabled() bool`
+
+HasIsWriteEnabled returns a boolean if a field has been set.
 
 ### GetKafka
 

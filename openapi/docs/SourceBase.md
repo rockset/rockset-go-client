@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AzureBlobStorage** | Pointer to [**SourceAzBlobStorageBase**](SourceAzBlobStorageBase.md) |  | [optional] 
-**Dynamodb** | Pointer to [**SourceDynamoDb**](SourceDynamoDb.md) |  | [optional] 
+**Dynamodb** | Pointer to [**SourceDynamoDbBase**](SourceDynamoDbBase.md) |  | [optional] 
 **Gcs** | Pointer to [**SourceGcsBase**](SourceGcsBase.md) |  | [optional] 
 **S3** | Pointer to [**SourceS3Base**](SourceS3Base.md) |  | [optional] 
 
@@ -55,20 +55,20 @@ HasAzureBlobStorage returns a boolean if a field has been set.
 
 ### GetDynamodb
 
-`func (o *SourceBase) GetDynamodb() SourceDynamoDb`
+`func (o *SourceBase) GetDynamodb() SourceDynamoDbBase`
 
 GetDynamodb returns the Dynamodb field if non-nil, zero value otherwise.
 
 ### GetDynamodbOk
 
-`func (o *SourceBase) GetDynamodbOk() (*SourceDynamoDb, bool)`
+`func (o *SourceBase) GetDynamodbOk() (*SourceDynamoDbBase, bool)`
 
 GetDynamodbOk returns a tuple with the Dynamodb field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDynamodb
 
-`func (o *SourceBase) SetDynamodb(v SourceDynamoDb)`
+`func (o *SourceBase) SetDynamodb(v SourceDynamoDbBase)`
 
 SetDynamodb sets Dynamodb field to given value.
 

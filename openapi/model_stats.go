@@ -25,6 +25,8 @@ type Stats struct {
 	ResultSetBytesSize *int64 `json:"result_set_bytes_size,omitempty"`
 	// Number of documents returned by the query. Only populated if `status` is `COMPLETE`.
 	ResultSetDocumentCount *int64 `json:"result_set_document_count,omitempty"`
+	// Number of files written by by the query. Only populated if `status` is `COMPLETE` and the query is an export query.
+	ResultSetFileCount *int64 `json:"result_set_file_count,omitempty"`
 	// Time query spent queued, in milliseconds.
 	ThrottledTimeMs *int64 `json:"throttled_time_ms,omitempty"`
 }
@@ -142,6 +144,38 @@ func (o *Stats) SetResultSetDocumentCount(v int64) {
 	o.ResultSetDocumentCount = &v
 }
 
+// GetResultSetFileCount returns the ResultSetFileCount field value if set, zero value otherwise.
+func (o *Stats) GetResultSetFileCount() int64 {
+	if o == nil || IsNil(o.ResultSetFileCount) {
+		var ret int64
+		return ret
+	}
+	return *o.ResultSetFileCount
+}
+
+// GetResultSetFileCountOk returns a tuple with the ResultSetFileCount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Stats) GetResultSetFileCountOk() (*int64, bool) {
+	if o == nil || IsNil(o.ResultSetFileCount) {
+		return nil, false
+	}
+	return o.ResultSetFileCount, true
+}
+
+// HasResultSetFileCount returns a boolean if a field has been set.
+func (o *Stats) HasResultSetFileCount() bool {
+	if o != nil && !IsNil(o.ResultSetFileCount) {
+		return true
+	}
+
+	return false
+}
+
+// SetResultSetFileCount gets a reference to the given int64 and assigns it to the ResultSetFileCount field.
+func (o *Stats) SetResultSetFileCount(v int64) {
+	o.ResultSetFileCount = &v
+}
+
 // GetThrottledTimeMs returns the ThrottledTimeMs field value if set, zero value otherwise.
 func (o *Stats) GetThrottledTimeMs() int64 {
 	if o == nil || IsNil(o.ThrottledTimeMs) {
@@ -175,7 +209,7 @@ func (o *Stats) SetThrottledTimeMs(v int64) {
 }
 
 func (o Stats) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -192,6 +226,9 @@ func (o Stats) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ResultSetDocumentCount) {
 		toSerialize["result_set_document_count"] = o.ResultSetDocumentCount
+	}
+	if !IsNil(o.ResultSetFileCount) {
+		toSerialize["result_set_file_count"] = o.ResultSetFileCount
 	}
 	if !IsNil(o.ThrottledTimeMs) {
 		toSerialize["throttled_time_ms"] = o.ThrottledTimeMs
@@ -234,5 +271,3 @@ func (v *NullableStats) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

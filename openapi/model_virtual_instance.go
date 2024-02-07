@@ -26,30 +26,36 @@ type VirtualInstance struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	// Creator of requested virtual instance.
 	CreatedBy *string `json:"created_by,omitempty"`
+	// Virtual Instance Class. `MO_IL` represents Memory Optimized and `GP_IL` represents General Purpose instance class.
+	CurrentInstanceClass *string `json:"current_instance_class,omitempty"`
 	// Virtual instance current size.
-	CurrentSize *string `json:"current_size,omitempty"`
-	DefaultPodCount *int32 `json:"default_pod_count,omitempty"`
-	DefaultVi *bool `json:"default_vi,omitempty"`
+	CurrentSize     *string `json:"current_size,omitempty"`
+	DefaultPodCount *int32  `json:"default_pod_count,omitempty"`
+	DefaultVi       *bool   `json:"default_vi,omitempty"`
 	// Virtual instance description.
 	Description *string `json:"description,omitempty"`
+	// Virtual Instance Class.
+	DesiredInstanceClass *string `json:"desired_instance_class,omitempty"`
 	// Virtual instance desired size.
 	DesiredSize *string `json:"desired_size,omitempty"`
 	// When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
 	EnableRemountOnResume *bool `json:"enable_remount_on_resume,omitempty"`
 	// Unique identifier for virtual instance.
-	Id *string `json:"id,omitempty"`
-	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
-	// Number of seconds between data refreshes for mounts on this Virtual Instance
+	Id                *string `json:"id,omitempty"`
+	MonitoringEnabled *bool   `json:"monitoring_enabled,omitempty"`
+	// DEPRECATED. Number of seconds between data refreshes for mounts on this Virtual Instance
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
+	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+	MountType *string `json:"mount_type,omitempty"`
 	// Virtual instance name.
 	Name string `json:"name"`
 	// ISO-8601 date of when virtual instance was created.
 	ResumedAt *string `json:"resumed_at,omitempty"`
 	// Virtual Instance RRN.
-	Rrn *string `json:"rrn,omitempty"`
-	ScaledPodCount *int32 `json:"scaled_pod_count,omitempty"`
+	Rrn            *string `json:"rrn,omitempty"`
+	ScaledPodCount *int32  `json:"scaled_pod_count,omitempty"`
 	// Virtual instance state.
-	State *string `json:"state,omitempty"`
+	State *string               `json:"state,omitempty"`
 	Stats *VirtualInstanceStats `json:"stats,omitempty"`
 }
 
@@ -199,6 +205,38 @@ func (o *VirtualInstance) SetCreatedBy(v string) {
 	o.CreatedBy = &v
 }
 
+// GetCurrentInstanceClass returns the CurrentInstanceClass field value if set, zero value otherwise.
+func (o *VirtualInstance) GetCurrentInstanceClass() string {
+	if o == nil || IsNil(o.CurrentInstanceClass) {
+		var ret string
+		return ret
+	}
+	return *o.CurrentInstanceClass
+}
+
+// GetCurrentInstanceClassOk returns a tuple with the CurrentInstanceClass field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetCurrentInstanceClassOk() (*string, bool) {
+	if o == nil || IsNil(o.CurrentInstanceClass) {
+		return nil, false
+	}
+	return o.CurrentInstanceClass, true
+}
+
+// HasCurrentInstanceClass returns a boolean if a field has been set.
+func (o *VirtualInstance) HasCurrentInstanceClass() bool {
+	if o != nil && !IsNil(o.CurrentInstanceClass) {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentInstanceClass gets a reference to the given string and assigns it to the CurrentInstanceClass field.
+func (o *VirtualInstance) SetCurrentInstanceClass(v string) {
+	o.CurrentInstanceClass = &v
+}
+
 // GetCurrentSize returns the CurrentSize field value if set, zero value otherwise.
 func (o *VirtualInstance) GetCurrentSize() string {
 	if o == nil || IsNil(o.CurrentSize) {
@@ -325,6 +363,38 @@ func (o *VirtualInstance) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *VirtualInstance) SetDescription(v string) {
 	o.Description = &v
+}
+
+// GetDesiredInstanceClass returns the DesiredInstanceClass field value if set, zero value otherwise.
+func (o *VirtualInstance) GetDesiredInstanceClass() string {
+	if o == nil || IsNil(o.DesiredInstanceClass) {
+		var ret string
+		return ret
+	}
+	return *o.DesiredInstanceClass
+}
+
+// GetDesiredInstanceClassOk returns a tuple with the DesiredInstanceClass field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetDesiredInstanceClassOk() (*string, bool) {
+	if o == nil || IsNil(o.DesiredInstanceClass) {
+		return nil, false
+	}
+	return o.DesiredInstanceClass, true
+}
+
+// HasDesiredInstanceClass returns a boolean if a field has been set.
+func (o *VirtualInstance) HasDesiredInstanceClass() bool {
+	if o != nil && !IsNil(o.DesiredInstanceClass) {
+		return true
+	}
+
+	return false
+}
+
+// SetDesiredInstanceClass gets a reference to the given string and assigns it to the DesiredInstanceClass field.
+func (o *VirtualInstance) SetDesiredInstanceClass(v string) {
+	o.DesiredInstanceClass = &v
 }
 
 // GetDesiredSize returns the DesiredSize field value if set, zero value otherwise.
@@ -485,6 +555,38 @@ func (o *VirtualInstance) HasMountRefreshIntervalSeconds() bool {
 // SetMountRefreshIntervalSeconds gets a reference to the given int32 and assigns it to the MountRefreshIntervalSeconds field.
 func (o *VirtualInstance) SetMountRefreshIntervalSeconds(v int32) {
 	o.MountRefreshIntervalSeconds = &v
+}
+
+// GetMountType returns the MountType field value if set, zero value otherwise.
+func (o *VirtualInstance) GetMountType() string {
+	if o == nil || IsNil(o.MountType) {
+		var ret string
+		return ret
+	}
+	return *o.MountType
+}
+
+// GetMountTypeOk returns a tuple with the MountType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *VirtualInstance) GetMountTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.MountType) {
+		return nil, false
+	}
+	return o.MountType, true
+}
+
+// HasMountType returns a boolean if a field has been set.
+func (o *VirtualInstance) HasMountType() bool {
+	if o != nil && !IsNil(o.MountType) {
+		return true
+	}
+
+	return false
+}
+
+// SetMountType gets a reference to the given string and assigns it to the MountType field.
+func (o *VirtualInstance) SetMountType(v string) {
+	o.MountType = &v
 }
 
 // GetName returns the Name field value
@@ -672,7 +774,7 @@ func (o *VirtualInstance) SetStats(v VirtualInstanceStats) {
 }
 
 func (o VirtualInstance) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -693,6 +795,9 @@ func (o VirtualInstance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedBy) {
 		toSerialize["created_by"] = o.CreatedBy
 	}
+	if !IsNil(o.CurrentInstanceClass) {
+		toSerialize["current_instance_class"] = o.CurrentInstanceClass
+	}
 	// skip: current_size is readOnly
 	if !IsNil(o.DefaultPodCount) {
 		toSerialize["default_pod_count"] = o.DefaultPodCount
@@ -702,6 +807,9 @@ func (o VirtualInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.DesiredInstanceClass) {
+		toSerialize["desired_instance_class"] = o.DesiredInstanceClass
 	}
 	// skip: desired_size is readOnly
 	if !IsNil(o.EnableRemountOnResume) {
@@ -715,6 +823,9 @@ func (o VirtualInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.MountRefreshIntervalSeconds) {
 		toSerialize["mount_refresh_interval_seconds"] = o.MountRefreshIntervalSeconds
+	}
+	if !IsNil(o.MountType) {
+		toSerialize["mount_type"] = o.MountType
 	}
 	toSerialize["name"] = o.Name
 	if !IsNil(o.ResumedAt) {
@@ -770,5 +881,3 @@ func (v *NullableVirtualInstance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
