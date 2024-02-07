@@ -8,15 +8,18 @@ Name | Type | Description | Notes
 **AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
 **CreatedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
 **CreatedBy** | Pointer to **string** | Creator of requested virtual instance. | [optional] 
+**CurrentInstanceClass** | Pointer to **string** | Virtual Instance Class. &#x60;MO_IL&#x60; represents Memory Optimized and &#x60;GP_IL&#x60; represents General Purpose instance class. | [optional] 
 **CurrentSize** | Pointer to **string** | Virtual instance current size. | [optional] [readonly] 
 **DefaultPodCount** | Pointer to **int32** |  | [optional] 
 **DefaultVi** | Pointer to **bool** |  | [optional] 
 **Description** | Pointer to **string** | Virtual instance description. | [optional] 
+**DesiredInstanceClass** | Pointer to **string** | Virtual Instance Class. | [optional] 
 **DesiredSize** | Pointer to **string** | Virtual instance desired size. | [optional] [readonly] 
 **EnableRemountOnResume** | Pointer to **bool** | When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended. | [optional] 
 **Id** | Pointer to **string** | Unique identifier for virtual instance. | [optional] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
-**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
+**MountRefreshIntervalSeconds** | Pointer to **int32** | DEPRECATED. Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
+**MountType** | Pointer to **string** | The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration | [optional] 
 **Name** | **string** | Virtual instance name. | 
 **ResumedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
 **Rrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
@@ -143,6 +146,31 @@ SetCreatedBy sets CreatedBy field to given value.
 
 HasCreatedBy returns a boolean if a field has been set.
 
+### GetCurrentInstanceClass
+
+`func (o *VirtualInstance) GetCurrentInstanceClass() string`
+
+GetCurrentInstanceClass returns the CurrentInstanceClass field if non-nil, zero value otherwise.
+
+### GetCurrentInstanceClassOk
+
+`func (o *VirtualInstance) GetCurrentInstanceClassOk() (*string, bool)`
+
+GetCurrentInstanceClassOk returns a tuple with the CurrentInstanceClass field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCurrentInstanceClass
+
+`func (o *VirtualInstance) SetCurrentInstanceClass(v string)`
+
+SetCurrentInstanceClass sets CurrentInstanceClass field to given value.
+
+### HasCurrentInstanceClass
+
+`func (o *VirtualInstance) HasCurrentInstanceClass() bool`
+
+HasCurrentInstanceClass returns a boolean if a field has been set.
+
 ### GetCurrentSize
 
 `func (o *VirtualInstance) GetCurrentSize() string`
@@ -242,6 +270,31 @@ SetDescription sets Description field to given value.
 `func (o *VirtualInstance) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetDesiredInstanceClass
+
+`func (o *VirtualInstance) GetDesiredInstanceClass() string`
+
+GetDesiredInstanceClass returns the DesiredInstanceClass field if non-nil, zero value otherwise.
+
+### GetDesiredInstanceClassOk
+
+`func (o *VirtualInstance) GetDesiredInstanceClassOk() (*string, bool)`
+
+GetDesiredInstanceClassOk returns a tuple with the DesiredInstanceClass field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDesiredInstanceClass
+
+`func (o *VirtualInstance) SetDesiredInstanceClass(v string)`
+
+SetDesiredInstanceClass sets DesiredInstanceClass field to given value.
+
+### HasDesiredInstanceClass
+
+`func (o *VirtualInstance) HasDesiredInstanceClass() bool`
+
+HasDesiredInstanceClass returns a boolean if a field has been set.
 
 ### GetDesiredSize
 
@@ -367,6 +420,31 @@ SetMountRefreshIntervalSeconds sets MountRefreshIntervalSeconds field to given v
 `func (o *VirtualInstance) HasMountRefreshIntervalSeconds() bool`
 
 HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
+
+### GetMountType
+
+`func (o *VirtualInstance) GetMountType() string`
+
+GetMountType returns the MountType field if non-nil, zero value otherwise.
+
+### GetMountTypeOk
+
+`func (o *VirtualInstance) GetMountTypeOk() (*string, bool)`
+
+GetMountTypeOk returns a tuple with the MountType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMountType
+
+`func (o *VirtualInstance) SetMountType(v string)`
+
+SetMountType sets MountType field to given value.
+
+### HasMountType
+
+`func (o *VirtualInstance) HasMountType() bool`
+
+HasMountType returns a boolean if a field has been set.
 
 ### GetName
 

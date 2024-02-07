@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ElapsedTimeMs** | Pointer to **int64** | Total execution time (including time queued) of the query, in milliseconds. | [optional] 
 **ResultSetBytesSize** | Pointer to **int64** | Number of bytes in the query result set. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. Not populated for INSERT INTO queries. | [optional] 
 **ResultSetDocumentCount** | Pointer to **int64** | Number of documents returned by the query. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. | [optional] 
+**ResultSetFileCount** | Pointer to **int64** | Number of files written by by the query. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60; and the query is an export query. | [optional] 
 **ThrottledTimeMs** | Pointer to **int64** | Time query spent queued, in milliseconds. | [optional] 
 
 ## Methods
@@ -102,6 +103,31 @@ SetResultSetDocumentCount sets ResultSetDocumentCount field to given value.
 `func (o *Stats) HasResultSetDocumentCount() bool`
 
 HasResultSetDocumentCount returns a boolean if a field has been set.
+
+### GetResultSetFileCount
+
+`func (o *Stats) GetResultSetFileCount() int64`
+
+GetResultSetFileCount returns the ResultSetFileCount field if non-nil, zero value otherwise.
+
+### GetResultSetFileCountOk
+
+`func (o *Stats) GetResultSetFileCountOk() (*int64, bool)`
+
+GetResultSetFileCountOk returns a tuple with the ResultSetFileCount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetResultSetFileCount
+
+`func (o *Stats) SetResultSetFileCount(v int64)`
+
+SetResultSetFileCount sets ResultSetFileCount field to given value.
+
+### HasResultSetFileCount
+
+`func (o *Stats) HasResultSetFileCount() bool`
+
+HasResultSetFileCount returns a boolean if a field has been set.
 
 ### GetThrottledTimeMs
 

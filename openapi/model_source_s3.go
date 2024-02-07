@@ -20,19 +20,19 @@ var _ MappedNullable = &SourceS3{}
 // SourceS3 struct for SourceS3
 type SourceS3 struct {
 	// Address of S3 bucket containing data.
-	Bucket string `json:"bucket"`
+	Bucket                string `json:"bucket"`
 	ObjectBytesDownloaded *int64 `json:"object_bytes_downloaded,omitempty"`
-	ObjectBytesTotal *int64 `json:"object_bytes_total,omitempty"`
+	ObjectBytesTotal      *int64 `json:"object_bytes_total,omitempty"`
 	ObjectCountDownloaded *int64 `json:"object_count_downloaded,omitempty"`
-	ObjectCountTotal *int64 `json:"object_count_total,omitempty"`
+	ObjectCountTotal      *int64 `json:"object_count_total,omitempty"`
 	// Glob-style pattern that selects keys to ingest. Only either prefix or pattern can be specified.
 	Pattern *string `json:"pattern,omitempty"`
 	// Prefix that selects keys to ingest.
 	Prefix *string `json:"prefix,omitempty"`
-	// List of prefixes to paths from which data should be ingested.
+	// Deprecated in favor of `prefix`. List of prefixes to paths from which data should be ingested.
 	Prefixes []string `json:"prefixes,omitempty"`
 	// AWS region containing source bucket.
-	Region *string `json:"region,omitempty"`
+	Region   *string           `json:"region,omitempty"`
 	Settings *SourceS3Settings `json:"settings,omitempty"`
 }
 
@@ -367,7 +367,7 @@ func (o *SourceS3) SetSettings(v SourceS3Settings) {
 }
 
 func (o SourceS3) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -432,5 +432,3 @@ func (v *NullableSourceS3) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

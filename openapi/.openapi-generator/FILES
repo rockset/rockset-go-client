@@ -6,11 +6,13 @@ api_aliases.go
 api_api_keys.go
 api_collections.go
 api_custom_roles.go
+api_deployment_settings.go
 api_documents.go
 api_integrations.go
 api_organizations.go
 api_queries.go
 api_query_lambdas.go
+api_scheduled_lambdas.go
 api_shared_lambdas.go
 api_sources.go
 api_users.go
@@ -54,6 +56,7 @@ docs/CreateIntegrationResponse.md
 docs/CreateQueryLambdaRequest.md
 docs/CreateQueryLambdaTagRequest.md
 docs/CreateRoleRequest.md
+docs/CreateScheduledLambdaRequest.md
 docs/CreateUserRequest.md
 docs/CreateUserResponse.md
 docs/CreateViewRequest.md
@@ -77,6 +80,9 @@ docs/DeleteUserResponse.md
 docs/DeleteViewResponse.md
 docs/DeleteVirtualInstanceResponse.md
 docs/DeleteWorkspaceResponse.md
+docs/DeploymentSettings.md
+docs/DeploymentSettingsApi.md
+docs/DeploymentSettingsResponse.md
 docs/DocumentStatus.md
 docs/DocumentsApi.md
 docs/DynamodbIntegration.md
@@ -84,6 +90,7 @@ docs/ErrorModel.md
 docs/EventTimeInfo.md
 docs/ExecutePublicQueryLambdaRequest.md
 docs/ExecuteQueryLambdaRequest.md
+docs/ExecutionStatus.md
 docs/FieldMappingQuery.md
 docs/FieldMappingV2.md
 docs/FieldPartition.md
@@ -159,6 +166,9 @@ docs/ResumeVirtualInstanceResponse.md
 docs/Role.md
 docs/RoleResponse.md
 docs/S3Integration.md
+docs/ScheduledLambda.md
+docs/ScheduledLambdaResponse.md
+docs/ScheduledLambdasApi.md
 docs/SchemaRegistryConfig.md
 docs/SharedLambdasApi.md
 docs/SnowflakeIntegration.md
@@ -170,6 +180,8 @@ docs/SourceAzureEventHubs.md
 docs/SourceAzureServiceBus.md
 docs/SourceBase.md
 docs/SourceDynamoDb.md
+docs/SourceDynamoDbBase.md
+docs/SourceDynamoDbSettings.md
 docs/SourceFileUpload.md
 docs/SourceGcs.md
 docs/SourceGcsBase.md
@@ -205,10 +217,12 @@ docs/UpdateAliasRequest.md
 docs/UpdateApiKeyRequest.md
 docs/UpdateApiKeyResponse.md
 docs/UpdateCollectionRequest.md
+docs/UpdateDeploymentSettingsRequest.md
 docs/UpdateIntegrationRequest.md
 docs/UpdateIntegrationResponse.md
 docs/UpdateQueryLambdaRequest.md
 docs/UpdateRoleRequest.md
+docs/UpdateScheduledLambdaRequest.md
 docs/UpdateUnsubscribePreferencesRequest.md
 docs/UpdateUnsubscribePreferencesResponse.md
 docs/UpdateUserRequest.md
@@ -222,6 +236,7 @@ docs/ValidateQueryResponse.md
 docs/View.md
 docs/ViewsApi.md
 docs/VirtualInstance.md
+docs/VirtualInstanceRrn.md
 docs/VirtualInstanceStats.md
 docs/VirtualInstancesApi.md
 docs/Workspace.md
@@ -262,6 +277,7 @@ model_create_integration_response.go
 model_create_query_lambda_request.go
 model_create_query_lambda_tag_request.go
 model_create_role_request.go
+model_create_scheduled_lambda_request.go
 model_create_user_request.go
 model_create_user_response.go
 model_create_view_request.go
@@ -284,12 +300,15 @@ model_delete_user_response.go
 model_delete_view_response.go
 model_delete_virtual_instance_response.go
 model_delete_workspace_response.go
+model_deployment_settings.go
+model_deployment_settings_response.go
 model_document_status.go
 model_dynamodb_integration.go
 model_error_model.go
 model_event_time_info.go
 model_execute_public_query_lambda_request.go
 model_execute_query_lambda_request.go
+model_execution_status.go
 model_field_mapping_query.go
 model_field_mapping_v2.go
 model_field_partition.go
@@ -361,6 +380,8 @@ model_resume_virtual_instance_response.go
 model_role.go
 model_role_response.go
 model_s3_integration.go
+model_scheduled_lambda.go
+model_scheduled_lambda_response.go
 model_schema_registry_config.go
 model_snowflake_integration.go
 model_source.go
@@ -371,6 +392,8 @@ model_source_azure_event_hubs.go
 model_source_azure_service_bus.go
 model_source_base.go
 model_source_dynamo_db.go
+model_source_dynamo_db_base.go
+model_source_dynamo_db_settings.go
 model_source_file_upload.go
 model_source_gcs.go
 model_source_gcs_base.go
@@ -405,10 +428,12 @@ model_update_alias_request.go
 model_update_api_key_request.go
 model_update_api_key_response.go
 model_update_collection_request.go
+model_update_deployment_settings_request.go
 model_update_integration_request.go
 model_update_integration_response.go
 model_update_query_lambda_request.go
 model_update_role_request.go
+model_update_scheduled_lambda_request.go
 model_update_unsubscribe_preferences_request.go
 model_update_unsubscribe_preferences_response.go
 model_update_user_request.go
@@ -420,6 +445,7 @@ model_user.go
 model_validate_query_response.go
 model_view.go
 model_virtual_instance.go
+model_virtual_instance_rrn.go
 model_virtual_instance_stats.go
 model_workspace.go
 model_xml_params.go

@@ -22,12 +22,12 @@ type CreateCollectionRequest struct {
 	// Deprecated. List of clustering fields. Use CLUSTER BY clause in `field_mapping_query` instead.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 	// Text describing the collection.
-	Description *string `json:"description,omitempty"`
-	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
+	Description       *string            `json:"description,omitempty"`
+	EventTimeInfo     *EventTimeInfo     `json:"event_time_info,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// Unique identifier for collection, can contain alphanumeric or dash characters.
 	Name *string `json:"name,omitempty"`
-	// Number of seconds after which data is purged, based on event time.
+	// Number of seconds after which data is purged, based on event time. Minimum allowable value is 3600s/1 hour. The maximum value is strictly less than 10 years.
 	RetentionSecs *int64 `json:"retention_secs,omitempty"`
 	// Soft ingest limit for this collection.
 	SourceDownloadSoftLimitBytes *int64 `json:"source_download_soft_limit_bytes,omitempty"`
@@ -343,7 +343,7 @@ func (o *CreateCollectionRequest) SetStorageCompressionType(v string) {
 }
 
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
+	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -417,5 +417,3 @@ func (v *NullableCreateCollectionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

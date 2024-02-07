@@ -5,11 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AutoScalingPolicy** | Pointer to [**AutoScalingPolicy**](AutoScalingPolicy.md) |  | [optional] 
-**AutoSuspendEnabled** | Pointer to **bool** | Whether auto-suspend should be enabled for this Virtual Instance. | [optional] 
-**AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the VI is suspended | [optional] 
+**AutoSuspendEnabled** | Pointer to **bool** | Whether Query VI auto-suspend should be enabled for this Virtual Instance. | [optional] 
+**AutoSuspendSeconds** | Pointer to **int32** | Number of seconds without queries after which the Query VI is suspended | [optional] 
 **Description** | Pointer to **string** | New virtual instance description. | [optional] 
 **EnableRemountOnResume** | Pointer to **bool** | When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended. | [optional] 
-**MountRefreshIntervalSeconds** | Pointer to **int32** | Number of seconds between data refreshes for mounts on this Virtual Instance. A value of 0 means continuous refresh and a value of null means never refresh. | [optional] 
+**InstanceClass** | Pointer to **string** | Virtual Instance Class. Use &#x60;MO_IL&#x60; for Memory Optimized and &#x60;GP_IL&#x60; for General Purpose instance class. | [optional] 
+**MountRefreshIntervalSeconds** | Pointer to **int32** | DEPRECATED. Use &#x60;mount_type&#x60; instead. Number of seconds between data refreshes for mounts on this Virtual Instance. The only valid values are 0 and null. 0 means the data will be refreshed continuously and null means the data will never refresh. | [optional] 
+**MountType** | Pointer to **string** | The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration | [optional] 
 **Name** | Pointer to **string** | New virtual instance name. | [optional] 
 **NewSize** | Pointer to **string** | Requested virtual instance size. | [optional] 
 
@@ -157,6 +159,31 @@ SetEnableRemountOnResume sets EnableRemountOnResume field to given value.
 
 HasEnableRemountOnResume returns a boolean if a field has been set.
 
+### GetInstanceClass
+
+`func (o *UpdateVirtualInstanceRequest) GetInstanceClass() string`
+
+GetInstanceClass returns the InstanceClass field if non-nil, zero value otherwise.
+
+### GetInstanceClassOk
+
+`func (o *UpdateVirtualInstanceRequest) GetInstanceClassOk() (*string, bool)`
+
+GetInstanceClassOk returns a tuple with the InstanceClass field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInstanceClass
+
+`func (o *UpdateVirtualInstanceRequest) SetInstanceClass(v string)`
+
+SetInstanceClass sets InstanceClass field to given value.
+
+### HasInstanceClass
+
+`func (o *UpdateVirtualInstanceRequest) HasInstanceClass() bool`
+
+HasInstanceClass returns a boolean if a field has been set.
+
 ### GetMountRefreshIntervalSeconds
 
 `func (o *UpdateVirtualInstanceRequest) GetMountRefreshIntervalSeconds() int32`
@@ -181,6 +208,31 @@ SetMountRefreshIntervalSeconds sets MountRefreshIntervalSeconds field to given v
 `func (o *UpdateVirtualInstanceRequest) HasMountRefreshIntervalSeconds() bool`
 
 HasMountRefreshIntervalSeconds returns a boolean if a field has been set.
+
+### GetMountType
+
+`func (o *UpdateVirtualInstanceRequest) GetMountType() string`
+
+GetMountType returns the MountType field if non-nil, zero value otherwise.
+
+### GetMountTypeOk
+
+`func (o *UpdateVirtualInstanceRequest) GetMountTypeOk() (*string, bool)`
+
+GetMountTypeOk returns a tuple with the MountType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMountType
+
+`func (o *UpdateVirtualInstanceRequest) SetMountType(v string)`
+
+SetMountType sets MountType field to given value.
+
+### HasMountType
+
+`func (o *UpdateVirtualInstanceRequest) HasMountType() bool`
+
+HasMountType returns a boolean if a field has been set.
 
 ### GetName
 
