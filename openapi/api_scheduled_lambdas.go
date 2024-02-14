@@ -19,16 +19,17 @@ import (
 	"strings"
 )
 
+
 type ScheduledLambdasApi interface {
 
 	/*
-		CreateScheduledLambda Create a Scheduled Lambda mapping
+	CreateScheduledLambda Create a Scheduled Lambda mapping
 
-		Create a scheduled lambda mapping for your organization.
+	Create a scheduled lambda mapping for your organization.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param workspace name of the workspace
-		@return ApiCreateScheduledLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@return ApiCreateScheduledLambdaRequest
 	*/
 	CreateScheduledLambda(ctx context.Context, workspace string) ApiCreateScheduledLambdaRequest
 
@@ -37,14 +38,14 @@ type ScheduledLambdasApi interface {
 	CreateScheduledLambdaExecute(r ApiCreateScheduledLambdaRequest) (*ScheduledLambdaResponse, *http.Response, error)
 
 	/*
-		DeleteScheduledLambda Delete a Scheduled Lambda mapping
+	DeleteScheduledLambda Delete a Scheduled Lambda mapping
 
-		Delete a scheduled lambda mapping for your organization.
+	Delete a scheduled lambda mapping for your organization.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param workspace name of the workspace
-		@param scheduledLambdaId Scheduled Lambda RRN
-		@return ApiDeleteScheduledLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param scheduledLambdaId Scheduled Lambda RRN
+	@return ApiDeleteScheduledLambdaRequest
 	*/
 	DeleteScheduledLambda(ctx context.Context, workspace string, scheduledLambdaId string) ApiDeleteScheduledLambdaRequest
 
@@ -53,14 +54,14 @@ type ScheduledLambdasApi interface {
 	DeleteScheduledLambdaExecute(r ApiDeleteScheduledLambdaRequest) (*ScheduledLambdaResponse, *http.Response, error)
 
 	/*
-		UpdateScheduledLambda Update a Scheduled Lambda mapping
+	UpdateScheduledLambda Update a Scheduled Lambda mapping
 
-		Update a scheduled lambda mapping for your organization.
+	Update a scheduled lambda mapping for your organization.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param workspace name of the workspace
-		@param scheduledLambdaId Scheduled Lambda RRN
-		@return ApiUpdateScheduledLambdaRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param workspace name of the workspace
+	@param scheduledLambdaId Scheduled Lambda RRN
+	@return ApiUpdateScheduledLambdaRequest
 	*/
 	UpdateScheduledLambda(ctx context.Context, workspace string, scheduledLambdaId string) ApiUpdateScheduledLambdaRequest
 
@@ -73,10 +74,10 @@ type ScheduledLambdasApi interface {
 type ScheduledLambdasApiService service
 
 type ApiCreateScheduledLambdaRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService ScheduledLambdasApi
-	workspace  string
-	body       *CreateScheduledLambdaRequest
+	workspace string
+	body *CreateScheduledLambdaRequest
 }
 
 // JSON Object
@@ -94,27 +95,26 @@ CreateScheduledLambda Create a Scheduled Lambda mapping
 
 Create a scheduled lambda mapping for your organization.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param workspace name of the workspace
-	@return ApiCreateScheduledLambdaRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workspace name of the workspace
+ @return ApiCreateScheduledLambdaRequest
 */
 func (a *ScheduledLambdasApiService) CreateScheduledLambda(ctx context.Context, workspace string) ApiCreateScheduledLambdaRequest {
 	return ApiCreateScheduledLambdaRequest{
 		ApiService: a,
-		ctx:        ctx,
-		workspace:  workspace,
+		ctx: ctx,
+		workspace: workspace,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ScheduledLambdaResponse
+//  @return ScheduledLambdaResponse
 func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateScheduledLambdaRequest) (*ScheduledLambdaResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ScheduledLambdaResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ScheduledLambdaResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledLambdasApiService.CreateScheduledLambda")
@@ -180,8 +180,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -191,8 +191,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -202,8 +202,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -213,8 +213,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -224,8 +224,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -235,8 +235,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -246,8 +246,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -257,8 +257,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -268,8 +268,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -279,8 +279,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -290,8 +290,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -301,8 +301,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -312,8 +312,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -323,8 +323,8 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -342,9 +342,9 @@ func (a *ScheduledLambdasApiService) CreateScheduledLambdaExecute(r ApiCreateSch
 }
 
 type ApiDeleteScheduledLambdaRequest struct {
-	ctx               context.Context
-	ApiService        ScheduledLambdasApi
-	workspace         string
+	ctx context.Context
+	ApiService ScheduledLambdasApi
+	workspace string
 	scheduledLambdaId string
 }
 
@@ -357,29 +357,28 @@ DeleteScheduledLambda Delete a Scheduled Lambda mapping
 
 Delete a scheduled lambda mapping for your organization.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param workspace name of the workspace
-	@param scheduledLambdaId Scheduled Lambda RRN
-	@return ApiDeleteScheduledLambdaRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workspace name of the workspace
+ @param scheduledLambdaId Scheduled Lambda RRN
+ @return ApiDeleteScheduledLambdaRequest
 */
 func (a *ScheduledLambdasApiService) DeleteScheduledLambda(ctx context.Context, workspace string, scheduledLambdaId string) ApiDeleteScheduledLambdaRequest {
 	return ApiDeleteScheduledLambdaRequest{
-		ApiService:        a,
-		ctx:               ctx,
-		workspace:         workspace,
+		ApiService: a,
+		ctx: ctx,
+		workspace: workspace,
 		scheduledLambdaId: scheduledLambdaId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ScheduledLambdaResponse
+//  @return ScheduledLambdaResponse
 func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteScheduledLambdaRequest) (*ScheduledLambdaResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ScheduledLambdaResponse
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ScheduledLambdaResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledLambdasApiService.DeleteScheduledLambda")
@@ -441,8 +440,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -452,8 +451,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -463,8 +462,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -474,8 +473,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -485,8 +484,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -496,8 +495,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -507,8 +506,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -518,8 +517,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -529,8 +528,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -540,8 +539,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -551,8 +550,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -562,8 +561,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -573,8 +572,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -584,8 +583,8 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -603,11 +602,11 @@ func (a *ScheduledLambdasApiService) DeleteScheduledLambdaExecute(r ApiDeleteSch
 }
 
 type ApiUpdateScheduledLambdaRequest struct {
-	ctx               context.Context
-	ApiService        ScheduledLambdasApi
-	workspace         string
+	ctx context.Context
+	ApiService ScheduledLambdasApi
+	workspace string
 	scheduledLambdaId string
-	body              *UpdateScheduledLambdaRequest
+	body *UpdateScheduledLambdaRequest
 }
 
 // JSON Object
@@ -625,29 +624,28 @@ UpdateScheduledLambda Update a Scheduled Lambda mapping
 
 Update a scheduled lambda mapping for your organization.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param workspace name of the workspace
-	@param scheduledLambdaId Scheduled Lambda RRN
-	@return ApiUpdateScheduledLambdaRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param workspace name of the workspace
+ @param scheduledLambdaId Scheduled Lambda RRN
+ @return ApiUpdateScheduledLambdaRequest
 */
 func (a *ScheduledLambdasApiService) UpdateScheduledLambda(ctx context.Context, workspace string, scheduledLambdaId string) ApiUpdateScheduledLambdaRequest {
 	return ApiUpdateScheduledLambdaRequest{
-		ApiService:        a,
-		ctx:               ctx,
-		workspace:         workspace,
+		ApiService: a,
+		ctx: ctx,
+		workspace: workspace,
 		scheduledLambdaId: scheduledLambdaId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ScheduledLambdaResponse
+//  @return ScheduledLambdaResponse
 func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateScheduledLambdaRequest) (*ScheduledLambdaResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ScheduledLambdaResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ScheduledLambdaResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ScheduledLambdasApiService.UpdateScheduledLambda")
@@ -714,8 +712,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -725,8 +723,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -736,8 +734,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -747,8 +745,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -758,8 +756,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -769,8 +767,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -780,8 +778,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -791,8 +789,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -802,8 +800,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -813,8 +811,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -824,8 +822,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -835,8 +833,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -846,8 +844,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -857,8 +855,8 @@ func (a *ScheduledLambdasApiService) UpdateScheduledLambdaExecute(r ApiUpdateSch
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

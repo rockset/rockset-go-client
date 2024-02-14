@@ -20,12 +20,12 @@ var _ MappedNullable = &SourceDynamoDb{}
 // SourceDynamoDb struct for SourceDynamoDb
 type SourceDynamoDb struct {
 	// AWS region name of DynamoDB table, by default us-west-2 is used.
-	AwsRegion     *string           `json:"aws_region,omitempty"`
+	AwsRegion *string `json:"aws_region,omitempty"`
 	CurrentStatus *StatusDynamoDbV2 `json:"current_status,omitempty"`
 	// Max RCU usage for scan.
-	Rcu      *int64                  `json:"rcu,omitempty"`
+	Rcu *int64 `json:"rcu,omitempty"`
 	Settings *SourceDynamoDbSettings `json:"settings,omitempty"`
-	Status   *StatusDynamoDb         `json:"status,omitempty"`
+	Status *StatusDynamoDb `json:"status,omitempty"`
 	// Name of DynamoDB table containing data.
 	TableName string `json:"table_name"`
 	// Whether to use DynamoDB Scan API for the initial scan.
@@ -267,7 +267,7 @@ func (o *SourceDynamoDb) SetUseScanApi(v bool) {
 }
 
 func (o SourceDynamoDb) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -333,3 +333,5 @@ func (v *NullableSourceDynamoDb) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

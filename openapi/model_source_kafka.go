@@ -26,8 +26,8 @@ type SourceKafka struct {
 	// The Kafka topic to be tailed.
 	KafkaTopicName *string `json:"kafka_topic_name,omitempty"`
 	// The offset reset policy.
-	OffsetResetPolicy *string      `json:"offset_reset_policy,omitempty"`
-	Status            *StatusKafka `json:"status,omitempty"`
+	OffsetResetPolicy *string `json:"offset_reset_policy,omitempty"`
+	Status *StatusKafka `json:"status,omitempty"`
 	// Whether to use v3 integration.
 	UseV3 *bool `json:"use_v3,omitempty"`
 }
@@ -242,7 +242,7 @@ func (o *SourceKafka) SetUseV3(v bool) {
 }
 
 func (o SourceKafka) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -307,3 +307,5 @@ func (v *NullableSourceKafka) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

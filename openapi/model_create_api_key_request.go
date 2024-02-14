@@ -23,7 +23,7 @@ type CreateApiKeyRequest struct {
 	// If provided, the API key will automatically expire at this time (ISO-8601 format). Requires premium.
 	ExpiryTime *string `json:"expiry_time,omitempty"`
 	// Name for this API key.
-	Name string  `json:"name"`
+	Name string `json:"name"`
 	Role *string `json:"role,omitempty"`
 }
 
@@ -166,7 +166,7 @@ func (o *CreateApiKeyRequest) SetRole(v string) {
 }
 
 func (o CreateApiKeyRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -223,3 +223,5 @@ func (v *NullableCreateApiKeyRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

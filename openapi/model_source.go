@@ -17,33 +17,33 @@ import (
 // checks if the Source type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Source{}
 
-// Source Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views.
+// Source Details about the data source for the given collection. Only one of the following fields are allowed to be defined. Only collections can act as data sources for views. 
 type Source struct {
 	AzureBlobStorage *SourceAzureBlobStorage `json:"azure_blob_storage,omitempty"`
-	AzureEventHubs   *SourceAzureEventHubs   `json:"azure_event_hubs,omitempty"`
-	AzureServiceBus  *SourceAzureServiceBus  `json:"azure_service_bus,omitempty"`
-	Dynamodb         *SourceDynamoDb         `json:"dynamodb,omitempty"`
-	FileUpload       *SourceFileUpload       `json:"file_upload,omitempty"`
-	FormatParams     *FormatParams           `json:"format_params,omitempty"`
-	Gcs              *SourceGcs              `json:"gcs,omitempty"`
+	AzureEventHubs *SourceAzureEventHubs `json:"azure_event_hubs,omitempty"`
+	AzureServiceBus *SourceAzureServiceBus `json:"azure_service_bus,omitempty"`
+	Dynamodb *SourceDynamoDb `json:"dynamodb,omitempty"`
+	FileUpload *SourceFileUpload `json:"file_upload,omitempty"`
+	FormatParams *FormatParams `json:"format_params,omitempty"`
+	Gcs *SourceGcs `json:"gcs,omitempty"`
 	// Unique source identifier.
-	Id                   *string            `json:"id,omitempty"`
+	Id *string `json:"id,omitempty"`
 	IngestTransformation *FieldMappingQuery `json:"ingest_transformation,omitempty"`
 	// Name of integration to use.
-	IntegrationName *string        `json:"integration_name,omitempty"`
-	Kafka           *SourceKafka   `json:"kafka,omitempty"`
-	Kinesis         *SourceKinesis `json:"kinesis,omitempty"`
-	Mongodb         *SourceMongoDb `json:"mongodb,omitempty"`
+	IntegrationName *string `json:"integration_name,omitempty"`
+	Kafka *SourceKafka `json:"kafka,omitempty"`
+	Kinesis *SourceKinesis `json:"kinesis,omitempty"`
+	Mongodb *SourceMongoDb `json:"mongodb,omitempty"`
 	// ISO-8601 date when source would be auto resumed, if suspended
-	ResumeAt  *string          `json:"resume_at,omitempty"`
-	S3        *SourceS3        `json:"s3,omitempty"`
-	Snapshot  *SourceSnapshot  `json:"snapshot,omitempty"`
+	ResumeAt *string `json:"resume_at,omitempty"`
+	S3 *SourceS3 `json:"s3,omitempty"`
+	Snapshot *SourceSnapshot `json:"snapshot,omitempty"`
 	Snowflake *SourceSnowflake `json:"snowflake,omitempty"`
-	Status    *Status          `json:"status,omitempty"`
+	Status *Status `json:"status,omitempty"`
 	// ISO-8601 date when source was suspended, if suspended
-	SuspendedAt *string                `json:"suspended_at,omitempty"`
-	System      *SourceSystem          `json:"system,omitempty"`
-	WriteApi    map[string]interface{} `json:"write_api,omitempty"`
+	SuspendedAt *string `json:"suspended_at,omitempty"`
+	System *SourceSystem `json:"system,omitempty"`
+	WriteApi map[string]interface{} `json:"write_api,omitempty"`
 }
 
 // NewSource instantiates a new Source object
@@ -736,7 +736,7 @@ func (o *Source) SetWriteApi(v map[string]interface{}) {
 }
 
 func (o Source) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -840,3 +840,5 @@ func (v *NullableSource) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

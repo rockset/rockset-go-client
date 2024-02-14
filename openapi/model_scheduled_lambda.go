@@ -30,7 +30,7 @@ type ScheduledLambda struct {
 	// The next time this scheduled query lambda will be executed.
 	NextExecutionDate *string `json:"next_execution_date,omitempty"`
 	// The name of the associated query lambda.
-	QlName               *string          `json:"ql_name,omitempty"`
+	QlName *string `json:"ql_name,omitempty"`
 	QueryExecutionStatus *ExecutionStatus `json:"query_execution_status,omitempty"`
 	// Boolean flag to allow a scheduled query lambda to resume execution after being suspended due to execution failure. This flag will be unset after scheduled lambda execution.
 	ResumePermanentError *bool `json:"resume_permanent_error,omitempty"`
@@ -548,7 +548,7 @@ func (o *ScheduledLambda) SetWorkspace(v string) {
 }
 
 func (o ScheduledLambda) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -640,3 +640,5 @@ func (v *NullableScheduledLambda) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

@@ -20,15 +20,15 @@ var _ MappedNullable = &FormatParams{}
 // FormatParams struct for FormatParams
 type FormatParams struct {
 	Avro map[string]interface{} `json:"avro,omitempty"`
-	Bson *bool                  `json:"bson,omitempty"`
-	Csv  *CsvParams             `json:"csv,omitempty"`
+	Bson *bool `json:"bson,omitempty"`
+	Csv *CsvParams `json:"csv,omitempty"`
 	// Source data is in json format.
-	Json        *bool      `json:"json,omitempty"`
-	MssqlDms    *bool      `json:"mssql_dms,omitempty"`
-	MysqlDms    *bool      `json:"mysql_dms,omitempty"`
-	OracleDms   *bool      `json:"oracle_dms,omitempty"`
-	PostgresDms *bool      `json:"postgres_dms,omitempty"`
-	Xml         *XmlParams `json:"xml,omitempty"`
+	Json *bool `json:"json,omitempty"`
+	MssqlDms *bool `json:"mssql_dms,omitempty"`
+	MysqlDms *bool `json:"mysql_dms,omitempty"`
+	OracleDms *bool `json:"oracle_dms,omitempty"`
+	PostgresDms *bool `json:"postgres_dms,omitempty"`
+	Xml *XmlParams `json:"xml,omitempty"`
 }
 
 // NewFormatParams instantiates a new FormatParams object
@@ -337,7 +337,7 @@ func (o *FormatParams) SetXml(v XmlParams) {
 }
 
 func (o FormatParams) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -411,3 +411,5 @@ func (v *NullableFormatParams) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
