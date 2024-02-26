@@ -22,8 +22,8 @@ type CreateCollectionRequest struct {
 	// Deprecated. List of clustering fields. Use CLUSTER BY clause in `field_mapping_query` instead.
 	ClusteringKey []FieldPartition `json:"clustering_key,omitempty"`
 	// Text describing the collection.
-	Description       *string            `json:"description,omitempty"`
-	EventTimeInfo     *EventTimeInfo     `json:"event_time_info,omitempty"`
+	Description *string `json:"description,omitempty"`
+	EventTimeInfo *EventTimeInfo `json:"event_time_info,omitempty"`
 	FieldMappingQuery *FieldMappingQuery `json:"field_mapping_query,omitempty"`
 	// Unique identifier for collection, can contain alphanumeric or dash characters.
 	Name *string `json:"name,omitempty"`
@@ -343,7 +343,7 @@ func (o *CreateCollectionRequest) SetStorageCompressionType(v string) {
 }
 
 func (o CreateCollectionRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -417,3 +417,5 @@ func (v *NullableCreateCollectionRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

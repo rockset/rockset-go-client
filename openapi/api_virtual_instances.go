@@ -19,15 +19,16 @@ import (
 	"strings"
 )
 
+
 type VirtualInstancesApi interface {
 
 	/*
-		CreateVirtualInstance Create Virtual Instance
+	CreateVirtualInstance Create Virtual Instance
 
-		Create virtual instance
+	Create virtual instance
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiCreateVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateVirtualInstanceRequest
 	*/
 	CreateVirtualInstance(ctx context.Context) ApiCreateVirtualInstanceRequest
 
@@ -36,13 +37,13 @@ type VirtualInstancesApi interface {
 	CreateVirtualInstanceExecute(r ApiCreateVirtualInstanceRequest) (*CreateVirtualInstanceResponse, *http.Response, error)
 
 	/*
-		DeleteVirtualInstance Delete Virtual Instance
+	DeleteVirtualInstance Delete Virtual Instance
 
-		Delete a virtual instance.
+	Delete a virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiDeleteVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiDeleteVirtualInstanceRequest
 	*/
 	DeleteVirtualInstance(ctx context.Context, virtualInstanceId string) ApiDeleteVirtualInstanceRequest
 
@@ -51,14 +52,14 @@ type VirtualInstancesApi interface {
 	DeleteVirtualInstanceExecute(r ApiDeleteVirtualInstanceRequest) (*DeleteVirtualInstanceResponse, *http.Response, error)
 
 	/*
-		GetCollectionMount Get Collection Mount
+	GetCollectionMount Get Collection Mount
 
-		Retrieve a mount on this virtual instance.
+	Retrieve a mount on this virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@param collectionPath
-		@return ApiGetCollectionMountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@param collectionPath
+	@return ApiGetCollectionMountRequest
 	*/
 	GetCollectionMount(ctx context.Context, virtualInstanceId string, collectionPath string) ApiGetCollectionMountRequest
 
@@ -67,14 +68,14 @@ type VirtualInstancesApi interface {
 	GetCollectionMountExecute(r ApiGetCollectionMountRequest) (*CollectionMountResponse, *http.Response, error)
 
 	/*
-		GetMountOffsets Get Collection Commit
+	GetMountOffsets Get Collection Commit
 
-		Determines if the collection includes data at or after the specified fence(s) for close read-after-write semantics.
+	Determines if the collection includes data at or after the specified fence(s) for close read-after-write semantics.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@param collectionPath
-		@return ApiGetMountOffsetsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@param collectionPath
+	@return ApiGetMountOffsetsRequest
 	*/
 	GetMountOffsets(ctx context.Context, virtualInstanceId string, collectionPath string) ApiGetMountOffsetsRequest
 
@@ -83,13 +84,13 @@ type VirtualInstancesApi interface {
 	GetMountOffsetsExecute(r ApiGetMountOffsetsRequest) (*GetCollectionCommit, *http.Response, error)
 
 	/*
-		GetVirtualInstance Retrieve Virtual Instance
+	GetVirtualInstance Retrieve Virtual Instance
 
-		Get details about a virtual instance.
+	Get details about a virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiGetVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiGetVirtualInstanceRequest
 	*/
 	GetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiGetVirtualInstanceRequest
 
@@ -98,13 +99,13 @@ type VirtualInstancesApi interface {
 	GetVirtualInstanceExecute(r ApiGetVirtualInstanceRequest) (*GetVirtualInstanceResponse, *http.Response, error)
 
 	/*
-		GetVirtualInstanceQueries List Queries
+	GetVirtualInstanceQueries List Queries
 
-		Lists actively queued and running queries for a particular Virtual Instance.
+	Lists actively queued and running queries for a particular Virtual Instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiGetVirtualInstanceQueriesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiGetVirtualInstanceQueriesRequest
 	*/
 	GetVirtualInstanceQueries(ctx context.Context, virtualInstanceId string) ApiGetVirtualInstanceQueriesRequest
 
@@ -113,13 +114,13 @@ type VirtualInstancesApi interface {
 	GetVirtualInstanceQueriesExecute(r ApiGetVirtualInstanceQueriesRequest) (*ListQueriesResponse, *http.Response, error)
 
 	/*
-		ListCollectionMounts List Collection Mounts
+	ListCollectionMounts List Collection Mounts
 
-		List collection mounts for a particular VI.
+	List collection mounts for a particular VI.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiListCollectionMountsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiListCollectionMountsRequest
 	*/
 	ListCollectionMounts(ctx context.Context, virtualInstanceId string) ApiListCollectionMountsRequest
 
@@ -128,12 +129,12 @@ type VirtualInstancesApi interface {
 	ListCollectionMountsExecute(r ApiListCollectionMountsRequest) (*ListCollectionMountsResponse, *http.Response, error)
 
 	/*
-		ListVirtualInstances List Virtual Instances
+	ListVirtualInstances List Virtual Instances
 
-		Retrieve all virtual instances in an organization.
+	Retrieve all virtual instances in an organization.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListVirtualInstancesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListVirtualInstancesRequest
 	*/
 	ListVirtualInstances(ctx context.Context) ApiListVirtualInstancesRequest
 
@@ -142,13 +143,13 @@ type VirtualInstancesApi interface {
 	ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (*ListVirtualInstancesResponse, *http.Response, error)
 
 	/*
-		MountCollection Mount Collections
+	MountCollection Mount Collections
 
-		Mount a collection to this virtual instance.
+	Mount a collection to this virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiMountCollectionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiMountCollectionRequest
 	*/
 	MountCollection(ctx context.Context, virtualInstanceId string) ApiMountCollectionRequest
 
@@ -157,13 +158,13 @@ type VirtualInstancesApi interface {
 	MountCollectionExecute(r ApiMountCollectionRequest) (*CreateCollectionMountsResponse, *http.Response, error)
 
 	/*
-		QueryVirtualInstance Execute SQL Query on a specific Virtual Instance
+	QueryVirtualInstance Execute SQL Query on a specific Virtual Instance
 
-		Make a SQL query to Rockset.
+	Make a SQL query to Rockset.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiQueryVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiQueryVirtualInstanceRequest
 	*/
 	QueryVirtualInstance(ctx context.Context, virtualInstanceId string) ApiQueryVirtualInstanceRequest
 
@@ -172,13 +173,13 @@ type VirtualInstancesApi interface {
 	QueryVirtualInstanceExecute(r ApiQueryVirtualInstanceRequest) (*QueryResponse, *http.Response, error)
 
 	/*
-		ResumeVirtualInstance Resume Virtual Instance
+	ResumeVirtualInstance Resume Virtual Instance
 
-		Resume a virtual instance.
+	Resume a virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiResumeVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiResumeVirtualInstanceRequest
 	*/
 	ResumeVirtualInstance(ctx context.Context, virtualInstanceId string) ApiResumeVirtualInstanceRequest
 
@@ -187,13 +188,13 @@ type VirtualInstancesApi interface {
 	ResumeVirtualInstanceExecute(r ApiResumeVirtualInstanceRequest) (*ResumeVirtualInstanceResponse, *http.Response, error)
 
 	/*
-		SetVirtualInstance Update Virtual Instance
+	SetVirtualInstance Update Virtual Instance
 
-		Update the properties of a virtual instance.
+	Update the properties of a virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiSetVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiSetVirtualInstanceRequest
 	*/
 	SetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiSetVirtualInstanceRequest
 
@@ -202,13 +203,13 @@ type VirtualInstancesApi interface {
 	SetVirtualInstanceExecute(r ApiSetVirtualInstanceRequest) (*UpdateVirtualInstanceResponse, *http.Response, error)
 
 	/*
-		SuspendVirtualInstance Suspend Virtual Instance
+	SuspendVirtualInstance Suspend Virtual Instance
 
-		Suspend a virtual instance.
+	Suspend a virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@return ApiSuspendVirtualInstanceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@return ApiSuspendVirtualInstanceRequest
 	*/
 	SuspendVirtualInstance(ctx context.Context, virtualInstanceId string) ApiSuspendVirtualInstanceRequest
 
@@ -217,14 +218,14 @@ type VirtualInstancesApi interface {
 	SuspendVirtualInstanceExecute(r ApiSuspendVirtualInstanceRequest) (*SuspendVirtualInstanceResponse, *http.Response, error)
 
 	/*
-		UnmountCollection Unmount Collection
+	UnmountCollection Unmount Collection
 
-		Unmount a collection from this virtual instance.
+	Unmount a collection from this virtual instance.
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param virtualInstanceId Virtual Instance RRN
-		@param collectionPath
-		@return ApiUnmountCollectionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param virtualInstanceId Virtual Instance RRN
+	@param collectionPath
+	@return ApiUnmountCollectionRequest
 	*/
 	UnmountCollection(ctx context.Context, virtualInstanceId string, collectionPath string) ApiUnmountCollectionRequest
 
@@ -237,9 +238,9 @@ type VirtualInstancesApi interface {
 type VirtualInstancesApiService service
 
 type ApiCreateVirtualInstanceRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService VirtualInstancesApi
-	body       *CreateVirtualInstanceRequest
+	body *CreateVirtualInstanceRequest
 }
 
 // JSON object
@@ -257,25 +258,24 @@ CreateVirtualInstance Create Virtual Instance
 
 Create virtual instance
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreateVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) CreateVirtualInstance(ctx context.Context) ApiCreateVirtualInstanceRequest {
 	return ApiCreateVirtualInstanceRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return CreateVirtualInstanceResponse
+//  @return CreateVirtualInstanceResponse
 func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVirtualInstanceRequest) (*CreateVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *CreateVirtualInstanceResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.CreateVirtualInstance")
@@ -340,8 +340,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -351,8 +351,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -362,8 +362,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -373,8 +373,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -384,8 +384,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -395,8 +395,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -406,8 +406,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -417,8 +417,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -428,8 +428,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -439,8 +439,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -450,8 +450,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -461,8 +461,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -472,8 +472,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -483,8 +483,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -502,8 +502,8 @@ func (a *VirtualInstancesApiService) CreateVirtualInstanceExecute(r ApiCreateVir
 }
 
 type ApiDeleteVirtualInstanceRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
@@ -516,27 +516,26 @@ DeleteVirtualInstance Delete Virtual Instance
 
 Delete a virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiDeleteVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiDeleteVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) DeleteVirtualInstance(ctx context.Context, virtualInstanceId string) ApiDeleteVirtualInstanceRequest {
 	return ApiDeleteVirtualInstanceRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return DeleteVirtualInstanceResponse
+//  @return DeleteVirtualInstanceResponse
 func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVirtualInstanceRequest) (*DeleteVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *DeleteVirtualInstanceResponse
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *DeleteVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.DeleteVirtualInstance")
@@ -597,8 +596,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -608,8 +607,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -619,8 +618,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -630,8 +629,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -641,8 +640,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -652,8 +651,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -663,8 +662,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -674,8 +673,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -685,8 +684,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -696,8 +695,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -707,8 +706,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -718,8 +717,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -729,8 +728,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -740,8 +739,8 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -759,10 +758,10 @@ func (a *VirtualInstancesApiService) DeleteVirtualInstanceExecute(r ApiDeleteVir
 }
 
 type ApiGetCollectionMountRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
-	collectionPath    string
+	collectionPath string
 }
 
 func (r ApiGetCollectionMountRequest) Execute() (*CollectionMountResponse, *http.Response, error) {
@@ -774,29 +773,28 @@ GetCollectionMount Get Collection Mount
 
 Retrieve a mount on this virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@param collectionPath
-	@return ApiGetCollectionMountRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @param collectionPath
+ @return ApiGetCollectionMountRequest
 */
 func (a *VirtualInstancesApiService) GetCollectionMount(ctx context.Context, virtualInstanceId string, collectionPath string) ApiGetCollectionMountRequest {
 	return ApiGetCollectionMountRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
-		collectionPath:    collectionPath,
+		collectionPath: collectionPath,
 	}
 }
 
 // Execute executes the request
-//
-//	@return CollectionMountResponse
+//  @return CollectionMountResponse
 func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectionMountRequest) (*CollectionMountResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *CollectionMountResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CollectionMountResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.GetCollectionMount")
@@ -858,8 +856,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -869,8 +867,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -880,8 +878,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -891,8 +889,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -902,8 +900,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -913,8 +911,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -924,8 +922,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -935,8 +933,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -946,8 +944,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -957,8 +955,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -968,8 +966,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -979,8 +977,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -990,8 +988,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1001,8 +999,8 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1020,11 +1018,11 @@ func (a *VirtualInstancesApiService) GetCollectionMountExecute(r ApiGetCollectio
 }
 
 type ApiGetMountOffsetsRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
-	collectionPath    string
-	body              *GetCollectionCommitRequest
+	collectionPath string
+	body *GetCollectionCommitRequest
 }
 
 // JSON object
@@ -1042,29 +1040,28 @@ GetMountOffsets Get Collection Commit
 
 Determines if the collection includes data at or after the specified fence(s) for close read-after-write semantics.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@param collectionPath
-	@return ApiGetMountOffsetsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @param collectionPath
+ @return ApiGetMountOffsetsRequest
 */
 func (a *VirtualInstancesApiService) GetMountOffsets(ctx context.Context, virtualInstanceId string, collectionPath string) ApiGetMountOffsetsRequest {
 	return ApiGetMountOffsetsRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
-		collectionPath:    collectionPath,
+		collectionPath: collectionPath,
 	}
 }
 
 // Execute executes the request
-//
-//	@return GetCollectionCommit
+//  @return GetCollectionCommit
 func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsetsRequest) (*GetCollectionCommit, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetCollectionCommit
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetCollectionCommit
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.GetMountOffsets")
@@ -1131,8 +1128,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1142,8 +1139,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1153,8 +1150,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1164,8 +1161,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1175,8 +1172,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1186,8 +1183,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1197,8 +1194,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1208,8 +1205,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1219,8 +1216,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1230,8 +1227,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1241,8 +1238,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1252,8 +1249,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1263,8 +1260,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1274,8 +1271,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1293,8 +1290,8 @@ func (a *VirtualInstancesApiService) GetMountOffsetsExecute(r ApiGetMountOffsets
 }
 
 type ApiGetVirtualInstanceRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
@@ -1307,27 +1304,26 @@ GetVirtualInstance Retrieve Virtual Instance
 
 Get details about a virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiGetVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiGetVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) GetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiGetVirtualInstanceRequest {
 	return ApiGetVirtualInstanceRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return GetVirtualInstanceResponse
+//  @return GetVirtualInstanceResponse
 func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualInstanceRequest) (*GetVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *GetVirtualInstanceResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GetVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.GetVirtualInstance")
@@ -1388,8 +1384,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1399,8 +1395,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1410,8 +1406,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1421,8 +1417,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1432,8 +1428,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1443,8 +1439,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1454,8 +1450,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1465,8 +1461,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1476,8 +1472,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1487,8 +1483,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1498,8 +1494,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1509,8 +1505,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1520,8 +1516,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1531,8 +1527,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1550,8 +1546,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceExecute(r ApiGetVirtualIn
 }
 
 type ApiGetVirtualInstanceQueriesRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
@@ -1564,27 +1560,26 @@ GetVirtualInstanceQueries List Queries
 
 Lists actively queued and running queries for a particular Virtual Instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiGetVirtualInstanceQueriesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiGetVirtualInstanceQueriesRequest
 */
 func (a *VirtualInstancesApiService) GetVirtualInstanceQueries(ctx context.Context, virtualInstanceId string) ApiGetVirtualInstanceQueriesRequest {
 	return ApiGetVirtualInstanceQueriesRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ListQueriesResponse
+//  @return ListQueriesResponse
 func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVirtualInstanceQueriesRequest) (*ListQueriesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListQueriesResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListQueriesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.GetVirtualInstanceQueries")
@@ -1645,8 +1640,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1656,8 +1651,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1667,8 +1662,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1678,8 +1673,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1689,8 +1684,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1700,8 +1695,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1711,8 +1706,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1722,8 +1717,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1733,8 +1728,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -1744,8 +1739,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1755,8 +1750,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -1766,8 +1761,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -1777,8 +1772,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -1788,8 +1783,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1807,8 +1802,8 @@ func (a *VirtualInstancesApiService) GetVirtualInstanceQueriesExecute(r ApiGetVi
 }
 
 type ApiListCollectionMountsRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
@@ -1821,27 +1816,26 @@ ListCollectionMounts List Collection Mounts
 
 List collection mounts for a particular VI.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiListCollectionMountsRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiListCollectionMountsRequest
 */
 func (a *VirtualInstancesApiService) ListCollectionMounts(ctx context.Context, virtualInstanceId string) ApiListCollectionMountsRequest {
 	return ApiListCollectionMountsRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ListCollectionMountsResponse
+//  @return ListCollectionMountsResponse
 func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollectionMountsRequest) (*ListCollectionMountsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListCollectionMountsResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListCollectionMountsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.ListCollectionMounts")
@@ -1902,8 +1896,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -1913,8 +1907,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -1924,8 +1918,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -1935,8 +1929,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -1946,8 +1940,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -1957,8 +1951,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -1968,8 +1962,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1979,8 +1973,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -1990,8 +1984,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2001,8 +1995,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2012,8 +2006,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2023,8 +2017,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2034,8 +2028,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2045,8 +2039,8 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2064,7 +2058,7 @@ func (a *VirtualInstancesApiService) ListCollectionMountsExecute(r ApiListCollec
 }
 
 type ApiListVirtualInstancesRequest struct {
-	ctx        context.Context
+	ctx context.Context
 	ApiService VirtualInstancesApi
 }
 
@@ -2077,25 +2071,24 @@ ListVirtualInstances List Virtual Instances
 
 Retrieve all virtual instances in an organization.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListVirtualInstancesRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListVirtualInstancesRequest
 */
 func (a *VirtualInstancesApiService) ListVirtualInstances(ctx context.Context) ApiListVirtualInstancesRequest {
 	return ApiListVirtualInstancesRequest{
 		ApiService: a,
-		ctx:        ctx,
+		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ListVirtualInstancesResponse
+//  @return ListVirtualInstancesResponse
 func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtualInstancesRequest) (*ListVirtualInstancesResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ListVirtualInstancesResponse
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ListVirtualInstancesResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.ListVirtualInstances")
@@ -2155,8 +2148,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2166,8 +2159,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2177,8 +2170,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2188,8 +2181,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2199,8 +2192,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2210,8 +2203,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2221,8 +2214,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2232,8 +2225,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2243,8 +2236,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2254,8 +2247,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2265,8 +2258,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2276,8 +2269,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2287,8 +2280,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2298,8 +2291,8 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2317,10 +2310,10 @@ func (a *VirtualInstancesApiService) ListVirtualInstancesExecute(r ApiListVirtua
 }
 
 type ApiMountCollectionRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
-	body              *CreateCollectionMountRequest
+	body *CreateCollectionMountRequest
 }
 
 // JSON object
@@ -2338,27 +2331,26 @@ MountCollection Mount Collections
 
 Mount a collection to this virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiMountCollectionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiMountCollectionRequest
 */
 func (a *VirtualInstancesApiService) MountCollection(ctx context.Context, virtualInstanceId string) ApiMountCollectionRequest {
 	return ApiMountCollectionRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return CreateCollectionMountsResponse
+//  @return CreateCollectionMountsResponse
 func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollectionRequest) (*CreateCollectionMountsResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *CreateCollectionMountsResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CreateCollectionMountsResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.MountCollection")
@@ -2424,8 +2416,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2435,8 +2427,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2446,8 +2438,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2457,8 +2449,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2468,8 +2460,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2479,8 +2471,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2490,8 +2482,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2501,8 +2493,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2512,8 +2504,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2523,8 +2515,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2534,8 +2526,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2545,8 +2537,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2556,8 +2548,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2567,8 +2559,8 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2586,10 +2578,10 @@ func (a *VirtualInstancesApiService) MountCollectionExecute(r ApiMountCollection
 }
 
 type ApiQueryVirtualInstanceRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
-	body              *QueryRequest
+	body *QueryRequest
 }
 
 // JSON object
@@ -2607,27 +2599,26 @@ QueryVirtualInstance Execute SQL Query on a specific Virtual Instance
 
 Make a SQL query to Rockset.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiQueryVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiQueryVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) QueryVirtualInstance(ctx context.Context, virtualInstanceId string) ApiQueryVirtualInstanceRequest {
 	return ApiQueryVirtualInstanceRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return QueryResponse
+//  @return QueryResponse
 func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtualInstanceRequest) (*QueryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *QueryResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *QueryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.QueryVirtualInstance")
@@ -2693,8 +2684,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2704,8 +2695,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2715,8 +2706,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2726,8 +2717,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2737,8 +2728,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -2748,8 +2739,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -2759,8 +2750,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -2770,8 +2761,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -2781,8 +2772,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -2792,8 +2783,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2803,8 +2794,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -2814,8 +2805,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -2825,8 +2816,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -2836,8 +2827,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2855,8 +2846,8 @@ func (a *VirtualInstancesApiService) QueryVirtualInstanceExecute(r ApiQueryVirtu
 }
 
 type ApiResumeVirtualInstanceRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
@@ -2869,27 +2860,26 @@ ResumeVirtualInstance Resume Virtual Instance
 
 Resume a virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiResumeVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiResumeVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) ResumeVirtualInstance(ctx context.Context, virtualInstanceId string) ApiResumeVirtualInstanceRequest {
 	return ApiResumeVirtualInstanceRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return ResumeVirtualInstanceResponse
+//  @return ResumeVirtualInstanceResponse
 func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVirtualInstanceRequest) (*ResumeVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *ResumeVirtualInstanceResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ResumeVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.ResumeVirtualInstance")
@@ -2950,8 +2940,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -2961,8 +2951,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -2972,8 +2962,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2983,8 +2973,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -2994,8 +2984,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3005,8 +2995,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3016,8 +3006,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3027,8 +3017,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3038,8 +3028,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3049,8 +3039,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3060,8 +3050,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3071,8 +3061,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3082,8 +3072,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3093,8 +3083,8 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3112,10 +3102,10 @@ func (a *VirtualInstancesApiService) ResumeVirtualInstanceExecute(r ApiResumeVir
 }
 
 type ApiSetVirtualInstanceRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
-	body              *UpdateVirtualInstanceRequest
+	body *UpdateVirtualInstanceRequest
 }
 
 // JSON object
@@ -3133,27 +3123,26 @@ SetVirtualInstance Update Virtual Instance
 
 Update the properties of a virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiSetVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiSetVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) SetVirtualInstance(ctx context.Context, virtualInstanceId string) ApiSetVirtualInstanceRequest {
 	return ApiSetVirtualInstanceRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return UpdateVirtualInstanceResponse
+//  @return UpdateVirtualInstanceResponse
 func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualInstanceRequest) (*UpdateVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *UpdateVirtualInstanceResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *UpdateVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.SetVirtualInstance")
@@ -3219,8 +3208,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -3230,8 +3219,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3241,8 +3230,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3252,8 +3241,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -3263,8 +3252,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3274,8 +3263,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3285,8 +3274,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3296,8 +3285,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3307,8 +3296,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3318,8 +3307,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3329,8 +3318,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3340,8 +3329,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3351,8 +3340,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3362,8 +3351,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3381,8 +3370,8 @@ func (a *VirtualInstancesApiService) SetVirtualInstanceExecute(r ApiSetVirtualIn
 }
 
 type ApiSuspendVirtualInstanceRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
 }
 
@@ -3395,27 +3384,26 @@ SuspendVirtualInstance Suspend Virtual Instance
 
 Suspend a virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@return ApiSuspendVirtualInstanceRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @return ApiSuspendVirtualInstanceRequest
 */
 func (a *VirtualInstancesApiService) SuspendVirtualInstance(ctx context.Context, virtualInstanceId string) ApiSuspendVirtualInstanceRequest {
 	return ApiSuspendVirtualInstanceRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
 	}
 }
 
 // Execute executes the request
-//
-//	@return SuspendVirtualInstanceResponse
+//  @return SuspendVirtualInstanceResponse
 func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendVirtualInstanceRequest) (*SuspendVirtualInstanceResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *SuspendVirtualInstanceResponse
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SuspendVirtualInstanceResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.SuspendVirtualInstance")
@@ -3476,8 +3464,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -3487,8 +3475,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3498,8 +3486,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3509,8 +3497,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -3520,8 +3508,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3531,8 +3519,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3542,8 +3530,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3553,8 +3541,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3564,8 +3552,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3575,8 +3563,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3586,8 +3574,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3597,8 +3585,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3608,8 +3596,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3619,8 +3607,8 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3638,10 +3626,10 @@ func (a *VirtualInstancesApiService) SuspendVirtualInstanceExecute(r ApiSuspendV
 }
 
 type ApiUnmountCollectionRequest struct {
-	ctx               context.Context
-	ApiService        VirtualInstancesApi
+	ctx context.Context
+	ApiService VirtualInstancesApi
 	virtualInstanceId string
-	collectionPath    string
+	collectionPath string
 }
 
 func (r ApiUnmountCollectionRequest) Execute() (*CollectionMountResponse, *http.Response, error) {
@@ -3653,29 +3641,28 @@ UnmountCollection Unmount Collection
 
 Unmount a collection from this virtual instance.
 
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param virtualInstanceId Virtual Instance RRN
-	@param collectionPath
-	@return ApiUnmountCollectionRequest
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param virtualInstanceId Virtual Instance RRN
+ @param collectionPath
+ @return ApiUnmountCollectionRequest
 */
 func (a *VirtualInstancesApiService) UnmountCollection(ctx context.Context, virtualInstanceId string, collectionPath string) ApiUnmountCollectionRequest {
 	return ApiUnmountCollectionRequest{
-		ApiService:        a,
-		ctx:               ctx,
+		ApiService: a,
+		ctx: ctx,
 		virtualInstanceId: virtualInstanceId,
-		collectionPath:    collectionPath,
+		collectionPath: collectionPath,
 	}
 }
 
 // Execute executes the request
-//
-//	@return CollectionMountResponse
+//  @return CollectionMountResponse
 func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollectionRequest) (*CollectionMountResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod  = http.MethodDelete
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *CollectionMountResponse
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *CollectionMountResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VirtualInstancesApiService.UnmountCollection")
@@ -3737,8 +3724,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
@@ -3748,8 +3735,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 403 {
@@ -3759,8 +3746,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -3770,8 +3757,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 405 {
@@ -3781,8 +3768,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 406 {
@@ -3792,8 +3779,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 408 {
@@ -3803,8 +3790,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -3814,8 +3801,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 415 {
@@ -3825,8 +3812,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 429 {
@@ -3836,8 +3823,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -3847,8 +3834,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 501 {
@@ -3858,8 +3845,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 502 {
@@ -3869,8 +3856,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 503 {
@@ -3880,8 +3867,8 @@ func (a *VirtualInstancesApiService) UnmountCollectionExecute(r ApiUnmountCollec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

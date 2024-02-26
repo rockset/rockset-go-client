@@ -29,9 +29,9 @@ type VirtualInstance struct {
 	// Virtual Instance Class. `MO_IL` represents Memory Optimized and `GP_IL` represents General Purpose instance class.
 	CurrentInstanceClass *string `json:"current_instance_class,omitempty"`
 	// Virtual instance current size.
-	CurrentSize     *string `json:"current_size,omitempty"`
-	DefaultPodCount *int32  `json:"default_pod_count,omitempty"`
-	DefaultVi       *bool   `json:"default_vi,omitempty"`
+	CurrentSize *string `json:"current_size,omitempty"`
+	DefaultPodCount *int32 `json:"default_pod_count,omitempty"`
+	DefaultVi *bool `json:"default_vi,omitempty"`
 	// Virtual instance description.
 	Description *string `json:"description,omitempty"`
 	// Virtual Instance Class.
@@ -41,8 +41,8 @@ type VirtualInstance struct {
 	// When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended.
 	EnableRemountOnResume *bool `json:"enable_remount_on_resume,omitempty"`
 	// Unique identifier for virtual instance.
-	Id                *string `json:"id,omitempty"`
-	MonitoringEnabled *bool   `json:"monitoring_enabled,omitempty"`
+	Id *string `json:"id,omitempty"`
+	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
 	// DEPRECATED. Number of seconds between data refreshes for mounts on this Virtual Instance
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
 	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
@@ -52,10 +52,10 @@ type VirtualInstance struct {
 	// ISO-8601 date of when virtual instance was created.
 	ResumedAt *string `json:"resumed_at,omitempty"`
 	// Virtual Instance RRN.
-	Rrn            *string `json:"rrn,omitempty"`
-	ScaledPodCount *int32  `json:"scaled_pod_count,omitempty"`
+	Rrn *string `json:"rrn,omitempty"`
+	ScaledPodCount *int32 `json:"scaled_pod_count,omitempty"`
 	// Virtual instance state.
-	State *string               `json:"state,omitempty"`
+	State *string `json:"state,omitempty"`
 	Stats *VirtualInstanceStats `json:"stats,omitempty"`
 }
 
@@ -774,7 +774,7 @@ func (o *VirtualInstance) SetStats(v VirtualInstanceStats) {
 }
 
 func (o VirtualInstance) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -881,3 +881,5 @@ func (v *NullableVirtualInstance) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

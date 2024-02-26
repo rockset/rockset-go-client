@@ -20,8 +20,8 @@ var _ MappedNullable = &Integration{}
 // Integration Integrations that can be associated with data sources to create collections. Only one type of integration may be specified.
 type Integration struct {
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
-	AzureEventHubs   *AzureEventHubsIntegration   `json:"azure_event_hubs,omitempty"`
-	AzureServiceBus  *AzureServiceBusIntegration  `json:"azure_service_bus,omitempty"`
+	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
+	AzureServiceBus *AzureServiceBusIntegration `json:"azure_service_bus,omitempty"`
 	// List of collections that use the integration.
 	Collections []Collection `json:"collections,omitempty"`
 	// ISO-8601 date.
@@ -31,20 +31,20 @@ type Integration struct {
 	// Name of the API key that was used to create this object if one was used.
 	CreatedByApikeyName *string `json:"created_by_apikey_name,omitempty"`
 	// Longer explanation for the integration.
-	Description *string              `json:"description,omitempty"`
-	Dynamodb    *DynamodbIntegration `json:"dynamodb,omitempty"`
-	Gcs         *GcsIntegration      `json:"gcs,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
+	Gcs *GcsIntegration `json:"gcs,omitempty"`
 	// is write access enabled for this integration
-	IsWriteEnabled *bool               `json:"is_write_enabled,omitempty"`
-	Kafka          *KafkaIntegration   `json:"kafka,omitempty"`
-	Kinesis        *KinesisIntegration `json:"kinesis,omitempty"`
-	Mongodb        *MongoDbIntegration `json:"mongodb,omitempty"`
+	IsWriteEnabled *bool `json:"is_write_enabled,omitempty"`
+	Kafka *KafkaIntegration `json:"kafka,omitempty"`
+	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
+	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
 	// Descriptive label and unique identifier.
 	Name string `json:"name"`
 	// User that owns this integration.
-	OwnerEmail *string               `json:"owner_email,omitempty"`
-	S3         *S3Integration        `json:"s3,omitempty"`
-	Snowflake  *SnowflakeIntegration `json:"snowflake,omitempty"`
+	OwnerEmail *string `json:"owner_email,omitempty"`
+	S3 *S3Integration `json:"s3,omitempty"`
+	Snowflake *SnowflakeIntegration `json:"snowflake,omitempty"`
 }
 
 // NewIntegration instantiates a new Integration object
@@ -627,7 +627,7 @@ func (o *Integration) SetSnowflake(v SnowflakeIntegration) {
 }
 
 func (o Integration) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -724,3 +724,5 @@ func (v *NullableIntegration) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+

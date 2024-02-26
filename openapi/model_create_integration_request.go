@@ -20,20 +20,20 @@ var _ MappedNullable = &CreateIntegrationRequest{}
 // CreateIntegrationRequest struct for CreateIntegrationRequest
 type CreateIntegrationRequest struct {
 	AzureBlobStorage *AzureBlobStorageIntegration `json:"azure_blob_storage,omitempty"`
-	AzureEventHubs   *AzureEventHubsIntegration   `json:"azure_event_hubs,omitempty"`
-	AzureServiceBus  *AzureServiceBusIntegration  `json:"azure_service_bus,omitempty"`
+	AzureEventHubs *AzureEventHubsIntegration `json:"azure_event_hubs,omitempty"`
+	AzureServiceBus *AzureServiceBusIntegration `json:"azure_service_bus,omitempty"`
 	// Longer explanation for the integration.
-	Description *string              `json:"description,omitempty"`
-	Dynamodb    *DynamodbIntegration `json:"dynamodb,omitempty"`
-	Gcs         *GcsIntegration      `json:"gcs,omitempty"`
+	Description *string `json:"description,omitempty"`
+	Dynamodb *DynamodbIntegration `json:"dynamodb,omitempty"`
+	Gcs *GcsIntegration `json:"gcs,omitempty"`
 	// is write access enabled for this integration.
-	IsWriteEnabled *bool               `json:"is_write_enabled,omitempty"`
-	Kafka          *KafkaIntegration   `json:"kafka,omitempty"`
-	Kinesis        *KinesisIntegration `json:"kinesis,omitempty"`
-	Mongodb        *MongoDbIntegration `json:"mongodb,omitempty"`
+	IsWriteEnabled *bool `json:"is_write_enabled,omitempty"`
+	Kafka *KafkaIntegration `json:"kafka,omitempty"`
+	Kinesis *KinesisIntegration `json:"kinesis,omitempty"`
+	Mongodb *MongoDbIntegration `json:"mongodb,omitempty"`
 	// Descriptive label.
-	Name      string                `json:"name"`
-	S3        *S3Integration        `json:"s3,omitempty"`
+	Name string `json:"name"`
+	S3 *S3Integration `json:"s3,omitempty"`
 	Snowflake *SnowflakeIntegration `json:"snowflake,omitempty"`
 }
 
@@ -464,7 +464,7 @@ func (o *CreateIntegrationRequest) SetSnowflake(v SnowflakeIntegration) {
 }
 
 func (o CreateIntegrationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize, err := o.ToMap()
+	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
 	}
@@ -548,3 +548,5 @@ func (v *NullableCreateIntegrationRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
+
+
