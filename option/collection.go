@@ -41,6 +41,7 @@ func WithCollectionRequest(request openapi.CreateCollectionRequest) CollectionOp
 		o.EventTimeInfo = request.EventTimeInfo
 		o.FieldMappingQuery = request.FieldMappingQuery
 		o.ClusteringKey = request.ClusteringKey
+		o.StorageCompressionType = request.StorageCompressionType
 	}
 }
 
