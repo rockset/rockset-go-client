@@ -105,4 +105,3 @@ The Rockset Go Client is licensed under the [Apache 2.0 License](https://github.
 - Push and merge branch
 - Run `git tag v{version_number}` on master
 - Run `git push origin v{version_number}`
-
