@@ -101,6 +101,7 @@ The Rockset Go Client is licensed under the [Apache 2.0 License](https://github.
 - Run `generate.sh`
   - If you run into issues with this script, try running `git submodule update --init`
 - Run `go mod tidy`
+- Re-record VCR cassettes `rm -rf testdata/cassettes/ && VCR_MODE=record go test -v -timeout 30m ./...`
 - Push and merge branch
 - Run `git tag v{version_number}` on master
 - Run `git push origin v{version_number}`
