@@ -79,7 +79,7 @@ so if you want to re-record a cassette, set the environment variable `VCR_MODE` 
 The VCR tracks ignore the patch version of the client version, so when the OpenAPI spec is updated you have to
 re-record the VCR cassettes.
 
-If you don't have `git lfs` set up, install before committing:
+If you don't have `git lfs` set up, install before committing new recordings:
 ```
 brew install git-lfs
 git lfs install
