@@ -79,6 +79,13 @@ so if you want to re-record a cassette, set the environment variable `VCR_MODE` 
 The VCR tracks ignore the patch version of the client version, so when the OpenAPI spec is updated you have to
 re-record the VCR cassettes.
 
+If you don't have `git lfs` set up, install before committing new recordings:
+```
+brew install git-lfs
+git lfs install
+git lfs track "*.cassette.gz"
+```
+
 ### Code Coverage
 
 ```
@@ -102,6 +109,7 @@ The Rockset Go Client is licensed under the [Apache 2.0 License](https://github.
   - If you run into issues with this script, try running `git submodule update --init`
 - Run `go mod tidy`
 - Re-record VCR cassettes `rm -rf testdata/cassettes/ && VCR_MODE=record go test -v -timeout 30m ./...`
+  - If you have not already, make sure to set up `git lfs` before committing: `brew install git-lfs && git lfs install && git lfs track "*.cassette.gz"`
 - Push and merge branch
 - Run `git tag v{version_number}` on master
 - Run `git push origin v{version_number}`
