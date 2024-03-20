@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **EnableRemountOnResume** | Pointer to **bool** | When a Virtual Instance is resumed, it will remount all collections that were mounted when the Virtual Instance was suspended. | [optional] 
 **InstanceClass** | Pointer to **string** | Virtual Instance Class. Use &#x60;MO_IL&#x60; for Memory Optimized and &#x60;GP_IL&#x60; for General Purpose instance class. | [optional] 
 **MountRefreshIntervalSeconds** | Pointer to **int32** | DEPRECATED. Use &#x60;mount_type&#x60; instead. Number of seconds between data refreshes for mounts on this Virtual Instance. The only valid values are 0 and null. 0 means the data will be refreshed continuously and null means the data will never refresh. | [optional] 
-**MountType** | Pointer to **string** | The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration | [optional] 
+**MountType** | Pointer to **string** | The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration | [optional] 
 **Name** | **string** | Unique identifier for virtual instance, can contain alphanumeric or dash characters. | 
 **Type** | Pointer to **string** | Requested virtual instance type. | [optional] 
 
