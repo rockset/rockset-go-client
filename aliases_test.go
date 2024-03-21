@@ -5,70 +5,77 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"github.com/stretchr/testify/suite"
 
-	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
 	"github.com/rockset/rockset-go-client/option"
 )
 
-type AliasIntegrationSuite struct {
-	suite.Suite
-	rc    *rockset.RockClient
-	alias string
+func TestAliases_getAlias(t *testing.T) {
+	t.Parallel()
+
+	ctx := test.Context()
+	rc, _ := vcrTestClient(t, t.Name())
+
+	alias, err := rc.GetAlias(ctx, test.PersistentWorkspace, test.PersistentAlias)
+	require.NoError(t, err)
+	assert.Equal(t, "pme@rockset.com", alias.GetCreatorEmail())
 }
 
-func TestAliasIntegrationSuite(t *testing.T) {
+func TestAliases_listAliases(t *testing.T) {
+	t.Parallel()
+
+	ctx := test.Context()
+	rc, _ := vcrTestClient(t, t.Name())
+
+	aliases, err := rc.ListAliases(ctx)
+	require.NoError(t, err)
+	for _, a := range aliases {
+		t.Logf("workspace: %s", a.GetName())
+	}
+}
+
+func TestAliases_listAliasesForWorkspace(t *testing.T) {
+	t.Parallel()
+
+	ctx := test.Context()
+	rc, _ := vcrTestClient(t, t.Name())
+
+	aliases, err := rc.ListAliases(ctx, option.WithAliasWorkspace(test.PersistentWorkspace))
+	require.NoError(t, err)
+	for _, a := range aliases {
+		t.Logf("workspace: %s", a.GetName())
+	}
+}
+
+func TestAliases_CRUD(t *testing.T) {
+	t.Parallel()
+
+	ctx := test.Context()
 	rc, randomName := vcrTestClient(t, t.Name())
-	s := AliasIntegrationSuite{rc: rc, alias: randomName("alias")}
-	suite.Run(t, &s)
-}
+	alias := randomName("alias")
+	var deleted bool
 
-func (s *AliasIntegrationSuite) TestGetAlias() {
-	ctx := test.Context()
-
-	alias, err := s.rc.GetAlias(ctx, test.PersistentWorkspace, test.PersistentAlias)
-	require.NoError(s.T(), err)
-	assert.Equal(s.T(), "pme@rockset.com", alias.GetCreatorEmail())
-}
-
-func (s *AliasIntegrationSuite) TestListAliases() {
-	ctx := test.Context()
-
-	aliases, err := s.rc.ListAliases(ctx)
-	require.NoError(s.T(), err)
-	for _, a := range aliases {
-		s.T().Logf("workspace: %s", a.GetName())
-	}
-}
-
-func (s *AliasIntegrationSuite) TestListAliasesForWorkspace() {
-	ctx := test.Context()
-
-	aliases, err := s.rc.ListAliases(ctx, option.WithAliasWorkspace(test.PersistentWorkspace))
-	require.NoError(s.T(), err)
-	for _, a := range aliases {
-		s.T().Logf("workspace: %s", a.GetName())
-	}
-}
-
-func (s *AliasIntegrationSuite) TestAliases() {
-	ctx := test.Context()
-
-	_, err := s.rc.CreateAlias(ctx, test.PersistentWorkspace, s.alias, []string{"commons._events"},
+	_, err := rc.CreateAlias(ctx, test.PersistentWorkspace, alias, []string{"commons._events"},
 		option.WithAliasDescription("original"))
-	require.NoError(s.T(), err)
+	require.NoError(t, err)
 
-	err = s.rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
-	require.NoError(s.T(), err)
+	t.Cleanup(func() {
+		if !deleted {
+			_ = rc.DeleteAlias(ctx, test.PersistentWorkspace, alias)
+		}
+	})
 
-	err = s.rc.UpdateAlias(ctx, test.PersistentWorkspace, s.alias, []string{"commons._events"},
+	err = rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, alias)
+	require.NoError(t, err)
+
+	err = rc.UpdateAlias(ctx, test.PersistentWorkspace, alias, []string{"commons._events"},
 		option.WithAliasDescription("updated"))
-	require.NoError(s.T(), err)
+	require.NoError(t, err)
 
-	err = s.rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, s.alias)
-	require.NoError(s.T(), err)
+	err = rc.Wait.UntilAliasAvailable(ctx, test.PersistentWorkspace, alias)
+	require.NoError(t, err)
 
-	err = s.rc.DeleteAlias(ctx, test.PersistentWorkspace, s.alias)
-	require.NoError(s.T(), err)
+	err = rc.DeleteAlias(ctx, test.PersistentWorkspace, alias)
+	require.NoError(t, err)
+	deleted = true
 }
