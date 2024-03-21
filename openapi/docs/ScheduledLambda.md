@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Tag** | Pointer to **string** | The query lambda tag. | [optional] 
 **TotalTimesToExecute** | Pointer to **int64** | The number of times to execute this scheduled query lambda. Once this scheduled query lambda has been executed this many times, it will no longer be executed. | [optional] 
 **Version** | Pointer to **string** | The version of the associated query lambda. | [optional] 
+**WebhookExecutionStatus** | Pointer to [**ExecutionStatus**](ExecutionStatus.md) |  | [optional] 
 **WebhookPayload** | Pointer to **string** | The payload that should be sent to the webhook. | [optional] 
 **WebhookUrl** | Pointer to **string** | The URL of the webhook that should be triggered after this scheduled query lambda completes. | [optional] 
 **Workspace** | Pointer to **string** | Workspace of the associated query lambda. | [optional] 
@@ -338,6 +339,31 @@ SetVersion sets Version field to given value.
 `func (o *ScheduledLambda) HasVersion() bool`
 
 HasVersion returns a boolean if a field has been set.
+
+### GetWebhookExecutionStatus
+
+`func (o *ScheduledLambda) GetWebhookExecutionStatus() ExecutionStatus`
+
+GetWebhookExecutionStatus returns the WebhookExecutionStatus field if non-nil, zero value otherwise.
+
+### GetWebhookExecutionStatusOk
+
+`func (o *ScheduledLambda) GetWebhookExecutionStatusOk() (*ExecutionStatus, bool)`
+
+GetWebhookExecutionStatusOk returns a tuple with the WebhookExecutionStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWebhookExecutionStatus
+
+`func (o *ScheduledLambda) SetWebhookExecutionStatus(v ExecutionStatus)`
+
+SetWebhookExecutionStatus sets WebhookExecutionStatus field to given value.
+
+### HasWebhookExecutionStatus
+
+`func (o *ScheduledLambda) HasWebhookExecutionStatus() bool`
+
+HasWebhookExecutionStatus returns a boolean if a field has been set.
 
 ### GetWebhookPayload
 
