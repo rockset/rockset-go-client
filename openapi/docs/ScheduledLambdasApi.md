@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateScheduledLambda**](ScheduledLambdasApi.md#CreateScheduledLambda) | **Post** /v1/orgs/self/ws/{workspace}/scheduled_lambdas | Create a Scheduled Lambda mapping
 [**DeleteScheduledLambda**](ScheduledLambdasApi.md#DeleteScheduledLambda) | **Delete** /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId} | Delete a Scheduled Lambda mapping
+[**GetScheduledLambda**](ScheduledLambdasApi.md#GetScheduledLambda) | **Get** /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId} | Retrieve a Scheduled Lambda mapping
 [**UpdateScheduledLambda**](ScheduledLambdasApi.md#UpdateScheduledLambda) | **Post** /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId} | Update a Scheduled Lambda mapping
 
 
@@ -32,7 +33,7 @@ import (
 
 func main() {
     workspace := "workspace_example" // string | name of the workspace (default to "commons")
-    body := *openapiclient.NewCreateScheduledLambdaRequest("* * * * *", "ql_name") // CreateScheduledLambdaRequest | JSON Object
+    body := *openapiclient.NewCreateScheduledLambdaRequest("qoiwkjndksd", "* * * * *", "ql_name") // CreateScheduledLambdaRequest | JSON Object
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -130,6 +131,79 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteScheduledLambdaRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**ScheduledLambdaResponse**](ScheduledLambdaResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetScheduledLambda
+
+> ScheduledLambdaResponse GetScheduledLambda(ctx, workspace, scheduledLambdaId).Execute()
+
+Retrieve a Scheduled Lambda mapping
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "github.com/rockset/rockset-go-client"
+)
+
+func main() {
+    workspace := "workspace_example" // string | name of the workspace (default to "commons")
+    scheduledLambdaId := "scheduledLambdaId_example" // string | Scheduled Lambda RRN
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ScheduledLambdasApi.GetScheduledLambda(context.Background(), workspace, scheduledLambdaId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ScheduledLambdasApi.GetScheduledLambda``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetScheduledLambda`: ScheduledLambdaResponse
+    fmt.Fprintf(os.Stdout, "Response from `ScheduledLambdasApi.GetScheduledLambda`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**workspace** | **string** | name of the workspace | [default to &quot;commons&quot;]
+**scheduledLambdaId** | **string** | Scheduled Lambda RRN | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetScheduledLambdaRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

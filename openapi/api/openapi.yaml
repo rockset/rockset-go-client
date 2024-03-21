@@ -2580,6 +2580,210 @@ paths:
       - Custom Roles
       x-rename: update
       x-codegen-request-body-name: body
+  /v1/orgs/self/deploymentsettings:
+    get:
+      description: Retrieve settings for the current deployment.
+      operationId: getDeploymentSettings
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentSettingsResponse'
+          description: Deployment settings retrieved successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Retrieve Deployment Settings
+      tags:
+      - Deployment Settings
+    put:
+      description: Update settings for the current deployment.
+      operationId: updateDeploymentSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDeploymentSettingsRequest'
+        description: JSON object
+        required: true
+      responses:
+        "202":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentSettingsResponse'
+          description: Deployment settings updated successfully. Settings may take
+            up to 1 minute to take effect
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Update Deployment Settings
+      tags:
+      - Deployment Settings
+      x-codegen-request-body-name: body
   /v1/orgs/self/ws/{workspace}/collections/{collection}/docs:
     delete:
       description: Delete documents from a collection.
@@ -6043,6 +6247,118 @@ paths:
       tags:
       - Scheduled Lambdas
       x-rename: delete
+    get:
+      description: Retrieve a scheduled lambda mapping for your organization.
+      operationId: getScheduledLambda
+      parameters:
+      - description: name of the workspace
+        in: path
+        name: workspace
+        required: true
+        schema:
+          default: commons
+          type: string
+      - description: Scheduled Lambda RRN
+        in: path
+        name: scheduledLambdaId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduledLambdaResponse'
+          description: scheduled lambda mapping retrieved successfully
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: forbidden
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not found
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not allowed
+        "406":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not acceptable
+        "408":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: request timeout
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: conflict
+        "415":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not supported
+        "429":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: resource exceeded
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: internal error
+        "501":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not implemented
+        "502":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: bad gateway
+        "503":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: not ready
+      summary: Retrieve a Scheduled Lambda mapping
+      tags:
+      - Scheduled Lambdas
+      x-rename: get
     post:
       description: Update a scheduled lambda mapping for your organization.
       operationId: updateScheduledLambda
@@ -10572,6 +10888,7 @@ components:
             column: 0
             message: collection not found
             type: INVALIDINPUT
+            virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           status: ADDED
         - patch_id: 486gsg8
           _collection: customers
@@ -10584,6 +10901,7 @@ components:
             column: 0
             message: collection not found
             type: INVALIDINPUT
+            virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           status: ADDED
       properties:
         data:
@@ -10989,6 +11307,7 @@ components:
             elapsed_time_ms: 128
             result_set_document_count: 1235
           submitted_at: 2001-08-28T00:23:41Z
+          destination_uri: destination_uri
           sql: sql
           status: RUNNING
       properties:
@@ -13978,7 +14297,8 @@ components:
           example: ql_name
           type: string
         tag:
-          description: The QL tag to use for scheduled execution.
+          description: The QL tag to use for scheduled execution. One of either the
+            QL tag or version must be specified
           example: production
           type: string
         total_times_to_execute:
@@ -13989,7 +14309,8 @@ components:
           format: int64
           type: integer
         version:
-          description: The version of the QL to use for scheduled execution.
+          description: The version of the QL to use for scheduled execution. One of
+            either the QL version or tag must be specified.
           example: abcdef1234
           type: string
         webhook_auth_header:
@@ -14006,6 +14327,7 @@ components:
           example: https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
           type: string
       required:
+      - apikey
       - cron_string
       - ql_name
       type: object
@@ -14137,7 +14459,7 @@ components:
         mount_type:
           description: The mount type of collections that this Virtual Instance will
             query. Live mounted collections stay up-to-date with the underlying collection
-            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration
           enum:
           - LIVE
           - STATIC
@@ -14186,9 +14508,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -14820,6 +15140,7 @@ components:
             column: 0
             message: collection not found
             type: INVALIDINPUT
+            virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           status: ADDED
         - patch_id: 486gsg8
           _collection: customers
@@ -14832,6 +15153,7 @@ components:
             column: 0
             message: collection not found
             type: INVALIDINPUT
+            virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           status: ADDED
       properties:
         data:
@@ -16115,9 +16437,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -16143,6 +16463,24 @@ components:
         data:
           $ref: '#/components/schemas/Workspace'
       type: object
+    DeploymentSettings:
+      example:
+        default_query_vi: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        default_query_vi:
+          description: RRN of the Virtual Instance that all queries will be routed
+            to by default
+          example: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          type: string
+      type: object
+    DeploymentSettingsResponse:
+      example:
+        data:
+          default_query_vi: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        data:
+          $ref: '#/components/schemas/DeploymentSettings'
+      type: object
     DocumentStatus:
       example:
         patch_id: 486gsg8
@@ -16156,6 +16494,7 @@ components:
           column: 0
           message: collection not found
           type: INVALIDINPUT
+          virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
         status: ADDED
       properties:
         _collection:
@@ -16211,6 +16550,7 @@ components:
         column: 0
         message: collection not found
         type: INVALIDINPUT
+        virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
       properties:
         column:
           description: Column where the error happened (if applicable).
@@ -16262,6 +16602,11 @@ components:
           - QUERY_CANCELLED
           - CLIENT_CONNECTION_ERROR
           example: INVALIDINPUT
+          type: string
+        virtual_instance_rrn:
+          description: Virtual Instance RRN for the Virtual Instance that the query
+            was run on (if applicable).
+          example: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           type: string
       type: object
     EventTimeInfo:
@@ -18095,6 +18440,7 @@ components:
             elapsed_time_ms: 128
             result_set_document_count: 1235
           submitted_at: 2001-08-28T00:23:41Z
+          destination_uri: destination_uri
           sql: sql
           status: RUNNING
       properties:
@@ -18311,9 +18657,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -22541,6 +22885,7 @@ components:
             elapsed_time_ms: 128
             result_set_document_count: 1235
           submitted_at: 2001-08-28T00:23:41Z
+          destination_uri: destination_uri
           sql: sql
           status: RUNNING
         - last_offset: last_offset
@@ -22563,6 +22908,7 @@ components:
             elapsed_time_ms: 128
             result_set_document_count: 1235
           submitted_at: 2001-08-28T00:23:41Z
+          destination_uri: destination_uri
           sql: sql
           status: RUNNING
       properties:
@@ -23242,9 +23588,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -23268,9 +23612,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -23544,6 +23886,7 @@ components:
             column: 0
             message: collection not found
             type: INVALIDINPUT
+            virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           status: ADDED
         - patch_id: 486gsg8
           _collection: customers
@@ -23556,6 +23899,7 @@ components:
             column: 0
             message: collection not found
             type: INVALIDINPUT
+            virtual_instance_rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           status: ADDED
       properties:
         data:
@@ -23754,9 +24098,14 @@ components:
           elapsed_time_ms: 128
           result_set_document_count: 1235
         submitted_at: 2001-08-28T00:23:41Z
+        destination_uri: destination_uri
         sql: sql
         status: RUNNING
       properties:
+        destination_uri:
+          description: destination for query results. Only populated for Insert INTO
+            s3 queries.
+          type: string
         executed_by:
           description: User ID who executed the query.
           example: xyz@rockset.com
@@ -24372,9 +24721,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -24480,6 +24827,9 @@ components:
         cron_string: '* * * * *'
         tag: production
         next_execution_date: 2001-08-28T00:23:41Z
+        webhook_execution_status:
+          state: ERROR
+          message: message
         webhook_payload: "{\"text\": \"A scheduled query lambda completed execution.\
           \ Query ID: {{QUERY_ID}}, Initial results: {{QUERY_RESULTS}}\""
       properties:
@@ -24535,6 +24885,8 @@ components:
           description: The version of the associated query lambda.
           example: abcde1234
           type: string
+        webhook_execution_status:
+          $ref: '#/components/schemas/ExecutionStatus'
         webhook_payload:
           description: The payload that should be sent to the webhook.
           example: "{\"text\": \"A scheduled query lambda completed execution. Query\
@@ -24569,6 +24921,9 @@ components:
           cron_string: '* * * * *'
           tag: production
           next_execution_date: 2001-08-28T00:23:41Z
+          webhook_execution_status:
+            state: ERROR
+            message: message
           webhook_payload: "{\"text\": \"A scheduled query lambda completed execution.\
             \ Query ID: {{QUERY_ID}}, Initial results: {{QUERY_RESULTS}}\""
       properties:
@@ -25853,9 +26208,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -26007,6 +26360,16 @@ components:
           type: string
         field_mapping_query:
           $ref: '#/components/schemas/FieldMappingQuery'
+      type: object
+    UpdateDeploymentSettingsRequest:
+      example:
+        default_query_vi: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+      properties:
+        default_query_vi:
+          description: RRN of the Virtual Instance that all queries will be routed
+            to by default
+          example: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
+          type: string
       type: object
     UpdateIntegrationRequest:
       example:
@@ -27348,7 +27711,7 @@ components:
         mount_type:
           description: The mount type of collections that this Virtual Instance will
             query. Live mounted collections stay up-to-date with the underlying collection
-            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration
           enum:
           - LIVE
           - STATIC
@@ -27394,9 +27757,7 @@ components:
             enabled: true
             max_size: XLARGE2
           current_instance_class: MO_IL
-          default_pod_count: 0
           rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-          scaled_pod_count: 6
           desired_instance_class: MO_IL
           monitoring_enabled: true
           stats:
@@ -27556,9 +27917,7 @@ components:
           enabled: true
           max_size: XLARGE2
         current_instance_class: MO_IL
-        default_pod_count: 0
         rrn: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
-        scaled_pod_count: 6
         desired_instance_class: MO_IL
         monitoring_enabled: true
         stats:
@@ -27612,9 +27971,6 @@ components:
           example: MEDIUM
           readOnly: true
           type: string
-        default_pod_count:
-          format: int32
-          type: integer
         default_vi:
           type: boolean
         description:
@@ -27668,7 +28024,7 @@ components:
         mount_type:
           description: The mount type of collections that this Virtual Instance will
             query. Live mounted collections stay up-to-date with the underlying collection
-            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+            in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration
           enum:
           - LIVE
           - STATIC
@@ -27686,9 +28042,6 @@ components:
           description: Virtual Instance RRN.
           example: rrn:vi:use1a1:123e4567-e89b-12d3-a456-556642440000
           type: string
-        scaled_pod_count:
-          format: int32
-          type: integer
         state:
           description: Virtual instance state.
           enum:

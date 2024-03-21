@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Apikey** | Pointer to **string** | The apikey to use when triggering execution of the associated query lambda. | [optional] 
+**Apikey** | **string** | The apikey to use when triggering execution of the associated query lambda. | 
 **CronString** | **string** | The UNIX-formatted cron string for this scheduled query lambda. | 
 **QlName** | **string** | The name of the QL to use for scheduled execution. | 
-**Tag** | Pointer to **string** | The QL tag to use for scheduled execution. | [optional] 
+**Tag** | Pointer to **string** | The QL tag to use for scheduled execution. One of either the QL tag or version must be specified | [optional] 
 **TotalTimesToExecute** | Pointer to **int64** | The number of times to execute this scheduled query lambda. Once this scheduled query lambda has been executed this many times, it will no longer be executed. | [optional] 
-**Version** | Pointer to **string** | The version of the QL to use for scheduled execution. | [optional] 
+**Version** | Pointer to **string** | The version of the QL to use for scheduled execution. One of either the QL version or tag must be specified. | [optional] 
 **WebhookAuthHeader** | Pointer to **string** | The value to use as the authorization header when hitting the webhook. | [optional] 
 **WebhookPayload** | Pointer to **string** | The payload that should be sent to the webhook. JSON format. | [optional] 
 **WebhookUrl** | Pointer to **string** | The URL of the webhook that should be triggered after this scheduled query lambda completes. | [optional] 
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 
 ### NewCreateScheduledLambdaRequest
 
-`func NewCreateScheduledLambdaRequest(cronString string, qlName string, ) *CreateScheduledLambdaRequest`
+`func NewCreateScheduledLambdaRequest(apikey string, cronString string, qlName string, ) *CreateScheduledLambdaRequest`
 
 NewCreateScheduledLambdaRequest instantiates a new CreateScheduledLambdaRequest object
 This constructor will assign default values to properties that have it defined,
@@ -52,11 +52,6 @@ and a boolean to check if the value has been set.
 
 SetApikey sets Apikey field to given value.
 
-### HasApikey
-
-`func (o *CreateScheduledLambdaRequest) HasApikey() bool`
-
-HasApikey returns a boolean if a field has been set.
 
 ### GetCronString
 

@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**DestinationUri** | Pointer to **string** | destination for query results. Only populated for Insert INTO s3 queries. | [optional] 
 **ExecutedBy** | Pointer to **string** | User ID who executed the query. | [optional] 
 **ExpiresAt** | Pointer to **string** | Time (UTC) that query results expire. Only populated if &#x60;status&#x60; is &#x60;COMPLETE&#x60;. | [optional] 
 **LastOffset** | Pointer to **string** | The log offset that query results were written to in the destination collection. Only populated for INSERT INTO queries. | [optional] 
@@ -33,6 +34,31 @@ will change when the set of required properties is changed
 NewQueryInfoWithDefaults instantiates a new QueryInfo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetDestinationUri
+
+`func (o *QueryInfo) GetDestinationUri() string`
+
+GetDestinationUri returns the DestinationUri field if non-nil, zero value otherwise.
+
+### GetDestinationUriOk
+
+`func (o *QueryInfo) GetDestinationUriOk() (*string, bool)`
+
+GetDestinationUriOk returns a tuple with the DestinationUri field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDestinationUri
+
+`func (o *QueryInfo) SetDestinationUri(v string)`
+
+SetDestinationUri sets DestinationUri field to given value.
+
+### HasDestinationUri
+
+`func (o *QueryInfo) HasDestinationUri() bool`
+
+HasDestinationUri returns a boolean if a field has been set.
 
 ### GetExecutedBy
 

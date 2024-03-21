@@ -20,16 +20,16 @@ var _ MappedNullable = &CreateScheduledLambdaRequest{}
 // CreateScheduledLambdaRequest struct for CreateScheduledLambdaRequest
 type CreateScheduledLambdaRequest struct {
 	// The apikey to use when triggering execution of the associated query lambda.
-	Apikey *string `json:"apikey,omitempty"`
+	Apikey string `json:"apikey"`
 	// The UNIX-formatted cron string for this scheduled query lambda.
 	CronString string `json:"cron_string"`
 	// The name of the QL to use for scheduled execution.
 	QlName string `json:"ql_name"`
-	// The QL tag to use for scheduled execution.
+	// The QL tag to use for scheduled execution. One of either the QL tag or version must be specified
 	Tag *string `json:"tag,omitempty"`
 	// The number of times to execute this scheduled query lambda. Once this scheduled query lambda has been executed this many times, it will no longer be executed.
 	TotalTimesToExecute *int64 `json:"total_times_to_execute,omitempty"`
-	// The version of the QL to use for scheduled execution.
+	// The version of the QL to use for scheduled execution. One of either the QL version or tag must be specified.
 	Version *string `json:"version,omitempty"`
 	// The value to use as the authorization header when hitting the webhook.
 	WebhookAuthHeader *string `json:"webhook_auth_header,omitempty"`
@@ -43,8 +43,9 @@ type CreateScheduledLambdaRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateScheduledLambdaRequest(cronString string, qlName string) *CreateScheduledLambdaRequest {
+func NewCreateScheduledLambdaRequest(apikey string, cronString string, qlName string) *CreateScheduledLambdaRequest {
 	this := CreateScheduledLambdaRequest{}
+	this.Apikey = apikey
 	this.CronString = cronString
 	this.QlName = qlName
 	return &this
@@ -58,36 +59,28 @@ func NewCreateScheduledLambdaRequestWithDefaults() *CreateScheduledLambdaRequest
 	return &this
 }
 
-// GetApikey returns the Apikey field value if set, zero value otherwise.
+// GetApikey returns the Apikey field value
 func (o *CreateScheduledLambdaRequest) GetApikey() string {
-	if o == nil || IsNil(o.Apikey) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Apikey
+
+	return o.Apikey
 }
 
-// GetApikeyOk returns a tuple with the Apikey field value if set, nil otherwise
+// GetApikeyOk returns a tuple with the Apikey field value
 // and a boolean to check if the value has been set.
 func (o *CreateScheduledLambdaRequest) GetApikeyOk() (*string, bool) {
-	if o == nil || IsNil(o.Apikey) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Apikey, true
+	return &o.Apikey, true
 }
 
-// HasApikey returns a boolean if a field has been set.
-func (o *CreateScheduledLambdaRequest) HasApikey() bool {
-	if o != nil && !IsNil(o.Apikey) {
-		return true
-	}
-
-	return false
-}
-
-// SetApikey gets a reference to the given string and assigns it to the Apikey field.
+// SetApikey sets field value
 func (o *CreateScheduledLambdaRequest) SetApikey(v string) {
-	o.Apikey = &v
+	o.Apikey = v
 }
 
 // GetCronString returns the CronString field value
@@ -340,9 +333,7 @@ func (o CreateScheduledLambdaRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreateScheduledLambdaRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Apikey) {
-		toSerialize["apikey"] = o.Apikey
-	}
+	toSerialize["apikey"] = o.Apikey
 	toSerialize["cron_string"] = o.CronString
 	toSerialize["ql_name"] = o.QlName
 	if !IsNil(o.Tag) {

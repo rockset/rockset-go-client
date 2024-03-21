@@ -6,6 +6,7 @@ api_aliases.go
 api_api_keys.go
 api_collections.go
 api_custom_roles.go
+api_deployment_settings.go
 api_documents.go
 api_integrations.go
 api_organizations.go
@@ -79,6 +80,9 @@ docs/DeleteUserResponse.md
 docs/DeleteViewResponse.md
 docs/DeleteVirtualInstanceResponse.md
 docs/DeleteWorkspaceResponse.md
+docs/DeploymentSettings.md
+docs/DeploymentSettingsApi.md
+docs/DeploymentSettingsResponse.md
 docs/DocumentStatus.md
 docs/DocumentsApi.md
 docs/DynamodbIntegration.md
@@ -213,6 +217,7 @@ docs/UpdateAliasRequest.md
 docs/UpdateApiKeyRequest.md
 docs/UpdateApiKeyResponse.md
 docs/UpdateCollectionRequest.md
+docs/UpdateDeploymentSettingsRequest.md
 docs/UpdateIntegrationRequest.md
 docs/UpdateIntegrationResponse.md
 docs/UpdateQueryLambdaRequest.md
@@ -294,6 +299,8 @@ model_delete_user_response.go
 model_delete_view_response.go
 model_delete_virtual_instance_response.go
 model_delete_workspace_response.go
+model_deployment_settings.go
+model_deployment_settings_response.go
 model_document_status.go
 model_dynamodb_integration.go
 model_error_model.go
@@ -420,6 +427,7 @@ model_update_alias_request.go
 model_update_api_key_request.go
 model_update_api_key_response.go
 model_update_collection_request.go
+model_update_deployment_settings_request.go
 model_update_integration_request.go
 model_update_integration_response.go
 model_update_query_lambda_request.go
