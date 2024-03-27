@@ -116,6 +116,21 @@ type FakeResourceGetter struct {
 		result1 openapi.QueryLambdaVersion
 		result2 error
 	}
+	GetScheduledLambdaStub        func(context.Context, string, string) (openapi.ScheduledLambda, error)
+	getScheduledLambdaMutex       sync.RWMutex
+	getScheduledLambdaArgsForCall []struct {
+		arg1 context.Context
+		arg2 string
+		arg3 string
+	}
+	getScheduledLambdaReturns struct {
+		result1 openapi.ScheduledLambda
+		result2 error
+	}
+	getScheduledLambdaReturnsOnCall map[int]struct {
+		result1 openapi.ScheduledLambda
+		result2 error
+	}
 	GetViewStub        func(context.Context, string, string) (openapi.View, error)
 	getViewMutex       sync.RWMutex
 	getViewArgsForCall []struct {
@@ -654,6 +669,72 @@ func (fake *FakeResourceGetter) GetQueryLambdaVersionReturnsOnCall(i int, result
 	}{result1, result2}
 }
 
+func (fake *FakeResourceGetter) GetScheduledLambda(arg1 context.Context, arg2 string, arg3 string) (openapi.ScheduledLambda, error) {
+	fake.getScheduledLambdaMutex.Lock()
+	ret, specificReturn := fake.getScheduledLambdaReturnsOnCall[len(fake.getScheduledLambdaArgsForCall)]
+	fake.getScheduledLambdaArgsForCall = append(fake.getScheduledLambdaArgsForCall, struct {
+		arg1 context.Context
+		arg2 string
+		arg3 string
+	}{arg1, arg2, arg3})
+	stub := fake.GetScheduledLambdaStub
+	fakeReturns := fake.getScheduledLambdaReturns
+	fake.recordInvocation("GetScheduledLambda", []interface{}{arg1, arg2, arg3})
+	fake.getScheduledLambdaMutex.Unlock()
+	if stub != nil {
+		return stub(arg1, arg2, arg3)
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fakeReturns.result1, fakeReturns.result2
+}
+
+func (fake *FakeResourceGetter) GetScheduledLambdaCallCount() int {
+	fake.getScheduledLambdaMutex.RLock()
+	defer fake.getScheduledLambdaMutex.RUnlock()
+	return len(fake.getScheduledLambdaArgsForCall)
+}
+
+func (fake *FakeResourceGetter) GetScheduledLambdaCalls(stub func(context.Context, string, string) (openapi.ScheduledLambda, error)) {
+	fake.getScheduledLambdaMutex.Lock()
+	defer fake.getScheduledLambdaMutex.Unlock()
+	fake.GetScheduledLambdaStub = stub
+}
+
+func (fake *FakeResourceGetter) GetScheduledLambdaArgsForCall(i int) (context.Context, string, string) {
+	fake.getScheduledLambdaMutex.RLock()
+	defer fake.getScheduledLambdaMutex.RUnlock()
+	argsForCall := fake.getScheduledLambdaArgsForCall[i]
+	return argsForCall.arg1, argsForCall.arg2, argsForCall.arg3
+}
+
+func (fake *FakeResourceGetter) GetScheduledLambdaReturns(result1 openapi.ScheduledLambda, result2 error) {
+	fake.getScheduledLambdaMutex.Lock()
+	defer fake.getScheduledLambdaMutex.Unlock()
+	fake.GetScheduledLambdaStub = nil
+	fake.getScheduledLambdaReturns = struct {
+		result1 openapi.ScheduledLambda
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *FakeResourceGetter) GetScheduledLambdaReturnsOnCall(i int, result1 openapi.ScheduledLambda, result2 error) {
+	fake.getScheduledLambdaMutex.Lock()
+	defer fake.getScheduledLambdaMutex.Unlock()
+	fake.GetScheduledLambdaStub = nil
+	if fake.getScheduledLambdaReturnsOnCall == nil {
+		fake.getScheduledLambdaReturnsOnCall = make(map[int]struct {
+			result1 openapi.ScheduledLambda
+			result2 error
+		})
+	}
+	fake.getScheduledLambdaReturnsOnCall[i] = struct {
+		result1 openapi.ScheduledLambda
+		result2 error
+	}{result1, result2}
+}
+
 func (fake *FakeResourceGetter) GetView(arg1 context.Context, arg2 string, arg3 string) (openapi.View, error) {
 	fake.getViewMutex.Lock()
 	ret, specificReturn := fake.getViewReturnsOnCall[len(fake.getViewArgsForCall)]
@@ -991,6 +1072,8 @@ func (fake *FakeResourceGetter) Invocations() map[string][][]interface{} {
 	defer fake.getQueryInfoMutex.RUnlock()
 	fake.getQueryLambdaVersionMutex.RLock()
 	defer fake.getQueryLambdaVersionMutex.RUnlock()
+	fake.getScheduledLambdaMutex.RLock()
+	defer fake.getScheduledLambdaMutex.RUnlock()
 	fake.getViewMutex.RLock()
 	defer fake.getViewMutex.RUnlock()
 	fake.getVirtualInstanceMutex.RLock()

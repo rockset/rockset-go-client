@@ -3,80 +3,72 @@ package rockset_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/suite"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 
-	"github.com/rockset/rockset-go-client"
 	"github.com/rockset/rockset-go-client/internal/test"
-	"github.com/rockset/rockset-go-client/openapi"
 	"github.com/rockset/rockset-go-client/option"
 )
 
-type SuiteScheduledLambda struct {
-	suite.Suite
-	rc      *rockset.RockClient
-	qlName  string
-	keyName string
-	key     openapi.ApiKey
-	qlVersion string
-	ws        string
-	scheduledLambdaRrn string
-	cronString string
-}
+func TestScheduledLambdas_CRUD(t *testing.T) {
+	t.Parallel()
 
-func TestSuiteScheduledLambdas(t *testing.T) {
-	rc, nameGenerator := vcrTestClient(t, t.Name())
-
-	s := SuiteScheduledLambda{
-		rc:      rc,
-		qlName: nameGenerator("ql"),
-		keyName: nameGenerator("key"),
-		ws:   "commons",
-		cronString: "0 0 0 ? * * *",
-	}
-	suite.Run(t, &s)
-}
-
-func (s *SuiteScheduledLambda) SetupSuite() {
 	ctx := test.Context()
-	key, err := s.rc.CreateAPIKey(ctx, s.keyName, option.WithRole("integration-test"))
-	s.Require().NoError(err)
-	s.key = key
-	ql, err := s.rc.CreateQueryLambda(ctx, s.ws, s.qlName, "SELECT 1",
+	rc, randomName := vcrTestClient(t, t.Name())
+
+    qlName := randomName("ql")
+	keyName := randomName("key")
+	ws := "commons"
+	cronString := "0 0 0 ? * * *"
+	var deleted bool
+
+	key, err := rc.CreateAPIKey(ctx, keyName, option.WithRole("integration-test"))
+	require.NoError(t, err)
+	ql, err := rc.CreateQueryLambda(ctx, ws, qlName, "SELECT 1",
 		option.WithQueryLambdaDescription("create"))
-	s.Require().NoError(err)
-	s.qlVersion = ql.GetVersion()
+		require.NoError(t, err)
+	qlVersion := ql.GetVersion()
 
-	scheduledQl, err := s.rc.CreateScheduledLambda(ctx, s.ws, s.key.Key, s.cronString, s.qlName, option.WithScheduledLambdaVersion(s.qlVersion), option.WithScheduledLambdaTotalTimesToExecute(1))
-	s.Require().NoError(err)
-	s.Equal(int64(1), scheduledQl.GetTotalTimesToExecute())
-	s.Equal(s.qlName, scheduledQl.GetQlName())
-	s.Equal(s.cronString, scheduledQl.GetCronString())
-	s.Equal(s.qlVersion, scheduledQl.GetVersion())
-	s.scheduledLambdaRrn = *scheduledQl.Rrn
-}
+	scheduledQl, err := rc.CreateScheduledLambda(ctx, ws, key.Key, cronString, qlName, option.WithScheduledLambdaVersion(qlVersion), option.WithScheduledLambdaTotalTimesToExecute(1))
+	require.NoError(t, err)
+	assert.Equal(t, int64(1), scheduledQl.GetTotalTimesToExecute())
+	assert.Equal(t, qlName, scheduledQl.GetQlName())
+	assert.Equal(t, cronString, scheduledQl.GetCronString())
+	assert.Equal(t, qlVersion, scheduledQl.GetVersion())
+	scheduledLambdaRRN := *scheduledQl.Rrn
 
-func (s *SuiteScheduledLambda) TearDownSuite() {
-	ctx := test.Context()
-	err := s.rc.DeleteScheduledLambda(ctx, s.ws, s.scheduledLambdaRrn)
-	s.Require().NoError(err)
-	err = s.rc.DeleteAPIKey(ctx, s.keyName)
-	s.Require().NoError(err)
-	err = s.rc.DeleteQueryLambda(ctx, s.ws, s.qlName)
-	s.Require().NoError(err)
-}
+	t.Cleanup(func() {
+		if !deleted {
+			err := rc.DeleteScheduledLambda(ctx, ws, scheduledLambdaRRN)
+			require.NoError(t, err)
+			err = rc.DeleteAPIKey(ctx, keyName)
+			require.NoError(t, err)
+			err = rc.DeleteQueryLambda(ctx, ws, qlName)
+			require.NoError(t, err)
+		}
+	})
 
-func (s *SuiteScheduledLambda) TestGetScheduledLambda() {
-	ctx := test.Context()
-    scheduledQl, err := s.rc.GetScheduledLambda(ctx, s.ws, s.scheduledLambdaRrn)
-	s.Require().NoError(err)
-	s.Equal(s.qlName, scheduledQl.GetQlName())
-	s.Equal(s.cronString, scheduledQl.GetCronString())
-	s.Equal(s.qlVersion, scheduledQl.GetVersion())
-}
+	err = rc.Wait.UntilScheduledLambdaAvailable(ctx, ws, scheduledLambdaRRN)
+	require.NoError(t, err)
 
-func (s *SuiteScheduledLambda) TestUpdateScheduledLambda() {
-	ctx := test.Context()
-	scheduledQl, err := s.rc.UpdateScheduledLambda(ctx, s.ws, s.scheduledLambdaRrn, option.WithScheduledLambdaTotalTimesToExecute(2))
-	s.Require().NoError(err)
-	s.Equal(int64(2), scheduledQl.GetTotalTimesToExecute())
+	getScheduledQl, err := rc.GetScheduledLambda(ctx, ws, scheduledLambdaRRN)
+	require.NoError(t, err)
+	assert.Equal(t, qlName, getScheduledQl.GetQlName())
+	assert.Equal(t, cronString, getScheduledQl.GetCronString())
+	assert.Equal(t, qlVersion, getScheduledQl.GetVersion())
+
+	updateScheduledQl, err := rc.UpdateScheduledLambda(ctx, ws, scheduledLambdaRRN, option.WithScheduledLambdaTotalTimesToExecute(2))
+	require.NoError(t, err)
+	assert.Equal(t, int64(2), updateScheduledQl.GetTotalTimesToExecute())
+
+	err = rc.Wait.UntilScheduledLambdaAvailable(ctx, ws, scheduledLambdaRRN)
+	require.NoError(t, err)
+
+	err = rc.DeleteScheduledLambda(ctx, ws, scheduledLambdaRRN)
+	require.NoError(t, err)
+	err = rc.DeleteAPIKey(ctx, keyName)
+	require.NoError(t, err)
+	err = rc.DeleteQueryLambda(ctx, ws, qlName)
+	require.NoError(t, err)
+	deleted = true
 }

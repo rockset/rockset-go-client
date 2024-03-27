@@ -21,34 +21,17 @@ func (rc *RockClient) CreateScheduledLambda(ctx context.Context, workspace, apik
 	var resp *openapi.ScheduledLambdaResponse
 
 	q := rc.ScheduledLambdasApi.CreateScheduledLambda(ctx, workspace)
-	req := openapi.NewCreateScheduledLambdaRequest(apikey, cronString, qlName)
 
 	opts := option.ScheduledLambdaOptions{}
 	for _, o := range options {
 		o(&opts)
 	}
-
-	if opts.Tag != nil {
-		req.Tag = opts.Tag
-	}
-	if opts.TotalTimesToExecute != nil {
-		req.TotalTimesToExecute = opts.TotalTimesToExecute
-	}
-	if opts.Version != nil {
-		req.Version= opts.Version
-	}
-	if opts.WebhookAuthHeader != nil {
-		req.WebhookAuthHeader = opts.WebhookAuthHeader
-	}
-	if opts.WebhookPayload != nil {
-		req.WebhookPayload = opts.WebhookPayload
-	}
-	if opts.WebhookUrl != nil {
-		req.WebhookUrl = opts.WebhookUrl
-	}
+	opts.CreateRequest.Apikey = apikey;
+	opts.CreateRequest.CronString = cronString;
+	opts.CreateRequest.QlName = qlName;
 
 	err = rc.Retry(ctx, func() error {
-		resp, httpResp, err = q.Body(*req).Execute()
+		resp, httpResp, err = q.Body(opts.CreateRequest).Execute()
 
 		return rockerr.NewWithStatusCode(err, httpResp)
 	})
@@ -73,31 +56,14 @@ options ...option.ScheduledLambdaOption) (openapi.ScheduledLambda, error) {
 	var resp *openapi.ScheduledLambdaResponse
 
 	q := rc.ScheduledLambdasApi.UpdateScheduledLambda(ctx, workspace, scheduledLambdaRrn)
-	req := openapi.NewUpdateScheduledLambdaRequest()
 
 	opts := option.ScheduledLambdaOptions{}
 	for _, o := range options {
 		o(&opts)
 	}
 
-	if opts.TotalTimesToExecute != nil {
-		req.TotalTimesToExecute = opts.TotalTimesToExecute
-	}
-	if opts.WebhookAuthHeader != nil {
-		req.WebhookAuthHeader = opts.WebhookAuthHeader
-	}
-	if opts.WebhookPayload != nil {
-		req.WebhookPayload = opts.WebhookPayload
-	}
-	if opts.WebhookUrl != nil {
-		req.WebhookUrl = opts.WebhookUrl
-	}
-	if opts.ResumePermanentError != nil {
-		req.ResumePermanentError = opts.ResumePermanentError
-	}
-
 	err = rc.Retry(ctx, func() error {
-		resp, httpResp, err = q.Body(*req).Execute()
+		resp, httpResp, err = q.Body(opts.UpdateRequest).Execute()
 
 		return rockerr.NewWithStatusCode(err, httpResp)
 	})
