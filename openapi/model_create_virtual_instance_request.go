@@ -29,7 +29,7 @@ type CreateVirtualInstanceRequest struct {
 	InstanceClass *string `json:"instance_class,omitempty"`
 	// DEPRECATED. Use `mount_type` instead. Number of seconds between data refreshes for mounts on this Virtual Instance. The only valid values are 0 and null. 0 means the data will be refreshed continuously and null means the data will never refresh.
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
-	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration
 	MountType *string `json:"mount_type,omitempty"`
 	// Unique identifier for virtual instance, can contain alphanumeric or dash characters.
 	Name string `json:"name"`

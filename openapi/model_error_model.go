@@ -33,6 +33,8 @@ type ErrorModel struct {
 	TraceId *string `json:"trace_id,omitempty"`
 	// Category of the error.
 	Type *string `json:"type,omitempty"`
+	// Virtual Instance RRN for the Virtual Instance that the query was run on (if applicable).
+	VirtualInstanceRrn *string `json:"virtual_instance_rrn,omitempty"`
 }
 
 // NewErrorModel instantiates a new ErrorModel object
@@ -276,6 +278,38 @@ func (o *ErrorModel) SetType(v string) {
 	o.Type = &v
 }
 
+// GetVirtualInstanceRrn returns the VirtualInstanceRrn field value if set, zero value otherwise.
+func (o *ErrorModel) GetVirtualInstanceRrn() string {
+	if o == nil || IsNil(o.VirtualInstanceRrn) {
+		var ret string
+		return ret
+	}
+	return *o.VirtualInstanceRrn
+}
+
+// GetVirtualInstanceRrnOk returns a tuple with the VirtualInstanceRrn field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ErrorModel) GetVirtualInstanceRrnOk() (*string, bool) {
+	if o == nil || IsNil(o.VirtualInstanceRrn) {
+		return nil, false
+	}
+	return o.VirtualInstanceRrn, true
+}
+
+// HasVirtualInstanceRrn returns a boolean if a field has been set.
+func (o *ErrorModel) HasVirtualInstanceRrn() bool {
+	if o != nil && !IsNil(o.VirtualInstanceRrn) {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtualInstanceRrn gets a reference to the given string and assigns it to the VirtualInstanceRrn field.
+func (o *ErrorModel) SetVirtualInstanceRrn(v string) {
+	o.VirtualInstanceRrn = &v
+}
+
 func (o ErrorModel) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -306,6 +340,9 @@ func (o ErrorModel) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.VirtualInstanceRrn) {
+		toSerialize["virtual_instance_rrn"] = o.VirtualInstanceRrn
 	}
 	return toSerialize, nil
 }

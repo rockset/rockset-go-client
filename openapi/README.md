@@ -109,6 +109,8 @@ Class | Method | HTTP request | Description
 *CustomRolesApi* | [**GetRole**](docs/CustomRolesApi.md#getrole) | **Get** /v1/orgs/self/roles/{roleName} | Retrieve role
 *CustomRolesApi* | [**ListRoles**](docs/CustomRolesApi.md#listroles) | **Get** /v1/orgs/self/roles | List Roles
 *CustomRolesApi* | [**UpdateRole**](docs/CustomRolesApi.md#updaterole) | **Post** /v1/orgs/self/roles/{roleName} | Update a Role
+*DeploymentSettingsApi* | [**GetDeploymentSettings**](docs/DeploymentSettingsApi.md#getdeploymentsettings) | **Get** /v1/orgs/self/deploymentsettings | Retrieve Deployment Settings
+*DeploymentSettingsApi* | [**UpdateDeploymentSettings**](docs/DeploymentSettingsApi.md#updatedeploymentsettings) | **Put** /v1/orgs/self/deploymentsettings | Update Deployment Settings
 *DocumentsApi* | [**AddDocuments**](docs/DocumentsApi.md#adddocuments) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/docs | Add Documents
 *DocumentsApi* | [**DeleteDocuments**](docs/DocumentsApi.md#deletedocuments) | **Delete** /v1/orgs/self/ws/{workspace}/collections/{collection}/docs | Delete Documents
 *DocumentsApi* | [**PatchDocuments**](docs/DocumentsApi.md#patchdocuments) | **Patch** /v1/orgs/self/ws/{workspace}/collections/{collection}/docs | Patch Documents
@@ -140,6 +142,7 @@ Class | Method | HTTP request | Description
 *QueryLambdasApi* | [**UpdateQueryLambda**](docs/QueryLambdasApi.md#updatequerylambda) | **Post** /v1/orgs/self/ws/{workspace}/lambdas/{queryLambda}/versions | Update Query Lambda
 *ScheduledLambdasApi* | [**CreateScheduledLambda**](docs/ScheduledLambdasApi.md#createscheduledlambda) | **Post** /v1/orgs/self/ws/{workspace}/scheduled_lambdas | Create a Scheduled Lambda mapping
 *ScheduledLambdasApi* | [**DeleteScheduledLambda**](docs/ScheduledLambdasApi.md#deletescheduledlambda) | **Delete** /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId} | Delete a Scheduled Lambda mapping
+*ScheduledLambdasApi* | [**GetScheduledLambda**](docs/ScheduledLambdasApi.md#getscheduledlambda) | **Get** /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId} | Retrieve a Scheduled Lambda mapping
 *ScheduledLambdasApi* | [**UpdateScheduledLambda**](docs/ScheduledLambdasApi.md#updatescheduledlambda) | **Post** /v1/orgs/self/ws/{workspace}/scheduled_lambdas/{scheduledLambdaId} | Update a Scheduled Lambda mapping
 *SharedLambdasApi* | [**ExecutePublicQueryLambdaWithParams**](docs/SharedLambdasApi.md#executepublicquerylambdawithparams) | **Post** /v1/public/shared_lambdas/{public_access_id} | Execute a Public Query Lambda
 *SourcesApi* | [**CreateSource**](docs/SourcesApi.md#createsource) | **Post** /v1/orgs/self/ws/{workspace}/collections/{collection}/sources | Create a source
@@ -240,6 +243,8 @@ Class | Method | HTTP request | Description
  - [DeleteViewResponse](docs/DeleteViewResponse.md)
  - [DeleteVirtualInstanceResponse](docs/DeleteVirtualInstanceResponse.md)
  - [DeleteWorkspaceResponse](docs/DeleteWorkspaceResponse.md)
+ - [DeploymentSettings](docs/DeploymentSettings.md)
+ - [DeploymentSettingsResponse](docs/DeploymentSettingsResponse.md)
  - [DocumentStatus](docs/DocumentStatus.md)
  - [DynamodbIntegration](docs/DynamodbIntegration.md)
  - [ErrorModel](docs/ErrorModel.md)
@@ -366,6 +371,7 @@ Class | Method | HTTP request | Description
  - [UpdateApiKeyRequest](docs/UpdateApiKeyRequest.md)
  - [UpdateApiKeyResponse](docs/UpdateApiKeyResponse.md)
  - [UpdateCollectionRequest](docs/UpdateCollectionRequest.md)
+ - [UpdateDeploymentSettingsRequest](docs/UpdateDeploymentSettingsRequest.md)
  - [UpdateIntegrationRequest](docs/UpdateIntegrationRequest.md)
  - [UpdateIntegrationResponse](docs/UpdateIntegrationResponse.md)
  - [UpdateQueryLambdaRequest](docs/UpdateQueryLambdaRequest.md)

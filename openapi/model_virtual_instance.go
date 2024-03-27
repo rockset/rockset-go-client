@@ -30,7 +30,6 @@ type VirtualInstance struct {
 	CurrentInstanceClass *string `json:"current_instance_class,omitempty"`
 	// Virtual instance current size.
 	CurrentSize *string `json:"current_size,omitempty"`
-	DefaultPodCount *int32 `json:"default_pod_count,omitempty"`
 	DefaultVi *bool `json:"default_vi,omitempty"`
 	// Virtual instance description.
 	Description *string `json:"description,omitempty"`
@@ -45,7 +44,7 @@ type VirtualInstance struct {
 	MonitoringEnabled *bool `json:"monitoring_enabled,omitempty"`
 	// DEPRECATED. Number of seconds between data refreshes for mounts on this Virtual Instance
 	MountRefreshIntervalSeconds *int32 `json:"mount_refresh_interval_seconds,omitempty"`
-	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration
+	// The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration
 	MountType *string `json:"mount_type,omitempty"`
 	// Virtual instance name.
 	Name string `json:"name"`
@@ -53,7 +52,6 @@ type VirtualInstance struct {
 	ResumedAt *string `json:"resumed_at,omitempty"`
 	// Virtual Instance RRN.
 	Rrn *string `json:"rrn,omitempty"`
-	ScaledPodCount *int32 `json:"scaled_pod_count,omitempty"`
 	// Virtual instance state.
 	State *string `json:"state,omitempty"`
 	Stats *VirtualInstanceStats `json:"stats,omitempty"`
@@ -267,38 +265,6 @@ func (o *VirtualInstance) HasCurrentSize() bool {
 // SetCurrentSize gets a reference to the given string and assigns it to the CurrentSize field.
 func (o *VirtualInstance) SetCurrentSize(v string) {
 	o.CurrentSize = &v
-}
-
-// GetDefaultPodCount returns the DefaultPodCount field value if set, zero value otherwise.
-func (o *VirtualInstance) GetDefaultPodCount() int32 {
-	if o == nil || IsNil(o.DefaultPodCount) {
-		var ret int32
-		return ret
-	}
-	return *o.DefaultPodCount
-}
-
-// GetDefaultPodCountOk returns a tuple with the DefaultPodCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VirtualInstance) GetDefaultPodCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.DefaultPodCount) {
-		return nil, false
-	}
-	return o.DefaultPodCount, true
-}
-
-// HasDefaultPodCount returns a boolean if a field has been set.
-func (o *VirtualInstance) HasDefaultPodCount() bool {
-	if o != nil && !IsNil(o.DefaultPodCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetDefaultPodCount gets a reference to the given int32 and assigns it to the DefaultPodCount field.
-func (o *VirtualInstance) SetDefaultPodCount(v int32) {
-	o.DefaultPodCount = &v
 }
 
 // GetDefaultVi returns the DefaultVi field value if set, zero value otherwise.
@@ -677,38 +643,6 @@ func (o *VirtualInstance) SetRrn(v string) {
 	o.Rrn = &v
 }
 
-// GetScaledPodCount returns the ScaledPodCount field value if set, zero value otherwise.
-func (o *VirtualInstance) GetScaledPodCount() int32 {
-	if o == nil || IsNil(o.ScaledPodCount) {
-		var ret int32
-		return ret
-	}
-	return *o.ScaledPodCount
-}
-
-// GetScaledPodCountOk returns a tuple with the ScaledPodCount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *VirtualInstance) GetScaledPodCountOk() (*int32, bool) {
-	if o == nil || IsNil(o.ScaledPodCount) {
-		return nil, false
-	}
-	return o.ScaledPodCount, true
-}
-
-// HasScaledPodCount returns a boolean if a field has been set.
-func (o *VirtualInstance) HasScaledPodCount() bool {
-	if o != nil && !IsNil(o.ScaledPodCount) {
-		return true
-	}
-
-	return false
-}
-
-// SetScaledPodCount gets a reference to the given int32 and assigns it to the ScaledPodCount field.
-func (o *VirtualInstance) SetScaledPodCount(v int32) {
-	o.ScaledPodCount = &v
-}
-
 // GetState returns the State field value if set, zero value otherwise.
 func (o *VirtualInstance) GetState() string {
 	if o == nil || IsNil(o.State) {
@@ -799,9 +733,6 @@ func (o VirtualInstance) ToMap() (map[string]interface{}, error) {
 		toSerialize["current_instance_class"] = o.CurrentInstanceClass
 	}
 	// skip: current_size is readOnly
-	if !IsNil(o.DefaultPodCount) {
-		toSerialize["default_pod_count"] = o.DefaultPodCount
-	}
 	if !IsNil(o.DefaultVi) {
 		toSerialize["default_vi"] = o.DefaultVi
 	}
@@ -833,9 +764,6 @@ func (o VirtualInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Rrn) {
 		toSerialize["rrn"] = o.Rrn
-	}
-	if !IsNil(o.ScaledPodCount) {
-		toSerialize["scaled_pod_count"] = o.ScaledPodCount
 	}
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State

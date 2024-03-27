@@ -42,6 +42,7 @@ type ScheduledLambda struct {
 	TotalTimesToExecute *int64 `json:"total_times_to_execute,omitempty"`
 	// The version of the associated query lambda.
 	Version *string `json:"version,omitempty"`
+	WebhookExecutionStatus *ExecutionStatus `json:"webhook_execution_status,omitempty"`
 	// The payload that should be sent to the webhook.
 	WebhookPayload *string `json:"webhook_payload,omitempty"`
 	// The URL of the webhook that should be triggered after this scheduled query lambda completes.
@@ -451,6 +452,38 @@ func (o *ScheduledLambda) SetVersion(v string) {
 	o.Version = &v
 }
 
+// GetWebhookExecutionStatus returns the WebhookExecutionStatus field value if set, zero value otherwise.
+func (o *ScheduledLambda) GetWebhookExecutionStatus() ExecutionStatus {
+	if o == nil || IsNil(o.WebhookExecutionStatus) {
+		var ret ExecutionStatus
+		return ret
+	}
+	return *o.WebhookExecutionStatus
+}
+
+// GetWebhookExecutionStatusOk returns a tuple with the WebhookExecutionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ScheduledLambda) GetWebhookExecutionStatusOk() (*ExecutionStatus, bool) {
+	if o == nil || IsNil(o.WebhookExecutionStatus) {
+		return nil, false
+	}
+	return o.WebhookExecutionStatus, true
+}
+
+// HasWebhookExecutionStatus returns a boolean if a field has been set.
+func (o *ScheduledLambda) HasWebhookExecutionStatus() bool {
+	if o != nil && !IsNil(o.WebhookExecutionStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetWebhookExecutionStatus gets a reference to the given ExecutionStatus and assigns it to the WebhookExecutionStatus field.
+func (o *ScheduledLambda) SetWebhookExecutionStatus(v ExecutionStatus) {
+	o.WebhookExecutionStatus = &v
+}
+
 // GetWebhookPayload returns the WebhookPayload field value if set, zero value otherwise.
 func (o *ScheduledLambda) GetWebhookPayload() string {
 	if o == nil || IsNil(o.WebhookPayload) {
@@ -592,6 +625,9 @@ func (o ScheduledLambda) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.WebhookExecutionStatus) {
+		toSerialize["webhook_execution_status"] = o.WebhookExecutionStatus
 	}
 	if !IsNil(o.WebhookPayload) {
 		toSerialize["webhook_payload"] = o.WebhookPayload

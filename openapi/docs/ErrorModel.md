@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **QueryId** | Pointer to **string** | ID of the query (if applicable). | [optional] 
 **TraceId** | Pointer to **string** | Internal trace ID to help with debugging. | [optional] 
 **Type** | Pointer to **string** | Category of the error. | [optional] 
+**VirtualInstanceRrn** | Pointer to **string** | Virtual Instance RRN for the Virtual Instance that the query was run on (if applicable). | [optional] 
 
 ## Methods
 
@@ -205,6 +206,31 @@ SetType sets Type field to given value.
 `func (o *ErrorModel) HasType() bool`
 
 HasType returns a boolean if a field has been set.
+
+### GetVirtualInstanceRrn
+
+`func (o *ErrorModel) GetVirtualInstanceRrn() string`
+
+GetVirtualInstanceRrn returns the VirtualInstanceRrn field if non-nil, zero value otherwise.
+
+### GetVirtualInstanceRrnOk
+
+`func (o *ErrorModel) GetVirtualInstanceRrnOk() (*string, bool)`
+
+GetVirtualInstanceRrnOk returns a tuple with the VirtualInstanceRrn field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVirtualInstanceRrn
+
+`func (o *ErrorModel) SetVirtualInstanceRrn(v string)`
+
+SetVirtualInstanceRrn sets VirtualInstanceRrn field to given value.
+
+### HasVirtualInstanceRrn
+
+`func (o *ErrorModel) HasVirtualInstanceRrn() bool`
+
+HasVirtualInstanceRrn returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
