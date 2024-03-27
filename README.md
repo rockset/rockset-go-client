@@ -71,6 +71,11 @@ To run tests:
 go test -v -timeout 30m ./...
 ```
 
+To generate the fakes used for testing:
+```
+go generate ./...
+```
+
 ### Go VCR
 
 Most tests use [Go VCR](https://github.com/seborama/govcr), and they will use a cassette (recorded response) by default,
