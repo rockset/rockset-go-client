@@ -69,3 +69,9 @@ func WithScheduledLambdaResumePermanentError(r bool) ScheduledLambdaOption {
 		o.UpdateRequest.ResumePermanentError = &r
 	}
 }
+
+func WithScheduledLambdaApikey(a string) ScheduledLambdaOption {
+	return func(o *ScheduledLambdaOptions) {
+		o.UpdateRequest.Apikey = &a
+	}
+}
