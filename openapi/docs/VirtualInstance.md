@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **CreatedBy** | Pointer to **string** | Creator of requested virtual instance. | [optional] 
 **CurrentInstanceClass** | Pointer to **string** | Virtual Instance Class. &#x60;MO_IL&#x60; represents Memory Optimized and &#x60;GP_IL&#x60; represents General Purpose instance class. | [optional] 
 **CurrentSize** | Pointer to **string** | Virtual instance current size. | [optional] [readonly] 
-**DefaultPodCount** | Pointer to **int32** |  | [optional] 
 **DefaultVi** | Pointer to **bool** |  | [optional] 
 **Description** | Pointer to **string** | Virtual instance description. | [optional] 
 **DesiredInstanceClass** | Pointer to **string** | Virtual Instance Class. | [optional] 
@@ -19,11 +18,10 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** | Unique identifier for virtual instance. | [optional] 
 **MonitoringEnabled** | Pointer to **bool** |  | [optional] 
 **MountRefreshIntervalSeconds** | Pointer to **int32** | DEPRECATED. Number of seconds between data refreshes for mounts on this Virtual Instance | [optional] 
-**MountType** | Pointer to **string** | The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/virtual-instances#virtual-instance-configuration | [optional] 
+**MountType** | Pointer to **string** | The mount type of collections that this Virtual Instance will query. Live mounted collections stay up-to-date with the underlying collection in real-time. Static mounted collections do not stay up-to-date. See https://docs.rockset.com/documentation/docs/using-virtual-instances#virtual-instance-configuration | [optional] 
 **Name** | **string** | Virtual instance name. | 
 **ResumedAt** | Pointer to **string** | ISO-8601 date of when virtual instance was created. | [optional] 
 **Rrn** | Pointer to **string** | Virtual Instance RRN. | [optional] 
-**ScaledPodCount** | Pointer to **int32** |  | [optional] 
 **State** | Pointer to **string** | Virtual instance state. | [optional] 
 **Stats** | Pointer to [**VirtualInstanceStats**](VirtualInstanceStats.md) |  | [optional] 
 
@@ -195,31 +193,6 @@ SetCurrentSize sets CurrentSize field to given value.
 `func (o *VirtualInstance) HasCurrentSize() bool`
 
 HasCurrentSize returns a boolean if a field has been set.
-
-### GetDefaultPodCount
-
-`func (o *VirtualInstance) GetDefaultPodCount() int32`
-
-GetDefaultPodCount returns the DefaultPodCount field if non-nil, zero value otherwise.
-
-### GetDefaultPodCountOk
-
-`func (o *VirtualInstance) GetDefaultPodCountOk() (*int32, bool)`
-
-GetDefaultPodCountOk returns a tuple with the DefaultPodCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDefaultPodCount
-
-`func (o *VirtualInstance) SetDefaultPodCount(v int32)`
-
-SetDefaultPodCount sets DefaultPodCount field to given value.
-
-### HasDefaultPodCount
-
-`func (o *VirtualInstance) HasDefaultPodCount() bool`
-
-HasDefaultPodCount returns a boolean if a field has been set.
 
 ### GetDefaultVi
 
@@ -515,31 +488,6 @@ SetRrn sets Rrn field to given value.
 `func (o *VirtualInstance) HasRrn() bool`
 
 HasRrn returns a boolean if a field has been set.
-
-### GetScaledPodCount
-
-`func (o *VirtualInstance) GetScaledPodCount() int32`
-
-GetScaledPodCount returns the ScaledPodCount field if non-nil, zero value otherwise.
-
-### GetScaledPodCountOk
-
-`func (o *VirtualInstance) GetScaledPodCountOk() (*int32, bool)`
-
-GetScaledPodCountOk returns a tuple with the ScaledPodCount field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetScaledPodCount
-
-`func (o *VirtualInstance) SetScaledPodCount(v int32)`
-
-SetScaledPodCount sets ScaledPodCount field to given value.
-
-### HasScaledPodCount
-
-`func (o *VirtualInstance) HasScaledPodCount() bool`
-
-HasScaledPodCount returns a boolean if a field has been set.
 
 ### GetState
 

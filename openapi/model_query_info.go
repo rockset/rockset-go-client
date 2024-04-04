@@ -19,6 +19,8 @@ var _ MappedNullable = &QueryInfo{}
 
 // QueryInfo struct for QueryInfo
 type QueryInfo struct {
+	// destination for query results. Only populated for Insert INTO s3 queries.
+	DestinationUri *string `json:"destination_uri,omitempty"`
 	// User ID who executed the query.
 	ExecutedBy *string `json:"executed_by,omitempty"`
 	// Time (UTC) that query results expire. Only populated if `status` is `COMPLETE`.
@@ -54,6 +56,38 @@ func NewQueryInfo() *QueryInfo {
 func NewQueryInfoWithDefaults() *QueryInfo {
 	this := QueryInfo{}
 	return &this
+}
+
+// GetDestinationUri returns the DestinationUri field value if set, zero value otherwise.
+func (o *QueryInfo) GetDestinationUri() string {
+	if o == nil || IsNil(o.DestinationUri) {
+		var ret string
+		return ret
+	}
+	return *o.DestinationUri
+}
+
+// GetDestinationUriOk returns a tuple with the DestinationUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *QueryInfo) GetDestinationUriOk() (*string, bool) {
+	if o == nil || IsNil(o.DestinationUri) {
+		return nil, false
+	}
+	return o.DestinationUri, true
+}
+
+// HasDestinationUri returns a boolean if a field has been set.
+func (o *QueryInfo) HasDestinationUri() bool {
+	if o != nil && !IsNil(o.DestinationUri) {
+		return true
+	}
+
+	return false
+}
+
+// SetDestinationUri gets a reference to the given string and assigns it to the DestinationUri field.
+func (o *QueryInfo) SetDestinationUri(v string) {
+	o.DestinationUri = &v
 }
 
 // GetExecutedBy returns the ExecutedBy field value if set, zero value otherwise.
@@ -386,6 +420,9 @@ func (o QueryInfo) MarshalJSON() ([]byte, error) {
 
 func (o QueryInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DestinationUri) {
+		toSerialize["destination_uri"] = o.DestinationUri
+	}
 	if !IsNil(o.ExecutedBy) {
 		toSerialize["executed_by"] = o.ExecutedBy
 	}
