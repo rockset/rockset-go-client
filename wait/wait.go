@@ -34,6 +34,7 @@ type ResourceGetter interface {
 	GetView(ctx context.Context, workspace, name string) (openapi.View, error)
 	GetVirtualInstance(ctx context.Context, id string) (openapi.VirtualInstance, error)
 	GetWorkspace(ctx context.Context, name string) (openapi.Workspace, error)
+	GetScheduledLambda(ctx context.Context, workspace, scheduledLambdaRRN string) (openapi.ScheduledLambda, error)
 }
 
 const queryLambdaTagPropagation = 2 * time.Minute
