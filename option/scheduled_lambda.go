@@ -57,7 +57,7 @@ func WithScheduledLambdaWebhookPayload(payload string) ScheduledLambdaOption {
 	}
 }
 
-func WithScheduledLambdaWebhookUrl(url string) ScheduledLambdaOption {
+func WithScheduledLambdaWebhookURL(url string) ScheduledLambdaOption {
 	return func(o *ScheduledLambdaOptions) {
 		o.CreateRequest.WebhookUrl = &url
 		o.UpdateRequest.WebhookUrl = &url
