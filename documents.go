@@ -73,6 +73,17 @@ func (rc *RockClient) AddDocumentsWithOffset(ctx context.Context, workspace, col
 	return *resp, nil
 }
 
+// AddDocumentsRaw is a convenience method that adds new documents to a collection using a raw JSON payload,
+// which has to be an array of objects.
+//
+// This method is useful when the documents are already in JSON format and do not need to be converted to
+// a []map[string]interface{} slice, which is required by AddDocuments() and AddDocumentsWithOffset().
+func (rc *RockClient) AddDocumentsRaw(ctx context.Context, workspace, collection string,
+	docs json.RawMessage) ([]openapi.DocumentStatus, error) {
+	return rawDocuments[*openapi.AddDocumentsResponse](ctx, rc, workspace, collection, http.MethodPost,
+		io.MultiReader(bytes.NewBufferString(`{"data": `), bytes.NewReader(docs), bytes.NewBufferString("}")))
+}
+
 type patchDocumentRequest struct {
 	Data []PatchDocument `json:"data"`
 }
@@ -96,10 +107,27 @@ type PatchOperation struct {
 // REST API documentation https://docs.rockset.com/rest-api/#patchdocuments
 func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection string,
 	patches []PatchDocument) ([]openapi.DocumentStatus, error) {
+	data := patchDocumentRequest{Data: patches}
+	payload := bytes.Buffer{}
+	e := json.NewEncoder(&payload)
+	if err := e.Encode(data); err != nil {
+		return nil, err
+	}
+
+	return rawDocuments[*openapi.PatchDocumentsResponse](ctx, rc, workspace, collection, http.MethodPatch, &payload)
+}
+
+type documentStatus interface {
+	GetData() []openapi.DocumentStatus
+}
+
+// rawDocuments is a generic method to send raw documents to the Rockset REST API
+func rawDocuments[T documentStatus](ctx context.Context, rc *RockClient, workspace, collection, method string,
+	payload io.Reader) ([]openapi.DocumentStatus, error) {
 	var err error
 	var resp *http.Response
 
-	req, err := rc.patchDocumentsRequest(ctx, workspace, collection, patches)
+	req, err := rawDocumentsRequest(ctx, rc.RockConfig, workspace, collection, method, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +151,7 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 
 	// should this accept all 2xx status codes?
 	if resp.StatusCode == http.StatusOK {
-		var pdr openapi.PatchDocumentsResponse
+		var pdr T
 		if err = json.Unmarshal(body, &pdr); err != nil {
 			return nil, err
 		}
@@ -147,28 +175,23 @@ func (rc *RockClient) PatchDocuments(ctx context.Context, workspace, collection 
 	}
 }
 
-func (rc *RockClient) patchDocumentsRequest(ctx context.Context, ws, collection string,
-	patches []PatchDocument) (*http.Request, error) {
-	data := patchDocumentRequest{Data: patches}
-	payload := bytes.Buffer{}
-	e := json.NewEncoder(&payload)
-	if err := e.Encode(data); err != nil {
-		return nil, err
-	}
+const docsURL = "https://%s/v1/orgs/self/ws/%s/collections/%s/docs"
 
+func rawDocumentsRequest(ctx context.Context, rockConfig RockConfig, ws, collection, method string,
+	payload io.Reader) (*http.Request, error) {
 	// workspace and collection do not need to be escaped as they can only contain alphanumeric or dash characters
-	u := fmt.Sprintf("https://%s/v1/orgs/self/ws/%s/collections/%s/docs", rc.RockConfig.APIServer, ws, collection)
-	req, err := http.NewRequestWithContext(ctx, http.MethodPatch, u, &payload)
+	u := fmt.Sprintf(docsURL, rockConfig.APIServer, ws, collection)
+	req, err := http.NewRequestWithContext(ctx, method, u, payload)
 	if err != nil {
 		return nil, err
 	}
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", rc.RockConfig.cfg.UserAgent)
+	req.Header.Set("User-Agent", rockConfig.cfg.UserAgent)
 
 	// copy all default headers
-	for k, v := range rc.RockConfig.cfg.DefaultHeader {
+	for k, v := range rockConfig.cfg.DefaultHeader {
 		req.Header.Set(k, v)
 	}
 
