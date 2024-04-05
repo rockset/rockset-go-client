@@ -1,9 +1,12 @@
 package rockset_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/fatih/structs"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
 	"github.com/rockset/rockset-go-client"
@@ -128,4 +131,18 @@ func (s *DocumentIntegrationSuite) TestRemoveDocument() {
 	s.Require().NoError(err)
 	s.Require().Len(res, 1)
 	s.Assert().Equal("DELETED", res[0].GetStatus())
+}
+
+func TestAddDocumentsRaw(t *testing.T) {
+	ctx := test.Context()
+	rc, _ := vcrTestClient(t, t.Name())
+
+	docs := json.RawMessage(`[{"name": "foo"}, {"name": "bar"}]`)
+
+	response, err := rc.AddDocumentsRaw(ctx, "commons", "writetest", docs)
+	require.NoError(t, err)
+	assert.Len(t, response, 2)
+	for _, doc := range response {
+		assert.Equal(t, "ADDED", doc.GetStatus())
+	}
 }
