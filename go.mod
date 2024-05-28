@@ -8,7 +8,7 @@ require (
 	github.com/go-zookeeper/zk v1.0.3
 	github.com/maxbrunsfeld/counterfeiter/v6 v6.8.1
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/rs/zerolog v1.32.0
+	github.com/rs/zerolog v1.33.0
 	github.com/seborama/govcr/v14 v14.0.0
 	github.com/stretchr/testify v1.9.0
 )
