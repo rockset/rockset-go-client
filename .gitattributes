@@ -1,3 +1,4 @@
 openapi/** linguist-generated
 vcr/*.cassette linguist-generated
 testdata/**/*.cassette.gz filter=lfs diff=lfs merge=lfs -text
+*.cassette.gz filter=lfs diff=lfs merge=lfs -text

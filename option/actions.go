@@ -49,6 +49,7 @@ const (
 	CreateWsGlobal
 	ListWsGlobal
 	CreateIntegrationGlobal
+	ExportDataGlobal
 	DeleteIntegrationGlobal
 	ListIntegrationsGlobal
 	UpdateResourceOwnerGlobal
@@ -78,6 +79,7 @@ var globalActions = map[string]GlobalAction{
 	"CREATE_WS_GLOBAL":                    CreateWsGlobal,
 	"LIST_WS_GLOBAL":                      ListWsGlobal,
 	"CREATE_INTEGRATION_GLOBAL":           CreateIntegrationGlobal,
+	"EXPORT_DATA_GLOBAL":                  ExportDataGlobal,
 	"DELETE_INTEGRATION_GLOBAL":           DeleteIntegrationGlobal,
 	"LIST_INTEGRATIONS_GLOBAL":            ListIntegrationsGlobal,
 	"UPDATE_RESOURCE_OWNER_GLOBAL":        UpdateResourceOwnerGlobal,
